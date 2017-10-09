@@ -27,6 +27,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
+        buildConfigField "boolean", "TIME_CHECK", "false"
+        resValue "string", 'opensrp_url', '"http://46.101.51.199:8181/opensrp"'
     }
 
     dexOptions {
