@@ -43,7 +43,6 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -101,8 +100,8 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.login);
 
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
@@ -226,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                                     loginResponse.payload(), PathConstants.MAX_SERVER_TIME_DIFFERENCE);
                             if (!PathConstants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
                                 remoteLoginWith(userName, password, loginResponse.payload());
-                               /* Intent intent = new Intent(appContext, PullUniqueIdsIntentService.class);
+                                /*Intent intent = new Intent(appContext, PullUniqueIdsIntentService.class);
                                 appContext.startService(intent);*/
                             } else {
                                 if (timeStatus.equals(TimeStatus.TIMEZONE_MISMATCH)) {
@@ -353,6 +352,7 @@ public class LoginActivity extends AppCompatActivity {
     private void localLoginWith(String userName, String password) {
         getOpenSRPContext().userService().localLogin(userName, password);
         goToHome(false);
+        startZScoreIntentService();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -363,6 +363,10 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
+    private void startZScoreIntentService() {
+        /*Intent intent = new Intent(this, ZScoreRefreshIntentService.class);
+        startService(intent);*/
+    }
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
         getOpenSRPContext().userService().remoteLogin(userName, password, userInfo);
@@ -371,7 +375,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToHome(boolean remote) {
-        //TODO
+        if (!remote) {
+            startZScoreIntentService();
+        } else {
+            Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+        }
+        /*VaccinatorApplication.setCrashlyticsUser(getOpenSRPContext());
+        Intent intent = new Intent(this, ChildSmartRegisterActivity.class);
+        intent.putExtra(BaseRegisterActivity.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+        IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(this, null);*/
+
+        finish();
     }
 
     private String getVersion() throws PackageManager.NameNotFoundException {
@@ -407,7 +422,7 @@ public class LoginActivity extends AppCompatActivity {
             Resources res = getOpenSRPContext().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
+            android.content.res.Configuration conf = res.getConfiguration();
             conf.locale = new Locale(URDU_LOCALE);
             res.updateConfiguration(conf, dm);
             return URDU_LANGUAGE;
@@ -416,7 +431,7 @@ public class LoginActivity extends AppCompatActivity {
             Resources res = getOpenSRPContext().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
+            android.content.res.Configuration conf = res.getConfiguration();
             conf.locale = new Locale(ENGLISH_LOCALE);
             res.updateConfiguration(conf, dm);
             return ENGLISH_LANGUAGE;
@@ -454,7 +469,25 @@ public class LoginActivity extends AppCompatActivity {
         return TbrApplication.getInstance().getContext();
     }
 
+    private void extractLocations(ArrayList<String> locationList, JSONObject rawLocationData)
+            throws JSONException {
+        final String NODE = "node";
+        final String CHILDREN = "children";
+        String name = rawLocationData.getJSONObject(NODE).getString("locationId");
+        String level = rawLocationData.getJSONObject(NODE).getJSONArray("tags").getString(0);
 
+        /*if (LocationPickerView.ALLOWED_LEVELS.contains(level)) {
+            locationList.add(name);
+        }*/
+        if (rawLocationData.has(CHILDREN)) {
+            Iterator<String> childIterator = rawLocationData.getJSONObject(CHILDREN).keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                extractLocations(locationList, rawLocationData.getJSONObject(CHILDREN).getJSONObject(curChildKey));
+            }
+        }
+
+    }
 
     ////////////////////////////////////////////////////////////////
 // Inner classes
@@ -489,6 +522,40 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private class SaveTeamLocationsTask extends AsyncTask<Void, Void, Void> {
 
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<String> locationsCSV = locationsCSV();
+
+            if (locationsCSV.isEmpty()) {
+                return null;
+            }
+
+            //Utils.writePreference(TbrApplication.getInstance().getApplicationContext(), LocationPickerView.PREF_TEAM_LOCATIONS, StringUtils.join(locationsCSV, ","));
+            return null;
+        }
+
+        public ArrayList<String> locationsCSV() {
+            final String LOCATIONS_HIERARCHY = "locationsHierarchy";
+            final String MAP = "map";
+            JSONObject locationData;
+            ArrayList<String> locations = new ArrayList<>();
+            try {
+                locationData = new JSONObject(TbrApplication.getInstance().getContext().anmLocationController().get());
+                if (locationData.has(LOCATIONS_HIERARCHY) && locationData.getJSONObject(LOCATIONS_HIERARCHY).has(MAP)) {
+                    JSONObject map = locationData.getJSONObject(LOCATIONS_HIERARCHY).getJSONObject(MAP);
+                    Iterator<String> keys = map.keys();
+                    while (keys.hasNext()) {
+                        String curKey = keys.next();
+                        extractLocations(locations, map.getJSONObject(curKey));
+                    }
+                }
+            } catch (Exception e) {
+                android.util.Log.e(getClass().getCanonicalName(), android.util.Log.getStackTraceString(e));
+            }
+            return locations;
+        }
+    }
 
 }
