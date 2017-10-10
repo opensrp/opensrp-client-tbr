@@ -1,13 +1,13 @@
-package org.smartregister.tbr;
+package org.smartregister.tbr.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import org.smartregister.tbr.R;
 
 public class MainActivity extends BaseActivity {
 
@@ -26,6 +26,11 @@ public class MainActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void buttonClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
     }
 
 }
