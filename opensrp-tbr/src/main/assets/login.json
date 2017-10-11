@@ -1,0 +1,16 @@
+{
+  "server_version": "1.0",
+  "show_password_checkbox": false,
+  "logo": {
+    "mdpi": "http://10.20.25.51:8080/assets/drawable-mdpi/ic_logo.png",
+    "hdpi": "http://10.20.25.51:8080/assets/drawable-hdpi/ic_logo.png",
+    "xhdpi": "http://10.20.25.51:8080/assets/drawable-xhdpi/ic_logo.png",
+    "xxhdpi": "http://10.20.25.51:8080/assets/drawable-xxhdpi/ic_logo.png",
+    "xxxhdpi": "http://10.20.25.51:8080/assets/drawable-xxhdpi/ic_logo.png"
+  },
+  "background_color": {
+    "orientation": "BOTTOM_TOP",
+    "start_color": "#3580a1",
+    "end_color": "#449dc1"
+  }
+}

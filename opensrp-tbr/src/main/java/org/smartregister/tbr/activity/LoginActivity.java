@@ -9,7 +9,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +31,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,10 +40,10 @@ import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
-import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -58,7 +59,8 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import util.PathConstants;
+import util.JSonConfigUtils;
+import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -69,6 +71,9 @@ import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logVerbose;
 
+/**
+ * Created on 09/10/2017 by SGithengi
+ */
 public class LoginActivity extends AppCompatActivity {
     private EditText userNameEditText;
     private EditText passwordEditText;
@@ -99,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.login);
+        processViewCustomizations();
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
@@ -204,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
     private void localLogin(View view, String userName, String password) {
         view.setClickable(true);
         if (getOpenSRPContext().userService().isUserInValidGroup(userName, password)
-                && (!PathConstants.TIME_CHECK || TimeStatus.OK.equals(getOpenSRPContext().userService().validateStoredServerTimeZone()))) {
+                && (!TbrConstants.TIME_CHECK || TimeStatus.OK.equals(getOpenSRPContext().userService().validateStoredServerTimeZone()))) {
             localLoginWith(userName, password);
         } else {
 
@@ -222,8 +228,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (loginResponse == SUCCESS) {
                         if (getOpenSRPContext().userService().isUserInPioneerGroup(userName)) {
                             TimeStatus timeStatus = getOpenSRPContext().userService().validateDeviceTime(
-                                    loginResponse.payload(), PathConstants.MAX_SERVER_TIME_DIFFERENCE);
-                            if (!PathConstants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
+                                    loginResponse.payload(), TbrConstants.MAX_SERVER_TIME_DIFFERENCE);
+                            if (!TbrConstants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
                                 remoteLoginWith(userName, password, loginResponse.payload());
                                 /*Intent intent = new Intent(appContext, PullUniqueIdsIntentService.class);
                                 appContext.startService(intent);*/
@@ -487,6 +493,41 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void processViewCustomizations() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        JSONObject jsonObject;
+        boolean showPassword;
+        String logoUrl;
+        String orientation;
+        String startColor;
+        String endColor;
+        try {
+            jsonObject = new JSONObject(JSonConfigUtils.readJsonFile("login.json", this));
+            showPassword = jsonObject.getBoolean("show_password_checkbox");
+            JSONObject background = jsonObject.getJSONObject("background_color");
+            orientation = background.getString("orientation");
+            startColor = background.getString("start_color");
+            endColor = background.getString("end_color");
+
+
+        } catch (JSONException je) {
+            Log.logError("Error reading Json file for login page");
+            return;
+        }
+        if (!showPassword) {
+            findViewById(R.id.show_password).setVisibility(View.GONE);
+        }
+        if (orientation != null && startColor != null & endColor != null) {
+            View canvasRL = findViewById(R.id.canvasRL);
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setOrientation(GradientDrawable.Orientation.valueOf(orientation));
+            gradientDrawable.setColors(new int[]{Color.parseColor(startColor), Color.parseColor(endColor)});
+            canvasRL.setBackground(gradientDrawable);
+        }
     }
 
     ////////////////////////////////////////////////////////////////
