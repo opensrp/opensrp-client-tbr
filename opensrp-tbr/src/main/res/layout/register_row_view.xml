@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/register_row_view"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/customAppThemeDark"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/refreshSyncButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/transparent"
+        android:onClick="manualSync"
+        android:src="@drawable/ic_presumptive" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:paddingLeft="10px"
+        android:text="Register Name"
+        android:textColor="@color/status_bar_text_almost_white"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:background="@drawable/round_white_background"
+        android:paddingLeft="10px"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:visibility="visible" />
+
+</LinearLayout>

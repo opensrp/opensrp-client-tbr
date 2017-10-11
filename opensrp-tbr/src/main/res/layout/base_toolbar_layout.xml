@@ -13,16 +13,45 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#218cc5"
+            android:layout_height="wrap_content"
+            android:background="@color/customAppThemeBlue"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ImageView
-                android:id="@+id/tv_header_title"
+            <LinearLayout
+                android:id="@+id/custom_toolbar_wrapper"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/round_white_background" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+
+                <TextView
+                    android:id="@+id/custom_toolbar_logo_text"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/round_white_background"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="NM"
+                    android:textSize="26sp"
+                    android:textColor="@color/customAppThemeBlue" />
+
+                <TextView
+                    android:id="@+id/custom_toolbar_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/app_title" />
+
+            </LinearLayout>
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
