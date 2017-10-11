@@ -30,6 +30,7 @@ android {
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
         resValue "string", 'opensrp_url', '"http://46.101.51.199:8181/opensrp"'
+        resValue "string", 'assets_config_url', '"http://10.20.21.51:8080/assets"'
     }
 
     dexOptions {
@@ -78,4 +79,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile project(':json2view')
 }
