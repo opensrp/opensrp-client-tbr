@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,31 +19,40 @@ import org.smartregister.tbr.model.Register;
  */
 
 public class RegisterArrayAdapter extends ArrayAdapter<Register> {
-    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Register[] objects) {
-        super(context, resource, objects);
+
+    private Context context;
+    private final Register[] items;
+
+    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Register[] records) {
+        super(context, resource, records);
+        this.context = context;
+        this.items = records;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder holder = null;
 
-       /* if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_entry, null);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.register_row_view, null);
             holder = new ViewHolder();
-            holder.nameTextView = (TextView) convertView.findViewById(R.id.person_name);
-            holder.surnameTextView = (TextView) convertView.findViewById(R.id.person_surname);
-            holder.personImageView = (ImageView) convertView.findViewById(R.id.person_image);
+            holder.titleTextView = (TextView) convertView.findViewById(R.id.registerTitleView);
+            holder.patientCountTextView = (TextView) convertView.findViewById(R.id.patientCountView);
+            holder.patientDueCountTextView = (TextView) convertView.findViewById(R.id.patientDueOverdueCountView);
+            holder.registerIconView = (ImageView) convertView.findViewById(R.id.registerIconView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-        }*/
+        }
 
-        Register person = getItem(position);
+        Register register = getItem(position);
 
-        holder.titleTextView.setText(person.getTitle());
-        holder.patientCountTextView.setText(person.getTotalPatients());
-        holder.registerIconView.setImageDrawable(getRegisterIcon(person.getTitleToken()));
-        //holder.personImageView.setImageBitmap(person.getImage());
+        holder.titleTextView.setText(register.getTitle());
+        holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
+        holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+        holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
 
         return convertView;
     }
@@ -65,6 +75,7 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
     static class ViewHolder {
         private TextView titleTextView;
         private TextView patientCountTextView;
+        private TextView patientDueCountTextView;
         private ImageView registerIconView;
     }
 

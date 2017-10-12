@@ -15,6 +15,14 @@ public class Register {
     int totalPatients;
     int totalPatientsWithDueOverdue;
 
+    public Register(String title, String titleToken, int totalPatients, int totalPatientsWithDueOverdue) {
+        this.title = title;
+        this.titleToken = titleToken;
+        this.totalPatients = totalPatients;
+        this.totalPatientsWithDueOverdue = totalPatientsWithDueOverdue;
+
+    }
+
     public String getTitleToken() {
         return titleToken;
     }
