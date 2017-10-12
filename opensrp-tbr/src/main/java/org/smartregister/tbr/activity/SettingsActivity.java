@@ -16,6 +16,7 @@ import java.net.URL;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.TBREACH_ORGANIZATION;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -34,6 +35,7 @@ public class SettingsActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.preferences);
 
             Preference baseUrlPreference = findPreference("DRISHTI_BASE_URL");
+            Preference tbreachOrganization = findPreference("TBREACH_ORGANIZATION");
             if (baseUrlPreference != null) {
                 EditTextPreference baseUrlEditTextPreference = (EditTextPreference) baseUrlPreference;
                 baseUrlEditTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -46,6 +48,19 @@ public class SettingsActivity extends PreferenceActivity {
                     }
                 });
             }
+            if (tbreachOrganization != null) {
+                EditTextPreference editViewConfigPreference = (EditTextPreference) tbreachOrganization;
+                editViewConfigPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue != null) {
+                            updateTbreachOrganization(newValue.toString());
+                        }
+                        return true;
+                    }
+                });
+            }
+
         }
 
         private void updateUrl(String baseUrl) {
@@ -70,6 +85,12 @@ public class SettingsActivity extends PreferenceActivity {
                 logError("Malformed Url: " + baseUrl);
             }
         }
+
+        private void updateTbreachOrganization(String organization) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            preferences.edit().putString(TBREACH_ORGANIZATION, organization).commit();
+        }
+
     }
 
 }

@@ -15,6 +15,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -52,7 +54,12 @@ import org.smartregister.view.LockingBackgroundTask;
 import org.smartregister.view.ProgressIndicator;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,6 +69,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import util.JSonConfigUtils;
+import util.NetworkUtils;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -71,6 +79,7 @@ import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
 
 /**
@@ -106,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.login);
-        processViewCustomizations();
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
@@ -153,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        processViewCustomizations(null);
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
         }
@@ -491,15 +499,31 @@ public class LoginActivity extends AppCompatActivity {
             Iterator<String> childIterator = rawLocationData.getJSONObject(CHILDREN).keys();
             while (childIterator.hasNext()) {
                 String curChildKey = childIterator.next();
-                extractLocations(locationList, rawLocationData.getJSONObject(CHILDREN).getJSONObject(curChildKey));
+                extractLocations(locationList, rawLocationData.getJSONObject(CHILDREN)
+                        .getJSONObject(curChildKey));
             }
         }
 
     }
 
-    private void processViewCustomizations() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    private String getLoginConfig() {
+        String configFile = "login.json";
+        if (NetworkUtils.isNetworkAvailable()) {
+            String baseUrl = PreferenceManager.getDefaultSharedPreferences(this).getString
+                    (TbrConstants.TBREACH_ORGANIZATION, null);
+            if (baseUrl != null) {
+                String url = baseUrl + "/" + configFile;
+                RetrieveViewConfigData task = new RetrieveViewConfigData();
+                task.execute(url);
+            }
+        }
+        return JSonConfigUtils.readJsonFile(configFile, this);
+
+    }
+
+    private void processViewCustomizations(@Nullable String configString) {
+        if (configString == null)
+            configString = getLoginConfig();
         JSONObject jsonObject;
         boolean showPassword;
         String logoUrl;
@@ -507,7 +531,7 @@ public class LoginActivity extends AppCompatActivity {
         String startColor;
         String endColor;
         try {
-            jsonObject = new JSONObject(JSonConfigUtils.readJsonFile("login.json", this));
+            jsonObject = new JSONObject(configString);
             showPassword = jsonObject.getBoolean("show_password_checkbox");
             JSONObject background = jsonObject.getJSONObject("background_color");
             orientation = background.getString("orientation");
@@ -519,9 +543,10 @@ public class LoginActivity extends AppCompatActivity {
             Log.logError("Error reading Json file for login page");
             return;
         }
-        if (!showPassword) {
+        if (!showPassword)
             findViewById(R.id.show_password).setVisibility(View.GONE);
-        }
+        else
+            findViewById(R.id.show_password).setVisibility(View.VISIBLE);
         if (orientation != null && startColor != null & endColor != null) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
@@ -604,6 +629,59 @@ public class LoginActivity extends AppCompatActivity {
                 android.util.Log.e(getClass().getCanonicalName(), android.util.Log.getStackTraceString(e));
             }
             return locations;
+        }
+    }
+
+    private class RetrieveViewConfigData extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            URL url;
+            try {
+                url = new URL(params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null)
+                    buffer.append(line + "\n");
+
+                if (buffer.length() == 0)
+                    return null;
+
+                return buffer.toString();
+            } catch (IOException e) {
+                android.util.Log.e("Login", "IO Exception when getting login config", e);
+                logError("IO Exception when getting login config");
+                return null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        logError("Error closing stream");
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            processViewCustomizations(response);
         }
     }
 
