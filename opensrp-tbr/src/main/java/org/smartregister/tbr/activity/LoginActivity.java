@@ -26,6 +26,7 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -49,6 +50,7 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
 import org.smartregister.view.ProgressIndicator;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -511,7 +513,7 @@ public class LoginActivity extends AppCompatActivity {
             orientation = background.getString("orientation");
             startColor = background.getString("start_color");
             endColor = background.getString("end_color");
-
+            logoUrl = jsonObject.getString("logo");
 
         } catch (JSONException je) {
             Log.logError("Error reading Json file for login page");
@@ -525,8 +527,14 @@ public class LoginActivity extends AppCompatActivity {
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
             gradientDrawable.setOrientation(GradientDrawable.Orientation.valueOf(orientation));
-            gradientDrawable.setColors(new int[]{Color.parseColor(startColor), Color.parseColor(endColor)});
+            gradientDrawable.setColors(new int[]{Color.parseColor(startColor),
+                    Color.parseColor(endColor)});
             canvasRL.setBackground(gradientDrawable);
+        }
+        if (logoUrl != null) {
+            ImageView logo = (ImageView) findViewById(R.id.logoImage);
+            logo.setImageBitmap(DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
+                    getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap());
         }
     }
 
