@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        processViewCustomizations(null);
+        processViewCustomizations();
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
         }
@@ -506,24 +506,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private String getLoginConfig() {
+    private void processViewCustomizations() {
         String configFile = "login.json";
-        if (NetworkUtils.isNetworkAvailable()) {
-            String baseUrl = PreferenceManager.getDefaultSharedPreferences(this).getString
-                    (TbrConstants.TBREACH_ORGANIZATION, null);
-            if (baseUrl != null) {
-                String url = baseUrl + "/" + configFile;
-                RetrieveViewConfigData task = new RetrieveViewConfigData();
-                task.execute(url);
-            }
-        }
-        return JSonConfigUtils.readJsonFile(configFile, this);
-
-    }
-
-    private void processViewCustomizations(@Nullable String configString) {
-        if (configString == null)
-            configString = getLoginConfig();
         JSONObject jsonObject;
         boolean showPassword;
         String logoUrl;
@@ -531,7 +515,7 @@ public class LoginActivity extends AppCompatActivity {
         String startColor;
         String endColor;
         try {
-            jsonObject = new JSONObject(configString);
+            jsonObject = new JSONObject(JSonConfigUtils.readJsonFile(configFile, this));
             showPassword = jsonObject.getBoolean("show_password_checkbox");
             JSONObject background = jsonObject.getJSONObject("background_color");
             orientation = background.getString("orientation");
@@ -547,7 +531,7 @@ public class LoginActivity extends AppCompatActivity {
             findViewById(R.id.show_password).setVisibility(View.GONE);
         else
             findViewById(R.id.show_password).setVisibility(View.VISIBLE);
-        if (orientation != null && startColor != null & endColor != null) {
+        if (!jsonObject.isNull("orientation") && !jsonObject.isNull("start_color") && !jsonObject.isNull("end_color")) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -556,7 +540,7 @@ public class LoginActivity extends AppCompatActivity {
                     Color.parseColor(endColor)});
             canvasRL.setBackground(gradientDrawable);
         }
-        if (logoUrl != null) {
+        if (!jsonObject.isNull("logo")) {
             ImageView logo = (ImageView) findViewById(R.id.logoImage);
             logo.setImageBitmap(DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
                     getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap());
@@ -629,59 +613,6 @@ public class LoginActivity extends AppCompatActivity {
                 android.util.Log.e(getClass().getCanonicalName(), android.util.Log.getStackTraceString(e));
             }
             return locations;
-        }
-    }
-
-    private class RetrieveViewConfigData extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
-
-            URL url;
-            try {
-                url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
-                if (inputStream == null) {
-                    return null;
-                }
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                while ((line = reader.readLine()) != null)
-                    buffer.append(line + "\n");
-
-                if (buffer.length() == 0)
-                    return null;
-
-                return buffer.toString();
-            } catch (IOException e) {
-                android.util.Log.e("Login", "IO Exception when getting login config", e);
-                logError("IO Exception when getting login config");
-                return null;
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                        logError("Error closing stream");
-                    }
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            processViewCustomizations(response);
         }
     }
 

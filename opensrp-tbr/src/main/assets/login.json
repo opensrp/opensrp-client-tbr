@@ -1,7 +1,7 @@
 {
   "server_version": "1.0",
-  "show_password_checkbox": false,
-  "logo":"http://10.20.25.51:8080/assets/icon4.png",
+  "show_password_checkbox": true,
+  "logo":null,
   "background_color": {
     "orientation": "BOTTOM_TOP",
     "start_color": "#3580a1",
