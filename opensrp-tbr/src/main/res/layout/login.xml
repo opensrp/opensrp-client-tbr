@@ -86,7 +86,7 @@
                 android:hint="@string/userNameEditText"
                 android:inputType="textNoSuggestions|textFilter|textVisiblePassword"
                 android:paddingLeft="5dp"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:typeface="sans" />

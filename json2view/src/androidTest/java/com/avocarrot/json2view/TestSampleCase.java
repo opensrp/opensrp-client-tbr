@@ -2,8 +2,6 @@ package com.avocarrot.json2view;
 
 import android.content.Context;
 import android.test.InstrumentationTestCase;
-import android.test.RenamingDelegatingContext;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

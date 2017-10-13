@@ -15,8 +15,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -54,12 +52,7 @@ import org.smartregister.view.LockingBackgroundTask;
 import org.smartregister.view.ProgressIndicator;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -69,7 +62,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import util.JSonConfigUtils;
-import util.NetworkUtils;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -79,7 +71,6 @@ import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.util.Log.logError;
-import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
 
 /**
@@ -594,7 +585,7 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
 
-        public ArrayList<String> locationsCSV() {
+        ArrayList<String> locationsCSV() {
             final String LOCATIONS_HIERARCHY = "locationsHierarchy";
             final String MAP = "map";
             JSONObject locationData;

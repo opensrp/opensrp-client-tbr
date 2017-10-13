@@ -3,7 +3,6 @@ package com.avocarrot.json2view;
 import android.content.Context;
 import android.test.InstrumentationTestCase;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.json.JSONObject;

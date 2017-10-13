@@ -88,7 +88,7 @@ public class SettingsActivity extends PreferenceActivity {
 
         private void updateTbreachOrganization(String organization) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            preferences.edit().putString(TBREACH_ORGANIZATION, organization).commit();
+            preferences.edit().putString(TBREACH_ORGANIZATION, organization).apply();
         }
 
     }
