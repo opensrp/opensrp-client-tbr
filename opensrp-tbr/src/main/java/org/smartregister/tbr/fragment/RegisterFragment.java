@@ -31,6 +31,6 @@ public class RegisterFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         TextView registerTitle = (TextView) view.findViewById(R.id.registerTitleView);
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-        Utils.showToast(getActivity(), registerTitle.getText().toString() + " Register");
+        Utils.showToast(getActivity(), registerTitle.getText().toString() + " Register!");
     }
 }
