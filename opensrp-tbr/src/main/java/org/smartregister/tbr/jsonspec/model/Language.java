@@ -8,4 +8,12 @@ import java.util.Map;
 
 public class Language {
     private Map<String, String> labels;
+
+    public Map<String, String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Map<String, String> labels) {
+        this.labels = labels;
+    }
 }

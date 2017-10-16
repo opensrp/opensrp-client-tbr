@@ -3,8 +3,6 @@ package org.smartregister.tbr.jsonspec.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by ndegwamartin on 12/10/2017.
  */
@@ -14,6 +12,16 @@ public class MainConfig {
     @SerializedName("server_version")
     private String serverVersion;
     private String language;
+    @SerializedName("app_name")
+    private String appName;
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
 
     public String getServerVersion() {
         return serverVersion;

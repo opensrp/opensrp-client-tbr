@@ -1,5 +1,5 @@
 {
-  "identifier": "login_view",
+  "identifier": "home_view",
   "organization": "pakistan_clinic_1",
   "views": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "identifier": "in_treatment register",
-      "visible": false,
+      "visible": true,
       "label": "in_treatment_patients_register",
       "residence": {
         "position": 2

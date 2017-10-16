@@ -57,6 +57,11 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
         return convertView;
     }
 
+    @Override
+    public Register getItem(int i) {
+        return items[i];
+    }
+
     private Drawable getRegisterIcon(String registerToken) {
         if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
             return getContext().getResources().getDrawable(R.drawable.ic_presumptive);

@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void buttonClick(View view) {
+        TbrApplication.getInstance().getJsonSpecHelper().getViewFile("login_view_config");
         Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
     }

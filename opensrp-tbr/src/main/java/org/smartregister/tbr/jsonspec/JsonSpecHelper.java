@@ -7,9 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import org.smartregister.tbr.jsonspec.model.Language;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
-import org.smartregister.tbr.jsonspec.model.Register;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 
 import java.io.InputStreamReader;
@@ -39,7 +37,7 @@ public class JsonSpecHelper {
     }.getType();
 
 
-    private static Context context;
+    private Context context = null;
 
     public JsonSpecHelper() {
         if (context == null) {
@@ -51,7 +49,7 @@ public class JsonSpecHelper {
         this.context = context;
     }
 
-    public static MainConfig getMainConfigFile() {
+    public MainConfig getMainConfigFile() {
         try {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/main_config.json")));
@@ -62,7 +60,7 @@ public class JsonSpecHelper {
         }
     }
 
-    public static List<String> getAvailableLanguages() {
+    public List<String> getAvailableLanguages() {
         try {
             String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/lang");
             List<String> languages = new ArrayList<>();
@@ -80,7 +78,7 @@ public class JsonSpecHelper {
         }
     }
 
-    public static Map<String, String> getAvailableLanguagesMap() {
+    public Map<String, String> getAvailableLanguagesMap() {
         try {
             String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/lang");
             Map<String, String> languages = new HashMap<>();
@@ -98,7 +96,7 @@ public class JsonSpecHelper {
         }
     }
 
-    public static Map<String, String> getLanguageFile(String language) {
+    public Map<String, String> getLanguageFile(String language) {
         try {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/lang/" + language + ".json")));
@@ -109,7 +107,7 @@ public class JsonSpecHelper {
         }
     }
 
-    public static ViewConfiguration getViewFile(String viewName) {
+    public ViewConfiguration getViewFile(String viewName) {
         try {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/views/" + viewName + ".json")));
@@ -120,7 +118,7 @@ public class JsonSpecHelper {
         }
     }
 
-    public static List<ViewConfiguration> getViewFiles() {
+    public List<ViewConfiguration> getViewFiles() {
         try {
             String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/configs/views");
             List<ViewConfiguration> viewConfigurations = new ArrayList<>();

@@ -1,5 +1,8 @@
 package org.smartregister.tbr.jsonspec.model;
 
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Created by ndegwamartin on 13/10/2017.
  */
@@ -12,19 +15,13 @@ public class View {
 
     private Residence residence;
 
-    public Residence getResidence() {
-        return residence;
-    }
-
-    public void setResidence(Residence residence) {
-        this.residence = residence;
-    }
-
     private boolean visible;
 
     private String label;
 
     private String identifier;
+
+    private Map<String, Object> metadata;
 
     public String getIdentifier() {
         return identifier;
@@ -64,5 +61,21 @@ public class View {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public void setResidence(Residence residence) {
+        this.residence = residence;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 }

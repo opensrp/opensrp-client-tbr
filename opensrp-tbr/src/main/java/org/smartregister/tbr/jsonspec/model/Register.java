@@ -6,6 +6,9 @@ package org.smartregister.tbr.jsonspec.model;
 
 public class Register {
     private String identifier;
+    private String enabled;
+    private int position;
+    private String title;
 
     public String getIdentifier() {
         return identifier;
@@ -38,8 +41,4 @@ public class Register {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    private String enabled;
-    private int position;
-    private String title;
 }
