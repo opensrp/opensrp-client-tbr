@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String URDU_LOCALE = "ur";
     private static final String ENGLISH_LANGUAGE = "English";
     private static final String URDU_LANGUAGE = "Urdu";
-    private android.content.Context appContext;
     private RemoteLoginTask remoteLoginTask;
 
     @Override
@@ -113,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
         }
-        appContext = this;
+        android.content.Context appContext = this;
         positionViews();
         initializeLoginFields();
         initializeBuildDetails();
@@ -429,7 +428,7 @@ public class LoginActivity extends AppCompatActivity {
             Resources res = getOpenSRPContext().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
+            Configuration conf = res.getConfiguration();
             conf.locale = new Locale(URDU_LOCALE);
             res.updateConfiguration(conf, dm);
             return URDU_LANGUAGE;
@@ -515,7 +514,7 @@ public class LoginActivity extends AppCompatActivity {
             logoUrl = jsonObject.getString("logo");
 
         } catch (JSONException je) {
-            Log.logError("Error reading Json file for login page");
+            logError("Error reading Json file for login page");
             return;
         }
         if (!showPassword)
@@ -585,7 +584,7 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
 
-        ArrayList<String> locationsCSV() {
+       private ArrayList<String> locationsCSV() {
             final String LOCATIONS_HIERARCHY = "locationsHierarchy";
             final String MAP = "map";
             JSONObject locationData;
