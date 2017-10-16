@@ -30,11 +30,10 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView_, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder holder = null;
-
+        View convertView = convertView_;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.register_row_view, null);
             holder = new ViewHolder();

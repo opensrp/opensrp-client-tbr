@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,7 +32,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void buttonClick(View view) {
-        TbrApplication.getInstance().getJsonSpecHelper().getViewFile("login_view_config");
         Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
     }

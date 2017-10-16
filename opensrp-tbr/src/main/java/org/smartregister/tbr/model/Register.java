@@ -10,10 +10,10 @@ public class Register {
     public static final String POSITIVE_PATIENTS = "positive_patients";
     public static final String IN_TREATMENT_PATIENTS = "in_treatment_patients";
 
-    String title;
-    String titleToken;
-    int totalPatients;
-    int totalPatientsWithDueOverdue;
+    private String title;
+    private String titleToken;
+    private int totalPatients;
+    private int totalPatientsWithDueOverdue;
 
     public Register(String title, String titleToken, int totalPatients, int totalPatientsWithDueOverdue) {
         this.title = title;

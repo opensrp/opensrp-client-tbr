@@ -1,7 +1,6 @@
 package org.smartregister.tbr.jsonspec.model;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by ndegwamartin on 13/10/2017.
