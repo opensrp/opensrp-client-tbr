@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
     public void buttonClick(View view) {
         Intent i = new Intent(this, HomeActivity.class);
-        i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Mark Mende");
+        i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
         startActivity(i);
         TbrApplication.getJsonSpecHelper().getMainConfigFile();
 

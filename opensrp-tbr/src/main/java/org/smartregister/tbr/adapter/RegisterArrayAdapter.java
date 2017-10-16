@@ -14,6 +14,8 @@ import android.widget.TextView;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.model.Register;
 
+import java.util.List;
+
 /**
  * Created by ndegwamartin on 11/10/2017.
  */
@@ -21,20 +23,19 @@ import org.smartregister.tbr.model.Register;
 public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     private Context context;
-    private final Register[] items;
+    private final List<Register> items;
 
-    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Register[] records) {
+    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records) {
         super(context, resource, records);
         this.context = context;
         this.items = records;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView_, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder holder = null;
-
+        View convertView = convertView_;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.register_row_view, null);
             holder = new ViewHolder();
@@ -51,24 +52,35 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         holder.titleTextView.setText(register.getTitle());
         holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
-        holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+        if (register.getTotalPatientsWithDueOverdue() > 0) {
+            holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+            holder.patientDueCountTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.patientDueCountTextView.setVisibility(View.GONE);
+
+        }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
 
         return convertView;
     }
 
+    @Override
+    public Register getItem(int i) {
+        return items.get(i);
+    }
+
     private Drawable getRegisterIcon(String registerToken) {
         if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive);
+            return getContext().getResources().getDrawable(R.drawable.ic_presumptive_patients);
 
         } else if (registerToken.equalsIgnoreCase(Register.POSITIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_positive);
+            return getContext().getResources().getDrawable(R.drawable.ic_positive_patients);
 
         } else if (registerToken.equalsIgnoreCase(Register.IN_TREATMENT_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_intreatment);
+            return getContext().getResources().getDrawable(R.drawable.ic_intreatment_patients);
 
         } else {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive);
+            return getContext().getResources().getDrawable(R.drawable.ic_presumptive_patients);
         }
     }
 

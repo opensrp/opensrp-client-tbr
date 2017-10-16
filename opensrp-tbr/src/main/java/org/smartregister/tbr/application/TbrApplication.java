@@ -13,7 +13,8 @@ import static org.smartregister.util.Log.logError;
  * Created by keyman on 23/08/2017.
  */
 public class TbrApplication extends DrishtiApplication {
-    private JsonSpecHelper jsonSpecHelper;
+
+    private static JsonSpecHelper jsonSpecHelper;
 
     @Override
     public void onCreate() {
@@ -50,7 +51,7 @@ public class TbrApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-
+        //To Implement
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {

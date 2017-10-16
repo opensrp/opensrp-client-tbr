@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.fragment.RegisterFragment;
+import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -32,17 +34,21 @@ public class HomeActivity extends BaseActivity {
         Intent intent = getIntent();
         //set user initials
         if (intent.hasExtra(Constants.INTENT_KEY.FULL_NAME)) {
-            TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
+            TextView textView = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
             String fullName = intent.getStringExtra(Constants.INTENT_KEY.FULL_NAME);
-            title.setText(Utils.getInitials(fullName));
+            textView.setText(Utils.getInitials(fullName));
         }
-
+        //Set App Name
+        MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfigFile();
+        if (config != null && config.getAppName() != null) {
+            TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
+            title.setText(config.getAppName());
+        }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.registers_container, new RegisterFragment())
                     .commit();
         }
-
 
     }
 
