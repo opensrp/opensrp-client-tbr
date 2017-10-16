@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
         }
-        android.content.Context appContext = this;
+        //android.content.Context appContext = this;
         positionViews();
         initializeLoginFields();
         initializeBuildDetails();
@@ -437,7 +437,7 @@ public class LoginActivity extends AppCompatActivity {
             Resources res = getOpenSRPContext().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
+            Configuration conf = res.getConfiguration();
             conf.locale = new Locale(ENGLISH_LOCALE);
             res.updateConfiguration(conf, dm);
             return ENGLISH_LANGUAGE;
