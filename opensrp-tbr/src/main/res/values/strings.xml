@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">opensrp-tbr</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_language">Language</string>
+    <string name="app_title">TB REACH</string>
 </resources>

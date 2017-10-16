@@ -1,0 +1,54 @@
+{
+  "identifier": "login_view",
+  "organization": "pakistan_clinic_1",
+  "metadata": {
+    "url": "https://aws.com/tbreach-images/pakistan_clinic_1/logo.png",
+    "background": {
+      "startColor": "#FFFFFF",
+      "endColor": "#000000"
+    }
+  },
+  "views": [
+    {
+      "identifier": "login_view_container",
+      "type": "view",
+      "visible": true,
+      "residence": {
+        "parent": "login_view",
+        "position": 1,
+        "layout_weight": 1
+      }
+    },
+    {
+      "identifier": "user_name_view",
+      "type": "view",
+      "visible": true,
+      "label": "user_name",
+      "residence": {
+        "parent": "login_view_container",
+        "position": 2,
+        "layout_weight": 1
+      }
+    },
+    {
+      "identifier": "user_password_view",
+      "type": "view",
+      "visible": true,
+      "label": "password",
+      "residence": {
+        "parent": "login_view_container",
+        "position": 3,
+        "layout_weight": 1
+      }
+    },
+    {
+      "identifier": "login_button_view",
+      "type": "view",
+      "visible": true,
+      "residence": {
+        "parent": "login_view_container",
+        "position": 4
+      }
+    }
+  ]
+}
