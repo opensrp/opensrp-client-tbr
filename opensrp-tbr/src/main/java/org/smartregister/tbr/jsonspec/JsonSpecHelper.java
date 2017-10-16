@@ -10,6 +10,7 @@ import com.google.gson.stream.JsonReader;
 import org.smartregister.tbr.jsonspec.model.Language;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.jsonspec.model.Register;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -24,14 +25,17 @@ import java.util.Map;
  */
 
 public class JsonSpecHelper {
-    public static String BASE_PATH = "synced";
-    public static final String TAG = JsonSpecHelper.class.getCanonicalName();
-    private static final Type REGISTER_TYPE = new TypeToken<Register>() {
-    }.getType();
+    private static String BASE_PATH = "synced";
+    private static final String TAG = JsonSpecHelper.class.getCanonicalName();
+
     private static final Type MAIN_CONFIG_TYPE = new TypeToken<MainConfig>() {
     }.getType();
 
     private static final Type LANG_TYPE = new TypeToken<Map<String, String>>() {
+    }.getType();
+
+
+    private static final Type VIEW_CONFIG_TYPE = new TypeToken<ViewConfiguration>() {
     }.getType();
 
 
@@ -50,7 +54,7 @@ public class JsonSpecHelper {
     public static MainConfig getMainConfigFile() {
         try {
             Gson gson = new Gson();
-            JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/views/main_config.json")));
+            JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/main_config.json")));
             return gson.fromJson(reader, MAIN_CONFIG_TYPE);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -99,6 +103,34 @@ public class JsonSpecHelper {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/lang/" + language + ".json")));
             return gson.fromJson(reader, LANG_TYPE);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
+
+    public static ViewConfiguration getViewFile(String viewName) {
+        try {
+            Gson gson = new Gson();
+            JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/views/" + viewName + ".json")));
+            return gson.fromJson(reader, VIEW_CONFIG_TYPE);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
+
+    public static List<ViewConfiguration> getViewFiles() {
+        try {
+            String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/configs/views");
+            List<ViewConfiguration> viewConfigurations = new ArrayList<>();
+            for (int i = 0; i < langFiles.length; i++) {
+                String filename = langFiles[i].substring(0, langFiles[i].indexOf('.'));
+                viewConfigurations.add(getViewFile(filename));
+
+            }
+
+            return viewConfigurations;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;

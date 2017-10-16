@@ -11,8 +11,6 @@ public class ViewConfiguration {
 
     private String organization;
 
-    private String type;
-
     private String identifier;
 
     private Map<String, String> metadata;
@@ -25,14 +23,6 @@ public class ViewConfiguration {
 
     public void setOrganization(String organization) {
         this.organization = organization;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getIdentifier() {

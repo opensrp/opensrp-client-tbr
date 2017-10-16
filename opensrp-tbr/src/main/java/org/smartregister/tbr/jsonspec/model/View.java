@@ -1,29 +1,28 @@
 package org.smartregister.tbr.jsonspec.model;
 
-import java.util.Map;
-
 /**
  * Created by ndegwamartin on 13/10/2017.
  */
 
 public class View {
 
-
-    private String parent;
-
     private String type;
 
     private String orientation;
 
-    private int position;
+    private Residence residence;
 
-    private String layoutWeight;
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public void setResidence(Residence residence) {
+        this.residence = residence;
+    }
 
     private boolean visible;
 
     private String label;
-
-    private Map<String, String> metadata;
 
     private String identifier;
 
@@ -33,14 +32,6 @@ public class View {
 
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
-    }
-
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
     }
 
     public String getType() {
@@ -59,22 +50,6 @@ public class View {
         this.orientation = orientation;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public String getLayoutWeight() {
-        return layoutWeight;
-    }
-
-    public void setLayoutWeight(String layoutWeight) {
-        this.layoutWeight = layoutWeight;
-    }
-
     public boolean isVisible() {
         return visible;
     }
@@ -89,13 +64,5 @@ public class View {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public Map<String, String> getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Map<String, String> metadata) {
-        this.metadata = metadata;
     }
 }

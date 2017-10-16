@@ -1,0 +1,30 @@
+{
+  "identifier": "login_view",
+  "organization": "pakistan_clinic_1",
+  "views": [
+    {
+      "identifier": "presumptive_register",
+      "visible": true,
+      "label": "presumptive_patients_register",
+      "residence": {
+        "position": 1
+      }
+    },
+    {
+      "identifier": "positive_patients",
+      "visible": true,
+      "label": "positive_patients_register",
+      "residence": {
+        "position": 0
+      }
+    },
+    {
+      "identifier": "in_treatment register",
+      "visible": false,
+      "label": "in_treatment_patients_register",
+      "residence": {
+        "position": 2
+      }
+    }
+  ]
+}

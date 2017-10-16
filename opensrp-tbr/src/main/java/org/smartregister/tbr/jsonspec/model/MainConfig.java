@@ -14,7 +14,6 @@ public class MainConfig {
     @SerializedName("server_version")
     private String serverVersion;
     private String language;
-    private List<Register> registers;
 
     public String getServerVersion() {
         return serverVersion;
@@ -30,13 +29,5 @@ public class MainConfig {
 
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public List<Register> getRegisters() {
-        return registers;
-    }
-
-    public void setRegisters(List<Register> registers) {
-        this.registers = registers;
     }
 }

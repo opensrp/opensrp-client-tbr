@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 
 public class MainActivity extends BaseActivity {
 
