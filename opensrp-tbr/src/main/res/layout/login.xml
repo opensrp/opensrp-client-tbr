@@ -60,9 +60,9 @@
                 android:id="@+id/login_build"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:textColor="#bfe7f3" />
+                android:textColor="#bfe7f3"
+                android:layout_marginTop="-20dp"/>
         </LinearLayout>
 
         <!-- Middle section -->
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="8"
                 android:background="@drawable/rounded_corner_edittext"
                 android:ems="10"
@@ -107,7 +107,7 @@
                 android:singleLine="true"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
-                android:typeface="sans"/>
+                android:typeface="sans" />
 
             <CheckBox
                 android:id="@+id/show_password"

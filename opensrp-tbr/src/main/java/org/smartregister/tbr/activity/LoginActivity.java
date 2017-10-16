@@ -504,10 +504,11 @@ public class LoginActivity extends AppCompatActivity {
         String orientation;
         String startColor;
         String endColor;
+        JSONObject background;
         try {
             jsonObject = new JSONObject(JSonConfigUtils.readJsonFile(configFile, this));
             showPassword = jsonObject.getBoolean("show_password_checkbox");
-            JSONObject background = jsonObject.getJSONObject("background_color");
+            background = jsonObject.getJSONObject("background_color");
             orientation = background.getString("orientation");
             startColor = background.getString("start_color");
             endColor = background.getString("end_color");
@@ -521,7 +522,8 @@ public class LoginActivity extends AppCompatActivity {
             findViewById(R.id.show_password).setVisibility(View.GONE);
         else
             findViewById(R.id.show_password).setVisibility(View.VISIBLE);
-        if (!jsonObject.isNull("orientation") && !jsonObject.isNull("start_color") && !jsonObject.isNull("end_color")) {
+        if (!jsonObject.isNull("background_color") && !background.isNull("orientation")
+                && !background.isNull("start_color") && !background.isNull("end_color")) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -534,6 +536,10 @@ public class LoginActivity extends AppCompatActivity {
             ImageView logo = (ImageView) findViewById(R.id.logoImage);
             logo.setImageBitmap(DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
                     getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap());
+            TextView loginBuild = (TextView) findViewById(R.id.login_build);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(loginBuild.getLayoutParams());
+            lp.setMargins(0, 0, 0, 0);
+            loginBuild.setLayoutParams(lp);
         }
     }
 
@@ -584,7 +590,7 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
 
-       private ArrayList<String> locationsCSV() {
+        private ArrayList<String> locationsCSV() {
             final String LOCATIONS_HIERARCHY = "locationsHierarchy";
             final String MAP = "map";
             JSONObject locationData;
