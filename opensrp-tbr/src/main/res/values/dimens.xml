@@ -7,4 +7,6 @@
     <dimen name="login_opensrp_logo_height">14dp</dimen>
     <dimen name="login_opensrp_logo_width">80dp</dimen>
     <dimen name="login_horizontal_margin">100dp</dimen>
+    <dimen name="register_font_size">21sp</dimen>
+    <dimen name="divider_height">1dp</dimen>
 </resources>
