@@ -13,16 +13,12 @@ import org.smartregister.tbr.util.Utils;
  * Created by ndegwamartin on 09/10/2017.
  */
 
-public class BaseActivity extends AppCompatActivity
-
-{
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_toolbar_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     @Override

@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.util.Constants;
 
 public class MainActivity extends BaseActivity {
@@ -38,9 +36,6 @@ public class MainActivity extends BaseActivity {
         Intent i = new Intent(this, HomeActivity.class);
         i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
         startActivity(i);
-        TbrApplication.getJsonSpecHelper().getMainConfigFile();
-
-        TbrApplication.getJsonSpecHelper().getLanguageFile("ang");
 
     }
 }
