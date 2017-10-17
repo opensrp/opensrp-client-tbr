@@ -4,6 +4,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:1.2.3"
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
     }
 }
 
@@ -15,6 +17,8 @@ allprojects {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     compileSdkVersion 22
@@ -42,7 +46,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
         }
 
     }
@@ -64,15 +73,62 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
     compile('org.smartregister:opensrp-client-core:1.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
+        exclude group: 'com.google.guava', module: 'guava'
     }
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.google.guava:guava:20.0'
+
+
+    androidTestCompile 'junit:junit:4.12'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
+    testCompile 'org.mockito:mockito-core:2.11.0'
+    testCompile('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
+    testCompile 'org.robolectric:robolectric:3.4.2'
+    testCompile "org.robolectric:shadows-multidex:3.4-rc2"
+    // PowerMock
+    def powerMockVersion = '1.7.3'
+    testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+    testCompile "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
+    testCompile "org.powermock:powermock-api-mockito2:$powerMockVersion"
+    testCompile("org.powermock:powermock-classloading-xstream:$powerMockVersion")
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebug']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebug.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
