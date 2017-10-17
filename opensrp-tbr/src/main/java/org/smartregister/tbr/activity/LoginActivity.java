@@ -534,8 +534,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         if (!jsonObject.isNull("logo")) {
             ImageView logo = (ImageView) findViewById(R.id.logoImage);
-            logo.setImageBitmap(DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
-                    getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap());
+            DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
+                    getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
             TextView loginBuild = (TextView) findViewById(R.id.login_build);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
             lp.setMargins(0, 0, 0, 0);
