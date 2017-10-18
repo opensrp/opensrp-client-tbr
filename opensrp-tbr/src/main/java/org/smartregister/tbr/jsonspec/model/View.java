@@ -77,4 +77,7 @@ public class View {
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
     }
+
+    public View() {
+    }
 }

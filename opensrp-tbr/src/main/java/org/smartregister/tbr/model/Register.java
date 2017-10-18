@@ -1,6 +1,9 @@
 package org.smartregister.tbr.model;
 
+import android.util.Log;
+
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.model.Language;
 import org.smartregister.tbr.jsonspec.model.View;
 
 import java.util.Map;
@@ -14,6 +17,7 @@ public class Register {
     public static final String PRESUMPTIVE_PATIENTS = "presumptive_patients";
     public static final String POSITIVE_PATIENTS = "positive_patients";
     public static final String IN_TREATMENT_PATIENTS = "in_treatment_patients";
+    public static final String TAG = Register.class.getCanonicalName();
 
     private String title;
     private String titleToken;
@@ -23,8 +27,8 @@ public class Register {
 
     public Register(View view, int totalPatients, int totalPatientsWithDueOverdue) {
 
-        Map<String, String> ang = TbrApplication.getJsonSpecHelper().getLanguageFile("en");
-        String label = ang != null && ang.size() > 0 ? ang.get(view.getIdentifier()) : view.getLabel();
+        Map<String, String> en = getLanguageFile("en");
+        String label = en != null && en.size() > 0 ? en.get(view.getIdentifier()) : view.getLabel();
 
         this.title = label != null && !label.isEmpty() ? label : view.getLabel();
         this.titleToken = view.getIdentifier();
@@ -72,5 +76,14 @@ public class Register {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    private Map<String, String> getLanguageFile(String languageCode) {
+        try {
+            return TbrApplication.getJsonSpecHelper().getLanguageFile(languageCode);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
     }
 }

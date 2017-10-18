@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,16 +72,13 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     private Drawable getRegisterIcon(String registerToken) {
         if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive_patients);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.POSITIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_positive_patients);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_positive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.IN_TREATMENT_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_intreatment_patients);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_intreatment_patients, getContext().getTheme());
         } else {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive_patients);
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
         }
     }
 
