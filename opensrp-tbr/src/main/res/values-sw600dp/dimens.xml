@@ -2,6 +2,7 @@
 <resources>
     <dimen name="login_horizontal_margin">100dp</dimen>
     <dimen name="login_logo_height">180dp</dimen>
-    <dimen name="login_opensrp_logo_height">18dp</dimen>
-    <dimen name="login_opensrp_logo_width">100dp</dimen>
+    <dimen name="login_opensrp_logo_height">40dp</dimen>
+    <dimen name="login_opensrp_logo_width">125dp</dimen>
+    <dimen name="login_bottom_margin">50dp</dimen>
 </resources>

@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        android:background="@drawable/login_background">
+        android:background="@drawable/login_background"
+        android:paddingBottom="@dimen/login_bottom_margin">
 
         <!-- Most important group of views goes in last to avoid being overlapped by other less important views -->
 
@@ -19,14 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:paddingBottom="50dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:paddingBottom="10dp"
+                android:paddingBottom="5dp"
                 android:text="Powered by"
                 android:textColor="#A6FFFFFF" />
 
@@ -34,8 +34,8 @@
                 android:layout_width="@dimen/login_opensrp_logo_width"
                 android:layout_height="@dimen/login_opensrp_logo_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="5dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_opensrp_logo" />
         </LinearLayout>
@@ -60,9 +60,9 @@
                 android:id="@+id/login_build"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
                 android:gravity="center_horizontal"
-                android:textColor="#bfe7f3"
-                android:layout_marginTop="-20dp"/>
+                android:textColor="#bfe7f3" />
         </LinearLayout>
 
         <!-- Middle section -->
@@ -85,8 +85,8 @@
                 android:ems="10"
                 android:hint="@string/userNameEditText"
                 android:inputType="textNoSuggestions|textFilter|textVisiblePassword"
-                android:paddingLeft="5dp"
                 android:maxLines="1"
+                android:paddingLeft="5dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:typeface="sans" />
@@ -136,7 +136,7 @@
                 android:shadowRadius="0.5"
                 android:text="@string/login_text"
                 android:textColor="#666666"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
