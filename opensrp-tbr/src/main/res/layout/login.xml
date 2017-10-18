@@ -60,7 +60,7 @@
                 android:id="@+id/login_build"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="@dimen/login_text_build_margin"
                 android:gravity="center_horizontal"
                 android:textColor="#bfe7f3" />
         </LinearLayout>
