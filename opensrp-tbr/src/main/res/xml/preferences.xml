@@ -11,14 +11,5 @@
             android:summary="Defines the base server url that handles requests"
             android:title="OpenSRP base URL" />
 
-        <EditTextPreference
-            android:defaultValue="@string/tbreach_organization"
-            android:dialogMessage="Enter Organization"
-            android:dialogTitle="View Organization"
-            android:key="TBREACH_ORGANIZATION"
-            android:persistent="true"
-            android:summary="Defines the Organization for TB Reach"
-            android:title="TB Reach Organization" />s
-
     </PreferenceCategory>
 </PreferenceScreen>
