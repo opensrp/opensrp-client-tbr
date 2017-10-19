@@ -57,4 +57,8 @@ public class TbrApplication extends DrishtiApplication {
     public static JsonSpecHelper getJsonSpecHelper() {
         return getInstance().jsonSpecHelper;
     }
+
+    public Context getContext(){
+        return context;
+    }
 }

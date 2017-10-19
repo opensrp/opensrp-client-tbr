@@ -3,6 +3,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+<<<<<<< HEAD
+    <dimen name="register_font_size">20sp</dimen>
+    <dimen name="login_logo_height">90dp</dimen>
+    <dimen name="login_opensrp_logo_height">32dp</dimen>
+    <dimen name="login_opensrp_logo_width">100dp</dimen>
+    <dimen name="login_horizontal_margin">30dp</dimen>
+    <dimen name="login_bottom_margin">30dp</dimen>
+    <dimen name="login_text_build_margin">2dp</dimen>
     <dimen name="register_font_size">20sp</dimen>
     <dimen name="divider_height">1dp</dimen>
 </resources>

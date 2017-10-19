@@ -1,1 +1,1 @@
-include ':opensrp-tbr'
+include ':opensrp-tbr', ':json2view'
