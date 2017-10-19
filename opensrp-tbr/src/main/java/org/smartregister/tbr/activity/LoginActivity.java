@@ -45,6 +45,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -565,14 +566,19 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected LoginResponse doInBackground(Void... params) {
-            return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
+            //return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
+            return null;
         }
 
         @Override
         protected void onPostExecute(LoginResponse loginResponse) {
-            super.onPostExecute(loginResponse);
+            //super.onPostExecute(loginResponse);
             progressDialog.dismiss();
-            afterLoginCheck.onEvent(loginResponse);
+            // afterLoginCheck.onEvent(loginResponse);
+
+            Intent i = new Intent(TbrApplication.getInstance().getApplicationContext(), HomeActivity.class);
+            i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
+            startActivity(i);
         }
     }
 
