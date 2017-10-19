@@ -56,4 +56,8 @@ public class TbrApplication extends DrishtiApplication {
     public void logoutCurrentUser() {
     //To Implement
     }
+
+    public Context getContext(){
+        return context;
+    }
 }
