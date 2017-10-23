@@ -1,15 +1,8 @@
 package org.smartregister.tbr.activity;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.StringRes;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,7 +27,6 @@ public class HomeActivityTest extends BaseUnitTest {
 
     private ActivityController<HomeActivity> controller;
     private Activity activity;
-    private Context context;
 
     @Before
     public void setUp() {
@@ -44,7 +36,6 @@ public class HomeActivityTest extends BaseUnitTest {
         controller = Robolectric.buildActivity(HomeActivity.class, intent);
         activity = controller.get();
         org.mockito.MockitoAnnotations.initMocks(this);
-        context = RuntimeEnvironment.application;
         controller.setup();
     }
 

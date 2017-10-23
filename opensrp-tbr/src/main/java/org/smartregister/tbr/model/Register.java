@@ -3,7 +3,6 @@ package org.smartregister.tbr.model;
 import android.util.Log;
 
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.model.Language;
 import org.smartregister.tbr.jsonspec.model.View;
 
 import java.util.Map;

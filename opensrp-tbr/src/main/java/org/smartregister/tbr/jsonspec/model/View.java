@@ -78,6 +78,4 @@ public class View {
         this.metadata = metadata;
     }
 
-    public View() {
-    }
 }
