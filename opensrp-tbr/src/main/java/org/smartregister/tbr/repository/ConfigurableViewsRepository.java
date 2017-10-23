@@ -56,15 +56,16 @@ public class ConfigurableViewsRepository extends BaseRepository {
         database.execSQL(INDEX_SERVER_VERSION);
     }
 
-    public void saveConfigurableViews(JSONArray jsonArray) {
+    public long saveConfigurableViews(JSONArray jsonArray) {
+        long lastSyncTimeStamp = 0l;
         try {
             getWritableDatabase().beginTransaction();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String identifier = jsonObject.getString(IDENTIFIER);
-
+                lastSyncTimeStamp = jsonObject.getLong(SERVER_VERSION);
                 ContentValues values = new ContentValues();
-                values.put(SERVER_VERSION, jsonObject.getLong(SERVER_VERSION));
+                values.put(SERVER_VERSION, lastSyncTimeStamp);
                 values.put(JSON, jsonObject.toString());
                 if (configurableViewExists(identifier)) {
                     values.put(DATE_UPDATED, dateFormat.format(new Date()));
@@ -79,12 +80,13 @@ public class ConfigurableViewsRepository extends BaseRepository {
             Log.e(TAG, "error saving Configurable view");
         } finally {
             getWritableDatabase().endTransaction();
+            return lastSyncTimeStamp;
         }
     }
 
     private boolean configurableViewExists(String identifier) {
         boolean exists = false;
-        Cursor c = getReadableDatabase().rawQuery("Select count(*) from " + TABLE_NAME + " Where " +
+        Cursor c = getReadableDatabase().rawQuery("Select " + IDENTIFIER + " from " + TABLE_NAME + " Where " +
                         IDENTIFIER + " = ? ",
                 new String[]{identifier});
         if (c.getCount() > 0)

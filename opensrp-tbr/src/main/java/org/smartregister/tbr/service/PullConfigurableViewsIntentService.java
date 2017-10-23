@@ -11,6 +11,9 @@ import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.util.Utils;
+
+import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by SGithengi on 19/10/2017.
@@ -18,7 +21,7 @@ import org.smartregister.tbr.repository.ConfigurableViewsRepository;
  * <p>
  */
 public class PullConfigurableViewsIntentService extends IntentService {
-    public static final String VIEWS_URL = "/rest/viewconfiguration/list";
+    public static final String VIEWS_URL = "/rest/viewconfiguration/sync";
 
     private static final String TAG = PullConfigurableViewsIntentService.class.getCanonicalName();
 
@@ -34,7 +37,8 @@ public class PullConfigurableViewsIntentService extends IntentService {
         if (intent != null) {
             try {
                 JSONArray views = fetchConfigurableViews();
-                configurableViewsRepository.saveConfigurableViews(views);
+                long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
+                updateLastSyncTimeStamp(lastSyncTimeStamp);
                 Intent refreshLoginIntentFilter = new Intent();
                 refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
@@ -54,7 +58,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL;
+        String url = baseUrl + VIEWS_URL + "?serverVersion=" + getLastSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {
@@ -73,6 +77,14 @@ public class PullConfigurableViewsIntentService extends IntentService {
     public void onCreate() {
         super.onCreate();
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
+    }
+
+    public long getLastSyncTimeStamp() {
+        return Long.parseLong(Utils.getPreference(getApplicationContext(), LAST_SYNC_TIMESTAMP, "0"));
+    }
+
+    private void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
+        Utils.writePreference(getApplicationContext(), LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
 }
