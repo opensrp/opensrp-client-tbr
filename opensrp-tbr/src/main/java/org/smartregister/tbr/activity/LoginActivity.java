@@ -2,8 +2,10 @@ package org.smartregister.tbr.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +17,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -73,6 +76,7 @@ import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
 
 /**
@@ -87,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String ENGLISH_LANGUAGE = "English";
     private static final String URDU_LANGUAGE = "Urdu";
     private RemoteLoginTask remoteLoginTask;
+    public static String REFRESH_LOGIN_ACTION = "org.smartregister.action.LOGIN_REFRESH";
+    private BroadcastReceiver refreshLoginReceiver = new RefreshLoginBroadcastReceiver();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,10 +159,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter refreshIntentFilter = new IntentFilter();
+        refreshIntentFilter.addAction(REFRESH_LOGIN_ACTION);
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshLoginReceiver, refreshIntentFilter);
         processViewCustomizations();
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshLoginReceiver);
     }
 
     public void login(final View view) {
@@ -599,4 +614,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private class RefreshLoginBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            logInfo("onReceive RefreshLoginBroadcastReceiver");
+            processViewCustomizations();
+        }
+    }
 }

@@ -2,11 +2,13 @@ package org.smartregister.tbr.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 
@@ -33,6 +35,9 @@ public class PullConfigurableViewsIntentService extends IntentService {
             try {
                 JSONArray views = fetchConfigurableViews();
                 configurableViewsRepository.saveConfigurableViews(views);
+                Intent refreshLoginIntentFilter = new Intent();
+                refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
             } catch (Exception e1) {
                 Log.e(TAG, "Error fetching configurable views from server", e1);
             }
