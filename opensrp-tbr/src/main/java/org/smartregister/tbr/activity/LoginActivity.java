@@ -579,6 +579,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent i = new Intent(TbrApplication.getInstance().getApplicationContext(), HomeActivity.class);
             i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
             startActivity(i);
+            finish();
         }
     }
 
