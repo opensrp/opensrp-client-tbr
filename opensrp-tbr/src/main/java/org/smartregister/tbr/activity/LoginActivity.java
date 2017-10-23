@@ -45,6 +45,9 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
+import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -61,7 +64,6 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import util.JSonConfigUtils;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -497,44 +499,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String configFile = "login.json";
-        JSONObject jsonObject;
-        boolean showPassword;
-        String logoUrl;
-        String orientation;
-        String startColor;
-        String endColor;
-        JSONObject background;
-        try {
-            jsonObject = new JSONObject(JSonConfigUtils.readJsonFile(configFile, this));
-            showPassword = jsonObject.getBoolean("show_password_checkbox");
-            background = jsonObject.getJSONObject("background_color");
-            orientation = background.getString("orientation");
-            startColor = background.getString("start_color");
-            endColor = background.getString("end_color");
-            logoUrl = jsonObject.getString("logo");
-
-        } catch (JSONException je) {
-            logError("Error reading Json file for login page");
-            return;
-        }
-        if (!showPassword)
+        String configFile = "login";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        if (jsonString == null) return;
+        ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
+        Background background = metadata.getBackground();
+        if (!metadata.getShowPasswordCheckbox())
             findViewById(R.id.show_password).setVisibility(View.GONE);
         else
             findViewById(R.id.show_password).setVisibility(View.VISIBLE);
-        if (!jsonObject.isNull("background_color") && !background.isNull("orientation")
-                && !background.isNull("start_color") && !background.isNull("end_color")) {
+        if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setOrientation(GradientDrawable.Orientation.valueOf(orientation));
-            gradientDrawable.setColors(new int[]{Color.parseColor(startColor),
-                    Color.parseColor(endColor)});
+            gradientDrawable.setOrientation(
+                    GradientDrawable.Orientation.valueOf(background.getOrientation()));
+            gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
+                    Color.parseColor(background.getEndColor())});
             canvasRL.setBackground(gradientDrawable);
         }
-        if (!jsonObject.isNull("logo")) {
+        if (metadata.getLogoUrl() != null) {
             ImageView logo = (ImageView) findViewById(R.id.logoImage);
-            DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
+            DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
                     getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
             TextView loginBuild = (TextView) findViewById(R.id.login_build);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());

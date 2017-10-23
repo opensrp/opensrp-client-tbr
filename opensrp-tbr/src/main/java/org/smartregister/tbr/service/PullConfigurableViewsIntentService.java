@@ -65,9 +65,9 @@ public class PullConfigurableViewsIntentService extends IntentService {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
+        super.onCreate();
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
-        return super.onStartCommand(intent, flags, startId);
     }
 
 }

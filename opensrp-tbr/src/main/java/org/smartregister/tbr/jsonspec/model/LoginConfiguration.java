@@ -32,7 +32,7 @@ public class LoginConfiguration extends BaseConfiguration {
         this.background = background;
     }
 
-    static class Background {
+    public class Background {
 
         private String orientation;
 

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import org.smartregister.tbr.jsonspec.model.BaseConfiguration;
+import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 
@@ -17,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import util.RuntimeTypeAdapterFactory;
 
 /**
  * Created by ndegwamartin on 12/10/2017.
@@ -135,5 +140,17 @@ public class JsonSpecHelper {
         }
     }
 
+    public ViewConfiguration getConfigurableView(String jsonString) {
+        try {
+            final RuntimeTypeAdapterFactory<BaseConfiguration> typeFactory = RuntimeTypeAdapterFactory
+                    .of(BaseConfiguration.class, "type")
+                    .registerSubtype(LoginConfiguration.class, "Login");
+            final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
+            return gson.fromJson(jsonString, VIEW_CONFIG_TYPE);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
 
 }

@@ -9,8 +9,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.domain.db.Column;
-import org.smartregister.domain.db.ColumnAttribute;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -47,26 +45,6 @@ public class ConfigurableViewsRepository extends BaseRepository {
     private static final String INDEX_SERVER_VERSION = "CREATE INDEX " + TABLE_NAME + "_" + SERVER_VERSION +
             "_index ON " + TABLE_NAME + "(" + SERVER_VERSION + " COLLATE NOCASE);";
 
-
-    private enum columns implements Column {
-        id(ColumnAttribute.Type.longnum, true, true),
-        identifier(ColumnAttribute.Type.text, false, true),
-        json(ColumnAttribute.Type.text, false, false),
-        serverVersion(ColumnAttribute.Type.longnum, false, true),
-        dateCreated(ColumnAttribute.Type.date, false, false),
-        dateUpdated(ColumnAttribute.Type.date, false, false);
-
-        columns(ColumnAttribute.Type type, boolean pk, boolean index) {
-            this.column = new ColumnAttribute(type, pk, index);
-        }
-
-        private ColumnAttribute column;
-
-        public ColumnAttribute column() {
-            return column;
-        }
-    }
-
     public ConfigurableViewsRepository(Repository repository) {
         super(repository);
     }
@@ -83,16 +61,16 @@ public class ConfigurableViewsRepository extends BaseRepository {
             getWritableDatabase().beginTransaction();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String identifier = jsonObject.getString("identifier");
+                String identifier = jsonObject.getString(IDENTIFIER);
 
                 ContentValues values = new ContentValues();
-                values.put(columns.serverVersion.name(), jsonObject.getLong("serverVersion"));
-                values.put(columns.json.name(), jsonObject.toString());
+                values.put(SERVER_VERSION, jsonObject.getLong(SERVER_VERSION));
+                values.put(JSON, jsonObject.toString());
                 if (configurableViewExists(identifier)) {
-                    values.put(columns.dateUpdated.name(), dateFormat.format(new Date()));
+                    values.put(DATE_UPDATED, dateFormat.format(new Date()));
                     getWritableDatabase().update(TABLE_NAME, values, IDENTIFIER + " = ?", new String[]{identifier});
                 } else {
-                    values.put(columns.identifier.name(), jsonObject.getString("identifier"));
+                    values.put(IDENTIFIER, identifier);
                     getWritableDatabase().insert(TABLE_NAME, null, values);
                 }
             }
@@ -105,17 +83,29 @@ public class ConfigurableViewsRepository extends BaseRepository {
     }
 
     private boolean configurableViewExists(String identifier) {
+        boolean exists = false;
         Cursor c = getReadableDatabase().rawQuery("Select count(*) from " + TABLE_NAME + " Where " +
                         IDENTIFIER + " = ? ",
                 new String[]{identifier});
-        if (c.getCount() == 0) {
-            c.close();
-            return true;
-        } else {
-            c.close();
-            return false;
-        }
+        if (c.getCount() > 0)
+            exists = true;
+        c.close();
+        return exists;
 
+    }
+
+    public String getConfigurableViewJson(String identifier) {
+        String jsonString;
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{JSON}, IDENTIFIER + " = ?", new String[]{identifier}, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        } else {
+            cursor.moveToFirst();
+            jsonString = cursor.getString(0);
+        }
+        cursor.close();
+        return jsonString;
     }
 
 }
