@@ -1,8 +1,6 @@
 package org.smartregister.tbr.jsonspec;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.robolectric.RuntimeEnvironment;
 import org.smartregister.tbr.BaseUnitTest;
 
 /**
@@ -10,13 +8,6 @@ import org.smartregister.tbr.BaseUnitTest;
  */
 
 public class JsonSpecHelperTest extends BaseUnitTest {
-
-    JsonSpecHelper jsonSpecHelper;
-
-    @Before
-    public void setUp() {
-        jsonSpecHelper = new JsonSpecHelper(RuntimeEnvironment.application);
-    }
 
     @Test(expected = IllegalStateException.class)
     public void instantiationWithDefaultConstructorThrowsIllegalArgumentException() {

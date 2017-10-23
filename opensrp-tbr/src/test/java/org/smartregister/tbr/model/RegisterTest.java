@@ -22,7 +22,7 @@ public class RegisterTest extends BaseUnitTest {
     private Residence residence;
 
     @Mock
-    JsonSpecHelper jsonSpecHelper;
+    private JsonSpecHelper jsonSpecHelper;
 
     private static final String TITlE = "title";
     private static final String TITlE_TOKEN = "title_token";

@@ -34,16 +34,16 @@ public class RegisterArrayAdapterTest extends BaseUnitTest {
     private static final int INT_20 = 20;
 
     @Mock
-    View view;
+    private View view;
 
     @Mock
     private Residence residence;
 
     @Mock
-    ViewGroup viewGroup;
+    private ViewGroup viewGroup;
 
     @Mock
-    Register register;
+    private Register register;
 
     @Before
     public void setUp() {
