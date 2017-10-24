@@ -23,12 +23,8 @@ import static org.smartregister.util.Log.logInfo;
 public class TbrApplication extends DrishtiApplication {
 
     private static JsonSpecHelper jsonSpecHelper;
-
+  
     private ConfigurableViewsRepository configurableViewsRepository;
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return jsonSpecHelper;
-    }
 
     @Override
     public void onCreate() {
@@ -46,8 +42,9 @@ public class TbrApplication extends DrishtiApplication {
 
         startPullConfigurableViewsIntentService(getApplicationContext());
 
-        //JsonSpecHelper
-        jsonSpecHelper = new JsonSpecHelper(this);
+        //Initialize JsonSpec Helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
+
     }
 
     public static synchronized TbrApplication getInstance() {
@@ -71,6 +68,10 @@ public class TbrApplication extends DrishtiApplication {
     @Override
     public void logoutCurrentUser() {
         //To Implement
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
     }
 
     public Context getContext() {

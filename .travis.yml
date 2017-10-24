@@ -22,6 +22,7 @@ android:
     - build-tools-24.0.2
     # The SDK version used to compile your projects
     - android-22
+    - android-23
     - android-24
     # Additional components
     - extra-google-google_play_services
@@ -38,6 +39,10 @@ addons:
   - pandoc
 
 before_script:
+  # Test Coveralls coverage
+  - sudo apt-get install jq
+  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
+
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
@@ -55,6 +60,10 @@ script:
 after_failure:
  - pandoc opensrp-tbr/build/reports/tests/index.html -t plain
 
+after_success:
+  # also codacy
+  - java -cp ~/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter -l Java -r opensrp-tbr/build/reports/jacoco/jacocoRootReport/merged.xml
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   slack:
