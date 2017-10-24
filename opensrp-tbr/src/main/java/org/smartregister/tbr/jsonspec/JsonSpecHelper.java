@@ -52,7 +52,7 @@ public class JsonSpecHelper {
     public MainConfig getMainConfigFile() {
         try {
             Gson gson = new Gson();
-            JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/configs/main_config.json")));
+            JsonReader reader = new JsonReader(new InputStreamReader(context.getAssets().open(BASE_PATH + "/configs/main.json")));
             return gson.fromJson(reader, MAIN_CONFIG_TYPE);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

@@ -3,25 +3,25 @@
   "organization": "pakistan_clinic_1",
   "views": [
     {
-      "identifier": "presumptive_register",
+      "identifier": "presumptive_patients",
       "visible": true,
-      "label": "presumptive_patients_register",
-      "residence": {
-        "position": 1
-      }
-    },
-    {
-      "identifier": "positive_patients",
-      "visible": true,
-      "label": "positive_patients_register",
+      "label": "presumptive_patients",
       "residence": {
         "position": 0
       }
     },
     {
-      "identifier": "in_treatment register",
+      "identifier": "positive_patients",
       "visible": true,
-      "label": "in_treatment_patients_register",
+      "label": "positive_patients",
+      "residence": {
+        "position": 1
+      }
+    },
+    {
+      "identifier": "in_treatment_patients",
+      "visible": true,
+      "label": "in_treatment_patients",
       "residence": {
         "position": 2
       }

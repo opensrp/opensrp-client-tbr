@@ -13,11 +13,8 @@ import static org.smartregister.util.Log.logError;
  * Created by keyman on 23/08/2017.
  */
 public class TbrApplication extends DrishtiApplication {
-    private static JsonSpecHelper jsonSpecHelper;
 
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return jsonSpecHelper;
-    }
+    private static JsonSpecHelper jsonSpecHelper;
 
     @Override
     public void onCreate() {
@@ -31,8 +28,8 @@ public class TbrApplication extends DrishtiApplication {
         //Initialize Modules
         CoreLibrary.init(context);
 
-        //JsonSpecHelper
-        jsonSpecHelper = new JsonSpecHelper(this);
+        //Initialize JsonSpec Helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
     }
 
     public static synchronized TbrApplication getInstance() {
@@ -54,7 +51,11 @@ public class TbrApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-    //To Implement
+        //To Implement
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
     }
 
     public Context getContext(){

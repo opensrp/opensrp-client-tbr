@@ -9,6 +9,6 @@
     <dimen name="login_horizontal_margin">30dp</dimen>
     <dimen name="login_bottom_margin">30dp</dimen>
     <dimen name="login_text_build_margin">2dp</dimen>
-    <dimen name="register_font_size">21sp</dimen>
+    <dimen name="register_font_size">20sp</dimen>
     <dimen name="divider_height">1dp</dimen>
 </resources>
