@@ -6,6 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.activity.LoginActivity;
@@ -13,6 +14,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.util.Utils;
 
+import static org.smartregister.util.Log.logError;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
@@ -37,11 +39,13 @@ public class PullConfigurableViewsIntentService extends IntentService {
         if (intent != null) {
             try {
                 JSONArray views = fetchConfigurableViews();
-                long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-                updateLastSyncTimeStamp(lastSyncTimeStamp);
-                Intent refreshLoginIntentFilter = new Intent();
-                refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
+                if (views != null && views.length() > 0) {
+                    long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
+                    updateLastSyncTimeStamp(lastSyncTimeStamp);
+                    Intent refreshLoginIntentFilter = new Intent();
+                    refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
+                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
+                }
             } catch (Exception e1) {
                 Log.e(TAG, "Error fetching configurable views from server", e1);
             }
@@ -49,7 +53,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
         }
     }
 
-    private JSONArray fetchConfigurableViews() throws Exception {
+    private JSONArray fetchConfigurableViews() throws JSONException {
         HTTPAgent httpAgent = TbrApplication.getInstance().getContext().getHttpAgent();
         String baseUrl = TbrApplication.getInstance().getContext().
                 configuration().dristhiBaseURL();
@@ -62,13 +66,15 @@ public class PullConfigurableViewsIntentService extends IntentService {
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {
-            throw new RuntimeException(url + " http agent is null");
+            logError(url + " http agent is null");
+            return null;
         }
 
         Response resp = httpAgent.fetch(url);
 
         if (resp.isFailure()) {
-            throw new RuntimeException(url + " not returned data");
+            logError(url + " not returned data");
+            return null;
         }
         return new JSONArray((String) resp.payload());
     }
