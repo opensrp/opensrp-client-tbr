@@ -80,8 +80,8 @@ public class ConfigurableViewsRepository extends BaseRepository {
             Log.e(TAG, "error saving Configurable view");
         } finally {
             getWritableDatabase().endTransaction();
-            return lastSyncTimeStamp;
         }
+        return lastSyncTimeStamp;
     }
 
     private boolean configurableViewExists(String identifier) {

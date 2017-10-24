@@ -62,13 +62,13 @@ public class PullConfigurableViewsIntentService extends IntentService {
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {
-            throw new Exception(url + " http agent is null");
+            throw new RuntimeException(url + " http agent is null");
         }
 
         Response resp = httpAgent.fetch(url);
 
         if (resp.isFailure()) {
-            throw new Exception(url + " not returned data");
+            throw new RuntimeException(url + " not returned data");
         }
         return new JSONArray((String) resp.payload());
     }

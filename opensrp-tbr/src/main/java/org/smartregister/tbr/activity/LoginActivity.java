@@ -51,7 +51,6 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
-import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
@@ -330,7 +329,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void setInvisible() {
-                Log.logInfo("Successfully get location");
+                logInfo("Successfully get location");
             }
         });
 
