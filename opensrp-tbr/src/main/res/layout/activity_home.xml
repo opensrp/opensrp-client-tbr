@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/home_footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:background="@color/customAppThemeDark"
         android:gravity="center_vertical"
@@ -23,15 +23,18 @@
         <ImageButton
             android:id="@+id/refreshSyncButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:padding="6dp"
             android:background="@android:color/transparent"
             android:onClick="manualSync"
             android:src="@drawable/ic_action_sync"
-            android:hapticFeedbackEnabled="true" />
+            android:hapticFeedbackEnabled="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside" />
 
         <ImageView
             android:layout_width="wrap_content"
