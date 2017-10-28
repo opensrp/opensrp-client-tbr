@@ -20,7 +20,7 @@ public class ConfigurableViewsRepository extends BaseRepository {
     private static final String TAG = ConfigurableViewsRepository.class.getCanonicalName();
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private static final String TABLE_NAME = "configurable_views";
+    public static final String TABLE_NAME = "configurable_views";
     private static final String ID = "view_id";
     private static final String IDENTIFIER = "identifier";
     private static final String SERVER_VERSION = "serverVersion";
@@ -84,7 +84,7 @@ public class ConfigurableViewsRepository extends BaseRepository {
         return lastSyncTimeStamp;
     }
 
-    private boolean configurableViewExists(String identifier) {
+    protected boolean configurableViewExists(String identifier) {
         boolean exists = false;
         Cursor c = getReadableDatabase().rawQuery("Select " + IDENTIFIER + " from " + TABLE_NAME + " Where " +
                         IDENTIFIER + " = ? ",
