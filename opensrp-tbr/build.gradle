@@ -114,7 +114,7 @@ dependencies {
     androidTestCompile ('com.android.support.test:rules:0.5') { exclude module: 'support-annotations' }
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['connectedAndroidTest','testDebugUnitTest']) {
 
     reports {
         xml.enabled = true
