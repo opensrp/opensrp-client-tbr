@@ -65,7 +65,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     }
 
     @Test
-    public void testFetchConfigurableView_DontSave_whenAPIReturnsNothing() throws Exception {
+    public void testFetchConfigurableViewDontSavewhenAPIReturnsNothing() throws Exception {
         expectedJsonFromAPI = "[]";
         when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
         helper.processIntent();
@@ -73,7 +73,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     }
 
     @Test
-    public void testConfigurableViews_Saved_whenAPIReturnsViews() throws Exception {
+    public void testConfigurableViewsSavesWhenAPIReturnsViews() throws Exception {
         when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
         doNothing().when(helper).updateLastSyncTimeStamp(anyLong());
         helper.processIntent();
@@ -82,7 +82,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
 
 
     @Test
-    public void testConfigurableViews_Fail_OnException() {
+    public void testConfigurableViewsOnException() {
         when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
         doNothing().when(helper).updateLastSyncTimeStamp(anyLong());
         try {

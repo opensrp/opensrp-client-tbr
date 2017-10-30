@@ -21,7 +21,7 @@ import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 public class PullConfigurableViewsServiceHelper {
     private static final String TAG = PullConfigurableViewsServiceHelper.class.getCanonicalName();
 
-    private android.content.Context applicationContext;
+    private Context applicationContext;
     private ConfigurableViewsRepository configurableViewsRepository;
     private HTTPAgent httpAgent;
     private String baseUrl;

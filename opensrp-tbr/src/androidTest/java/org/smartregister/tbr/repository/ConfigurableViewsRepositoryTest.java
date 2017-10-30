@@ -54,6 +54,7 @@ public class ConfigurableViewsRepositoryTest {
         assertFalse(configurableViewsRepository.configurableViewExists("login"));
         long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(jsonArrayFromAPI);
         String jsonFromDB = configurableViewsRepository.getConfigurableViewJson("login");
+        assertEquals(1508765191, lastSyncTimeStamp);
         assertEquals(jsonArrayFromAPI.get(0).toString(), new JSONObject(jsonFromDB).toString());
     }
 
