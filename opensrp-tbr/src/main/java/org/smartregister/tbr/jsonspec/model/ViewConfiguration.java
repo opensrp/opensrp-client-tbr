@@ -9,21 +9,13 @@ import java.util.Map;
 
 public class ViewConfiguration {
 
-    private String organization;
-
     private String identifier;
 
-    private Map<String, Object> metadata;
+    private BaseConfiguration metadata;
 
     private List<View> views;
 
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
+    private Map<String, String> labels;
 
     public String getIdentifier() {
         return identifier;
@@ -33,11 +25,11 @@ public class ViewConfiguration {
         this.identifier = identifier;
     }
 
-    public Map<String, Object> getMetadata() {
+    public BaseConfiguration getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Map<String, Object> metadata) {
+    public void setMetadata(BaseConfiguration metadata) {
         this.metadata = metadata;
     }
 
@@ -47,5 +39,13 @@ public class ViewConfiguration {
 
     public void setViews(List<View> views) {
         this.views = views;
+    }
+
+    public Map<String, String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Map<String, String> labels) {
+        this.labels = labels;
     }
 }

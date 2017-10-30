@@ -1,13 +1,21 @@
 package org.smartregister.tbr.application;
 
+import android.content.Intent;
+
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
+import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
+import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
+import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 
 /**
  * Created by keyman on 23/08/2017.
@@ -15,6 +23,8 @@ import static org.smartregister.util.Log.logError;
 public class TbrApplication extends DrishtiApplication {
 
     private static JsonSpecHelper jsonSpecHelper;
+  
+    private ConfigurableViewsRepository configurableViewsRepository;
 
     @Override
     public void onCreate() {
@@ -28,8 +38,13 @@ public class TbrApplication extends DrishtiApplication {
         //Initialize Modules
         CoreLibrary.init(context);
 
+        DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
+
+        startPullConfigurableViewsIntentService(getApplicationContext());
+
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
+
     }
 
     public static synchronized TbrApplication getInstance() {
@@ -41,6 +56,7 @@ public class TbrApplication extends DrishtiApplication {
         try {
             if (repository == null) {
                 repository = new TbrRepository(getInstance().getApplicationContext(), context);
+                getConfigurableViewsRepository();
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
@@ -58,7 +74,31 @@ public class TbrApplication extends DrishtiApplication {
         return getInstance().jsonSpecHelper;
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return context;
+    }
+
+    protected void cleanUpSyncState() {
+        DrishtiSyncScheduler.stop(getApplicationContext());
+        context.allSharedPreferences().saveIsSyncInProgress(false);
+    }
+
+    @Override
+    public void onTerminate() {
+        logInfo("Application is terminating. Stopping Sync scheduler and resetting isSyncInProgress setting.");
+        cleanUpSyncState();
+        TimeChangedBroadcastReceiver.destroy(this);
+        super.onTerminate();
+    }
+
+    private void startPullConfigurableViewsIntentService(android.content.Context context) {
+        Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
+        context.startService(intent);
+    }
+
+    public ConfigurableViewsRepository getConfigurableViewsRepository() {
+        if (configurableViewsRepository == null)
+            configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
+        return configurableViewsRepository;
     }
 }

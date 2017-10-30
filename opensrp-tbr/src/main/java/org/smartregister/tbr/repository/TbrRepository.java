@@ -29,6 +29,7 @@ public class TbrRepository extends Repository {
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
+        ConfigurableViewsRepository.createTable(database);
         //onUpgrade(database, 1, 2);
 
     }
