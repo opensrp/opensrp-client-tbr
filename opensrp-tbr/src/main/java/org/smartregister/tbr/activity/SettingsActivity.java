@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -67,6 +68,7 @@ public class SettingsActivity extends PreferenceActivity {
 
                 logInfo("Saved URL: " + allSharedPreferences.fetchHost(""));
                 logInfo("Port: " + allSharedPreferences.fetchPort(0));
+                TbrApplication.getInstance().startPullConfigurableViewsIntentService(getActivity());
             } catch (MalformedURLException e) {
                 logError("Malformed Url: " + baseUrl);
             }

@@ -91,7 +91,7 @@ public class TbrApplication extends DrishtiApplication {
         super.onTerminate();
     }
 
-    private void startPullConfigurableViewsIntentService(android.content.Context context) {
+    public void startPullConfigurableViewsIntentService(android.content.Context context) {
         Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
         context.startService(intent);
     }
