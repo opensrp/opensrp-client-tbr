@@ -37,13 +37,13 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Mock
-    ConfigurableViewsRepository configurableViewsRepository;
+    private ConfigurableViewsRepository configurableViewsRepository;
 
     @Mock
-    Context context;
+    private Context context;
 
     @Mock
-    HTTPAgent httpAgent;
+    private HTTPAgent httpAgent;
 
     private PullConfigurableViewsServiceHelper helper;
 
