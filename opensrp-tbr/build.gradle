@@ -84,10 +84,14 @@ android {
 }
 
 dependencies {
-    compile('org.smartregister:opensrp-client-core:1.0.0-SNAPSHOT@aar') {
+    compile('org.smartregister:opensrp-client-core:1.1.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
+    }
+
+    compile('org.smartregister:opensrp-client-enketo:1.0.0-SNAPSHOT@aar') {
+        transitive = true
     }
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:design:22.2.1'
