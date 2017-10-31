@@ -9,4 +9,8 @@
     <string name="action_logout">Logout</string>
     <string name="action_language">Language</string>
     <string name="app_title">TB REACH</string>
+    <string name="action_add_patient">Add New Patient</string>
+    <string name="action_advanced_search">Advanced Search</string>
+    <string name="action_sort_list">Sort List</string>
+    <string name="action_filter_list">Filter List</string>
 </resources>
