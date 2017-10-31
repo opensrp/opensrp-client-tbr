@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.util.Constants;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,7 +34,8 @@ public class MainActivity extends BaseActivity {
 
     public void buttonClick(View view) {
         Intent i = new Intent(this, HomeActivity.class);
+        i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
         startActivity(i);
-    }
 
+    }
 }

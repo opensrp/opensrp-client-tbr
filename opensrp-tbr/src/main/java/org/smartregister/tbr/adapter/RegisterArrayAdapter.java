@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.model.Register;
 
+import java.util.List;
+
 /**
  * Created by ndegwamartin on 11/10/2017.
  */
@@ -21,9 +24,9 @@ import org.smartregister.tbr.model.Register;
 public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     private Context context;
-    private final Register[] items;
+    private final List<Register> items;
 
-    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Register[] records) {
+    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records) {
         super(context, resource, records);
         this.context = context;
         this.items = records;
@@ -50,7 +53,13 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         holder.titleTextView.setText(register.getTitle());
         holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
-        holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+        if (register.getTotalPatientsWithDueOverdue() > 0) {
+            holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+            holder.patientDueCountTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.patientDueCountTextView.setVisibility(View.GONE);
+
+        }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
 
         return convertView;
@@ -58,21 +67,18 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     @Override
     public Register getItem(int i) {
-        return items[i];
+        return items.get(i);
     }
 
     private Drawable getRegisterIcon(String registerToken) {
         if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.POSITIVE_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_positive);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_positive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.IN_TREATMENT_PATIENTS)) {
-            return getContext().getResources().getDrawable(R.drawable.ic_intreatment);
-
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_intreatment_patients, getContext().getTheme());
         } else {
-            return getContext().getResources().getDrawable(R.drawable.ic_presumptive);
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
         }
     }
 

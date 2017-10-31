@@ -2,8 +2,10 @@ package org.smartregister.tbr.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +17,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -45,6 +48,10 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
+import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -61,7 +68,6 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import util.JSonConfigUtils;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -71,6 +77,7 @@ import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
 
 /**
@@ -85,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String ENGLISH_LANGUAGE = "English";
     private static final String URDU_LANGUAGE = "Urdu";
     private RemoteLoginTask remoteLoginTask;
+    public static String REFRESH_LOGIN_ACTION = "org.smartregister.action.LOGIN_REFRESH";
+    private BroadcastReceiver refreshLoginReceiver = new RefreshLoginBroadcastReceiver();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,10 +160,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter refreshIntentFilter = new IntentFilter();
+        refreshIntentFilter.addAction(REFRESH_LOGIN_ACTION);
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshLoginReceiver, refreshIntentFilter);
         processViewCustomizations();
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshLoginReceiver);
     }
 
     public void login(final View view) {
@@ -313,7 +331,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void setInvisible() {
-                Log.logInfo("Successfully get location");
+                logInfo("Successfully get location");
             }
         });
 
@@ -497,44 +515,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String configFile = "login.json";
-        JSONObject jsonObject;
-        boolean showPassword;
-        String logoUrl;
-        String orientation;
-        String startColor;
-        String endColor;
-        JSONObject background;
-        try {
-            jsonObject = new JSONObject(JSonConfigUtils.readJsonFile(configFile, this));
-            showPassword = jsonObject.getBoolean("show_password_checkbox");
-            background = jsonObject.getJSONObject("background_color");
-            orientation = background.getString("orientation");
-            startColor = background.getString("start_color");
-            endColor = background.getString("end_color");
-            logoUrl = jsonObject.getString("logo");
-
-        } catch (JSONException je) {
-            logError("Error reading Json file for login page");
-            return;
-        }
-        if (!showPassword)
+        String configFile = "login";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        if (jsonString == null) return;
+        ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
+        Background background = metadata.getBackground();
+        if (!metadata.getShowPasswordCheckbox())
             findViewById(R.id.show_password).setVisibility(View.GONE);
         else
             findViewById(R.id.show_password).setVisibility(View.VISIBLE);
-        if (!jsonObject.isNull("background_color") && !background.isNull("orientation")
-                && !background.isNull("start_color") && !background.isNull("end_color")) {
+        if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setOrientation(GradientDrawable.Orientation.valueOf(orientation));
-            gradientDrawable.setColors(new int[]{Color.parseColor(startColor),
-                    Color.parseColor(endColor)});
+            gradientDrawable.setOrientation(
+                    GradientDrawable.Orientation.valueOf(background.getOrientation()));
+            gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
+                    Color.parseColor(background.getEndColor())});
             canvasRL.setBackground(gradientDrawable);
         }
-        if (!jsonObject.isNull("logo")) {
+        if (metadata.getLogoUrl() != null) {
             ImageView logo = (ImageView) findViewById(R.id.logoImage);
-            DrishtiApplication.getCachedImageLoaderInstance().get(logoUrl, logo,
+            DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
                     getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
             TextView loginBuild = (TextView) findViewById(R.id.login_build);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
@@ -565,14 +568,20 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected LoginResponse doInBackground(Void... params) {
-            return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
+            //return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
+            return null;
         }
 
         @Override
         protected void onPostExecute(LoginResponse loginResponse) {
-            super.onPostExecute(loginResponse);
+            //super.onPostExecute(loginResponse);
             progressDialog.dismiss();
-            afterLoginCheck.onEvent(loginResponse);
+            // afterLoginCheck.onEvent(loginResponse);
+
+            Intent i = new Intent(TbrApplication.getInstance().getApplicationContext(), HomeActivity.class);
+            i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
+            startActivity(i);
+            finish();
         }
     }
 
@@ -612,4 +621,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private class RefreshLoginBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            logInfo("onReceive RefreshLoginBroadcastReceiver");
+            processViewCustomizations();
+        }
+    }
 }

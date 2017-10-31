@@ -15,4 +15,9 @@ public class Constants {
         public static final String HYPHEN = "-";
         public static final String COLON = ":";
     }
+
+    public static class VIEW {
+        public static final String LOGIN_VIEW = "login_view";
+        public static final String HOME_VIEW = "home_view";
+    }
 }

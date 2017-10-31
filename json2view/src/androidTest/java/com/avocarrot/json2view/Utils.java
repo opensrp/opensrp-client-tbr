@@ -36,7 +36,7 @@ public class Utils {
             try {
                 if (isr != null) isr.close();
                 if (fIn != null) fIn.close();
-                if (input != null)  input.close();
+                if (input != null) input.close();
             } catch (Exception e2) {
                 e2.getMessage();
             }
@@ -55,9 +55,10 @@ public class Utils {
             return null;
         }
     }
+
     public static Bitmap readDrawable(int drawableId, Context context) {
         try {
-            return BitmapFactory.decodeResource(context.getResources(),drawableId);
+            return BitmapFactory.decodeResource(context.getResources(), drawableId);
         } catch (Exception e) {
             return null;
         }
@@ -66,12 +67,12 @@ public class Utils {
     public static String readBase64(String filename, Context context) {
         try {
             InputStream ins = context.getAssets().open(filename);
-            ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             int size = 0;
             // Read the entire resource into a local byte buffer.
             byte[] buffer = new byte[1024];
-            while((size=ins.read(buffer,0,1024))>=0){
-                outputStream.write(buffer,0,size);
+            while ((size = ins.read(buffer, 0, 1024)) >= 0) {
+                outputStream.write(buffer, 0, size);
             }
             ins.close();
             String toReturn = Base64.encodeToString(outputStream.toByteArray(), Base64.NO_WRAP);
