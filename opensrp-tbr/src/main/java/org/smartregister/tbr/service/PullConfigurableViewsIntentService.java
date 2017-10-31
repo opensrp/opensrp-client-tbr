@@ -3,19 +3,13 @@ package org.smartregister.tbr.service;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.smartregister.domain.Response;
-import org.smartregister.service.HTTPAgent;
+import org.smartregister.Context;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
-import org.smartregister.util.Utils;
 
 import static org.smartregister.util.Log.logError;
-import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by SGithengi on 19/10/2017.
@@ -29,68 +23,33 @@ public class PullConfigurableViewsIntentService extends IntentService {
 
     private ConfigurableViewsRepository configurableViewsRepository;
 
+    private PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
+
     public PullConfigurableViewsIntentService() {
         super("PullConfigurableViewsIntentService");
     }
 
-
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
+        if (intent != null)
             try {
-                JSONArray views = fetchConfigurableViews();
-                if (views != null && views.length() > 0) {
-                    long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-                    updateLastSyncTimeStamp(lastSyncTimeStamp);
-                    Intent refreshLoginIntentFilter = new Intent();
-                    refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
-                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
-                }
-            } catch (Exception e1) {
-                Log.e(TAG, "Error fetching configurable views from server", e1);
+                pullConfigurableViewsServiceHelper.processIntent();
+                Intent refreshLoginIntentFilter = new Intent();
+                refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
+            } catch (Exception e) {
+                logError("Error fetching configurable Views");
             }
 
-        }
-    }
-
-    private JSONArray fetchConfigurableViews() throws JSONException {
-        HTTPAgent httpAgent = TbrApplication.getInstance().getContext().getHttpAgent();
-        String baseUrl = TbrApplication.getInstance().getContext().
-                configuration().dristhiBaseURL();
-        String endString = "/";
-        if (baseUrl.endsWith(endString)) {
-            baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
-        }
-
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + getLastSyncTimeStamp();
-        Log.i(TAG, "URL: " + url);
-
-        if (httpAgent == null) {
-            logError(url + " http agent is null");
-            return null;
-        }
-
-        Response resp = httpAgent.fetch(url);
-
-        if (resp.isFailure()) {
-            logError(url + " not returned data");
-            return null;
-        }
-        return new JSONArray((String) resp.payload());
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
-    }
-
-    public long getLastSyncTimeStamp() {
-        return Long.parseLong(Utils.getPreference(getApplicationContext(), LAST_SYNC_TIMESTAMP, "0"));
-    }
-
-    private void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
-        Utils.writePreference(getApplicationContext(), LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
+        Context context = TbrApplication.getInstance().getContext();
+        pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
+                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL());
     }
 
 }

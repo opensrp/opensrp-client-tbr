@@ -54,7 +54,9 @@ script:
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew
   - ls -la
-  #Run All tests Unit and Instrumentation
+  #Run All Instrumentation Tests
+  - ./gradlew opensrp-tbr:connectedAndroidTest
+  #Run All Unit tests Unit
   - travis_wait ./gradlew build :opensrp-tbr:jacocoTestReport coveralls --stacktrace
 
 after_failure:
