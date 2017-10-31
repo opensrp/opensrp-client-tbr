@@ -29,12 +29,10 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
     }
 
     @Override
-    protected void onInitialization() {
-
+    protected void onInitialization() {//implement abstract method
     }
 
     @Override
-    public void startRegistration() {
-
+    public void startRegistration() {//implement abstract method
     }
 }
