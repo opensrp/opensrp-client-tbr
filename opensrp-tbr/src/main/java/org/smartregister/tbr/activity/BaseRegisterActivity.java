@@ -20,7 +20,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.register_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.register_toolbar);
         setSupportActionBar(toolbar);

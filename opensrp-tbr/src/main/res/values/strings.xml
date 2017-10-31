@@ -13,4 +13,6 @@
     <string name="action_advanced_search">Advanced Search</string>
     <string name="action_sort_list">Sort List</string>
     <string name="action_filter_list">Filter List</string>
+    <string name="str_search_hint">Search name or ID</string>
+    <string name="scan_qr_code">Scan QR code</string>
 </resources>
