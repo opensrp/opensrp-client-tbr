@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -28,6 +30,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,7 +56,6 @@ import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
@@ -94,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     private RemoteLoginTask remoteLoginTask;
     public static String REFRESH_LOGIN_ACTION = "org.smartregister.action.LOGIN_REFRESH";
     private BroadcastReceiver refreshLoginReceiver = new RefreshLoginBroadcastReceiver();
+    private CheckBox showPasswordCheckBox;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         initializeLoginFields();
         initializeBuildDetails();
         setDoneActionHandlerOnPasswordField();
+        setListenerOnShowPasswordCheckbox();
         initializeProgressDialog();
 
         setLanguage();
@@ -204,6 +209,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeLoginFields() {
         userNameEditText = (EditText) findViewById(org.smartregister.R.id.login_userNameText);
         passwordEditText = (EditText) findViewById(org.smartregister.R.id.login_passwordText);
+        showPasswordCheckBox = (CheckBox) findViewById(R.id.show_password);
     }
 
     private void setDoneActionHandlerOnPasswordField() {
@@ -214,6 +220,19 @@ public class LoginActivity extends AppCompatActivity {
                     login(findViewById(org.smartregister.R.id.login_loginButton));
                 }
                 return false;
+            }
+        });
+    }
+
+    private void setListenerOnShowPasswordCheckbox() {
+        showPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
@@ -521,10 +540,11 @@ public class LoginActivity extends AppCompatActivity {
         ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
         Background background = metadata.getBackground();
-        if (!metadata.getShowPasswordCheckbox())
-            findViewById(R.id.show_password).setVisibility(View.GONE);
-        else
-            findViewById(R.id.show_password).setVisibility(View.VISIBLE);
+        if (!metadata.getShowPasswordCheckbox()) {
+            showPasswordCheckBox.setVisibility(View.GONE);
+        } else {
+            showPasswordCheckBox.setVisibility(View.VISIBLE);
+        }
         if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
             View canvasRL = findViewById(R.id.canvasRL);
             GradientDrawable gradientDrawable = new GradientDrawable();
