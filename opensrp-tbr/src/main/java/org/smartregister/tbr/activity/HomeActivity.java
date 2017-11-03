@@ -34,7 +34,7 @@ public class HomeActivity extends BaseActivity {
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
         //set user initials
-        if (fullName != null) {
+        if (fullName != null && !fullName.toString().isEmpty()) {
             TextView textView = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
             textView.setText(Utils.getInitials(fullName));
         }
