@@ -7,6 +7,7 @@ package org.smartregister.tbr.util;
 public class Constants {
     public static class INTENT_KEY {
         public static final String FULL_NAME = "full_name";
+        public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
     public static class CHAR {

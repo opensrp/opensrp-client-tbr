@@ -1,6 +1,7 @@
 {
-  "identifier": "home_view",
-  "organization": "pakistan_clinic_1",
+  "serverVersion": 1508765191,
+  "type": "ViewConfiguration",
+  "identifier": "home",
   "views": [
     {
       "identifier": "presumptive_patients",
