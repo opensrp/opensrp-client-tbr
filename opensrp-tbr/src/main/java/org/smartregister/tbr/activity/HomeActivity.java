@@ -31,11 +31,11 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        Intent intent = getIntent();
+        String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
+                getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
         //set user initials
-        if (intent.hasExtra(Constants.INTENT_KEY.FULL_NAME)) {
+        if (fullName != null && !fullName.toString().isEmpty()) {
             TextView textView = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
-            String fullName = intent.getStringExtra(Constants.INTENT_KEY.FULL_NAME);
             textView.setText(Utils.getInitials(fullName));
         }
         //Set App Name

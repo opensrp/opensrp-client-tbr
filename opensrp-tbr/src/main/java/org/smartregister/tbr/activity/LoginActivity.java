@@ -52,7 +52,6 @@ import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.util.Log;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
@@ -376,7 +375,6 @@ public class LoginActivity extends AppCompatActivity {
     private void localLoginWith(String userName, String password) {
         getOpenSRPContext().userService().localLogin(userName, password);
         goToHome(false);
-        startZScoreIntentService();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -387,11 +385,6 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void startZScoreIntentService() {
-        /*Intent intent = new Intent(this, ZScoreRefreshIntentService.class);
-        startService(intent);*/
-    }
-
     private void remoteLoginWith(String userName, String password, String userInfo) {
         getOpenSRPContext().userService().remoteLogin(userName, password, userInfo);
         goToHome(true);
@@ -399,17 +392,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToHome(boolean remote) {
-        if (!remote) {
-            startZScoreIntentService();
-        } else {
+        if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        /*VaccinatorApplication.setCrashlyticsUser(getOpenSRPContext());
-        Intent intent = new Intent(this, ChildSmartRegisterActivity.class);
-        intent.putExtra(BaseRegisterActivity.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
-        IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(this, null);*/
 
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
         finish();
     }
 
@@ -568,20 +557,14 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected LoginResponse doInBackground(Void... params) {
-            //return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
-            return null;
+            return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
         }
 
         @Override
         protected void onPostExecute(LoginResponse loginResponse) {
-            //super.onPostExecute(loginResponse);
+            super.onPostExecute(loginResponse);
             progressDialog.dismiss();
-            // afterLoginCheck.onEvent(loginResponse);
-
-            Intent i = new Intent(TbrApplication.getInstance().getApplicationContext(), HomeActivity.class);
-            i.putExtra(Constants.INTENT_KEY.FULL_NAME, "Ramsey Wong");
-            startActivity(i);
-            finish();
+            afterLoginCheck.onEvent(loginResponse);
         }
     }
 
