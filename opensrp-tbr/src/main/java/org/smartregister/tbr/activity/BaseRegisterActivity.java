@@ -1,23 +1,21 @@
 package org.smartregister.tbr.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.smartregister.tbr.R;
-import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 /**
  * Created by samuelgithengi on 10/30/17.
  */
 
-public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public abstract class BaseRegisterActivity extends AppCompatActivity {
 
     public static String TOOLBAR_TITLE = "org.smartregister.tbr.activity.toolbarTitle";
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
@@ -26,7 +24,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getIntent().getStringExtra(TOOLBAR_TITLE));
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,7 +39,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
     }
 

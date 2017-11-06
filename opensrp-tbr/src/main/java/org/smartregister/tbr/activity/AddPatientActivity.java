@@ -1,17 +1,21 @@
 package org.smartregister.tbr.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
+import org.smartregister.enketo.view.fragment.RegisterFragment;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.fragment.PresumptivePatientRegisterFragment;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
@@ -21,11 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
 
-/**
- * Created by samuelgithengi on 10/30/17.
- */
-
-public class PresumptivePatientRegisterActivity extends BaseRegisterActivity implements DisplayFormListener {
+public class AddPatientActivity extends AppCompatActivity implements DisplayFormListener {
 
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -38,10 +38,19 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_register);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startFormActivity("new_patient_registration", "1", null);
+            }
+        });
+
         formNames = this.buildFormNameList();
-        mBaseFragment = new PresumptivePatientRegisterFragment();
+        mBaseFragment = new RegisterFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -56,14 +65,16 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addNewPatient:
-                startFormActivity("new_patient_registration", "1", null);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -120,6 +131,8 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
             @Override
             public void run() {
                 mPager.setCurrentItem(0, false);
+                RegisterFragment registerFragment = (RegisterFragment) findFragmentByPosition(0);
+
                 //hack reset the form
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
                 if (displayFormFragment != null) {
@@ -151,4 +164,5 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
 
         return -1;
     }
+
 }
