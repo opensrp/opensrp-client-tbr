@@ -1,6 +1,5 @@
 package org.smartregister.tbr.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.HapticFeedbackConstants;
@@ -11,7 +10,6 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.fragment.RegisterFragment;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
-import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
@@ -39,10 +37,10 @@ public class HomeActivity extends BaseActivity {
             textView.setText(Utils.getInitials(fullName));
         }
         //Set App Name
-        MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfigFile();
-        if (config != null && config.getAppName() != null) {
+        MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
+        if (config != null && config.getApplicationName() != null) {
             TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
-            title.setText(config.getAppName());
+            title.setText(config.getApplicationName());
         }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -59,4 +57,5 @@ public class HomeActivity extends BaseActivity {
         TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
         textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
     }
+
 }

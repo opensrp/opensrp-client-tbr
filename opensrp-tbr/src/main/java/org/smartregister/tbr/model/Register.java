@@ -26,7 +26,7 @@ public class Register {
 
     public Register(View view, int totalPatients, int totalPatientsWithDueOverdue) {
 
-        Map<String, String> en = getLanguageFile("en");
+        Map<String, String> en = getLanguageFile("sw");
         String label = en != null && en.size() > 0 ? en.get(view.getIdentifier()) : view.getLabel();
 
         this.title = label != null && !label.isEmpty() ? label : view.getLabel();

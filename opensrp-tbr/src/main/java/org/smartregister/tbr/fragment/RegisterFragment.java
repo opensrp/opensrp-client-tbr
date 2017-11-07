@@ -33,8 +33,12 @@ public class RegisterFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         List<Register> values = new ArrayList<>();
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getJsonSpecHelper().getViewFile(Constants.VIEW.HOME_VIEW);
-        List<org.smartregister.tbr.jsonspec.model.View> views = viewConfiguration.getViews();
+
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
+        if (jsonString == null) return;
+
+        ViewConfiguration homeViewConfig = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
         for (org.smartregister.tbr.jsonspec.model.View view : views) {
             if (view.isVisible()) {
                 values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
@@ -55,7 +59,6 @@ public class RegisterFragment extends ListFragment {
         setListAdapter(adapter);
 
     }
-
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
@@ -95,4 +98,5 @@ public class RegisterFragment extends ListFragment {
             }
         }
     }
+
 }

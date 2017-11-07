@@ -211,6 +211,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     login(findViewById(org.smartregister.R.id.login_loginButton));
+                    return true;
                 }
                 return false;
             }
@@ -504,8 +505,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String configFile = "login";
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
         if (jsonString == null) return;
         ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
