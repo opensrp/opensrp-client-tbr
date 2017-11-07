@@ -1,14 +1,16 @@
 package org.smartregister.tbr.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.smartregister.Context;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.util.Utils;
+import org.smartregister.util.Log;
+import org.smartregister.view.activity.DrishtiApplication;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
@@ -44,8 +46,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void logOutUser() {
-
-        Intent i = new Intent(TbrApplication.getInstance().getApplicationContext(), LoginActivity.class);
-        startActivity(i);
+        try {
+            DrishtiApplication application = (DrishtiApplication) getApplication();
+            application.logoutCurrentUser();
+            finish();
+        } catch (Exception e) {
+            Log.logError(e.getMessage());
+        }
     }
+
+    public Context getOpenSRPContext() {
+        return TbrApplication.getInstance().getContext();
+    }
+
 }

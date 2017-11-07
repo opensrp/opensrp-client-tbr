@@ -3,7 +3,6 @@ package org.smartregister.tbr.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import org.junit.After;
@@ -14,10 +13,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.shadows.MenuItemTestVersion;
-import org.smartregister.tbr.util.Constants;
-
-import java.util.ArrayList;
 
 /**
  * Created by ndegwamartin on 17/10/2017.
@@ -30,9 +25,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-
         Intent intent = new Intent(RuntimeEnvironment.application, HomeActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.FULL_NAME, "Test Guy");
         controller = Robolectric.buildActivity(HomeActivity.class, intent);
         activity = controller.get();
         org.mockito.MockitoAnnotations.initMocks(this);
@@ -57,15 +50,6 @@ public class HomeActivityTest extends BaseUnitTest {
     @Test
     public void homeActivityRendersCorrectUsernameInitialsOnCreate() {
         TextView textView = (TextView) activity.findViewById(R.id.custom_toolbar_logo_text);
-        junit.framework.Assert.assertEquals("TG", textView.getText());
-    }
-
-    @Test
-    public void shouldDisplayOnOptionsItemsMenuOnCreate() {
-        MenuItemTestVersion menuItem = new MenuItemTestVersion();
-        menuItem.setItemId(R.id.action_logout);
-        activity.onOptionsItemSelected(menuItem);
-        ArrayList<View> outViews = new ArrayList<>();
-        outViews.size();
+        junit.framework.Assert.assertEquals("NM", textView.getText());
     }
 }

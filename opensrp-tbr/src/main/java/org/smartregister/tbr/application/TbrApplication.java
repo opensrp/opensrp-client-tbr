@@ -7,6 +7,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
@@ -69,7 +70,14 @@ public class TbrApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-        //To Implement
+
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {
