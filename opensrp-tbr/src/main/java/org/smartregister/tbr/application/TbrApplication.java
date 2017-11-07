@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
@@ -23,8 +24,9 @@ import static org.smartregister.util.Log.logInfo;
 public class TbrApplication extends DrishtiApplication {
 
     private static JsonSpecHelper jsonSpecHelper;
-  
+
     private ConfigurableViewsRepository configurableViewsRepository;
+    private EventClientRepository eventClientRepository;
 
     @Override
     public void onCreate() {
@@ -100,5 +102,12 @@ public class TbrApplication extends DrishtiApplication {
         if (configurableViewsRepository == null)
             configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
         return configurableViewsRepository;
+    }
+
+    public EventClientRepository getEventClientRepository() {
+        if (eventClientRepository == null) {
+            eventClientRepository = new EventClientRepository(getRepository());
+        }
+        return eventClientRepository;
     }
 }

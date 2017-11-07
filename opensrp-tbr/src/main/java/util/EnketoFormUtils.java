@@ -1,6 +1,9 @@
 package util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +23,11 @@ import org.smartregister.clientandeventmodel.SubFormData;
 import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.form.FormSubmission;
 import org.smartregister.domain.form.SubForm;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.ClientProcessor;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
 
@@ -32,6 +40,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import static org.smartregister.util.Log.logError;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -50,12 +60,14 @@ public class EnketoFormUtils {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
     private Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private FormEntityConverter formEntityConverter;
+    private EventClientRepository eventClientRepository;
 
     public EnketoFormUtils(Context context) throws Exception {
         mContext = context;
         theAppContext = org.smartregister.Context.getInstance();
         FormAttributeParser formAttributeParser = new FormAttributeParser(context);
         formEntityConverter = new FormEntityConverter(formAttributeParser, mContext);
+        eventClientRepository = TbrApplication.getInstance().getEventClientRepository();
     }
 
     public static EnketoFormUtils getInstance(Context ctx) throws Exception {
@@ -206,39 +218,34 @@ public class EnketoFormUtils {
                 instanceId, formName, entityId, clientVersion, formDataDefinitionVersion,
                 formInstance, clientVersion);
 
-        // retrieve client and events
-        Client c = formEntityConverter.getClientFromFormSubmission(v2FormSubmission);
-        printClient(c);
-        Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
-        printEvent(e);
-
-        Map<String, Map<String, Object>> dep = formEntityConverter.
-                getDependentClientsFromFormSubmission(v2FormSubmission);
-        for (Map<String, Object> cm : dep.values()) {
-            Client cin = (Client) cm.get("client");
-            Event evin = (Event) cm.get("event");
-            printClient(cin);
-            printEvent(evin);
-
-        }
+        org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext), null);
 
     }
 
-    private void printClient(Client client) {
+    private void saveClient(Client client) {
         Log.logDebug("============== CLIENT ================");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         String clientJson = gson.toJson(client);
         Log.logDebug(clientJson);
+        try {
+            eventClientRepository.addorUpdateClient(client.getBaseEntityId(), new JSONObject(clientJson));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.logDebug("====================================");
 
     }
 
-    private void printEvent(Event event) {
+    private void saveEvent(Event event) {
         Log.logDebug("============== EVENT ================");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         String eventJson = gson.toJson(event);
         Log.logDebug(eventJson);
-        Log.logDebug("====================================");
+        try {
+            eventClientRepository.addEvent(event.getBaseEntityId(), new JSONObject(eventJson));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<SubFormData> getSubFormList(FormSubmission formSubmission) {
@@ -652,6 +659,43 @@ public class EnketoFormUtils {
         //Log.d("File", fileContents);
 
         return fileContents;
+    }
+
+    class SavePatientAsyncTask extends AsyncTask<Void, Void, Void> {
+        private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
+        private Context context;
+
+        public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context) {
+            this.formSubmission = formSubmission;
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+            Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+            saveClient(c);
+            Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+            saveEvent(e);
+            Map<String, Map<String, Object>> dep = formEntityConverter.
+                    getDependentClientsFromFormSubmission(formSubmission);
+            for (Map<String, Object> cm : dep.values()) {
+                Client cin = (Client) cm.get("client");
+                Event evin = (Event) cm.get("event");
+                saveClient(cin);
+                saveEvent(evin);
+            }
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+
+            try {
+                ClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            } catch (Exception e1) {
+                logError("Error Processing client ");
+            }
+            return null;
+        }
     }
 
 }

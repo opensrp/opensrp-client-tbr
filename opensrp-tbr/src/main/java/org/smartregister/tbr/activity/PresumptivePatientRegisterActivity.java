@@ -21,6 +21,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
 
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
+
 /**
  * Created by samuelgithengi on 10/30/17.
  */
@@ -59,7 +61,8 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addNewPatient:
-                startFormActivity("new_patient_registration", "1", null);
+                String entityId = generateRandomUUIDString();
+                startFormActivity("new_patient_registration", entityId, null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
