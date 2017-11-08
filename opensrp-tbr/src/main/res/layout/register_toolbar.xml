@@ -12,6 +12,7 @@
         android:background="@color/customAppThemeBlue"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
+        <include layout="@layout/tool_bar" />
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

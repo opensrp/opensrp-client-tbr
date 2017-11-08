@@ -18,4 +18,7 @@
     <dimen name="ec_main_header_search_layout_height">37dp</dimen>
     <dimen name="default_font_size">16sp</dimen>
     <dimen name="register_status_bar_margin">7dp</dimen>
+    <dimen name="title_label_text_max_width">150dp</dimen>
+    <dimen name="loc_picker_text_max_width">180dp</dimen>
+    <dimen name="loc_picker_text_min_width">130dp</dimen>
 </resources>

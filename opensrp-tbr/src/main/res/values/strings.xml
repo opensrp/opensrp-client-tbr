@@ -16,4 +16,13 @@
     <string name="str_search_hint">Search name or ID</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="no_record">No Record(s) Found!</string>
+    <string name="diagnose">Diagnose</string>
+    <string name="results">Results</string>
+    <string name="result">+ Result</string>
+    <string name="patient_profile">Patient</string>
+    <string name="tbreach">TB REACH</string>
+    <string name="alphabetical_sort">Alphabetical (Name)</string>
+    <string name="patient_name">Name</string>
+    <string name="participant_id">Participant ID</string>
+    <string name="mobile_phone_number">Mobile Phone Number</string>
 </resources>

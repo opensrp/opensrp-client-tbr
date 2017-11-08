@@ -25,11 +25,20 @@
             android:background="@android:color/transparent"
             android:ellipsize="end"
             android:hint="@string/str_search_hint"
+            android:maxLines="1"
             android:minWidth="@dimen/ec_main_header_search_box_width"
-            android:singleLine="true"
             android:textColor="@color/light_grey"
             android:textColorHint="@color/light_grey"
             android:textSize="@dimen/default_font_size" />
+
+        <ImageButton
+            android:id="@+id/btn_search_cancel"
+            android:layout_width="@dimen/ec_main_header_search_cancel_button_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_cross"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
