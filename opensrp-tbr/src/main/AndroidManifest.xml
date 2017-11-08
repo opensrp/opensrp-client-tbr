@@ -42,9 +42,6 @@
             android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.AddPatientActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".service.PullConfigurableViewsIntentService" />
 
