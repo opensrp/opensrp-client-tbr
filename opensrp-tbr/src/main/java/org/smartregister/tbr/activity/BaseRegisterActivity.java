@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
@@ -106,29 +105,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-    protected void initializeProgressDialog() {
+    public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(R.string.saving_dialog_title));
         progressDialog.setMessage(getString(R.string.please_wait_message));
-    }
-
-    public void showProgressDialog(String title, String message) {
-        if (progressDialog != null) {
-            if (StringUtils.isNotBlank(title)) {
-                progressDialog.setTitle(title);
-            }
-
-            if (StringUtils.isNotBlank(message)) {
-                progressDialog.setMessage(message);
-            }
-
-            progressDialog.show();
-        }
-    }
-
-    public void showProgressDialog() {
-        showProgressDialog(getString(R.string.saving_dialog_title), getString(R.string.please_wait_message));
+        progressDialog.show();
     }
 
     public void hideProgressDialog() {

@@ -55,7 +55,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                 currentPage = position;
             }
         });
-        initializeProgressDialog();
     }
 
     @Override
@@ -156,6 +155,5 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
 
         return -1;
     }
-
 
 }

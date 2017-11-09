@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -451,7 +452,7 @@ public class EnketoFormUtils {
             String entityRelationships = readFileFromAssetsFolder(
                     "www/form/entity_relationship" + ".json");
             JSONArray json = new JSONArray(entityRelationships);
-            Log.logInfo(json.toString());
+            logInfo(json.toString());
 
             JSONObject rJson;
 
@@ -473,7 +474,7 @@ public class EnketoFormUtils {
                                 : rJson.getString("from");
                 String sql =
                         "select * from " + childTable + " where " + joinField + "='" + val + "'";
-                Log.logInfo(sql);
+                logInfo(sql);
                 String dbEntity = theAppContext.formDataRepository().queryUniqueResult(sql);
                 JSONObject linkedEntityJson = new JSONObject();
 
@@ -677,12 +678,7 @@ public class EnketoFormUtils {
             if (context instanceof PresumptivePatientRegisterActivity) {
                 final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
-                registerActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        registerActivity.hideProgressDialog();
-                    }
-                });
+                registerActivity.hideProgressDialog();
             }
         }
 
