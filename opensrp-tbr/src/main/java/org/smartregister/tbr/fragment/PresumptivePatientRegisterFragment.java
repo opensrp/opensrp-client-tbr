@@ -3,12 +3,15 @@ package org.smartregister.tbr.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -24,6 +27,9 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
  */
 
 public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
+
+    private RegisterActionHandler registerActionHandler = new RegisterActionHandler();
+    private ResultMenuListener resultMenuListener = new ResultMenuListener();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,10 +71,17 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         }
     }
 
+    public void showResultMenu(View view) {
+        PopupMenu popup = new PopupMenu(getActivity(), view);
+        popup.inflate(R.menu.menu_register_result);
+        popup.setOnMenuItemClickListener(resultMenuListener);
+        popup.show();
+    }
+
     private void initializeQueries() {
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity());
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), registerActionHandler);
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -108,5 +121,31 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
 
+    }
+
+    class RegisterActionHandler implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            CommonPersonObjectClient client = null;
+            if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
+                client = (CommonPersonObjectClient) view.getTag();
+            }
+            switch (view.getId()) {
+                case R.id.result_lnk:
+                    showResultMenu(view);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            return false;
+        }
     }
 }

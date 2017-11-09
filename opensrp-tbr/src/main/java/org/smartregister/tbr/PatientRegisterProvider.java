@@ -31,11 +31,13 @@ import static org.smartregister.util.Utils.getValue;
 
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
+    private View.OnClickListener onClickListener;
     private final Context context;
 
-    public PatientRegisterProvider(Context context) {
+    public PatientRegisterProvider(Context context, View.OnClickListener onClickListener) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -69,6 +71,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
         String ageAndGender = String.format("%s, %s", age, gender);
         fillValue((TextView) convertView.findViewById(R.id.age_gender), ageAndGender);
+
+        View result = convertView.findViewById(R.id.result_lnk);
+        result.setOnClickListener(onClickListener);
+        result.setTag(client);
 
     }
 
