@@ -51,6 +51,13 @@
           "json_mapping": {
             "field": "attributes.Primary Contact Number"
           }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
         }
       ]
     }

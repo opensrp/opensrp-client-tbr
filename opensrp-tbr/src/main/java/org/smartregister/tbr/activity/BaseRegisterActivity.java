@@ -1,11 +1,17 @@
 package org.smartregister.tbr.activity;
 
+import android.app.ProgressDialog;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 /**
@@ -13,6 +19,8 @@ import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
  */
 
 public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity {
+
+    private ProgressDialog progressDialog;
 
     public static String TOOLBAR_TITLE = "org.smartregister.tbr.activity.toolbarTitle";
 
@@ -65,5 +73,67 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     public void startRegistration() {
 
+    }
+
+    protected abstract android.support.v4.app.Fragment findFragmentByPosition(int position);
+
+    public void refreshList(final FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            BaseRegisterFragment registerFragment = (BaseRegisterFragment) findFragmentByPosition(0);
+            if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                registerFragment.refreshListView();
+            }
+        } else {
+            Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    BaseRegisterFragment registerFragment = (BaseRegisterFragment) findFragmentByPosition(0);
+                    if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                        registerFragment.refreshListView();
+                    }
+                }
+            });
+        }
+
+    }
+
+    protected void refreshList(String data) {
+        BaseRegisterFragment registerFragment = (BaseRegisterFragment) findFragmentByPosition(0);
+        if (registerFragment != null && data != null) {
+            registerFragment.refreshListView();
+        }
+
+    }
+
+    protected void initializeProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle(getString(R.string.saving_dialog_title));
+        progressDialog.setMessage(getString(R.string.please_wait_message));
+    }
+
+    public void showProgressDialog(String title, String message) {
+        if (progressDialog != null) {
+            if (StringUtils.isNotBlank(title)) {
+                progressDialog.setTitle(title);
+            }
+
+            if (StringUtils.isNotBlank(message)) {
+                progressDialog.setMessage(message);
+            }
+
+            progressDialog.show();
+        }
+    }
+
+    public void showProgressDialog() {
+        showProgressDialog(getString(R.string.saving_dialog_title), getString(R.string.please_wait_message));
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }

@@ -25,4 +25,6 @@
     <string name="patient_name">Name</string>
     <string name="participant_id">Participant ID</string>
     <string name="mobile_phone_number">Mobile Phone Number</string>
+    <string name="saving_dialog_title">Saving…</string>
+    <string name="please_wait_message">Please wait</string>
 </resources>

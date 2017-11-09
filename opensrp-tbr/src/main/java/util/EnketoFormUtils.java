@@ -20,6 +20,7 @@ import org.smartregister.clientandeventmodel.FormEntityConverter;
 import org.smartregister.clientandeventmodel.FormField;
 import org.smartregister.clientandeventmodel.FormInstance;
 import org.smartregister.clientandeventmodel.SubFormData;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.form.FormSubmission;
 import org.smartregister.domain.form.SubForm;
@@ -27,6 +28,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessor;
+import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
@@ -668,6 +670,27 @@ public class EnketoFormUtils {
         public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context) {
             this.formSubmission = formSubmission;
             this.context = context;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (context instanceof PresumptivePatientRegisterActivity) {
+                final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
+                registerActivity.refreshList(FetchStatus.fetched);
+                registerActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        registerActivity.hideProgressDialog();
+                    }
+                });
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (context instanceof PresumptivePatientRegisterActivity) {
+                ((PresumptivePatientRegisterActivity) context).showProgressDialog();
+            }
         }
 
         @Override

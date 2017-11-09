@@ -38,7 +38,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public SortOption sortOption() {
-                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), TbrConstants.KEY.FIRST_NAME);
+                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), "last_interacted_with desc");
             }
 
             @Override
@@ -97,5 +97,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void onCreation() {
 
     }
+
 
 }

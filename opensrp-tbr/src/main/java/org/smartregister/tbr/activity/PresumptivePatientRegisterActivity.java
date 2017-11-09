@@ -55,6 +55,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                 currentPage = position;
             }
         });
+        initializeProgressDialog();
     }
 
     @Override
@@ -131,14 +132,15 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                 }
 
                 displayFormFragment.setRecordId(null);
+                refreshList(data);
             }
         });
 
     }
 
-    private android.support.v4.app.Fragment findFragmentByPosition(int position) {
-        FragmentPagerAdapter fragmentPagerAdapter = mPagerAdapter;
-        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
+    @Override
+    protected android.support.v4.app.Fragment findFragmentByPosition(int position) {
+        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
     }
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
@@ -154,4 +156,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
 
         return -1;
     }
+
+
 }
