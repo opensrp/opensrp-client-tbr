@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.View;
+import org.smartregister.tbr.util.Utils;
 
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class Register {
 
     public Register(View view, int totalPatients, int totalPatientsWithDueOverdue) {
 
-        Map<String, String> en = getLanguageFile("sw");
+        Map<String, String> en = getLanguageFile(Utils.getLanguage());
         String label = en != null && en.size() > 0 ? en.get(view.getIdentifier()) : view.getLabel();
 
         this.title = label != null && !label.isEmpty() ? label : view.getLabel();

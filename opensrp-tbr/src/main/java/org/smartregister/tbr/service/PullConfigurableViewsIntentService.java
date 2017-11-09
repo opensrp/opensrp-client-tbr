@@ -4,9 +4,12 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 
 import static org.smartregister.util.Log.logError;
@@ -33,10 +36,11 @@ public class PullConfigurableViewsIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null)
             try {
-                pullConfigurableViewsServiceHelper.processIntent();
-                Intent refreshLoginIntentFilter = new Intent();
-                refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
+                int count = pullConfigurableViewsServiceHelper.processIntent();
+                if (count > 0) {
+                    EventBus.getDefault().post(new ViewConfigurationSyncCompleteEvent());
+                    EventBus.getDefault().post(new LanguageConfigurationEvent(true));
+                }
             } catch (Exception e) {
                 logError("Error fetching configurable Views");
             }

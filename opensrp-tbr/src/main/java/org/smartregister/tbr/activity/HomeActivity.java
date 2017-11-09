@@ -1,34 +1,74 @@
 package org.smartregister.tbr.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.RegisterFragment;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
  */
 
 public class HomeActivity extends BaseActivity {
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.round_white_background);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        if (savedInstanceState == null) {
+            refreshView();
+        }
+
+    }
+
+    //
+    public void manualSync(View view) {
+        Utils.showToast(this, "Manual Syncing ...");
+        EventBus.getDefault().post(new TriggerViewConfigurationSyncEvent());
+        view.performHapticFeedback(HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+        TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
+        textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    private void refreshView() {
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
         //set user initials
@@ -42,20 +82,25 @@ public class HomeActivity extends BaseActivity {
             TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
             title.setText(config.getApplicationName());
         }
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.registers_container, new RegisterFragment())
-                    .commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.registers_container, new RegisterFragment())
+                .commit();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void refreshView(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
+        if (syncCompleteEvent != null) {
+            refreshView();
         }
 
     }
 
-    //
-    public void manualSync(View view) {
-        Utils.showToast(this, "Manual Syncing ...");
-        view.performHapticFeedback(HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
-        TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
-        textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void refreshView(LanguageConfigurationEvent languageConfigurationEvent) {
+        if (languageConfigurationEvent != null) {
+            refreshView();
+        }
+
     }
 
 }

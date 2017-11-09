@@ -18,7 +18,7 @@ import org.smartregister.tbr.util.Constants;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -58,10 +58,8 @@ public class JsonSpecHelper {
 
     public MainConfig getMainConfiguration() {
         try {
-            Gson gson = new Gson();
-
             String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.MAIN);
-            return gson.fromJson(jsonString, MAIN_CONFIG_TYPE);
+            return (MainConfig) getConfigurableView(jsonString).getMetadata();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
@@ -89,7 +87,7 @@ public class JsonSpecHelper {
     public Map<String, String> getAvailableLanguagesMap() {
         try {
             String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/lang");
-            Map<String, String> languages = new HashMap<>();
+            Map<String, String> languages = new LinkedHashMap<>();
             for (int i = 0; i < langFiles.length; i++) {
                 String language = langFiles[i].substring(0, langFiles[i].indexOf('.'));
                 Locale locale = new Locale(language);
@@ -119,7 +117,8 @@ public class JsonSpecHelper {
         try {
             final RuntimeTypeAdapterFactory<BaseConfiguration> typeFactory = RuntimeTypeAdapterFactory
                     .of(BaseConfiguration.class, "type")
-                    .registerSubtype(LoginConfiguration.class, "Login");
+                    .registerSubtype(LoginConfiguration.class, "Login")
+                    .registerSubtype(MainConfig.class, "Main");
             final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
             return gson.fromJson(jsonString, VIEW_CONFIG_TYPE);
         } catch (Exception e) {

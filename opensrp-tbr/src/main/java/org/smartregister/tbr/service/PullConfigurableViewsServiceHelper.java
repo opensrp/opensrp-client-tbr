@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.util.Utils;
 
@@ -33,12 +34,13 @@ public class PullConfigurableViewsServiceHelper {
         this.baseUrl = baseUrl;
     }
 
-    protected void processIntent() throws Exception {
+    protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
             updateLastSyncTimeStamp(lastSyncTimeStamp);
         }
+        return views == null ? 0 : views.length();
     }
 
     private JSONArray fetchConfigurableViews() throws JSONException {
