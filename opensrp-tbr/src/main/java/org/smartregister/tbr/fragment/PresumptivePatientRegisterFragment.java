@@ -17,10 +17,12 @@ import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.tbr.PatientRegisterProvider;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 
 import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 /**
  * Created by samuelgithengi on 11/6/17.
@@ -145,6 +147,18 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
+            PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
+            switch (item.getItemId()) {
+                case R.id.result_gene_xpert:
+                    registerActivity.startFormActivity("result_gene_xpert", generateRandomUUIDString(), null);
+                    return true;
+                case R.id.result_smear:
+                    registerActivity.startFormActivity("result_smear", generateRandomUUIDString(), null);
+                    return true;
+                case R.id.result_chest_xray:
+                    registerActivity.startFormActivity("result_chest_xray", generateRandomUUIDString(), null);
+                    return true;
+            }
             return false;
         }
     }

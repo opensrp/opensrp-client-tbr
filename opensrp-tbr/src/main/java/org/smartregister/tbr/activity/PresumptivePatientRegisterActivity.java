@@ -114,6 +114,9 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     private String[] buildFormNameList() {
         List<String> formNames = new ArrayList<String>();
         formNames.add("new_patient_registration");
+        formNames.add("result_gene_xpert");
+        formNames.add("result_smear");
+        formNames.add("result_chest_xray");
         return formNames.toArray(new String[formNames.size()]);
     }
 
