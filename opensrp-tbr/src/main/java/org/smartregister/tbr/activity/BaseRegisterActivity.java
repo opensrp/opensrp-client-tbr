@@ -3,6 +3,7 @@ package org.smartregister.tbr.activity;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,7 +74,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-    protected abstract android.support.v4.app.Fragment findFragmentByPosition(int position);
+    protected abstract Fragment findFragmentByPosition(int position);
 
     public void refreshList(final FetchStatus fetchStatus) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
