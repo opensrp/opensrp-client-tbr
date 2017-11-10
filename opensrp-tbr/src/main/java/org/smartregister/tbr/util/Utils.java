@@ -1,16 +1,17 @@
 package org.smartregister.tbr.util;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,11 +51,44 @@ public class Utils {
     public static void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
+
+        Resources res = TbrApplication.getInstance().getApplicationContext().getResources();
+        // Change locale settings in the app.
+        // DisplayMetrics dm = res.getDisplayMetrics();
+        //Configuration conf = res.getConfiguration();
+        //conf.locale = new Locale(language);
+        //res.updateConfiguration(conf, dm);
     }
 
 
     public static String getLanguage() {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
+    }
+
+    public static void showDialogMessage(Context context, String title, String message) {
+        final AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        Dialog dialog = null;
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert);
+
+        dialog = builder.create();
+        dialog.show();
     }
 }

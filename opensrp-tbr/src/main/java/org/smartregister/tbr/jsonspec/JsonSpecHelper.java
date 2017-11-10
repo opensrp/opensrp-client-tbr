@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.BaseConfiguration;
@@ -15,7 +14,6 @@ import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,21 +28,16 @@ import util.RuntimeTypeAdapterFactory;
  */
 
 public class JsonSpecHelper {
-    private static String BASE_PATH = "synced";
+
     private static final String TAG = JsonSpecHelper.class.getCanonicalName();
-
-    private static final Type MAIN_CONFIG_TYPE = new TypeToken<MainConfig>() {
-    }.getType();
-
-    private static final Type LANG_TYPE = new TypeToken<Map<String, String>>() {
-    }.getType();
-
 
     private static final Type VIEW_CONFIG_TYPE = new TypeToken<ViewConfiguration>() {
     }.getType();
 
 
     private Context context = null;
+
+    private static final int LANG_SUBSTRING_OFFSET = 5;
 
     public JsonSpecHelper() {
         if (context == null) {
@@ -67,46 +60,36 @@ public class JsonSpecHelper {
     }
 
     public List<String> getAvailableLanguages() {
+        List<String> languages = new ArrayList<>();
         try {
-            String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/lang");
-            List<String> languages = new ArrayList<>();
-            for (int i = 0; i < langFiles.length; i++) {
-                String language = langFiles[i].substring(0, langFiles[i].indexOf('.'));
-                Locale locale = new Locale(language);
-                languages.add(locale.getDisplayLanguage());
-
+            List<String> langFiles = TbrApplication.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
+            if (langFiles != null) {
+                for (int i = 0; i < langFiles.size(); i++) {
+                    String language = langFiles.get(i).substring(LANG_SUBSTRING_OFFSET);
+                    Locale locale = new Locale(language);
+                    languages.add(locale.getDisplayLanguage());
+                }
             }
 
-            return languages;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return null;
         }
+
+        return languages;
     }
 
     public Map<String, String> getAvailableLanguagesMap() {
         try {
-            String[] langFiles = context.getResources().getAssets().list(BASE_PATH + "/lang");
+            List<String> langFiles = TbrApplication.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
             Map<String, String> languages = new LinkedHashMap<>();
-            for (int i = 0; i < langFiles.length; i++) {
-                String language = langFiles[i].substring(0, langFiles[i].indexOf('.'));
+            for (int i = 0; i < langFiles.size(); i++) {
+                String language = langFiles.get(i).substring(LANG_SUBSTRING_OFFSET);
                 Locale locale = new Locale(language);
                 languages.put(language, locale.getDisplayLanguage());
 
             }
 
             return languages;
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            return null;
-        }
-    }
-
-    public Map<String, String> getLanguageFile(String language) {
-        try {
-            Gson gson = new Gson();
-            JsonReader reader = new JsonReader(new InputStreamReader(context.getResources().getAssets().open(BASE_PATH + "/lang/" + language + ".json")));
-            return gson.fromJson(reader, LANG_TYPE);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
@@ -127,4 +110,13 @@ public class JsonSpecHelper {
         }
     }
 
+    public ViewConfiguration getLanguage(String language) {
+        try {
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableLanguageJson(Constants.CONFIGURATION.LANG + "_" + language);
+            return getConfigurableView(jsonString);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
 }

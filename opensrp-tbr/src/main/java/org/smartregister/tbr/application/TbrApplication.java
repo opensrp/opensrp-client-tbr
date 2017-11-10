@@ -12,7 +12,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
-import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
@@ -143,6 +142,7 @@ public class TbrApplication extends DrishtiApplication {
         if (config != null && config.getLanguage() != null && event.isFromServer()) {
 
             Utils.saveLanguage(config.getLanguage());
+            Utils.showToast(getApplicationContext(), "Syncing Complete...");
 
         }
     }

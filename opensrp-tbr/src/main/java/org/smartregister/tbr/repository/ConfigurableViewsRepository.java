@@ -112,4 +112,34 @@ public class ConfigurableViewsRepository extends BaseRepository {
         return jsonString;
     }
 
+    public String getConfigurableLanguageJson(String language) {
+        String jsonString;
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{JSON}, IDENTIFIER + " = ?", new String[]{language}, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        } else {
+            cursor.moveToFirst();
+            jsonString = cursor.getString(0);
+        }
+        cursor.close();
+        return jsonString;
+    }
+
+    public List<String> getAvailableLanguagesJson() {
+        List<String> jsonString;
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{IDENTIFIER}, IDENTIFIER + " like 'lang_%'", null, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        } else {
+            jsonString = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                jsonString.add(cursor.getString(0));
+            }
+        }
+        cursor.close();
+        return jsonString;
+    }
+
 }

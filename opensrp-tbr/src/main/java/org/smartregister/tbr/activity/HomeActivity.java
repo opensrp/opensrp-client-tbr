@@ -50,7 +50,9 @@ public class HomeActivity extends BaseActivity {
     //
     public void manualSync(View view) {
         Utils.showToast(this, "Manual Syncing ...");
-        EventBus.getDefault().post(new TriggerViewConfigurationSyncEvent());
+        TriggerViewConfigurationSyncEvent viewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
+        viewConfigurationSyncEvent.setManualSync(true);
+        EventBus.getDefault().post(viewConfigurationSyncEvent);
         view.performHapticFeedback(HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
         TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
         textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));

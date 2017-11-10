@@ -21,5 +21,6 @@ public class Constants {
         public static final String LOGIN = "login";
         public static final String HOME = "home";
         public static final String MAIN = "main";
+        public static final String LANG = "lang";
     }
 }

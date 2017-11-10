@@ -78,7 +78,7 @@ public class RegisterFragment extends ListFragment {
             if (registerType.equals(Register.PRESUMPTIVE_PATIENTS)) {
                 return 12;
             } else if (registerType.equals(Register.POSITIVE_PATIENTS)) {
-                return 12;
+                return 13;
             } else if (registerType.equals(Register.IN_TREATMENT_PATIENTS)) {
                 return 4;
             } else {

@@ -312,7 +312,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 })
                 .create();
-        dialog.show();
+
+        if (!LoginActivity.this.isFinishing() && !dialog.isShowing()) {
+            dialog.show();
+        }
     }
 
     private void showMessageDialog(String message, DialogInterface.OnClickListener ok, DialogInterface.OnClickListener cancel) {
