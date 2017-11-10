@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -129,10 +128,10 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
         @Override
         public void onClick(View view) {
-            CommonPersonObjectClient client = null;
+          /*  CommonPersonObjectClient client = null;
             if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
                 client = (CommonPersonObjectClient) view.getTag();
-            }
+            }*/
             switch (view.getId()) {
                 case R.id.result_lnk:
                     showResultMenu(view);
@@ -158,8 +157,9 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                 case R.id.result_chest_xray:
                     registerActivity.startFormActivity("result_chest_xray", generateRandomUUIDString(), null);
                     return true;
+                default:
+                    return false;
             }
-            return false;
         }
     }
 }

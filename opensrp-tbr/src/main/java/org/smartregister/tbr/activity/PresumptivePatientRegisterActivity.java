@@ -1,6 +1,7 @@
 package org.smartregister.tbr.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
@@ -30,12 +31,11 @@ import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 public class PresumptivePatientRegisterActivity extends BaseRegisterActivity implements DisplayFormListener {
 
     @Bind(R.id.view_pager)
-    OpenSRPViewPager mPager;
+    protected OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
     private int currentPage;
 
     private String[] formNames = new String[]{};
-    private android.support.v4.app.Fragment mBaseFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         setContentView(R.layout.activity_base_register);
         ButterKnife.bind(this);
         formNames = this.buildFormNameList();
-        mBaseFragment = new PresumptivePatientRegisterFragment();
+        Fragment mBaseFragment = new PresumptivePatientRegisterFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -126,7 +126,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
             @Override
             public void run() {
                 mPager.setCurrentItem(0, false);
-                //hack reset the form
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();

@@ -32,10 +32,8 @@ import static org.smartregister.util.Utils.getValue;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private View.OnClickListener onClickListener;
-    private final Context context;
 
     public PatientRegisterProvider(Context context, View.OnClickListener onClickListener) {
-        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.onClickListener = onClickListener;
     }
@@ -84,8 +82,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     @Override
-    public void onServiceModeSelected(ServiceModeOption serviceModeOption) {
-
+    public void onServiceModeSelected(ServiceModeOption serviceModeOption) {//Implement Abstract Method
     }
 
     @Override

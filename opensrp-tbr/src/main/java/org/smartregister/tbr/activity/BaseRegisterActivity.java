@@ -56,21 +56,20 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Override
-    protected void setupViews() {
-    }
-
-
-    @Override
-    protected void onResumption() {
+    protected void setupViews() {//Implement Abstract Method
     }
 
     @Override
-    protected void onInitialization() {
+    protected void onResumption() {//Implement Abstract Method
+    }
+
+    @Override
+    protected void onInitialization() {//Implement Abstract Method
 
     }
 
     @Override
-    public void startRegistration() {
+    public void startRegistration() {//Implement Abstract Method
 
     }
 
@@ -83,7 +82,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 registerFragment.refreshListView();
             }
         } else {
-            Handler handler = new android.os.Handler(Looper.getMainLooper());
+            Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

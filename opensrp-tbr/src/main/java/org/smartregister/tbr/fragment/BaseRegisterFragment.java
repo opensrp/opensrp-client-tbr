@@ -84,18 +84,15 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     @Override
-    protected void onInitialization() {
-
+    protected void onInitialization() {//Implement Abstract Method
     }
 
     @Override
-    protected void startRegistration() {
-
+    protected void startRegistration() {//Implement Abstract Method
     }
 
     @Override
-    protected void onCreation() {
-
+    protected void onCreation() {//Implement Abstract Method
     }
 
 
