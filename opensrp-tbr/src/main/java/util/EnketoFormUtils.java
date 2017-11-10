@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Xml;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,9 +33,18 @@ import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +52,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -65,7 +78,7 @@ public class EnketoFormUtils {
     private FormEntityConverter formEntityConverter;
     private EventClientRepository eventClientRepository;
 
-    public EnketoFormUtils(Context context) throws Exception {
+    public EnketoFormUtils(Context context) {
         mContext = context;
         theAppContext = org.smartregister.Context.getInstance();
         FormAttributeParser formAttributeParser = new FormAttributeParser(context);
@@ -73,7 +86,7 @@ public class EnketoFormUtils {
         eventClientRepository = TbrApplication.getInstance().getEventClientRepository();
     }
 
-    public static EnketoFormUtils getInstance(Context ctx) throws Exception {
+    public static EnketoFormUtils getInstance(Context ctx) {
         if (instance == null) {
             instance = new EnketoFormUtils(ctx);
         }
@@ -350,7 +363,7 @@ public class EnketoFormUtils {
             throws Exception {
         String bindPath = fieldsDefinition.getString("bind_type");
         String sql = "select * from " + bindPath + " where id='" + entityId + "'";
-        String dbEntity = null;//theAppContext.formDataRepository().queryUniqueResult(sql);
+        String dbEntity = theAppContext.formDataRepository().queryUniqueResult(sql);
 
         JSONObject entityJson = new JSONObject();
 
@@ -663,6 +676,344 @@ public class EnketoFormUtils {
 
         return fileContents;
     }
+
+    public String generateXMLInputForFormWithEntityId(String entityId, String formName, String
+            overrides) {
+        try {
+            // get the field overrides map
+            JSONObject fieldOverrides = new JSONObject();
+            if (overrides != null) {
+                fieldOverrides = new JSONObject(overrides);
+                String overridesStr = fieldOverrides.getString("fieldOverrides");
+                fieldOverrides = new JSONObject(overridesStr);
+            }
+
+            // use the form_definition.json to get the form mappings
+            String formDefinitionJson = readFileFromAssetsFolder(
+                    "www/form/" + formName + "/form_definition.json");
+            JSONObject formDefinition = new JSONObject(formDefinitionJson);
+            String ec_bind_path = formDefinition.getJSONObject("form").getString("ec_bind_type");
+
+            String sql =
+                    "select * from " + ec_bind_path + " where base_entity_id='" + entityId + "'";
+            Map<String, String> dbEntity = theAppContext.formDataRepository().
+                    getMapFromSQLQuery(sql);
+            Map<String, String> detailsMap = theAppContext.detailsRepository().
+                    getAllDetailsForClient(entityId);
+            detailsMap.putAll(dbEntity);
+
+            JSONObject entityJson = new JSONObject();
+            if (detailsMap != null && !detailsMap.isEmpty()) {
+                entityJson = new JSONObject(detailsMap);
+            }
+
+            //read the xml form model, the expected form model that is passed to the form mirrors it
+            String formModelString = readFileFromAssetsFolder(
+                    "www/form/" + formName + "/model" + ".xml").replaceAll("\n", " ")
+                    .replaceAll("\r", " ");
+            InputStream is = new ByteArrayInputStream(formModelString.getBytes());
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setValidating(false);
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document document = db.parse(is);
+
+            XmlSerializer serializer = Xml.newSerializer();
+            StringWriter writer = new StringWriter();
+            serializer.setOutput(writer);
+            serializer.startDocument("UTF-8", true);
+
+            //skip processing <model><instance>
+            NodeList els = ((Element) document.getElementsByTagName("model").item(0)).
+                    getElementsByTagName("instance");
+            Element el = (Element) els.item(0);
+            NodeList entries = el.getChildNodes();
+            int num = entries.getLength();
+            for (int i = 0; i < num; i++) {
+                Node n = entries.item(i);
+                if (n instanceof Element) {
+                    Element node = (Element) n;
+                    writeXML(node, serializer, fieldOverrides, formDefinition, entityJson, null);
+                }
+            }
+
+            serializer.endDocument();
+
+            String xml = writer.toString();
+            // Add model and instance tags
+            xml = xml.substring(56);
+            System.out.println(xml);
+
+            return xml;
+
+        } catch (Exception e) {
+            android.util.Log.e(TAG, e.toString(), e);
+        }
+        return "";
+    }
+
+    private void writeXML(Element node, XmlSerializer serializer, JSONObject fieldOverrides,
+                          JSONObject formDefinition, JSONObject entityJson, String parentId) {
+        try {
+            String nodeName = node.getNodeName();
+            String entityId =
+                    entityJson.has("id") ? entityJson.getString("id") : generateRandomUUIDString();
+            String relationalId =
+                    entityJson.has(relationalIdKey) ? entityJson.getString(relationalIdKey)
+                            : parentId;
+
+            serializer.startTag("", nodeName);
+
+            // write the xml attributes
+            writeXMLAttributes(node, serializer, entityId, relationalId);
+
+            String nodeValue = retrieveValueForNodeName(nodeName, entityJson, formDefinition);
+            //overwrite the node value with contents from overrides map
+            if (fieldOverrides.has(nodeName)) {
+                nodeValue = fieldOverrides.getString(nodeName);
+            }
+            //write the node value
+            if (nodeValue != null) {
+                serializer.text(nodeValue);
+            }
+
+            List<String> subFormNames = getSubFormNames(formDefinition);
+
+            // get all child nodes
+            NodeList entries = node.getChildNodes();
+            int num = entries.getLength();
+            for (int i = 0; i < num; i++) {
+                if (entries.item(i) instanceof Element) {
+                    Element child = (Element) entries.item(i);
+                    String fieldName = child.getNodeName();
+
+                    // its a subform element process it
+                    if (!subFormNames.isEmpty() && subFormNames.contains(fieldName)) {
+                        // its a subform element process it
+                        // get the subform definition
+                        JSONArray subForms = formDefinition.getJSONObject("form").
+                                getJSONArray("sub_forms");
+                        JSONObject subFormDefinition = retriveSubformDefinitionForBindPath(subForms,
+                                fieldName);
+                        if (subFormDefinition != null) {
+
+                            String childTableName = subFormDefinition.getString("ec_bind_type");
+                            String sql = "select * from '" + childTableName + "' where "
+                                    + "relational_id = '" + entityId + "'";
+                            String childRecordsString = theAppContext.formDataRepository().
+                                    queryList(sql);
+                            JSONArray childRecords = new JSONArray(childRecordsString);
+
+                            JSONArray fieldsArray = subFormDefinition.getJSONArray("fields");
+                            // check whether we are supposed to load the id of the child record
+                            JSONObject idFieldDefn = getJsonFieldFromArray("id", fieldsArray);
+
+                            // definition for id
+                            boolean shouldLoadId =
+                                    idFieldDefn.has(shouldLoadValueKey) && idFieldDefn
+                                            .getBoolean(shouldLoadValueKey);
+
+                            if (shouldLoadId && childRecords.length() > 0) {
+                                for (int k = 0; k < childRecords.length(); k++) {
+                                    JSONObject childEntityJson = childRecords.getJSONObject(k);
+                                    JSONObject obj = getCombinedJsonObjectForObject(
+                                            childEntityJson);
+                                    writeXML(child, serializer, fieldOverrides, subFormDefinition,
+                                            childEntityJson, entityId);
+                                }
+
+                            }
+                        }
+                    } else {
+                        // it's not a sub-form element write its value
+                        serializer.startTag("", fieldName);
+                        // write the xml attributes
+                        // a value node doesn't have id or relationalId fields
+                        writeXMLAttributes(child, serializer, null, null);
+                        // write the node value
+                        String value = retrieveValueForNodeName(fieldName, entityJson,
+                                formDefinition);
+                        // write the node value
+                        if (value != null) {
+                            serializer.text(value);
+                        }
+
+                        // overwrite the node value with contents from overrides map
+                        if (fieldOverrides.has(fieldName)) {
+                            serializer.text(fieldOverrides.getString(fieldName));
+                        }
+
+                        serializer.endTag("", fieldName);
+                    }
+                }
+            }
+
+            serializer.endTag("", node.getNodeName());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeXMLAttributes(Element node, XmlSerializer serializer, String id, String
+            relationalId) {
+        try {
+            // get a map containing the attributes of this node
+            NamedNodeMap attributes = node.getAttributes();
+
+            // get the number of nodes in this map
+            int numAttrs = attributes.getLength();
+
+            if (id != null) {
+                serializer.attribute("", databaseIdKey, id);
+            }
+
+            if (relationalId != null) {
+                serializer.attribute("", relationalIdKey, relationalId);
+            }
+
+            for (int i = 0; i < numAttrs; i++) {
+                Attr attr = (Attr) attributes.item(i);
+                String attrName = attr.getNodeName();
+                String attrValue = attr.getNodeValue();
+                serializer.attribute("", attrName, attrValue);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * retrieves node value for cases which the nodename don't match the name of the xml element
+     *
+     * @param nodeName
+     * @param entityJson
+     * @param formDefinition
+     * @return
+     */
+    private String retrieveValueForNodeName(String nodeName, JSONObject entityJson, JSONObject
+            formDefinition) {
+        try {
+            if (entityJson != null && entityJson.length() > 0) {
+                JSONObject fieldsObject =
+                        formDefinition.has("form") ? formDefinition.getJSONObject("form")
+                                : formDefinition.has("sub_forms") ? formDefinition
+                                .getJSONObject("sub_forms") : formDefinition;
+                if (fieldsObject.has("fields")) {
+                    JSONArray fields = fieldsObject.getJSONArray("fields");
+                    for (int i = 0; i < fields.length(); i++) {
+                        JSONObject field = fields.getJSONObject(i);
+                        String bindPath = field.has("bind") ? field.getString("bind") : null;
+                        String name = field.has("name") ? field.getString("name") : null;
+
+                        boolean matchingNodeFound =
+                                bindPath != null && name != null && bindPath.endsWith(nodeName)
+                                        || name != null && name.equals(nodeName);
+
+                        if (matchingNodeFound) {
+                            if (field.has("shouldLoadValue") && field
+                                    .getBoolean("shouldLoadValue")) {
+                                String keyName = entityJson.has(nodeName) ? nodeName : name;
+                                if (entityJson.has(keyName)) {
+                                    return entityJson.getString(keyName);
+                                } else {
+                                    return "";
+                                }
+                            } else {
+                                // the shouldLoadValue flag isn't set
+                                return "";
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e(TAG, e.toString(), e);
+        }
+
+        return "";
+    }
+
+    /**
+     * Retrieve additional details for this record from the details Table.
+     *
+     * @param entityJson
+     * @return
+     */
+    private JSONObject getCombinedJsonObjectForObject(JSONObject entityJson) {
+        try {
+            String baseEntityId = entityJson.getString("base_entity_id");
+            Map<String, String> map = theAppContext.detailsRepository().
+                    getAllDetailsForClient(baseEntityId);
+
+            for (String key : map.keySet()) {
+                if (!entityJson.has(key)) {
+                    entityJson.put(key, map.get(key));
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e(TAG, e.toString(), e);
+        }
+        return entityJson;
+    }
+
+    private List<String> getSubFormNames(JSONObject formDefinition) throws Exception {
+        List<String> subFormNames = new ArrayList<String>();
+        if (formDefinition.has("form") && formDefinition.getJSONObject("form").has("sub_forms")) {
+            JSONArray subForms = formDefinition.getJSONObject("form").getJSONArray("sub_forms");
+            for (int i = 0; i < subForms.length(); i++) {
+                JSONObject subForm = subForms.getJSONObject(i);
+                String subFormNameStr = subForm.getString("default_bind_path");
+                String[] path = subFormNameStr.split("/");
+                String subFormName = path[path.length - 1]; // the last token
+                subFormNames.add(subFormName);
+            }
+        }
+
+        return subFormNames;
+    }
+
+    /**
+     * Iterate through the provided array and retrieve a json object whose name attribute matches
+     * the name supplied
+     *
+     * @param fieldName
+     * @param array
+     * @return
+     */
+    private JSONObject getJsonFieldFromArray(String fieldName, JSONArray array) {
+        try {
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject field = array.getJSONObject(i);
+                    String name = field.has("name") ? field.getString("name") : null;
+                    if (name.equals(fieldName)) {
+                        return field;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e(TAG, e.toString(), e);
+        }
+        return null;
+    }
+
+    private JSONObject retriveSubformDefinitionForBindPath(JSONArray subForms, String fieldName)
+            throws Exception {
+        for (int i = 0; i < subForms.length(); i++) {
+            JSONObject subForm = subForms.getJSONObject(i);
+            String subFormNameStr = subForm.getString("default_bind_path");
+            String[] path = subFormNameStr.split("/");
+            String subFormName = path[path.length - 1]; // the last token
+
+            if (fieldName.equalsIgnoreCase(subFormName)) {
+                return subForm;
+            }
+        }
+
+        return null;
+    }
+
 
     class SavePatientAsyncTask extends AsyncTask<Void, Void, Void> {
         private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;

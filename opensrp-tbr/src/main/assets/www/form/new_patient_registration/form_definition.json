@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "default_bind_path": "/model/instance/ScreeningForm_03.10.17_US_OPENMRS",
-    "bind_type": "patient",
+    "bind_type": "ec_patient",
     "ec_bind_type": "ec_patient",
     "fields": [
       {

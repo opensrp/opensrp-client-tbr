@@ -11,12 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import org.json.JSONObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.PatientRegisterProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import util.TbrConstants;
 
@@ -31,6 +37,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
     private RegisterActionHandler registerActionHandler = new RegisterActionHandler();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
+    private CommonPersonObjectClient patient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,10 +135,9 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
         @Override
         public void onClick(View view) {
-          /*  CommonPersonObjectClient client = null;
             if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
-                client = (CommonPersonObjectClient) view.getTag();
-            }*/
+                patient = (CommonPersonObjectClient) view.getTag();
+            }
             switch (view.getId()) {
                 case R.id.result_lnk:
                     showResultMenu(view);
@@ -147,9 +153,14 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
+            Map fields = new HashMap();
+            fields.put("participant_id", patient.getDetails().get(TbrConstants.KEY.TBREACH_ID));
+            JSONObject fieldOverridesJson = new JSONObject(fields);
+
+            FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
             switch (item.getItemId()) {
                 case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity("result_gene_xpert", generateRandomUUIDString(), null);
+                    registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
                     return true;
                 case R.id.result_smear:
                     registerActivity.startFormActivity("result_smear", generateRandomUUIDString(), null);

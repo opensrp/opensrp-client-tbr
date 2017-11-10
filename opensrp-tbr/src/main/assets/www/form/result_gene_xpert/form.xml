@@ -37,7 +37,7 @@
         </span>
         <span class="required">*</span>
         <input name="/GeneXpertForm_03.10.17_US/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" required="required"
-            data-type-xml="string" type="text" />
+            data-type-xml="string" readonly="readonly" type="text" />
         <span class="or-constraint-msg " data-itext-id="/GeneXpertForm_03.10.17_US/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>

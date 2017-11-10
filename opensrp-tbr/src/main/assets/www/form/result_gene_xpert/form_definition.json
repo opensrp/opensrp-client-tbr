@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "default_bind_path": "/model/instance/GeneXpertForm_03.10.17_US",
-    "bind_type": "patient",
+    "bind_type": "ec_patient",
     "ec_bind_type": "ec_patient",
     "fields": [
       {
@@ -75,7 +75,8 @@
       },
       {
         "name": "participant_id",
-        "bind": "/model/instance/GeneXpertForm_03.10.17_US/participant_id"
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/participant_id",
+        "shouldLoadValue": true
       },
       {
         "name": "genexpert_performed",

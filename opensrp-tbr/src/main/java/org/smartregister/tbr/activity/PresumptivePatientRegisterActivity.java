@@ -91,8 +91,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
-                String data = null;
-
+                String data = EnketoFormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
