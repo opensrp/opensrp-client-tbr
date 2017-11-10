@@ -89,7 +89,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         setTablename(tableName);
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts(tableName);
-        mainCondition = " tbreach_id is not NULL ";
+        mainCondition = " presumptive =\"yes\" ";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
         super.CountExecute();
 

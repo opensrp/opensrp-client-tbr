@@ -53,6 +53,14 @@
           }
         },
         {
+          "column_name": "presumptive",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:presumptive tuberculosis case"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
