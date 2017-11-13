@@ -17,7 +17,7 @@ import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.form.FieldOverrides;
-import org.smartregister.tbr.PatientRegisterProvider;
+import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 
@@ -89,7 +89,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private void initializeQueries() {
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), registerActionHandler);
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), registerActionHandler, context().detailsRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -103,6 +103,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
+                tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID_COLUMN,
                 tableName + "." + TbrConstants.KEY.FIRST_NAME,
                 tableName + "." + TbrConstants.KEY.LAST_NAME,
                 tableName + "." + TbrConstants.KEY.TBREACH_ID,

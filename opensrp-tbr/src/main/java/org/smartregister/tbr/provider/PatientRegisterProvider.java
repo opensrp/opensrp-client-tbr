@@ -1,4 +1,4 @@
-package org.smartregister.tbr;
+package org.smartregister.tbr.provider;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
+import org.smartregister.repository.DetailsRepository;
+import org.smartregister.tbr.R;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -18,6 +20,8 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
+
+import java.util.Map;
 
 import util.TbrConstants;
 
@@ -32,10 +36,14 @@ import static org.smartregister.util.Utils.getValue;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private View.OnClickListener onClickListener;
+    private DetailsRepository detailsRepository;
 
-    public PatientRegisterProvider(Context context, View.OnClickListener onClickListener) {
+    private static final String DETECTED = "detected";
+
+    public PatientRegisterProvider(Context context, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.onClickListener = onClickListener;
+        this.detailsRepository = detailsRepository;
     }
 
     @Override
@@ -73,6 +81,25 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         View result = convertView.findViewById(R.id.result_lnk);
         result.setOnClickListener(onClickListener);
         result.setTag(client);
+
+
+        TextView results = (TextView) convertView.findViewById(R.id.result_details);
+        result.setTag(client);
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+        StringBuilder stringBuilder = new StringBuilder();
+        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
+            stringBuilder.append("Xpe ");
+            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
+                stringBuilder.append("+ve");
+            else
+                stringBuilder.append("-ve");
+            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
+                stringBuilder.append("/+ve");
+            else
+                stringBuilder.append("/-ve");
+            results.setVisibility(View.VISIBLE);
+            results.setText(stringBuilder.toString());
+        }
 
     }
 

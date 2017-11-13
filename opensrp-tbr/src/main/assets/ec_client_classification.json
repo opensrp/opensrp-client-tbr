@@ -11,6 +11,13 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "GeneXpert Result",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }

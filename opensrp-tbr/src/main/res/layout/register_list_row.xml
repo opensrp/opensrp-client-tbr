@@ -66,6 +66,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/result_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/result"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/result_lnk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

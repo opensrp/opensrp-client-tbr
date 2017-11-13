@@ -28,9 +28,9 @@ import org.smartregister.domain.form.SubForm;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.ClientProcessor;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.sync.TbrClientProcessor;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
 import org.w3c.dom.Attr;
@@ -234,7 +234,12 @@ public class EnketoFormUtils {
                 instanceId, formName, entityId, clientVersion, formDataDefinitionVersion,
                 formInstance, clientVersion);
 
-        org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext), null);
+        Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
+
+        if (e.getEventType().equals("Screening"))
+            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext), null);
+        else
+            org.smartregister.util.Utils.startAsyncTask(new SaveEventAsyncTask(v2FormSubmission, mContext), null);
 
     }
 
@@ -1060,7 +1065,56 @@ public class EnketoFormUtils {
             Date lastSyncDate = new Date(lastSyncTimeStamp);
 
             try {
-                ClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            } catch (Exception e1) {
+                logError("Error Processing client ");
+            }
+            return null;
+        }
+    }
+
+    class SaveEventAsyncTask extends AsyncTask<Void, Void, Void> {
+        private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
+        private Context context;
+
+        public SaveEventAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context) {
+            this.formSubmission = formSubmission;
+            this.context = context;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (context instanceof PresumptivePatientRegisterActivity) {
+                final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
+                registerActivity.refreshList(FetchStatus.fetched);
+                registerActivity.hideProgressDialog();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (context instanceof PresumptivePatientRegisterActivity) {
+                ((PresumptivePatientRegisterActivity) context).showProgressDialog();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+            Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+            saveEvent(e);
+            Map<String, Map<String, Object>> dep = formEntityConverter.
+                    getDependentClientsFromFormSubmission(formSubmission);
+            for (Map<String, Object> cm : dep.values()) {
+                Event evin = (Event) cm.get("event");
+                saveEvent(evin);
+            }
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+
+            try {
+                TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             } catch (Exception e1) {
                 logError("Error Processing client ");
             }
