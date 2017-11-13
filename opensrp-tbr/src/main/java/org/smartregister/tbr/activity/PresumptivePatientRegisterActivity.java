@@ -1,9 +1,11 @@
 package org.smartregister.tbr.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -156,6 +158,32 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         }
 
         return -1;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (currentPage != 0) {
+            new AlertDialog.Builder(this, R.style.TbrAlertDialog)
+                    .setMessage(R.string.form_back_confirm_dialog_message)
+                    .setTitle(R.string.form_back_confirm_dialog_title)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.no_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+
+                                }
+                            })
+                    .setNegativeButton(R.string.yes_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    switchToBaseFragment(null);
+                                }
+                            })
+                    .show();
+        } else {
+            super.onBackPressed(); // allow back key only if we are
+        }
     }
 
 }
