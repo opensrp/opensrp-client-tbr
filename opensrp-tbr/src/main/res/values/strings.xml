@@ -31,5 +31,5 @@
     <string name="result_gene_xpert">Gene Xpert (Xpt)</string>
     <string name="result_smear">Smear (Smr)</string>
     <string name="result_chest_xray">Chest X-ray (CXR)</string>
-    <string name="result_culture">Culture (CUL)</string>
+    <string name="result_culture">Culture (Cul)</string>
 </resources>
