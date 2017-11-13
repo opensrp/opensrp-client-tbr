@@ -18,6 +18,27 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Smear Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "X-Ray Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Culture Result",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }

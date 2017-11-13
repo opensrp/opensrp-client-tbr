@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
-        android:layout_weight="3"
+        android:layout_weight="3.5"
         android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -70,16 +70,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/result"
-            android:textSize="14sp"
-            android:visibility="gone"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/result_lnk"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
             android:text="@string/result"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
             android:textSize="18sp" />
@@ -91,7 +95,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
-        android:layout_weight="3"
+        android:layout_weight="2.5"
         android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="vertical">

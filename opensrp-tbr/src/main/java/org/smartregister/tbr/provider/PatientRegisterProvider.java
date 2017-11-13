@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
@@ -97,9 +98,38 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("/+ve");
             else
                 stringBuilder.append("/-ve");
-            results.setVisibility(View.VISIBLE);
-            results.setText(stringBuilder.toString());
+
         }
+        if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
+            stringBuilder.append(",\nSmr ");
+            switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
+                case "one_plus":
+                    stringBuilder.append("1+");
+                    break;
+                case "two_plus":
+                    stringBuilder.append("2+");
+                    break;
+                case "three_plus":
+                    stringBuilder.append("3+");
+                    break;
+                default:
+                    WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT));
+            }
+
+        }
+
+        if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
+            stringBuilder.append(", Cul " + WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)));
+        }
+        if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
+            stringBuilder.append(",\nCXR ");
+            if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
+                stringBuilder.append("Ind");
+            else
+                stringBuilder.append("Non");
+        }
+        results.setVisibility(View.VISIBLE);
+        results.setText(stringBuilder.toString());
 
     }
 

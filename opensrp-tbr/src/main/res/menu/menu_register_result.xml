@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/result_add_result"
@@ -16,4 +16,8 @@
     <item
         android:id="@+id/result_chest_xray"
         android:title="@string/result_chest_xray" />
+
+    <item
+        android:id="@+id/result_culture"
+        android:title="@string/result_culture" />
 </menu>

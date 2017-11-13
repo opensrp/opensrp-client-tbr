@@ -116,6 +116,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         formNames.add("result_gene_xpert");
         formNames.add("result_smear");
         formNames.add("result_chest_xray");
+        formNames.add("result_culture");
         return formNames.toArray(new String[formNames.size()]);
     }
 

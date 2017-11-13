@@ -17,9 +17,9 @@ import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.form.FieldOverrides;
-import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.tbr.provider.PatientRegisterProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,6 @@ import java.util.Map;
 import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
-import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 /**
  * Created by samuelgithengi on 11/6/17.
@@ -164,10 +163,13 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                     registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
                     return true;
                 case R.id.result_smear:
-                    registerActivity.startFormActivity("result_smear", generateRandomUUIDString(), null);
+                    registerActivity.startFormActivity("result_smear", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
                     return true;
                 case R.id.result_chest_xray:
-                    registerActivity.startFormActivity("result_chest_xray", generateRandomUUIDString(), null);
+                    registerActivity.startFormActivity("result_chest_xray", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
+                    return true;
+                case R.id.result_culture:
+                    registerActivity.startFormActivity("result_culture", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
                     return true;
                 default:
                     return false;
