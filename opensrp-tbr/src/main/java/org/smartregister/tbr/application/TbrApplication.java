@@ -1,6 +1,7 @@
 package org.smartregister.tbr.application;
 
 import android.content.Intent;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,6 +35,8 @@ public class TbrApplication extends DrishtiApplication {
 
     private ConfigurableViewsRepository configurableViewsRepository;
 
+    private static final String TAG = TbrApplication.class.getCanonicalName();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,8 +52,11 @@ public class TbrApplication extends DrishtiApplication {
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
-
-        Utils.saveLanguage("en");
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(this);

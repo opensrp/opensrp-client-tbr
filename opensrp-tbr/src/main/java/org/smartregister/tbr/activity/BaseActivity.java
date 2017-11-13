@@ -23,9 +23,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 import java.util.List;
 import java.util.Map;
 
-import static org.smartregister.tbr.R.color.customAppThemeBlue;
-import static org.smartregister.tbr.application.TbrApplication.getJsonSpecHelper;
-
 /**
  * Created by ndegwamartin on 09/10/2017.
  */
@@ -42,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
+        if (org.smartregister.tbr.application.TbrApplication.getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
             invalidateOptionsMenu();
             MenuItem item = menu.findItem(R.id.action_language);
             item.setVisible(false);
@@ -82,13 +79,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showLanguageDialog() {
 
 
-        final List<String> displayValues = getJsonSpecHelper().getAvailableLanguages();
+        final List<String> displayValues = org.smartregister.tbr.application.TbrApplication.getJsonSpecHelper().getAvailableLanguages();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, displayValues.toArray(new String[displayValues.size()])) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
-                view.setTextColor(TbrApplication.getInstance().getContext().getColorResource(customAppThemeBlue));
+                view.setTextColor(TbrApplication.getInstance().getContext().getColorResource(org.smartregister.tbr.R.color.customAppThemeBlue));
 
                 return view;
             }

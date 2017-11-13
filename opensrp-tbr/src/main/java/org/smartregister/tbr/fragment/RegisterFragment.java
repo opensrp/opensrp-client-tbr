@@ -14,6 +14,7 @@ import org.smartregister.tbr.adapter.RegisterArrayAdapter;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
+import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -29,34 +30,40 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
  */
 
 public class RegisterFragment extends ListFragment {
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         List<Register> values = new ArrayList<>();
-
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
+        String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
         if (jsonString == null) return;
 
+
         ViewConfiguration homeViewConfig = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-        List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
-        for (org.smartregister.tbr.jsonspec.model.View view : views) {
-            if (view.isVisible()) {
-                values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                        RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
-            }
-        }
-        if (values.size() > 0) {
-            Collections.sort(values, new Comparator<Register>() {
-                @Override
-                public int compare(Register registerA, Register registerB) {
-                    return registerA.getPosition() - registerB.getPosition();
+        if (homeViewConfig != null) {
+            List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
+            for (org.smartregister.tbr.jsonspec.model.View view : views) {
+                if (view.isVisible()) {
+                    values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
+                            RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
                 }
-            });
+            }
+            if (values.size() > 0) {
+                Collections.sort(values, new Comparator<Register>() {
+                    @Override
+                    public int compare(Register registerA, Register registerB) {
+                        return registerA.getPosition() - registerB.getPosition();
+                    }
+                });
+            } else {
+                Utils.showDialogMessage(getActivity(), "Info", "You need to configure at least One Register as Visible on the Server Side...");
+            }
+            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
+            setListAdapter(adapter);
         } else {
-            Utils.showToast(getActivity(), "You need to configure at least One Register as Visible on the Server Side...");
+
+            Utils.showDialogMessage(getActivity(), "Info", "Missing Home View Configuration on server");
         }
-        RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
-        setListAdapter(adapter);
 
     }
 
@@ -99,4 +106,7 @@ public class RegisterFragment extends ListFragment {
         }
     }
 
+    private ConfigurableViewsRepository getConfigurableViewsRepository() {
+        return TbrApplication.getInstance().getConfigurableViewsRepository();
+    }
 }

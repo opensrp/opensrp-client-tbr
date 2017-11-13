@@ -3,9 +3,11 @@ package org.smartregister.tbr.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import org.smartregister.tbr.application.TbrApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
@@ -51,13 +54,9 @@ public class Utils {
     public static void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
+        setLocale(new Locale(language));
 
-        Resources res = TbrApplication.getInstance().getApplicationContext().getResources();
-        // Change locale settings in the app.
-        // DisplayMetrics dm = res.getDisplayMetrics();
-        //Configuration conf = res.getConfiguration();
-        //conf.locale = new Locale(language);
-        //res.updateConfiguration(conf, dm);
+
     }
 
 
@@ -73,7 +72,7 @@ public class Utils {
         } else {
             builder = new AlertDialog.Builder(context);
         }
-        Dialog dialog = null;
+        Dialog dialog;
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -90,5 +89,18 @@ public class Utils {
 
         dialog = builder.create();
         dialog.show();
+    }
+
+    public static void setLocale(Locale locale) {
+        Resources resources = TbrApplication.getInstance().getApplicationContext().getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale);
+            TbrApplication.getInstance().getApplicationContext().createConfigurationContext(configuration);
+        } else {
+            configuration.locale = locale;
+            resources.updateConfiguration(configuration, displayMetrics);
+        }
     }
 }

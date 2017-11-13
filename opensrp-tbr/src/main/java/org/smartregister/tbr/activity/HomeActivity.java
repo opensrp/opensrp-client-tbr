@@ -1,12 +1,9 @@
 package org.smartregister.tbr.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,7 +19,6 @@ import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
@@ -83,6 +79,8 @@ public class HomeActivity extends BaseActivity {
         if (config != null && config.getApplicationName() != null) {
             TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
             title.setText(config.getApplicationName());
+        } else {
+            Utils.showDialogMessage(this, "Error", "Missing Main Configuration on server");
         }
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.registers_container, new RegisterFragment())

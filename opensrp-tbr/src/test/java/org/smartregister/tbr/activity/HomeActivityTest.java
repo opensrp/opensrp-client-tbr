@@ -11,22 +11,26 @@ import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.Config;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.mock.HomeActivityTestVersion;
+import org.smartregister.tbr.shadow.RegisterFragmentShadow;
 
 /**
  * Created by ndegwamartin on 17/10/2017.
  */
+@Config(shadows = {RegisterFragmentShadow.class})
 public class HomeActivityTest extends BaseUnitTest {
 
 
-    private ActivityController<HomeActivity> controller;
+    private ActivityController<HomeActivityTestVersion> controller;
     private Activity activity;
 
     @Before
     public void setUp() {
-        Intent intent = new Intent(RuntimeEnvironment.application, HomeActivity.class);
-        controller = Robolectric.buildActivity(HomeActivity.class, intent);
+        Intent intent = new Intent(RuntimeEnvironment.application, HomeActivityTestVersion.class);
+        controller = Robolectric.buildActivity(HomeActivityTestVersion.class, intent);
         activity = controller.get();
         org.mockito.MockitoAnnotations.initMocks(this);
         controller.setup();
