@@ -140,7 +140,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     }
 
     @Override
-    protected android.support.v4.app.Fragment findFragmentByPosition(int position) {
+    protected Fragment findFragmentByPosition(int position) {
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
     }
 

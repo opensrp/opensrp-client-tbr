@@ -2,6 +2,7 @@ package org.smartregister.tbr.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.util.Map;
 
 import util.TbrConstants;
+import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
@@ -36,6 +38,7 @@ import static org.smartregister.util.Utils.getValue;
 
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
+    private Context context;
     private View.OnClickListener onClickListener;
     private DetailsRepository detailsRepository;
 
@@ -43,6 +46,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     public PatientRegisterProvider(Context context, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
         this.onClickListener = onClickListener;
         this.detailsRepository = detailsRepository;
     }
@@ -87,49 +91,56 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) convertView.findViewById(R.id.result_details);
         result.setTag(client);
         Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
-        StringBuilder stringBuilder = new StringBuilder();
+
+        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.holo_red_dark));
+        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.black));
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             stringBuilder.append("Xpe ");
             if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve");
+                stringBuilder.append("+ve", redForegroundColorSpan);
             else
-                stringBuilder.append("-ve");
+                stringBuilder.append("-ve", redForegroundColorSpan);
+            stringBuilder.append("/");
             if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-                stringBuilder.append("/+ve");
+                stringBuilder.append("+ve", redForegroundColorSpan);
             else
-                stringBuilder.append("/-ve");
-
+                stringBuilder.append("-ve", redForegroundColorSpan);
         }
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             stringBuilder.append(",\nSmr ");
             switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
                 case "one_plus":
-                    stringBuilder.append("1+");
+                    stringBuilder.append("1+", redForegroundColorSpan);
                     break;
                 case "two_plus":
-                    stringBuilder.append("2+");
+                    stringBuilder.append("2+", redForegroundColorSpan);
                     break;
                 case "three_plus":
-                    stringBuilder.append("3+");
+                    stringBuilder.append("3+", redForegroundColorSpan);
                     break;
                 default:
-                    WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT));
+                    stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
+                    break;
             }
-
         }
 
         if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
-            stringBuilder.append(", Cul " + WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)));
+            stringBuilder.append(", Cul ");
+            stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
         }
         if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
             stringBuilder.append(",\nCXR ");
             if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
-                stringBuilder.append("Ind");
+                stringBuilder.append("Ind", blackForegroundColorSpan);
             else
-                stringBuilder.append("Non");
+                stringBuilder.append("Non", blackForegroundColorSpan);
+
         }
         results.setVisibility(View.VISIBLE);
-        results.setText(stringBuilder.toString());
+        results.setText(stringBuilder);
 
     }
 
