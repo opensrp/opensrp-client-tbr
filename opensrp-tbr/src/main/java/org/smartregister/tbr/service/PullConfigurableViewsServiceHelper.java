@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.util.Utils;
 

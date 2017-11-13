@@ -39,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (org.smartregister.tbr.application.TbrApplication.getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
+        if (TbrApplication.getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
             invalidateOptionsMenu();
             MenuItem item = menu.findItem(R.id.action_language);
             item.setVisible(false);
@@ -79,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showLanguageDialog() {
 
 
-        final List<String> displayValues = org.smartregister.tbr.application.TbrApplication.getJsonSpecHelper().getAvailableLanguages();
+        final List<String> displayValues = TbrApplication.getJsonSpecHelper().getAvailableLanguages();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, displayValues.toArray(new String[displayValues.size()])) {
             @Override

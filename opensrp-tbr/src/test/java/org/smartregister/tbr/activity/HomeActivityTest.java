@@ -14,6 +14,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.mock.HomeActivityTestVersion;
 import org.smartregister.tbr.shadow.RegisterFragmentShadow;
 
@@ -25,7 +26,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
 
     private ActivityController<HomeActivityTestVersion> controller;
-    private Activity activity;
+    private HomeActivityTestVersion activity;
 
     @Before
     public void setUp() {
@@ -53,6 +54,16 @@ public class HomeActivityTest extends BaseUnitTest {
 
     @Test
     public void homeActivityRendersCorrectUsernameInitialsOnCreate() {
+        TextView textView = (TextView) activity.findViewById(R.id.custom_toolbar_logo_text);
+        junit.framework.Assert.assertEquals("NM", textView.getText());
+    }
+    @Test
+    public void refreshViewDoesNothingWhenCalledWithNullViewConfigurationSyncCompleteEvent() {
+        ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent;
+      activity.refreshView(null);
+    }
+    @Test
+    public void refreshViewDoesNothingWhenCalledWithNullLanguageConfigurationEvent() {
         TextView textView = (TextView) activity.findViewById(R.id.custom_toolbar_logo_text);
         junit.framework.Assert.assertEquals("NM", textView.getText());
     }

@@ -10,7 +10,7 @@ import org.smartregister.tbr.activity.HomeActivity;
 
 public class HomeActivityTestVersion extends HomeActivity {
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
@@ -18,6 +18,7 @@ public class HomeActivityTestVersion extends HomeActivity {
         }
     }
 
+    @Override
     public void onStart() {
         try {
             super.onStart();
@@ -25,6 +26,7 @@ public class HomeActivityTestVersion extends HomeActivity {
         }
     }
 
+    @Override
     public void onStop() {
         try {
             super.onStop();
