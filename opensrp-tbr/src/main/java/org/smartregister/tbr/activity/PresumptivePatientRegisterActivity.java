@@ -80,7 +80,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         } catch (Exception e) {
             e.printStackTrace();
         }
-        switchToBaseFragment(formSubmision);
+        switchToBaseFragment();
 
     }
 
@@ -93,7 +93,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
-                String data = EnketoFormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
+                String data = EnketoFormUtils.getInstance(this).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
@@ -122,7 +122,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         return formNames.toArray(new String[formNames.size()]);
     }
 
-    private void switchToBaseFragment(final String data) {
+    private void switchToBaseFragment() {
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {
             @Override
@@ -135,7 +135,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                 }
 
                 displayFormFragment.setRecordId(null);
-                refreshList(data);
             }
         });
 
@@ -177,7 +176,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                     .setNegativeButton(R.string.yes_button_label,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    switchToBaseFragment(null);
+                                    switchToBaseFragment();
                                 }
                             })
                     .show();

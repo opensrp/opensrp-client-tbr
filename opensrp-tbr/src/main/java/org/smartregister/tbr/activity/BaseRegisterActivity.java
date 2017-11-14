@@ -97,14 +97,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-    protected void refreshList(String data) {
-        BaseRegisterFragment registerFragment = (BaseRegisterFragment) findFragmentByPosition(0);
-        if (registerFragment != null && data != null) {
-            registerFragment.refreshListView();
-        }
-
-    }
-
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
