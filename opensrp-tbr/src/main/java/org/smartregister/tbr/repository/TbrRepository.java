@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.AllConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.application.TbrApplication;
 
 /**
  * Created by keyman on 23/08/2017.
@@ -23,7 +24,7 @@ public class TbrRepository extends Repository {
 
 
     public TbrRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), null, openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), TbrApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
 
     }
 

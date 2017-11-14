@@ -1,5 +1,8 @@
 package org.smartregister.tbr.fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
@@ -13,6 +16,10 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
 import util.TbrConstants;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -78,6 +85,33 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         };
     }
 
+
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        getSearchCancelView().setVisibility(isEmpty(filterString) ? INVISIBLE : VISIBLE);
+        CountExecute();
+        filterandSortExecute();
+    }
+
+    protected final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+            filter(cs.toString(), "", "");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
         return null;
@@ -94,6 +128,5 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     protected void onCreation() {//Implement Abstract Method
     }
-
 
 }

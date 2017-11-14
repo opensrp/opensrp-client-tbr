@@ -66,6 +66,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         clientsProgressView.setVisibility(View.INVISIBLE);
         view.findViewById(R.id.sorted_by_bar).setVisibility(View.GONE);
         initializeQueries();
+        updateSearchView();
         populateClientListHeaderView(view);
     }
 
@@ -76,6 +77,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         if (isPausedOrRefreshList()) {
             initializeQueries();
         }
+        updateSearchView();
     }
 
     public void showResultMenu(View view) {
@@ -129,6 +131,11 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
 
+    }
+
+    private void updateSearchView() {
+        getSearchView().removeTextChangedListener(textWatcher);
+        getSearchView().addTextChangedListener(textWatcher);
     }
 
     class RegisterActionHandler implements View.OnClickListener {

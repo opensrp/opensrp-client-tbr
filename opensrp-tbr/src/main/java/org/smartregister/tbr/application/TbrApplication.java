@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -15,6 +16,8 @@ import org.smartregister.tbr.repository.TbrRepository;
 import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
+
+import util.TbrConstants;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -28,6 +31,7 @@ public class TbrApplication extends DrishtiApplication {
 
     private ConfigurableViewsRepository configurableViewsRepository;
     private EventClientRepository eventClientRepository;
+    private static CommonFtsObject commonFtsObject;
 
     @Override
     public void onCreate() {
@@ -37,6 +41,7 @@ public class TbrApplication extends DrishtiApplication {
         context = Context.getInstance();
 
         context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
         CoreLibrary.init(context);
@@ -105,6 +110,31 @@ public class TbrApplication extends DrishtiApplication {
         Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
         context.startService(intent);
     }
+
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+            }
+        }
+        return commonFtsObject;
+    }
+
+    private static String[] getFtsTables() {
+        return new String[]{TbrConstants.PATIENT_TABLE_NAME};
+    }
+
+    private static String[] getFtsSearchFields() {
+        return new String[]{"tbreach_id", "first_name", "last_name"};
+
+    }
+
+    private static String[] getFtsSortFields() {
+        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive"};
+    }
+
 
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
         if (configurableViewsRepository == null)
