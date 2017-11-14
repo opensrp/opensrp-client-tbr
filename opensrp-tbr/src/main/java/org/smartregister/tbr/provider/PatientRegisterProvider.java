@@ -139,8 +139,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("Non", blackForegroundColorSpan);
 
         }
-        results.setVisibility(View.VISIBLE);
-        results.setText(stringBuilder);
+        if (stringBuilder.length() > 0) {
+            results.setVisibility(View.VISIBLE);
+            results.setText(stringBuilder);
+        }
 
     }
 
