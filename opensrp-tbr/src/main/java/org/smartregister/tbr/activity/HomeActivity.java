@@ -66,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         super.onStop();
     }
 
-    private void refreshView() {
+    protected void refreshView() {
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
         //set user initials
@@ -88,7 +88,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-    public void refreshView(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
+    public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
         if (syncCompleteEvent != null) {
             refreshView();
         }
@@ -96,7 +96,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-    public void refreshView(LanguageConfigurationEvent languageConfigurationEvent) {
+    public void refreshViewFromLanguageChange(LanguageConfigurationEvent languageConfigurationEvent) {
         if (languageConfigurationEvent != null) {
             refreshView();
         }

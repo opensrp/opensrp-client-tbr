@@ -1,6 +1,5 @@
 package org.smartregister.tbr.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,25 +7,40 @@ import android.widget.TextView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
+import org.smartregister.Context;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.mock.HomeActivityTestVersion;
 import org.smartregister.tbr.shadow.RegisterFragmentShadow;
+
+import static org.mockito.Mockito.times;
+import static org.powermock.api.mockito.PowerMockito.spy;
 
 /**
  * Created by ndegwamartin on 17/10/2017.
  */
 @Config(shadows = {RegisterFragmentShadow.class})
+@PrepareForTest({HomeActivityTest.class})
 public class HomeActivityTest extends BaseUnitTest {
-
 
     private ActivityController<HomeActivityTestVersion> controller;
     private HomeActivityTestVersion activity;
+
+    @Mock
+    private LanguageConfigurationEvent languageConfigurationEvent;
+    @Mock
+    private ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent;
+    @Mock
+    Context context;
 
     @Before
     public void setUp() {
@@ -57,14 +71,44 @@ public class HomeActivityTest extends BaseUnitTest {
         TextView textView = (TextView) activity.findViewById(R.id.custom_toolbar_logo_text);
         junit.framework.Assert.assertEquals("NM", textView.getText());
     }
+
     @Test
-    public void refreshViewDoesNothingWhenCalledWithNullViewConfigurationSyncCompleteEvent() {
-        ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent;
-      activity.refreshView(null);
+    public void refreshViewNotInvokedWhenRefreshViewFromConfigurationChangeCalledWithNullParameterSyncCompleteEvent() throws Exception {
+        ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent = null;
+        HomeActivityTestVersion spyActivity = spy(activity);
+        spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
+
+        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
     }
+
     @Test
-    public void refreshViewDoesNothingWhenCalledWithNullLanguageConfigurationEvent() {
-        TextView textView = (TextView) activity.findViewById(R.id.custom_toolbar_logo_text);
-        junit.framework.Assert.assertEquals("NM", textView.getText());
+    public void refreshViewInvokedWhenRefreshViewFromConfigurationChangeCalledWithNonNullParameterSyncCompleteEvent() throws Exception {
+
+        HomeActivityTestVersion spyActivity = spy(activity);
+
+        PowerMockito.doNothing().when(spyActivity).refreshView();
+        spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
+
+        PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("refreshViewFromConfigurationChange", viewConfigurationSyncCompleteEvent);
+    }
+
+    @Test
+    public void refreshViewNotInvokedWhenRefreshViewFromLanguageChangeCalledWithNullParameterSyncCompleteEvent() throws Exception {
+        LanguageConfigurationEvent languageConfigurationEvent = null;
+        HomeActivityTestVersion spyActivity = spy(activity);
+        spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
+
+        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
+    }
+
+    @Test
+    public void refreshViewInvokedWhenRefreshViewFromLanguageChangeCalledWithNonNullParameterSyncCompleteEvent() throws Exception {
+
+        HomeActivityTestVersion spyActivity = spy(activity);
+
+        PowerMockito.doNothing().when(spyActivity).refreshView();
+        spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
+
+        PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("refreshViewFromLanguageChange", languageConfigurationEvent);
     }
 }
