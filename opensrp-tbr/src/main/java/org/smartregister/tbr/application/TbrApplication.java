@@ -12,6 +12,7 @@ import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
 import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -31,6 +32,7 @@ public class TbrApplication extends DrishtiApplication {
 
     private ConfigurableViewsRepository configurableViewsRepository;
     private EventClientRepository eventClientRepository;
+    private ResultsRepository resultsRepository;
     private static CommonFtsObject commonFtsObject;
 
     @Override
@@ -147,5 +149,12 @@ public class TbrApplication extends DrishtiApplication {
             eventClientRepository = new EventClientRepository(getRepository());
         }
         return eventClientRepository;
+    }
+
+    public ResultsRepository getResultsRepository() {
+        if (resultsRepository == null) {
+            resultsRepository = new ResultsRepository(getRepository());
+        }
+        return resultsRepository;
     }
 }
