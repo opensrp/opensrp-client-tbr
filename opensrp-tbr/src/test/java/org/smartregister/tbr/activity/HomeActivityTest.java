@@ -2,6 +2,7 @@ package org.smartregister.tbr.activity;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import org.junit.After;
@@ -9,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
@@ -17,19 +17,22 @@ import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.mock.HomeActivityTestVersion;
 import org.smartregister.tbr.shadow.RegisterFragmentShadow;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.validateMockitoUsage;
 import static org.powermock.api.mockito.PowerMockito.spy;
 
 /**
  * Created by ndegwamartin on 17/10/2017.
  */
 @Config(shadows = {RegisterFragmentShadow.class})
-@PrepareForTest({HomeActivityTest.class})
 public class HomeActivityTest extends BaseUnitTest {
 
     private ActivityController<HomeActivityTestVersion> controller;
@@ -44,10 +47,10 @@ public class HomeActivityTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
+        org.mockito.MockitoAnnotations.initMocks(this);
         Intent intent = new Intent(RuntimeEnvironment.application, HomeActivityTestVersion.class);
         controller = Robolectric.buildActivity(HomeActivityTestVersion.class, intent);
         activity = controller.get();
-        org.mockito.MockitoAnnotations.initMocks(this);
         controller.setup();
     }
 
@@ -110,5 +113,27 @@ public class HomeActivityTest extends BaseUnitTest {
         spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
 
         PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("refreshViewFromLanguageChange", languageConfigurationEvent);
+    }
+
+    @Test
+    public void callingManualSyncTriggersViewConfigurationSyncEvent() throws Exception {
+
+
+        HomeActivityTestVersion spyActivity = spy(activity);
+
+        TriggerViewConfigurationSyncEvent triggerViewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
+        triggerViewConfigurationSyncEvent.setManualSync(true);
+
+        PowerMockito.doReturn(null).when(spyActivity);
+        View view = spyActivity.findViewById(R.id.refreshSyncButton);
+        spyActivity.manualSync(view);
+
+        PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("postEvent", any(BaseEvent.class));
+
+    }
+
+    @After
+    public void validate() {
+        validateMockitoUsage();
     }
 }

@@ -11,8 +11,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.BaseEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,5 +104,9 @@ public class Utils {
             configuration.locale = locale;
             resources.updateConfiguration(configuration, displayMetrics);
         }
+    }
+
+    public static void postEvent(BaseEvent event) {
+        EventBus.getDefault().post(event);
     }
 }

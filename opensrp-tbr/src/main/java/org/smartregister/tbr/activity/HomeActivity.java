@@ -2,7 +2,7 @@ package org.smartregister.tbr.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.HapticFeedbackConstants;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
@@ -26,6 +27,7 @@ import java.util.Calendar;
 
 public class HomeActivity extends BaseActivity {
     private Toolbar toolbar;
+    private static final String TAG = HomeActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,15 @@ public class HomeActivity extends BaseActivity {
         Utils.showToast(this, "Manual Syncing ...");
         TriggerViewConfigurationSyncEvent viewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
-        EventBus.getDefault().post(viewConfigurationSyncEvent);
-        view.performHapticFeedback(HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
-        TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
-        textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
+        postEvent(viewConfigurationSyncEvent);
+        if (view != null) {
+            TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
+            textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
+        }
+    }
+
+    public void postEvent(BaseEvent event) {
+        Utils.postEvent(event);
     }
 
     @Override
@@ -66,7 +73,8 @@ public class HomeActivity extends BaseActivity {
         super.onStop();
     }
 
-    protected void refreshView() {
+    public void refreshView() {
+
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
         //set user initials
@@ -82,9 +90,13 @@ public class HomeActivity extends BaseActivity {
         } else {
             Utils.showDialogMessage(this, "Error", "Missing Main Configuration on server");
         }
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.registers_container, new RegisterFragment())
-                .commit();
+        try {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.registers_container, new RegisterFragment())
+                    .commit();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)

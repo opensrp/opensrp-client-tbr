@@ -3,6 +3,7 @@ package org.smartregister.tbr.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.ListView;
@@ -30,39 +31,44 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
  */
 
 public class RegisterFragment extends ListFragment {
+    private static String TAG = RegisterFragment.class.getCanonicalName();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        List<Register> values = new ArrayList<>();
-        String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
-        if (jsonString == null) return;
+        try {
+            super.onActivityCreated(savedInstanceState);
+            List<Register> values = new ArrayList<>();
+            String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
+            if (jsonString == null) return;
 
 
-        ViewConfiguration homeViewConfig = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-        if (homeViewConfig != null) {
-            List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
-            for (org.smartregister.tbr.jsonspec.model.View view : views) {
-                if (view.isVisible()) {
-                    values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                            RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
-                }
-            }
-            if (values.size() > 0) {
-                Collections.sort(values, new Comparator<Register>() {
-                    @Override
-                    public int compare(Register registerA, Register registerB) {
-                        return registerA.getPosition() - registerB.getPosition();
+            ViewConfiguration homeViewConfig = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            if (homeViewConfig != null) {
+                List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
+                for (org.smartregister.tbr.jsonspec.model.View view : views) {
+                    if (view.isVisible()) {
+                        values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
+                                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
                     }
-                });
+                }
+                if (values.size() > 0) {
+                    Collections.sort(values, new Comparator<Register>() {
+                        @Override
+                        public int compare(Register registerA, Register registerB) {
+                            return registerA.getPosition() - registerB.getPosition();
+                        }
+                    });
+                } else {
+                    Utils.showDialogMessage(getActivity(), "Info", "You need to configure at least One Register as Visible on the Server Side...");
+                }
+                RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
+                setListAdapter(adapter);
             } else {
-                Utils.showDialogMessage(getActivity(), "Info", "You need to configure at least One Register as Visible on the Server Side...");
-            }
-            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
-            setListAdapter(adapter);
-        } else {
 
-            Utils.showDialogMessage(getActivity(), "Info", "Missing Home View Configuration on server");
+                Utils.showDialogMessage(getActivity(), "Info", "Missing Home View Configuration on server");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
 
     }

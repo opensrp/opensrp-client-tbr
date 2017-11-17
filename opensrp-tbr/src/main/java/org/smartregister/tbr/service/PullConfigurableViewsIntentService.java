@@ -3,7 +3,6 @@ package org.smartregister.tbr.service;
 import android.app.IntentService;
 import android.content.Intent;
 
-import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
@@ -37,8 +36,8 @@ public class PullConfigurableViewsIntentService extends IntentService {
             try {
                 int count = pullConfigurableViewsServiceHelper.processIntent();
                 if (count > 0) {
-                    EventBus.getDefault().post(new ViewConfigurationSyncCompleteEvent());
-                    EventBus.getDefault().post(new LanguageConfigurationEvent(true));
+                    Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+                    Utils.postEvent(new LanguageConfigurationEvent(true));
                 }
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");

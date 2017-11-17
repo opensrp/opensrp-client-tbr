@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
@@ -98,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 String selectedItem = displayValues.get(which);
                 Map<String, String> langs = TbrApplication.getJsonSpecHelper().getAvailableLanguagesMap();
                 Utils.saveLanguage(getKeyByValue(langs, selectedItem));
-                EventBus.getDefault().post(new LanguageConfigurationEvent(false));
+                Utils.postEvent(new LanguageConfigurationEvent(false));
                 Utils.showToast(getApplicationContext(), selectedItem + " selected");
                 dialog.dismiss();
             }
