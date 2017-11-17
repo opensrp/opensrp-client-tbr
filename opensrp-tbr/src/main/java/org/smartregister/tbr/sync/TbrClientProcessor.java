@@ -10,12 +10,15 @@ import org.json.JSONObject;
 import org.smartregister.sync.ClientProcessor;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.Result;
+import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by samuelgithengi on 11/13/17.
@@ -94,8 +97,12 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setAnmId(contentValues.getAsString(ResultsRepository.ANMID));
                 result.setLocationId(contentValues.getAsString(ResultsRepository.LOCATIONID));
                 result.setSyncStatus(ResultsRepository.TYPE_Unsynced);
-                result.setFormSubmissionId(contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID));
+                String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
+                result.setFormSubmissionId(formSubmissionId);
                 resultsRepository.saveResult(result);
+                Map<String, String> obs = getObsFromEvent(event);
+                ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
+                resultDetailsRepository.saveClientDetails(formSubmissionId, obs, date.getTime());
             }
             return true;
 
@@ -200,6 +207,36 @@ public class TbrClientProcessor extends ClientProcessor {
             Log.e(TAG, e.toString(), e);
         }
         return null;
+    }
+
+
+    private Map<String, String> getObsFromEvent(JSONObject event) {
+        Map<String, String> obs = new HashMap<String, String>();
+
+        try {
+            String obsKey = "obs";
+            if (event.has(obsKey)) {
+                JSONArray obsArray = event.getJSONArray(obsKey);
+                if (obsArray != null && obsArray.length() > 0) {
+                    for (int i = 0; i < obsArray.length(); i++) {
+                        JSONObject object = obsArray.getJSONObject(i);
+                        String key = object.has("formSubmissionField") ? object
+                                .getString("formSubmissionField") : null;
+                        List<String> values =
+                                object.has(VALUES_KEY) ? getValues(object.get(VALUES_KEY)) : null;
+                        for (String conceptValue : values) {
+                            String value = getHumanReadableConceptResponse(conceptValue, object);
+                            if (key != null && value != null) {
+                                obs.put(key, value);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        }
+        return obs;
     }
 
 }

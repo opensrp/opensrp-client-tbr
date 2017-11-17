@@ -37,6 +37,7 @@ public class TbrRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.obs, EventClientRepository.obs_column.values());
         ResultsRepository.createTable(database);
+        ResultDetailsRepository.createTable(database);
         //onUpgrade(database, 1, 2);
 
     }
