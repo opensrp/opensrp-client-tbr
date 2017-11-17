@@ -87,6 +87,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         result.setOnClickListener(onClickListener);
         result.setTag(client);
 
+        View diagnose = convertView.findViewById(R.id.diagnose_lnk);
+        diagnose.setOnClickListener(onClickListener);
+        diagnose.setTag(client);
+
 
         TextView results = (TextView) convertView.findViewById(R.id.result_details);
         result.setTag(client);

@@ -61,6 +61,14 @@
           }
         },
         {
+          "column_name": "confirmed_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:confirmed tuberculosis"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

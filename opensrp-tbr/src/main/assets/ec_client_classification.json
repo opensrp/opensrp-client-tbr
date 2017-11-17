@@ -39,6 +39,13 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TB Diagnosis",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }

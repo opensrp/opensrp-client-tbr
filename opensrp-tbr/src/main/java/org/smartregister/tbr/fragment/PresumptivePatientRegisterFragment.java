@@ -97,7 +97,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         setTablename(tableName);
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts(tableName);
-        mainCondition = " presumptive =\"yes\" ";
+        mainCondition = " presumptive =\"yes\" AND confirmed_tb IS NULL";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
         super.CountExecute();
 
@@ -148,6 +148,10 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
             switch (view.getId()) {
                 case R.id.result_lnk:
                     showResultMenu(view);
+                    break;
+                case R.id.diagnose_lnk:
+                    PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
+                    registerActivity.startFormActivity("diagnosis", patient.getDetails().get("_id"), null);
                     break;
                 default:
                     break;

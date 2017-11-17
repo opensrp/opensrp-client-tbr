@@ -73,7 +73,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
 
     @Override
     public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
-        Toast.makeText(this, formName + " submitted", Toast.LENGTH_SHORT).show();
         try {
             EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
             enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
@@ -81,7 +80,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
             e.printStackTrace();
         }
         switchToBaseFragment();
-
     }
 
     @Override
@@ -119,6 +117,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         formNames.add("result_smear");
         formNames.add("result_chest_xray");
         formNames.add("result_culture");
+        formNames.add("diagnosis");
         return formNames.toArray(new String[formNames.size()]);
     }
 

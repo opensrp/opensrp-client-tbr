@@ -1,0 +1,200 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="tb_diagnosis"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">TB Diagnosis</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/Diagnosis_30.10.17_US/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_uc "></span> ; Center ka
+            naam: <span class="or-output"
+                data-value=" /Diagnosis_30.10.17_US/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/Diagnosis_30.10.17_US/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /Diagnosis_30.10.17_US/provider_uc "></span> ; Center
+            Name: <span class="or-output"
+                data-value=" /Diagnosis_30.10.17_US/provider_location_name "></span>
+        </span>
+        <input name="/Diagnosis_30.10.17_US/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label " data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb:label"
+                    lang="Roman Urdu">-
+                </span>
+                <span class="question-label active" data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb:label"
+                    lang="en">Confirmed TB patient
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/confirmed_tb" data-name="/Diagnosis_30.10.17_US/confirmed_tb"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/yes:label"
+                        lang="Roman Urdu">Haan
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/confirmed_tb" data-name="/Diagnosis_30.10.17_US/confirmed_tb"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/no:label"
+                        lang="Roman Urdu">Nahi
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/confirmed_tb" data-name="/Diagnosis_30.10.17_US/confirmed_tb"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/dont_know:label"
+                        lang="Roman Urdu">Pata
+                        Nahi
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/dont_know:label"
+                        lang="en">Don't
+                        Know
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/confirmed_tb" data-name="/Diagnosis_30.10.17_US/confirmed_tb"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/refuse:label"
+                        lang="Roman Urdu">Jawab nahi
+                        dena
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/confirmed_tb/refuse:label"
+                        lang="en">Refuse
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init ">
+        <fieldset>
+            <legend>
+                <span class="question-label " data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type:label"
+                    lang="Roman Urdu">-
+                </span>
+                <span class="question-label active" data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type:label"
+                    lang="en">Has the patient been
+                    diagnosed bacteriologically or clinically
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/diagnosis_type" data-name="/Diagnosis_30.10.17_US/diagnosis_type"
+                        data-relevant=" /Diagnosis_30.10.17_US/confirmed_tb  = 'yes'" data-type-xml="select1"
+                        required="required"
+                        type="radio"
+                        value="x_ray" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/x_ray:label"
+                        lang="Roman Urdu">X-ray
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/x_ray:label"
+                        lang="en">X-ray
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/diagnosis_type" data-name="/Diagnosis_30.10.17_US/diagnosis_type"
+                        data-relevant=" /Diagnosis_30.10.17_US/confirmed_tb  = 'yes'" data-type-xml="select1"
+                        required="required"
+                        type="radio"
+                        value="bacteriologically" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/bacteriologically:label"
+                        lang="Roman Urdu">
+                        Bacteriologically
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/bacteriologically:label"
+                        lang="en">
+                        Bacteriologically
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/Diagnosis_30.10.17_US/diagnosis_type" data-name="/Diagnosis_30.10.17_US/diagnosis_type"
+                        data-relevant=" /Diagnosis_30.10.17_US/confirmed_tb  = 'yes'" data-type-xml="select1"
+                        required="required"
+                        type="radio"
+                        value="symptomatically" />
+                    <span class="option-label " data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/symptomatically:label"
+                        lang="Roman Urdu">
+                        Symptomatically
+                    </span>
+                    <span class="option-label active" data-itext-id="/Diagnosis_30.10.17_US/diagnosis_type/symptomatically:label"
+                        lang="en">
+                        Symptomatically
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/deviceid" data-preload="property" data-preload-params="deviceid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/subscriberid" data-preload="property" data-preload-params="subscriberid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/simserial" data-preload="property" data-preload-params="simserial"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/phonenumber" data-preload="property" data-preload-params="phonenumber"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/client_reg_date" data-calculate=" /Diagnosis_30.10.17_US/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/Diagnosis_30.10.17_US/formhub/uuid" data-calculate="'09cee0308fbd4044b31e5c838b5cfa07'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>
