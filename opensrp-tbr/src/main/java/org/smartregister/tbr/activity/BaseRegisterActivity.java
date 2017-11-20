@@ -29,19 +29,17 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     public static String TOOLBAR_TITLE = "org.smartregister.tbr.activity.toolbarTitle";
 
+    public ViewConfiguration viewConfiguration;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_register, menu);
-        processViewConfigurations(menu);
+        processMenuConfigurations(menu);
         return true;
     }
 
-    private void processViewConfigurations(Menu menu) {
-        String configFile = "presumptive_register";
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
-        if (jsonString == null) return;
-        ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-        RegisterConfiguration metadata = (RegisterConfiguration) loginView.getMetadata();
+    private void processMenuConfigurations(Menu menu) {
+        RegisterConfiguration metadata = (RegisterConfiguration) viewConfiguration.getMetadata();
         menu.findItem(R.id.advancedSearch).setVisible(metadata.isEnableAdvancedSearch());
         menu.findItem(R.id.sortList).setVisible(metadata.isEnableSortList());
         menu.findItem(R.id.filterList).setVisible(metadata.isEnableFilterList());
@@ -78,7 +76,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Override
-    protected void onResumption() {//Implement Abstract Method
+    protected void onResumption() {
+        String configFile = "presumptive_register";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        if (jsonString == null) return;
+        viewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
     }
 
     @Override

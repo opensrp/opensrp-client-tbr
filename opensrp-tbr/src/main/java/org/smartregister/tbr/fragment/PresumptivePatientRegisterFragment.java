@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import org.json.JSONObject;
@@ -22,7 +23,10 @@ import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 
 import java.util.HashMap;
@@ -67,6 +71,13 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         populateClientListHeaderView(view);
     }
 
+    private void processViewConfigurations() {
+        ViewConfiguration configuration = ((BaseRegisterActivity) getActivity()).viewConfiguration;
+        RegisterConfiguration config = (RegisterConfiguration) configuration.getMetadata();
+        if (config.getSearchBarText() != null)
+            ((EditText) getView().findViewById(R.id.edt_search)).setHint(config.getSearchBarText());
+    }
+
     @Override
     protected void onResumption() {
         super.onResumption();
@@ -75,6 +86,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
             initializeQueries();
         }
         updateSearchView();
+        processViewConfigurations();
     }
 
     public void showResultMenu(View view) {
