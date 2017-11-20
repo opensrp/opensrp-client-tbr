@@ -32,4 +32,16 @@ TbrConstants extends AllConstants {
         public static final String CULTURE_RESULT = "culture_result";
         public static final String TEST_RESULT = "test_result";
     }
+
+    public static final class PRESUMPTIVE_REGISTER_COLUMNS {
+        public static final String PATIENT = "patient";
+        public static final String RESULTS = "results";
+        public static final String DIAGNOSIS = "diagnosis";
+        public static final String ENCOUNTER = "encounter";
+        public static final String BMI = "BMI";
+        public static final String DIAGNOSIS_DATE = "diagnosis_date";
+        public static final String XPERT_RESULTS = "xpert_results";
+        public static final String DIAGNOSIS_SCHEDULE = "diagnosis_schedule";
+        public static final String DROPDOWN = "dropdown";
+    }
 }

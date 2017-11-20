@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/registerColumns"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/list_item_height"
     android:background="#eeeeee"
@@ -8,6 +9,7 @@
     android:weightSum="10">
 
     <LinearLayout
+        android:id="@+id/firstColumn"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_marginRight="1dp"
@@ -16,6 +18,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/patientColumn"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="3dp"
@@ -56,6 +59,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/secondColumn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
@@ -90,6 +94,7 @@
 
 
     <LinearLayout
+        android:id="@+id/thirdColumn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"

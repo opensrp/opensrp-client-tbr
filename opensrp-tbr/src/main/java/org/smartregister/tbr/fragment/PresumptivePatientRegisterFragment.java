@@ -29,12 +29,20 @@ import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.DIAGNOSIS;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.PATIENT;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.RESULTS;
 
 /**
  * Created by samuelgithengi on 11/6/17.
@@ -45,7 +53,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private RegisterActionHandler registerActionHandler = new RegisterActionHandler();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
     private CommonPersonObjectClient patient;
-    private ViewConfiguration viewConfiguration;
+    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns;
 
     @Nullable
     @Override
@@ -67,16 +75,22 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
         view.findViewById(R.id.sorted_by_bar).setVisibility(View.GONE);
+        processViewConfigurations();
         initializeQueries();
         updateSearchView();
         populateClientListHeaderView(view);
     }
 
     private void processViewConfigurations() {
-        viewConfiguration = ((BaseRegisterActivity) getActivity()).viewConfiguration;
+        ViewConfiguration viewConfiguration = ((BaseRegisterActivity) getActivity()).viewConfiguration;
         RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
-        if (config.getSearchBarText() != null)
+        if (config.getSearchBarText() != null && getView() != null)
             ((EditText) getView().findViewById(R.id.edt_search)).setHint(config.getSearchBarText());
+        visibleColumns = new TreeSet<>(new ViewPositionComparator());
+        for (org.smartregister.tbr.jsonspec.model.View view : viewConfiguration.getViews()) {
+            if (view.isVisible())
+                visibleColumns.add(view);
+        }
     }
 
     @Override
@@ -104,7 +118,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private void initializeQueries() {
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), viewConfiguration, registerActionHandler, context().detailsRepository());
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, context().detailsRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -142,6 +156,31 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         clientsHeaderLayout.setVisibility(View.GONE);
 
         LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.register_list_header, null);
+        List<View> columns = new LinkedList<>();
+        for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
+            View column = null;
+            switch (columnView.getIdentifier()) {
+                case PATIENT:
+                    column = headerLayout.findViewById(R.id.patient_header);
+                    break;
+                case RESULTS:
+                    column = headerLayout.findViewById(R.id.results_header);
+                    break;
+                case DIAGNOSIS:
+                    column = headerLayout.findViewById(R.id.diagnose_header);
+                    break;
+            }
+            if (columnView.getResidence().getLayoutWeight() != null) {
+                LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) column.getLayoutParams();
+                param.weight = Float.valueOf(columnView.getResidence().getLayoutWeight());
+                column.setLayoutParams(param);
+            }
+            columns.add(column);
+        }
+        ViewGroup allColumns = (ViewGroup) headerLayout.findViewById(R.id.registerHeaders);
+        allColumns.removeAllViews();
+        for (View column : columns)
+            allColumns.addView(column);
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
 
@@ -199,6 +238,21 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                 default:
                     return false;
             }
+        }
+    }
+
+    class ViewPositionComparator implements Comparator<org.smartregister.tbr.jsonspec.model.View> {
+
+        @Override
+        public int compare(org.smartregister.tbr.jsonspec.model.View v1, org.smartregister.tbr.jsonspec.model.View v2) {
+            if (v1.getResidence() == null && v2.getResidence() == null)
+                return 0;
+            else if (v1.getResidence() == null && v2.getResidence() != null)
+                return 1;
+            else if (v1.getResidence() != null && v2.getResidence() == null)
+                return -1;
+            else
+                return Integer.valueOf(v1.getResidence().getPosition()).compareTo(Integer.valueOf(v2.getResidence().getPosition()));
         }
     }
 }

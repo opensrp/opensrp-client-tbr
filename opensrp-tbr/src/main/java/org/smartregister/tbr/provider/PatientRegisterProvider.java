@@ -6,6 +6,8 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +17,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -24,7 +25,10 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import util.TbrConstants;
 import util.TbrSpannableStringBuilder;
@@ -32,6 +36,9 @@ import util.TbrSpannableStringBuilder;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.DIAGNOSIS;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.PATIENT;
+import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.RESULTS;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -40,30 +47,57 @@ import static org.smartregister.util.Utils.getValue;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private ViewConfiguration viewConfiguration;
+    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
     private DetailsRepository detailsRepository;
 
     private static final String DETECTED = "detected";
 
-    public PatientRegisterProvider(Context context, ViewConfiguration viewConfiguration, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
+    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
-        this.viewConfiguration = viewConfiguration;
+        this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.detailsRepository = detailsRepository;
     }
 
     @Override
-    public void getView(Cursor cursor, SmartRegisterClient client, View view) {
+    public void getView(Cursor cursor, SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
-
-        populatePatientColumn(pc, view);
-        populateResultsColumn(pc, client, view);
-        populateDiagnoseColumn(client, view);
+        if (visibleColumns.isEmpty() || visibleColumns.size() > 3) {
+            populatePatientColumn(pc, convertView);
+            populateDiagnoseColumn(client, convertView);
+            populateResultsColumn(pc, client, convertView);
+            return;
+        }
+        List<View> columns = new LinkedList<>();
+        for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
+            View view = null;
+            switch (columnView.getIdentifier()) {
+                case PATIENT:
+                    view = populatePatientColumn(pc, convertView);
+                    break;
+                case RESULTS:
+                    view = populateResultsColumn(pc, client, convertView);
+                    break;
+                case DIAGNOSIS:
+                    view = populateDiagnoseColumn(client, convertView);
+                    break;
+            }
+            if (columnView.getResidence().getLayoutWeight() != null) {
+                LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) view.getLayoutParams();
+                param.weight = Float.valueOf(columnView.getResidence().getLayoutWeight());
+                view.setLayoutParams(param);
+            }
+            columns.add(view);
+        }
+        ViewGroup allColumns = (ViewGroup) convertView.findViewById(R.id.registerColumns);
+        allColumns.removeAllViews();
+        for (View view : columns)
+            allColumns.addView(view);
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, View view) {
+    private View populatePatientColumn(CommonPersonObjectClient pc, View view) {
 
         String firstName = getValue(pc.getColumnmaps(), TbrConstants.KEY.FIRST_NAME, true);
         String lastName = getValue(pc.getColumnmaps(), TbrConstants.KEY.LAST_NAME, true);
@@ -92,10 +126,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
         String ageAndGender = String.format("%s, %s", age, gender);
         fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
-
+        return view.findViewById(R.id.firstColumn);
     }
 
-    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+    private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View result = view.findViewById(R.id.result_lnk);
         result.setOnClickListener(onClickListener);
         result.setTag(client);
@@ -155,12 +189,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
+        return view.findViewById(R.id.secondColumn);
     }
 
-    private void populateDiagnoseColumn(SmartRegisterClient client, View view) {
+    private View populateDiagnoseColumn(SmartRegisterClient client, View view) {
         View diagnose = view.findViewById(R.id.diagnose_lnk);
         diagnose.setOnClickListener(onClickListener);
         diagnose.setTag(client);
+        return view.findViewById(R.id.thirdColumn);
     }
 
     @Override
@@ -184,6 +220,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        return inflater().inflate(R.layout.register_list_row, null);
+        return inflater.inflate(R.layout.register_list_row, null);
     }
 }
