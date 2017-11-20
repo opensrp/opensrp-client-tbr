@@ -1,10 +1,14 @@
 package org.smartregister.tbr.fragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,13 +41,6 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private RegisterActionHandler registerActionHandler = new RegisterActionHandler();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
     private CommonPersonObjectClient patient;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Nullable
     @Override
@@ -84,6 +81,10 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
+        MenuItem item = popup.getMenu().getItem(0);
+        SpannableString s = new SpannableString(item.getTitle());
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(s);
         popup.show();
     }
 

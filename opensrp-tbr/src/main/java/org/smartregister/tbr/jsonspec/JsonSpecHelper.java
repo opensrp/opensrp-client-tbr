@@ -11,6 +11,7 @@ import com.google.gson.stream.JsonReader;
 import org.smartregister.tbr.jsonspec.model.BaseConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
+import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 
 import java.io.InputStreamReader;
@@ -144,7 +145,8 @@ public class JsonSpecHelper {
         try {
             final RuntimeTypeAdapterFactory<BaseConfiguration> typeFactory = RuntimeTypeAdapterFactory
                     .of(BaseConfiguration.class, "type")
-                    .registerSubtype(LoginConfiguration.class, "Login");
+                    .registerSubtype(LoginConfiguration.class, "Login")
+                    .registerSubtype(RegisterConfiguration.class, "Register");
             final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
             return gson.fromJson(jsonString, VIEW_CONFIG_TYPE);
         } catch (Exception e) {

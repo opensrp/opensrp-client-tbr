@@ -12,6 +12,15 @@
         android:background="@color/customAppThemeBlue"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
+        <ImageView
+            android:layout_width="@dimen/smart_register_nav_bar_separator"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/separator" />
+
         <include layout="@layout/tool_bar" />
     </android.support.v7.widget.Toolbar>
 

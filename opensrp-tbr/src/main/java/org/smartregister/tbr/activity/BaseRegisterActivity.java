@@ -11,7 +11,10 @@ import android.view.MenuItem;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
+import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 /**
@@ -20,6 +23,8 @@ import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity {
 
+    public static final String TAG = "BaseRegisterActivity";
+
     private ProgressDialog progressDialog;
 
     public static String TOOLBAR_TITLE = "org.smartregister.tbr.activity.toolbarTitle";
@@ -27,7 +32,19 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_register, menu);
+        processViewConfigurations(menu);
         return true;
+    }
+
+    private void processViewConfigurations(Menu menu) {
+        String configFile = "presumptive_register";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        if (jsonString == null) return;
+        ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        RegisterConfiguration metadata = (RegisterConfiguration) loginView.getMetadata();
+        menu.findItem(R.id.advancedSearch).setVisible(metadata.isEnableAdvancedSearch());
+        menu.findItem(R.id.sortList).setVisible(metadata.isEnableSortList());
+        menu.findItem(R.id.filterList).setVisible(metadata.isEnableFilterList());
     }
 
     @Override
