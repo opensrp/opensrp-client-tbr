@@ -43,7 +43,7 @@ public class HomeActivityTest extends BaseUnitTest {
     @Mock
     private ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent;
     @Mock
-    Context context;
+    private Context context;
 
     @Before
     public void setUp() {
@@ -79,6 +79,7 @@ public class HomeActivityTest extends BaseUnitTest {
     public void refreshViewNotInvokedWhenRefreshViewFromConfigurationChangeCalledWithNullParameterSyncCompleteEvent() throws Exception {
         ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent = null;
         HomeActivityTestVersion spyActivity = spy(activity);
+        junit.framework.Assert.assertNotNull(spyActivity);
         spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
 
         PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
@@ -88,7 +89,7 @@ public class HomeActivityTest extends BaseUnitTest {
     public void refreshViewInvokedWhenRefreshViewFromConfigurationChangeCalledWithNonNullParameterSyncCompleteEvent() throws Exception {
 
         HomeActivityTestVersion spyActivity = spy(activity);
-
+        junit.framework.Assert.assertNotNull(spyActivity);
         PowerMockito.doNothing().when(spyActivity).refreshView();
         spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
 
@@ -99,6 +100,7 @@ public class HomeActivityTest extends BaseUnitTest {
     public void refreshViewNotInvokedWhenRefreshViewFromLanguageChangeCalledWithNullParameterSyncCompleteEvent() throws Exception {
         LanguageConfigurationEvent languageConfigurationEvent = null;
         HomeActivityTestVersion spyActivity = spy(activity);
+        junit.framework.Assert.assertNotNull(spyActivity);
         spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
 
         PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
@@ -108,7 +110,7 @@ public class HomeActivityTest extends BaseUnitTest {
     public void refreshViewInvokedWhenRefreshViewFromLanguageChangeCalledWithNonNullParameterSyncCompleteEvent() throws Exception {
 
         HomeActivityTestVersion spyActivity = spy(activity);
-
+        junit.framework.Assert.assertNotNull(spyActivity);
         PowerMockito.doNothing().when(spyActivity).refreshView();
         spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
 
@@ -120,7 +122,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
 
         HomeActivityTestVersion spyActivity = spy(activity);
-
+        junit.framework.Assert.assertNotNull(spyActivity);
         TriggerViewConfigurationSyncEvent triggerViewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
         triggerViewConfigurationSyncEvent.setManualSync(true);
 
