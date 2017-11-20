@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/immun_child_card_height"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profile_image_iv"
+                    android:layout_width="@dimen/immun_child_card_height"
+                    android:layout_height="@dimen/immun_child_card_height"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/child_boy_infant" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="@dimen/navigation_icon_size"
+                    android:layout_height="@dimen/navigation_icon_size"
+                    android:layout_gravity="left|top"
+                    android:src="@drawable/ic_icon_edit" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/name"
+                    style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mohammad Dhanial"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/activity_title_size" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/idforclient"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#5425428"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/activity_sub_title_size" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/ageforclient"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="40"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/activity_sub_title_size" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/genderforclient"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Male"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/activity_sub_title_size" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/demographic_layout_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/namec"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="Positive Results"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/activity_title_size" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/namex"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:text="RECORD RESULTS"
+                        android:textAllCaps="true"
+                        android:textColor="@color/male_dark_blue"
+                        android:textSize="@dimen/activity_title_size" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/idforclientc"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First encounter: 27 May 2017"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/activity_sub_title_size" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/ageforclientc"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No results recorded"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/activity_title_size" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/namev"
+                style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mohammad Dhanial"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/activity_title_size" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/idforclientv"
+                    style="@style/CustomFontTextViewStyle.ClientList.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/activity_sub_title_size" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/ageforclientv"
+                    style="@style/CustomFontTextViewStyle.ClientList.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:text="Form"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/activity_sub_title_size" />
+            </LinearLayout>
+
+
+            <ListView
+                android:id="@+id/serviceHistoryListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

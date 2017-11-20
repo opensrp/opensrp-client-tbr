@@ -26,7 +26,6 @@ import java.util.Calendar;
  */
 
 public class HomeActivity extends BaseActivity {
-    private Toolbar toolbar;
     private static final String TAG = HomeActivity.class.getCanonicalName();
 
     @Override
