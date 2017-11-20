@@ -45,6 +45,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private RegisterActionHandler registerActionHandler = new RegisterActionHandler();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
     private CommonPersonObjectClient patient;
+    private ViewConfiguration viewConfiguration;
 
     @Nullable
     @Override
@@ -72,8 +73,8 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     }
 
     private void processViewConfigurations() {
-        ViewConfiguration configuration = ((BaseRegisterActivity) getActivity()).viewConfiguration;
-        RegisterConfiguration config = (RegisterConfiguration) configuration.getMetadata();
+        viewConfiguration = ((BaseRegisterActivity) getActivity()).viewConfiguration;
+        RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
         if (config.getSearchBarText() != null)
             ((EditText) getView().findViewById(R.id.edt_search)).setHint(config.getSearchBarText());
     }
@@ -103,7 +104,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private void initializeQueries() {
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), registerActionHandler, context().detailsRepository());
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), viewConfiguration, registerActionHandler, context().detailsRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 

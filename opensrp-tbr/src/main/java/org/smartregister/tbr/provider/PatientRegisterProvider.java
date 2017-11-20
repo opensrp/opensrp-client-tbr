@@ -15,6 +15,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -39,29 +40,38 @@ import static org.smartregister.util.Utils.getValue;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private Context context;
+    private ViewConfiguration viewConfiguration;
     private View.OnClickListener onClickListener;
     private DetailsRepository detailsRepository;
 
     private static final String DETECTED = "detected";
 
-    public PatientRegisterProvider(Context context, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
+    public PatientRegisterProvider(Context context, ViewConfiguration viewConfiguration, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
+        this.viewConfiguration = viewConfiguration;
         this.onClickListener = onClickListener;
         this.detailsRepository = detailsRepository;
     }
 
     @Override
-    public void getView(Cursor cursor, SmartRegisterClient client, View convertView) {
+    public void getView(Cursor cursor, SmartRegisterClient client, View view) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
+
+        populatePatientColumn(pc, view);
+        populateResultsColumn(pc, client, view);
+        populateDiagnoseColumn(client, view);
+    }
+
+    private void populatePatientColumn(CommonPersonObjectClient pc, View view) {
 
         String firstName = getValue(pc.getColumnmaps(), TbrConstants.KEY.FIRST_NAME, true);
         String lastName = getValue(pc.getColumnmaps(), TbrConstants.KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
-        fillValue((TextView) convertView.findViewById(R.id.patient_name), patientName);
+        fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) convertView.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), TbrConstants.KEY.TBREACH_ID, false));
+        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), TbrConstants.KEY.TBREACH_ID, false));
 
 
         String gender = getValue(pc.getColumnmaps(), TbrConstants.KEY.GENDER, true);
@@ -81,18 +91,16 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
         }
         String ageAndGender = String.format("%s, %s", age, gender);
-        fillValue((TextView) convertView.findViewById(R.id.age_gender), ageAndGender);
+        fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
 
-        View result = convertView.findViewById(R.id.result_lnk);
+    }
+
+    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        View result = view.findViewById(R.id.result_lnk);
         result.setOnClickListener(onClickListener);
         result.setTag(client);
 
-        View diagnose = convertView.findViewById(R.id.diagnose_lnk);
-        diagnose.setOnClickListener(onClickListener);
-        diagnose.setTag(client);
-
-
-        TextView results = (TextView) convertView.findViewById(R.id.result_details);
+        TextView results = (TextView) view.findViewById(R.id.result_details);
         result.setTag(client);
         Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
 
@@ -147,7 +155,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
+    }
 
+    private void populateDiagnoseColumn(SmartRegisterClient client, View view) {
+        View diagnose = view.findViewById(R.id.diagnose_lnk);
+        diagnose.setOnClickListener(onClickListener);
+        diagnose.setTag(client);
     }
 
     @Override
