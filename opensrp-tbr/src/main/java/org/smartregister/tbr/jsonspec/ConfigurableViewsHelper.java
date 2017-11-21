@@ -32,7 +32,7 @@ public class ConfigurableViewsHelper {
 
     public Set<View> getRegisterActiveColumns(String identifier) {
         Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
-        for (org.smartregister.tbr.jsonspec.model.View view : viewConfigurations.get(identifier).getViews()) {
+        for (View view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
                 visibleColumns.add(view);
         }
@@ -43,7 +43,7 @@ public class ConfigurableViewsHelper {
         //Dont process  for more than 3 columns
         if (columnMapping.size() > 3) return;
         List<android.view.View> columns = new LinkedList<>();
-        for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
+        for (View columnView : visibleColumns) {
             android.view.View column = view.findViewById(columnMapping.get(columnView.getIdentifier()));
             if (columnView.getResidence().getLayoutWeight() != null) {
                 LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) column.getLayoutParams();

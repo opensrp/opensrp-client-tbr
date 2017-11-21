@@ -10,13 +10,9 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.tbr.model.Result;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ResultsRepository extends BaseRepository {
-    private static final String TAG = ResultsRepository.class.getCanonicalName();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static final String TABLE_NAME = "results";
     private static final String ID = "_id";

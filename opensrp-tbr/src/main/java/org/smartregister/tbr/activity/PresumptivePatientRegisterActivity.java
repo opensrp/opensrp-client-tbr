@@ -174,7 +174,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
                     .setPositiveButton(R.string.no_button_label,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-
+                                    //Do nothing, remain on Enketo Form Fragment
                                 }
                             })
                     .setNegativeButton(R.string.yes_button_label,

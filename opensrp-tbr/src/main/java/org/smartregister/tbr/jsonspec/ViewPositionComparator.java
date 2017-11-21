@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class ViewPositionComparator implements Comparator<View> {
 
     @Override
-    public int compare(org.smartregister.tbr.jsonspec.model.View v1, org.smartregister.tbr.jsonspec.model.View v2) {
+    public int compare(View v1, View v2) {
         if (v1.getResidence() == null && v2.getResidence() == null)
             return 0;
         else if (v1.getResidence() == null && v2.getResidence() != null)
