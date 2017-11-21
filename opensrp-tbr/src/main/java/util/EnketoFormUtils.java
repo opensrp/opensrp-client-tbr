@@ -237,9 +237,9 @@ public class EnketoFormUtils {
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
         if (e.getEventType().equals("Screening"))
-            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext), null);
+            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
         else
-            org.smartregister.util.Utils.startAsyncTask(new SaveEventAsyncTask(v2FormSubmission, mContext), null);
+            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);
 
     }
 
@@ -1023,10 +1023,12 @@ public class EnketoFormUtils {
     class SavePatientAsyncTask extends AsyncTask<Void, Void, Void> {
         private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
         private Context context;
+        private boolean saveClient;
 
-        public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context) {
+        public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context, boolean hasClient) {
             this.formSubmission = formSubmission;
             this.context = context;
+            this.saveClient = hasClient;
         }
 
         @Override
@@ -1049,64 +1051,19 @@ public class EnketoFormUtils {
         protected Void doInBackground(Void... params) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
-            saveClient(c);
+            if (saveClient) {
+                Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                saveClient(c);
+            }
             Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
             saveEvent(e);
             Map<String, Map<String, Object>> dep = formEntityConverter.
                     getDependentClientsFromFormSubmission(formSubmission);
             for (Map<String, Object> cm : dep.values()) {
-                Client cin = (Client) cm.get("client");
-                Event evin = (Event) cm.get("event");
-                saveClient(cin);
-                saveEvent(evin);
-            }
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-
-            try {
-                TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            } catch (Exception e1) {
-                logError("Error Processing client ");
-            }
-            return null;
-        }
-    }
-
-    class SaveEventAsyncTask extends AsyncTask<Void, Void, Void> {
-        private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
-        private Context context;
-
-        public SaveEventAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context) {
-            this.formSubmission = formSubmission;
-            this.context = context;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
-                registerActivity.refreshList(FetchStatus.fetched);
-                registerActivity.hideProgressDialog();
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                ((PresumptivePatientRegisterActivity) context).showProgressDialog();
-            }
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
-            saveEvent(e);
-            Map<String, Map<String, Object>> dep = formEntityConverter.
-                    getDependentClientsFromFormSubmission(formSubmission);
-            for (Map<String, Object> cm : dep.values()) {
+                if (saveClient) {
+                    Client cin = (Client) cm.get("client");
+                    saveClient(cin);
+                }
                 Event evin = (Event) cm.get("event");
                 saveEvent(evin);
             }
@@ -1121,5 +1078,4 @@ public class EnketoFormUtils {
             return null;
         }
     }
-
 }

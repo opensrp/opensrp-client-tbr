@@ -6,7 +6,7 @@
     android:background="@color/client_list_header_dark_grey"
     android:orientation="horizontal"
     android:weightSum="10"
-    android:id="@+id/registerHeaders">
+    android:id="@+id/register_headers">
 
 
     <org.smartregister.view.customcontrols.CustomFontTextView

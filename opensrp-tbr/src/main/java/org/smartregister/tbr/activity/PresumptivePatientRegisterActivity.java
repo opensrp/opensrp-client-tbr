@@ -144,6 +144,11 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
     }
 
+    @Override
+    public String getViewIdentifier() {
+        return "presumptive_register";
+    }
+
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
         return (DisplayFormFragment) findFragmentByPosition(index);
     }

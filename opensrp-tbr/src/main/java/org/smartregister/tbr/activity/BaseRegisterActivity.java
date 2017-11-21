@@ -14,7 +14,6 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 /**
@@ -29,8 +28,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     public static String TOOLBAR_TITLE = "org.smartregister.tbr.activity.toolbarTitle";
 
-    public ViewConfiguration viewConfiguration;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_register, menu);
@@ -39,7 +36,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     private void processMenuConfigurations(Menu menu) {
-        RegisterConfiguration metadata = (RegisterConfiguration) viewConfiguration.getMetadata();
+        RegisterConfiguration metadata = (RegisterConfiguration) TbrApplication.getInstance()
+                .getConfigurableViewsHelper().getViewConfiguration(getViewIdentifier()).getMetadata();
         menu.findItem(R.id.advancedSearch).setVisible(metadata.isEnableAdvancedSearch());
         menu.findItem(R.id.sortList).setVisible(metadata.isEnableSortList());
         menu.findItem(R.id.filterList).setVisible(metadata.isEnableFilterList());
@@ -77,20 +75,15 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void onResumption() {
-        String configFile = "presumptive_register";
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
-        if (jsonString == null) return;
-        viewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        TbrApplication.getInstance().getConfigurableViewsHelper().registerViewConfiguration(getViewIdentifier());
     }
 
     @Override
     protected void onInitialization() {//Implement Abstract Method
-
     }
 
     @Override
     public void startRegistration() {//Implement Abstract Method
-
     }
 
     protected abstract Fragment findFragmentByPosition(int position);
@@ -129,4 +122,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             progressDialog.dismiss();
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifier());
+    }
+
+    public abstract String getViewIdentifier();
 }

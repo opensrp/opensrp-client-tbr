@@ -6,8 +6,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +15,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -25,8 +24,7 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,9 +34,9 @@ import util.TbrSpannableStringBuilder;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
-import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.DIAGNOSIS;
-import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.PATIENT;
-import static util.TbrConstants.PRESUMPTIVE_REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
+import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
+import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -70,31 +68,25 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             populateResultsColumn(pc, client, convertView);
             return;
         }
-        List<View> columns = new LinkedList<>();
         for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
-            View view = null;
             switch (columnView.getIdentifier()) {
                 case PATIENT:
-                    view = populatePatientColumn(pc, convertView);
+                    populatePatientColumn(pc, convertView);
                     break;
                 case RESULTS:
-                    view = populateResultsColumn(pc, client, convertView);
+                    populateResultsColumn(pc, client, convertView);
                     break;
-                case DIAGNOSIS:
-                    view = populateDiagnoseColumn(client, convertView);
+                case DIAGNOSE:
+                    populateDiagnoseColumn(client, convertView);
                     break;
             }
-            if (columnView.getResidence().getLayoutWeight() != null) {
-                LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) view.getLayoutParams();
-                param.weight = Float.valueOf(columnView.getResidence().getLayoutWeight());
-                view.setLayoutParams(param);
-            }
-            columns.add(view);
         }
-        ViewGroup allColumns = (ViewGroup) convertView.findViewById(R.id.registerColumns);
-        allColumns.removeAllViews();
-        for (View view : columns)
-            allColumns.addView(view);
+        Map<String, Integer> mapping = new HashMap();
+        mapping.put(PATIENT, R.id.patient_column);
+        mapping.put(RESULTS, R.id.results_column);
+        mapping.put(DIAGNOSE, R.id.diagnose_column);
+        TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
+
     }
 
     private View populatePatientColumn(CommonPersonObjectClient pc, View view) {
@@ -126,7 +118,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
         String ageAndGender = String.format("%s, %s", age, gender);
         fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
-        return view.findViewById(R.id.firstColumn);
+        return view.findViewById(R.id.patient_column);
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
@@ -189,14 +181,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
-        return view.findViewById(R.id.secondColumn);
+        return view.findViewById(R.id.results_column);
     }
 
     private View populateDiagnoseColumn(SmartRegisterClient client, View view) {
         View diagnose = view.findViewById(R.id.diagnose_lnk);
         diagnose.setOnClickListener(onClickListener);
         diagnose.setTag(client);
-        return view.findViewById(R.id.thirdColumn);
+        return view.findViewById(R.id.diagnose_column);
     }
 
     @Override
