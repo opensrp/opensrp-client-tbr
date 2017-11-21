@@ -99,6 +99,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'org.greenrobot:eventbus:3.1.1'
 
     compile project(':json2view')
     compile 'com.google.guava:guava:20.0'
@@ -107,8 +108,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
     testCompile('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
-    testCompile 'org.robolectric:robolectric:3.4.2'
-    testCompile 'org.robolectric:shadows-multidex:3.4-rc2'
+    testCompile 'org.robolectric:robolectric:3.5.1'
+    testCompile 'org.robolectric:shadows-multidex:3.5.1'
     // PowerMock
     def powerMockVersion = '1.7.3'
     testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
@@ -116,8 +117,12 @@ dependencies {
     testCompile "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testCompile "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 
-    androidTestCompile ('com.android.support.test:runner:0.5') { exclude module: 'support-annotations' }
-    androidTestCompile ('com.android.support.test:rules:0.5') { exclude module: 'support-annotations' }
+    androidTestCompile('com.android.support.test:runner:0.5') {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test:rules:0.5') {
+        exclude module: 'support-annotations'
+    }
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {

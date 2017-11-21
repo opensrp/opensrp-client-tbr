@@ -16,4 +16,5 @@
     <string name="str_search_hint">Search name or ID</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="no_record">No Record(s) Found!</string>
+    <string name="select_language">Select Language</string>
 </resources>

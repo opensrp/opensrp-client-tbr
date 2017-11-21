@@ -2,12 +2,13 @@ package org.smartregister.tbr.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
 
 import org.smartregister.Context;
-import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.tbr.util.Utils;
 
 import static org.smartregister.util.Log.logError;
 
@@ -31,16 +32,17 @@ public class PullConfigurableViewsIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent != null)
+        if (intent != null) {
             try {
-                pullConfigurableViewsServiceHelper.processIntent();
-                Intent refreshLoginIntentFilter = new Intent();
-                refreshLoginIntentFilter.setAction(LoginActivity.REFRESH_LOGIN_ACTION);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(refreshLoginIntentFilter);
+                int count = pullConfigurableViewsServiceHelper.processIntent();
+                if (count > 0) {
+                    Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+                    Utils.postEvent(new LanguageConfigurationEvent(true));
+                }
             } catch (Exception e) {
-                logError("Error fetching configurable Views");
+                logError(TAG + " Error fetching configurable Views");
             }
-
+        }
     }
 
     @Override
