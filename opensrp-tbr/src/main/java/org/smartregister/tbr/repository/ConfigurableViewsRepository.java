@@ -14,7 +14,9 @@ import org.smartregister.repository.Repository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ConfigurableViewsRepository extends BaseRepository {
     private static final String TAG = ConfigurableViewsRepository.class.getCanonicalName();
@@ -105,6 +107,36 @@ public class ConfigurableViewsRepository extends BaseRepository {
         } else {
             cursor.moveToFirst();
             jsonString = cursor.getString(0);
+        }
+        cursor.close();
+        return jsonString;
+    }
+
+    public String getConfigurableLanguageJson(String language) {
+        String jsonString;
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{JSON}, IDENTIFIER + " = ?", new String[]{language}, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        } else {
+            cursor.moveToFirst();
+            jsonString = cursor.getString(0);
+        }
+        cursor.close();
+        return jsonString;
+    }
+
+    public List<String> getAvailableLanguagesJson() {
+        List<String> jsonString;
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{IDENTIFIER}, IDENTIFIER + " like 'lang_%'", null, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        } else {
+            jsonString = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                jsonString.add(cursor.getString(0));
+            }
         }
         cursor.close();
         return jsonString;

@@ -17,8 +17,10 @@ public class Constants {
         public static final String COLON = ":";
     }
 
-    public static class VIEW {
-        public static final String LOGIN_VIEW = "login_view";
-        public static final String HOME_VIEW = "home_view";
+    public static class CONFIGURATION {
+        public static final String LOGIN = "login";
+        public static final String HOME = "home";
+        public static final String MAIN = "main";
+        public static final String LANG = "lang";
     }
 }

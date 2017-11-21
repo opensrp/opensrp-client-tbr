@@ -1,7 +1,11 @@
 package org.smartregister.tbr.application;
 
 import android.content.Intent;
+import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -9,14 +13,18 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.activity.LoginActivity;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
 import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
+import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
 import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -39,6 +47,8 @@ public class TbrApplication extends DrishtiApplication {
     private ResultDetailsRepository resultDetailsRepository;
     private ConfigurableViewsHelper configurableViewsHelper;
 
+    private static final String TAG = TbrApplication.class.getCanonicalName();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -55,9 +65,16 @@ public class TbrApplication extends DrishtiApplication {
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
+
+        setUpEventHandling();
 
     }
 
@@ -174,5 +191,31 @@ public class TbrApplication extends DrishtiApplication {
             configurableViewsHelper = new ConfigurableViewsHelper();
         }
         return configurableViewsHelper;
+    }
+
+    private void setUpEventHandling() {
+
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void triggerConfigurationSync(TriggerViewConfigurationSyncEvent event) {
+        if (event != null) {
+            startPullConfigurableViewsIntentService(this);
+        }
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void setServerLanguage(LanguageConfigurationEvent event) {
+        //Set Language
+        MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
+        if (config != null && config.getLanguage() != null && event.isFromServer()) {
+
+            Utils.saveLanguage(config.getLanguage());
+            Utils.showToast(getApplicationContext(), "Syncing Complete...");
+
+        }
     }
 }

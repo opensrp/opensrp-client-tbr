@@ -33,12 +33,13 @@ public class PullConfigurableViewsServiceHelper {
         this.baseUrl = baseUrl;
     }
 
-    protected void processIntent() throws Exception {
+    protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
             updateLastSyncTimeStamp(lastSyncTimeStamp);
         }
+        return views == null ? 0 : views.length();
     }
 
     private JSONArray fetchConfigurableViews() throws JSONException {

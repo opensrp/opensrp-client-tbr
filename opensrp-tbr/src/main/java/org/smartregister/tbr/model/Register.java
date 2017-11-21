@@ -1,9 +1,9 @@
 package org.smartregister.tbr.model;
 
-import android.util.Log;
-
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.View;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.util.Utils;
 
 import java.util.Map;
 
@@ -25,8 +25,8 @@ public class Register {
     private int position;
 
     public Register(View view, int totalPatients, int totalPatientsWithDueOverdue) {
-
-        Map<String, String> en = getLanguageFile("en");
+        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
+        Map<String, String> en = config == null ? null : config.getLabels();
         String label = en != null && en.size() > 0 ? en.get(view.getIdentifier()) : view.getLabel();
 
         this.title = label != null && !label.isEmpty() ? label : view.getLabel();
@@ -77,12 +77,5 @@ public class Register {
         this.position = position;
     }
 
-    private Map<String, String> getLanguageFile(String languageCode) {
-        try {
-            return TbrApplication.getJsonSpecHelper().getLanguageFile(languageCode);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            return null;
-        }
-    }
+
 }

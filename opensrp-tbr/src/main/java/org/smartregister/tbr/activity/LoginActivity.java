@@ -2,10 +2,8 @@ package org.smartregister.tbr.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,7 +15,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -39,6 +36,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +52,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
@@ -95,8 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String ENGLISH_LANGUAGE = "English";
     private static final String URDU_LANGUAGE = "Urdu";
     private RemoteLoginTask remoteLoginTask;
-    public static String REFRESH_LOGIN_ACTION = "org.smartregister.action.LOGIN_REFRESH";
-    private BroadcastReceiver refreshLoginReceiver = new RefreshLoginBroadcastReceiver();
     private CheckBox showPasswordCheckBox;
 
     @Override
@@ -165,9 +164,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter refreshIntentFilter = new IntentFilter();
-        refreshIntentFilter.addAction(REFRESH_LOGIN_ACTION);
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshLoginReceiver, refreshIntentFilter);
         processViewCustomizations();
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
@@ -177,7 +173,18 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshLoginReceiver);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     public void login(final View view) {
@@ -185,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final View view, boolean localLogin) {
+        
         android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
         hideKeyboard();
         view.setClickable(false);
@@ -218,6 +226,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     login(findViewById(org.smartregister.R.id.login_loginButton));
+                    return true;
                 }
                 return false;
             }
@@ -317,7 +326,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 })
                 .create();
-        dialog.show();
+
+        if (!LoginActivity.this.isFinishing() && !dialog.isShowing()) {
+            dialog.show();
+        }
     }
 
     private void showMessageDialog(String message, DialogInterface.OnClickListener ok, DialogInterface.OnClickListener cancel) {
@@ -446,6 +458,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     public static String switchLanguagePreference() {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(getOpenSRPContext().applicationContext()));
 
@@ -524,8 +537,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String configFile = "login";
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(configFile);
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
         if (jsonString == null) return;
         ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
@@ -584,7 +596,13 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(LoginResponse loginResponse) {
             super.onPostExecute(loginResponse);
-            progressDialog.dismiss();
+            if (progressDialog != null && progressDialog.isShowing()) {
+
+                if (LoginActivity.this.isDestroyed()) { // Fix not attached to window manager Exception
+                    return;
+                }
+                progressDialog.dismiss();
+            }
             afterLoginCheck.onEvent(loginResponse);
         }
     }
@@ -625,12 +643,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private class RefreshLoginBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(android.content.Context context, Intent intent) {
-            logInfo("onReceive RefreshLoginBroadcastReceiver");
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void refreshViews(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
+        if (syncCompleteEvent != null) {
+            logInfo("Refreshing Login View...");
             processViewCustomizations();
         }
     }
+
 }

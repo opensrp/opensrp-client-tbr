@@ -3,6 +3,7 @@ package org.smartregister.tbr.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import org.smartregister.tbr.adapter.RegisterArrayAdapter;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
+import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -29,33 +31,47 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
  */
 
 public class RegisterFragment extends ListFragment {
+    private static String TAG = RegisterFragment.class.getCanonicalName();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        List<Register> values = new ArrayList<>();
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getJsonSpecHelper().getViewFile(Constants.VIEW.HOME_VIEW);
-        List<org.smartregister.tbr.jsonspec.model.View> views = viewConfiguration.getViews();
-        for (org.smartregister.tbr.jsonspec.model.View view : views) {
-            if (view.isVisible()) {
-                values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                        RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
-            }
-        }
-        if (values.size() > 0) {
-            Collections.sort(values, new Comparator<Register>() {
-                @Override
-                public int compare(Register registerA, Register registerB) {
-                    return registerA.getPosition() - registerB.getPosition();
+        try {
+            super.onActivityCreated(savedInstanceState);
+            List<Register> values = new ArrayList<>();
+            String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
+            if (jsonString == null) return;
+
+
+            ViewConfiguration homeViewConfig = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            if (homeViewConfig != null) {
+                List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
+                for (org.smartregister.tbr.jsonspec.model.View view : views) {
+                    if (view.isVisible()) {
+                        values.add(new Register(view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
+                                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
+                    }
                 }
-            });
-        } else {
-            Utils.showToast(getActivity(), "You need to configure at least One Register as Visible on the Server Side...");
+                if (values.size() > 0) {
+                    Collections.sort(values, new Comparator<Register>() {
+                        @Override
+                        public int compare(Register registerA, Register registerB) {
+                            return registerA.getPosition() - registerB.getPosition();
+                        }
+                    });
+                } else {
+                    Utils.showDialogMessage(getActivity(), "Info", "You need to configure at least One Register as Visible on the Server Side...");
+                }
+                RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
+                setListAdapter(adapter);
+            } else {
+
+                Utils.showDialogMessage(getActivity(), "Info", "Missing Home View Configuration on server");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
-        RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
-        setListAdapter(adapter);
 
     }
-
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
@@ -75,7 +91,7 @@ public class RegisterFragment extends ListFragment {
             if (registerType.equals(Register.PRESUMPTIVE_PATIENTS)) {
                 return 12;
             } else if (registerType.equals(Register.POSITIVE_PATIENTS)) {
-                return 12;
+                return 13;
             } else if (registerType.equals(Register.IN_TREATMENT_PATIENTS)) {
                 return 4;
             } else {
@@ -94,5 +110,9 @@ public class RegisterFragment extends ListFragment {
                 return 0;
             }
         }
+    }
+
+    private ConfigurableViewsRepository getConfigurableViewsRepository() {
+        return TbrApplication.getInstance().getConfigurableViewsRepository();
     }
 }
