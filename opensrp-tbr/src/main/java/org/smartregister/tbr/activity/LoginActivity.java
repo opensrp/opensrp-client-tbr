@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final View view, boolean localLogin) {
-        
+
         android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
         hideKeyboard();
         view.setClickable(false);

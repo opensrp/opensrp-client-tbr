@@ -29,5 +29,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
+    <style name="AppThemeGray" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/register_title_grey</item>
+        <item name="colorPrimaryDark">@color/register_title_grey</item>
+        <item name="colorAccent">@color/transparent_gray</item>
+        <item name="android:textColorPrimary">@color/register_title_grey</item>
+        <item name="android:textColorSecondary">@color/register_title_grey</item>
+    </style>
 </resources>

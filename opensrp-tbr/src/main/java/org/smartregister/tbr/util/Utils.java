@@ -52,6 +52,11 @@ public class Utils {
         }
     }
 
+    public static String getShortInitials(String fullname) {
+        String initials = getInitials(fullname);
+        return initials.length() > 2 ? initials.substring(0, 2) : initials;
+    }
+
 
     public static void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
