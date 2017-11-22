@@ -193,13 +193,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(final View view, boolean localLogin) {
 
-        //To Remove hack
-
-        Intent intent = new Intent(TbrApplication.getInstance().getApplicationContext(), HomeActivity.class);
-        startActivity(intent);
-        finish();
-        //////////////
-
         android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
         hideKeyboard();
         view.setClickable(false);
