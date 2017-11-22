@@ -27,7 +27,7 @@
                 android:paddingLeft="0dp">
 
                 <TextView
-                    android:id="@+id/initalsTextView"
+                    android:id="@+id/clientInitalsTextView"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_vertical|center_horizontal"

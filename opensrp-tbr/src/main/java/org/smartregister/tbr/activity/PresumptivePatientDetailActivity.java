@@ -112,6 +112,10 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
         clientNameTextView.setText(patientDetails.get("first_name") + " " + patientDetails.get("last_name"));
         TextView clientGenderTextView = (TextView) findViewById(R.id.clientGenderTextView);
         clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get("gender")));
+
+        TextView clientInitalsTextView = (TextView) findViewById(R.id.clientInitalsTextView);
+        clientInitalsTextView.setText(Utils.getShortInitials(patientDetails.get("first_name") + " " + patientDetails.get("last_name")));
+
     }
 
 
