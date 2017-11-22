@@ -1,0 +1,54 @@
+{
+  "case_classification_rules": [
+    {
+      "comment": "Patient: This rule checks whether a given case belongs to Presumptive Register",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "Screening",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "GeneXpert Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Smear Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "X-Ray Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Culture Result",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TB Diagnosis",
+            "creates_case": [
+              "ec_patient"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

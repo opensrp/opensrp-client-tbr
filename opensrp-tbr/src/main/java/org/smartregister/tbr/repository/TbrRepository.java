@@ -6,7 +6,9 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.application.TbrApplication;
 
 /**
  * Created by keyman on 23/08/2017.
@@ -22,7 +24,7 @@ public class TbrRepository extends Repository {
 
 
     public TbrRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), null, openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), TbrApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
 
     }
 
@@ -30,6 +32,12 @@ public class TbrRepository extends Repository {
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         ConfigurableViewsRepository.createTable(database);
+        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.address, EventClientRepository.address_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.obs, EventClientRepository.obs_column.values());
+        ResultsRepository.createTable(database);
+        ResultDetailsRepository.createTable(database);
         //onUpgrade(database, 1, 2);
 
     }

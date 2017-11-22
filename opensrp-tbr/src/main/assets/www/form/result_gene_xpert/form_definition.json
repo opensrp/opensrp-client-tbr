@@ -1,0 +1,119 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/GeneXpertForm_03.10.17_US",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "provider_uc",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_uc"
+      },
+      {
+        "name": "provider_town",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_town"
+      },
+      {
+        "name": "provider_city",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_city"
+      },
+      {
+        "name": "provider_province",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_province"
+      },
+      {
+        "name": "provider_id",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_id"
+      },
+      {
+        "name": "provider_location_id",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_location_id"
+      },
+      {
+        "name": "provider_location_name",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_location_name"
+      },
+      {
+        "name": "provider_location_note",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/provider_location_note"
+      },
+      {
+        "name": "start",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/end"
+      },
+      {
+        "name": "today",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/today"
+      },
+      {
+        "name": "deviceid",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/deviceid"
+      },
+      {
+        "name": "subscriberid",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/subscriberid"
+      },
+      {
+        "name": "simserial",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/simserial"
+      },
+      {
+        "name": "phonenumber",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/phonenumber"
+      },
+      {
+        "name": "client_reg_date",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/client_reg_date"
+      },
+      {
+        "name": "participant_id",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/participant_id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "genexpert_performed",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/genexpert_performed"
+      },
+      {
+        "name": "test_date",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/test_date"
+      },
+      {
+        "name": "sample_id",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/sample_id"
+      },
+      {
+        "name": "result_date",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/result_date"
+      },
+      {
+        "name": "mtb_result",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/mtb_result"
+      },
+      {
+        "name": "mtb_burden",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/mtb_burden"
+      },
+      {
+        "name": "rif_result",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/rif_result"
+      },
+      {
+        "name": "error_code",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/error_code"
+      },
+      {
+        "name": "comments",
+        "bind": "/model/instance/GeneXpertForm_03.10.17_US/test_information/comments"
+      }
+    ]
+  }
+}
