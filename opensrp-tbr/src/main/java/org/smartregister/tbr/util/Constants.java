@@ -9,6 +9,7 @@ public class Constants {
         public static final String FULL_NAME = "full_name";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
         public static final String REGISTER_TITLE = "register_title";
+        public static final String PATIENT_DETAIL_MAP = "patient_detail_map";
     }
 
     public static class CHAR {

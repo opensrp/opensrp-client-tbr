@@ -208,6 +208,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                 case R.id.patient_column:
                     Intent intent = new Intent(registerActivity, PresumptivePatientDetailActivity.class);
                     intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerActivity.getIntent().getStringExtra(TOOLBAR_TITLE));
+                    intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patient.getDetails());
                     startActivity(intent);
 
 
