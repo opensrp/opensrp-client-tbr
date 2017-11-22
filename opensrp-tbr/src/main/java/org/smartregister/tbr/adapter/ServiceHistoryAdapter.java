@@ -31,7 +31,7 @@ public class ServiceHistoryAdapter extends ArrayAdapter<ServiceHistory> implemen
     }
 
     public ServiceHistoryAdapter(ArrayList<ServiceHistory> data, Context context) {
-        super(context, R.layout.service_history_row, data);
+        super(context, R.layout.row_service_history, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -62,9 +62,9 @@ public class ServiceHistoryAdapter extends ArrayAdapter<ServiceHistory> implemen
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.service_history_row, parent, false);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.formfillDate);
-            viewHolder.formName = (TextView) convertView.findViewById(R.id.formName);
+            convertView = inflater.inflate(R.layout.row_service_history, parent, false);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.formfillDateTextView);
+            viewHolder.formName = (TextView) convertView.findViewById(R.id.formNameTextView);
 
             result = convertView;
 
@@ -74,7 +74,7 @@ public class ServiceHistoryAdapter extends ArrayAdapter<ServiceHistory> implemen
             result = convertView;
         }
 
-        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.slide_from_bottom : R.anim.slide_from_top);
         result.startAnimation(animation);
         lastPosition = position;
 

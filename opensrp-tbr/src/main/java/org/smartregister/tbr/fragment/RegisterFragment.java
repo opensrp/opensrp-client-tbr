@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.BaseActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
@@ -63,7 +62,7 @@ public class RegisterFragment extends ListFragment {
                 } else {
                     Utils.showDialogMessage(getActivity(), "Info", "You need to configure at least One Register as Visible on the Server Side...");
                 }
-                RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.register_row_view, values);
+                RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values);
                 setListAdapter(adapter);
             } else {
 

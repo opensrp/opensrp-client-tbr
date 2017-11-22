@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.MainActivity">
 
-    <include layout="@layout/base_toolbar_layout" />
+    <include layout="@layout/toolbar_base_layout" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

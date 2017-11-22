@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
@@ -29,7 +31,6 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presumptive_patient_detail);
-        onBackPressed();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,12 +71,15 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
                         .setAction("No action", null).show();
             }
         });
-    }
 
 
-    //remove patient
-    public void removePatient(View view) {
-        Utils.showToast(this, "Removing patient");
+        TextView recordResults = (TextView) findViewById(R.id.recordResultsTextView);
+        recordResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.showToast(getApplicationContext(), "Recording patient results ...");
+            }
+        });
     }
 
 }

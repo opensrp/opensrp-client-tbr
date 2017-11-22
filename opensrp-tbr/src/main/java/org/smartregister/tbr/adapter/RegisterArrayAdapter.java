@@ -38,7 +38,7 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
         ViewHolder holder = null;
         View convertView = convertView_;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.register_row_view, null);
+            convertView = inflater.inflate(R.layout.row_register_view, null);
             holder = new ViewHolder();
             holder.titleTextView = (TextView) convertView.findViewById(R.id.registerTitleView);
             holder.patientCountTextView = (TextView) convertView.findViewById(R.id.patientCountView);

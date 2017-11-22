@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.PresumptivePatientDetailActivity">
 
-    <include layout="@layout/patient_register_toolbar" />
+    <include layout="@layout/toolbar_patient_register" />
 
     <include layout="@layout/content_presumptive_patient_detail" />
 
