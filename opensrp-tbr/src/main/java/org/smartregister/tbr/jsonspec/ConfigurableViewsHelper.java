@@ -1,5 +1,6 @@
 package org.smartregister.tbr.jsonspec;
 
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -22,6 +23,8 @@ public class ConfigurableViewsHelper {
 
     private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
 
+    private static final String TAG = "ConfigurableViewsHelper";
+
     public void registerViewConfiguration(String viewIdentifier) {
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewIdentifier);
         if (jsonString == null)
@@ -41,16 +44,21 @@ public class ConfigurableViewsHelper {
 
     public void processRegisterColumns(Map<String, Integer> columnMapping, android.view.View view, Set<View> visibleColumns, int parentComponent) {
         //Dont process  for more than 3 columns
-        if (columnMapping.size() > 3) return;
+        if (visibleColumns.size() > 3) return;
         List<android.view.View> columns = new LinkedList<>();
         for (View columnView : visibleColumns) {
-            android.view.View column = view.findViewById(columnMapping.get(columnView.getIdentifier()));
-            if (columnView.getResidence().getLayoutWeight() != null) {
-                LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) column.getLayoutParams();
-                param.weight = Float.valueOf(columnView.getResidence().getLayoutWeight());
-                column.setLayoutParams(param);
+            try {
+                android.view.View column = view.findViewById(columnMapping.get(columnView.getIdentifier()));
+                if (columnView.getResidence().getLayoutWeight() != null) {
+                    LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) column.getLayoutParams();
+                    param.weight = Float.valueOf(columnView.getResidence().getLayoutWeight());
+                    column.setLayoutParams(param);
+                }
+                column.setVisibility(android.view.View.VISIBLE);
+                columns.add(column);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
             }
-            columns.add(column);
         }
         ViewGroup allColumns = (ViewGroup) view.findViewById(parentComponent);
         allColumns.removeAllViews();

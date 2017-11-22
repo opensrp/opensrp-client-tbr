@@ -37,8 +37,10 @@ import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
+import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 
 /**
  * Created by samuelgithengi on 11/6/17.
@@ -119,13 +121,14 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         setTablename(tableName);
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts(tableName);
-        mainCondition = " presumptive =\"yes\" AND confirmed_tb IS NULL";
+        mainCondition = getMainCondition();
         countSelect = countqueryBUilder.mainCondition(mainCondition);
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
+                tableName + ".last_interacted_with",
                 tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID_COLUMN,
                 tableName + "." + TbrConstants.KEY.FIRST_NAME,
                 tableName + "." + TbrConstants.KEY.LAST_NAME,
@@ -153,6 +156,8 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         mapping.put(PATIENT, R.id.patient_header);
         mapping.put(RESULTS, R.id.results_header);
         mapping.put(DIAGNOSE, R.id.diagnose_header);
+        mapping.put(ENCOUNTER, R.id.encounter_header);
+        mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
@@ -164,20 +169,38 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         getSearchView().addTextChangedListener(textWatcher);
     }
 
+    private FieldOverrides getFieldOverrides() {
+        FieldOverrides fieldOverrides = null;
+        Map fields = new HashMap();
+        fields.put("participant_id", patient.getDetails().get(TbrConstants.KEY.TBREACH_ID));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
+    @Override
+    protected String getMainCondition() {
+        return " presumptive =\"yes\" AND confirmed_tb IS NULL";
+    }
+
     class RegisterActionHandler implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
+            PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
             if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
                 patient = (CommonPersonObjectClient) view.getTag();
             }
             switch (view.getId()) {
+                case R.id.dropdown_btn:
                 case R.id.result_lnk:
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:
-                    PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
                     registerActivity.startFormActivity("diagnosis", patient.getDetails().get("_id"), null);
+                    break;
+                case R.id.xpert_result_lnk:
+                    registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     break;
                 default:
                     break;
@@ -190,23 +213,18 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             PresumptivePatientRegisterActivity registerActivity = (PresumptivePatientRegisterActivity) getActivity();
-            Map fields = new HashMap();
-            fields.put("participant_id", patient.getDetails().get(TbrConstants.KEY.TBREACH_ID));
-            JSONObject fieldOverridesJson = new JSONObject(fields);
-
-            FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
             switch (item.getItemId()) {
                 case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
+                    registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_smear:
-                    registerActivity.startFormActivity("result_smear", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
+                    registerActivity.startFormActivity("result_smear", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_chest_xray:
-                    registerActivity.startFormActivity("result_chest_xray", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
+                    registerActivity.startFormActivity("result_chest_xray", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_culture:
-                    registerActivity.startFormActivity("result_culture", patient.getDetails().get("_id"), fieldOverrides.getJSONString());
+                    registerActivity.startFormActivity("result_culture", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     return true;
                 default:
                     return false;

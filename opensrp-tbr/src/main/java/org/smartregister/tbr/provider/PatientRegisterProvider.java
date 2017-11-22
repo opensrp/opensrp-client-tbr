@@ -35,8 +35,11 @@ import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
+import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
+import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -79,12 +82,24 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case DIAGNOSE:
                     populateDiagnoseColumn(client, convertView);
                     break;
+                case ENCOUNTER:
+                    populateEncounterColumn(pc, convertView);
+                    break;
+                case XPERT_RESULTS:
+                    populateXpertResultsColumn(pc, client, convertView);
+                    break;
+                case DROPDOWN:
+                    populateDropdownColumn(client, convertView);
+                    break;
             }
         }
         Map<String, Integer> mapping = new HashMap();
         mapping.put(PATIENT, R.id.patient_column);
         mapping.put(RESULTS, R.id.results_column);
         mapping.put(DIAGNOSE, R.id.diagnose_column);
+        mapping.put(ENCOUNTER, R.id.encounter_column);
+        mapping.put(XPERT_RESULTS, R.id.xpert_results_column);
+        mapping.put(DROPDOWN, R.id.dropdown_column);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
 
     }
@@ -189,6 +204,64 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         diagnose.setOnClickListener(onClickListener);
         diagnose.setTag(client);
         return view.findViewById(R.id.diagnose_column);
+    }
+
+    private View populateDropdownColumn(SmartRegisterClient client, View view) {
+        View diagnose = view.findViewById(R.id.dropdown_btn);
+        diagnose.setOnClickListener(onClickListener);
+        diagnose.setTag(client);
+        return view.findViewById(R.id.dropdown_column);
+    }
+
+
+    private View populateEncounterColumn(CommonPersonObjectClient pc, View view) {
+        DateTime encounterTime;
+        String lastEncounter = getValue(pc.getColumnmaps(), "last_interacted_with", false);
+        String duration = "";
+        if (StringUtils.isNotBlank(lastEncounter)) {
+            try {
+                encounterTime = new DateTime(Long.valueOf(lastEncounter));
+                duration = DateUtil.getDuration(encounterTime);
+            } catch (Exception e) {
+                Log.e(getClass().getName(), e.toString(), e);
+            }
+        }
+        fillValue((TextView) view.findViewById(R.id.encounter), duration + " ago");
+        return view.findViewById(R.id.encounter_column);
+    }
+
+    private View populateXpertResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        View result = view.findViewById(R.id.xpert_result_lnk);
+        result.setOnClickListener(onClickListener);
+        result.setTag(client);
+
+        TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
+        result.setTag(client);
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+
+        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.holo_red_dark));
+        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.black));
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
+            stringBuilder.append("MTB ");
+            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
+                stringBuilder.append("+ve", redForegroundColorSpan);
+            else
+                stringBuilder.append("-ve", redForegroundColorSpan);
+            stringBuilder.append(" RIF ");
+            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
+                stringBuilder.append("+ve", blackForegroundColorSpan);
+            else
+                stringBuilder.append("-ve", blackForegroundColorSpan);
+        }
+        if (stringBuilder.length() > 0) {
+            results.setVisibility(View.VISIBLE);
+            results.setText(stringBuilder);
+        }
+
+        return view.findViewById(R.id.xpert_results_column);
     }
 
     @Override
