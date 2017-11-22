@@ -116,6 +116,14 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
         TextView clientInitalsTextView = (TextView) findViewById(R.id.clientInitalsTextView);
         clientInitalsTextView.setText(Utils.getShortInitials(patientDetails.get("first_name") + " " + patientDetails.get("last_name")));
 
+        if (patientDetails.get("gender").equals("male")) {
+            clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.male_light_blue));
+            clientInitalsTextView.setTextColor(getResources().getColor(R.color.male_blue));
+
+        } else {
+            clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.female_light_pink));
+            clientInitalsTextView.setTextColor(getResources().getColor(R.color.female_pink));
+        }
     }
 
 
