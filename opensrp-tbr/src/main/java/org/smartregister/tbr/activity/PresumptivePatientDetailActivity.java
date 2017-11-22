@@ -4,24 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
-import org.joda.time.DateTime;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
 import org.smartregister.tbr.model.ServiceHistory;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
-import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,31 +88,26 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
     }
 
     private void processViews() {
+
         Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
         TextView tbReachIdTextView = (TextView) findViewById(R.id.tbReachIdTextView);
-        tbReachIdTextView.setText("#" + patientDetails.get("tbreach_id"));
-        TextView clientAgeTextView = (TextView) findViewById(R.id.clientAgeTextView);
-        String dobString = patientDetails.get("dob");
-        String formattedAge = "";
-        if (!TextUtils.isEmpty(dobString)) {
-            DateTime dateTime = new DateTime(dobString);
-            Date dob = dateTime.toDate();
-            long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
+        tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
 
-            if (timeDiff >= 0) {
-                formattedAge = DateUtil.getDuration(timeDiff);
-            }
-        }
+        TextView clientAgeTextView = (TextView) findViewById(R.id.clientAgeTextView);
+        String dobString = patientDetails.get(Constants.KEY.DOB);
+        String formattedAge = Utils.getFormattedAgeString(dobString);
         clientAgeTextView.setText(formattedAge);
+
         TextView clientNameTextView = (TextView) findViewById(R.id.clientNameTextView);
-        clientNameTextView.setText(patientDetails.get("first_name") + " " + patientDetails.get("last_name"));
+        String fullName = patientDetails.get(Constants.KEY.FIRST_NAME) + " " + patientDetails.get(Constants.KEY.LAST_NAME);
+        clientNameTextView.setText(fullName);
         TextView clientGenderTextView = (TextView) findViewById(R.id.clientGenderTextView);
-        clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get("gender")));
+        clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get(Constants.KEY.GENDER)));
 
         TextView clientInitalsTextView = (TextView) findViewById(R.id.clientInitalsTextView);
-        clientInitalsTextView.setText(Utils.getShortInitials(patientDetails.get("first_name") + " " + patientDetails.get("last_name")));
+        clientInitalsTextView.setText(Utils.getShortInitials(fullName));
 
-        if (patientDetails.get("gender").equals("male")) {
+        if (patientDetails.get(Constants.KEY.GENDER).equals(Constants.GENDER.MALE)) {
             clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.male_light_blue));
             clientInitalsTextView.setTextColor(getResources().getColor(R.color.male_blue));
 
@@ -124,7 +115,9 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
             clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.female_light_pink));
             clientInitalsTextView.setTextColor(getResources().getColor(R.color.female_pink));
         }
-    }
 
+        Button removePatientButton = (Button) findViewById(R.id.removePatientButton);
+        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+    }
 
 }

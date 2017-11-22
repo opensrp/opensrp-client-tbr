@@ -3,6 +3,7 @@ package org.smartregister.tbr.activity;
 import android.os.Bundle;
 import android.view.View;
 
+import org.smartregister.tbr.R;
 import org.smartregister.tbr.util.Utils;
 
 /**
@@ -23,10 +24,9 @@ public abstract class BasePatientDetailActivity extends BaseActivity {
         return true;
     }
 
-
     //remove patient
     public void removePatient(View view) {
-        Utils.showToast(this, "Removing patient");
+        Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
     }
 
 }

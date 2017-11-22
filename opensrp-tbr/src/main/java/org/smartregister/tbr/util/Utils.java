@@ -7,16 +7,20 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
+import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -113,5 +117,27 @@ public class Utils {
 
     public static void postEvent(BaseEvent event) {
         EventBus.getDefault().post(event);
+    }
+
+
+    public static String getFormattedAgeString(String dobString) {
+        String formattedAge = "";
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            Date dob = dateTime.toDate();
+            long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
+
+            if (timeDiff >= 0) {
+                formattedAge = DateUtil.getDuration(timeDiff);
+            }
+        }
+        return formattedAge;
+    }
+
+    public static String formatIdentifier(String identifier) {
+        if (identifier != null && !identifier.isEmpty()) {
+            String cleanIdentifier = identifier.contains(Constants.CHAR.HASH) ? identifier.replaceAll(Constants.CHAR.HASH, Constants.CHAR.NO_CHAR) : identifier;
+            return Constants.CHAR.HASH + cleanIdentifier;
+        } else return Constants.CHAR.NO_CHAR;
     }
 }

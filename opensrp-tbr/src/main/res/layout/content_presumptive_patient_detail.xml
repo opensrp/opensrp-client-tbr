@@ -199,7 +199,7 @@
                     style="@style/CustomFontTextViewStyle.ClientList.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time"
+                    android:text="Date"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/activity_header_size" />
 
@@ -207,7 +207,7 @@
                     style="@style/CustomFontTextViewStyle.ClientList.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dp"
+                    android:layout_marginLeft="95dp"
                     android:text="Form"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/activity_header_size" />
