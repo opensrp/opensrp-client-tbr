@@ -66,7 +66,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     public void getView(Cursor cursor, SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty() || visibleColumns.size() > 3) {
-            populatePatientColumn(pc, convertView);
+            populatePatientColumn(pc, client, convertView);
             populateDiagnoseColumn(client, convertView);
             populateResultsColumn(pc, client, convertView);
             return;
@@ -74,7 +74,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
             switch (columnView.getIdentifier()) {
                 case PATIENT:
-                    populatePatientColumn(pc, convertView);
+                    populatePatientColumn(pc, client, convertView);
                     break;
                 case RESULTS:
                     populateResultsColumn(pc, client, convertView);
@@ -104,7 +104,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     }
 
-    private View populatePatientColumn(CommonPersonObjectClient pc, View view) {
+    private View populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
 
         String firstName = getValue(pc.getColumnmaps(), TbrConstants.KEY.FIRST_NAME, true);
         String lastName = getValue(pc.getColumnmaps(), TbrConstants.KEY.LAST_NAME, true);
@@ -133,7 +133,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
         String ageAndGender = String.format("%s, %s", age, gender);
         fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
-        return view.findViewById(R.id.patient_column);
+
+        View patient = view.findViewById(R.id.patient_column);
+        patient.setOnClickListener(onClickListener);
+        patient.setTag(client);
+        return patient;
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {

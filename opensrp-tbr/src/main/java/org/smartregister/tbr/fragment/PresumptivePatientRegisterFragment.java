@@ -202,6 +202,9 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                 case R.id.xpert_result_lnk:
                     registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     break;
+                case R.id.patient_column:
+                    ///open detail screen
+                    break;
                 default:
                     break;
             }
