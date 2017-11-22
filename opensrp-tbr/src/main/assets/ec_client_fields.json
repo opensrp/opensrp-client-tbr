@@ -1,0 +1,81 @@
+{
+  "bindobjects": [
+    {
+      "name": "ec_patient",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "tbreach_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH ID"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        },
+        {
+          "column_name": "mobile_phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Primary Contact Number"
+          }
+        },
+        {
+          "column_name": "presumptive",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:presumptive tuberculosis case"
+          }
+        },
+        {
+          "column_name": "confirmed_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:confirmed tuberculosis"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    }
+  ]
+}

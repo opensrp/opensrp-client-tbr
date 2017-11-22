@@ -1,5 +1,4 @@
 <resources>
-    <dimen name="register_status_bar_margin">7dp</dimen>
     <dimen name="list_profile_box_width">0dp</dimen>
     <dimen name="list_ec_no_view_width">0dp</dimen>
     <dimen name="list_risk_factors_view_width">0dp</dimen>
@@ -71,8 +70,6 @@
     <dimen name="client_profile_pic_dialog_height">100dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="loc_picker_dialog_width">350dp</dimen>
-    <dimen name="loc_picker_text_min_width">130dp</dimen>
-    <dimen name="loc_picker_text_max_width">200dp</dimen>
     <dimen name="advanced_search_text_size">28dp</dimen>
     <dimen name="advanced_search_label_sizess">20dp</dimen>
     <dimen name="advanced_search_label_small_size">16dp</dimen>
@@ -81,7 +78,6 @@
     <dimen name="noti_button_text_size">16sp</dimen>
     <dimen name="register_drawable_padding">10dp</dimen>
     <dimen name="snack_bar_text_size">20dp</dimen>
-    <dimen name="title_label_text_max_width">150dp</dimen>
     <dimen name="sibling_profile_pic_width">70dp</dimen>
     <dimen name="sibling_profile_pic_height">70dp</dimen>
     <dimen name="table_contents_text_size">22sp</dimen>
@@ -104,10 +100,12 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="login_logo_height">90dp</dimen>
     <dimen name="login_opensrp_logo_height">32dp</dimen>
-    <dimen name="login_opensrp_logo_width">100dp</dimen>
-    <dimen name="login_horizontal_margin">30dp</dimen>
-    <dimen name="login_bottom_margin">30dp</dimen>
+    <dimen name="login_opensrp_logo_width">90dp</dimen>
+    <dimen name="login_horizontal_margin">50dp</dimen>
+    <dimen name="login_bottom_margin">15dp</dimen>
     <dimen name="login_text_build_margin">2dp</dimen>
+    <dimen name="login_view_component_height">40dp</dimen>
+    <dimen name="login_font_size">14sp</dimen>
     <dimen name="register_font_size">20sp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="ec_main_header_search_cancel_button_width">25dp</dimen>
@@ -116,5 +114,9 @@
     <dimen name="default_font_size">16sp</dimen>
     <dimen name="card_padding">10dp</dimen>
     <dimen name="card_content_margin">10dp</dimen>
+    <dimen name="register_status_bar_margin">7dp</dimen>
+    <dimen name="title_label_text_max_width">150dp</dimen>
+    <dimen name="loc_picker_text_max_width">180dp</dimen>
+    <dimen name="loc_picker_text_min_width">130dp</dimen>
 </resources>
 

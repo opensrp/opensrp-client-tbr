@@ -11,6 +11,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.BaseConfiguration;
 import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
+import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
@@ -101,7 +102,8 @@ public class JsonSpecHelper {
             final RuntimeTypeAdapterFactory<BaseConfiguration> typeFactory = RuntimeTypeAdapterFactory
                     .of(BaseConfiguration.class, "type")
                     .registerSubtype(LoginConfiguration.class, "Login")
-                    .registerSubtype(MainConfig.class, "Main");
+                    .registerSubtype(MainConfig.class, "Main")
+                    .registerSubtype(RegisterConfiguration.class, "Register");
             final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
             return gson.fromJson(jsonString, VIEW_CONFIG_TYPE);
         } catch (Exception e) {
