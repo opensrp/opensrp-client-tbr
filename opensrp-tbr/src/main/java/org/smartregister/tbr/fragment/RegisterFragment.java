@@ -84,11 +84,6 @@ public class RegisterFragment extends ListFragment {
             Intent intent = new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class);
             intent.putExtra(TOOLBAR_TITLE, register.getTitle());
             startActivity(intent);
-        } else {
-            Intent intent = new Intent(this.getActivity(), PresumptivePatientDetailActivity.class);
-            intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, register.getTitle());
-            startActivity(intent);
-
         }
     }
 

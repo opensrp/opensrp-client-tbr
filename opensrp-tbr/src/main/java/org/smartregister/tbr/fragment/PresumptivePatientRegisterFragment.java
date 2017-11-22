@@ -1,5 +1,6 @@
 package org.smartregister.tbr.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,11 +24,13 @@ import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
+import org.smartregister.tbr.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -203,7 +206,11 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
                     registerActivity.startFormActivity("result_gene_xpert", patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
-                    ///open detail screen
+                    Intent intent = new Intent(registerActivity, PresumptivePatientDetailActivity.class);
+                    intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerActivity.getIntent().getStringExtra(TOOLBAR_TITLE));
+                    startActivity(intent);
+
+
                     break;
                 default:
                     break;
