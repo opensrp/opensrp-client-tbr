@@ -163,7 +163,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("-ve", redForegroundColorSpan);
         }
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
-            stringBuilder.append(",\nSmr ");
+            if (stringBuilder.length() > 0)
+                stringBuilder.append(",\n");
+            stringBuilder.append("Smr ");
             switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
                 case "one_plus":
                     stringBuilder.append("1+", redForegroundColorSpan);
@@ -181,11 +183,15 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
 
         if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
-            stringBuilder.append(", Cul ");
+            if (stringBuilder.length() > 0)
+                stringBuilder.append(", ");
+            stringBuilder.append("Cul ");
             stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
         }
         if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
-            stringBuilder.append(",\nCXR ");
+            if (stringBuilder.length() > 0)
+                stringBuilder.append(",\n");
+            stringBuilder.append("CXR ");
             if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
                 stringBuilder.append("Ind", blackForegroundColorSpan);
             else

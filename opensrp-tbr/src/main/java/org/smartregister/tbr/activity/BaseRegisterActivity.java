@@ -114,7 +114,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(R.string.saving_dialog_title));
         progressDialog.setMessage(getString(R.string.please_wait_message));
-        progressDialog.show();
+        if (!isFinishing())
+            progressDialog.show();
     }
 
     public void hideProgressDialog() {
