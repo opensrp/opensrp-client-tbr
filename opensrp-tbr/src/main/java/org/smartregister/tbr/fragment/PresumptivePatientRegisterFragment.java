@@ -13,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.avocarrot.json2view.DynamicView;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorSortOption;
@@ -25,10 +29,13 @@ import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.RegisterViewHolder;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -151,17 +158,51 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private void populateClientListHeaderView(View view) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(View.GONE);
-        LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.register_list_header, null);
+        JSONObject jsonView = loadJSONFromAsset("register_list_header.json");
+        View headerLayout;
         Map<String, Integer> mapping = new HashMap();
-        mapping.put(PATIENT, R.id.patient_header);
-        mapping.put(RESULTS, R.id.results_header);
-        mapping.put(DIAGNOSE, R.id.diagnose_header);
-        mapping.put(ENCOUNTER, R.id.encounter_header);
-        mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
-        TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
+        if (jsonView == null) {
+            headerLayout = getLayoutInflater(null).inflate(R.layout.register_list_header, null);
+            mapping.put(PATIENT, R.id.patient_header);
+            mapping.put(RESULTS, R.id.results_header);
+            mapping.put(DIAGNOSE, R.id.diagnose_header);
+            mapping.put(ENCOUNTER, R.id.encounter_header);
+            mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
+            TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
+        } else {
+            headerLayout = DynamicView.createView(getActivity().getApplicationContext(), jsonView, RegisterViewHolder.class);
+            headerLayout.setLayoutParams(
+                    new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT));
+            RegisterViewHolder registerViewHolder = ((RegisterViewHolder) headerLayout.getTag());
+            mapping.put(PATIENT, registerViewHolder.patientHeader.getId());
+            mapping.put(RESULTS, registerViewHolder.resultsHeader.getId());
+            mapping.put(DIAGNOSE, registerViewHolder.diagnoseHeader.getId());
+            mapping.put(ENCOUNTER, registerViewHolder.encounterHeader.getId());
+            mapping.put(XPERT_RESULTS, registerViewHolder.xpertResultsHeader.getId());
+            TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, registerViewHolder.registerHeaders.getId());
+        }
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
 
+    }
+
+    public JSONObject loadJSONFromAsset(String fileName) {
+        JSONObject json = null;
+        try {
+            InputStream is = getActivity().getAssets().open("views/" + fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new JSONObject(new String(buffer, "UTF-8"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
     private void updateSearchView() {

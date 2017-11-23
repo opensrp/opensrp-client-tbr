@@ -2,6 +2,7 @@ package com.avocarrot.json2view;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,30 +25,30 @@ public class DynamicView {
     static int INTERNAL_TAG_ID = 0x7f020000;
 
     /**
-     * @param jsonObject : json object
+     * @param jsonObject  : json object
      * @param holderClass : class that will be created as an holder and attached as a tag in the View
      * @return the view that created
      */
-    public static View createView (Context context, JSONObject jsonObject, Class holderClass) {
+    public static View createView(Context context, JSONObject jsonObject, Class holderClass) {
         return createView(context, jsonObject, null, holderClass);
     }
 
     /**
-     * @param jsonObject : json object
-     * @param parent : parent viewGroup
+     * @param jsonObject  : json object
+     * @param parent      : parent viewGroup
      * @param holderClass : class that will be created as an holder and attached as a tag in the View, If contains HashMap ids will replaced with idsMap
      * @return the view that created
      */
-    public static View createView (Context context, JSONObject jsonObject, ViewGroup parent, Class holderClass) {
+    public static View createView(Context context, JSONObject jsonObject, ViewGroup parent, Class holderClass) {
 
-        if (jsonObject==null)
+        if (jsonObject == null)
             return null;
 
         HashMap<String, Integer> ids = new HashMap<>();
 
         View container = createViewInternal(context, jsonObject, parent, ids);
 
-        if (container==null)
+        if (container == null)
             return null;
 
         if (container.getTag(INTERNAL_TAG_ID) != null)
@@ -56,7 +57,7 @@ public class DynamicView {
         /* clear tag from properties */
         container.setTag(INTERNAL_TAG_ID, null);
 
-        if (holderClass!= null) {
+        if (holderClass != null) {
 
             try {
                 Object holder = holderClass.getConstructor().newInstance();
@@ -80,10 +81,10 @@ public class DynamicView {
 
     /**
      * @param jsonObject : json object
-     * @param parent : parent viewGroup
+     * @param parent     : parent viewGroup
      * @return the view that created
      */
-    public static View createView (Context context, JSONObject jsonObject, ViewGroup parent) {
+    public static View createView(Context context, JSONObject jsonObject, ViewGroup parent) {
         return createView(context, jsonObject, parent, null);
     }
 
@@ -91,21 +92,22 @@ public class DynamicView {
      * @param jsonObject : json object
      * @return the view that created
      */
-    public static View createView (Context context, JSONObject jsonObject) {
+    public static View createView(Context context, JSONObject jsonObject) {
         return createView(context, jsonObject, null, null);
     }
 
     /**
      * use internal to parse the json as a tree to create View
+     *
      * @param jsonObject : json object
-     * @param ids : the hashMap where we keep ids as string from json to ids as int in the layout
+     * @param ids        : the hashMap where we keep ids as string from json to ids as int in the layout
      * @return the view that created
      */
-    private static View createViewInternal (Context context, JSONObject jsonObject, ViewGroup parent, HashMap<String, Integer> ids) {
+    private static View createViewInternal(Context context, JSONObject jsonObject, ViewGroup parent, HashMap<String, Integer> ids) {
 
         View view = null;
 
-        ArrayList<DynamicProperty> properties;
+        ArrayList<DynamicProperty> properties  = new ArrayList<>();;
 
         try {
             /* Create the View Object. If not full package is available try to create a view from android.widget */
@@ -114,8 +116,26 @@ public class DynamicView {
                 widget = "android.widget." + widget;
             }
             Class viewClass = Class.forName(widget);
+
+            int styleId = 0;
+
+             /* iterate json and get all properties in array */
+            JSONArray jArray = jsonObject.getJSONArray("properties");
+            if (jArray != null) {
+                for (int i = 0; i < jArray.length(); i++) {
+                    DynamicProperty p = new DynamicProperty(jArray.getJSONObject(i));
+                    if (p.isValid()) {
+                        if (p.name.equals(DynamicProperty.NAME.STYLE))
+                            styleId = DynamicHelper.getStyleId(context, p.getValueString());
+                        properties.add(p);
+                    }
+                }
+            }
             /* create the actual view object */
-            view = (View) viewClass.getConstructor(Context.class).newInstance(new Object[] { context });
+            if (styleId != 0)
+                view = (View) viewClass.getConstructor(Context.class, AttributeSet.class, int.class).newInstance(new Object[]{context, null, styleId});
+            else
+                view = (View) viewClass.getConstructor(Context.class).newInstance(new Object[]{context});
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -130,24 +150,13 @@ public class DynamicView {
             e.printStackTrace();
         }
 
-        if (view==null) return null;
+        if (view == null) return null;
 
         try {
 
             /* default Layout in case the user not set it */
             ViewGroup.LayoutParams params = DynamicHelper.createLayoutParams(parent);
             view.setLayoutParams(params);
-
-            /* iterrate json and get all properties in array */
-            properties = new ArrayList<>();
-            JSONArray jArray = jsonObject.getJSONArray("properties");
-            if (jArray != null) {
-                for (int i=0;i<jArray.length();i++){
-                    DynamicProperty p = new DynamicProperty(jArray.getJSONObject(i));
-                    if (p.isValid())
-                        properties.add(p);
-                }
-            }
 
             /* keep properties obj as a tag */
             view.setTag(INTERNAL_TAG_ID, properties);
@@ -157,7 +166,7 @@ public class DynamicView {
             if (!TextUtils.isEmpty(id)) {
                 /* to target older versions we cannot use View.generateViewId();  */
                 ids.put(id, mCurrentId);
-                view.setId( mCurrentId );
+                view.setId(mCurrentId);
                 mCurrentId++;
             }
 
@@ -169,11 +178,11 @@ public class DynamicView {
                 List<View> views = new ArrayList<>();
                 JSONArray jViews = jsonObject.optJSONArray("views");
                 if (jViews != null) {
-                    int count=jViews.length();
-                    for (int i=0;i<count;i++) {
+                    int count = jViews.length();
+                    for (int i = 0; i < count; i++) {
                         /* create every child add it in viewGroup and set its tag with its properties */
                         View dynamicChildView = DynamicView.createViewInternal(context, jViews.getJSONObject(i), parent, ids);
-                        if (dynamicChildView!=null) {
+                        if (dynamicChildView != null) {
                             views.add(dynamicChildView);
                             viewGroup.addView(dynamicChildView);
                         }
@@ -181,7 +190,7 @@ public class DynamicView {
                 }
                 /* after create all the children apply layout properties
                 * we need to do this after al children creation to have create all possible ids */
-                for(View v : views) {
+                for (View v : views) {
                     DynamicHelper.applyLayoutProperties(v, (List<DynamicProperty>) v.getTag(INTERNAL_TAG_ID), viewGroup, ids);
                     /* clear tag from properties */
                     v.setTag(INTERNAL_TAG_ID, null);

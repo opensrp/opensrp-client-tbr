@@ -1,0 +1,836 @@
+{
+  "views": [
+    {
+      "views": [
+        {
+          "views": [
+            {
+              "views": [],
+              "properties": [
+                {
+                  "value": "patient_name",
+                  "type": "ref",
+                  "name": "id"
+                },
+                {
+                  "value": "@style/CustomFontTextViewStyle.ClientList.Medium",
+                  "type": "string",
+                  "name": "style"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_width"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_height"
+                },
+                {
+                  "value": "Patient Name",
+                  "type": "string",
+                  "name": "text"
+                },
+                {
+                  "value": "@color/client_list_grey",
+                  "type": "color",
+                  "name": "textColor"
+                },
+                {
+                  "value": "18sp",
+                  "type": "dimen",
+                  "name": "textSize"
+                }
+              ],
+              "widget": "org.smartregister.view.customcontrols.CustomFontTextView"
+            },
+            {
+              "views": [],
+              "properties": [
+                {
+                  "value": "participant_id",
+                  "type": "ref",
+                  "name": "id"
+                },
+                {
+                  "value": "@style/CustomFontTextViewStyle.ClientList",
+                  "type": "string",
+                  "name": "style"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_width"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_height"
+                },
+                {
+                  "value": "Participant ID",
+                  "type": "string",
+                  "name": "text"
+                },
+                {
+                  "value": "@color/client_list_grey",
+                  "type": "color",
+                  "name": "textColor"
+                },
+                {
+                  "value": "16sp",
+                  "type": "dimen",
+                  "name": "textSize"
+                }
+              ],
+              "widget": "org.smartregister.view.customcontrols.CustomFontTextView"
+            },
+            {
+              "views": [],
+              "properties": [
+                {
+                  "value": "age_gender",
+                  "type": "ref",
+                  "name": "id"
+                },
+                {
+                  "value": "@style/CustomFontTextViewStyle.ClientList",
+                  "type": "string",
+                  "name": "style"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_width"
+                },
+                {
+                  "value": "wrap_content",
+                  "type": "dimen",
+                  "name": "layout_height"
+                },
+                {
+                  "value": "Age and Gender",
+                  "type": "string",
+                  "name": "text"
+                },
+                {
+                  "value": "@color/client_list_grey",
+                  "type": "color",
+                  "name": "textColor"
+                },
+                {
+                  "value": "16sp",
+                  "type": "dimen",
+                  "name": "textSize"
+                }
+              ],
+              "widget": "org.smartregister.view.customcontrols.CustomFontTextView"
+            }
+          ],
+          "properties": [
+            {
+              "value": "patientColumn",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "fill_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "fill_parent",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginBottom"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginTop"
+            },
+            {
+              "value": "center_vertical",
+              "type": "string",
+              "name": "gravity"
+            },
+            {
+              "value": "vertical",
+              "type": "string",
+              "name": "ori                               entation"
+            }
+          ],
+          "widget": "LinearLayout"
+        }
+      ],
+      "properties": [
+        {
+          "value": "patient_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "fill_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "4",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "horizontal",
+          "type": "string",
+          "name": "orientation"
+        }
+      ],
+      "widget": "LinearLayout"
+    },
+    {
+      "views": [
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "result_details",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginTop"
+            },
+            {
+              "value": "center_horizontal",
+              "type": "string",
+              "name": "gravity"
+            },
+            {
+              "value": "#757575",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "16sp",
+              "type": "dimen",
+              "name": "textSize"
+            },
+            {
+              "value": "gone",
+              "type": "string",
+              "name": "visibility"
+            }
+          ],
+          "widget": "TextView"
+        },
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "result_lnk",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "layout_gravity"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginBottom"
+            },
+            {
+              "value": "@string/result",
+              "type": "string",
+              "name": "text"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "textAlignment"
+            },
+            {
+              "value": "true",
+              "type": "string",
+              "name": "textAllCaps"
+            },
+            {
+              "value": "#3269D4",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "18sp",
+              "type": "dimen",
+              "name": "textSize"
+            }
+          ],
+          "widget": "TextView"
+        }
+      ],
+      "properties": [
+        {
+          "value": "results_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "match_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "3.4",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "center_vertical",
+          "type": "string",
+          "name": "gravity"
+        },
+        {
+          "value": "vertical",
+          "type": "string",
+          "name": "orientation"
+        }
+      ],
+      "widget": "LinearLayout"
+    },
+    {
+      "views": [
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "diagnose_lnk",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "layout_gravity"
+            },
+            {
+              "value": "5dp",
+              "type": "dimen",
+              "name": "layout_marginBottom"
+            },
+            {
+              "value": "@string/diagnose",
+              "type": "string",
+              "name": "text"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "textAlignment"
+            },
+            {
+              "value": "true",
+              "type": "string",
+              "name": "textAllCaps"
+            },
+            {
+              "value": "#3269D4",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "18sp",
+              "type": "dimen",
+              "name": "textSize"
+            }
+          ],
+          "widget": "TextView"
+        }
+      ],
+      "properties": [
+        {
+          "value": "diagnose_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "match_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "2.6",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "center_vertical",
+          "type": "string",
+          "name": "gravity"
+        },
+        {
+          "value": "vertical",
+          "type": "string",
+          "name": "orientation"
+        }
+      ],
+      "widget": "LinearLayout"
+    },
+    {
+      "views": [
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "encounter",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "layout_gravity"
+            },
+            {
+              "value": "5dp",
+              "type": "dimen",
+              "name": "layout_marginBottom"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "textAlignment"
+            },
+            {
+              "value": "#757575",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "16sp",
+              "type": "dimen",
+              "name": "textSize"
+            }
+          ],
+          "widget": "TextView"
+        }
+      ],
+      "properties": [
+        {
+          "value": "encounter_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "match_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "2.6",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "center_vertical",
+          "type": "string",
+          "name": "gravity"
+        },
+        {
+          "value": "vertical",
+          "type": "string",
+          "name": "orientation"
+        },
+        {
+          "value": "gone",
+          "type": "string",
+          "name": "visibility"
+        }
+      ],
+      "widget": "LinearLayout"
+    },
+    {
+      "views": [
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "xpert_result_details",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginTop"
+            },
+            {
+              "value": "center_horizontal",
+              "type": "string",
+              "name": "gravity"
+            },
+            {
+              "value": "#757575",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "16sp",
+              "type": "dimen",
+              "name": "textSize"
+            },
+            {
+              "value": "gone",
+              "type": "string",
+              "name": "visibility"
+            }
+          ],
+          "widget": "TextView"
+        },
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "xpert_result_lnk",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "wrap_content",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "layout_gravity"
+            },
+            {
+              "value": "3dp",
+              "type": "dimen",
+              "name": "layout_marginBottom"
+            },
+            {
+              "value": "@string/result",
+              "type": "string",
+              "name": "text"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "textAlignment"
+            },
+            {
+              "value": "true",
+              "type": "string",
+              "name": "textAllCaps"
+            },
+            {
+              "value": "#3269D4",
+              "type": "color",
+              "name": "textColor"
+            },
+            {
+              "value": "18sp",
+              "type": "dimen",
+              "name": "textSize"
+            }
+          ],
+          "widget": "TextView"
+        }
+      ],
+      "properties": [
+        {
+          "value": "xpert_results_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "match_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "2.6",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "center_vertical",
+          "type": "string",
+          "name": "gravity"
+        },
+        {
+          "value": "vertical",
+          "type": "string",
+          "name": "orientation"
+        },
+        {
+          "value": "gone",
+          "type": "string",
+          "name": "visibility"
+        }
+      ],
+      "widget": "LinearLayout"
+    },
+    {
+      "views": [
+        {
+          "views": [],
+          "properties": [
+            {
+              "value": "dropdown_btn",
+              "type": "ref",
+              "name": "id"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_width"
+            },
+            {
+              "value": "match_parent",
+              "type": "dimen",
+              "name": "layout_height"
+            },
+            {
+              "value": "center",
+              "type": "string",
+              "name": "layout_gravity"
+            },
+            {
+              "value": "#ffffff",
+              "type": "color",
+              "name": "background"
+            },
+            {
+              "value": "@drawable/ic_action_more_vert",
+              "type": "string",
+              "name": "src"
+            }
+          ],
+          "widget": "ImageButton"
+        }
+      ],
+      "properties": [
+        {
+          "value": "dropdown_column",
+          "type": "ref",
+          "name": "id"
+        },
+        {
+          "value": "0dp",
+          "type": "dimen",
+          "name": "layout_width"
+        },
+        {
+          "value": "match_parent",
+          "type": "dimen",
+          "name": "layout_height"
+        },
+        {
+          "value": "1dp",
+          "type": "dimen",
+          "name": "layout_marginRight"
+        },
+        {
+          "value": "2.6",
+          "type": "float",
+          "name": "layout_weight"
+        },
+        {
+          "value": "#ffffff",
+          "type": "color",
+          "name": "background"
+        },
+        {
+          "value": "center_vertical",
+          "type": "string",
+          "name": "gravity"
+        },
+        {
+          "value": "vertical",
+          "type": "string",
+          "name": "orientation"
+        },
+        {
+          "value": "gone",
+          "type": "string",
+          "name": "visibility"
+        }
+      ],
+      "widget": "LinearLayout"
+    }
+  ],
+  "properties": [
+    {
+      "value": "register_columns",
+      "type": "ref",
+      "name": "id"
+    },
+    {
+      "value": "fill_parent",
+      "type": "dimen",
+      "name": "layout_width"
+    },
+    {
+      "value": "@dimen/list_item_height",
+      "type": "dimen",
+      "name": "layout_height"
+    },
+    {
+      "value": "#eeeeee",
+      "type": "color",
+      "name": "background"
+    },
+    {
+      "value": "horizontal",
+      "type": "string",
+      "name": "orientation"
+    },
+    {
+      "value": "10",
+      "type": "string",
+      "name": "weightSum"
+    }
+  ],
+  "widget": "LinearLayout"
+}

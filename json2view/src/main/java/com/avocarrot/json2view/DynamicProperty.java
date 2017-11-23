@@ -47,6 +47,7 @@ public class DynamicProperty {
     public enum NAME {
         NO_VALID,
         ID,
+        STYLE,
         LAYOUT_WIDTH,
         LAYOUT_HEIGHT,
         PADDING_LEFT,
@@ -73,6 +74,7 @@ public class DynamicProperty {
         TEXTCOLOR,
         TEXTSIZE,
         TEXTSTYLE,
+        TEXTALLCAPS,
         ELLIPSIZE,
         MAXLINES,
         GRAVITY,
