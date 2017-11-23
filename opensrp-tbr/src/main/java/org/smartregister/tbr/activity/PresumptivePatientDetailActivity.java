@@ -13,7 +13,10 @@ import android.widget.TextView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.ServiceHistory;
+import org.smartregister.tbr.provider.RenderPositiveResultsHelper;
+import org.smartregister.tbr.provider.RenderServiceHistoryHelper;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -29,6 +32,7 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
     private ArrayList<ServiceHistory> serviceHistoryArrayList;
     private ListView listView;
     private static ServiceHistoryAdapter adapter;
+    Map<String, String> patientDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +54,8 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
             getSupportActionBar().setTitle(title);
         }
 
-        listView = (ListView) findViewById(R.id.serviceHistoryListView);
 
-        serviceHistoryArrayList = new ArrayList<>();
-
-        serviceHistoryArrayList.add(new ServiceHistory("07 Jun 2017", "GeneXpert Result"));
-        serviceHistoryArrayList.add(new ServiceHistory("03 Jun 2017", "Smear Result"));
-        serviceHistoryArrayList.add(new ServiceHistory("10 May 2017", "GeneXpert Result"));
-        serviceHistoryArrayList.add(new ServiceHistory("12 Apr 2017", "Culture Result"));
-        serviceHistoryArrayList.add(new ServiceHistory("24 Jan 2017", "X-Ray Result"));
-        serviceHistoryArrayList.add(new ServiceHistory("16 Jan 2017", "Registration"));
-
-        adapter = new ServiceHistoryAdapter(serviceHistoryArrayList, getApplicationContext());
-
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ServiceHistory serviceHistory = serviceHistoryArrayList.get(position);
-
-                Snackbar.make(view, serviceHistory.getFormName() + " Filled on : " + "\n" + serviceHistory.getDate(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-            }
-        });
+        patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
 
 
         TextView recordResults = (TextView) findViewById(R.id.recordResultsTextView);
@@ -89,7 +71,30 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
 
     private void processViews() {
 
-        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        renderDemographicsView();
+        renderPositiveResultsView();
+        renderServiceHistoryView();
+
+        //Remove patient button
+        Button removePatientButton = (Button) findViewById(R.id.removePatientButton);
+        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+    }
+
+    private void renderPositiveResultsView() {
+        RenderPositiveResultsHelper renderPositiveResultsHelper = new RenderPositiveResultsHelper(this, TbrApplication.getInstance().getResultDetailsRepository());
+        Map<String, String> extra = new HashMap<>();
+        extra.put(Constants.KEY.LAST_INTERACTED_WITH, patientDetails.get(Constants.KEY.LAST_INTERACTED_WITH));
+        renderPositiveResultsHelper.renderView(patientDetails.get(Constants.KEY._ID), findViewById(R.id.clientPositiveResultsCardView), extra);
+    }
+
+    private void renderServiceHistoryView() {
+        RenderServiceHistoryHelper renderServiceHistoryHelper = new RenderServiceHistoryHelper(this, TbrApplication.getInstance().getResultDetailsRepository());
+        Map<String, String> extra = new HashMap<>();
+        extra.put(Constants.KEY.LAST_INTERACTED_WITH, patientDetails.get(Constants.KEY.LAST_INTERACTED_WITH));
+        renderServiceHistoryHelper.renderView(patientDetails.get(Constants.KEY._ID), findViewById(R.id.clientServiceHistoryCardView), extra);
+    }
+
+    private void renderDemographicsView() {
         TextView tbReachIdTextView = (TextView) findViewById(R.id.tbReachIdTextView);
         tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
 
@@ -116,8 +121,5 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
             clientInitalsTextView.setTextColor(getResources().getColor(R.color.female_pink));
         }
 
-        Button removePatientButton = (Button) findViewById(R.id.removePatientButton);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
     }
-
 }

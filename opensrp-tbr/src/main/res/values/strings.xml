@@ -35,4 +35,5 @@
     <string name="select_language">Select Language</string>
     <string name="encounter">Encounter</string>
     <string name="xpert_result">Xpert Results</string>
+    <string name="first_ecnounter">First Encounter:</string>
 </resources>

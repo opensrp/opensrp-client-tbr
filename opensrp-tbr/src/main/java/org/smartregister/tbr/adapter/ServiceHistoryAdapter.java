@@ -13,7 +13,7 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.model.ServiceHistory;
 import org.smartregister.tbr.util.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ndegwamartin on 20/11/2017.
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ServiceHistoryAdapter extends ArrayAdapter<ServiceHistory> implements View.OnClickListener {
 
-    private ArrayList<ServiceHistory> dataSet;
+    private List<ServiceHistory> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -30,7 +30,7 @@ public class ServiceHistoryAdapter extends ArrayAdapter<ServiceHistory> implemen
         TextView formName;
     }
 
-    public ServiceHistoryAdapter(ArrayList<ServiceHistory> data, Context context) {
+    public ServiceHistoryAdapter(List<ServiceHistory> data, Context context) {
         super(context, R.layout.row_service_history, data);
         this.dataSet = data;
         this.mContext = context;

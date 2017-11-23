@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ResultDetailsRepository extends BaseRepository {
@@ -19,6 +20,7 @@ public class ResultDetailsRepository extends BaseRepository {
     private static final String KEY_COLUMN = "key";
     private static final String VALUE_COLUMN = "value";
     private static final String RESULT_DATE_COLUMN = "event_date";
+    private static final String BASE_ENTITY_ID_COLUMN = "base_entity_id";
 
     private static final String CREATE_TABLE_SQL = "CREATE VIRTUAL TABLE " + TABLE_NAME + " USING FTS4 (" +
             FORMSUBMISSION_ID + " VARCHAR  NULL, " +
@@ -91,4 +93,30 @@ public class ResultDetailsRepository extends BaseRepository {
         }
     }
 
+    public Map<String, String> getClientResultDetails(String baseEntityId) {
+        Cursor cursor = null;
+        Map<String, String> clientDetails = new HashMap<>();
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String query =
+                    "SELECT * FROM " + "ec_details" + " WHERE " + BASE_ENTITY_ID_COLUMN + " " + ""
+                            + "" + "= '" + baseEntityId + "' AND key like '%_result'";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String key = cursor.getString(cursor.getColumnIndex(KEY_COLUMN));
+                    String value = cursor.getString(cursor.getColumnIndex(VALUE_COLUMN));
+                    clientDetails.put(key, value);
+                } while (cursor.moveToNext());
+            }
+            return clientDetails;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return clientDetails;
+    }
 }
