@@ -166,8 +166,9 @@ public class DynamicView {
 
             if (!TextUtils.isEmpty(id)) {
                 /* to target older versions we cannot use View.generateViewId();  */
-                ids.put(id, mCurrentId);
-                view.setId(DynamicHelper.getResourceId(context, id));
+                int viewId=DynamicHelper.getResourceId(context, id);
+                ids.put(id,viewId);
+                view.setId(viewId);
                 mCurrentId++;
             }
 

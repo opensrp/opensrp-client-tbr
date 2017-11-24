@@ -138,7 +138,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 Log.e(getClass().getName(), e.toString(), e);
             }
         }
-        fillValue((TextView) view.findViewById(R.id.age), age.concat(","));
+        fillValue((TextView) view.findViewById(R.id.age), age);
 
         View patient = view.findViewById(R.id.patient_column);
         patient.setOnClickListener(onClickListener);
