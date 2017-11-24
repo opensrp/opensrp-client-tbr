@@ -1,125 +1,186 @@
 package org.smartregister.tbr.activity;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import org.apache.commons.lang3.text.WordUtils;
+import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
+import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.model.ServiceHistory;
-import org.smartregister.tbr.provider.RenderPositiveResultsHelper;
-import org.smartregister.tbr.provider.RenderServiceHistoryHelper;
+import org.smartregister.tbr.fragment.PresumptivePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import util.EnketoFormUtils;
+
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
  */
 
 public class PresumptivePatientDetailActivity extends BasePatientDetailActivity {
-    private ArrayList<ServiceHistory> serviceHistoryArrayList;
-    private ListView listView;
-    private static ServiceHistoryAdapter adapter;
-    Map<String, String> patientDetails;
+    private Map<String, String> patientDetails;
+    private String[] formNames = new String[]{};
+    @Bind(R.id.view_pager)
+    protected OpenSRPViewPager mPager;
+    private FragmentPagerAdapter mPagerAdapter;
+    private int currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_presumptive_patient_detail);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_base);
+        ButterKnife.bind(this);
+        formNames = this.buildFormNameList();
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayUseLogoEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        PresumptivePatientDetailsFragment mBaseFragment = new PresumptivePatientDetailsFragment();
 
-        Intent intent = getIntent();
-        String title = intent.getStringExtra(Constants.INTENT_KEY.REGISTER_TITLE);
-        if (title != null && !title.toString().isEmpty()) {
-            getSupportActionBar().setTitle(title);
-        }
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
+        mPager.setOffscreenPageLimit(formNames.length);
+        mPager.setAdapter(mPagerAdapter);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+            }
+        });
 
 
         patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
 
+        mBaseFragment.setPatientDetails(patientDetails);
+    }
 
-        TextView recordResults = (TextView) findViewById(R.id.recordResultsTextView);
-        recordResults.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_patient_detail_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tbDiagnosisForm:
+                String entityId = generateRandomUUIDString();
+                startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, entityId, null);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        try {
+            int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
+            if (entityId != null || metaData != null) {
+                String data = EnketoFormUtils.getInstance(this).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
+                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
+                if (displayFormFragment != null) {
+                    displayFormFragment.setFormData(data);
+                    displayFormFragment.setRecordId(entityId);
+                    displayFormFragment.setFieldOverides(metaData);
+                    //displayFormFragment.setListener(this);
+                    displayFormFragment.setResize(false);
+                }
+            }
+
+            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
+        return (DisplayFormFragment) this.findFragmentByPosition(index);
+    }
+
+    private int getIndexForFormName(String formName, String[] formNames) {
+        for (int i = 0; i < formNames.length; i++) {
+            if (formName.equalsIgnoreCase(formNames[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    protected Fragment findFragmentByPosition(int position) {
+        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
+    }
+
+    private String[] buildFormNameList() {
+        List<String> formNames = new ArrayList<String>();
+        formNames.add(Constants.FORM.NEW_PATIENT_REGISTRATION);
+        formNames.add(Constants.FORM.RESULT_GENE_EXPERT);
+        formNames.add(Constants.FORM.RESULT_SMEAR);
+        formNames.add(Constants.FORM.RESULT_CHEST_XRAY);
+        formNames.add(Constants.FORM.RESULT_CULTURE);
+        formNames.add(Constants.FORM.DIAGNOSIS);
+        return formNames.toArray(new String[formNames.size()]);
+    }
+
+    private void switchToBaseFragment() {
+        final int prevPageIndex = currentPage;
+        runOnUiThread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Utils.showToast(getApplicationContext(), "Recording patient results ...");
+            public void run() {
+                mPager.setCurrentItem(0, false);
+                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
+                if (displayFormFragment != null) {
+                    displayFormFragment.hideTranslucentProgressDialog();
+                    displayFormFragment.setFormData(null);
+                }
+
+                displayFormFragment.setRecordId(null);
             }
         });
 
-        processViews();
     }
 
-    private void processViews() {
-
-        renderDemographicsView();
-        renderPositiveResultsView();
-        renderServiceHistoryView();
-
-        //Remove patient button
-        Button removePatientButton = (Button) findViewById(R.id.removePatientButton);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+    public String getViewIdentifier() {
+        return PresumptivePatientDetailActivity.class.getCanonicalName();
     }
 
-    private void renderPositiveResultsView() {
-        RenderPositiveResultsHelper renderPositiveResultsHelper = new RenderPositiveResultsHelper(this, TbrApplication.getInstance().getResultDetailsRepository());
-        Map<String, String> extra = new HashMap<>();
-        extra.put(Constants.KEY.LAST_INTERACTED_WITH, patientDetails.get(Constants.KEY.LAST_INTERACTED_WITH));
-        renderPositiveResultsHelper.renderView(patientDetails.get(Constants.KEY._ID), findViewById(R.id.clientPositiveResultsCardView), extra);
-    }
-
-    private void renderServiceHistoryView() {
-        RenderServiceHistoryHelper renderServiceHistoryHelper = new RenderServiceHistoryHelper(this, TbrApplication.getInstance().getResultDetailsRepository());
-        Map<String, String> extra = new HashMap<>();
-        extra.put(Constants.KEY.LAST_INTERACTED_WITH, patientDetails.get(Constants.KEY.LAST_INTERACTED_WITH));
-        renderServiceHistoryHelper.renderView(patientDetails.get(Constants.KEY._ID), findViewById(R.id.clientServiceHistoryCardView), extra);
-    }
-
-    private void renderDemographicsView() {
-        TextView tbReachIdTextView = (TextView) findViewById(R.id.tbReachIdTextView);
-        tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
-
-        TextView clientAgeTextView = (TextView) findViewById(R.id.clientAgeTextView);
-        String dobString = patientDetails.get(Constants.KEY.DOB);
-        String formattedAge = Utils.getFormattedAgeString(dobString);
-        clientAgeTextView.setText(formattedAge);
-
-        TextView clientNameTextView = (TextView) findViewById(R.id.clientNameTextView);
-        String fullName = patientDetails.get(Constants.KEY.FIRST_NAME) + " " + patientDetails.get(Constants.KEY.LAST_NAME);
-        clientNameTextView.setText(fullName);
-        TextView clientGenderTextView = (TextView) findViewById(R.id.clientGenderTextView);
-        clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get(Constants.KEY.GENDER)));
-
-        TextView clientInitalsTextView = (TextView) findViewById(R.id.clientInitalsTextView);
-        clientInitalsTextView.setText(Utils.getShortInitials(fullName));
-
-        if (patientDetails.get(Constants.KEY.GENDER).equals(Constants.GENDER.MALE)) {
-            clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.male_light_blue));
-            clientInitalsTextView.setTextColor(getResources().getColor(R.color.male_blue));
-
+    @Override
+    public void onBackPressed() {
+        if (currentPage != 0) {
+            new AlertDialog.Builder(this, R.style.TbrAlertDialog)
+                    .setMessage(R.string.form_back_confirm_dialog_message)
+                    .setTitle(R.string.form_back_confirm_dialog_title)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.no_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //Do nothing, remain on Enketo Form Fragment
+                                }
+                            })
+                    .setNegativeButton(R.string.yes_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    switchToBaseFragment();
+                                }
+                            })
+                    .show();
         } else {
-            clientInitalsTextView.setBackgroundColor(getResources().getColor(R.color.female_light_pink));
-            clientInitalsTextView.setTextColor(getResources().getColor(R.color.female_pink));
+            super.onBackPressed(); // allow back key only if we are
         }
-
     }
 }

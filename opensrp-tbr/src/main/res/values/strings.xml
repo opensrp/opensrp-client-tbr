@@ -36,4 +36,5 @@
     <string name="encounter">Encounter</string>
     <string name="xpert_result">Xpert Results</string>
     <string name="first_ecnounter">First Encounter:</string>
+    <string name="tb_diagnosis_form">TB Diagnosis Form</string>
 </resources>

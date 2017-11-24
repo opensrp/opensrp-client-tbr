@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+import static org.smartregister.tbr.util.Constants.KEY.LAST_INTERACTED_WITH;
 
 /**
  * Created by ndegwamartin on 10/10/2017.
@@ -41,6 +42,12 @@ public class Utils {
 
     public static String formatDate(Date date, String pattern) {
         return new SimpleDateFormat(pattern).format(date);
+    }
+
+    public static String formatDateFromLong(long datetimeInMilliseconds, String pattern) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(datetimeInMilliseconds);
+        return formatDate(calendar.getTime(), pattern);
     }
 
     public static String getInitials(String fullname) {
@@ -139,5 +146,9 @@ public class Utils {
             String cleanIdentifier = identifier.contains(Constants.CHAR.HASH) ? identifier.replaceAll(Constants.CHAR.HASH, Constants.CHAR.NO_CHAR) : identifier;
             return Constants.CHAR.HASH + cleanIdentifier;
         } else return Constants.CHAR.NO_CHAR;
+    }
+
+    public static int getTokenStringResourceId(Context context, String token) {
+        return context.getResources().getIdentifier(token, "string", "org.smartregister.tbr");
     }
 }

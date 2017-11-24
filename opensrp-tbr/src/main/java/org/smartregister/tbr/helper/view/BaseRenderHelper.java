@@ -1,4 +1,4 @@
-package org.smartregister.tbr.provider;
+package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.view.View;

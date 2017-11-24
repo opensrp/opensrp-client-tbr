@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/customAppThemeGray"
     android:fitsSystemWindows="true"
-    tools:context=".activity.PresumptivePatientDetailActivity">
+    tools:context=".activity.PresumptivePatientDetailActivity"
+    android:id="@+id/activityPresumptiveDetailLayout">
 
     <include layout="@layout/toolbar_patient_register" />
 
@@ -40,5 +41,8 @@
 
 
     </LinearLayout>
+
+
+    <include layout="@layout/activity_base" />
 
 </android.support.design.widget.CoordinatorLayout>
