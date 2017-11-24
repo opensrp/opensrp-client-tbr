@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.gravity;
-
 /**
  * Created by avocarrot on 11/12/2014.
  * Helper function that apply properties in views

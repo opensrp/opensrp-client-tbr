@@ -156,9 +156,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return patient;
     }
 
-    private TbrSpannableStringBuilder populateXpertResult(CommonPersonObjectClient pc, Map<String, String> testResults, boolean withOtherResults) {
+    private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, boolean withOtherResults) {
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
             switch (testResults.get(TbrConstants.RESULT.MTB_RESULT)) {
@@ -172,20 +171,22 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                     stringBuilder.append("?", redForegroundColorSpan);
                     break;
                 default:
+                    break;
             }
+            ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
             stringBuilder.append(withOtherResults ? "/ " : " RIF ");
             switch (testResults.get(TbrConstants.RESULT.RIF_RESULT)) {
                 case DETECTED:
-                    stringBuilder.append("+ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    stringBuilder.append("+ve", colorSpan);
                     break;
                 case NOT_DETECTED:
-                    stringBuilder.append("-ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    stringBuilder.append("-ve", colorSpan);
                     break;
                 case INDETERMINATE:
-                    stringBuilder.append("?", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    stringBuilder.append("?", colorSpan);
                     break;
                 default:
-                    stringBuilder.append("-ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    stringBuilder.append("-ve", colorSpan);
             }
         }
         return stringBuilder;
@@ -198,7 +199,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         attachOnclickListener(results, client);
 
         Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
-        TbrSpannableStringBuilder stringBuilder = populateXpertResult(pc, testResults, true);
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
                 stringBuilder.append(",\n");
@@ -294,7 +295,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
-        TbrSpannableStringBuilder stringBuilder = populateXpertResult(pc, testResults, false);
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, false);
 
         if (stringBuilder.length() > 0) {
             adjustLayoutParams(result);
