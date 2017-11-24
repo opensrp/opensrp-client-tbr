@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -133,8 +133,8 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
-                tableName + "." +KEY.LAST_INTERACTED_WITH,
-                tableName + "." +KEY.FIRST_ENCOUNTER,
+                tableName + "." + KEY.LAST_INTERACTED_WITH,
+                tableName + "." + KEY.FIRST_ENCOUNTER,
                 tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
                 tableName + "." + KEY.FIRST_NAME,
                 tableName + "." + KEY.LAST_NAME,
@@ -172,9 +172,9 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
             JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
             headerLayout = DynamicView.createView(getActivity().getApplicationContext(), jsonView);
             headerLayout.setLayoutParams(
-                    new WindowManager.LayoutParams(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.MATCH_PARENT));
+                    new AbsListView.LayoutParams(
+                            AbsListView.LayoutParams.MATCH_PARENT,
+                            AbsListView.LayoutParams.MATCH_PARENT));
         }
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         clientsView.addHeaderView(headerLayout);

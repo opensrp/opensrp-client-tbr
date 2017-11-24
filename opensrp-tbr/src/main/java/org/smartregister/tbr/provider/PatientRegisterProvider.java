@@ -6,6 +6,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import util.TbrConstants;
 import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
+import static org.smartregister.tbr.R.id.diagnose_lnk;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -59,6 +61,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private DetailsRepository detailsRepository;
 
     private static final String DETECTED = "detected";
+    private static final String NOT_DETECTED = "not_detected";
+    private static final String INDETERMINATE = "indeterminate";
+
+    private ForegroundColorSpan redForegroundColorSpan;
+    private ForegroundColorSpan blackForegroundColorSpan;
 
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,6 +73,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.detailsRepository = detailsRepository;
+        redForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.holo_red_dark));
+        blackForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.black));
     }
 
     @Override
@@ -141,37 +152,53 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         fillValue((TextView) view.findViewById(R.id.age), age);
 
         View patient = view.findViewById(R.id.patient_column);
-        patient.setOnClickListener(onClickListener);
-        patient.setTag(client);
+        attachOnclickListener(patient, client);
         return patient;
+    }
+
+    private TbrSpannableStringBuilder populateXpertResult(CommonPersonObjectClient pc, Map<String, String> testResults, boolean withOtherResults) {
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+
+        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
+            stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
+            switch (testResults.get(TbrConstants.RESULT.MTB_RESULT)) {
+                case DETECTED:
+                    stringBuilder.append("+ve", redForegroundColorSpan);
+                    break;
+                case NOT_DETECTED:
+                    stringBuilder.append("-ve", redForegroundColorSpan);
+                    break;
+                case INDETERMINATE:
+                    stringBuilder.append("?", redForegroundColorSpan);
+                    break;
+                default:
+            }
+            stringBuilder.append(withOtherResults ? "/ " : " RIF ");
+            switch (testResults.get(TbrConstants.RESULT.RIF_RESULT)) {
+                case DETECTED:
+                    stringBuilder.append("+ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    break;
+                case NOT_DETECTED:
+                    stringBuilder.append("-ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    break;
+                case INDETERMINATE:
+                    stringBuilder.append("?", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+                    break;
+                default:
+                    stringBuilder.append("-ve", withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan);
+            }
+        }
+        return stringBuilder;
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View result = view.findViewById(R.id.result_lnk);
-        result.setOnClickListener(onClickListener);
-        result.setTag(client);
-
+        attachOnclickListener(result, client);
         TextView results = (TextView) view.findViewById(R.id.result_details);
-        result.setTag(client);
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        attachOnclickListener(results, client);
 
-        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
-        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
-        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder.append("Xpe ");
-            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-            stringBuilder.append("/");
-            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-        }
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(pc, testResults, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
                 stringBuilder.append(",\n");
@@ -186,9 +213,13 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case "three_plus":
                     stringBuilder.append("3+", redForegroundColorSpan);
                     break;
-                default:
-                    stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
+                case "scanty":
+                    stringBuilder.append("Scty", redForegroundColorSpan);
                     break;
+                case "negative":
+                    stringBuilder.append("Neg", redForegroundColorSpan);
+                    break;
+                default:
             }
         }
 
@@ -205,27 +236,24 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
                 stringBuilder.append("Ind", blackForegroundColorSpan);
             else
-                stringBuilder.append("Non", blackForegroundColorSpan);
+                stringBuilder.append("NonI", blackForegroundColorSpan);
 
         }
         if (stringBuilder.length() > 0) {
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
+            adjustLayoutParams(result);
         }
         return view.findViewById(R.id.results_column);
     }
 
     private View populateDiagnoseColumn(SmartRegisterClient client, View view) {
-        View diagnose = view.findViewById(R.id.diagnose_lnk);
-        diagnose.setOnClickListener(onClickListener);
-        diagnose.setTag(client);
+        attachOnclickListener(view.findViewById(diagnose_lnk), client);
         return view.findViewById(R.id.diagnose_column);
     }
 
     private View populateDropdownColumn(SmartRegisterClient client, View view) {
-        View diagnose = view.findViewById(R.id.dropdown_btn);
-        diagnose.setOnClickListener(onClickListener);
-        diagnose.setTag(client);
+        attachOnclickListener(view.findViewById(R.id.dropdown_btn), client);
         return view.findViewById(R.id.dropdown_column);
     }
 
@@ -246,33 +274,30 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return view.findViewById(R.id.encounter_column);
     }
 
+    private void adjustLayoutParams(View view) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        view.setLayoutParams(params);
+    }
+
+    private void attachOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+    }
+
     private View populateXpertResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View result = view.findViewById(R.id.xpert_result_lnk);
-        result.setOnClickListener(onClickListener);
-        result.setTag(client);
+        attachOnclickListener(result, client);
 
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
-        result.setTag(client);
+        attachOnclickListener(results, client);
+
         Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
-        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
-        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
-        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder.append("MTB ");
-            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-            stringBuilder.append(" RIF ");
-            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", blackForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", blackForegroundColorSpan);
-        }
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(pc, testResults, false);
+
         if (stringBuilder.length() > 0) {
+            adjustLayoutParams(result);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
