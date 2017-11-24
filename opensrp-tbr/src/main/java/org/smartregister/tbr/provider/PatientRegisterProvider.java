@@ -159,37 +159,26 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, boolean withOtherResults) {
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
-            switch (testResults.get(TbrConstants.RESULT.MTB_RESULT)) {
-                case DETECTED:
-                    stringBuilder.append("+ve", redForegroundColorSpan);
-                    break;
-                case NOT_DETECTED:
-                    stringBuilder.append("-ve", redForegroundColorSpan);
-                    break;
-                case INDETERMINATE:
-                    stringBuilder.append("?", redForegroundColorSpan);
-                    break;
-                default:
-                    break;
-            }
             ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
+            stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
             stringBuilder.append(withOtherResults ? "/ " : " RIF ");
-            switch (testResults.get(TbrConstants.RESULT.RIF_RESULT)) {
-                case DETECTED:
-                    stringBuilder.append("+ve", colorSpan);
-                    break;
-                case NOT_DETECTED:
-                    stringBuilder.append("-ve", colorSpan);
-                    break;
-                case INDETERMINATE:
-                    stringBuilder.append("?", colorSpan);
-                    break;
-                default:
-                    stringBuilder.append("-ve", colorSpan);
-            }
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
         }
         return stringBuilder;
+    }
+
+    private String processXpertResult(String result) {
+        switch (result) {
+            case DETECTED:
+                return "+ve";
+            case NOT_DETECTED:
+                return "-ve";
+            case INDETERMINATE:
+                return "?";
+            default:
+                return result;
+        }
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
