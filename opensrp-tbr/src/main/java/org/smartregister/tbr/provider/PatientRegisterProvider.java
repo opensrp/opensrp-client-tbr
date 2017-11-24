@@ -118,10 +118,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), KEY.TBREACH_ID, false));
-
+        fillValue((TextView) view.findViewById(R.id.participant_id), "#" + getValue(pc.getColumnmaps(), KEY.TBREACH_ID, false));
 
         String gender = getValue(pc.getColumnmaps(), KEY.GENDER, true);
+
+        fillValue((TextView) view.findViewById(R.id.gender), gender);
 
         DateTime birthDateTime;
         String dobString = getValue(pc.getColumnmaps(), KEY.DOB, false);
@@ -137,8 +138,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 Log.e(getClass().getName(), e.toString(), e);
             }
         }
-        String ageAndGender = String.format("%s, %s", age, gender);
-        fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
+        fillValue((TextView) view.findViewById(R.id.age), age.concat(","));
 
         View patient = view.findViewById(R.id.patient_column);
         patient.setOnClickListener(onClickListener);
