@@ -6,16 +6,21 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.avocarrot.json2view.DynamicView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -295,6 +300,17 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        return inflater.inflate(R.layout.register_list_row, null);
+        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration("presumptive_register_row");
+        if (viewConfiguration == null) {
+            return inflater.inflate(R.layout.register_list_row, null);
+        } else {
+            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+            View rowView = DynamicView.createView(context, jsonView);
+            rowView.setLayoutParams(
+                    new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT));
+            return rowView;
+        }
     }
 }

@@ -107,7 +107,7 @@ public class DynamicView {
 
         View view = null;
 
-        ArrayList<DynamicProperty> properties  = new ArrayList<>();;
+        ArrayList<DynamicProperty> properties = new ArrayList<>();
 
         try {
             /* Create the View Object. If not full package is available try to create a view from android.widget */
@@ -163,10 +163,11 @@ public class DynamicView {
 
             /* add and integer as a universal id  and keep it in a hashmap */
             String id = DynamicHelper.applyStyleProperties(view, properties);
+
             if (!TextUtils.isEmpty(id)) {
                 /* to target older versions we cannot use View.generateViewId();  */
                 ids.put(id, mCurrentId);
-                view.setId(mCurrentId);
+                view.setId(DynamicHelper.getResourceId(context, id));
                 mCurrentId++;
             }
 

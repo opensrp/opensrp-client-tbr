@@ -25,12 +25,14 @@ public class ConfigurableViewsHelper {
 
     private static final String TAG = "ConfigurableViewsHelper";
 
-    public void registerViewConfiguration(String viewIdentifier) {
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewIdentifier);
-        if (jsonString == null)
-            return;
-        else
-            viewConfigurations.put(viewIdentifier, TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString));
+    public void registerViewConfigurations(List<String> viewIdentifiers) {
+        for (String viewIdentifier : viewIdentifiers) {
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewIdentifier);
+            if (jsonString == null)
+                continue;
+            else
+                viewConfigurations.put(viewIdentifier, TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString));
+        }
     }
 
     public Set<View> getRegisterActiveColumns(String identifier) {
@@ -67,11 +69,13 @@ public class ConfigurableViewsHelper {
 
     }
 
-    public void unregisterViewConfiguration(String viewIdentifier) {
-        viewConfigurations.remove(viewIdentifier);
+    public void unregisterViewConfiguration(List<String> viewIdentifiers) {
+        for (String viewIdentifier : viewIdentifiers)
+            viewConfigurations.remove(viewIdentifier);
     }
 
     public ViewConfiguration getViewConfiguration(String identifier) {
         return viewConfigurations.get(identifier);
     }
+
 }

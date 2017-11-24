@@ -16,6 +16,8 @@ import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
+import java.util.List;
+
 /**
  * Created by samuelgithengi on 10/30/17.
  */
@@ -36,8 +38,10 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     private void processMenuConfigurations(Menu menu) {
+        if (getViewIdentifiers().isEmpty())
+            return;
         RegisterConfiguration metadata = (RegisterConfiguration) TbrApplication.getInstance()
-                .getConfigurableViewsHelper().getViewConfiguration(getViewIdentifier()).getMetadata();
+                .getConfigurableViewsHelper().getViewConfiguration(getViewIdentifiers().get(0)).getMetadata();
         menu.findItem(R.id.advancedSearch).setVisible(metadata.isEnableAdvancedSearch());
         menu.findItem(R.id.sortList).setVisible(metadata.isEnableSortList());
         menu.findItem(R.id.filterList).setVisible(metadata.isEnableFilterList());
@@ -75,7 +79,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void onResumption() {
-        TbrApplication.getInstance().getConfigurableViewsHelper().registerViewConfiguration(getViewIdentifier());
+        TbrApplication.getInstance().getConfigurableViewsHelper().registerViewConfigurations(getViewIdentifiers());
     }
 
     @Override
@@ -127,8 +131,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     protected void onStop() {
         super.onStop();
-        TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifier());
+        TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
     }
 
-    public abstract String getViewIdentifier();
+    public abstract List<String> getViewIdentifiers();
 }
