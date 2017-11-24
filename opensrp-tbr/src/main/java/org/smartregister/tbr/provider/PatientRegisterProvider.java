@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 import util.TbrConstants;
+import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.util.Utils.fillValue;
@@ -111,19 +112,19 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private View populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
 
-        String firstName = getValue(pc.getColumnmaps(), TbrConstants.KEY.FIRST_NAME, true);
-        String lastName = getValue(pc.getColumnmaps(), TbrConstants.KEY.LAST_NAME, true);
+        String firstName = getValue(pc.getColumnmaps(), KEY.FIRST_NAME, true);
+        String lastName = getValue(pc.getColumnmaps(), KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), TbrConstants.KEY.TBREACH_ID, false));
+        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), KEY.TBREACH_ID, false));
 
 
-        String gender = getValue(pc.getColumnmaps(), TbrConstants.KEY.GENDER, true);
+        String gender = getValue(pc.getColumnmaps(), KEY.GENDER, true);
 
         DateTime birthDateTime;
-        String dobString = getValue(pc.getColumnmaps(), TbrConstants.KEY.DOB, false);
+        String dobString = getValue(pc.getColumnmaps(), KEY.DOB, false);
         String age = "";
         if (StringUtils.isNotBlank(dobString)) {
             try {
@@ -152,7 +153,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         TextView results = (TextView) view.findViewById(R.id.result_details);
         result.setTag(client);
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
         ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
                 context.getResources().getColor(android.R.color.holo_red_dark));
@@ -231,11 +232,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private View populateEncounterColumn(CommonPersonObjectClient pc, View view) {
         DateTime encounterTime;
-        String lastEncounter = getValue(pc.getColumnmaps(), "last_interacted_with", false);
+        String lastEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
         String duration = "";
         if (StringUtils.isNotBlank(lastEncounter)) {
             try {
-                encounterTime = new DateTime(Long.valueOf(lastEncounter));
+                encounterTime = new DateTime(lastEncounter);
                 duration = DateUtil.getDuration(encounterTime);
             } catch (Exception e) {
                 Log.e(getClass().getName(), e.toString(), e);
@@ -252,7 +253,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
         result.setTag(client);
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
         ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
                 context.getResources().getColor(android.R.color.holo_red_dark));

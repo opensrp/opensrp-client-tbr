@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Set;
 
 import util.TbrConstants;
+import util.TbrConstants.KEY;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
@@ -132,13 +133,14 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
-                tableName + ".last_interacted_with",
-                tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID_COLUMN,
-                tableName + "." + TbrConstants.KEY.FIRST_NAME,
-                tableName + "." + TbrConstants.KEY.LAST_NAME,
-                tableName + "." + TbrConstants.KEY.TBREACH_ID,
-                tableName + "." + TbrConstants.KEY.GENDER,
-                tableName + "." + TbrConstants.KEY.DOB
+                tableName + "." +KEY.LAST_INTERACTED_WITH,
+                tableName + "." +KEY.FIRST_ENCOUNTER,
+                tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
+                tableName + "." + KEY.FIRST_NAME,
+                tableName + "." + KEY.LAST_NAME,
+                tableName + "." + KEY.TBREACH_ID,
+                tableName + "." + KEY.GENDER,
+                tableName + "." + KEY.DOB
         });
         mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
@@ -188,7 +190,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     private FieldOverrides getFieldOverrides() {
         FieldOverrides fieldOverrides = null;
         Map fields = new HashMap();
-        fields.put("participant_id", patient.getDetails().get(TbrConstants.KEY.TBREACH_ID));
+        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
         JSONObject fieldOverridesJson = new JSONObject(fields);
         fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;

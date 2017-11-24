@@ -22,6 +22,8 @@ TbrConstants extends AllConstants {
         public static final String TBREACH_ID = "tbreach_id";
         public static final String GENDER = "gender";
         public static final String BASE_ENTITY_ID_COLUMN = "base_entity_id";
+        public static final String FIRST_ENCOUNTER = "first_encounter";
+        public static final String LAST_INTERACTED_WITH = "last_interacted_with";
     }
 
 

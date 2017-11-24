@@ -74,6 +74,13 @@
           "json_mapping": {
             "field": "version"
           }
+        },
+        {
+          "column_name": "first_encounter",
+          "type": "Client",
+          "json_mapping": {
+            "field": "dateCreated"
+          }
         }
       ]
     }
