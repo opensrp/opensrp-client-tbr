@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConfigurableViewsHelper {
 
+    private static final String TAG = "ConfigurableViewsHelper";
+
     private final ConfigurableViewsRepository configurableViewsRepository;
 
     private final JsonSpecHelper jsonSpecHelper;
@@ -31,8 +33,6 @@ public class ConfigurableViewsHelper {
     }
 
     private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
-
-    private static final String TAG = "ConfigurableViewsHelper";
 
     public void registerViewConfigurations(List<String> viewIdentifiers) {
         for (String viewIdentifier : viewIdentifiers) {
