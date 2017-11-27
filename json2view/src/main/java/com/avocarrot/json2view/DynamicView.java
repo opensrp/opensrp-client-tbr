@@ -136,21 +136,10 @@ public class DynamicView {
                 view = (View) viewClass.getConstructor(Context.class, AttributeSet.class, int.class).newInstance(new Object[]{context, null, styleId});
             else
                 view = (View) viewClass.getConstructor(Context.class).newInstance(new Object[]{context});
-        } catch (JSONException e) {
+        }  catch (Exception e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            return null;
         }
-
-        if (view == null) return null;
 
         try {
 
