@@ -18,6 +18,7 @@ import org.smartregister.tbr.fragment.PresumptivePatientRegisterFragment;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -145,8 +146,8 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity imp
     }
 
     @Override
-    public String getViewIdentifier() {
-        return "presumptive_register";
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList("presumptive_register", "presumptive_register_header", "presumptive_register_row");
     }
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {

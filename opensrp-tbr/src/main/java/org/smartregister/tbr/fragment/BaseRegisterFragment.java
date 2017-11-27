@@ -26,6 +26,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  */
 
 public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
         return new SecuredNativeSmartRegisterActivity.DefaultOptionsProvider() {
@@ -102,7 +103,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         @Override
         public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-            filter(cs.toString(), "", "");
+            filter(cs.toString(), "", getMainCondition());
         }
 
         @Override
@@ -128,5 +129,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     protected void onCreation() {//Implement Abstract Method
     }
+
+    protected abstract String getMainCondition();
 
 }

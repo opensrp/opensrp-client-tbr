@@ -17,6 +17,8 @@ public class ViewConfiguration {
 
     private Map<String, String> labels;
 
+    private Map jsonView;
+
     public String getIdentifier() {
         return identifier;
     }
@@ -48,4 +50,13 @@ public class ViewConfiguration {
     public void setLabels(Map<String, String> labels) {
         this.labels = labels;
     }
+
+    public Map getJsonView() {
+        return jsonView;
+    }
+
+    public void setJsonView(Map jsonView) {
+        this.jsonView = jsonView;
+    }
+
 }
