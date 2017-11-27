@@ -40,10 +40,29 @@ TbrConstants extends AllConstants {
         public static final String RESULTS = "results";
         public static final String DIAGNOSE = "diagnose";
         public static final String ENCOUNTER = "encounter";
-        public static final String BMI = "BMI";
-        public static final String DIAGNOSIS_DATE = "diagnosis_date";
         public static final String XPERT_RESULTS = "xpert_results";
-        public static final String DIAGNOSE_SCHEDULE = "diagnose_schedule";
         public static final String DROPDOWN = "dropdown";
+        public static final String TREAT = "treat";
+    }
+
+    public static final class VIEW_CONFIGS {
+        public static final String PRESUMPTIVE_REGISTER = "presumptive_register";
+        public static final String PRESUMPTIVE_REGISTER_HEADER = "presumptive_register_header";
+        public static final String PRESUMPTIVE_REGISTER_ROW = "presumptive_register_row";
+
+        public static final String POSITIVE_REGISTER = "positive_register";
+        public static final String POSITIVE_REGISTER_HEADER = "positive_register_header";
+        public static final String POSITIVE_REGISTER_ROW = "positive_register_row";
+    }
+
+    public static final class ENKETO_FORMS {
+        public static final String SCREENING_FORM = "new_patient_registration";
+        public static final String GENE_XPERT = "result_gene_xpert";
+        public static final String SMEAR = "result_smear";
+        public static final String CHEST_XRAY = "result_chest_xray";
+        public static final String CULTURE = "result_culture";
+        public static final String DIAGNOSIS = "diagnosis";
+        public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
+        public static final String TREATMENT = "treatment";
     }
 }

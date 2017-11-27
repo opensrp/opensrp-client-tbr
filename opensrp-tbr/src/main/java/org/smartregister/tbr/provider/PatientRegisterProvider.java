@@ -20,6 +20,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
+import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.DateUtil;
@@ -39,6 +41,7 @@ import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.tbr.R.id.diagnose_lnk;
+import static org.smartregister.tbr.R.id.treat_lnk;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -47,7 +50,10 @@ import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
+import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_ROW;
+import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -84,8 +90,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty() || visibleColumns.size() > 3) {
             populatePatientColumn(pc, client, convertView);
-            populateDiagnoseColumn(client, convertView);
             populateResultsColumn(pc, client, convertView);
+            if (context instanceof PresumptivePatientRegisterActivity)
+                populateDiagnoseColumn(client, convertView);
+            else if (context instanceof PositivePatientRegisterActivity)
+                populateTreatColumn(client, convertView);
             return;
         }
         for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
@@ -108,6 +117,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case DROPDOWN:
                     populateDropdownColumn(client, convertView);
                     break;
+                case TREAT:
+                    populateTreatColumn(client, convertView);
+                    break;
             }
         }
         Map<String, Integer> mapping = new HashMap();
@@ -117,6 +129,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(ENCOUNTER, R.id.encounter_column);
         mapping.put(XPERT_RESULTS, R.id.xpert_results_column);
         mapping.put(DROPDOWN, R.id.dropdown_column);
+        mapping.put(TREAT, R.id.treat_column);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
 
     }
@@ -242,11 +255,15 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return view.findViewById(R.id.diagnose_column);
     }
 
+    private View populateTreatColumn(SmartRegisterClient client, View view) {
+        attachOnclickListener(view.findViewById(treat_lnk), client);
+        return view.findViewById(R.id.treat_column);
+    }
+
     private View populateDropdownColumn(SmartRegisterClient client, View view) {
         attachOnclickListener(view.findViewById(R.id.dropdown_btn), client);
         return view.findViewById(R.id.dropdown_column);
     }
-
 
     private View populateEncounterColumn(CommonPersonObjectClient pc, View view) {
         DateTime encounterTime;
@@ -316,9 +333,19 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration("presumptive_register_row");
+        String viewIdentifier;
+        int viewResourceId;
+        if (context instanceof PresumptivePatientRegisterActivity) {
+            viewIdentifier = PRESUMPTIVE_REGISTER_ROW;
+            viewResourceId=R.layout.register_list_row;
+        }
+        else {
+            viewIdentifier = POSITIVE_REGISTER_ROW;
+            viewResourceId=R.layout.register_positive_list_row;
+        }
+        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
         if (viewConfiguration == null) {
-            return inflater.inflate(R.layout.register_list_row, null);
+                return inflater.inflate(viewResourceId, null);
         } else {
             JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
             View rowView = DynamicView.createView(context, jsonView);

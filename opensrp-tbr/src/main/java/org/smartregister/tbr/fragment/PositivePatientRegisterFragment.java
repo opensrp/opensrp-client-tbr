@@ -14,7 +14,7 @@ import com.avocarrot.json2view.DynamicView;
 
 import org.json.JSONObject;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 
@@ -28,13 +28,13 @@ import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
-import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_HEADER;
+import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;
 
 /**
- * Created by samuelgithengi on 11/6/17.
+ * Created by samuelgithengi on 11/27/17.
  */
 
-public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
+public class PositivePatientRegisterFragment extends BaseRegisterFragment {
 
     private String viewConfigurationIdentifier;
 
@@ -47,7 +47,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
-        viewConfigurationIdentifier = ((PresumptivePatientRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         setupViews(view);
         return view;
     }
@@ -57,9 +57,9 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(View.GONE);
         View headerLayout;
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(PRESUMPTIVE_REGISTER_HEADER);
+        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(POSITIVE_REGISTER_HEADER);
         if (viewConfiguration == null) {
-            headerLayout = getLayoutInflater(null).inflate(R.layout.register_list_header, null);
+            headerLayout = getLayoutInflater(null).inflate(R.layout.register_positive_list_header, null);
         } else {
             JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
             headerLayout = DynamicView.createView(getActivity().getApplicationContext(), jsonView);
@@ -74,6 +74,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
             mapping.put(ENCOUNTER, R.id.encounter_header);
             mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
             mapping.put(DROPDOWN, R.id.dropdown_header);
+
             TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
         clientsView.addHeaderView(headerLayout);
@@ -83,12 +84,11 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return " presumptive =\"yes\" AND confirmed_tb IS NULL";
+        return " confirmed_tb = \"yes\"";
     }
 
     @Override
     protected String getViewConfigurationIdentifier() {
         return viewConfigurationIdentifier;
     }
-
 }
