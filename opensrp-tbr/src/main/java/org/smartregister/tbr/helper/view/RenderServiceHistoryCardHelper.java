@@ -2,26 +2,21 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteQueryBuilder;
 
-import org.json.JSONObject;
-import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import util.TbrConstants;
+import static org.smartregister.tbr.R.id.TB_REACH_ID;
 
 /**
  * Created by ndegwamartin on 23/11/2017.
@@ -36,22 +31,23 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
     }
 
-
     @Override
-    public void renderView(final String baseEntityId, final View view) {
-
+    public void renderView(final View view, final Map<String, String> metadata) {
         new Handler().post(new Runnable() {
+            final String baseEntityId = metadata.get(Constants.KEY._ID);
 
             @Override
             public void run() {
 
                 ListView listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
+                listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
 
                 String[] mProjection = {
                         ResultsRepository.ID,
                         ResultsRepository.TYPE,
                         ResultsRepository.FORMSUBMISSION_ID,
                         ResultsRepository.DATE,
+                        ResultsRepository.BASE_ENTITY_ID
                 };
 
                 String[] mProjection2 = {
@@ -59,8 +55,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                         "\"Registration\"",
                         ECClientRepository.ID,
                         ECClientRepository.FIRST_ENCOUNTER,
+                        ResultsRepository.BASE_ENTITY_ID
                 };
-
 
                 SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
                 builder.setTables(ResultsRepository.TABLE_NAME);
@@ -68,24 +64,14 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                 String projectionStrTwo = getProjectionString(mProjection2);
 
                 String[] subQueries = new String[]{
-                        "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME,
-                        "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME};
+                        "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
+                        "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
                 String sql = builder.buildUnionQuery(subQueries, ResultsRepository.DATE + " DESC", null);
-
 
                 mCursor = repository.getReadableDatabase().rawQuery(sql, null);
 
                 ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
                 listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Snackbar.make(view, view.getTag(R.id.FORM_NAME) + " Filled on : " + "\n" + view.getTag(R.id.FORM_SUBMITTED_DATE), Snackbar.LENGTH_LONG)
-                                .setAction("No action", null).show();
-                    }
-                });
-
             }
 
         });
@@ -105,15 +91,10 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
     }
 
-    @Override
-    public void renderView(String baseEntityId, View view, final Map<String, String> extra) {
-        //Inherited
-    }
-
     private class ECClientRepository {
         public static final String ID = "id";
         public static final String TABLE_NAME = "ec_patient";
-        public static final String FIRST_ENCOUNTER = Constants.KEY.LAST_INTERACTED_WITH;
+        public static final String FIRST_ENCOUNTER = Constants.KEY.FIRST_ENCOUNTER;
     }
 
 

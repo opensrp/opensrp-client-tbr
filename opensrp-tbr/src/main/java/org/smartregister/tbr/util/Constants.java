@@ -39,7 +39,8 @@ public class Constants {
         public static final String _ID = "_id";
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
-        public static final String LAST_INTERACTED_WITH = "last_interacted_with";
+        public static final String FIRST_ENCOUNTER = "first_encounter";
+        public static final String DATE = "date";
         public static final String TBREACH_ID = "tbreach_id";
         public static final String DOB = "dob";
         public static final String GENDER = "gender";

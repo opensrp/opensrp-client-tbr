@@ -99,8 +99,33 @@ public class ResultDetailsRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =
-                    "SELECT * FROM " + "ec_details" + " WHERE " + BASE_ENTITY_ID_COLUMN + " " + ""
-                            + "" + "= '" + baseEntityId + "' AND key like '%_result'";
+                    "SELECT * FROM " + "ec_details" + " WHERE " + BASE_ENTITY_ID_COLUMN + " = '" + baseEntityId + "' AND key like '%_result'";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String key = cursor.getString(cursor.getColumnIndex(KEY_COLUMN));
+                    String value = cursor.getString(cursor.getColumnIndex(VALUE_COLUMN));
+                    clientDetails.put(key, value);
+                } while (cursor.moveToNext());
+            }
+            return clientDetails;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return clientDetails;
+    }
+
+    public Map<String, String> getFormResultDetails(String formSubmissionId) {
+        Cursor cursor = null;
+        Map<String, String> clientDetails = new HashMap<>();
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String query =
+                    "SELECT * FROM " + ResultDetailsRepository.TABLE_NAME + " WHERE " + ResultsRepository.FORMSUBMISSION_ID + "= '" + formSubmissionId + "'";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {

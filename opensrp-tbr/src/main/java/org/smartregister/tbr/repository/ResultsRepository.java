@@ -2,6 +2,7 @@ package org.smartregister.tbr.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -11,6 +12,8 @@ import org.smartregister.repository.Repository;
 import org.smartregister.tbr.model.Result;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ResultsRepository extends BaseRepository {
 
@@ -130,5 +133,6 @@ public class ResultsRepository extends BaseRepository {
         cursor.close();
         return id;
     }
+
 
 }

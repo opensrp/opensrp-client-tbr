@@ -10,20 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
-import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import util.TbrConstants;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
@@ -59,8 +50,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         this.patientDetails = patientDetails;
     }
 
-    ;
-
     private void processViewConfigurations() {
 
 
@@ -70,29 +59,19 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     protected void onResumption() {
         super.onResumption();
         getDefaultOptionsProvider();
-        if (isPausedOrRefreshList()) {
-            initializeQueries();
-        }
         processViewConfigurations();
     }
-
-
-    private void initializeQueries() {
-    }
-
-
 
     @Override
     protected String getMainCondition() {
         return null;
     }
 
-
     private void processViews(View view) {
 
-        renderDemographicsView(view);
-        renderPositiveResultsView(view);
-        renderServiceHistoryView(view);
+        renderDemographicsView(view, patientDetails);
+        renderPositiveResultsView(view, patientDetails);
+        renderServiceHistoryView(view, patientDetails);
 
         //Remove patient button
         Button removePatientButton = (Button) view.findViewById(R.id.removePatientButton);
@@ -106,24 +85,5 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 Utils.showToast(getActivity(), "Recording patient results ...");
             }
         });
-    }
-
-    private void renderPositiveResultsView(View view) {
-        RenderPositiveResultsCardHelper renderPositiveResultsHelper = new RenderPositiveResultsCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        Map<String, String> extra = new HashMap<>();
-        extra.put(Constants.KEY.LAST_INTERACTED_WITH, patientDetails.get(Constants.KEY.LAST_INTERACTED_WITH));
-        renderPositiveResultsHelper.renderView(patientDetails.get(Constants.KEY._ID), view.findViewById(R.id.clientPositiveResultsCardView), extra);
-    }
-
-    private void renderServiceHistoryView(View view) {
-        RenderServiceHistoryCardHelper renderServiceHistoryHelper = new RenderServiceHistoryCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderServiceHistoryHelper.renderView(patientDetails.get(Constants.KEY._ID), view.findViewById(R.id.clientServiceHistoryCardView));
-    }
-
-    private void renderDemographicsView(View view) {
-
-        RenderPatientDemographicCardHelper renderPatientDemographicCardHelper = new RenderPatientDemographicCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderPatientDemographicCardHelper.renderView(patientDetails.get(Constants.KEY._ID), view.findViewById(R.id.clientDetailsCardView), patientDetails);
-
     }
 }

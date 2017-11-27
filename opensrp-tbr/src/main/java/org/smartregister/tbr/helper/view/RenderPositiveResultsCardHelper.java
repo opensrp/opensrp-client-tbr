@@ -17,8 +17,6 @@ import java.util.Map;
 import util.TbrConstants;
 import util.TbrSpannableStringBuilder;
 
-import static org.smartregister.tbr.util.Constants.KEY.LAST_INTERACTED_WITH;
-
 /**
  * Created by ndegwamartin on 23/11/2017.
  */
@@ -30,25 +28,21 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         super(context, detailsRepository);
     }
 
-
     @Override
-    public void renderView(String baseEntityId, View view) {
-        //Inherited
-    }
-
-    @Override
-    public void renderView(final String baseEntityId, final View view, final Map<String, String> extra) {
+    public void renderView(final View view, final Map<String, String> extra) {
         new Handler().post(new Runnable() {
 
             @Override
             public void run() {
-                String dateString = context.getString(R.string.first_ecnounter);
-                if (extra.containsKey(LAST_INTERACTED_WITH) && !extra.get(LAST_INTERACTED_WITH).isEmpty()) {
-                    dateString += Constants.CHAR.SPACE + Utils.formatDateFromLong(Long.valueOf(extra.get(LAST_INTERACTED_WITH)).intValue(), "dd MMM yyyy");
-                }
+                String baseEntityId = extra.get(Constants.KEY._ID);
                 view.setTag(baseEntityId);
-                TextView firstEncouterDateView = (TextView) view.findViewById(R.id.firstEncounterDateTextView);
-                firstEncouterDateView.setText(dateString);
+
+                String dateString = context.getString(R.string.first_ecnounter);
+                if (extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
+                    dateString += Constants.CHAR.SPACE + Utils.formatDate(org.smartregister.util.Utils.toDate(extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
+                }
+                TextView firstEncounterDateView = (TextView) view.findViewById(R.id.firstEncounterDateTextView);
+                firstEncounterDateView.setText(dateString);
                 TextView results = (TextView) view.findViewById(R.id.result_details);
                 Map<String, String> testResults = ((ResultDetailsRepository) repository).getClientResultDetails(baseEntityId);
                 ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(

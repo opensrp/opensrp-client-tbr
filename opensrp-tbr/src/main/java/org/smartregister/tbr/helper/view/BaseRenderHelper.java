@@ -20,8 +20,5 @@ public abstract class BaseRenderHelper {
         this.repository = repository;
     }
 
-    public abstract void renderView(String baseEntityId, View view);
-
-
-    public abstract void renderView(String baseEntityId, View view, Map<String, String> extraData);
+    public abstract void renderView(View containerView, Map<String, String> extraData);
 }

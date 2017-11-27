@@ -2,18 +2,25 @@ package org.smartregister.tbr.fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
+import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
+import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
+
+import java.util.Map;
 
 import util.TbrConstants;
 
@@ -131,5 +138,22 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected abstract String getMainCondition();
+
+    protected void renderPositiveResultsView(View view, Map<String, String> patientDetails) {
+        RenderPositiveResultsCardHelper renderPositiveResultsHelper = new RenderPositiveResultsCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
+        renderPositiveResultsHelper.renderView(view.findViewById(R.id.clientPositiveResultsCardView), patientDetails);
+    }
+
+    protected void renderDemographicsView(View view, Map<String, String> patientDetails) {
+
+        RenderPatientDemographicCardHelper renderPatientDemographicCardHelper = new RenderPatientDemographicCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
+        renderPatientDemographicCardHelper.renderView(view.findViewById(R.id.clientDetailsCardView), patientDetails);
+
+    }
+
+    protected void renderServiceHistoryView(View view, Map<String, String> patientDetails) {
+        RenderServiceHistoryCardHelper renderServiceHistoryHelper = new RenderServiceHistoryCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
+        renderServiceHistoryHelper.renderView(view.findViewById(R.id.clientServiceHistoryCardView), patientDetails);
+    }
 
 }

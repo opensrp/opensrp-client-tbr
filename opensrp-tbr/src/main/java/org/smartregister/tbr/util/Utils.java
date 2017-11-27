@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-import static org.smartregister.tbr.util.Constants.KEY.LAST_INTERACTED_WITH;
 
 /**
  * Created by ndegwamartin on 10/10/2017.
@@ -37,6 +36,11 @@ public class Utils {
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+
+    }
+
+    public static void showToastShort(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
     }
 

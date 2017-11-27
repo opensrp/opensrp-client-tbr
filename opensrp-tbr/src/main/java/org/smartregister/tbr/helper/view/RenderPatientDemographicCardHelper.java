@@ -1,6 +1,7 @@
 package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,39 +23,39 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
         super(context, detailsRepository);
     }
 
-
     @Override
-    public void renderView(String baseEntityId, View view) {
-        //Overriden
-    }
+    public void renderView(final View view, final Map<String, String> patientDetails) {
+        new Handler().post(new Runnable() {
 
-    @Override
-    public void renderView(String baseEntityId, View view, Map<String, String> patientDetails) {
+            @Override
+            public void run() {
+                TextView tbReachIdTextView = (TextView) view.findViewById(R.id.tbReachIdTextView);
+                tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
 
-        TextView tbReachIdTextView = (TextView) view.findViewById(R.id.tbReachIdTextView);
-        tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
+                TextView clientAgeTextView = (TextView) view.findViewById(R.id.clientAgeTextView);
+                String dobString = patientDetails.get(Constants.KEY.DOB);
+                String formattedAge = Utils.getFormattedAgeString(dobString);
+                clientAgeTextView.setText(formattedAge);
 
-        TextView clientAgeTextView = (TextView) view.findViewById(R.id.clientAgeTextView);
-        String dobString = patientDetails.get(Constants.KEY.DOB);
-        String formattedAge = Utils.getFormattedAgeString(dobString);
-        clientAgeTextView.setText(formattedAge);
+                TextView clientNameTextView = (TextView) view.findViewById(R.id.clientNameTextView);
+                String fullName = patientDetails.get(Constants.KEY.FIRST_NAME) + " " + patientDetails.get(Constants.KEY.LAST_NAME);
+                clientNameTextView.setText(fullName);
+                TextView clientGenderTextView = (TextView) view.findViewById(R.id.clientGenderTextView);
+                clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get(Constants.KEY.GENDER)));
 
-        TextView clientNameTextView = (TextView) view.findViewById(R.id.clientNameTextView);
-        String fullName = patientDetails.get(Constants.KEY.FIRST_NAME) + " " + patientDetails.get(Constants.KEY.LAST_NAME);
-        clientNameTextView.setText(fullName);
-        TextView clientGenderTextView = (TextView) view.findViewById(R.id.clientGenderTextView);
-        clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get(Constants.KEY.GENDER)));
+                TextView clientInitalsTextView = (TextView) view.findViewById(R.id.clientInitalsTextView);
+                clientInitalsTextView.setText(Utils.getShortInitials(fullName));
 
-        TextView clientInitalsTextView = (TextView) view.findViewById(R.id.clientInitalsTextView);
-        clientInitalsTextView.setText(Utils.getShortInitials(fullName));
+                if (patientDetails.get(Constants.KEY.GENDER).equals(Constants.GENDER.MALE)) {
+                    clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.male_light_blue));
+                    clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.male_blue));
 
-        if (patientDetails.get(Constants.KEY.GENDER).equals(Constants.GENDER.MALE)) {
-            clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.male_light_blue));
-            clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.male_blue));
+                } else {
+                    clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.female_light_pink));
+                    clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.female_pink));
+                }
+            }
 
-        } else {
-            clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.female_light_pink));
-            clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.female_pink));
-        }
+        });
     }
 }
