@@ -6,16 +6,22 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.avocarrot.json2view.DynamicView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -29,8 +35,10 @@ import java.util.Map;
 import java.util.Set;
 
 import util.TbrConstants;
+import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
+import static org.smartregister.tbr.R.id.diagnose_lnk;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -53,6 +61,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private DetailsRepository detailsRepository;
 
     private static final String DETECTED = "detected";
+    private static final String NOT_DETECTED = "not_detected";
+    private static final String INDETERMINATE = "indeterminate";
+
+    private ForegroundColorSpan redForegroundColorSpan;
+    private ForegroundColorSpan blackForegroundColorSpan;
 
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,6 +73,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.detailsRepository = detailsRepository;
+        redForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.holo_red_dark));
+        blackForegroundColorSpan = new ForegroundColorSpan(
+                context.getResources().getColor(android.R.color.black));
     }
 
     @Override
@@ -106,19 +123,20 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private View populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
 
-        String firstName = getValue(pc.getColumnmaps(), TbrConstants.KEY.FIRST_NAME, true);
-        String lastName = getValue(pc.getColumnmaps(), TbrConstants.KEY.LAST_NAME, true);
+        String firstName = getValue(pc.getColumnmaps(), KEY.FIRST_NAME, true);
+        String lastName = getValue(pc.getColumnmaps(), KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), TbrConstants.KEY.TBREACH_ID, false));
+        fillValue((TextView) view.findViewById(R.id.participant_id), "#" + getValue(pc.getColumnmaps(), KEY.TBREACH_ID, false));
 
+        String gender = getValue(pc.getColumnmaps(), KEY.GENDER, true);
 
-        String gender = getValue(pc.getColumnmaps(), TbrConstants.KEY.GENDER, true);
+        fillValue((TextView) view.findViewById(R.id.gender), gender);
 
         DateTime birthDateTime;
-        String dobString = getValue(pc.getColumnmaps(), TbrConstants.KEY.DOB, false);
+        String dobString = getValue(pc.getColumnmaps(), KEY.DOB, false);
         String age = "";
         if (StringUtils.isNotBlank(dobString)) {
             try {
@@ -131,41 +149,46 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 Log.e(getClass().getName(), e.toString(), e);
             }
         }
-        String ageAndGender = String.format("%s, %s", age, gender);
-        fillValue((TextView) view.findViewById(R.id.age_gender), ageAndGender);
+        fillValue((TextView) view.findViewById(R.id.age), age);
 
         View patient = view.findViewById(R.id.patient_column);
-        patient.setOnClickListener(onClickListener);
-        patient.setTag(client);
+        attachOnclickListener(patient, client);
         return patient;
+    }
+
+    private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, boolean withOtherResults) {
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
+            ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
+            stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
+            stringBuilder.append(withOtherResults ? "/ " : " RIF ");
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+        }
+        return stringBuilder;
+    }
+
+    private String processXpertResult(String result) {
+        switch (result) {
+            case DETECTED:
+                return "+ve";
+            case NOT_DETECTED:
+                return "-ve";
+            case INDETERMINATE:
+                return "?";
+            default:
+                return result;
+        }
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View result = view.findViewById(R.id.result_lnk);
-        result.setOnClickListener(onClickListener);
-        result.setTag(client);
-
+        attachOnclickListener(result, client);
         TextView results = (TextView) view.findViewById(R.id.result_details);
-        result.setTag(client);
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+        attachOnclickListener(results, client);
 
-        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
-        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
-        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder.append("Xpe ");
-            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-            stringBuilder.append("/");
-            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-        }
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
                 stringBuilder.append(",\n");
@@ -180,9 +203,13 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case "three_plus":
                     stringBuilder.append("3+", redForegroundColorSpan);
                     break;
-                default:
-                    stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
+                case "scanty":
+                    stringBuilder.append("Scty", redForegroundColorSpan);
                     break;
+                case "negative":
+                    stringBuilder.append("Neg", redForegroundColorSpan);
+                    break;
+                default:
             }
         }
 
@@ -199,38 +226,35 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
                 stringBuilder.append("Ind", blackForegroundColorSpan);
             else
-                stringBuilder.append("Non", blackForegroundColorSpan);
+                stringBuilder.append("NonI", blackForegroundColorSpan);
 
         }
         if (stringBuilder.length() > 0) {
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
+            adjustLayoutParams(result);
         }
         return view.findViewById(R.id.results_column);
     }
 
     private View populateDiagnoseColumn(SmartRegisterClient client, View view) {
-        View diagnose = view.findViewById(R.id.diagnose_lnk);
-        diagnose.setOnClickListener(onClickListener);
-        diagnose.setTag(client);
+        attachOnclickListener(view.findViewById(diagnose_lnk), client);
         return view.findViewById(R.id.diagnose_column);
     }
 
     private View populateDropdownColumn(SmartRegisterClient client, View view) {
-        View diagnose = view.findViewById(R.id.dropdown_btn);
-        diagnose.setOnClickListener(onClickListener);
-        diagnose.setTag(client);
+        attachOnclickListener(view.findViewById(R.id.dropdown_btn), client);
         return view.findViewById(R.id.dropdown_column);
     }
 
 
     private View populateEncounterColumn(CommonPersonObjectClient pc, View view) {
         DateTime encounterTime;
-        String lastEncounter = getValue(pc.getColumnmaps(), "last_interacted_with", false);
+        String lastEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
         String duration = "";
         if (StringUtils.isNotBlank(lastEncounter)) {
             try {
-                encounterTime = new DateTime(Long.valueOf(lastEncounter));
+                encounterTime = new DateTime(lastEncounter);
                 duration = DateUtil.getDuration(encounterTime);
             } catch (Exception e) {
                 Log.e(getClass().getName(), e.toString(), e);
@@ -240,33 +264,30 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return view.findViewById(R.id.encounter_column);
     }
 
+    private void adjustLayoutParams(View view) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        view.setLayoutParams(params);
+    }
+
+    private void attachOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+    }
+
     private View populateXpertResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View result = view.findViewById(R.id.xpert_result_lnk);
-        result.setOnClickListener(onClickListener);
-        result.setTag(client);
+        attachOnclickListener(result, client);
 
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
-        result.setTag(client);
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, false));
+        attachOnclickListener(results, client);
 
-        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
-        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
-        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder.append("MTB ");
-            if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", redForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", redForegroundColorSpan);
-            stringBuilder.append(" RIF ");
-            if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-                stringBuilder.append("+ve", blackForegroundColorSpan);
-            else
-                stringBuilder.append("-ve", blackForegroundColorSpan);
-        }
+        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+
+        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, false);
+
         if (stringBuilder.length() > 0) {
+            adjustLayoutParams(result);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -295,6 +316,17 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        return inflater.inflate(R.layout.register_list_row, null);
+        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration("presumptive_register_row");
+        if (viewConfiguration == null) {
+            return inflater.inflate(R.layout.register_list_row, null);
+        } else {
+            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+            View rowView = DynamicView.createView(context, jsonView);
+            rowView.setLayoutParams(
+                    new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT));
+            return rowView;
+        }
     }
 }

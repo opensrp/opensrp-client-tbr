@@ -4,9 +4,9 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,16 +21,27 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConfigurableViewsHelper {
 
-    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
-
     private static final String TAG = "ConfigurableViewsHelper";
 
-    public void registerViewConfiguration(String viewIdentifier) {
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewIdentifier);
-        if (jsonString == null)
-            return;
-        else
-            viewConfigurations.put(viewIdentifier, TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString));
+    private final ConfigurableViewsRepository configurableViewsRepository;
+
+    private final JsonSpecHelper jsonSpecHelper;
+
+    public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper) {
+        this.configurableViewsRepository = configurableViewsRepository;
+        this.jsonSpecHelper = jsonSpecHelper;
+    }
+
+    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
+
+    public void registerViewConfigurations(List<String> viewIdentifiers) {
+        for (String viewIdentifier : viewIdentifiers) {
+            String jsonString = configurableViewsRepository.getConfigurableViewJson(viewIdentifier);
+            if (jsonString == null)
+                continue;
+            else
+                viewConfigurations.put(viewIdentifier, jsonSpecHelper.getConfigurableView(jsonString));
+        }
     }
 
     public Set<View> getRegisterActiveColumns(String identifier) {
@@ -67,11 +78,13 @@ public class ConfigurableViewsHelper {
 
     }
 
-    public void unregisterViewConfiguration(String viewIdentifier) {
-        viewConfigurations.remove(viewIdentifier);
+    public void unregisterViewConfiguration(List<String> viewIdentifiers) {
+        for (String viewIdentifier : viewIdentifiers)
+            viewConfigurations.remove(viewIdentifier);
     }
 
     public ViewConfiguration getViewConfiguration(String identifier) {
         return viewConfigurations.get(identifier);
     }
+
 }
