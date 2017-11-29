@@ -26,6 +26,7 @@ public class Constants {
         public static final String HOME = "home";
         public static final String MAIN = "main";
         public static final String LANG = "lang";
+        public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
     }
 
     public static final class GENDER {

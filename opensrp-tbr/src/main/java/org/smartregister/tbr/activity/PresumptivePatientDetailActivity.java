@@ -4,9 +4,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.event.RefreshPatientDetailsEvent;
 import org.smartregister.tbr.fragment.PresumptivePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +25,11 @@ import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 public class PresumptivePatientDetailActivity extends BasePatientDetailActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        PresumptivePatientDetailsFragment mBaseFragment = new PresumptivePatientDetailsFragment();
-        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
-        mBaseFragment.setPatientDetails(patientDetails);
-        initViewByFragmentType(mBaseFragment);
+        renderFragmentView();
 
     }
 
@@ -48,5 +51,12 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
         }
     }
 
+    @Override
+    protected void renderFragmentView() {
+        PresumptivePatientDetailsFragment mBaseFragment = new PresumptivePatientDetailsFragment();
+        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        mBaseFragment.setPatientDetails(patientDetails);
+        initViewByFragmentType(mBaseFragment);
+    }
 
 }

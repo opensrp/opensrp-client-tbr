@@ -52,7 +52,8 @@ public class HomeActivity extends BaseActivity {
         postEvent(viewConfigurationSyncEvent);
         if (view != null) {
             TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
-            textView.setText("Last sync: " + Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m"));
+            String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
+            textView.setText("Last sync: " + lastSyncTime);
         }
     }
 
@@ -81,6 +82,14 @@ public class HomeActivity extends BaseActivity {
             TextView textView = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
             textView.setText(Utils.getShortInitials(fullName));
         }
+        //Set last sync time
+        TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
+        if (lastSyncTimeTextView != null) {
+            Long lastSyncTimeStamp = getOpenSRPContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            String lastSyncTime = Utils.formatDateFromLong(lastSyncTimeStamp, "MMM d H:m");
+            lastSyncTimeTextView.setText("Last sync: " + lastSyncTime);
+        }
+
         //Set App Name
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getApplicationName() != null) {

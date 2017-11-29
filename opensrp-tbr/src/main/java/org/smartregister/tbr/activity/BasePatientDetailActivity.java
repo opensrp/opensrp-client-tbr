@@ -7,10 +7,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Toast;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
+import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.event.BaseEvent;
+import org.smartregister.tbr.event.RefreshPatientDetailsEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
@@ -27,7 +34,7 @@ import util.EnketoFormUtils;
  * Created by ndegwamartin on 17/11/2017.
  */
 
-public abstract class BasePatientDetailActivity extends BaseActivity {
+public abstract class BasePatientDetailActivity extends BaseActivity implements DisplayFormListener {
     protected String[] formNames = new String[]{};
     @Bind(R.id.view_pager)
     protected OpenSRPViewPager mPager;
@@ -77,7 +84,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity {
                     displayFormFragment.setFormData(data);
                     displayFormFragment.setRecordId(entityId);
                     displayFormFragment.setFieldOverides(metaData);
-                    //displayFormFragment.setListener(this);
+                    displayFormFragment.setListener(this);
                     displayFormFragment.setResize(false);
                 }
             }
@@ -137,10 +144,6 @@ public abstract class BasePatientDetailActivity extends BaseActivity {
 
     }
 
-    public String getViewIdentifier() {
-        return PresumptivePatientDetailActivity.class.getCanonicalName();
-    }
-
     @Override
     public void onBackPressed() {
         if (currentPage != 0) {
@@ -165,4 +168,23 @@ public abstract class BasePatientDetailActivity extends BaseActivity {
             super.onBackPressed(); // allow back key only if we are
         }
     }
+
+    @Override
+    public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
+        try {
+            EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
+            enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        switchToBaseFragment();
+        Utils.postEvent(new RefreshPatientDetailsEvent(Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS));
+    }
+
+    @Override
+    public void savePartialFormData(String formData, String id, String formName, JSONObject fieldOverrides) {
+        Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
+    }
+
+    protected abstract void renderFragmentView();
 }

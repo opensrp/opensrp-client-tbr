@@ -14,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
@@ -52,23 +54,23 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.result_smear:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.result_chest_xray:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
 
                 break;
             case R.id.result_culture:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.addNewPatient:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.tbDiagnosisForm:
-                ((PresumptivePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
                 break;
             default:
                 break;
@@ -101,8 +103,10 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView date = (TextView) view.findViewById(R.id.formfillDateTextView);
-        date.setText(Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE.toString())), true), "dd MMM yyyy"));
+        TextView dateView = (TextView) view.findViewById(R.id.formfillDateTextView);
+        String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals("1") ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(ResultsRepository.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE.toString())), true), "dd MMM yyyy");
+        dateView.setText(date);
+
         TextView formName = (TextView) view.findViewById(R.id.formNameTextView);
         formName.setText(cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE)));
         formName.setOnClickListener(this);
@@ -133,6 +137,6 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
         fields.put("afb_culture.sample_id", db.get("sample_id"));
         JSONObject fieldOverridesJson = new JSONObject(fields);
         fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
+        return getFieldOverrides(formId);
     }
 }

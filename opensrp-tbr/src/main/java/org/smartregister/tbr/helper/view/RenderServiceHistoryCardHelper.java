@@ -1,5 +1,6 @@
 package org.smartregister.tbr.helper.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
@@ -24,6 +25,7 @@ import static org.smartregister.tbr.R.id.TB_REACH_ID;
 
 public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
+    public static final String UNION_TABLE_FLAG = "union_table_flag";
     private Cursor mCursor;
 
     public RenderServiceHistoryCardHelper(Context context, ResultDetailsRepository detailsRepository) {
@@ -47,7 +49,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                         ResultsRepository.TYPE,
                         ResultsRepository.FORMSUBMISSION_ID,
                         ResultsRepository.DATE,
-                        ResultsRepository.BASE_ENTITY_ID
+                        ResultsRepository.BASE_ENTITY_ID,
+                        "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
                 };
 
                 String[] mProjection2 = {
@@ -55,7 +58,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                         "\"Registration\"",
                         ECClientRepository.ID,
                         ECClientRepository.FIRST_ENCOUNTER,
-                        ResultsRepository.BASE_ENTITY_ID
+                        ResultsRepository.BASE_ENTITY_ID,
+                        "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
                 };
 
                 SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
@@ -66,10 +70,10 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                 String[] subQueries = new String[]{
                         "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
                         "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
-                String sql = builder.buildUnionQuery(subQueries, ResultsRepository.DATE + " DESC", null);
+                String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
 
                 mCursor = repository.getReadableDatabase().rawQuery(sql, null);
-
+                ((Activity) context).startManagingCursor(mCursor);
                 ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
                 listView.setAdapter(adapter);
             }
