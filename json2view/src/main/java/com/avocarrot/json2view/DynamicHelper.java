@@ -733,7 +733,7 @@ public class DynamicHelper {
                 }
                 break;
                 case STRING: {
-                    ((TextView) view).setGravity((Integer) property.getValueInt(Gravity.class, property.getValueString().toUpperCase()));
+                    ((TextView) view).setGravity((Integer) property.getValueInt(Gravity.class, property.getValueString().equals("center_vertical|center_horizontal") ? "CENTER" : property.getValueString().toUpperCase()));
                 }
                 break;
             }

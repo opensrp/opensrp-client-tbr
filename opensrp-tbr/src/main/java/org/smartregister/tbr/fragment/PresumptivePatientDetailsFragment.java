@@ -24,7 +24,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
-import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
@@ -34,11 +33,8 @@ import org.smartregister.tbr.util.Constants;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import util.TbrConstants;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
@@ -77,7 +73,7 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         this.patientDetails = patientDetails;
     }
 
-    private void processViewConfigurations() {
+    protected void processViewConfigurations() {
 
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
         if (jsonString == null) return;
@@ -130,7 +126,17 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     }
 
     @Override
+    protected void populateClientListHeaderView(View view) {
+
+    }
+
+    @Override
     protected String getMainCondition() {
+        return null;
+    }
+
+    @Override
+    protected String getViewConfigurationIdentifier() {
         return null;
     }
 
@@ -165,15 +171,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, firstName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
         popup.show();
-    }
-
-    private FieldOverrides getFieldOverrides() {
-        FieldOverrides fieldOverrides = null;
-        Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

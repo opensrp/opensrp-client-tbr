@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
 import org.smartregister.tbr.application.TbrApplication;
@@ -80,10 +81,15 @@ public class HomeFragment extends ListFragment {
         Utils.showToast(getActivity(), registerTitle.getText().toString() + " Register!");
         Register register = (Register) this.getListAdapter().getItem(position);
         if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
-            Intent intent = new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class);
-            intent.putExtra(TOOLBAR_TITLE, register.getTitle());
-            startActivity(intent);
+            initializeRegister( new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class),register);
+        } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
+            initializeRegister( new Intent(this.getActivity(), PositivePatientRegisterActivity.class),register);
         }
+    }
+
+    private void initializeRegister(Intent intent, Register register){
+        intent.putExtra(TOOLBAR_TITLE, register.getTitle());
+        startActivity(intent);
     }
 
     public static class RegisterDataRepository {
