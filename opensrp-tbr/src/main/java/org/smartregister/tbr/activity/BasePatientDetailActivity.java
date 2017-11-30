@@ -178,7 +178,6 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
             e.printStackTrace();
         }
         switchToBaseFragment();
-        Utils.postEvent(new RefreshPatientDetailsEvent(Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS));
     }
 
     @Override

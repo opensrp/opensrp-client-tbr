@@ -30,7 +30,9 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.sync.TbrClientProcessor;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
 import org.w3c.dom.Attr;
@@ -1038,6 +1040,7 @@ public class EnketoFormUtils {
                 registerActivity.refreshList(FetchStatus.fetched);
                 registerActivity.hideProgressDialog();
             }
+            Utils.postEvent(new EnketoFormSaveCompleteEvent());
         }
 
         @Override

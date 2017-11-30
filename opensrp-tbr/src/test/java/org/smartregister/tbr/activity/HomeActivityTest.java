@@ -82,7 +82,7 @@ public class HomeActivityTest extends BaseUnitTest {
         junit.framework.Assert.assertNotNull(spyActivity);
         spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
 
-        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
+        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("processView");
     }
 
     @Test
@@ -90,7 +90,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
         HomeActivityTestVersion spyActivity = spy(activity);
         junit.framework.Assert.assertNotNull(spyActivity);
-        PowerMockito.doNothing().when(spyActivity).refreshView();
+        PowerMockito.doNothing().when(spyActivity).processView();
         spyActivity.refreshViewFromConfigurationChange(viewConfigurationSyncCompleteEvent);
 
         PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("refreshViewFromConfigurationChange", viewConfigurationSyncCompleteEvent);
@@ -103,7 +103,7 @@ public class HomeActivityTest extends BaseUnitTest {
         junit.framework.Assert.assertNotNull(spyActivity);
         spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
 
-        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("refreshView");
+        PowerMockito.verifyPrivate(spyActivity, times(0)).invoke("processView");
     }
 
     @Test
@@ -111,7 +111,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
         HomeActivityTestVersion spyActivity = spy(activity);
         junit.framework.Assert.assertNotNull(spyActivity);
-        PowerMockito.doNothing().when(spyActivity).refreshView();
+        PowerMockito.doNothing().when(spyActivity).processView();
         spyActivity.refreshViewFromLanguageChange(languageConfigurationEvent);
 
         PowerMockito.verifyPrivate(spyActivity, times(1)).invoke("refreshViewFromLanguageChange", languageConfigurationEvent);

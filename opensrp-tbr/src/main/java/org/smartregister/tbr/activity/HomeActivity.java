@@ -15,11 +15,13 @@ import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.fragment.RegisterFragment;
+import org.smartregister.tbr.fragment.HomeFragment;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
+
+import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
@@ -27,6 +29,7 @@ import java.util.Calendar;
 
 public class HomeActivity extends BaseActivity {
     private static final String TAG = HomeActivity.class.getCanonicalName();
+    private TextView lastSyncTimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         if (savedInstanceState == null) {
-            refreshView();
+            processView();
         }
 
     }
@@ -51,9 +54,10 @@ public class HomeActivity extends BaseActivity {
         viewConfigurationSyncEvent.setManualSync(true);
         postEvent(viewConfigurationSyncEvent);
         if (view != null) {
-            TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
+
             String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
-            textView.setText("Last sync: " + lastSyncTime);
+            Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
+            lastSyncTimeTextView.setText("Last sync: " + lastSyncTime);
         }
     }
 
@@ -73,7 +77,7 @@ public class HomeActivity extends BaseActivity {
         super.onStop();
     }
 
-    public void refreshView() {
+    public void processView() {
 
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
@@ -83,11 +87,11 @@ public class HomeActivity extends BaseActivity {
             textView.setText(Utils.getShortInitials(fullName));
         }
         //Set last sync time
-        TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
+        lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
-            Long lastSyncTimeStamp = getOpenSRPContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            String lastSyncTime = Utils.formatDateFromLong(lastSyncTimeStamp, "MMM d H:m");
-            lastSyncTimeTextView.setText("Last sync: " + lastSyncTime);
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
+            Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime);
+            lastSyncTimeTextView.setText("Last sync: " + defaultLastSyncTime);
         }
 
         //Set App Name
@@ -100,7 +104,7 @@ public class HomeActivity extends BaseActivity {
         }
         try {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.registers_container, new RegisterFragment())
+                    .replace(R.id.registers_container, new HomeFragment())
                     .commit();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -110,7 +114,7 @@ public class HomeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
         if (syncCompleteEvent != null) {
-            refreshView();
+            processView();
         }
 
     }
@@ -118,7 +122,7 @@ public class HomeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromLanguageChange(LanguageConfigurationEvent languageConfigurationEvent) {
         if (languageConfigurationEvent != null) {
-            refreshView();
+            processView();
         }
 
     }

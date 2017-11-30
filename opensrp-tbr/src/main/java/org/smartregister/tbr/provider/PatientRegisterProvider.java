@@ -67,6 +67,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
 
+    private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
+
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
@@ -169,15 +171,20 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private String processXpertResult(String result) {
-        switch (result) {
-            case DETECTED:
-                return "+ve";
-            case NOT_DETECTED:
-                return "-ve";
-            case INDETERMINATE:
-                return "?";
-            default:
-                return result;
+        try {
+            switch (result) {
+                case DETECTED:
+                    return "+ve";
+                case NOT_DETECTED:
+                    return "-ve";
+                case INDETERMINATE:
+                    return "?";
+                default:
+                    return result;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return "";
         }
     }
 

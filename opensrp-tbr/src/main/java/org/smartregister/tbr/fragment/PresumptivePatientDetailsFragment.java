@@ -15,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.avocarrot.json2view.DynamicView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,10 +28,12 @@ import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.RefreshPatientDetailsEvent;
+import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,8 +69,8 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
     @Override
     public void setupViews(View view) {
-        processViews(view);
         processViewConfigurations();
+        processViews(view);
     }
 
     public void setPatientDetails(Map<String, String> patientDetails) {
@@ -78,6 +83,29 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
+        if (!views.isEmpty()) {
+            Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
+                @Override
+                public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
+                    return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
+                }
+            });
+
+            for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
+                if (componentView.getResidence().getParent() == null) {
+                    componentView.getResidence().setParent(detailsView.getIdentifier());
+                }
+
+                LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
+                String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
+                ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
+                if (componentViewConfiguration != null) {
+                    JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
+                    View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+                    sampleView.toString();
+                }
+            }
+        }
         Log.d(TAG, String.valueOf(views.size()));
 
     }
@@ -148,9 +176,9 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         return fieldOverrides;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-    public void refreshView(RefreshPatientDetailsEvent refreshPatientDetailsEvent) {
-        if (refreshPatientDetailsEvent != null) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
+        if (enketoFormSaveCompleteEvent != null) {
             processViews(rootView);
         }
 

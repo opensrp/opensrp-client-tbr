@@ -10,6 +10,7 @@ public class Constants {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
         public static final String REGISTER_TITLE = "register_title";
         public static final String PATIENT_DETAIL_MAP = "patient_detail_map";
+        public static final String LAST_SYNC_TIME_STRING = "last_manual_sync_time_string";
     }
 
     public static class CHAR {

@@ -50,27 +50,27 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
 
-        String formSubmissionId = formView.getTag(FORM_SUBMISSION_ID).toString();
+        String formSubmissionId = formView.getTag(R.id.TB_REACH_ID).toString();
 
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.result_smear:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.result_chest_xray:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
 
                 break;
             case R.id.result_culture:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.addNewPatient:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
                 break;
             case R.id.tbDiagnosisForm:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getSmearResultsFormFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
                 break;
             default:
                 break;
@@ -129,14 +129,4 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
         return fieldOverrides;
     }
 
-    private FieldOverrides getSmearResultsFormFieldOverrides(String formId) {
-        FieldOverrides fieldOverrides = null;
-        Map db = TbrApplication.getInstance().getResultDetailsRepository().getFormResultDetails(formId);
-
-        Map fields = new HashMap();
-        fields.put("afb_culture.sample_id", db.get("sample_id"));
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return getFieldOverrides(formId);
-    }
 }

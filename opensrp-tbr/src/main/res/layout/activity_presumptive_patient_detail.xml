@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityPresumptiveDetailLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/customAppThemeGray"
     android:fitsSystemWindows="true"
-    tools:context=".activity.PresumptivePatientDetailActivity"
-    android:id="@+id/activityPresumptiveDetailLayout">
+    tools:context=".activity.PresumptivePatientDetailActivity">
 
     <include layout="@layout/toolbar_patient_register" />
 
@@ -36,8 +37,10 @@
             android:padding="10dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:text="REMOVE PATIENT"
-            android:textColor="@color/status_bar_text_almost_white" />
+            android:text="@string/remove_patient"
+            android:textAllCaps="true"
+            android:textColor="@color/status_bar_text_almost_white"
+            app:textAllCaps="true" />
 
 
     </LinearLayout>

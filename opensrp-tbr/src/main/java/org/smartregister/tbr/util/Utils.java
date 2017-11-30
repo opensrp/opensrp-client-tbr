@@ -3,9 +3,11 @@ package org.smartregister.tbr.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -154,5 +156,17 @@ public class Utils {
 
     public static int getTokenStringResourceId(Context context, String token) {
         return context.getResources().getIdentifier(token, "string", "org.smartregister.tbr");
+    }
+
+    public static String readPrefString(Context context, final String key, String defaultValue) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(key, defaultValue);
+    }
+
+    public static void writePrefString(Context context, final String key, final String value) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 }

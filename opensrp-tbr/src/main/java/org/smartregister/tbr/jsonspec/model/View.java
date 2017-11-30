@@ -20,6 +20,16 @@ public class View {
 
     private String identifier;
 
+    private String parent;
+
+    public String getParent() {
+        return parent;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
     private Map<String, Object> metadata;
 
     public String getIdentifier() {

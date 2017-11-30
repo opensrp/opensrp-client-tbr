@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
 import org.smartregister.tbr.application.TbrApplication;
@@ -31,8 +30,8 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
  * Created by ndegwamartin on 12/10/2017.
  */
 
-public class RegisterFragment extends ListFragment {
-    private static String TAG = RegisterFragment.class.getCanonicalName();
+public class HomeFragment extends ListFragment {
+    private static String TAG = HomeFragment.class.getCanonicalName();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
