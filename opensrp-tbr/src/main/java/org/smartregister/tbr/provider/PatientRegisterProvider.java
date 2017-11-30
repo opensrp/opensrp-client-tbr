@@ -176,7 +176,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
             stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
             stringBuilder.append(withOtherResults ? "/ " : " RIF ");
-            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+            String rif = testResults.get(TbrConstants.RESULT.RIF_RESULT);
+            if (rif == null) rif = NOT_DETECTED;
+            stringBuilder.append(processXpertResult(rif), colorSpan);
         }
         return stringBuilder;
     }
@@ -246,7 +248,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
             adjustLayoutParams(result);
-        }else
+        } else
             results.setVisibility(View.GONE);
         return view.findViewById(R.id.results_column);
     }
@@ -338,15 +340,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         int viewResourceId;
         if (context instanceof PresumptivePatientRegisterActivity) {
             viewIdentifier = PRESUMPTIVE_REGISTER_ROW;
-            viewResourceId=R.layout.register_list_row;
-        }
-        else {
+            viewResourceId = R.layout.register_list_row;
+        } else {
             viewIdentifier = POSITIVE_REGISTER_ROW;
-            viewResourceId=R.layout.register_positive_list_row;
+            viewResourceId = R.layout.register_positive_list_row;
         }
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
         if (viewConfiguration == null) {
-                return inflater.inflate(viewResourceId, null);
+            return inflater.inflate(viewResourceId, null);
         } else {
             JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
             View rowView = DynamicView.createView(context, jsonView);
