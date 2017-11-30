@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
@@ -174,7 +175,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(R.string.saving_dialog_title));
         progressDialog.setMessage(getString(R.string.please_wait_message));
-       // if (!isFinishing())
+        if (!isFinishing())
             progressDialog.show();
     }
 
@@ -238,6 +239,17 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
+    }
+
+    @Override
+    public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
+        try {
+            EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
+            enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        switchToBaseFragment();
     }
 
     @Override

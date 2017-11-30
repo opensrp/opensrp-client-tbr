@@ -24,6 +24,7 @@ TbrConstants extends AllConstants {
         public static final String BASE_ENTITY_ID_COLUMN = "base_entity_id";
         public static final String FIRST_ENCOUNTER = "first_encounter";
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
+        public static final String AGE = "age";
     }
 
 
@@ -63,6 +64,6 @@ TbrConstants extends AllConstants {
         public static final String CULTURE = "result_culture";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
-        public static final String TREATMENT = "treatment";
+        public static final String TREATMENT = "treatment_initiation";
     }
 }

@@ -7,10 +7,13 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
@@ -28,6 +31,7 @@ import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
+import org.smartregister.util.DateUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
@@ -50,6 +54,7 @@ import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
+import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -151,6 +156,32 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected FieldOverrides getFieldOverrides() {
         Map fields = new HashMap();
         fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
+    protected FieldOverrides getTreatmentFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        fields.put("first_name", patient.getDetails().get(KEY.FIRST_NAME));
+        fields.put("last_name", patient.getDetails().get(KEY.LAST_NAME));
+
+        fields.put("gender", patient.getDetails().get(KEY.GENDER));
+        String dobString = patient.getDetails().get(KEY.DOB);
+        String age = "";
+        if (StringUtils.isNotBlank(dobString)) {
+            try {
+                DateTime birthDateTime = new DateTime(dobString);
+                String duration = DateUtil.getDuration(birthDateTime);
+                if (duration != null) {
+                    age = duration.substring(0, duration.length() - 1);
+                }
+            } catch (Exception e) {
+                Log.e(getClass().getName(), e.toString(), e);
+            }
+        }
+        fields.put("age", age);
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
@@ -310,6 +341,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.patient_column:
                     ///open detail screen
+                    break;
+                case R.id.treat_lnk:
+                    registerActivity.startFormActivity(TREATMENT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
                     break;
                 default:
                     break;

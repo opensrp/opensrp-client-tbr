@@ -236,7 +236,7 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening"))
+        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient"))
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
         else
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);
@@ -834,6 +834,27 @@ public class EnketoFormUtils {
                         // write the xml attributes
                         // a value node doesn't have id or relationalId fields
                         writeXMLAttributes(child, serializer, null, null);
+                        if (child.hasChildNodes()) {
+                            NodeList childNodes = child.getChildNodes();
+                            int childNodeSize = childNodes.getLength();
+                            for (int j = 0; j < childNodeSize; j++) {
+                                if (childNodes.item(j) instanceof Element) {
+                                    Element childNode = (Element) childNodes.item(j);
+                                    String childNodeName = childNode.getNodeName();
+                                    serializer.startTag("", childNodeName);
+                                    writeXMLAttributes(childNode, serializer, null, null);
+                                    String value = retrieveValueForNodeName(childNodeName, entityJson,
+                                            formDefinition);
+                                    if (value != null) {
+                                        serializer.text(value);
+                                    }
+                                    if (fieldOverrides.has(childNodeName)) {
+                                        serializer.text(fieldOverrides.getString(childNodeName));
+                                    }
+                                    serializer.endTag("", childNodeName);
+                                }
+                            }
+                        }
                         // write the node value
                         String value = retrieveValueForNodeName(fieldName, entityJson,
                                 formDefinition);

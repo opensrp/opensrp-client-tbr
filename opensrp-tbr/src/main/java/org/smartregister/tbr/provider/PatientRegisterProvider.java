@@ -246,7 +246,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
             adjustLayoutParams(result);
-        }
+        }else
+            results.setVisibility(View.GONE);
         return view.findViewById(R.id.results_column);
     }
 

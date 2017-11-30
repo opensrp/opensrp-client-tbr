@@ -11,8 +11,6 @@ import org.smartregister.tbr.fragment.PresumptivePatientRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import util.EnketoFormUtils;
-
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.SCREENING_FORM;
@@ -41,17 +39,6 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
-        try {
-            EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
-            enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        switchToBaseFragment();
     }
 
     @Override

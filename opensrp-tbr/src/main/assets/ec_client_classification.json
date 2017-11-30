@@ -46,6 +46,18 @@
             "creates_case": [
               "ec_patient"
             ]
+          },{
+            "field": "eventType",
+            "field_value": "positive TB patient",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },{
+            "field": "eventType",
+            "field_value": "Treatment Initiation",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }
