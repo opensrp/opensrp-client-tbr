@@ -186,7 +186,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private String processXpertResult(String result) {
         if (result == null)
-            result = NOT_DETECTED;
+            return "-ve";
         switch (result) {
             case DETECTED:
                 return "+ve";
@@ -376,7 +376,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private View getDynamicRowView(ViewConfiguration viewConfiguration, View view, ViewConfiguration commonConfiguration) {
         if (dynamicRow == null) {
-            dynamicRow = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_columns,false);
+            dynamicRow = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_columns, false);
         }
         ViewGroup insertPoint = (ViewGroup) view.findViewById(R.id.register_columns);
         insertPoint.addView(dynamicRow);
