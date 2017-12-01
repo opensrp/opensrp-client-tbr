@@ -1,15 +1,21 @@
 package org.smartregister.tbr.fragment;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
@@ -46,9 +52,11 @@ import java.util.TreeSet;
 import util.TbrConstants;
 import util.TbrConstants.KEY;
 
+import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
 import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
@@ -66,6 +74,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected ResultMenuListener resultMenuListener = new ResultMenuListener();
     protected CommonPersonObjectClient patient;
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
+
+    private String viewConfigurationIdentifier;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -124,6 +134,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 return context().getStringResource(R.string.str_search_hint);
             }
         };
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.register_activity, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.register_toolbar);
+        AppCompatActivity activity = ((AppCompatActivity) getActivity());
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
+        viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        setupViews(view);
+        return view;
     }
 
     protected void processViewConfigurations() {
@@ -199,9 +223,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        clientsView.setVisibility(View.VISIBLE);
-        clientsProgressView.setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.sorted_by_bar).setVisibility(View.GONE);
+        clientsView.setVisibility(VISIBLE);
+        clientsProgressView.setVisibility(INVISIBLE);
+        view.findViewById(R.id.sorted_by_bar).setVisibility(GONE);
         processViewConfigurations();
         initializeQueries();
         updateSearchView();
@@ -294,7 +318,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     protected abstract String getMainCondition();
 
-    protected abstract String getViewConfigurationIdentifier();
+    protected String getViewConfigurationIdentifier() {
+        return viewConfigurationIdentifier;
+    }
 
     class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {
 

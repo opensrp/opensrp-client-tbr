@@ -41,7 +41,6 @@ import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.tbr.R.id.diagnose_lnk;
-import static org.smartregister.tbr.R.id.treat_lnk;
 import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -259,7 +258,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private View populateTreatColumn(SmartRegisterClient client, View view) {
-        attachOnclickListener(view.findViewById(treat_lnk), client);
+        attachOnclickListener(view.findViewById(R.id.treat_lnk), client);
         return view.findViewById(R.id.treat_column);
     }
 
