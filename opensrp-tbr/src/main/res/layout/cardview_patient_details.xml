@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:padding="12dp"
         android:paddingLeft="0dp">
 
@@ -19,9 +19,9 @@
             android:id="@+id/clientInitalsTextView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:background="@color/male_light_blue"
-            android:gravity="center"
+            android:gravity="center_vertical|center_horizontal"
             android:text="MH"
             android:textColor="@color/male_blue"
             android:textSize="@dimen/initals_size" />

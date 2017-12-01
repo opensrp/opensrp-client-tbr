@@ -36,6 +36,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import util.TbrConstants;
+
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
 /**
@@ -87,22 +89,27 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 }
             });
 
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container_x);
+            //  viewParent.removeAllViews();
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
                 if (componentView.getResidence().getParent() == null) {
                     componentView.getResidence().setParent(detailsView.getIdentifier());
                 }
 
-                LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
                 String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
                 ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                 if (componentViewConfiguration != null) {
                     JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
                     View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
-                    sampleView.toString();
+                    // viewParent.removeView(viewParent.findViewById(R.id.clientDetailsCardView));
+                    viewParent.addView(sampleView);
+                    renderDemographicsView(sampleView, patientDetails);
+                    break;
                 }
             }
         }
         Log.d(TAG, String.valueOf(views.size()));
+
 
     }
 
@@ -120,9 +127,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
     @Override
     protected void onResumption() {
-        super.onResumption();
-        getDefaultOptionsProvider();
-        processViewConfigurations();
     }
 
     @Override
@@ -142,9 +146,9 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
     private void processViews(View view) {
 
-        renderDemographicsView(view, patientDetails);
-        renderPositiveResultsView(view, patientDetails);
-        renderServiceHistoryView(view, patientDetails);
+        // renderDemographicsView(view, patientDetails);
+        // renderPositiveResultsView(view, patientDetails);
+        //  renderServiceHistoryView(view, patientDetails);
 
         //Remove patient button
         Button removePatientButton = (Button) view.findViewById(R.id.removePatientButton);
@@ -188,16 +192,16 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
             BasePatientDetailActivity registerActivity = (BasePatientDetailActivity) getActivity();
             switch (item.getItemId()) {
                 case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity("result_gene_xpert", patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.GENE_XPERT, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_smear:
-                    registerActivity.startFormActivity("result_smear", patientDetails.get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.SMEAR, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_chest_xray:
-                    registerActivity.startFormActivity("result_chest_xray", patientDetails.get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_culture:
-                    registerActivity.startFormActivity("result_culture", patientDetails.get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CULTURE, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     return true;
                 default:
                     return false;

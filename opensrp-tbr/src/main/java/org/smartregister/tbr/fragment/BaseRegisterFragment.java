@@ -188,8 +188,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void updateSearchView() {
-        getSearchView().removeTextChangedListener(textWatcher);
-        getSearchView().addTextChangedListener(textWatcher);
+        if (getSearchView() != null) {
+            getSearchView().removeTextChangedListener(textWatcher);
+            getSearchView().addTextChangedListener(textWatcher);
+        }
     }
 
     protected FieldOverrides getFieldOverrides() {
@@ -259,40 +261,42 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void initializeQueries() {
-        String tableName = TbrConstants.PATIENT_TABLE_NAME;
+        if (clientsView != null) {
+            String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, context().detailsRepository());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
-        clientsView.setAdapter(clientAdapter);
+            PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, context().detailsRepository());
+            clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
+            clientsView.setAdapter(clientAdapter);
 
-        setTablename(tableName);
-        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
-        mainCondition = getMainCondition();
-        countSelect = countQueryBuilder.mainCondition(mainCondition);
-        super.CountExecute();
+            setTablename(tableName);
+            SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+            countQueryBuilder.SelectInitiateMainTableCounts(tableName);
+            mainCondition = getMainCondition();
+            countSelect = countQueryBuilder.mainCondition(mainCondition);
+            super.CountExecute();
 
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{
-                tableName + ".relationalid",
-                tableName + "." + KEY.LAST_INTERACTED_WITH,
-                tableName + "." + KEY.FIRST_ENCOUNTER,
-                tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
-                tableName + "." + KEY.FIRST_NAME,
-                tableName + "." + KEY.LAST_NAME,
-                tableName + "." + KEY.TBREACH_ID,
-                tableName + "." + KEY.GENDER,
-                tableName + "." + KEY.DOB
-        });
-        mainSelect = queryBUilder.mainCondition(mainCondition);
-        Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
+            SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+            queryBUilder.SelectInitiateMainTable(tableName, new String[]{
+                    tableName + ".relationalid",
+                    tableName + "." + KEY.LAST_INTERACTED_WITH,
+                    tableName + "." + KEY.FIRST_ENCOUNTER,
+                    tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
+                    tableName + "." + KEY.FIRST_NAME,
+                    tableName + "." + KEY.LAST_NAME,
+                    tableName + "." + KEY.TBREACH_ID,
+                    tableName + "." + KEY.GENDER,
+                    tableName + "." + KEY.DOB
+            });
+            mainSelect = queryBUilder.mainCondition(mainCondition);
+            Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
-        currentlimit = 20;
-        currentoffset = 0;
+            currentlimit = 20;
+            currentoffset = 0;
 
-        super.filterandSortInInitializeQueries();
+            super.filterandSortInInitializeQueries();
 
-        refresh();
+            refresh();
+        }
     }
 
     protected abstract void populateClientListHeaderView(View view);
@@ -370,7 +374,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void renderDemographicsView(View view, Map<String, String> patientDetails) {
 
         RenderPatientDemographicCardHelper renderPatientDemographicCardHelper = new RenderPatientDemographicCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderPatientDemographicCardHelper.renderView(view.findViewById(R.id.clientDetailsCardView), patientDetails);
+        renderPatientDemographicCardHelper.renderView(view, patientDetails);
 
     }
 
@@ -423,18 +427,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:
-                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get("_id"), null);
+                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), null);
                     break;
                 case R.id.xpert_result_lnk:
-                    registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
                     Intent intent = new Intent(registerActivity, PresumptivePatientDetailActivity.class);
                     intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerActivity.getIntent().getStringExtra(TOOLBAR_TITLE));
+                    intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patient.getDetails());
+                    intent.putExtra(Constants.KEY.TBREACH_ID, patient.getDetails().get(Constants.KEY.TBREACH_ID));
                     startActivity(intent);
                     break;
                 case R.id.treat_lnk:
-                    registerActivity.startFormActivity(TREATMENT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TREATMENT, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
                     break;
                 default:
                     break;

@@ -196,8 +196,7 @@ public class LoginActivity extends AppCompatActivity {
         android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
         hideKeyboard();
         view.setClickable(false);
-userNameEditText.setText("biddemo");
-        passwordEditText.setText("Linda123");
+
         final String userName = userNameEditText.getText().toString().trim();
         final String password = passwordEditText.getText().toString().trim();
 

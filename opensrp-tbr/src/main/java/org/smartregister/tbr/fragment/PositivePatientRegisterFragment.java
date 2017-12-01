@@ -19,7 +19,7 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return " confirmed_tb = \"yes\" AND treatment_initiation_date IS NULL";
+        return " confirmed_tb = \"yes\" ";
     }
 
 }

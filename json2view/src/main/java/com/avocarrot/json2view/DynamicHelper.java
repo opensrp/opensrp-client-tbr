@@ -733,10 +733,26 @@ public class DynamicHelper {
                 }
                 break;
                 case STRING: {
-                    ((TextView) view).setGravity((Integer) property.getValueInt(Gravity.class, property.getValueString().equals("center_vertical|center_horizontal") ? "CENTER" : property.getValueString().toUpperCase()));
+                    ((TextView) view).setGravity(getGravityValue(property));
                 }
                 break;
             }
+        }
+    }
+
+    private static int getGravityValue(DynamicProperty property) {
+        if (property.getValueString().contains("|")) {
+
+            String[] gravities = property.getValueString().toUpperCase().replace(" ", "").split("\\|");//cant split along pipe??
+            int cumulativeGravity = 0;
+            for (String gravity : gravities) {
+                cumulativeGravity |= (Integer) property.getValueInt(Gravity.class, gravity);
+
+            }
+            return cumulativeGravity;
+
+        } else {
+            return (Integer) property.getValueInt(Gravity.class, property.getValueString().toUpperCase());
         }
     }
 

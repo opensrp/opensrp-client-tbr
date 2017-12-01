@@ -49,28 +49,27 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
         Utils.showToastShort(mContext, "Opening the " + formView.getTag(R.id.FORM_NAME) + " form");
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
-
-        String formSubmissionId = formView.getTag(R.id.TB_REACH_ID).toString();
+        String tbReachId = ((BasePatientDetailActivity) mContext).getIntent().getStringExtra(Constants.INTENT_KEY.TB_REACH_ID);
 
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.result_smear:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.result_chest_xray:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
 
                 break;
             case R.id.result_culture:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.addNewPatient:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.tbDiagnosisForm:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(formSubmissionId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             default:
                 break;
