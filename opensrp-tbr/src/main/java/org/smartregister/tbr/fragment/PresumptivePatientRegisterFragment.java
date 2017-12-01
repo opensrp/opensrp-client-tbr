@@ -1,31 +1,20 @@
 package org.smartregister.tbr.fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
 import com.avocarrot.json2view.DynamicView;
 
 import org.json.JSONObject;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
-import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
-import org.smartregister.tbr.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
@@ -40,21 +29,6 @@ import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_HEADER;
 
 public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
-    private String viewConfigurationIdentifier;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.register_activity, container, false);
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.register_toolbar);
-        AppCompatActivity activity = ((AppCompatActivity) getActivity());
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
-        viewConfigurationIdentifier = ((PresumptivePatientRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        setupViews(view);
-        return view;
-    }
 
     @Override
     protected void populateClientListHeaderView(View view) {
@@ -88,12 +62,6 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     @Override
     protected String getMainCondition() {
         return " presumptive =\"yes\" AND confirmed_tb IS NULL";
-    }
-
-    @Override
-    protected String getViewConfigurationIdentifier() {
-        return viewConfigurationIdentifier;
-
     }
 
 

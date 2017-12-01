@@ -223,7 +223,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         return formNames;
     }
 
-    protected void switchToBaseFragment() {
+    public void switchToBaseFragment() {
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {
             @Override
@@ -233,9 +233,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
+                    displayFormFragment.setRecordId(null);
                 }
-
-                displayFormFragment.setRecordId(null);
             }
         });
 
@@ -249,6 +248,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //TODO Remove once the dialog in enketo library is dismissed
         switchToBaseFragment();
     }
 
@@ -259,7 +259,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public abstract List<String> getViewIdentifiers();
-
 
     @Override
     public void onBackPressed() {

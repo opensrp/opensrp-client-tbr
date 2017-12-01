@@ -28,7 +28,7 @@ import org.smartregister.domain.form.SubForm;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.sync.TbrClientProcessor;
@@ -1056,48 +1056,51 @@ public class EnketoFormUtils {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
+            if (context instanceof BaseRegisterActivity) {
+                final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
                 registerActivity.hideProgressDialog();
+                //TODO add once the dialog in enketo library is dismissed
+                //registerActivity.switchToBaseFragment();
             }
             Utils.postEvent(new EnketoFormSaveCompleteEvent());
         }
 
         @Override
         protected void onPreExecute() {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                ((PresumptivePatientRegisterActivity) context).showProgressDialog();
+            if (context instanceof BaseRegisterActivity) {
+                ((BaseRegisterActivity) context).showProgressDialog();
             }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            if (saveClient) {
-                Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
-                saveClient(c);
-            }
-            Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
-            saveEvent(e);
-            Map<String, Map<String, Object>> dep = formEntityConverter.
-                    getDependentClientsFromFormSubmission(formSubmission);
-            for (Map<String, Object> cm : dep.values()) {
-                if (saveClient) {
-                    Client cin = (Client) cm.get("client");
-                    saveClient(cin);
-                }
-                Event evin = (Event) cm.get("event");
-                saveEvent(evin);
-            }
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-
             try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+
+                if (saveClient) {
+                    Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                    saveClient(c);
+                }
+                Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+                saveEvent(e);
+                Map<String, Map<String, Object>> dep = formEntityConverter.
+                        getDependentClientsFromFormSubmission(formSubmission);
+                for (Map<String, Object> cm : dep.values()) {
+                    if (saveClient) {
+                        Client cin = (Client) cm.get("client");
+                        saveClient(cin);
+                    }
+                    Event evin = (Event) cm.get("event");
+                    saveEvent(evin);
+                }
+                long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             } catch (Exception e1) {
-                logError("Error Processing client ");
+                logError("SavePatientAsyncTask Error saving EC model " + e1.getMessage());
             }
             return null;
         }

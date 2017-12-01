@@ -157,7 +157,7 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive", "confirmed_tb"};
+        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive", "confirmed_tb", "treatment_initiation_date"};
     }
 
 
