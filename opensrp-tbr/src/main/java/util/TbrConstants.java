@@ -44,6 +44,7 @@ TbrConstants extends AllConstants {
         public static final String XPERT_RESULTS = "xpert_results";
         public static final String DROPDOWN = "dropdown";
         public static final String TREAT = "treat";
+        public static final String DIAGNOSIS = "diagnosis";
     }
 
     public static final class VIEW_CONFIGS {

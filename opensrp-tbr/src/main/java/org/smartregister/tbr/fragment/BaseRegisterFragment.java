@@ -16,7 +16,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.avocarrot.json2view.DynamicView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -63,6 +67,13 @@ import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
+import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
+import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
+import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
+import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
+import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
+import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -281,6 +292,38 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected abstract void populateClientListHeaderView(View view);
+
+    protected void populateClientListHeaderView(View view, int headerViewId, String viewConfigurationIdentifier) {
+        LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
+        clientsHeaderLayout.setVisibility(View.GONE);
+        View headerLayout;
+        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
+        if (viewConfiguration == null) {
+            headerLayout = getLayoutInflater(null).inflate(headerViewId, null);
+        } else {
+            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+            headerLayout = DynamicView.createView(getActivity().getApplicationContext(), jsonView);
+            headerLayout.setLayoutParams(
+                    new AbsListView.LayoutParams(
+                            AbsListView.LayoutParams.MATCH_PARENT,
+                            AbsListView.LayoutParams.MATCH_PARENT));
+        }
+        Map<String, Integer> mapping = new HashMap();
+        mapping.put(PATIENT, R.id.patient_header);
+        mapping.put(RESULTS, R.id.results_header);
+        mapping.put(DIAGNOSE, R.id.diagnose_header);
+        mapping.put(ENCOUNTER, R.id.encounter_header);
+        mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
+        mapping.put(DROPDOWN, R.id.dropdown_header);
+        mapping.put(TREAT, R.id.treat_header);
+        mapping.put(DIAGNOSIS, R.id.diagnosis_header);
+
+        TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
+
+        clientsView.addHeaderView(headerLayout);
+        clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
+
+    }
 
     protected final TextWatcher textWatcher = new TextWatcher() {
         @Override

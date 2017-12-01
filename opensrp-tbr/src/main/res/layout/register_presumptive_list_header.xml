@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/register_headers"
     android:layout_width="fill_parent"
@@ -12,25 +11,25 @@
     <include layout="@layout/register_list_header" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
-        android:id="@+id/treat_header"
+        android:id="@+id/diagnose_header"
         style="@style/CustomFontTextViewStyle.ClientList.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_weight="2.6"
-        android:text="@string/treat"
+        android:text="@string/diagnose"
         android:textAllCaps="true"
         android:textColor="@color/client_list_grey"
         android:textSize="16sp" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
-        android:id="@+id/diagnosis_header"
+        android:id="@+id/encounter_header"
         style="@style/CustomFontTextViewStyle.ClientList.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_weight="2.6"
-        android:text="@string/diagnosis"
+        android:text="@string/encounter"
         android:textAllCaps="true"
         android:textColor="@color/client_list_grey"
         android:textSize="16sp"
