@@ -58,7 +58,7 @@ public class ConfigurableViewsHelperTest extends BaseUnitTest {
 
     @Before
     public void initializeTest() {
-        configurableViewsHelper = new ConfigurableViewsHelper(configurableViewsRepository, new JsonSpecHelper(context));
+        configurableViewsHelper = new ConfigurableViewsHelper(configurableViewsRepository, new JsonSpecHelper(context), context);
     }
 
     @Test

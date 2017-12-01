@@ -42,4 +42,5 @@
     <string name="xpert_result">Xpe Results</string>
     <string name="treat">Treat</string>
     <string name="start_treatment">Start Treatment</string>
+    <string name="diagnosis">Diagnosis</string>
 </resources>

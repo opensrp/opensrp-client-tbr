@@ -258,7 +258,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
     }
 
-    public abstract List<String> getViewIdentifiers();
+    public abstract List<String> getViewIdentifiers() ;
 
     @Override
     public void onBackPressed() {

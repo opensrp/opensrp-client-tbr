@@ -11,7 +11,7 @@
     <include layout="@layout/register_list_row" />
 
     <LinearLayout
-        android:id="@+id/treat_column"
+        android:id="@+id/diagnose_column"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
@@ -21,21 +21,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/treat_lnk"
+            android:id="@+id/diagnose_lnk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:text="@string/start_treatment"
+            android:text="@string/diagnose"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
             android:textSize="18sp" />
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/diagnosis_column"
+        android:id="@+id/encounter_column"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
@@ -46,7 +45,7 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/diagnosis"
+            android:id="@+id/encounter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,5 +54,6 @@
             android:textColor="#757575"
             android:textSize="16sp" />
     </LinearLayout>
+
 
 </LinearLayout>
