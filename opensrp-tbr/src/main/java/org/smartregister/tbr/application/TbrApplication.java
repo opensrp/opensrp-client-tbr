@@ -188,7 +188,7 @@ public class TbrApplication extends DrishtiApplication {
 
     public ConfigurableViewsHelper getConfigurableViewsHelper() {
         if (configurableViewsHelper == null) {
-            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(), getJsonSpecHelper());
+            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(), getJsonSpecHelper(), getApplicationContext());
         }
         return configurableViewsHelper;
     }

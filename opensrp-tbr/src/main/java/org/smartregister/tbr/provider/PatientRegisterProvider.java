@@ -7,15 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.avocarrot.json2view.DynamicView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
-import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
@@ -52,6 +48,7 @@ import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
 
@@ -182,14 +179,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
             stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
             stringBuilder.append(withOtherResults ? "/ " : " RIF ");
-            String rif = testResults.get(TbrConstants.RESULT.RIF_RESULT);
-            if (rif == null) rif = NOT_DETECTED;
-            stringBuilder.append(processXpertResult(rif), colorSpan);
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
         }
         return stringBuilder;
     }
 
     private String processXpertResult(String result) {
+        if (result == null)
+            result = NOT_DETECTED;
         switch (result) {
             case DETECTED:
                 return "+ve";
@@ -368,25 +365,21 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewResourceId = R.layout.register_positive_list_row;
         }
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
+        ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
         View view = inflater.inflate(viewResourceId, null);
         if (viewConfiguration == null) {
             return view;
         } else {
-            return getDynamicRowView(viewConfiguration, view);
+            return getDynamicRowView(viewConfiguration, view, commonConfiguration);
         }
     }
 
-    private View getDynamicRowView(ViewConfiguration viewConfiguration, View view) {
+    private View getDynamicRowView(ViewConfiguration viewConfiguration, View view, ViewConfiguration commonConfiguration) {
         if (dynamicRow == null) {
-            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
-            dynamicRow = DynamicView.createView(context, jsonView);
-            dynamicRow.setLayoutParams(
-                    new WindowManager.LayoutParams(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.MATCH_PARENT));
+            dynamicRow = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_columns,false);
         }
-        ViewGroup insertView = (ViewGroup) view.findViewById(R.id.register_columns);
-        insertView.addView(dynamicRow);
-        return insertView;
+        ViewGroup insertPoint = (ViewGroup) view.findViewById(R.id.register_columns);
+        insertPoint.addView(dynamicRow);
+        return insertPoint;
     }
 }

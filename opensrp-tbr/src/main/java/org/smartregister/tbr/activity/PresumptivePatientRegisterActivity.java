@@ -14,6 +14,8 @@ import java.util.List;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.SCREENING_FORM;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_HEADER;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
@@ -48,7 +50,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
 
     @Override
     public List<String> getViewIdentifiers() {
-        return Arrays.asList(PRESUMPTIVE_REGISTER, PRESUMPTIVE_REGISTER_HEADER, PRESUMPTIVE_REGISTER_ROW);
+        return Arrays.asList(PRESUMPTIVE_REGISTER, PRESUMPTIVE_REGISTER_HEADER, PRESUMPTIVE_REGISTER_ROW, COMMON_REGISTER_HEADER, COMMON_REGISTER_ROW);
     }
 
     @Override

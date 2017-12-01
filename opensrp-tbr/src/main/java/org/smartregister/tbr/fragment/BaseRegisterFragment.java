@@ -16,11 +16,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import com.avocarrot.json2view.DynamicView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -74,6 +71,7 @@ import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -298,15 +296,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         clientsHeaderLayout.setVisibility(View.GONE);
         View headerLayout;
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
-        if (viewConfiguration == null) {
+        ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
+
+        if (viewConfiguration == null || commonConfiguration == null) {
             headerLayout = getLayoutInflater(null).inflate(headerViewId, null);
         } else {
-            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
-            headerLayout = DynamicView.createView(getActivity().getApplicationContext(), jsonView);
-            headerLayout.setLayoutParams(
-                    new AbsListView.LayoutParams(
-                            AbsListView.LayoutParams.MATCH_PARENT,
-                            AbsListView.LayoutParams.MATCH_PARENT));
+            headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_headers, true);
         }
         Map<String, Integer> mapping = new HashMap();
         mapping.put(PATIENT, R.id.patient_header);

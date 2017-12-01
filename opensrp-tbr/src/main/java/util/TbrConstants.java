@@ -48,6 +48,11 @@ TbrConstants extends AllConstants {
     }
 
     public static final class VIEW_CONFIGS {
+
+        public static final String COMMON_REGISTER_HEADER = "common_register_header";
+        public static final String COMMON_REGISTER_ROW = "common_register_row";
+
+
         public static final String PRESUMPTIVE_REGISTER = "presumptive_register";
         public static final String PRESUMPTIVE_REGISTER_HEADER = "presumptive_register_header";
         public static final String PRESUMPTIVE_REGISTER_ROW = "presumptive_register_row";

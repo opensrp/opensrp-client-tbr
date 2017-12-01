@@ -1,9 +1,15 @@
 package org.smartregister.tbr.jsonspec;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
+import com.avocarrot.json2view.DynamicView;
+
+import org.json.JSONObject;
 import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
@@ -27,9 +33,12 @@ public class ConfigurableViewsHelper {
 
     private final JsonSpecHelper jsonSpecHelper;
 
-    public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper) {
+    private final Context context;
+
+    public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper, Context context) {
         this.configurableViewsRepository = configurableViewsRepository;
         this.jsonSpecHelper = jsonSpecHelper;
+        this.context = context;
     }
 
     private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
@@ -85,6 +94,31 @@ public class ConfigurableViewsHelper {
 
     public ViewConfiguration getViewConfiguration(String identifier) {
         return viewConfigurations.get(identifier);
+    }
+
+    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewConfiguration commonConfiguration, int parentViewId, boolean isHeader) {
+        JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+        android.view.View view = DynamicView.createView(context, jsonView);
+        jsonView = new JSONObject(commonConfiguration.getJsonView());
+        android.view.View commonRegisterColumns = DynamicView.createView(context, jsonView);
+        ViewGroup registerColumns = (ViewGroup) view.findViewById(parentViewId);
+        ViewGroup commonColumns = (ViewGroup) commonRegisterColumns.findViewById(parentViewId);
+        while (registerColumns.getChildCount() > 0) {
+            android.view.View column = registerColumns.getChildAt(0);
+            registerColumns.removeView(column);
+            commonColumns.addView(column);
+        }
+        if (isHeader)
+            commonColumns.setLayoutParams(
+                    new AbsListView.LayoutParams(
+                            AbsListView.LayoutParams.MATCH_PARENT,
+                            AbsListView.LayoutParams.MATCH_PARENT));
+        else
+            commonColumns.setLayoutParams(
+                    new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT));
+        return commonColumns;
     }
 
 }

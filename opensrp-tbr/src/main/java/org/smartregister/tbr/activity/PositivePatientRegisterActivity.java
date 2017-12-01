@@ -12,6 +12,8 @@ import java.util.List;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
+import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_ROW;
@@ -41,7 +43,7 @@ public class PositivePatientRegisterActivity extends BaseRegisterActivity {
 
     @Override
     public List<String> getViewIdentifiers() {
-        return Arrays.asList(POSITIVE_REGISTER, POSITIVE_REGISTER_HEADER, POSITIVE_REGISTER_ROW);
+        return Arrays.asList(POSITIVE_REGISTER, POSITIVE_REGISTER_HEADER, POSITIVE_REGISTER_ROW, COMMON_REGISTER_HEADER, COMMON_REGISTER_ROW);
     }
 
     @Override
