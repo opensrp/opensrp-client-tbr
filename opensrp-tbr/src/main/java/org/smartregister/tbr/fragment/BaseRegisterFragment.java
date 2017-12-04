@@ -294,14 +294,13 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void populateClientListHeaderView(View view, int headerViewId, String viewConfigurationIdentifier) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
-        View headerLayout;
+        View headerLayout = getLayoutInflater(null).inflate(headerViewId, null);
+
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
         ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
 
-        if (viewConfiguration == null || commonConfiguration == null) {
-            headerLayout = getLayoutInflater(null).inflate(headerViewId, null);
-        } else {
-            headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_headers, true);
+        if (viewConfiguration != null) {
+            headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
         }
         Map<String, Integer> mapping = new HashMap();
         mapping.put(PATIENT, R.id.patient_header);

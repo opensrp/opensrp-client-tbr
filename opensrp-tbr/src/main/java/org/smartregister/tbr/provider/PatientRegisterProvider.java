@@ -70,8 +70,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
 
-    private View dynamicRow;
-
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
@@ -370,16 +368,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (viewConfiguration == null) {
             return view;
         } else {
-            return getDynamicRowView(viewConfiguration, view, commonConfiguration);
+            return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
         }
-    }
-
-    private View getDynamicRowView(ViewConfiguration viewConfiguration, View view, ViewConfiguration commonConfiguration) {
-        if (dynamicRow == null) {
-            dynamicRow = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, R.id.register_columns, false);
-        }
-        ViewGroup insertPoint = (ViewGroup) view.findViewById(R.id.register_columns);
-        insertPoint.addView(dynamicRow);
-        return insertPoint;
     }
 }
