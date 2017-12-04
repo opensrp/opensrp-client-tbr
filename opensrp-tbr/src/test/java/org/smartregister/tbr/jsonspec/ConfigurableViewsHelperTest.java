@@ -116,7 +116,7 @@ public class ConfigurableViewsHelperTest extends BaseUnitTest {
     @Test
     public void testprocessRegisterColumns() {
         Activity activity = Robolectric.buildActivity(Activity.class).create().get();
-        android.view.View view = LayoutInflater.from(activity).inflate(R.layout.register_list_row, null);
+        android.view.View view = LayoutInflater.from(activity).inflate(R.layout.register_presumptive_list_row, null);
         Map<String, Integer> mapping = new HashMap();
         mapping.put(PATIENT, R.id.patient_column);
         mapping.put(RESULTS, R.id.results_column);
