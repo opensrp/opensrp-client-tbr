@@ -37,7 +37,6 @@ import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.tbr.R.id.diagnose_lnk;
-import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
@@ -370,5 +369,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         } else {
             return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
         }
+    }
+
+    public static void fillValue(TextView v, String value) {
+        if (v != null)
+            v.setText(value);
     }
 }
