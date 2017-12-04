@@ -69,6 +69,10 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     public void setupViews(View view) {
         processViewConfigurations();
         processViews(view);
+
+        //Remove patient button
+        Button removePatientButton = (Button) view.findViewById(R.id.removePatientButton);
+        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
     }
 
     public void setPatientDetails(Map<String, String> patientDetails) {
@@ -89,8 +93,8 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 }
             });
 
-            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container_x);
-            //  viewParent.removeAllViews();
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
+            viewParent.removeAllViews();
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
                 if (componentView.getResidence().getParent() == null) {
                     componentView.getResidence().setParent(detailsView.getIdentifier());
@@ -101,10 +105,13 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 if (componentViewConfiguration != null) {
                     JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
                     View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
-                    // viewParent.removeView(viewParent.findViewById(R.id.clientDetailsCardView));
+
+                    View view = viewParent.findViewById(sampleView.getId());
+                    if (view != null) {
+                        viewParent.removeView(view);
+                    }
                     viewParent.addView(sampleView);
-                    renderDemographicsView(sampleView, patientDetails);
-                    break;
+                    processViews(sampleView);
                 }
             }
         }
@@ -146,24 +153,27 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
     private void processViews(View view) {
 
-        // renderDemographicsView(view, patientDetails);
-        // renderPositiveResultsView(view, patientDetails);
-        //  renderServiceHistoryView(view, patientDetails);
+        if (view.getId() == R.id.clientDetailsCardView) {
+            renderDemographicsView(view, patientDetails);
+        } else if (view.getId() == R.id.clientPositiveResultsCardView) {
+            renderPositiveResultsView(view, patientDetails);
+            //Record Results
+            TextView recordResults = (TextView) view.findViewById(R.id.recordResultsTextView);
+            recordResults.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showResultMenu(view);
 
-        //Remove patient button
-        Button removePatientButton = (Button) view.findViewById(R.id.removePatientButton);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                }
+            });
 
-        //Record Results
-        TextView recordResults = (TextView) view.findViewById(R.id.recordResultsTextView);
-        recordResults.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showResultMenu(view);
+        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
 
-            }
-        });
+            renderServiceHistoryView(view, patientDetails);
+
+        }
     }
+
 
     public void showResultMenu(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);

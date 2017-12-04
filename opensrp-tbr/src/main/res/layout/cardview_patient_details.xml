@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/clientDetailsCardView"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/immun_child_card_height"
+    android:layout_height="100dp"
     android:layout_margin="10dp"
     android:background="@drawable/border"
     android:baselineAligned="false"
@@ -24,7 +24,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="MH"
             android:textColor="@color/male_blue"
-            android:textSize="@dimen/initals_size" />
+            android:textSize="24sp" />
     </FrameLayout>
 
     <LinearLayout
@@ -40,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mohammad Dhanial"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/activity_header_size" />
+            android:textColor="@color/dark_grey"
+            android:textSize="20sp" />
 
 
         <LinearLayout
@@ -56,27 +56,27 @@
                 android:layout_height="wrap_content"
                 android:text="#5425428"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/activity_title_size" />
+                android:textSize="18sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/clientAgeTextView"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:text="40"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/activity_title_size" />
+                android:textSize="18sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/clientGenderTextView"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:text="Male"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/activity_title_size" />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
