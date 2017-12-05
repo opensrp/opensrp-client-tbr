@@ -19,18 +19,26 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import util.TbrConstants;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static util.TbrConstants.KEY.BASE_ENTITY_ID_COLUMN;
+import static util.TbrConstants.KEY.DOB;
+import static util.TbrConstants.KEY.FIRST_NAME;
+import static util.TbrConstants.KEY.GENDER;
+import static util.TbrConstants.KEY.LAST_NAME;
+import static util.TbrConstants.KEY.TBREACH_ID;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
@@ -57,10 +65,10 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     @Mock
     private Cursor cursor;
 
-    Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns = new HashSet<>();
+    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns = new HashSet<>();
 
     @Mock
-    RegisterActionHandler registerActionHandler;
+    private RegisterActionHandler registerActionHandler;
 
     private View view;
 
@@ -74,7 +82,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void setupTest() {
         Activity activity = Robolectric.buildActivity(Activity.class).create().get();
         view = LayoutInflater.from(activity).inflate(R.layout.register_presumptive_list_row, null);
-        columnMap.put(TbrConstants.KEY.BASE_ENTITY_ID_COLUMN, "255c9df9-42ba-424d-a235-bd4ea5da77ae");
+        columnMap.put(BASE_ENTITY_ID_COLUMN, "255c9df9-42ba-424d-a235-bd4ea5da77ae");
         smartRegisterClient.setColumnmaps(columnMap);
     }
 
@@ -89,18 +97,18 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     @Test
     public void testPopulatePatientColumn() {
 
-        columnMap.put(TbrConstants.KEY.FIRST_NAME, "Ali");
-        columnMap.put(TbrConstants.KEY.LAST_NAME, "Lango");
-        columnMap.put(TbrConstants.KEY.TBREACH_ID, "45355435435");
-        columnMap.put(TbrConstants.KEY.DOB, "2016-11-30T00:00:00.000-0500");
-        columnMap.put(TbrConstants.KEY.GENDER, "male");
+        columnMap.put(FIRST_NAME, "Ali");
+        columnMap.put(LAST_NAME, "Lango");
+        columnMap.put(TBREACH_ID, "45355435435");
+        columnMap.put(DOB, "2016-11-30T00:00:00.000-0500");
+        columnMap.put(GENDER, "male");
 
         initProvider(PATIENT);
 
         assertEquals("Ali Lango", ((TextView) view.findViewById(R.id.patient_name)).getText());
         assertEquals("#45355435435", ((TextView) view.findViewById(R.id.participant_id)).getText());
         assertEquals("Male", ((TextView) view.findViewById(R.id.gender)).getText());
-        String age = patientRegisterProvider.getDuration(columnMap.get(TbrConstants.KEY.DOB));
+        String age = patientRegisterProvider.getDuration(columnMap.get(DOB));
         assertEquals(age.substring(0, age.indexOf("y")), ((TextView) view.findViewById(R.id.age)).getText());
     }
 
@@ -154,29 +162,37 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     }
 
-    private void testClickOnlyColumn(String columnIdentifier, int buttonViewId) {
+    private View testClickOnlyColumn(String columnIdentifier, int buttonViewId, String baseEntityID) {
+        smartRegisterClient.setCaseId(baseEntityID);
         initProvider(columnIdentifier);
         View component = view.findViewById(buttonViewId);
         component.performClick();
         assertEquals(smartRegisterClient, component.getTag());
         verify(registerActionHandler).onClick(component);
+        return component;
     }
 
 
     @Test
     public void testPopulateDiagnoseColumn() {
-        testClickOnlyColumn(DIAGNOSE, R.id.diagnose_lnk);
+        String baseEntityID = UUID.randomUUID().toString();
+        View component = testClickOnlyColumn(DIAGNOSE, R.id.diagnose_lnk, baseEntityID);
+        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
     }
 
     @Test
     public void testPopulateTreatColumn() {
+        String baseEntityID = UUID.randomUUID().toString();
         view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_positive_list_row, null);
-        testClickOnlyColumn(TREAT, R.id.treat_lnk);
+        View component = testClickOnlyColumn(TREAT, R.id.treat_lnk, baseEntityID);
+        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
     }
 
     @Test
     public void testPopulateDropdownColumn() {
-        testClickOnlyColumn(DROPDOWN, R.id.dropdown_btn);
+        String baseEntityID = UUID.randomUUID().toString();
+        View component = testClickOnlyColumn(DROPDOWN, R.id.dropdown_btn, baseEntityID);
+        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
     }
 
     @Test
@@ -214,8 +230,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     private class RegisterActionHandler implements View.OnClickListener {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v) {//Onclick
         }
     }
-
 }
