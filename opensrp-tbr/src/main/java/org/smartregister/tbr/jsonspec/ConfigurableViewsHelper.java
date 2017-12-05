@@ -59,12 +59,13 @@ public class ConfigurableViewsHelper {
 
     public Set<View> getRegisterActiveColumns(String identifier) {
         Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
-        int count = viewConfigurations.get(identifier).getViews().size();
-        count = !isTabletSize && count > 3 ? 3 : count;
-        for (int i = 0; i < count; i++) {
-            View view = viewConfigurations.get(identifier).getViews().get(i);
+        int maxColumns = viewConfigurations.get(identifier).getViews().size();
+        maxColumns = !isTabletSize && maxColumns > 3 ? 3 : maxColumns;
+        for (View view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
                 visibleColumns.add(view);
+            if (visibleColumns.size() == maxColumns)
+                break;
         }
         return visibleColumns;
     }
