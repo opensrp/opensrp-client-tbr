@@ -84,7 +84,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
-        if (visibleColumns.isEmpty() || visibleColumns.size() > 3) {
+        if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, convertView);
             populateResultsColumn(pc, client, convertView);
             if (context instanceof PresumptivePatientRegisterActivity)
@@ -148,21 +148,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.gender), gender);
 
-        DateTime birthDateTime;
-        String dobString = getValue(pc.getColumnmaps(), KEY.DOB, false);
-        String age = "";
-        if (StringUtils.isNotBlank(dobString)) {
-            try {
-                birthDateTime = new DateTime(dobString);
-                String duration = DateUtil.getDuration(birthDateTime);
-                if (duration != null) {
-                    age = duration.substring(0, duration.length() - 1);
-                }
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            }
-        }
-        fillValue((TextView) view.findViewById(R.id.age), age);
+        String dobString = getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
+
+        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
 
         View patient = view.findViewById(R.id.patient_column);
         attachOnclickListener(patient, client);
@@ -269,35 +257,28 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private View populateEncounterColumn(CommonPersonObjectClient pc, View view) {
-        DateTime encounterTime;
-        String lastEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        String duration = "";
-        if (StringUtils.isNotBlank(lastEncounter)) {
-            try {
-                encounterTime = new DateTime(lastEncounter);
-                duration = DateUtil.getDuration(encounterTime);
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            }
-        }
-        fillValue((TextView) view.findViewById(R.id.encounter), duration + " ago");
+        String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
+        fillValue((TextView) view.findViewById(R.id.encounter), getDuration(firstEncounter) + " ago");
         return view.findViewById(R.id.encounter_column);
     }
 
     private View populateDiagnosisColumn(CommonPersonObjectClient pc, View view) {
-        DateTime diagnosisTime;
-        String diagnosis = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        String duration = "";
-        if (StringUtils.isNotBlank(diagnosis)) {
+        String diagnosis = getValue(pc.getColumnmaps(), KEY.DIAGNOSIS_DATE, false);
+        fillValue((TextView) view.findViewById(R.id.diagnosis), getDuration(diagnosis) + " ago");
+        return view.findViewById(R.id.diagnosis_column);
+    }
+
+    public String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
             try {
-                diagnosisTime = new DateTime(diagnosis);
-                duration = DateUtil.getDuration(diagnosisTime);
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration);
             } catch (Exception e) {
                 Log.e(getClass().getName(), e.toString(), e);
             }
         }
-        fillValue((TextView) view.findViewById(R.id.diagnosis), duration + " ago");
-        return view.findViewById(R.id.diagnosis_column);
+        return "";
     }
 
     private void adjustLayoutParams(View view) {

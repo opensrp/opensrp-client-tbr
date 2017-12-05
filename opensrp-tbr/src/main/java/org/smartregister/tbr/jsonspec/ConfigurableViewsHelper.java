@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.avocarrot.json2view.DynamicView;
 
 import org.json.JSONObject;
+import org.smartregister.tbr.R;
 import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
@@ -35,10 +36,13 @@ public class ConfigurableViewsHelper {
 
     private final Context context;
 
+    private boolean isTabletSize;
+
     public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper, Context context) {
         this.configurableViewsRepository = configurableViewsRepository;
         this.jsonSpecHelper = jsonSpecHelper;
         this.context = context;
+        isTabletSize = context.getResources().getBoolean(R.bool.isTablet);
     }
 
     private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
@@ -55,7 +59,10 @@ public class ConfigurableViewsHelper {
 
     public Set<View> getRegisterActiveColumns(String identifier) {
         Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
-        for (View view : viewConfigurations.get(identifier).getViews()) {
+        int count = viewConfigurations.get(identifier).getViews().size();
+        count = !isTabletSize && count > 3 ? 3 : count;
+        for (int i = 0; i < count; i++) {
+            View view = viewConfigurations.get(identifier).getViews().get(i);
             if (view.isVisible())
                 visibleColumns.add(view);
         }
@@ -63,8 +70,6 @@ public class ConfigurableViewsHelper {
     }
 
     public void processRegisterColumns(Map<String, Integer> columnMapping, android.view.View view, Set<View> visibleColumns, int parentComponent) {
-        //Dont process  for more than 3 columns
-        if (visibleColumns.size() > 3) return;
         List<android.view.View> columns = new LinkedList<>();
         for (View columnView : visibleColumns) {
             try {
