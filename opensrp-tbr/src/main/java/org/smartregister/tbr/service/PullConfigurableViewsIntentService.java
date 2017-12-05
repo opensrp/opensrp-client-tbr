@@ -37,7 +37,8 @@ public class PullConfigurableViewsIntentService extends IntentService {
                 int count = pullConfigurableViewsServiceHelper.processIntent();
                 if (count > 0) {
                     Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
-                    Utils.postEvent(new LanguageConfigurationEvent(true));
+                    LanguageConfigurationEvent event = new LanguageConfigurationEvent(true);//To Do add check for language configs
+                    Utils.postEvent(event);
                 }
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");

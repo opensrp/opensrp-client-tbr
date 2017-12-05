@@ -94,24 +94,28 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
             });
 
             LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
-            viewParent.removeAllViews();
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
-                if (componentView.getResidence().getParent() == null) {
-                    componentView.getResidence().setParent(detailsView.getIdentifier());
-                }
 
-                String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
-                ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
-                if (componentViewConfiguration != null) {
-                    JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                    View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
-
-                    View view = viewParent.findViewById(sampleView.getId());
-                    if (view != null) {
-                        viewParent.removeView(view);
+                try {
+                    if (componentView.getResidence().getParent() == null) {
+                        componentView.getResidence().setParent(detailsView.getIdentifier());
                     }
-                    viewParent.addView(sampleView);
-                    processViews(sampleView);
+
+                    String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
+                    ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
+                    if (componentViewConfiguration != null) {
+                        JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
+                        View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+
+                        View view = viewParent.findViewById(sampleView.getId());
+                        if (view != null) {
+                            viewParent.removeView(view);
+                        }
+                        viewParent.addView(sampleView);
+                        processViews(sampleView);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }
@@ -168,7 +172,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
             });
 
         } else if (view.getId() == R.id.clientServiceHistoryCardView) {
-
             renderServiceHistoryView(view, patientDetails);
 
         }

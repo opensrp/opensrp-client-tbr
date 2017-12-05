@@ -155,7 +155,11 @@ public class Utils {
     }
 
     public static int getTokenStringResourceId(Context context, String token) {
-        return context.getResources().getIdentifier(token, "string", "org.smartregister.tbr");
+        return context.getResources().getIdentifier(token, "string", context.getPackageName());
+    }
+
+    public static int getLayoutIdentifierResourceId(Context context, String token) {
+        return context.getResources().getIdentifier(token, "id", context.getPackageName());
     }
 
     public static String readPrefString(Context context, final String key, String defaultValue) {

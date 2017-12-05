@@ -1,5 +1,7 @@
 package org.smartregister.tbr.model;
 
+import android.content.Context;
+
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
@@ -24,12 +26,12 @@ public class Register {
     private int totalPatientsWithDueOverdue;
     private int position;
 
-    public Register(View view, int totalPatients, int totalPatientsWithDueOverdue) {
+    public Register(Context context, View view, int totalPatients, int totalPatientsWithDueOverdue) {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
-        Map<String, String> en = config == null ? null : config.getLabels();
-        String label = en != null && en.size() > 0 ? en.get(view.getIdentifier()) : view.getLabel();
+        Map<String, String> langMap = config == null ? null : config.getLabels();
+        String label = langMap != null && langMap.size() > 0 ? langMap.get(view.getIdentifier()) : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
 
-        this.title = label != null && !label.isEmpty() ? label : view.getLabel();
+        this.title = label != null && !label.isEmpty() ? label : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
         this.titleToken = view.getIdentifier();
         this.totalPatients = totalPatients;
         this.totalPatientsWithDueOverdue = totalPatientsWithDueOverdue;

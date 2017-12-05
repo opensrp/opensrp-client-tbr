@@ -10,11 +10,11 @@
         android:id="@+id/patient_detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical">FF
 
+        <include layout="@layout/cardview_patient_details" />
 
         <include layout="@layout/cardview_positive_test_results" />
-
 
         <include layout="@layout/cardview_service_history" />
 

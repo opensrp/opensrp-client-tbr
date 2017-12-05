@@ -28,7 +28,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
-                android:text="Positive Results"
+                android:text="@string/positive_results"
                 android:textColor="@color/dark_grey"
                 android:textSize="20sp" />
 
@@ -41,7 +41,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
-                android:text="RECORD RESULTS"
+                android:text="@string/record_results"
                 android:textAllCaps="true"
                 android:textColor="@color/male_dark_blue"
                 android:textSize="18sp" />

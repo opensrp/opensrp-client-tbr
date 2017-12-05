@@ -363,7 +363,7 @@ public class DynamicHelper {
                             break;
                             case STRING: {
                                 if (params instanceof LinearLayout.LayoutParams)
-                                    ((LinearLayout.LayoutParams) params).gravity = (Integer) dynProp.getValueInt(Gravity.class, dynProp.getValueString().toUpperCase());
+                                    ((LinearLayout.LayoutParams) params).gravity = getGravityValue(dynProp);
                             }
                             break;
                         }
