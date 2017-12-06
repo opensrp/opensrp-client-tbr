@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -44,6 +45,7 @@ import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
@@ -408,6 +410,19 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     return true;
                 default:
                     return false;
+            }
+        }
+    }
+
+    protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
+        //Process token translations
+        if (!viewLabelsMap.isEmpty()) {
+            for (Map.Entry<String, String> entry : viewLabelsMap.entrySet()) {
+                String uniqueIdentifier = entry.getKey();
+                TextView textView = (TextView) parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
+                if (textView != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
+                    textView.setText(languageTranslations.get(entry.getKey()));
+                }
             }
         }
     }

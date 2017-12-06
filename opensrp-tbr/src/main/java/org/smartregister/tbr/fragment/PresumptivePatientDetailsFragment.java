@@ -30,6 +30,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,12 +50,12 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     private Map<String, String> patientDetails;
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
-    private View rootView;
+    private Map<String, String> languageTranslations;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_presumptive_patient_detail, container, false);
+        View rootView = inflater.inflate(R.layout.activity_presumptive_patient_detail, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
@@ -66,12 +67,17 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
 
     @Override
-    public void setupViews(View view) {
-        processViewConfigurations();
-        processViews(view);
+    public void setupViews(View rootView) {
+
+        //Load Language Token Map
+        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
+        languageTranslations = config == null ? null : config.getLabels();
+
+        processViewConfigurations(rootView);
+        processViews(rootView);
 
         //Remove patient button
-        Button removePatientButton = (Button) view.findViewById(R.id.removePatientButton);
+        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
         removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
     }
 
@@ -79,7 +85,7 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         this.patientDetails = patientDetails;
     }
 
-    protected void processViewConfigurations() {
+    protected void processViewConfigurations(View rootView) {
 
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
         if (jsonString == null) return;
@@ -119,8 +125,10 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 }
             }
         }
-        Log.d(TAG, String.valueOf(views.size()));
 
+        if (detailsView != null) {
+            processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+        }
 
     }
 
@@ -159,10 +167,13 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
 
         if (view.getId() == R.id.clientDetailsCardView) {
             renderDemographicsView(view, patientDetails);
+        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
+            renderServiceHistoryView(view, patientDetails);
+
         } else if (view.getId() == R.id.clientPositiveResultsCardView) {
             renderPositiveResultsView(view, patientDetails);
             //Record Results
-            TextView recordResults = (TextView) view.findViewById(R.id.recordResultsTextView);
+            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
             recordResults.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -171,12 +182,8 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
                 }
             });
 
-        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
-            renderServiceHistoryView(view, patientDetails);
-
         }
     }
-
 
     public void showResultMenu(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
@@ -193,7 +200,7 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
-            processViews(rootView);
+            processViews(getView());
         }
 
     }

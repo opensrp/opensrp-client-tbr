@@ -37,7 +37,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 String baseEntityId = extra.get(Constants.KEY._ID);
                 view.setTag(baseEntityId);
 
-                String dateString = context.getString(R.string.first_ecnounter);
+                String dateString = context.getString(R.string.first_encounter);
                 if (extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
                     dateString += Constants.CHAR.SPACE + Utils.formatDate(org.smartregister.util.Utils.toDate(extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
                 }
@@ -100,11 +100,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 }
                 if (stringBuilder.length() > 0) {
                     results.setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.noResultsTextView).setVisibility(View.GONE);
+                    view.findViewById(R.id.no_results_recorded).setVisibility(View.GONE);
                     results.setText(stringBuilder);
                 } else {
                     results.setVisibility(View.GONE);
-                    view.findViewById(R.id.noResultsTextView).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.no_results_recorded).setVisibility(View.VISIBLE);
                 }
             }
 

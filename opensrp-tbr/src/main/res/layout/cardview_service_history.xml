@@ -10,11 +10,12 @@
     android:padding="10dp">
 
     <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/service_history"
         style="@style/CustomFontTextViewStyle.ClientList.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Service History"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/text_black"
         android:textSize="20sp" />
 
 
@@ -25,23 +26,25 @@
         android:paddingTop="15dp">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/date"
             style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="Date"
             android:textColor="@color/dark_grey"
             android:textSize="20sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/form"
             style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="95dp"
+            android:layout_marginLeft="100dp"
             android:text="Form"
             android:textColor="@color/dark_grey"
             android:textSize="20sp" />
     </LinearLayout>
-
 
     <ListView
         android:id="@+id/serviceHistoryListView"

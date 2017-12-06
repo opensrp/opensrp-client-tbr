@@ -29,7 +29,7 @@ public class Register {
     public Register(Context context, View view, int totalPatients, int totalPatientsWithDueOverdue) {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         Map<String, String> langMap = config == null ? null : config.getLabels();
-        String label = langMap != null && langMap.size() > 0 ? langMap.get(view.getIdentifier()) : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
+        String label = langMap != null && !langMap.isEmpty() ? langMap.get(view.getIdentifier()) : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
 
         this.title = label != null && !label.isEmpty() ? label : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
         this.titleToken = view.getIdentifier();
