@@ -89,6 +89,21 @@
       }
     },
     {
+      "column_name": "result2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: MTB errorcode",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: MTB errorcode"
+      }
+    },
+    {
       "column_name": "date",
       "json_mapping": {
         "field": "obs.fieldCode",

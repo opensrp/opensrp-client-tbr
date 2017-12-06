@@ -14,12 +14,12 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
-import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -60,7 +60,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private Context context;
     private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
-    private DetailsRepository detailsRepository;
+    private ResultsRepository resultsRepository;
 
     private static final String DETECTED = "detected";
     private static final String NOT_DETECTED = "not_detected";
@@ -69,12 +69,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
 
-    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, DetailsRepository detailsRepository) {
+    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
-        this.detailsRepository = detailsRepository;
+        this.resultsRepository = resultsRepository;
         redForegroundColorSpan = new ForegroundColorSpan(
                 context.getResources().getColor(android.R.color.holo_red_dark));
         blackForegroundColorSpan = new ForegroundColorSpan(
@@ -190,7 +190,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
         TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
@@ -299,7 +299,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = detailsRepository.getAllDetailsForClient(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
         TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, false);
 
