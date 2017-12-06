@@ -17,6 +17,8 @@ import java.util.Map;
 
 public class ResultsRepository extends BaseRepository {
 
+    private static final String TAG = "ResultsRepository";
+
     public static final String TABLE_NAME = "results";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -134,5 +136,39 @@ public class ResultsRepository extends BaseRepository {
         return id;
     }
 
+
+    public Map<String, String> getLatestResults(String baseEntityId) {
+        Cursor cursor = null;
+        Map<String, String> clientDetails = new HashMap<String, String>();
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String query =
+                    "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                            " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
+                            + "" + "= '" + baseEntityId + "'"
+                            + "GROUP BY " + TYPE;
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    String value = cursor.getString(cursor.getColumnIndex(VALUE1));
+                    clientDetails.put(key, value);
+                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
+                    if (key2 != null && key2.isEmpty()) {
+                        value = cursor.getString(cursor.getColumnIndex(VALUE2));
+                        clientDetails.put(key2, value);
+                    }
+                } while (cursor.moveToNext());
+            }
+            return clientDetails;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return clientDetails;
+    }
 
 }

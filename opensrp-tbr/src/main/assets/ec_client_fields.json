@@ -89,6 +89,13 @@
             "field": "obs.fieldCode",
             "concept": "TBR: treatment start date"
           }
+        },
+        {
+          "column_name": "diagnosis_date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "diagnosis_date"
+          }
         }
       ]
     }

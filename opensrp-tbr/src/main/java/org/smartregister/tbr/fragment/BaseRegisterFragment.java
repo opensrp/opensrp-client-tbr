@@ -261,42 +261,42 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void initializeQueries() {
-        if (clientsView != null) {
-            String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-            PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, context().detailsRepository());
-            clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
-            clientsView.setAdapter(clientAdapter);
+        String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-            setTablename(tableName);
-            SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-            countQueryBuilder.SelectInitiateMainTableCounts(tableName);
-            mainCondition = getMainCondition();
-            countSelect = countQueryBuilder.mainCondition(mainCondition);
-            super.CountExecute();
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
+        clientsView.setAdapter(clientAdapter);
 
-            SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-            queryBUilder.SelectInitiateMainTable(tableName, new String[]{
-                    tableName + ".relationalid",
-                    tableName + "." + KEY.LAST_INTERACTED_WITH,
-                    tableName + "." + KEY.FIRST_ENCOUNTER,
-                    tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
-                    tableName + "." + KEY.FIRST_NAME,
-                    tableName + "." + KEY.LAST_NAME,
-                    tableName + "." + KEY.TBREACH_ID,
-                    tableName + "." + KEY.GENDER,
-                    tableName + "." + KEY.DOB
-            });
-            mainSelect = queryBUilder.mainCondition(mainCondition);
-            Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
+        setTablename(tableName);
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        mainCondition = getMainCondition();
+        countSelect = countQueryBuilder.mainCondition(mainCondition);
+        super.CountExecute();
 
-            currentlimit = 20;
-            currentoffset = 0;
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{
+                tableName + ".relationalid",
+                tableName + "." + KEY.LAST_INTERACTED_WITH,
+                tableName + "." + KEY.FIRST_ENCOUNTER,
+                tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
+                tableName + "." + KEY.FIRST_NAME,
+                tableName + "." + KEY.LAST_NAME,
+                tableName + "." + KEY.TBREACH_ID,
+                tableName + "." + KEY.GENDER,
+                tableName + "." + KEY.DOB
+        });
+        mainSelect = queryBUilder.mainCondition(mainCondition);
+        Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
-            super.filterandSortInInitializeQueries();
+        currentlimit = 20;
+        currentoffset = 0;
 
-            refresh();
-        }
+        super.filterandSortInInitializeQueries();
+
+        refresh();
+
     }
 
     protected abstract void populateClientListHeaderView(View view);

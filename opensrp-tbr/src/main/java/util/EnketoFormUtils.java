@@ -58,8 +58,10 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -1085,6 +1087,13 @@ public class EnketoFormUtils {
                 }
                 Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
                 saveEvent(e);
+
+                if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
+                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    client.put(DIAGNOSIS_DATE, e.getEventDate());
+                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                }
+
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);
                 for (Map<String, Object> cm : dep.values()) {
