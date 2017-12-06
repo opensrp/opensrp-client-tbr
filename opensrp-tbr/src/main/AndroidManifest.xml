@@ -51,6 +51,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.InTreatmentPatientRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service android:name=".service.PullConfigurableViewsIntentService" />
 
         <receiver android:name=".receiver.TbrSyncBroadcastReceiver" />

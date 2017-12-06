@@ -208,7 +208,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void testPopulateDiagnosisColumn() {
         view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_positive_list_row, null);
         String firstEncounter = "2017-11-20T02:40:15.600-0500";
-        columnMap.put(TbrConstants.KEY.DIAGNOSIS_DATE, firstEncounter);
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, firstEncounter);
         initProvider(DIAGNOSIS);
         assertEquals(patientRegisterProvider.getDuration(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.diagnosis)).getText());
 

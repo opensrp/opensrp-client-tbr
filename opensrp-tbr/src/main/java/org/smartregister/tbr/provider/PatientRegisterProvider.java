@@ -263,7 +263,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private View populateDiagnosisColumn(CommonPersonObjectClient pc, View view) {
-        String diagnosis = getValue(pc.getColumnmaps(), KEY.DIAGNOSIS_DATE, false);
+        String diagnosis = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
         fillValue((TextView) view.findViewById(R.id.diagnosis), getDuration(diagnosis) + " ago");
         return view.findViewById(R.id.diagnosis_column);
     }

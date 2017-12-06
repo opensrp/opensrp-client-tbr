@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
@@ -81,13 +82,15 @@ public class RegisterFragment extends ListFragment {
         Utils.showToast(getActivity(), registerTitle.getText().toString() + " Register!");
         Register register = (Register) this.getListAdapter().getItem(position);
         if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
-            initializeRegister( new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class),register);
+            initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);
         } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
-            initializeRegister( new Intent(this.getActivity(), PositivePatientRegisterActivity.class),register);
+            initializeRegister(new Intent(this.getActivity(), PositivePatientRegisterActivity.class), register);
+        } else if (register.getTitleToken().equals(Register.IN_TREATMENT_PATIENTS)) {
+            initializeRegister(new Intent(this.getActivity(), InTreatmentPatientRegisterActivity.class), register);
         }
     }
 
-    private void initializeRegister(Intent intent, Register register){
+    private void initializeRegister(Intent intent, Register register) {
         intent.putExtra(TOOLBAR_TITLE, register.getTitle());
         startActivity(intent);
     }
