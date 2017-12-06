@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
+import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
@@ -34,6 +35,7 @@ import org.smartregister.tbr.util.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +48,7 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
  */
 
 
-public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
+public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment {
     private Map<String, String> patientDetails;
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
     private ResultMenuListener resultMenuListener = new ResultMenuListener();
@@ -65,8 +67,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
         return rootView;
     }
 
-
-    @Override
     public void setupViews(View rootView) {
 
         //Load Language Token Map
@@ -148,21 +148,6 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
     protected void onResumption() {
     }
 
-    @Override
-    protected void populateClientListHeaderView(View view) {
-
-    }
-
-    @Override
-    protected String getMainCondition() {
-        return null;
-    }
-
-    @Override
-    protected String getViewConfigurationIdentifier() {
-        return null;
-    }
-
     private void processViews(View view) {
 
         if (view.getId() == R.id.clientDetailsCardView) {
@@ -203,6 +188,14 @@ public class PresumptivePatientDetailsFragment extends BaseRegisterFragment {
             processViews(getView());
         }
 
+    }
+
+    protected FieldOverrides getFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
     }
 
     class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {

@@ -367,23 +367,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     protected abstract String getMainCondition();
 
-    protected void renderPositiveResultsView(View view, Map<String, String> patientDetails) {
-        RenderPositiveResultsCardHelper renderPositiveResultsHelper = new RenderPositiveResultsCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderPositiveResultsHelper.renderView(view.findViewById(R.id.clientPositiveResultsCardView), patientDetails);
-    }
-
-    protected void renderDemographicsView(View view, Map<String, String> patientDetails) {
-
-        RenderPatientDemographicCardHelper renderPatientDemographicCardHelper = new RenderPatientDemographicCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderPatientDemographicCardHelper.renderView(view, patientDetails);
-
-    }
-
-    protected void renderServiceHistoryView(View view, Map<String, String> patientDetails) {
-        RenderServiceHistoryCardHelper renderServiceHistoryHelper = new RenderServiceHistoryCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderServiceHistoryHelper.renderView(view.findViewById(R.id.clientServiceHistoryCardView), patientDetails);
-    }
-
 
     protected String getViewConfigurationIdentifier() {
         return viewConfigurationIdentifier;
@@ -413,20 +396,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         }
     }
-
-    protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
-        //Process token translations
-        if (!viewLabelsMap.isEmpty()) {
-            for (Map.Entry<String, String> entry : viewLabelsMap.entrySet()) {
-                String uniqueIdentifier = entry.getKey();
-                TextView textView = (TextView) parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
-                if (textView != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
-                    textView.setText(languageTranslations.get(entry.getKey()));
-                }
-            }
-        }
-    }
-
     class RegisterActionHandler implements View.OnClickListener {
 
         @Override

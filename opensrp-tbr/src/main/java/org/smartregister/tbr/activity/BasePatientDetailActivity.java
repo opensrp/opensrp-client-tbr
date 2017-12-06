@@ -6,19 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.event.BaseEvent;
-import org.smartregister.tbr.event.RefreshPatientDetailsEvent;
-import org.smartregister.tbr.fragment.BaseRegisterFragment;
+import org.smartregister.tbr.fragment.BasePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
@@ -40,6 +37,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     protected OpenSRPViewPager mPager;
     protected FragmentPagerAdapter mPagerAdapter;
     protected int currentPage;
+    private static final String TAG = BasePatientDetailActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames = this.buildFormNameList();
     }
 
-    protected void initViewByFragmentType(BaseRegisterFragment baseRegisterFragment) {
+    protected void initViewByFragmentType(BasePatientDetailsFragment baseRegisterFragment) {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, baseRegisterFragment);
@@ -175,7 +173,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
             EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
             enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
         switchToBaseFragment();
     }
