@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.avocarrot.json2view.DynamicView;
 
 import org.json.JSONObject;
+import org.smartregister.tbr.R;
 import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
@@ -35,10 +36,13 @@ public class ConfigurableViewsHelper {
 
     private final Context context;
 
+    private boolean isTabletSize;
+
     public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper, Context context) {
         this.configurableViewsRepository = configurableViewsRepository;
         this.jsonSpecHelper = jsonSpecHelper;
         this.context = context;
+        isTabletSize = context.getResources().getBoolean(R.bool.isTablet);
     }
 
     private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
@@ -55,16 +59,18 @@ public class ConfigurableViewsHelper {
 
     public Set<View> getRegisterActiveColumns(String identifier) {
         Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
+        int maxColumns = viewConfigurations.get(identifier).getViews().size();
+        maxColumns = !isTabletSize && maxColumns > 3 ? 3 : maxColumns;
         for (View view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
                 visibleColumns.add(view);
+            if (visibleColumns.size() == maxColumns)
+                break;
         }
         return visibleColumns;
     }
 
     public void processRegisterColumns(Map<String, Integer> columnMapping, android.view.View view, Set<View> visibleColumns, int parentComponent) {
-        //Dont process  for more than 3 columns
-        if (visibleColumns.size() > 3) return;
         List<android.view.View> columns = new LinkedList<>();
         for (View columnView : visibleColumns) {
             try {
@@ -78,6 +84,7 @@ public class ConfigurableViewsHelper {
                 columns.add(column);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
+                return;
             }
         }
         ViewGroup allColumns = (ViewGroup) view.findViewById(parentComponent);
@@ -96,29 +103,37 @@ public class ConfigurableViewsHelper {
         return viewConfigurations.get(identifier);
     }
 
-    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewConfiguration commonConfiguration, int parentViewId, boolean isHeader) {
-        JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
-        android.view.View view = DynamicView.createView(context, jsonView);
-        jsonView = new JSONObject(commonConfiguration.getJsonView());
-        android.view.View commonRegisterColumns = DynamicView.createView(context, jsonView);
-        ViewGroup registerColumns = (ViewGroup) view.findViewById(parentViewId);
-        ViewGroup commonColumns = (ViewGroup) commonRegisterColumns.findViewById(parentViewId);
-        while (registerColumns.getChildCount() > 0) {
-            android.view.View column = registerColumns.getChildAt(0);
-            registerColumns.removeView(column);
-            commonColumns.addView(column);
+    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewConfiguration commonConfiguration, android.view.View fallback, int parentViewId, boolean isHeader) {
+        try {
+            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+            android.view.View view = DynamicView.createView(context, jsonView);
+            ViewGroup registerColumns = (ViewGroup) view.findViewById(parentViewId);
+            if (commonConfiguration != null && !commonConfiguration.getJsonView().isEmpty()) {
+                jsonView = new JSONObject(commonConfiguration.getJsonView());
+                android.view.View commonRegisterColumns = DynamicView.createView(context, jsonView);
+                ViewGroup commonColumns = (ViewGroup) commonRegisterColumns.findViewById(parentViewId);
+                while (registerColumns.getChildCount() > 0) {
+                    android.view.View column = registerColumns.getChildAt(0);
+                    registerColumns.removeView(column);
+                    commonColumns.addView(column);
+                }
+                registerColumns = commonColumns;
+            }
+            if (isHeader)
+                registerColumns.setLayoutParams(
+                        new AbsListView.LayoutParams(
+                                AbsListView.LayoutParams.MATCH_PARENT,
+                                AbsListView.LayoutParams.MATCH_PARENT));
+            else
+                registerColumns.setLayoutParams(
+                        new WindowManager.LayoutParams(
+                                WindowManager.LayoutParams.MATCH_PARENT,
+                                WindowManager.LayoutParams.MATCH_PARENT));
+            return registerColumns;
+        } catch (Exception e) {
+            Log.e(TAG, "inflateDynamicView: ", e);
+            return fallback;
         }
-        if (isHeader)
-            commonColumns.setLayoutParams(
-                    new AbsListView.LayoutParams(
-                            AbsListView.LayoutParams.MATCH_PARENT,
-                            AbsListView.LayoutParams.MATCH_PARENT));
-        else
-            commonColumns.setLayoutParams(
-                    new WindowManager.LayoutParams(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.MATCH_PARENT));
-        return commonColumns;
     }
 
 }

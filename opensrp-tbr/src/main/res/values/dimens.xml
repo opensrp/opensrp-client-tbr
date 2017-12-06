@@ -119,5 +119,7 @@
     <dimen name="loc_picker_text_max_width">180dp</dimen>
     <dimen name="loc_picker_text_min_width">130dp</dimen>
     <dimen name="initals_size">24sp</dimen>
+    <!-- used to programatically tell if device is tab-->
+    <bool name="isTablet">false</bool>
 </resources>
 
