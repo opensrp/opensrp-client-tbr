@@ -83,18 +83,18 @@
           }
         },
         {
+          "column_name": "diagnosis_date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "diagnosis_date"
+          }
+        },
+        {
           "column_name": "treatment_initiation_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "TBR: treatment start date"
-          }
-        },
-        {
-          "column_name": "diagnosis_date",
-          "type": "Client",
-          "json_mapping": {
-            "field": "diagnosis_date"
           }
         }
       ]

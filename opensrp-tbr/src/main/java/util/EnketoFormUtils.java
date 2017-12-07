@@ -9,6 +9,7 @@ import android.util.Xml;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -1087,7 +1088,7 @@ public class EnketoFormUtils {
 
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
                     JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
-                    client.put(DIAGNOSIS_DATE, e.getEventDate());
+                    client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
                     eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
                 }
 
