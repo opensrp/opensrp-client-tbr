@@ -9,6 +9,7 @@ import android.util.Xml;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import org.smartregister.domain.form.SubForm;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.sync.TbrClientProcessor;
 import org.smartregister.util.AssetHandler;
@@ -56,8 +57,10 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -236,7 +239,7 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening"))
+        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient"))
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
         else
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);
@@ -834,6 +837,27 @@ public class EnketoFormUtils {
                         // write the xml attributes
                         // a value node doesn't have id or relationalId fields
                         writeXMLAttributes(child, serializer, null, null);
+                        if (child.hasChildNodes()) {
+                            NodeList childNodes = child.getChildNodes();
+                            int childNodeSize = childNodes.getLength();
+                            for (int j = 0; j < childNodeSize; j++) {
+                                if (childNodes.item(j) instanceof Element) {
+                                    Element childNode = (Element) childNodes.item(j);
+                                    String childNodeName = childNode.getNodeName();
+                                    serializer.startTag("", childNodeName);
+                                    writeXMLAttributes(childNode, serializer, null, null);
+                                    String value = retrieveValueForNodeName(childNodeName, entityJson,
+                                            formDefinition);
+                                    if (value != null) {
+                                        serializer.text(value);
+                                    }
+                                    if (fieldOverrides.has(childNodeName)) {
+                                        serializer.text(fieldOverrides.getString(childNodeName));
+                                    }
+                                    serializer.endTag("", childNodeName);
+                                }
+                            }
+                        }
                         // write the node value
                         String value = retrieveValueForNodeName(fieldName, entityJson,
                                 formDefinition);
@@ -1033,47 +1057,57 @@ public class EnketoFormUtils {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                final PresumptivePatientRegisterActivity registerActivity = ((PresumptivePatientRegisterActivity) context);
+            if (context instanceof BaseRegisterActivity) {
+                final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
                 registerActivity.hideProgressDialog();
+                //TODO add once the dialog in enketo library is dismissed
+                //registerActivity.switchToBaseFragment();
             }
         }
 
         @Override
         protected void onPreExecute() {
-            if (context instanceof PresumptivePatientRegisterActivity) {
-                ((PresumptivePatientRegisterActivity) context).showProgressDialog();
+            if (context instanceof BaseRegisterActivity) {
+                ((BaseRegisterActivity) context).showProgressDialog();
             }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            if (saveClient) {
-                Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
-                saveClient(c);
-            }
-            Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
-            saveEvent(e);
-            Map<String, Map<String, Object>> dep = formEntityConverter.
-                    getDependentClientsFromFormSubmission(formSubmission);
-            for (Map<String, Object> cm : dep.values()) {
-                if (saveClient) {
-                    Client cin = (Client) cm.get("client");
-                    saveClient(cin);
-                }
-                Event evin = (Event) cm.get("event");
-                saveEvent(evin);
-            }
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-
             try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+
+                if (saveClient) {
+                    Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                    saveClient(c);
+                }
+                Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+                saveEvent(e);
+
+                if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
+                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
+                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                }
+
+                Map<String, Map<String, Object>> dep = formEntityConverter.
+                        getDependentClientsFromFormSubmission(formSubmission);
+                for (Map<String, Object> cm : dep.values()) {
+                    if (saveClient) {
+                        Client cin = (Client) cm.get("client");
+                        saveClient(cin);
+                    }
+                    Event evin = (Event) cm.get("event");
+                    saveEvent(evin);
+                }
+                long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             } catch (Exception e1) {
-                logError("Error Processing client ");
+                logError("SavePatientAsyncTask Error saving EC model " + e1.getMessage());
             }
             return null;
         }
