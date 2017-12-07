@@ -42,7 +42,7 @@
                 <other_eptb_site openmrs_entity="concept"
                     openmrs_entity_id="TBR:other specify text" />
                 <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
-                <regimen openmrs_entity="concept" />
+                <regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen"/>
                 <next_visit_date openmrs_entity="concept"
                     openmrs_entity_id="TBR: return visit date" />
                 <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />

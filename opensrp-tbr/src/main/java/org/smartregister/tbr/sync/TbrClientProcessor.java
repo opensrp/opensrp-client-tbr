@@ -32,7 +32,8 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
             "Culture Result", "X-Ray Result"};
 
-    public static final String DIAGNOSIS_EVENT="TB Diagnosis";
+    public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
+    public static final String TREATMENT_INITIATION = "Treatment Initiation";
 
     public TbrClientProcessor(Context context) {
         super(context);
@@ -73,6 +74,8 @@ public class TbrClientProcessor extends ClientProcessor {
                     //iterate through the events
                     if (event.has("client")) {
                         processEvent(event, event.getJSONObject("client"), clientClassificationJson);
+                        if (eventType.equals(TREATMENT_INITIATION))
+                            TbrApplication.getInstance().getResultsRepository().setBaselineResults(event.getString("baseEntityId"));
                     }
                 }
             }

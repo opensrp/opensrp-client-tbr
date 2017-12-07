@@ -1,7 +1,9 @@
 package org.smartregister.tbr.activity;
 
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 
+import org.smartregister.tbr.R;
 import org.smartregister.tbr.fragment.InTreatmentPatientRegisterFragment;
 
 import java.util.Arrays;
@@ -23,5 +25,12 @@ public class InTreatmentPatientRegisterActivity extends BaseRegisterActivity {
     public List<String> getViewIdentifiers() {
         return Arrays.asList(INTREATMENT_REGISTER);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.addNewPatient).setVisible(false);
+        return true;
     }
 }

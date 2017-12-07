@@ -14,6 +14,7 @@ public class Result {
     private String value1;
     private String result2;
     private String value2;
+    private boolean baseline;
     private String formSubmissionId;
     private String eventId;
     private Date date;
@@ -76,6 +77,14 @@ public class Result {
 
     public void setValue2(String value2) {
         this.value2 = value2;
+    }
+
+    public boolean isBaseline() {
+        return baseline;
+    }
+
+    public void setBaseline(boolean baseline) {
+        this.baseline = baseline;
     }
 
     public String getFormSubmissionId() {

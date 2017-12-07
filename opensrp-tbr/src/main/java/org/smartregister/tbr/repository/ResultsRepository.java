@@ -2,6 +2,7 @@ package org.smartregister.tbr.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -13,7 +14,9 @@ import org.smartregister.tbr.model.Result;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ResultsRepository extends BaseRepository {
 
@@ -30,6 +33,7 @@ public class ResultsRepository extends BaseRepository {
     public static final String FORMSUBMISSION_ID = "formSubmissionId";
     public static final String EVENT_ID = "event_id";
     public static final String DATE = "date";
+    public static final String BASELINE = "baseline";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String ANMID = "anmid";
     public static final String LOCATIONID = "location_id";
@@ -46,6 +50,7 @@ public class ResultsRepository extends BaseRepository {
             FORMSUBMISSION_ID + "  VARCHAR NOT NULL, " +
             EVENT_ID + "  VARCHAR  NULL, " +
             DATE + "  DATETIME NOT NULL, " +
+            BASELINE + " INTEGER DEFAULT 0, " +
             ANMID + "  VARCHAR NOT NULL, " +
             LOCATIONID + "  VARCHAR NOT NULL, " +
             SYNC_STATUS + "  VARCHAR NOT NULL, " +
@@ -105,6 +110,7 @@ public class ResultsRepository extends BaseRepository {
         values.put(RESULT2, result.getResult2());
         values.put(VALUE2, result.getValue2());
         values.put(DATE, result.getDate().getTime());
+        values.put(BASELINE, result.isBaseline());
         values.put(ANMID, result.getAnmId());
         values.put(LOCATIONID, result.getLocationId());
         values.put(SYNC_STATUS, result.getSyncStatus());
@@ -169,6 +175,36 @@ public class ResultsRepository extends BaseRepository {
             }
         }
         return clientDetails;
+    }
+
+    public void setBaselineResults(String baseEntityId) {
+        Cursor cursor = null;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            Set<String> results = new HashSet<>();
+            String query =
+                    "SELECT max(" + DATE + ")," + FORMSUBMISSION_ID +
+                            " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
+                            + "" + "= '" + baseEntityId + "'"
+                            + "GROUP BY " + TYPE;
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    results.add(cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)));
+                } while (cursor.moveToNext());
+            }
+            if (!results.isEmpty()) {
+                ContentValues values = new ContentValues();
+                values.put(BASELINE, true);
+                db.update(TABLE_NAME, values, BASE_ENTITY_ID + "=? AND " + FORMSUBMISSION_ID + " IN ('" + TextUtils.join("','", results) + "')", new String[]{baseEntityId});
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
 }
