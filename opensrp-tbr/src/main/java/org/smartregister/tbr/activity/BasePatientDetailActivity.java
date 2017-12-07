@@ -87,7 +87,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
                 }
             }
 
-            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+            mPager.setCurrentItem(formIndex, false);
 
         } catch (Exception e) {
             e.printStackTrace();

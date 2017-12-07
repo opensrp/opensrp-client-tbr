@@ -1,17 +1,11 @@
 package org.smartregister.tbr.fragment;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,25 +15,17 @@ import android.widget.TextView;
 import com.avocarrot.json2view.DynamicView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
-import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import util.TbrConstants;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
@@ -49,9 +35,7 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
 
 public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment {
-    private Map<String, String> patientDetails;
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
-    private ResultMenuListener resultMenuListener = new ResultMenuListener();
     private Map<String, String> languageTranslations;
 
     @Nullable
@@ -73,21 +57,21 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        processViewConfigurations(rootView);
-        processViews(rootView);
+        processViews(rootView, Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
         removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
     }
 
+    @Override
     public void setPatientDetails(Map<String, String> patientDetails) {
         this.patientDetails = patientDetails;
     }
 
-    protected void processViewConfigurations(View rootView) {
+    protected void processViewConfigurations(View rootView, String viewConfigurationIdentifier) {
 
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewConfigurationIdentifier);
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
@@ -118,7 +102,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                             viewParent.removeView(view);
                         }
                         viewParent.addView(sampleView);
-                        processViews(sampleView);
+                        processViews(sampleView,Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -148,7 +132,10 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     protected void onResumption() {
     }
 
-    private void processViews(View view) {
+    @Override
+    protected void processViews(View view, String viewConfigurationIdentifier) {
+
+        processViewConfigurations(view, viewConfigurationIdentifier);
 
         if (view.getId() == R.id.clientDetailsCardView) {
             renderDemographicsView(view, patientDetails);
@@ -167,58 +154,6 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                 }
             });
 
-        }
-    }
-
-    public void showResultMenu(View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.menu_register_result);
-        popup.setOnMenuItemClickListener(resultMenuListener);
-        MenuItem item = popup.getMenu().getItem(0);
-        String firstName = getActivity().getString(R.string.add_result_for) + Constants.CHAR.SPACE + patientDetails.get(Constants.KEY.FIRST_NAME);
-        SpannableString s = new SpannableString(firstName);
-        s.setSpan(new StyleSpan(Typeface.BOLD), 0, firstName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        item.setTitle(s);
-        popup.show();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
-        if (enketoFormSaveCompleteEvent != null) {
-            processViews(getView());
-        }
-
-    }
-
-    protected FieldOverrides getFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
-    }
-
-    class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            BasePatientDetailActivity registerActivity = (BasePatientDetailActivity) getActivity();
-            switch (item.getItemId()) {
-                case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.GENE_XPERT, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
-                    return true;
-                case R.id.result_smear:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.SMEAR, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
-                    return true;
-                case R.id.result_chest_xray:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
-                    return true;
-                case R.id.result_culture:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CULTURE, patientDetails.get(Constants.KEY._ID), getFieldOverrides().getJSONString());
-                    return true;
-                default:
-                    return false;
-            }
         }
     }
 }

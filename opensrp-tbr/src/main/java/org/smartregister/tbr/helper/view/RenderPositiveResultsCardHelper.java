@@ -9,6 +9,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
+import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -24,7 +25,7 @@ import util.TbrSpannableStringBuilder;
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private static final String DETECTED = "detected";
 
-    public RenderPositiveResultsCardHelper(Context context, ResultDetailsRepository detailsRepository) {
+    public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
     }
 
@@ -44,7 +45,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 TextView firstEncounterDateView = (TextView) view.findViewById(R.id.firstEncounterDateTextView);
                 firstEncounterDateView.setText(dateString);
                 TextView results = (TextView) view.findViewById(R.id.result_details);
-                Map<String, String> testResults = ((ResultDetailsRepository) repository).getClientResultDetails(baseEntityId);
+                Map<String, String> testResults = ((ResultsRepository) repository).getLatestResults(baseEntityId);
                 ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
                         context.getResources().getColor(android.R.color.holo_red_dark));
                 ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(

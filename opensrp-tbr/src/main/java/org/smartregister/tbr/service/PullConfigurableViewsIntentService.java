@@ -10,6 +10,9 @@ import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Utils;
 
+import java.util.Calendar;
+
+import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 import static org.smartregister.util.Log.logError;
 
 /**
@@ -27,7 +30,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
     private PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
 
     public PullConfigurableViewsIntentService() {
-        super("PullConfigurableViewsIntentService");
+        super(TAG);
     }
 
     @Override
@@ -40,6 +43,10 @@ public class PullConfigurableViewsIntentService extends IntentService {
                     LanguageConfigurationEvent event = new LanguageConfigurationEvent(true);//To Do add check for language configs
                     Utils.postEvent(event);
                 }
+
+                //update last sync time
+                String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
+                Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");
             }

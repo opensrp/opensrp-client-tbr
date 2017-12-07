@@ -53,12 +53,6 @@ public class HomeActivity extends BaseActivity {
         TriggerViewConfigurationSyncEvent viewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
         postEvent(viewConfigurationSyncEvent);
-        if (view != null) {
-
-            String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
-            Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
-            lastSyncTimeTextView.setText("Last sync: " + lastSyncTime);
-        }
     }
 
     public void postEvent(BaseEvent event) {
@@ -90,8 +84,7 @@ public class HomeActivity extends BaseActivity {
         lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
             String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
-            Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime);
-            lastSyncTimeTextView.setText("Last sync: " + defaultLastSyncTime);
+            lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
         }
 
         //Set App Name
@@ -114,7 +107,9 @@ public class HomeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
         if (syncCompleteEvent != null) {
+
             processView();
+
         }
 
     }
