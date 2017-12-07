@@ -14,28 +14,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "GeneXpert Result",
-            "creates_case": [
-              "ec_patient"
-            ]
-          },
-          {
-            "field": "eventType",
-            "field_value": "Smear Result",
-            "creates_case": [
-              "ec_patient"
-            ]
-          },
-          {
-            "field": "eventType",
-            "field_value": "X-Ray Result",
-            "creates_case": [
-              "ec_patient"
-            ]
-          },
-          {
-            "field": "eventType",
-            "field_value": "Culture Result",
+            "field_value": "positive TB patient",
             "creates_case": [
               "ec_patient"
             ]
@@ -46,13 +25,8 @@
             "creates_case": [
               "ec_patient"
             ]
-          },{
-            "field": "eventType",
-            "field_value": "positive TB patient",
-            "creates_case": [
-              "ec_patient"
-            ]
-          },{
+          },
+          {
             "field": "eventType",
             "field_value": "Treatment Initiation",
             "creates_case": [

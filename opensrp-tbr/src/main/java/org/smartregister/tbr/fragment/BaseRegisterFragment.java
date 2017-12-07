@@ -255,7 +255,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void initializeQueries() {
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, context().detailsRepository());
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -276,7 +276,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.LAST_NAME,
                 tableName + "." + KEY.TBREACH_ID,
                 tableName + "." + KEY.GENDER,
-                tableName + "." + KEY.DOB
+                tableName + "." + KEY.DOB,
+                tableName + "." + KEY.DIAGNOSIS_DATE,
         });
         mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();

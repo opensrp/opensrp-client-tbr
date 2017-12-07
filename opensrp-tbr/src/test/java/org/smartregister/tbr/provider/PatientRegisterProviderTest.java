@@ -16,9 +16,9 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Calendar;
@@ -60,7 +60,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Mock
-    private DetailsRepository detailsRepository;
+    private ResultsRepository resultsRepository;
 
     @Mock
     private Cursor cursor;
@@ -90,7 +90,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         org.smartregister.tbr.jsonspec.model.View column = new org.smartregister.tbr.jsonspec.model.View();
         column.setIdentifier(columnIdentifier);
         visibleColumns.add(column);
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, detailsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
         patientRegisterProvider.getView(cursor, smartRegisterClient, view);
     }
 
@@ -115,7 +115,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     @Test
     public void testPopulateResultsColumnNoResults() {
         Map results = new HashMap();
-        when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
 
         initProvider(RESULTS);
 
@@ -127,7 +127,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void testPopulateResultsColumnWithResults() {
         Map results = new HashMap();
         results.put(MTB_RESULT, "detected");
-        when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
 
         initProvider(RESULTS);
         assertEquals(View.VISIBLE, view.findViewById(R.id.result_details).getVisibility());
@@ -147,7 +147,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void testPopulateXpertResultsColumn() {
         Map results = new HashMap();
         results.put(MTB_RESULT, "detected");
-        when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
 
         initProvider(XPERT_RESULTS);
         assertEquals(View.VISIBLE, view.findViewById(R.id.xpert_result_details).getVisibility());
@@ -216,7 +216,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     @Test
     public void testGetDuration() {
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, detailsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
         Calendar calendar = Calendar.getInstance();
         assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.DATE, -10);

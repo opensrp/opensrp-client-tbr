@@ -32,6 +32,8 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
             "Culture Result", "X-Ray Result"};
 
+    public static final String DIAGNOSIS_EVENT="TB Diagnosis";
+
     public TbrClientProcessor(Context context) {
         super(context);
     }
@@ -46,7 +48,8 @@ public class TbrClientProcessor extends ClientProcessor {
 
     @Override
     public synchronized void processClient(List<JSONObject> events) throws Exception {
-        String clientEventStr = getFileContents("ec_client_result.json");
+        String clientClassificationStr = getFileContents("ec_client_classification.json");
+        String clientResultStr = getFileContents("ec_client_result.json");
 
         if (!events.isEmpty()) {
             for (JSONObject event : events) {
@@ -57,16 +60,23 @@ public class TbrClientProcessor extends ClientProcessor {
                 }
 
                 if (Arrays.asList(RESULT_TYPES).contains(eventType)) {
-                    JSONObject clientResultJson = new JSONObject(clientEventStr);
+                    JSONObject clientResultJson = new JSONObject(clientResultStr);
                     if (isNullOrEmptyJSONObject(clientResultJson)) {
                         continue;
                     }
                     processResult(event, clientResultJson);
+                } else {
+                    JSONObject clientClassificationJson = new JSONObject(clientClassificationStr);
+                    if (isNullOrEmptyJSONObject(clientClassificationJson)) {
+                        continue;
+                    }
+                    //iterate through the events
+                    if (event.has("client")) {
+                        processEvent(event, event.getJSONObject("client"), clientClassificationJson);
+                    }
                 }
             }
         }
-
-        super.processClient(events);
     }
 
     private boolean processResult(JSONObject event, JSONObject clientResultJson) {
