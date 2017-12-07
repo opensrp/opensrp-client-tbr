@@ -18,7 +18,11 @@ public class ViewPositionComparator implements Comparator<View> {
             return 1;
         else if (v1.getResidence() != null && v2.getResidence() == null)
             return -1;
-        else
-            return Integer.valueOf(v1.getResidence().getPosition()).compareTo(Integer.valueOf(v2.getResidence().getPosition()));
+        else {
+            int comparison = Integer.valueOf(v1.getResidence().getPosition()).compareTo(Integer.valueOf(v2.getResidence().getPosition()));
+            if (comparison == 0)
+                comparison = v1.getIdentifier().compareTo(v2.getIdentifier());
+            return comparison;
+        }
     }
 }
