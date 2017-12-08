@@ -46,6 +46,8 @@ TbrConstants extends AllConstants {
         public static final String DROPDOWN = "dropdown";
         public static final String TREAT = "treat";
         public static final String DIAGNOSIS = "diagnosis";
+        public static final String INTREATMENT_RESULTS = "intreatment_results";
+        public static final String FOLLOWUP = "followup";
     }
 
     public static final class VIEW_CONFIGS {
@@ -62,7 +64,10 @@ TbrConstants extends AllConstants {
         public static final String POSITIVE_REGISTER_HEADER = "positive_register_header";
         public static final String POSITIVE_REGISTER_ROW = "positive_register_row";
 
-        public static final String INTREATMENT_REGISTER = "positive_register";
+        public static final String INTREATMENT_REGISTER = "intreatment_register";
+        public static final String INTREATMENT_REGISTER_HEADER = "intreatment_register_header";
+        public static final String INTREATMENT_REGISTER_ROW = "intreatment_register_row";
+
     }
 
     public static final class ENKETO_FORMS {

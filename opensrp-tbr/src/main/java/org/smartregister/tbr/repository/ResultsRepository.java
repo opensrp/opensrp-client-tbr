@@ -2,6 +2,7 @@ package org.smartregister.tbr.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -17,6 +18,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static org.smartregister.tbr.model.Result.BASELINE_TYPE;
+import static util.TbrConstants.KEY.TREATMENT_INITIATION_DATE;
+import static util.TbrConstants.PATIENT_TABLE_NAME;
 
 public class ResultsRepository extends BaseRepository {
 
@@ -34,6 +39,7 @@ public class ResultsRepository extends BaseRepository {
     public static final String EVENT_ID = "event_id";
     public static final String DATE = "date";
     public static final String BASELINE = "baseline";
+    public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String ANMID = "anmid";
     public static final String LOCATIONID = "location_id";
@@ -54,6 +60,7 @@ public class ResultsRepository extends BaseRepository {
             ANMID + "  VARCHAR NOT NULL, " +
             LOCATIONID + "  VARCHAR NOT NULL, " +
             SYNC_STATUS + "  VARCHAR NOT NULL, " +
+            CREATED_AT + " VARCHAR NULL, " +
             UPDATED_AT_COLUMN + " INTEGER NULL, " +
             "UNIQUE(base_entity_id, formSubmissionId) ON CONFLICT IGNORE )";
 
@@ -89,6 +96,7 @@ public class ResultsRepository extends BaseRepository {
                 result.setId(existingId);
                 update(result);
             } else {
+                result.setCreatedAt(Calendar.getInstance().getTimeInMillis());
                 getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(result));
             }
         } else {
@@ -98,7 +106,8 @@ public class ResultsRepository extends BaseRepository {
     }
 
     private void update(Result result) {
-        getWritableDatabase().update(TABLE_NAME, createValuesFor(result), ID + " = ?", new String[]{result.getId().toString()});
+        ContentValues contentValues = createValuesFor(result);
+        getWritableDatabase().update(TABLE_NAME, contentValues, ID + " = ?", new String[]{result.getId().toString()});
     }
 
     private ContentValues createValuesFor(Result result) {
@@ -110,7 +119,7 @@ public class ResultsRepository extends BaseRepository {
         values.put(RESULT2, result.getResult2());
         values.put(VALUE2, result.getValue2());
         values.put(DATE, result.getDate().getTime());
-        values.put(BASELINE, result.isBaseline());
+        values.put(BASELINE, result.getBaseline());
         values.put(ANMID, result.getAnmId());
         values.put(LOCATIONID, result.getLocationId());
         values.put(SYNC_STATUS, result.getSyncStatus());
@@ -142,17 +151,27 @@ public class ResultsRepository extends BaseRepository {
         return id;
     }
 
+    private boolean hasBaseline(String baseEntityId) {
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{ID}, BASE_ENTITY_ID + " = ? AND " + BASELINE + " = " + BASELINE_TYPE.IS_BASELINE + COLLATE_NOCASE, new String[]{baseEntityId}, null, null, null, null);
+        int results = cursor.getCount();
+        cursor.close();
+        return results > 0;
 
-    public Map<String, String> getLatestResults(String baseEntityId) {
+    }
+
+
+    public Map<String, String> getLatestResults(String baseEntityId, @Nullable BASELINE_TYPE baselineType) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<String, String>();
+        Map<String, String> clientDetails = new HashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
+            String baselineFilter = baselineType != null ? " AND " + BASELINE + " = " + baselineType.ordinal() : "";
             String query =
                     "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                             " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "'"
-                            + "GROUP BY " + TYPE;
+                            + "" + "= '" + baseEntityId + "'" +
+                            baselineFilter
+                            + " GROUP BY " + TYPE;
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -195,7 +214,7 @@ public class ResultsRepository extends BaseRepository {
             }
             if (!results.isEmpty()) {
                 ContentValues values = new ContentValues();
-                values.put(BASELINE, true);
+                values.put(BASELINE, BASELINE_TYPE.IS_BASELINE.ordinal());
                 db.update(TABLE_NAME, values, BASE_ENTITY_ID + "=? AND " + FORMSUBMISSION_ID + " IN ('" + TextUtils.join("','", results) + "')", new String[]{baseEntityId});
             }
         } catch (Exception e) {
@@ -205,6 +224,27 @@ public class ResultsRepository extends BaseRepository {
                 cursor.close();
             }
         }
+    }
+
+    public boolean isTreatmentStarted(String baseEntityId) {
+        Cursor cursor = null;
+        boolean started = false;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            String query =
+                    "SELECT " + TREATMENT_INITIATION_DATE + " FROM " + PATIENT_TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
+                            + "" + "= '" + baseEntityId + "'";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst())
+                started = !cursor.getString(cursor.getColumnIndex(TREATMENT_INITIATION_DATE)).isEmpty();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return started;
     }
 
 }

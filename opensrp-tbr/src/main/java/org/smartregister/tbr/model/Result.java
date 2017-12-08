@@ -7,6 +7,9 @@ import java.util.Date;
  */
 
 public class Result {
+
+    public enum BASELINE_TYPE {PRE_BASELINE, IS_BASELINE, POST_BASELINE}
+
     private Long id;
     private String baseEntityId;
     private String type;
@@ -14,13 +17,14 @@ public class Result {
     private String value1;
     private String result2;
     private String value2;
-    private boolean baseline;
+    private int baseline;
     private String formSubmissionId;
     private String eventId;
     private Date date;
     private String anmId;
     private String locationId;
     private String syncStatus;
+    private String createdAt;
     private Long updatedAt;
 
     public Long getId() {
@@ -79,11 +83,11 @@ public class Result {
         this.value2 = value2;
     }
 
-    public boolean isBaseline() {
+    public int getBaseline() {
         return baseline;
     }
 
-    public void setBaseline(boolean baseline) {
+    public void setBaseline(int baseline) {
         this.baseline = baseline;
     }
 
@@ -133,6 +137,14 @@ public class Result {
 
     public void setSyncStatus(String syncStatus) {
         this.syncStatus = syncStatus;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Long getUpdatedAt() {

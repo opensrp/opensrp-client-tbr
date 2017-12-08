@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -67,11 +68,13 @@ import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
+import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
+import static util.TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER_HEADER;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -267,7 +270,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{
+        String[] columns = new String[]{
                 tableName + ".relationalid",
                 tableName + "." + KEY.LAST_INTERACTED_WITH,
                 tableName + "." + KEY.FIRST_ENCOUNTER,
@@ -276,9 +279,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.LAST_NAME,
                 tableName + "." + KEY.TBREACH_ID,
                 tableName + "." + KEY.GENDER,
-                tableName + "." + KEY.DOB,
-                tableName + "." + KEY.DIAGNOSIS_DATE,
-        });
+                tableName + "." + KEY.DOB};
+        String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
+        queryBUilder.SelectInitiateMainTable(tableName, allColumns);
         mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
@@ -292,28 +295,28 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     protected abstract void populateClientListHeaderView(View view);
 
-    protected void populateClientListHeaderView(View view, int headerViewId, String viewConfigurationIdentifier) {
+    protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
-        View headerLayout = getLayoutInflater(null).inflate(headerViewId, null);
 
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
         ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
 
         if (viewConfiguration != null) {
             headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
+            Map<String, Integer> mapping = new HashMap();
+            mapping.put(PATIENT, R.id.patient_header);
+            mapping.put(RESULTS, R.id.results_header);
+            mapping.put(DIAGNOSE, R.id.diagnose_header);
+            mapping.put(ENCOUNTER, R.id.encounter_header);
+            mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
+            mapping.put(DROPDOWN, R.id.dropdown_header);
+            mapping.put(TREAT, R.id.treat_header);
+            mapping.put(DIAGNOSIS, R.id.diagnosis_header);
+            mapping.put(INTREATMENT_REGISTER_HEADER, R.id.results_header);
+            mapping.put(FOLLOWUP, R.id.followup_header);
+            TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
-        Map<String, Integer> mapping = new HashMap();
-        mapping.put(PATIENT, R.id.patient_header);
-        mapping.put(RESULTS, R.id.results_header);
-        mapping.put(DIAGNOSE, R.id.diagnose_header);
-        mapping.put(ENCOUNTER, R.id.encounter_header);
-        mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
-        mapping.put(DROPDOWN, R.id.dropdown_header);
-        mapping.put(TREAT, R.id.treat_header);
-        mapping.put(DIAGNOSIS, R.id.diagnosis_header);
-
-        TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
 
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
@@ -355,6 +358,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected abstract String getMainCondition();
+
+    protected abstract String[] getAdditionalColumns(String tableName);
 
     protected String getViewConfigurationIdentifier() {
         return viewConfigurationIdentifier;

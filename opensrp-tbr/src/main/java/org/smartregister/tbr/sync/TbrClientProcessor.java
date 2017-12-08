@@ -112,6 +112,8 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setSyncStatus(ResultsRepository.TYPE_Unsynced);
                 String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
                 result.setFormSubmissionId(formSubmissionId);
+                if (resultsRepository.isTreatmentStarted(result.getBaseEntityId()))
+                    result.setBaseline(Result.BASELINE_TYPE.POST_BASELINE.ordinal());
                 resultsRepository.saveResult(result);
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();

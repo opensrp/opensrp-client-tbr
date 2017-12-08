@@ -18,4 +18,27 @@
     <color name="scan_qr_code_bg_st_grey">#4f4e4e</color>
     <color name="scan_qr_code_bg_end_grey">#3e3e3e</color>
     <color name="scan_qr_code_bg_stk_grey">#212121</color>
+
+    <color name="vaccine_red_bg_stk">#a82525</color>
+    <color name="vaccine_red_bg_st">#cd2c2c</color>
+    <color name="vaccine_red_bg_end">#be2727</color>
+
+    <color name="vaccine_blue_bg_stk">#267ea5</color>
+    <color name="vaccine_blue_bg_st">#389cc8</color>
+    <color name="vaccine_blue_bg_end">#3495bf</color>
+
+    <color name="vaccine_light_blue_bg_stk">#b2d9ea</color>
+    <color name="vaccine_light_blue_bg_st">#e4f1f6</color>
+    <color name="vaccine_light_blue_bg_end">#e3f0f5</color>
+
+    <color name="vaccine_na_bg_stk">#D4D4D4</color>
+    <color name="vaccine_na_bg_st">#EFEFEF</color>
+    <color name="vaccine_na_bg_end">#ECECEC</color>
+
+    <color name="vaccine_grey_bg_stk">#d8d8d8</color>
+    <color name="vaccine_grey_bg_st">#f4f4f4</color>
+    <color name="vaccine_grey_bg_end">#ebebeb</color>
+
+    <color name="due_vaccine_red">#C52929</color>
+    <color name="due_vaccine_blue">#3597C1</color>
 </resources>
