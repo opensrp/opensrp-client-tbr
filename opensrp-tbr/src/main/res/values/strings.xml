@@ -45,4 +45,5 @@
     <string name="positive_results">Positive Results</string>
     <string name="record_results">RECORD RESULTS</string>
     <string name="in_treatment_patients">In-treatment Patients</string>
+    <string name="treatment_initiation_form">Treatment Initiation Form</string>
 </resources>

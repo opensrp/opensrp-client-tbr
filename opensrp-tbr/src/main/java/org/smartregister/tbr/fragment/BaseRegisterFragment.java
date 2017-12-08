@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -35,17 +34,14 @@ import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
+import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
-import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
@@ -373,6 +369,26 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return viewConfigurationIdentifier;
     }
 
+    private void goToPatientDetailActivity(String viewConfigurationIdentifier) {
+        Intent intent = null;
+        switch (viewConfigurationIdentifier) {
+            case TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER:
+                intent = new Intent(getActivity(), PresumptivePatientDetailActivity.class);
+                break;
+            case TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER:
+                intent = new Intent(getActivity(), PositivePatientDetailActivity.class);
+                break;
+            default:
+                break;
+
+        }
+
+        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, getActivity().getIntent().getStringExtra(TOOLBAR_TITLE));
+        intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patient.getDetails());
+        intent.putExtra(Constants.KEY.TBREACH_ID, patient.getDetails().get(Constants.KEY.TBREACH_ID));
+        startActivity(intent);
+
+    }
 
     class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {
 
@@ -397,6 +413,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         }
     }
+
     class RegisterActionHandler implements View.OnClickListener {
 
         @Override
@@ -417,11 +434,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
-                    Intent intent = new Intent(registerActivity, PresumptivePatientDetailActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerActivity.getIntent().getStringExtra(TOOLBAR_TITLE));
-                    intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patient.getDetails());
-                    intent.putExtra(Constants.KEY.TBREACH_ID, patient.getDetails().get(Constants.KEY.TBREACH_ID));
-                    startActivity(intent);
+                    goToPatientDetailActivity(getViewConfigurationIdentifier());
                     break;
                 case R.id.treat_lnk:
                     registerActivity.startFormActivity(TREATMENT, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
