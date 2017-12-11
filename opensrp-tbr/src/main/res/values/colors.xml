@@ -27,18 +27,8 @@
     <color name="vaccine_blue_bg_st">#389cc8</color>
     <color name="vaccine_blue_bg_end">#3495bf</color>
 
-    <color name="vaccine_light_blue_bg_stk">#b2d9ea</color>
-    <color name="vaccine_light_blue_bg_st">#e4f1f6</color>
-    <color name="vaccine_light_blue_bg_end">#e3f0f5</color>
-
     <color name="vaccine_na_bg_stk">#D4D4D4</color>
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
 
-    <color name="vaccine_grey_bg_stk">#d8d8d8</color>
-    <color name="vaccine_grey_bg_st">#f4f4f4</color>
-    <color name="vaccine_grey_bg_end">#ebebeb</color>
-
-    <color name="due_vaccine_red">#C52929</color>
-    <color name="due_vaccine_blue">#3597C1</color>
 </resources>

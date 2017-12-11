@@ -74,8 +74,6 @@ public class TbrClientProcessor extends ClientProcessor {
                     //iterate through the events
                     if (event.has("client")) {
                         processEvent(event, event.getJSONObject("client"), clientClassificationJson);
-                        if (eventType.equals(TREATMENT_INITIATION))
-                            TbrApplication.getInstance().getResultsRepository().setBaselineResults(event.getString("baseEntityId"));
                     }
                 }
             }
@@ -110,10 +108,9 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setAnmId(contentValues.getAsString(ResultsRepository.ANMID));
                 result.setLocationId(contentValues.getAsString(ResultsRepository.LOCATIONID));
                 result.setSyncStatus(ResultsRepository.TYPE_Unsynced);
+                result.setCreatedAt(contentValues.getAsString(ResultsRepository.CREATED_AT));
                 String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
                 result.setFormSubmissionId(formSubmissionId);
-                if (resultsRepository.isTreatmentStarted(result.getBaseEntityId()))
-                    result.setBaseline(Result.BASELINE_TYPE.POST_BASELINE.ordinal());
                 resultsRepository.saveResult(result);
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();

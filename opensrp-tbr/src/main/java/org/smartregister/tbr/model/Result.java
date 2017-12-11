@@ -8,8 +8,6 @@ import java.util.Date;
 
 public class Result {
 
-    public enum BASELINE_TYPE {PRE_BASELINE, IS_BASELINE, POST_BASELINE}
-
     private Long id;
     private String baseEntityId;
     private String type;
@@ -17,7 +15,6 @@ public class Result {
     private String value1;
     private String result2;
     private String value2;
-    private int baseline;
     private String formSubmissionId;
     private String eventId;
     private Date date;
@@ -81,14 +78,6 @@ public class Result {
 
     public void setValue2(String value2) {
         this.value2 = value2;
-    }
-
-    public int getBaseline() {
-        return baseline;
-    }
-
-    public void setBaseline(int baseline) {
-        this.baseline = baseline;
     }
 
     public String getFormSubmissionId() {

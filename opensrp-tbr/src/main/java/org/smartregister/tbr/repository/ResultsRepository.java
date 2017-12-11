@@ -2,8 +2,6 @@ package org.smartregister.tbr.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -15,13 +13,7 @@ import org.smartregister.tbr.model.Result;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
-import static org.smartregister.tbr.model.Result.BASELINE_TYPE;
-import static util.TbrConstants.KEY.TREATMENT_INITIATION_DATE;
-import static util.TbrConstants.PATIENT_TABLE_NAME;
 
 public class ResultsRepository extends BaseRepository {
 
@@ -56,12 +48,11 @@ public class ResultsRepository extends BaseRepository {
             FORMSUBMISSION_ID + "  VARCHAR NOT NULL, " +
             EVENT_ID + "  VARCHAR  NULL, " +
             DATE + "  DATETIME NOT NULL, " +
-            BASELINE + " INTEGER DEFAULT 0, " +
             ANMID + "  VARCHAR NOT NULL, " +
             LOCATIONID + "  VARCHAR NOT NULL, " +
             SYNC_STATUS + "  VARCHAR NOT NULL, " +
-            CREATED_AT + " VARCHAR NULL, " +
-            UPDATED_AT_COLUMN + " INTEGER NULL, " +
+            CREATED_AT + " VARCHAR NOT NULL, " +
+            UPDATED_AT_COLUMN + " INTEGER NOT NULL, " +
             "UNIQUE(base_entity_id, formSubmissionId) ON CONFLICT IGNORE )";
 
     private static final String INDEX_ID = "CREATE INDEX " + TABLE_NAME + "_" + ID +
@@ -96,7 +87,6 @@ public class ResultsRepository extends BaseRepository {
                 result.setId(existingId);
                 update(result);
             } else {
-                result.setCreatedAt(Calendar.getInstance().getTimeInMillis());
                 getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(result));
             }
         } else {
@@ -119,11 +109,11 @@ public class ResultsRepository extends BaseRepository {
         values.put(RESULT2, result.getResult2());
         values.put(VALUE2, result.getValue2());
         values.put(DATE, result.getDate().getTime());
-        values.put(BASELINE, result.getBaseline());
         values.put(ANMID, result.getAnmId());
         values.put(LOCATIONID, result.getLocationId());
         values.put(SYNC_STATUS, result.getSyncStatus());
         values.put(FORMSUBMISSION_ID, result.getFormSubmissionId());
+        values.put(CREATED_AT, result.getCreatedAt());
         values.put(UPDATED_AT_COLUMN, result.getUpdatedAt());
         return values;
     }
@@ -151,26 +141,24 @@ public class ResultsRepository extends BaseRepository {
         return id;
     }
 
-    private boolean hasBaseline(String baseEntityId) {
-        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{ID}, BASE_ENTITY_ID + " = ? AND " + BASELINE + " = " + BASELINE_TYPE.IS_BASELINE + COLLATE_NOCASE, new String[]{baseEntityId}, null, null, null, null);
-        int results = cursor.getCount();
-        cursor.close();
-        return results > 0;
-
+    public Map<String, String> getLatestResults(String baseEntityId) {
+        return getLatestResults(baseEntityId, false, null);
     }
 
-
-    public Map<String, String> getLatestResults(String baseEntityId, @Nullable BASELINE_TYPE baselineType) {
+    public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
         Cursor cursor = null;
         Map<String, String> clientDetails = new HashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
-            String baselineFilter = baselineType != null ? " AND " + BASELINE + " = " + baselineType.ordinal() : "";
+            String baselineFilter = "";
+            if (afterBaseline) {
+                baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
+            }
             String query =
                     "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                             " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "'" +
-                            baselineFilter
+                            + "" + "= '" + baseEntityId + "' "
+                            + baselineFilter
                             + " GROUP BY " + TYPE;
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
@@ -179,7 +167,7 @@ public class ResultsRepository extends BaseRepository {
                     String value = cursor.getString(cursor.getColumnIndex(VALUE1));
                     clientDetails.put(key, value);
                     String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
-                    if (key2 != null && key2.isEmpty()) {
+                    if (key2 != null && !key2.isEmpty()) {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
                         clientDetails.put(key2, value);
                     }
@@ -194,57 +182,6 @@ public class ResultsRepository extends BaseRepository {
             }
         }
         return clientDetails;
-    }
-
-    public void setBaselineResults(String baseEntityId) {
-        Cursor cursor = null;
-        try {
-            SQLiteDatabase db = getWritableDatabase();
-            Set<String> results = new HashSet<>();
-            String query =
-                    "SELECT max(" + DATE + ")," + FORMSUBMISSION_ID +
-                            " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "'"
-                            + "GROUP BY " + TYPE;
-            cursor = db.rawQuery(query, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    results.add(cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)));
-                } while (cursor.moveToNext());
-            }
-            if (!results.isEmpty()) {
-                ContentValues values = new ContentValues();
-                values.put(BASELINE, BASELINE_TYPE.IS_BASELINE.ordinal());
-                db.update(TABLE_NAME, values, BASE_ENTITY_ID + "=? AND " + FORMSUBMISSION_ID + " IN ('" + TextUtils.join("','", results) + "')", new String[]{baseEntityId});
-            }
-        } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
-    public boolean isTreatmentStarted(String baseEntityId) {
-        Cursor cursor = null;
-        boolean started = false;
-        try {
-            SQLiteDatabase db = getWritableDatabase();
-            String query =
-                    "SELECT " + TREATMENT_INITIATION_DATE + " FROM " + PATIENT_TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "'";
-            cursor = db.rawQuery(query, null);
-            if (cursor != null && cursor.moveToFirst())
-                started = !cursor.getString(cursor.getColumnIndex(TREATMENT_INITIATION_DATE)).isEmpty();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-        return started;
     }
 
 }
