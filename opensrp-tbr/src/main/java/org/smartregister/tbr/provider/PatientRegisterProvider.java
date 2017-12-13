@@ -12,9 +12,11 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
@@ -43,11 +45,14 @@ import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
+import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
+import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
+import static util.TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
 
@@ -92,11 +97,16 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, convertView);
-            populateResultsColumn(pc, client, convertView);
-            if (context instanceof PresumptivePatientRegisterActivity)
+            if (context instanceof PresumptivePatientRegisterActivity) {
+                populateResultsColumn(pc, client, convertView);
                 populateDiagnoseColumn(client, convertView);
-            else if (context instanceof PositivePatientRegisterActivity)
+            } else if (context instanceof PositivePatientRegisterActivity) {
+                populateResultsColumn(pc, client, convertView);
                 populateTreatColumn(client, convertView);
+            } else if (context instanceof InTreatmentPatientRegisterActivity) {
+                populateIntreatmentResultsColumn(pc, client, convertView);
+                populateFollowupColumn(pc, client, convertView);
+            }
             return;
         }
         for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
@@ -125,6 +135,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case DIAGNOSIS:
                     populateDiagnosisColumn(pc, convertView);
                     break;
+                case INTREATMENT_RESULTS:
+                    populateIntreatmentResultsColumn(pc, client, convertView);
+                    break;
+                case FOLLOWUP:
+                    populateFollowupColumn(pc, client, convertView);
+                    break;
             }
         }
         Map<String, Integer> mapping = new HashMap();
@@ -136,6 +152,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(DROPDOWN, R.id.dropdown_column);
         mapping.put(TREAT, R.id.treat_column);
         mapping.put(DIAGNOSIS, R.id.diagnosis_column);
+        mapping.put(INTREATMENT_RESULTS, R.id.results_column);
+        mapping.put(FOLLOWUP, R.id.followup_column);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
 
     }
@@ -163,8 +181,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return patient;
     }
 
-    private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, boolean withOtherResults) {
-        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+    private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
@@ -192,13 +209,22 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        return populateResultsColumn(pc, client, view, new TbrSpannableStringBuilder(), false);
+    }
+
+    private View populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view, TbrSpannableStringBuilder stringBuilder, boolean afterBaseline) {
         View result = view.findViewById(R.id.result_lnk);
         attachOnclickListener(result, client);
         TextView results = (TextView) view.findViewById(R.id.result_details);
         attachOnclickListener(results, client);
-
-        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
-        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, true);
+        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
+        Map<String, String> testResults;
+        if (afterBaseline) {
+            long baseline = Long.valueOf(getValue(pc.getColumnmaps(), KEY.BASELINE, false));
+            testResults = resultsRepository.getLatestResults(baseEntityId, afterBaseline, baseline);
+        } else
+            testResults = resultsRepository.getLatestResults(baseEntityId);
+        stringBuilder = populateXpertResult(testResults, stringBuilder, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
                 stringBuilder.append(",\n");
@@ -309,7 +335,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
-        TbrSpannableStringBuilder stringBuilder = populateXpertResult(testResults, false);
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+        populateXpertResult(testResults, stringBuilder, false);
 
         if (stringBuilder.length() > 0) {
             adjustLayoutParams(result);
@@ -318,6 +345,38 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
 
         return view.findViewById(R.id.xpert_results_column);
+    }
+
+    private View populateIntreatmentResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        String treatmentStartDate = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+        if (!treatmentStartDate.isEmpty()) {
+            TextView results = (TextView) view.findViewById(R.id.result_details);
+            results.setVisibility(View.VISIBLE);
+            stringBuilder.append(getDuration(treatmentStartDate) + " ago\n");
+            populateResultsColumn(pc, client, view, stringBuilder, true);
+        }
+        return view;
+    }
+
+    private View populateFollowupColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        attachOnclickListener(view.findViewById(R.id.followup), client);
+        String treatmentStart = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
+        if (!treatmentStart.isEmpty()) {
+            DateTime treatmentStartDate = DateTime.parse(treatmentStart);
+            fillValue((TextView) view.findViewById(R.id.followup_text), "Followup\n due " + treatmentStartDate.toString("dd/MM"));
+            int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+            if (due < 0)
+                view.findViewById(R.id.followup).setBackgroundResource(R.drawable.due_vaccine_red_bg);
+            else if (due == 0)
+                view.findViewById(R.id.followup).setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+            else {
+                ((TextView) view.findViewById(R.id.followup_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                view.findViewById(R.id.followup).setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            }
+
+        }
+        return view;
     }
 
     @Override
@@ -342,17 +401,19 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     @Override
     public View inflatelayoutForCursorAdapter() {
         String viewIdentifier;
-        int viewResourceId;
+        View view;
         if (context instanceof PresumptivePatientRegisterActivity) {
             viewIdentifier = PRESUMPTIVE_REGISTER_ROW;
-            viewResourceId = R.layout.register_presumptive_list_row;
-        } else {
+            view = inflater.inflate(R.layout.register_presumptive_list_row, null);
+        } else if (context instanceof PositivePatientRegisterActivity) {
             viewIdentifier = POSITIVE_REGISTER_ROW;
-            viewResourceId = R.layout.register_positive_list_row;
+            view = inflater.inflate(R.layout.register_positive_list_row, null);
+        } else {
+            viewIdentifier = INTREATMENT_REGISTER_ROW;
+            view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
         ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
-        View view = inflater.inflate(viewResourceId, null);
         if (viewConfiguration == null) {
             return view;
         } else {
@@ -365,4 +426,5 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             v.setText(value);
 
     }
+
 }

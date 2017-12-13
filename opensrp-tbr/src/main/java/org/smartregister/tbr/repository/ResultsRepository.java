@@ -30,6 +30,8 @@ public class ResultsRepository extends BaseRepository {
     public static final String FORMSUBMISSION_ID = "formSubmissionId";
     public static final String EVENT_ID = "event_id";
     public static final String DATE = "date";
+    public static final String BASELINE = "baseline";
+    public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String ANMID = "anmid";
     public static final String LOCATIONID = "location_id";
@@ -49,7 +51,8 @@ public class ResultsRepository extends BaseRepository {
             ANMID + "  VARCHAR NOT NULL, " +
             LOCATIONID + "  VARCHAR NOT NULL, " +
             SYNC_STATUS + "  VARCHAR NOT NULL, " +
-            UPDATED_AT_COLUMN + " INTEGER NULL, " +
+            CREATED_AT + " VARCHAR NOT NULL, " +
+            UPDATED_AT_COLUMN + " INTEGER NOT NULL, " +
             "UNIQUE(base_entity_id, formSubmissionId) ON CONFLICT IGNORE )";
 
     private static final String INDEX_ID = "CREATE INDEX " + TABLE_NAME + "_" + ID +
@@ -93,7 +96,8 @@ public class ResultsRepository extends BaseRepository {
     }
 
     private void update(Result result) {
-        getWritableDatabase().update(TABLE_NAME, createValuesFor(result), ID + " = ?", new String[]{result.getId().toString()});
+        ContentValues contentValues = createValuesFor(result);
+        getWritableDatabase().update(TABLE_NAME, contentValues, ID + " = ?", new String[]{result.getId().toString()});
     }
 
     private ContentValues createValuesFor(Result result) {
@@ -109,6 +113,7 @@ public class ResultsRepository extends BaseRepository {
         values.put(LOCATIONID, result.getLocationId());
         values.put(SYNC_STATUS, result.getSyncStatus());
         values.put(FORMSUBMISSION_ID, result.getFormSubmissionId());
+        values.put(CREATED_AT, result.getCreatedAt());
         values.put(UPDATED_AT_COLUMN, result.getUpdatedAt());
         return values;
     }
@@ -136,17 +141,25 @@ public class ResultsRepository extends BaseRepository {
         return id;
     }
 
-
     public Map<String, String> getLatestResults(String baseEntityId) {
+        return getLatestResults(baseEntityId, false, null);
+    }
+
+    public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<String, String>();
+        Map<String, String> clientDetails = new HashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
+            String baselineFilter = "";
+            if (afterBaseline) {
+                baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
+            }
             String query =
                     "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                             " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "'"
-                            + "GROUP BY " + TYPE;
+                            + "" + "= '" + baseEntityId + "' "
+                            + baselineFilter
+                            + " GROUP BY " + TYPE;
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -154,7 +167,7 @@ public class ResultsRepository extends BaseRepository {
                     String value = cursor.getString(cursor.getColumnIndex(VALUE1));
                     clientDetails.put(key, value);
                     String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
-                    if (key2 != null && key2.isEmpty()) {
+                    if (key2 != null && !key2.isEmpty()) {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
                         clientDetails.put(key2, value);
                     }

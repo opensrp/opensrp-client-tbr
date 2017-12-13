@@ -26,6 +26,8 @@ TbrConstants extends AllConstants {
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
         public static final String DIAGNOSIS_DATE = "diagnosis_date";
         public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
+        public static final String BASELINE = "baseline";
+        public static final String NEXT_VISIT_DATE = "next_visit_date";
     }
 
 
@@ -46,6 +48,8 @@ TbrConstants extends AllConstants {
         public static final String DROPDOWN = "dropdown";
         public static final String TREAT = "treat";
         public static final String DIAGNOSIS = "diagnosis";
+        public static final String INTREATMENT_RESULTS = "intreatment_results";
+        public static final String FOLLOWUP = "followup";
     }
 
     public static final class VIEW_CONFIGS {
@@ -61,6 +65,11 @@ TbrConstants extends AllConstants {
         public static final String POSITIVE_REGISTER = "positive_register";
         public static final String POSITIVE_REGISTER_HEADER = "positive_register_header";
         public static final String POSITIVE_REGISTER_ROW = "positive_register_row";
+
+        public static final String INTREATMENT_REGISTER = "intreatment_register";
+        public static final String INTREATMENT_REGISTER_HEADER = "intreatment_register_header";
+        public static final String INTREATMENT_REGISTER_ROW = "intreatment_register_row";
+
     }
 
     public static final class ENKETO_FORMS {
@@ -72,5 +81,6 @@ TbrConstants extends AllConstants {
         public static final String DIAGNOSIS = "diagnosis";
         public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
         public static final String TREATMENT = "treatment_initiation";
+        public static final String FOLLOWUP_VISIT = "followup_visit";
     }
 }

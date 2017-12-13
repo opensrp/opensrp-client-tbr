@@ -25,4 +25,5 @@ public class ViewPositionComparator implements Comparator<View> {
             return comparison;
         }
     }
+
 }

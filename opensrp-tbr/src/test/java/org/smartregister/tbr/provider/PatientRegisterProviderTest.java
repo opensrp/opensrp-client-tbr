@@ -219,8 +219,8 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
         Calendar calendar = Calendar.getInstance();
         assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
-        calendar.add(Calendar.DATE, -10);
-        assertEquals("10d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        calendar.add(Calendar.DATE, -14);
+        assertEquals("2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.MONTH, -6);
         assertEquals("6m 2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.YEAR, -30);

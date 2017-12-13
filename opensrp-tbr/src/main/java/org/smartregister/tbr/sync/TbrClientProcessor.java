@@ -32,7 +32,8 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
             "Culture Result", "X-Ray Result"};
 
-    public static final String DIAGNOSIS_EVENT="TB Diagnosis";
+    public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
+    public static final String TREATMENT_INITIATION = "Treatment Initiation";
 
     public TbrClientProcessor(Context context) {
         super(context);
@@ -107,6 +108,7 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setAnmId(contentValues.getAsString(ResultsRepository.ANMID));
                 result.setLocationId(contentValues.getAsString(ResultsRepository.LOCATIONID));
                 result.setSyncStatus(ResultsRepository.TYPE_Unsynced);
+                result.setCreatedAt(contentValues.getAsString(ResultsRepository.CREATED_AT));
                 String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
                 result.setFormSubmissionId(formSubmissionId);
                 resultsRepository.saveResult(result);

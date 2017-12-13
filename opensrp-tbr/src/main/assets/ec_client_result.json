@@ -127,6 +127,12 @@
       "json_mapping": {
         "field": "providerId"
       }
+    },
+    {
+      "column_name": "created_at",
+      "json_mapping": {
+        "field": "version"
+      }
     }
   ]
 }

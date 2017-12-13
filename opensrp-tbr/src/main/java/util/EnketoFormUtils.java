@@ -60,8 +60,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
+import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 
 /**
@@ -1092,6 +1094,10 @@ public class EnketoFormUtils {
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
                     JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
                     client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
+                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                } else if (e.getEventType().equals(TREATMENT_INITIATION)) {
+                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    client.put(BASELINE, e.getVersion());
                     eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
                 }
 
