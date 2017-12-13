@@ -81,5 +81,6 @@ TbrConstants extends AllConstants {
         public static final String DIAGNOSIS = "diagnosis";
         public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
         public static final String TREATMENT = "treatment_initiation";
+        public static final String FOLLOWUP_VISIT = "followup_visit";
     }
 }

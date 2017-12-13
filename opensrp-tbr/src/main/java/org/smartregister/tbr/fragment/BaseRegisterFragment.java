@@ -62,6 +62,7 @@ import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
 import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
+import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
@@ -414,6 +415,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.treat_lnk:
                     registerActivity.startFormActivity(TREATMENT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
                     break;
+                case R.id.followup:
+                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    break;
+
                 default:
                     break;
             }

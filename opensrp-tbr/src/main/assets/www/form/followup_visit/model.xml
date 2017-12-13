@@ -1,0 +1,41 @@
+<model>
+    <instance>
+        <FollowUpVisit_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Follow up Visit"
+            id="followup_visit" version="201711230919">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
+            <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
+            <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
+            <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
+            <treatment_duration />
+            <regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: return visit date" />
+            <adverse_effect openmrs_entity="concept" openmrs_entity_id="TBR: adverse effect" />
+            <adverse_effect_specify openmrs_entity="concept"
+                openmrs_entity_id="TBR:other specify text" />
+            <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
+            <meta>
+                <instanceID />
+            </meta>
+        </FollowUpVisit_23.11.17_US>
+    </instance>
+</model>

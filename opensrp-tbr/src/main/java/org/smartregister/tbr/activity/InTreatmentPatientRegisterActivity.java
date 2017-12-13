@@ -9,6 +9,7 @@ import org.smartregister.tbr.fragment.InTreatmentPatientRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER;
@@ -36,5 +37,12 @@ public class InTreatmentPatientRegisterActivity extends BaseRegisterActivity {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.addNewPatient).setVisible(false);
         return true;
+    }
+
+    @Override
+    protected List<String> buildFormNameList() {
+        formNames = super.buildFormNameList();
+        formNames.add(FOLLOWUP_VISIT);
+        return formNames;
     }
 }
