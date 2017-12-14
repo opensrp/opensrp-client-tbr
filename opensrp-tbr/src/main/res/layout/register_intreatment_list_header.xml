@@ -23,4 +23,31 @@
         android:textColor="@color/client_list_grey"
         android:textSize="16sp" />
 
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/treatment_header"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.6"
+        android:text="@string/treatment"
+        android:textAllCaps="true"
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/baseline_header"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.6"
+        android:text="@string/baseLine"
+        android:textAllCaps="true"
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
 </LinearLayout>

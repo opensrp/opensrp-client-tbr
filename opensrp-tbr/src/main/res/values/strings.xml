@@ -39,4 +39,6 @@
     <string name="start_treatment">Start Treatment</string>
     <string name="diagnosis">Diagnosis</string>
     <string name="followup">Followup</string>
+    <string name="treatment">Treatment</string>
+    <string name="baseLine">Baseline</string>
 </resources>
