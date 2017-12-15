@@ -318,9 +318,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(DROPDOWN, R.id.dropdown_header);
             mapping.put(TREAT, R.id.treat_header);
             mapping.put(DIAGNOSIS, R.id.diagnosis_header);
-            mapping.put(INTREATMENT_RESULTS, R.id.results_header);
+            mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_header);
             mapping.put(FOLLOWUP, R.id.followup_header);
-            mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_header);
+            mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_schedule_header);
             mapping.put(TREATMENT, R.id.treatment_header);
             mapping.put(BASELINE, R.id.baseline_header);
             TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
@@ -408,6 +408,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             switch (view.getId()) {
                 case R.id.dropdown_btn:
                 case R.id.result_lnk:
+                case R.id.intreatment_lnk:
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:

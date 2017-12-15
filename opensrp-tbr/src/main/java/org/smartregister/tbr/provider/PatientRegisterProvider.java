@@ -142,13 +142,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                     populateFollowupColumn(convertView, client);
                     break;
                 case TREATMENT:
-                    populateTreatmentColumn(pc, client, convertView);
+                    populateTreatmentColumn(pc, convertView);
                     break;
                 case BASELINE:
                     populateBaselineColumn(pc, client, convertView);
                     break;
             }
         }
+
         Map<String, Integer> mapping = new HashMap();
         mapping.put(PATIENT, R.id.patient_column);
         mapping.put(RESULTS, R.id.results_column);
@@ -158,13 +159,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(DROPDOWN, R.id.dropdown_column);
         mapping.put(TREAT, R.id.treat_column);
         mapping.put(DIAGNOSIS, R.id.diagnosis_column);
-        mapping.put(INTREATMENT_RESULTS, R.id.results_column);
+        mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_column);
         mapping.put(FOLLOWUP, R.id.followup_column);
         mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_schedule_column);
-        mapping.put(BASELINE, R.id.results_column);
+        mapping.put(BASELINE, R.id.baseline_column);
         mapping.put(TREATMENT, R.id.treatment_column);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
-
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
@@ -189,7 +189,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         attachOnclickListener(patient, client);
     }
 
-    private TbrSpannableStringBuilder populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+    private void populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
@@ -197,7 +197,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             stringBuilder.append(withOtherResults ? "/ " : " RIF ");
             stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
         }
-        return stringBuilder;
     }
 
     private String processXpertResult(String result) {
@@ -216,21 +215,21 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
-        populateResultsColumn(pc, client, view, new TbrSpannableStringBuilder(), false, null);
+        View button = view.findViewById(R.id.result_lnk);
+        TextView details = (TextView) view.findViewById(R.id.result_details);
+        populateResultsColumn(pc, client, view, new TbrSpannableStringBuilder(), false, null, button, details);
     }
 
-    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view, TbrSpannableStringBuilder stringBuilder, boolean afterBaseline, Long baseline) {
-        View result = view.findViewById(R.id.result_lnk);
-        attachOnclickListener(result, client);
-        TextView results = (TextView) view.findViewById(R.id.result_details);
-        attachOnclickListener(results, client);
+    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view, TbrSpannableStringBuilder stringBuilder, boolean afterBaseline, Long baseline, View button, TextView details) {
+        attachOnclickListener(button, client);
+        attachOnclickListener(details, client);
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> testResults;
         if (baseline != null) {
             testResults = resultsRepository.getLatestResults(baseEntityId, afterBaseline, baseline);
         } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
-        stringBuilder = populateXpertResult(testResults, stringBuilder, true);
+        populateXpertResult(testResults, stringBuilder, true);
         if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
             if (stringBuilder.length() > 0)
                 stringBuilder.append(",\n");
@@ -272,11 +271,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         }
         if (stringBuilder.length() > 0) {
-            results.setVisibility(View.VISIBLE);
-            results.setText(stringBuilder);
-            adjustLayoutParams(result);
+            details.setVisibility(View.VISIBLE);
+            details.setText(stringBuilder);
+            adjustLayoutParams(button);
         } else
-            results.setVisibility(View.GONE);
+            details.setVisibility(View.GONE);
     }
 
     private void populateDiagnoseColumn(SmartRegisterClient client, View view) {
@@ -316,12 +315,16 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private void adjustLayoutParams(View view) {
+        if (view == null)
+            return;
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         view.setLayoutParams(params);
     }
 
     private void attachOnclickListener(View view, SmartRegisterClient client) {
+        if (view == null)
+            return;
         view.setOnClickListener(onClickListener);
         view.setTag(client);
     }
@@ -350,11 +353,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         String treatmentStartDate = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         if (!treatmentStartDate.isEmpty()) {
-            TextView results = (TextView) view.findViewById(R.id.result_details);
+            TextView results = (TextView) view.findViewById(R.id.intreatment_details);
+            View button = view.findViewById(R.id.intreatment_lnk);
             results.setVisibility(View.VISIBLE);
             stringBuilder.append(getDuration(treatmentStartDate) + " ago\n");
             long baseline = Long.valueOf(getValue(pc.getColumnmaps(), KEY.BASELINE, false));
-            populateResultsColumn(pc, client, view, stringBuilder, true, baseline);
+            populateResultsColumn(pc, client, view, stringBuilder, true, baseline, button, results);
         }
     }
 
@@ -377,12 +381,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
 
-    private void populateTreatmentColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+    private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
         String treatmentStart = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
         ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + getDuration(treatmentStart) + " ago\n");
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> details = TbrApplication.getInstance().getContext().detailsRepository().getAllDetailsForClient(baseEntityId);
-        ((TextView) view.findViewById(R.id.patient_type)).setText(details.get("patient_type"));
+        String patientType = details.get("patient_type");
+        patientType = WordUtils.capitalizeFully(patientType.replace("_", " "));
+        ((TextView) view.findViewById(R.id.patient_type)).setText(patientType);
         ((TextView) view.findViewById(R.id.regimen)).setText(details.get("regimen"));
 
     }
@@ -390,8 +396,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateBaselineColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         long baseline = Long.valueOf(getValue(pc.getColumnmaps(), KEY.BASELINE, false));
-        populateResultsColumn(pc, client, view, stringBuilder, false, baseline);
-        view.findViewById(R.id.result_lnk).setVisibility(View.GONE);
+        TextView results = (TextView) view.findViewById(R.id.baseline_details);
+        populateResultsColumn(pc, client, view, stringBuilder, false, baseline, null, results);
     }
 
     private void populateFollowupColumn(View view, SmartRegisterClient client) {
