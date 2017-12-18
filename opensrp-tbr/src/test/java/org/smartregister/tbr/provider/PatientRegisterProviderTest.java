@@ -379,7 +379,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         results.put(TEST_RESULT, "scanty");
         when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(RESULTS);
-        expected = "Smr Scty";
+        expected = "Smr Sty";
         assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
 
 

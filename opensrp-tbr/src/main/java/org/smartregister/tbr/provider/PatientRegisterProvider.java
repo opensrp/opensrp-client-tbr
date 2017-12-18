@@ -236,27 +236,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
         boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
-        if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
-            if (hasXpert)
-                stringBuilder.append(", ");
-            populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT));
-        }
-        if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
-            if (stringBuilder.length() > 0)
-                stringBuilder.append(", ");
-            stringBuilder.append("Cul ");
-            stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
-        }
-        if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
-            if (stringBuilder.length() > 0)
-                stringBuilder.append(",\n");
-            stringBuilder.append("CXR ");
-            if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
-                stringBuilder.append("Ind", blackForegroundColorSpan);
-            else
-                stringBuilder.append("NonI", blackForegroundColorSpan);
-
-        }
+        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert);
+        populateCultureResults(stringBuilder, testResults.get(TbrConstants.RESULT.CULTURE_RESULT));
+        populateXrayResults(stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT));
         if (stringBuilder.length() > 0) {
             details.setVisibility(View.VISIBLE);
             details.setText(stringBuilder);
@@ -266,7 +248,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             details.setVisibility(View.GONE);
     }
 
-    private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result) {
+    private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result, boolean hasXpert) {
+        if (result == null) return;
+        else if (hasXpert)
+            stringBuilder.append(", ");
         stringBuilder.append("Smr ");
         switch (result) {
             case "one_plus":
@@ -279,13 +264,35 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("3+", redForegroundColorSpan);
                 break;
             case "scanty":
-                stringBuilder.append("Scty", redForegroundColorSpan);
+                stringBuilder.append("Sty", redForegroundColorSpan);
                 break;
             case "negative":
                 stringBuilder.append("Neg", redForegroundColorSpan);
                 break;
             default:
         }
+    }
+
+    private void populateXrayResults(TbrSpannableStringBuilder stringBuilder, String result) {
+        if (result == null)
+            return;
+        else if (stringBuilder.length() > 0)
+            stringBuilder.append(",\n");
+        stringBuilder.append("CXR ");
+        if (result.equals("indicative"))
+            stringBuilder.append("Ind", blackForegroundColorSpan);
+        else
+            stringBuilder.append("NonI", blackForegroundColorSpan);
+
+    }
+
+    private void populateCultureResults(TbrSpannableStringBuilder stringBuilder, String result) {
+        if (result == null)
+            return;
+        if (stringBuilder.length() > 0)
+            stringBuilder.append(", ");
+        stringBuilder.append("Cul ");
+        stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
     }
 
     private void populateDiagnoseColumn(SmartRegisterClient client, View view) {
