@@ -279,7 +279,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         else if (stringBuilder.length() > 0)
             stringBuilder.append(",\n");
         stringBuilder.append("CXR ");
-        if (result.equals("indicative"))
+        if ("indicative".equals(result))
             stringBuilder.append("Ind", blackForegroundColorSpan);
         else
             stringBuilder.append("NonI", blackForegroundColorSpan);
