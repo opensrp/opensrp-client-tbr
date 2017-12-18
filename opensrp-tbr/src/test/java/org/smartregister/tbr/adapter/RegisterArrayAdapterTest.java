@@ -29,9 +29,9 @@ public class RegisterArrayAdapterTest extends BaseUnitTest {
     private static final String TITlE = "title";
     private static final String TITlE_TOKEN = "title_token";
     private static final int INT_0 = 0;
-    private static final int INT_1 = 1;
     private static final int INT_10 = 10;
     private static final int INT_20 = 20;
+
 
     @Mock
     private View view;
@@ -61,7 +61,7 @@ public class RegisterArrayAdapterTest extends BaseUnitTest {
     public void callingGetItemReturnsCorrectValue() {
         List<Register> registers = new ArrayList<>();
         Mockito.when(view.getResidence()).thenReturn(residence);
-        Register register = new Register(view, 1, 2);
+        Mockito.when(register.getStringResource(RuntimeEnvironment.application, view)).thenReturn(TITlE);
         registers.add(register);
         RegisterArrayAdapter arrayAdapter = new RegisterArrayAdapter(RuntimeEnvironment.application, 0, registers);
         junit.framework.Assert.assertEquals(register, arrayAdapter.getItem(0));
