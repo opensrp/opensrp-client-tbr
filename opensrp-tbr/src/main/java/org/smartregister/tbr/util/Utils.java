@@ -76,7 +76,7 @@ public class Utils {
 
 
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(android.preference.PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
 
@@ -85,7 +85,7 @@ public class Utils {
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(android.preference.PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
     }
 

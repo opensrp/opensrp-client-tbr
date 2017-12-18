@@ -71,7 +71,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
 
     private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
-    private View dynamicRow;
 
 
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository) {
@@ -283,7 +282,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 duration = new DateTime(date);
                 return DateUtil.getDuration(duration);
             } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
+                Log.e(TAG, e.toString(), e);
             }
         }
         return "";

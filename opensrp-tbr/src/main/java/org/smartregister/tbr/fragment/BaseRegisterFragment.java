@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -37,15 +36,11 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
-import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
@@ -397,6 +392,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         }
     }
+
     class RegisterActionHandler implements View.OnClickListener {
 
         @Override
