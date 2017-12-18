@@ -102,7 +102,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                             viewParent.removeView(view);
                         }
                         viewParent.addView(sampleView);
-                        processViews(sampleView,Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
+                        processViews(sampleView, Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -130,6 +130,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
     @Override
     protected void onResumption() {
+        //Overrides
     }
 
     @Override

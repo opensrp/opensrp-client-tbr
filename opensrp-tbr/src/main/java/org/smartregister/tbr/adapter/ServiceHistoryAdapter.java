@@ -15,8 +15,6 @@ import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
@@ -24,8 +22,6 @@ import org.smartregister.tbr.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.smartregister.tbr.R.id.FORM_SUBMISSION_ID;
 
 /**
  * Created by ndegwamartin on 20/11/2017.

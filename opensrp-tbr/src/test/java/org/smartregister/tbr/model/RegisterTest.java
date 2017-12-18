@@ -11,7 +11,6 @@ import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.jsonspec.model.Residence;
 import org.smartregister.tbr.jsonspec.model.View;
-import org.smartregister.tbr.util.Utils;
 
 /**
  * Created by ndegwamartin on 17/10/2017.

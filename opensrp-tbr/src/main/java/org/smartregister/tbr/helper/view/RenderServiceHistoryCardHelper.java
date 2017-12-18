@@ -26,7 +26,6 @@ import static org.smartregister.tbr.R.id.TB_REACH_ID;
 public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
     public static final String UNION_TABLE_FLAG = "union_table_flag";
-    private Cursor mCursor;
 
     public RenderServiceHistoryCardHelper(Context context, ResultDetailsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -72,7 +71,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
                         "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
                 String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
 
-                mCursor = repository.getReadableDatabase().rawQuery(sql, null);
+
+                Cursor mCursor = repository.getReadableDatabase().rawQuery(sql, null);
                 ((Activity) context).startManagingCursor(mCursor);
                 ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
                 listView.setAdapter(adapter);

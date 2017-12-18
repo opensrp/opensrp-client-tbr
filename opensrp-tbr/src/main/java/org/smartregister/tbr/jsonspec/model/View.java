@@ -22,6 +22,8 @@ public class View {
 
     private String parent;
 
+    private Map<String, Object> metadata;
+
     public String getParent() {
         return parent;
     }
@@ -29,8 +31,6 @@ public class View {
     public void setParent(String parent) {
         this.parent = parent;
     }
-
-    private Map<String, Object> metadata;
 
     public String getIdentifier() {
         return identifier;
