@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
@@ -76,8 +77,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
+    private DetailsRepository detailsRepository;
 
-    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository) {
+    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository, DetailsRepository detailsRepository) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.visibleColumns = visibleColumns;
@@ -87,6 +89,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 context.getResources().getColor(android.R.color.holo_red_dark));
         blackForegroundColorSpan = new ForegroundColorSpan(
                 context.getResources().getColor(android.R.color.black));
+        this.detailsRepository = detailsRepository;
     }
 
     @Override
@@ -387,12 +390,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
         String treatmentStart = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
-        ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + getDuration(treatmentStart) + " ago\n");
+        ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + getDuration(treatmentStart) + " ago");
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
-        Map<String, String> details = TbrApplication.getInstance().getContext().detailsRepository().getAllDetailsForClient(baseEntityId);
+        Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         String patientType = details.get("patient_type");
-        patientType = WordUtils.capitalizeFully(patientType.replace("_", " "));
-        ((TextView) view.findViewById(R.id.patient_type)).setText(patientType);
+        if (patientType != null) {
+            patientType = WordUtils.capitalizeFully(patientType.replace("_", " "));
+            ((TextView) view.findViewById(R.id.patient_type)).setText(patientType);
+        }
         ((TextView) view.findViewById(R.id.regimen)).setText(details.get("regimen"));
 
     }

@@ -18,6 +18,7 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.repository.ResultsRepository;
@@ -53,11 +54,13 @@ import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
+import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 import static util.TbrConstants.RESULT.CULTURE_RESULT;
 import static util.TbrConstants.RESULT.MTB_RESULT;
 import static util.TbrConstants.RESULT.RIF_RESULT;
 import static util.TbrConstants.RESULT.TEST_RESULT;
+import static util.TbrConstants.RESULT.XRAY_RESULT;
 
 /**
  * Created by samuelgithengi on 12/4/17.
@@ -70,6 +73,9 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     @Mock
     private ResultsRepository resultsRepository;
+
+    @Mock
+    private DetailsRepository detailsRepository;
 
     @Mock
     private Cursor cursor;
@@ -99,7 +105,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         org.smartregister.tbr.jsonspec.model.View column = new org.smartregister.tbr.jsonspec.model.View();
         column.setIdentifier(columnIdentifier);
         visibleColumns.add(column);
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         patientRegisterProvider.getView(cursor, smartRegisterClient, view);
     }
 
@@ -225,7 +231,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     @Test
     public void testGetDuration() {
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         Calendar calendar = Calendar.getInstance();
         assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.DATE, -14);
@@ -320,10 +326,69 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         Map results = new HashMap();
         results.put(TEST_RESULT, "one_plus");
         results.put(CULTURE_RESULT, "positive");
+        results.put(XRAY_RESULT, "indicative");
         when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", false, baseline)).thenReturn(results);
         initProvider(BASELINE);
-        String expected = "Smr 1+, Cul Pos";
+        String expected = "Smr 1+, Cul Pos,\nCXR Ind";
         assertEquals(expected, ((TextView) view.findViewById(R.id.baseline_details)).getText().toString());
+
+        results.put(XRAY_RESULT, "not indicative");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", false, baseline)).thenReturn(results);
+        initProvider(BASELINE);
+        expected = "Smr 1+, Cul Pos,\nCXR NonI";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.baseline_details)).getText().toString());
+
+
+    }
+
+
+    @Test
+    public void testPopulateTreatmentColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String treatment = "2017-11-20T02:40:15.600-0500";
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
+        Map results = new HashMap();
+        results.put("patient_type", "new");
+        results.put("regimen", "2HRZE/HR");
+        when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(TREATMENT);
+        assertEquals("Start: " + patientRegisterProvider.getDuration(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
+        assertEquals("New", ((TextView) view.findViewById(R.id.patient_type)).getText().toString());
+        assertEquals("2HRZE/HR", ((TextView) view.findViewById(R.id.regimen)).getText().toString());
+
+    }
+
+
+    @Test
+    public void testPopulateSmear() {
+        Map results = new HashMap();
+        results.put(TEST_RESULT, "two_plus");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        String expected = "Smr 2+";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "three_plus");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr 3+";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "scanty");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr Scty";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "negative");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr Neg";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
 
     }
 
