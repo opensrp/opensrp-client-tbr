@@ -19,11 +19,14 @@ import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
+import org.smartregister.tbr.receiver.UserConfigurableViewsBroadcastReceiver;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
 import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
+import org.smartregister.tbr.service.SyncService;
+import org.smartregister.tbr.util.ServiceTools;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -65,6 +68,8 @@ public class TbrApplication extends DrishtiApplication {
         CoreLibrary.init(context);
 
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
+
+        DrishtiSyncScheduler.setReceiverClass(UserConfigurableViewsBroadcastReceiver.class);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
@@ -202,9 +207,10 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
-    public void triggerConfigurationSync(TriggerViewConfigurationSyncEvent event) {
+    public void triggerSync(TriggerViewConfigurationSyncEvent event) {
         if (event != null) {
             startPullConfigurableViewsIntentService(this);
+            ServiceTools.startService(getApplicationContext(), SyncService.class);
         }
 
     }

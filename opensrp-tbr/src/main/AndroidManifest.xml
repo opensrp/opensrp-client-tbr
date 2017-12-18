@@ -59,9 +59,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <service android:name=".service.SyncService" />
+
         <service android:name=".service.PullConfigurableViewsIntentService" />
 
         <receiver android:name=".receiver.TbrSyncBroadcastReceiver" />
+
+        <receiver android:name=".receiver.UserConfigurableViewsBroadcastReceiver" />
     </application>
 
 </manifest>
