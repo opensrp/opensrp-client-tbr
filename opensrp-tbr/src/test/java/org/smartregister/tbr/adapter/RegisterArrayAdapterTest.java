@@ -14,6 +14,7 @@ import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.jsonspec.model.Residence;
 import org.smartregister.tbr.jsonspec.model.View;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
 
 import java.util.ArrayList;
@@ -33,8 +34,11 @@ public class RegisterArrayAdapterTest extends BaseUnitTest {
     private static final int INT_10 = 10;
     private static final int INT_20 = 20;
 
+
     @Mock
     private View view;
+    @Mock
+    private ViewConfiguration viewConfiguration;
 
     @Mock
     private Residence residence;
@@ -61,7 +65,8 @@ public class RegisterArrayAdapterTest extends BaseUnitTest {
     public void callingGetItemReturnsCorrectValue() {
         List<Register> registers = new ArrayList<>();
         Mockito.when(view.getResidence()).thenReturn(residence);
-        Register register = new Register(view, 1, 2);
+
+        Mockito.when(register.getStringResource(RuntimeEnvironment.application, view)).thenReturn(TITlE);
         registers.add(register);
         RegisterArrayAdapter arrayAdapter = new RegisterArrayAdapter(RuntimeEnvironment.application, 0, registers);
         junit.framework.Assert.assertEquals(register, arrayAdapter.getItem(0));

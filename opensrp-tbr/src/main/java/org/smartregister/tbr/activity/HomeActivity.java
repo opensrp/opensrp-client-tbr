@@ -30,6 +30,7 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STR
 public class HomeActivity extends BaseActivity {
     private static final String TAG = HomeActivity.class.getCanonicalName();
     private TextView lastSyncTimeTextView;
+    private View refreshButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,14 @@ public class HomeActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             processView();
-        }
 
+        }
     }
 
     //
     public void manualSync(View view) {
-        Utils.showToast(this, "Manual Syncing ...");
+        refreshButton = view;
+        view.startAnimation(Utils.getRotateAnimation());
         TriggerViewConfigurationSyncEvent viewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
         postEvent(viewConfigurationSyncEvent);
@@ -83,7 +85,7 @@ public class HomeActivity extends BaseActivity {
         //Set last sync time
         lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
-            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d HH:mm");
             lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
         }
 
@@ -106,11 +108,12 @@ public class HomeActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
-        if (syncCompleteEvent != null) {
-
+        if (syncCompleteEvent != null && refreshButton != null) {
+            refreshButton.clearAnimation();
             processView();
 
         }
+
 
     }
 

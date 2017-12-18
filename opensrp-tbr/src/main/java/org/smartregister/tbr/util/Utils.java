@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -172,5 +174,18 @@ public class Utils {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    public static Animation getRotateAnimation(){
+
+        Animation rotate = new RotateAnimation(
+                0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+        );
+        rotate.setDuration(0);
+        rotate.setRepeatCount(Animation.INFINITE);
+
+        return rotate;
     }
 }
