@@ -10,9 +10,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
@@ -21,6 +25,8 @@ import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
@@ -135,6 +141,13 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     protected void onResumption() {
         TbrApplication.getInstance().getConfigurableViewsHelper().registerViewConfigurations(getViewIdentifiers());
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -170,6 +183,21 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showProgressDialog(ShowProgressDialogEvent showProgressDialogEvent) {
+        if (showProgressDialogEvent != null)
+            showProgressDialog();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void saveFormSubmissionComplete(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
+        if (enketoFormSaveCompleteEvent != null) {
+            refreshList(FetchStatus.fetched);
+            hideProgressDialog();
+            switchToBaseFragment();
+        }
+    }
+
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -185,12 +213,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
-
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             int formIndex = formNames.indexOf(formName) + 1; // add the offset
             if (entityId != null || metaData != null) {
-                String data = EnketoFormUtils.getInstance(this).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
+                String data = EnketoFormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
@@ -204,7 +231,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "startFormActivity: ", e);
         }
 
     }
@@ -243,13 +270,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
         try {
-            EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(this);
+            EnketoFormUtils enketoFormUtils = EnketoFormUtils.getInstance(getApplicationContext());
             enketoFormUtils.generateFormSubmisionFromXMLString(id, formSubmision, formName, fieldOverrides);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.i(TAG, "saveFormSubmission: ", e);
+            switchToBaseFragment();
         }
         //TODO Remove once the dialog in enketo library is dismissed
-        switchToBaseFragment();
+        //
     }
 
     @Override
@@ -258,7 +286,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
     }
 
-    public abstract List<String> getViewIdentifiers() ;
+    public abstract List<String> getViewIdentifiers();
 
     @Override
     public void onBackPressed() {
@@ -284,4 +312,5 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             super.onBackPressed(); // allow back key only if we are
         }
     }
+
 }

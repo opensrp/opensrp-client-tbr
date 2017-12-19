@@ -32,6 +32,13 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Follow up Visit",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }

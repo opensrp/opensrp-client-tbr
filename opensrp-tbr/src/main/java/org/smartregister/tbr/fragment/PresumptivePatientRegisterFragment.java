@@ -15,12 +15,18 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void populateClientListHeaderView(View view) {
-        populateClientListHeaderView(view, R.layout.register_presumptive_list_header, PRESUMPTIVE_REGISTER_HEADER);
+        View headerLayout = getLayoutInflater(null).inflate(R.layout.register_presumptive_list_header, null);
+        populateClientListHeaderView(view, headerLayout, PRESUMPTIVE_REGISTER_HEADER);
     }
 
     @Override
     protected String getMainCondition() {
         return " presumptive =\"yes\" AND confirmed_tb IS NULL";
+    }
+
+    @Override
+    protected String[] getAdditionalColumns(String tableName) {
+        return new String[]{};
     }
 
 }

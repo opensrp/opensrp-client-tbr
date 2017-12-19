@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class Result {
+
     private Long id;
     private String baseEntityId;
     private String type;
@@ -20,6 +21,7 @@ public class Result {
     private String anmId;
     private String locationId;
     private String syncStatus;
+    private String createdAt;
     private Long updatedAt;
 
     public Long getId() {
@@ -124,6 +126,14 @@ public class Result {
 
     public void setSyncStatus(String syncStatus) {
         this.syncStatus = syncStatus;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Long getUpdatedAt() {
