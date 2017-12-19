@@ -94,6 +94,9 @@ public class SyncService extends Service {
         try {
             pushECToServer();
             pullECFromServer();
+            //TODO Remove this
+            stopSelf();
+
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);

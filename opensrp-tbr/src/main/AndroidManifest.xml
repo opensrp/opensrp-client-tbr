@@ -65,7 +65,6 @@
 
         <receiver android:name=".receiver.TbrSyncBroadcastReceiver" />
 
-        <receiver android:name=".receiver.UserConfigurableViewsBroadcastReceiver" />
     </application>
 
 </manifest>

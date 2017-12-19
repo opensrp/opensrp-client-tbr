@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+import org.smartregister.CoreLibrary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormAttributeParser;
@@ -216,7 +217,7 @@ public class EnketoFormUtils {
                                                                String formName) {
         org.smartregister.clientandeventmodel.FormSubmission v2FormSubmission;
 
-        String anmId = "test";//CoreLibrary.getInstance().context().anmService().fetchDetails().name();
+        String anmId = CoreLibrary.getInstance().context().anmService().fetchDetails().name();
         String instanceId = formSubmission.instanceId();
         String entityId = formSubmission.entityId();
         Long clientVersion = new Date().getTime();

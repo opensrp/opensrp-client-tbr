@@ -19,7 +19,6 @@ import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
-import org.smartregister.tbr.receiver.UserConfigurableViewsBroadcastReceiver;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
@@ -68,8 +67,6 @@ public class TbrApplication extends DrishtiApplication {
         CoreLibrary.init(context);
 
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
-
-        DrishtiSyncScheduler.setReceiverClass(UserConfigurableViewsBroadcastReceiver.class);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
