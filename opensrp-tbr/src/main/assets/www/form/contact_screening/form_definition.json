@@ -1,0 +1,18 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/ContactScreeningform_23.11.17_US",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "provider_uc",
+        "bind": "/model/instance/ContactScreeningform_23.11.17_US/provider_uc"
+      }
+    ]
+  }
+}
