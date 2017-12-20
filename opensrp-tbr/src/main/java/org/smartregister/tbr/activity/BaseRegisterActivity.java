@@ -27,6 +27,7 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
+import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
@@ -196,6 +197,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             hideProgressDialog();
             switchToBaseFragment();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshList(SyncEvent syncEvent) {
+        if (syncEvent != null && syncEvent.getFetchStatus().equals(FetchStatus.fetched))
+            refreshList(FetchStatus.fetched);
     }
 
     public void showProgressDialog() {

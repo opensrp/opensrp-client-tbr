@@ -13,7 +13,10 @@ public class SyncEvent extends BaseEvent {
     }
 
     private FetchStatus fetchStatus;
-    
+
+    public FetchStatus getFetchStatus() {
+        return fetchStatus;
+    }
 }
 
 
