@@ -17,6 +17,9 @@ import org.smartregister.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smartregister.tbr.activity.LoginActivity.PREF_TEAM_LOCATIONS;
+import static org.smartregister.util.Utils.getPreference;
+
 /**
  * Created by samuelgithengi on 12/19/17.
  */
@@ -139,7 +142,7 @@ public class ECSyncHelper {
     }
 
     public long getLastSyncTimeStamp() {
-        return Long.parseLong(Utils.getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
+        return Long.parseLong(getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
     }
 
     public void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
@@ -147,16 +150,25 @@ public class ECSyncHelper {
     }
 
     public long getLastCheckTimeStamp() {
-        return Long.parseLong(Utils.getPreference(context, LAST_CHECK_TIMESTAMP, "0"));
+        return Long.parseLong(getPreference(context, LAST_CHECK_TIMESTAMP, "0"));
     }
 
     public void updateLastCheckTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
+    public String getDefaultLocationId() {
+        return Utils.getPreference(context, PREF_TEAM_LOCATIONS, "").split(",")[0];
+    }
+
     public void batchSave(JSONArray events, JSONArray clients) throws Exception {
         eventClientRepository.batchInsertClients(clients);
         eventClientRepository.batchInsertEvents(events, getLastSyncTimeStamp());
+    }
+
+    public static void main(String[] args) {
+        String[] locationIds = "".split(",");
+        System.out.println("locations:" + locationIds[0]);
     }
 
 }

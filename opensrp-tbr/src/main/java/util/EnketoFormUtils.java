@@ -32,6 +32,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
+import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.sync.TbrClientProcessor;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
@@ -1073,12 +1074,12 @@ public class EnketoFormUtils {
             try {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
                 if (saveClient) {
                     Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
                     saveClient(c);
                 }
                 Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+                e.setLocationId(ECSyncHelper.getInstance(context).getDefaultLocationId());
                 saveEvent(e);
 
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {

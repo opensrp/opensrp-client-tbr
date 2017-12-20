@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     static {
         ALLOWED_LEVELS = new ArrayList<>();
         ALLOWED_LEVELS.add("Health Facility");
-        ALLOWED_LEVELS.add("Zone");
     }
 
     private EditText userNameEditText;
