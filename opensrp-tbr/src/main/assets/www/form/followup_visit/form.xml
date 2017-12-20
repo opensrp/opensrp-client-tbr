@@ -1,0 +1,225 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="followup_visit"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Follow up Visit</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /FollowUpVisit_23.11.17_US/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /FollowUpVisit_23.11.17_US/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /FollowUpVisit_23.11.17_US/provider_uc "></span> ;
+            Center ka naam: <span class="or-output"
+                data-value=" /FollowUpVisit_23.11.17_US/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /FollowUpVisit_23.11.17_US/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /FollowUpVisit_23.11.17_US/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /FollowUpVisit_23.11.17_US/provider_uc "></span> ;
+            Center Name: <span class="or-output"
+                data-value=" /FollowUpVisit_23.11.17_US/provider_location_name "></span>
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/participant_id:label"
+            lang="Roman Urdu">Participant ID
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/participant_id:label"
+            lang="en">Participant ID
+        </span>
+        <span class="required">*</span>
+        <input name="/FollowUpVisit_23.11.17_US/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-required="true()"
+            data-type-xml="string" readonly="readonly" type="text" />
+        <span class="or-constraint-msg " data-itext-id="/FollowUpVisit_23.11.17_US/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg active" data-itext-id="/FollowUpVisit_23.11.17_US/participant_id:jr:constraintMsg"
+            lang="en">Maximum 20
+            digits and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/weight:label"
+            lang="Roman Urdu">Wazan
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/weight:label"
+            lang="en">Weight(kg)
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/weight" data-type-xml="decimal" type="number" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/height:label"
+            lang="Roman Urdu">Kad
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/height:label"
+            lang="en">Height (m)
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/height" data-type-xml="decimal" type="number" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/treatment_duration:label"
+            lang="Roman Urdu">Kitney mahiney se
+            ilaaj jari hai
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/treatment_duration:label"
+            lang="en">Treatment Duration
+        </span>
+        <span class="required">*</span>
+        <span class="or-hint " data-itext-id="/FollowUpVisit_23.11.17_US/treatment_duration:hint"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-hint active" data-itext-id="/FollowUpVisit_23.11.17_US/treatment_duration:hint"
+            lang="en">(month of treatment)
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/treatment_duration" data-required="true()"
+            data-type-xml="string" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/regimen:label"
+            lang="Roman Urdu">Regimen
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/regimen:label"
+            lang="en">Treatment Regimen
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/regimen" data-type-xml="string" type="text" />
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect:label"
+                    lang="Roman Urdu">Munfi asraat
+                    paish aye?
+                </span>
+                <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect:label"
+                    lang="en">Experienced any
+                    adverse effects?
+                </span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/FollowUpVisit_23.11.17_US/adverse_effect" data-name="/FollowUpVisit_23.11.17_US/adverse_effect"
+                        data-type-xml="select1" type="radio"
+                        value="yes" />
+                    <span class="option-label " data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/yes:label"
+                        lang="Roman Urdu">Haan
+                    </span>
+                    <span class="option-label active" data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/FollowUpVisit_23.11.17_US/adverse_effect" data-name="/FollowUpVisit_23.11.17_US/adverse_effect"
+                        data-type-xml="select1" type="radio"
+                        value="no" />
+                    <span class="option-label " data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/no:label"
+                        lang="Roman Urdu">Nahi
+                    </span>
+                    <span class="option-label active" data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/FollowUpVisit_23.11.17_US/adverse_effect" data-name="/FollowUpVisit_23.11.17_US/adverse_effect"
+                        data-type-xml="select1" type="radio"
+                        value="dont_know" />
+                    <span class="option-label " data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/dont_know:label"
+                        lang="Roman Urdu">
+                        Pata Nahi
+                    </span>
+                    <span class="option-label active" data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect/dont_know:label"
+                        lang="en">
+                        Don't Know
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect_specify:label"
+            lang="Roman Urdu">Agar haan, tou
+            wazar karein
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/adverse_effect_specify:label"
+            lang="en">If yes, specify
+        </span>
+        <input name="/FollowUpVisit_23.11.17_US/adverse_effect_specify" data-relevant=" /FollowUpVisit_23.11.17_US/adverse_effect ='yes'"
+            data-type-xml="string"
+            type="text" />
+    </label>
+    <label class="question non-select or-appearance-multiline ">
+        <span class="question-label " data-itext-id="/FollowUpVisit_23.11.17_US/comments:label"
+            lang="Roman Urdu">Tabsarah
+        </span>
+        <span class="question-label active" data-itext-id="/FollowUpVisit_23.11.17_US/comments:label"
+            lang="en">Comments
+        </span>
+        <textarea name="/FollowUpVisit_23.11.17_US/comments" data-type-xml="string"></textarea>
+    </label>
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/deviceid" data-preload="property" data-preload-params="deviceid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/simserial" data-preload="property" data-preload-params="simserial"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/client_reg_date" data-calculate=" /FollowUpVisit_23.11.17_US/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/bmi" data-calculate=" /FollowUpVisit_23.11.17_US/weight  div ( /FollowUpVisit_23.11.17_US/height * /FollowUpVisit_23.11.17_US/height )"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/next_visit_date" data-calculate=" format-date(date(/FollowUpVisit_23.11.17_US/today  + 30),'%Y-%m-%d' )"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_23.11.17_US/formhub/uuid" data-calculate="'fd661fb70ee04bce97de8ceb08390661'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>

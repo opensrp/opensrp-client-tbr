@@ -36,11 +36,8 @@ android {
         resValue "string", 'opensrp_url', '"https://tbreach-stage.smartregister.org/opensrp/"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     dexOptions {
         incremental true
-        javaMaxHeapSize "4g"
-    }
 
     lintOptions {
         lintConfig file("lint.xml")
@@ -91,7 +88,7 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
     }
 
-    compile('org.smartregister:opensrp-client-enketo:1.0.0-SNAPSHOT@aar') {
+    compile('org.smartregister:opensrp-client-enketo:1.0.1-SNAPSHOT@aar') {
         transitive = true
     }
     compile fileTree(dir: 'libs', include: ['*.jar'])

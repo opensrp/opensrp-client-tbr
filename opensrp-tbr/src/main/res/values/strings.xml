@@ -42,7 +42,13 @@
     <string name="treat">Treat</string>
     <string name="start_treatment">Start Treatment</string>
     <string name="diagnosis">Diagnosis</string>
+<<<<<<< HEAD
     <string name="positive_results">Positive Results</string>
     <string name="record_results">RECORD RESULTS</string>
     <string name="in_treatment_patients">In-treatment Patients</string>
+=======
+    <string name="followup">Followup</string>
+    <string name="treatment">Treatment</string>
+    <string name="baseLine">Baseline</string>
+>>>>>>> master
 </resources>

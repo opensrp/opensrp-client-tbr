@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
@@ -85,6 +86,11 @@ public class HomeFragment extends ListFragment {
             initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);
         } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
             initializeRegister(new Intent(this.getActivity(), PositivePatientRegisterActivity.class), register);
+<<<<<<< HEAD:opensrp-tbr/src/main/java/org/smartregister/tbr/fragment/HomeFragment.java
+=======
+        } else if (register.getTitleToken().equals(Register.IN_TREATMENT_PATIENTS)) {
+            initializeRegister(new Intent(this.getActivity(), InTreatmentPatientRegisterActivity.class), register);
+>>>>>>> master:opensrp-tbr/src/main/java/org/smartregister/tbr/fragment/RegisterFragment.java
         }
     }
 
