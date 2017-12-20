@@ -36,6 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -88,6 +89,16 @@ import static org.smartregister.util.Log.logVerbose;
  * Created on 09/10/2017 by SGithengi
  */
 public class LoginActivity extends AppCompatActivity {
+
+    public static final String PREF_TEAM_LOCATIONS = "PREF_TEAM_LOCATIONS";
+    public static final ArrayList<String> ALLOWED_LEVELS;
+
+    static {
+        ALLOWED_LEVELS = new ArrayList<>();
+        ALLOWED_LEVELS.add("Health Facility");
+        ALLOWED_LEVELS.add("Zone");
+    }
+
     private EditText userNameEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
@@ -192,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final View view, boolean localLogin) {
-        
+
         android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
         hideKeyboard();
         view.setClickable(false);
@@ -522,9 +533,9 @@ public class LoginActivity extends AppCompatActivity {
         String name = rawLocationData.getJSONObject(NODE).getString("locationId");
         String level = rawLocationData.getJSONObject(NODE).getJSONArray("tags").getString(0);
 
-        /*if (LocationPickerView.ALLOWED_LEVELS.contains(level)) {
+        if (ALLOWED_LEVELS.contains(level)) {
             locationList.add(name);
-        }*/
+        }
         if (rawLocationData.has(CHILDREN)) {
             Iterator<String> childIterator = rawLocationData.getJSONObject(CHILDREN).keys();
             while (childIterator.hasNext()) {
@@ -617,7 +628,7 @@ public class LoginActivity extends AppCompatActivity {
                 return null;
             }
 
-            //Utils.writePreference(TbrApplication.getInstance().getApplicationContext(), LocationPickerView.PREF_TEAM_LOCATIONS, StringUtils.join(locationsCSV, ","));
+            Utils.writePreference(TbrApplication.getInstance().getApplicationContext(), PREF_TEAM_LOCATIONS, StringUtils.join(locationsCSV, ","));
             return null;
         }
 

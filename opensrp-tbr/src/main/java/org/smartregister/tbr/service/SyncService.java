@@ -1,5 +1,6 @@
 package org.smartregister.tbr.service;
 
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,24 +13,40 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Pair;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.SyncEvent;
+import org.smartregister.tbr.sync.ECSyncHelper;
+import org.smartregister.tbr.sync.TbrClientProcessor;
+import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import util.NetworkUtils;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by samuelgithengi on 12/18/17.
@@ -37,13 +54,14 @@ import static org.smartregister.util.Log.logInfo;
 
 public class SyncService extends Service {
 
-    private static final int EVENT_PUSH_LIMIT = 50;
     private static final Object EVENTS_SYNC_PATH = "/rest/event/add";
+    private static final int EVENT_PUSH_LIMIT = 5;
+    public static final int EVENT_PULL_LIMIT = 5;
     private volatile HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
     private Context context;
     private HTTPAgent httpAgent;
-    private ArrayList<Object> observables;
+    private List<Observable<?>> observables;
 
     @Nullable
     @Override
@@ -84,23 +102,19 @@ public class SyncService extends Service {
             logInfo("Not updating from server as user is not logged in.");
             return;
         }
-        EventBus.getDefault().post(new SyncEvent(FetchStatus.fetchStarted));
-
+        sendSyncStatusBroadcastMessage(FetchStatus.fetchStarted);
         if (!NetworkUtils.isNetworkAvailable()) {
-            EventBus.getDefault().post(new SyncEvent(FetchStatus.noConnection));
+            sendSyncStatusBroadcastMessage(FetchStatus.noConnection);
             return;
         }
 
         try {
             pushECToServer();
             pullECFromServer();
-            //TODO Remove this
-            stopSelf();
-
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
-            EventBus.getDefault().post(new SyncEvent(FetchStatus.fetchedFailed));
+            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed);
         }
 
     }
@@ -148,7 +162,153 @@ public class SyncService extends Service {
     }
 
     private void pullECFromServer() {
+        final ECSyncHelper ecSyncHelper = ECSyncHelper.getInstance(context);
+        // Fetch locations
+        String locations = Utils.getPreference(context, LoginActivity.PREF_TEAM_LOCATIONS, "");
+        if (StringUtils.isBlank(locations)) {
+            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed);
+            stopSelf();
+            return;
+        }
 
+        Observable.just(locations)
+                .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Function<String, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(@NonNull String locations) throws Exception {
+
+                        JSONObject jsonObject = fetchRetry(locations, 0);
+                        if (jsonObject == null) {
+                            return Observable.just(FetchStatus.fetchedFailed);
+                        } else {
+                            final String NO_OF_EVENTS = "no_of_events";
+                            int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
+                            if (eCount < 0) {
+                                return Observable.just(FetchStatus.fetchedFailed);
+                            } else if (eCount == 0) {
+                                return Observable.just(FetchStatus.nothingFetched);
+                            } else {
+                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
+                                long lastServerVersion = serverVersionPair.second - 1;
+                                if (eCount < EVENT_PULL_LIMIT) {
+                                    lastServerVersion = serverVersionPair.second;
+                                }
+
+                                ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
+                                return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
+                            }
+                        }
+                    }
+                })
+                .subscribe(new Consumer<Object>() {
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        if (o != null) {
+                            if (o instanceof ResponseParcel) {
+                                ResponseParcel responseParcel = (ResponseParcel) o;
+                                saveResponseParcel(responseParcel);
+                            } else if (o instanceof FetchStatus) {
+                                final FetchStatus fetchStatus = (FetchStatus) o;
+                                if (observables != null && !observables.isEmpty()) {
+                                    Observable.zip(observables, new Function<Object[], Object>() {
+                                        @Override
+                                        public Object apply(@NonNull Object[] objects) throws Exception {
+                                            return FetchStatus.fetched;
+                                        }
+                                    }).subscribe(new Consumer<Object>() {
+                                        @Override
+                                        public void accept(Object o) throws Exception {
+                                            complete(fetchStatus);
+                                        }
+                                    });
+                                } else {
+                                    complete(fetchStatus);
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+    }
+
+    private void saveResponseParcel(final ResponseParcel responseParcel) {
+        final ECSyncHelper ecSyncHelper = ECSyncHelper.getInstance(context);
+        final Observable<FetchStatus> observable = Observable.just(responseParcel)
+                .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
+                .subscribeOn(Schedulers.io()).
+                        flatMap(new Function<ResponseParcel, ObservableSource<FetchStatus>>() {
+                            @Override
+                            public ObservableSource<FetchStatus> apply(@NonNull ResponseParcel responseParcel) throws Exception {
+                                JSONObject jsonObject = responseParcel.getJsonObject();
+                                ecSyncHelper.saveAllClientsAndEvents(jsonObject);
+                                return Observable.
+                                        just(responseParcel.getServerVersionPair())
+                                        .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
+                                        .subscribeOn(Schedulers.io())
+                                        .map(new Function<Pair<Long, Long>, FetchStatus>() {
+                                            @Override
+                                            public FetchStatus apply(@NonNull Pair<Long, Long> serverVersionPair) throws Exception {
+                                                TbrClientProcessor.getInstance(context).processClient(ecSyncHelper.allEvents(serverVersionPair.first - 1, serverVersionPair.second));
+                                                return FetchStatus.fetched;
+                                            }
+                                        });
+
+                            }
+                        });
+
+        observable.subscribe(new Consumer<FetchStatus>() {
+            @Override
+            public void accept(FetchStatus fetchStatus) throws Exception {
+                sendSyncStatusBroadcastMessage(FetchStatus.fetched);
+                observables.remove(observable);
+            }
+        });
+
+        observables.add(observable);
+
+        pullECFromServer();
+
+    }
+
+    private JSONObject fetchRetry(String locations, int count) throws Exception {
+        // Request spacing
+        try {
+            final int ONE_SECOND = 1000;
+            Thread.sleep(ONE_SECOND);
+        } catch (InterruptedException ie) {
+            Log.e(getClass().getName(), ie.getMessage());
+        }
+
+        try {
+            return ECSyncHelper.getInstance(context).fetchAsJsonObject(AllConstants.SyncFilters.FILTER_LOCATION_ID, locations);
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.getMessage(), e);
+            if (count >= 2) {
+                //TODO Remove
+                stopSelf();
+                return null;
+            } else {
+                int newCount = count + 1;
+                return fetchRetry(locations, newCount);
+            }
+
+        }
+    }
+
+    private void complete(FetchStatus fetchStatus) {
+        if (fetchStatus.equals(FetchStatus.nothingFetched)) {
+            ECSyncHelper.getInstance(context).updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
+        }
+        sendSyncStatusBroadcastMessage(fetchStatus);
+        stopSelf();
+    }
+
+    private void sendSyncStatusBroadcastMessage(FetchStatus fetchStatus) {
+        EventBus.getDefault().post(new SyncEvent(fetchStatus));
     }
 
     // inner classes
@@ -180,6 +340,14 @@ public class SyncService extends Service {
         private Pair<Long, Long> getServerVersionPair() {
             return serverVersionPair;
         }
+    }
+
+    public long getLastSyncTimeStamp() {
+        return Long.parseLong(Utils.getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
+    }
+
+    protected void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
+        Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
 }
