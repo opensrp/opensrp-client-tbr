@@ -52,5 +52,6 @@ public class LoginActivityTest extends BaseUnitTest {
     @Test
     public void onCreateOptionsMenuAddsItemToActionBarIfPresent() throws Exception {
         junit.framework.Assert.assertTrue(activity.onCreateOptionsMenu(menu));
+        junit.framework.Assert.assertEquals(activity.onCreateOptionsMenu(menu), true);
     }
 }
