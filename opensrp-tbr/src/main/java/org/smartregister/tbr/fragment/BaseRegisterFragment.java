@@ -374,10 +374,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     protected abstract String getMainCondition();
 
-<<<<<<< HEAD
-=======
+
     protected abstract String[] getAdditionalColumns(String tableName);
->>>>>>> master
 
     protected String getViewConfigurationIdentifier() {
         return viewConfigurationIdentifier;
@@ -436,11 +434,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     startActivity(intent);
                     break;
                 case R.id.treat_lnk:
-<<<<<<< HEAD
-                    registerActivity.startFormActivity(TREATMENT, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
-=======
-                    registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
->>>>>>> master
+                    registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:

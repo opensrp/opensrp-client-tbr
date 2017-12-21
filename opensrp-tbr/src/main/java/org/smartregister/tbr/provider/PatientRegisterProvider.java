@@ -79,16 +79,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan blackForegroundColorSpan;
     private DetailsRepository detailsRepository;
 
-<<<<<<< HEAD
 
     private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
 
 
-    public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository) {
-
-=======
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository, DetailsRepository detailsRepository) {
->>>>>>> master
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.visibleColumns = visibleColumns;

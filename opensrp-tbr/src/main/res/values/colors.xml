@@ -20,7 +20,6 @@
     <color name="scan_qr_code_bg_end_grey">#3e3e3e</color>
     <color name="scan_qr_code_bg_stk_grey">#212121</color>
 
-<<<<<<< HEAD
     <color name="alert_completed">#4fb45b</color>
     <color name="alert_expired">#ECECEC</color>
     <color name="alert_na">#ECECEC</color>
@@ -41,7 +40,6 @@
 
     <color name="material_red">#ff554e</color>
     <color name="register_title_grey">#808080</color>
-=======
     <color name="vaccine_red_bg_stk">#a82525</color>
     <color name="vaccine_red_bg_st">#cd2c2c</color>
     <color name="vaccine_red_bg_end">#be2727</color>
@@ -54,5 +52,5 @@
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
 
->>>>>>> master
+
 </resources>

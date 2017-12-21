@@ -25,12 +25,10 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         return " presumptive =\"yes\" AND confirmed_tb IS NULL";
     }
 
-<<<<<<< HEAD
-=======
     @Override
     protected String[] getAdditionalColumns(String tableName) {
         return new String[]{};
     }
->>>>>>> master
+
 
 }
