@@ -20,7 +20,6 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -572,7 +571,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            android.util.Log.d(TAG, e.getMessage());
         }
     }
 
