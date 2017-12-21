@@ -10,7 +10,7 @@
 
     <include layout="@layout/toolbar_patient_register" />
 
-    <include layout="@layout/content_positive_patient_detail" />
+    <include layout="@layout/content_presumptive_patient_detail" />
 
     <include layout="@layout/footer_remove_patient_button" />
 

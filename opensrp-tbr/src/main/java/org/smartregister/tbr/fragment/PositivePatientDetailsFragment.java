@@ -41,7 +41,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_presumptive_patient_detail, container, false);
+        View rootView = inflater.inflate(R.layout.activity_positive_patient_detail, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
@@ -57,7 +57,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+        processViewConfigurations(rootView, getViewConfigurationIdentifier());
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -69,13 +69,36 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         this.patientDetails = patientDetails;
     }
 
+    @Override
+    protected String getViewConfigurationIdentifier() {
+        return Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    protected void onResumption() {
+    }
+
+
+    @Override
     protected void processViewConfigurations(View rootView, String viewConfigurationIdentifier) {
 
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewConfigurationIdentifier);
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
-        LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
         if (!views.isEmpty()) {
             Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
                 @Override
@@ -84,6 +107,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_positive_patient_detail_container);
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
 
                 try {
@@ -102,7 +126,37 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                             viewParent.removeView(view);
                         }
                         viewParent.addView(sampleView);
-                        processViews(sampleView, viewConfigurationIdentifier);
+                        if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                            renderDemographicsView(sampleView, patientDetails);
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                            renderPositiveResultsView(sampleView, patientDetails);
+                            //Record Results click handler
+                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            recordResults.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showResultMenu(view);
+
+                                }
+                            });
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+
+                            renderServiceHistoryView(sampleView, patientDetails);
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
+                            renderContactScreeningView(view, patientDetails);
+
+                            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
+                            addContactView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
+                                }
+
+                            });
+
+                        }
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -116,82 +170,5 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
 
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
-    protected void onResumption() {
-    }
-
-    @Override
-    protected void processViews(View view, String viewConfigurationIdentifier) {
-
-        if (viewConfigurationIdentifier != null)
-            processViewConfigurations(view, viewConfigurationIdentifier);
-
-        if (view.getId() == R.id.clientDetailsCardView) {
-            renderDemographicsView(view, patientDetails);
-        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
-            renderServiceHistoryView(view, patientDetails);
-
-        } else if (view.getId() == R.id.clientPositiveResultsCardView) {
-            renderPositiveResultsView(view, patientDetails);
-            //Record Results
-            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
-            recordResults.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showResultMenu(view);
-
-                }
-            });
-
-        } else if (view.getId() == R.id.clientContactScreeningCardView) {
-
-            renderContactScreeningView(view, patientDetails);
-
-            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
-            addContactView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
-                }
-
-            });
-
-        } else {
-
-            renderDemographicsView(view, patientDetails);
-            renderServiceHistoryView(view, patientDetails);
-            renderPositiveResultsView(view, patientDetails);
-            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
-            recordResults.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showResultMenu(view);
-                }
-
-            });
-
-            renderContactScreeningView(view, patientDetails);
-            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
-            addContactView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
-                }
-
-            });
-
-        }
-    }
 }
