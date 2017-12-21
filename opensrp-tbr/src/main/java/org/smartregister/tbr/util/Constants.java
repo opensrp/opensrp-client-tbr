@@ -29,6 +29,12 @@ public class Constants {
         public static final String MAIN = "main";
         public static final String LANG = "lang";
         public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
+
+        public static class COMPONENTS {
+            public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";
+            public static final String PATIENT_DETAILS_POSITIVE = "component_patient_details_positive";
+            public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
+        }
     }
 
     public static final class GENDER {

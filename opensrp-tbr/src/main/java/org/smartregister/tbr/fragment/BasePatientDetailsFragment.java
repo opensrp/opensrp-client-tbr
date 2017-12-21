@@ -42,9 +42,11 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     protected Map<String, String> patientDetails;
     protected ResultMenuListener resultMenuListener;
 
-    protected abstract void processViews(View view, String viewConfigurationIdentifier);
+    protected abstract void processViewConfigurations(View view, String viewConfigurationIdentifier);
 
     protected abstract void setPatientDetails(Map<String, String> patientDetails);
+
+    protected abstract String getViewConfigurationIdentifier();
 
     protected void renderPositiveResultsView(View view, Map<String, String> patientDetails) {
         RenderPositiveResultsCardHelper renderPositiveResultsHelper = new RenderPositiveResultsCardHelper(getActivity(), TbrApplication.getInstance().getResultsRepository());
@@ -171,7 +173,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
-            processViews(getView(), Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
+            processViewConfigurations(getView(), getViewConfigurationIdentifier());
         }
 
     }
