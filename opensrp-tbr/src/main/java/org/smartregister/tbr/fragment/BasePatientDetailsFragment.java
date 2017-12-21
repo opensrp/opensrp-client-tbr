@@ -20,6 +20,7 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
 import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
@@ -61,6 +62,12 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     protected void renderServiceHistoryView(View view, Map<String, String> patientDetails) {
         RenderServiceHistoryCardHelper renderServiceHistoryHelper = new RenderServiceHistoryCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
         renderServiceHistoryHelper.renderView(view.findViewById(R.id.clientServiceHistoryCardView), patientDetails);
+    }
+
+
+    protected void renderContactScreeningView(View view, Map<String, String> patientDetails) {
+        RenderContactScreeningCardHelper renderContactScreeningHelper = new RenderContactScreeningCardHelper(getActivity(), TbrApplication.getInstance().getResultsRepository());
+        renderContactScreeningHelper.renderView(view.findViewById(R.id.clientContactScreeningCardView), patientDetails);
     }
 
     protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {

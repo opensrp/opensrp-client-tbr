@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clientPositiveResultsCardView"
+    android:id="@+id/clientContactScreeningCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/positive_results"
+                android:id="@+id/contact_screening"
                 style="@style/CustomFontTextViewStyle.ClientList.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                 android:textSize="20sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/record_results"
+                android:id="@+id/add_contact"
                 style="@style/CustomFontTextViewStyle.ClientList.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,26 +52,38 @@
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/clientContactsHolder"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:id="@+id/account_food_scroll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|left"
-        android:padding="12dp"
-        android:paddingLeft="0dp">
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/client_add_button_layout"
+        android:fillViewport="true"
+        android:foregroundGravity="right">
 
-        <TextView
-            android:id="@+id/clientContactsTextView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginRight="10dp"
-            android:background="@color/male_light_blue"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="MH"
-            android:textColor="@color/male_blue"
-            android:textSize="24sp" />
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/contactScreeningViewContactsHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:paddingLeft="0dp">
 
+            <TextView
+                android:id="@+id/clientContactTextView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginRight="10dp"
+                android:background="@color/male_light_blue"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="MH"
+                android:textColor="@color/male_blue"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </LinearLayout>

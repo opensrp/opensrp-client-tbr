@@ -16,6 +16,7 @@
 
         <include layout="@layout/cardview_positive_test_results" />
 
+        <include layout="@layout/cardview_contact_screening" />
 
         <include layout="@layout/cardview_service_history" />
 

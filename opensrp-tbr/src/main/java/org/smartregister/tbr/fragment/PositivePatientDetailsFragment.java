@@ -37,7 +37,6 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     private static final String TAG = PositivePatientDetailsFragment.class.getCanonicalName();
     private Map<String, String> languageTranslations;
-    View rootView;
 
     @Nullable
     @Override
@@ -57,11 +56,8 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         //Load Language Token Map
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
-        this.rootView = rootView;
-        processViews(rootView, null);
 
-
-        //processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+        processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -106,7 +102,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                             viewParent.removeView(view);
                         }
                         viewParent.addView(sampleView);
-                        processViews(sampleView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+                        processViews(sampleView, viewConfigurationIdentifier);
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -159,6 +155,19 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
+        } else if (view.getId() == R.id.clientContactScreeningCardView) {
+
+            renderContactScreeningView(view, patientDetails);
+
+            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
+            addContactView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
+                }
+
+            });
+
         } else {
 
             renderDemographicsView(view, patientDetails);
@@ -172,6 +181,17 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
 
             });
+
+            renderContactScreeningView(view, patientDetails);
+            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
+            addContactView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
+                }
+
+            });
+
         }
     }
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
+import util.TbrConstants;
 
 /**
  * Created by ndegwamartin on 17/11/2017.
@@ -121,6 +122,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.RESULT_CHEST_XRAY);
         formNames.add(Constants.FORM.RESULT_CULTURE);
         formNames.add(Constants.FORM.DIAGNOSIS);
+        formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
         return formNames.toArray(new String[formNames.size()]);
     }
 

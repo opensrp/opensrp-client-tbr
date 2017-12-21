@@ -72,6 +72,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                     results.setVisibility(View.GONE);
                     view.findViewById(R.id.no_results_recorded).setVisibility(View.VISIBLE);
                 }
+
             }
 
         });

@@ -58,5 +58,6 @@ public class Constants {
         public static final String RESULT_CULTURE = "result_culture";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String RESULT_GENE_EXPERT = "result_gene_xpert";
+        public static final String CONTACT_SCREENING = "contact_screening";
     }
 }

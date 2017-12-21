@@ -49,4 +49,6 @@
     <string name="followup">Followup</string>
     <string name="treatment">Treatment</string>
     <string name="baseLine">Baseline</string>
+    <string name="contact_screening">Contact Screening</string>
+    <string name="add_contacts">ADD CONTACTS</string>
 </resources>
