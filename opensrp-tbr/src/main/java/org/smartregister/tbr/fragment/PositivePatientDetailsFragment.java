@@ -37,6 +37,7 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     private static final String TAG = PositivePatientDetailsFragment.class.getCanonicalName();
     private Map<String, String> languageTranslations;
+    View rootView;
 
     @Nullable
     @Override
@@ -56,8 +57,11 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         //Load Language Token Map
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
+        this.rootView = rootView;
+        processViews(rootView, null);
 
-        processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+
+        //processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -75,6 +79,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
+        LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
         if (!views.isEmpty()) {
             Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
                 @Override
@@ -83,7 +88,6 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
-            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
 
                 try {
@@ -135,7 +139,8 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     @Override
     protected void processViews(View view, String viewConfigurationIdentifier) {
 
-        processViewConfigurations(view, viewConfigurationIdentifier);
+        if (viewConfigurationIdentifier != null)
+            processViewConfigurations(view, viewConfigurationIdentifier);
 
         if (view.getId() == R.id.clientDetailsCardView) {
             renderDemographicsView(view, patientDetails);
@@ -154,6 +159,19 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
+        } else {
+
+            renderDemographicsView(view, patientDetails);
+            renderServiceHistoryView(view, patientDetails);
+            renderPositiveResultsView(view, patientDetails);
+            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+            recordResults.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showResultMenu(view);
+                }
+
+            });
         }
     }
 }

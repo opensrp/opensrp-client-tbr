@@ -1,7 +1,9 @@
 package org.smartregister.tbr.provider;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.repository.ResultsRepository;
@@ -31,6 +34,7 @@ import java.util.UUID;
 import util.TbrConstants;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static util.TbrConstants.KEY.BASE_ENTITY_ID_COLUMN;
@@ -39,16 +43,24 @@ import static util.TbrConstants.KEY.FIRST_NAME;
 import static util.TbrConstants.KEY.GENDER;
 import static util.TbrConstants.KEY.LAST_NAME;
 import static util.TbrConstants.KEY.TBREACH_ID;
+import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
+import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
+import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
+import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
+import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
+import static util.TbrConstants.RESULT.CULTURE_RESULT;
 import static util.TbrConstants.RESULT.MTB_RESULT;
 import static util.TbrConstants.RESULT.RIF_RESULT;
+import static util.TbrConstants.RESULT.TEST_RESULT;
+import static util.TbrConstants.RESULT.XRAY_RESULT;
 
 /**
  * Created by samuelgithengi on 12/4/17.
@@ -61,6 +73,9 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     @Mock
     private ResultsRepository resultsRepository;
+
+    @Mock
+    private DetailsRepository detailsRepository;
 
     @Mock
     private Cursor cursor;
@@ -90,7 +105,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         org.smartregister.tbr.jsonspec.model.View column = new org.smartregister.tbr.jsonspec.model.View();
         column.setIdentifier(columnIdentifier);
         visibleColumns.add(column);
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         patientRegisterProvider.getView(cursor, smartRegisterClient, view);
     }
 
@@ -216,17 +231,167 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
     @Test
     public void testGetDuration() {
-        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository);
+        patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         Calendar calendar = Calendar.getInstance();
         assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
-        calendar.add(Calendar.DATE, -10);
-        assertEquals("10d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        calendar.add(Calendar.DATE, -14);
+        assertEquals("2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.MONTH, -6);
         assertEquals("6m 1w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.YEAR, -30);
         assertEquals("30y 6m", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("", patientRegisterProvider.getDuration(calendar.toString()));
+
 
     }
+
+    @Test
+    public void testPopulateIntreatmentResultsColumnWithMissingBaseline() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String treatment = "2017-11-20T02:40:15.600-0500";
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
+        initProvider(INTREATMENT_RESULTS);
+        assertTrue(((TextView) view.findViewById(R.id.intreatment_details)).getText().toString().isEmpty());
+    }
+
+    @Test
+    public void testPopulateIntreatmentResultsColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String treatment = "2017-11-20T02:40:15.600-0500";
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
+        long baseline = 1513341747;
+        columnMap.put(TbrConstants.KEY.BASELINE, String.valueOf(baseline));
+        initProvider(INTREATMENT_RESULTS);
+        String expected = patientRegisterProvider.getDuration(treatment) + " ago\n";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
+
+
+        Map results = new HashMap();
+        results.put(TEST_RESULT, "three_plus");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", true, baseline)).thenReturn(results);
+        initProvider(INTREATMENT_RESULTS);
+        expected += "Smr 3+";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
+
+    }
+
+    @Test
+    public void testPopulateFollowupColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String baseEntityID = UUID.randomUUID().toString();
+        View component = testClickOnlyColumn(FOLLOWUP, R.id.followup_lnk, baseEntityID);
+        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Test
+    public void testPopulateFollowupScheduleColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String baseEntityID = UUID.randomUUID().toString();
+        View component = testClickOnlyColumn(FOLLOWUP_SCHEDULE, R.id.followup, baseEntityID);
+        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
+
+        DateTime nextVisitDate = new DateTime();
+        columnMap.put(TbrConstants.KEY.NEXT_VISIT_DATE, nextVisitDate.toString());
+        initProvider(FOLLOWUP_SCHEDULE);
+        assertEquals("Followup\n due " + nextVisitDate.toString("dd/MM"), ((TextView) view.findViewById(R.id.followup_text)).getText());
+        Activity context = Robolectric.buildActivity(Activity.class).create().get();
+        assertEquals(context.getDrawable(R.drawable.due_vaccine_blue_bg), view.findViewById(R.id.followup).getBackground());
+
+
+        nextVisitDate = nextVisitDate.plusDays(1);
+        columnMap.put(TbrConstants.KEY.NEXT_VISIT_DATE, nextVisitDate.toString());
+        initProvider(FOLLOWUP_SCHEDULE);
+        assertEquals(context.getDrawable(R.drawable.due_vaccine_na_bg), view.findViewById(R.id.followup).getBackground());
+
+
+        nextVisitDate = nextVisitDate.plusDays(-3);
+        columnMap.put(TbrConstants.KEY.NEXT_VISIT_DATE, nextVisitDate.toString());
+        initProvider(FOLLOWUP_SCHEDULE);
+        assertEquals(context.getDrawable(R.drawable.due_vaccine_na_bg), view.findViewById(R.id.followup).getBackground());
+
+    }
+
+    @Test
+    public void testPopulateBaselineColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String treatment = "2017-11-20T02:40:15.600-0500";
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
+        long baseline = 1513341747;
+        columnMap.put(TbrConstants.KEY.BASELINE, String.valueOf(baseline));
+        initProvider(BASELINE);
+        assertEquals("", ((TextView) view.findViewById(R.id.baseline_details)).getText().toString());
+
+
+        Map results = new HashMap();
+        results.put(TEST_RESULT, "one_plus");
+        results.put(CULTURE_RESULT, "positive");
+        results.put(XRAY_RESULT, "indicative");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", false, baseline)).thenReturn(results);
+        initProvider(BASELINE);
+        String expected = "Smr 1+, Cul Pos,\nCXR Ind";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.baseline_details)).getText().toString());
+
+        results.put(XRAY_RESULT, "not indicative");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", false, baseline)).thenReturn(results);
+        initProvider(BASELINE);
+        expected = "Smr 1+, Cul Pos,\nCXR NonI";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.baseline_details)).getText().toString());
+
+
+    }
+
+
+    @Test
+    public void testPopulateTreatmentColumn() {
+        view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
+        String treatment = "2017-11-20T02:40:15.600-0500";
+        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
+        Map results = new HashMap();
+        results.put("patient_type", "new");
+        results.put("regimen", "2HRZE/HR");
+        when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(TREATMENT);
+        assertEquals("Start: " + patientRegisterProvider.getDuration(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
+        assertEquals("New", ((TextView) view.findViewById(R.id.patient_type)).getText().toString());
+        assertEquals("2HRZE/HR", ((TextView) view.findViewById(R.id.regimen)).getText().toString());
+
+    }
+
+
+    @Test
+    public void testPopulateSmear() {
+        Map results = new HashMap();
+        results.put(TEST_RESULT, "two_plus");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        String expected = "Smr 2+";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "three_plus");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr 3+";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "scanty");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr Sty";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+        results.put(TEST_RESULT, "negative");
+        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
+        initProvider(RESULTS);
+        expected = "Smr Neg";
+        assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
+
+
+    }
+
 
     private class RegisterActionHandler implements View.OnClickListener {
         @Override

@@ -32,6 +32,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.sync.TbrClientProcessor;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
@@ -60,8 +61,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
-import static org.smartregister.util.Log.logError;
+import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 
 /**
@@ -256,7 +258,7 @@ public class EnketoFormUtils {
         try {
             eventClientRepository.addorUpdateClient(client.getBaseEntityId(), new JSONObject(clientJson));
         } catch (JSONException e) {
-            e.printStackTrace();
+            android.util.Log.e(TAG, e.toString(), e);
         }
         Log.logDebug("====================================");
 
@@ -270,7 +272,7 @@ public class EnketoFormUtils {
         try {
             eventClientRepository.addEvent(event.getBaseEntityId(), new JSONObject(eventJson));
         } catch (JSONException e) {
-            e.printStackTrace();
+            android.util.Log.e(TAG, e.toString(), e);
         }
     }
 
@@ -1059,6 +1061,7 @@ public class EnketoFormUtils {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
             if (context instanceof BaseRegisterActivity) {
                 final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
@@ -1066,14 +1069,13 @@ public class EnketoFormUtils {
                 //TODO add once the dialog in enketo library is dismissed
                 //registerActivity.switchToBaseFragment();
             }
+
             Utils.postEvent(new EnketoFormSaveCompleteEvent());
         }
 
         @Override
         protected void onPreExecute() {
-            if (context instanceof BaseRegisterActivity) {
-                ((BaseRegisterActivity) context).showProgressDialog();
-            }
+            Utils.postEvent(new ShowProgressDialogEvent());
         }
 
         @Override
@@ -1093,6 +1095,10 @@ public class EnketoFormUtils {
                     JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
                     client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
                     eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                } else if (e.getEventType().equals(TREATMENT_INITIATION)) {
+                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    client.put(BASELINE, e.getVersion());
+                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
                 }
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.
@@ -1109,8 +1115,8 @@ public class EnketoFormUtils {
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
 
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            } catch (Exception e1) {
-                logError("SavePatientAsyncTask Error saving EC model " + e1.getMessage());
+            } catch (Exception e) {
+                android.util.Log.e(TAG, e.toString(), e);
             }
             return null;
         }

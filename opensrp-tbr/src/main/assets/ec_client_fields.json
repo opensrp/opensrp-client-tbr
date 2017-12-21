@@ -96,6 +96,21 @@
             "field": "obs.fieldCode",
             "concept": "TBR: treatment start date"
           }
+        },
+        {
+          "column_name": "baseline",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseline"
+          }
+        },
+        {
+          "column_name": "next_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: return visit date"
+          }
         }
       ]
     }
