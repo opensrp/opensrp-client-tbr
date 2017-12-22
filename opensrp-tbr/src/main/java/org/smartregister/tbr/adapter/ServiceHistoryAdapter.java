@@ -23,6 +23,8 @@ import org.smartregister.tbr.util.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.TbrConstants;
+
 /**
  * Created by ndegwamartin on 20/11/2017.
  */
@@ -55,7 +57,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
                 ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.result_chest_xray:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                ((BasePatientDetailActivity) mContext).startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
 
                 break;
             case R.id.result_culture:

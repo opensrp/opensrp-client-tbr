@@ -30,10 +30,12 @@ public class Constants {
         public static final String LANG = "lang";
         public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
         public static final String POSITIVE_PATIENT_DETAILS = "positive_patient_details";
+
         public static class COMPONENTS {
             public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";
             public static final String PATIENT_DETAILS_POSITIVE = "component_patient_details_positive";
             public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
+            public static final String PATIENT_DETAILS_CONTACT_SCREENING = "component_patient_details_contact_screening";
         }
     }
 
@@ -59,9 +61,16 @@ public class Constants {
     public static final class FORM {
         public static final String NEW_PATIENT_REGISTRATION = "new_patient_registration";
         public static final String RESULT_SMEAR = "result_smear";
-        public static final String RESULT_CHEST_XRAY = "result_chest_xray";
         public static final String RESULT_CULTURE = "result_culture";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String RESULT_GENE_EXPERT = "result_gene_xpert";
+        public static final String CONTACT_SCREENING = "contact_screening";
+    }
+
+    public static final class SCREEN_STAGE {
+
+        public static final String DIAGNOSED = "diagnosed";
+        public static final String SCREENED = "screened";
+        public static final String INTREATMENT = "intreatment";
     }
 }

@@ -98,15 +98,9 @@ public class HomeFragment extends ListFragment {
 
     public static class RegisterDataRepository {
         public static int getPatientCountByRegisterType(String registerType) {
-            if (registerType.equals(Register.PRESUMPTIVE_PATIENTS)) {
-                return 12;
-            } else if (registerType.equals(Register.POSITIVE_PATIENTS)) {
-                return 13;
-            } else if (registerType.equals(Register.IN_TREATMENT_PATIENTS)) {
-                return 4;
-            } else {
-                return 0;
-            }
+
+            return TbrApplication.getInstance().getResultDetailsRepository().getRegisterCountByType(registerType);
+
         }
 
         public static int getOverduePatientCountByRegisterType(String registerType) {

@@ -52,4 +52,6 @@
     <string name="url_separator">/</string>
     <string name="clients_key">clients</string>
     <string name="events_key">events</string>
+    <string name="contact_screening">Contact Screening</string>
+    <string name="add_contacts">ADD CONTACTS</string>
 </resources>

@@ -41,7 +41,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_presumptive_patient_detail, container, false);
+        View rootView = inflater.inflate(R.layout.activity_positive_patient_detail, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
@@ -75,6 +75,23 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    protected void onResumption() {
+    }
+
+
+    @Override
     protected void processViewConfigurations(View rootView) {
 
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
@@ -89,7 +106,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
-            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_presumptive_patient_detail_container);
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_positive_patient_detail_container);
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
 
                 try {
@@ -114,7 +131,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
                             renderPositiveResultsView(json2View, patientDetails);
                             //Record Results click handler
-                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
                             recordResults.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -126,6 +143,18 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
 
                             renderServiceHistoryView(json2View, patientDetails);
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
+                            renderContactScreeningView(json2View, patientDetails);
+
+                            TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
+                            addContactView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Utils.showToast(getActivity(), "Launch TB Contact Form");
+                                }
+
+                            });
+
                         }
                     }
                 } catch (Exception e) {
@@ -138,22 +167,6 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
             processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
         }
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
-    protected void onResumption() {
     }
 
 }

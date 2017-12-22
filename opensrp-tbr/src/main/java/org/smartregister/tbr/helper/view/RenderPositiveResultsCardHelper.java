@@ -23,6 +23,8 @@ import util.TbrSpannableStringBuilder;
 
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private static final String DETECTED = "detected";
+    private static final String NOT_DETECTED = "not_detected";
+    private static final String INDETERMINATE = "indeterminate";
 
     public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -48,22 +50,29 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 Map<String, String> testResults = ((ResultsRepository) repository).getLatestResults(baseEntityId);
 
                 TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+
+
                 if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-                    stringBuilder = getMTBResultStringBuilder(testResults, stringBuilder);
+                    getXpertResultStringBuilder(testResults, stringBuilder, false);
+                    stringBuilder.append("\n");
                 }
 
                 if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
-                    stringBuilder = getTestResultsStringBuilder(testResults, stringBuilder);
+                    stringBuilder = getSmearResultStringBuilder(testResults, stringBuilder);
+                    stringBuilder.append("\n");
 
                 }
 
                 if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
                     stringBuilder = getCultureResultStringBuilder(testResults, stringBuilder);
+                    stringBuilder.append("\n");
                 }
                 if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
                     stringBuilder = getXRayResultStringBuilder(testResults, stringBuilder);
+                    stringBuilder.append("\n");
 
                 }
+
                 if (stringBuilder.length() > 0) {
                     results.setVisibility(View.VISIBLE);
                     view.findViewById(R.id.no_results_recorded).setVisibility(View.GONE);
@@ -72,32 +81,18 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                     results.setVisibility(View.GONE);
                     view.findViewById(R.id.no_results_recorded).setVisibility(View.VISIBLE);
                 }
+
             }
 
         });
 
     }
 
-    private TbrSpannableStringBuilder getMTBResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
-        stringBuilder.append("Xpe ");
-        if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-            stringBuilder.append("+ve", redForegroundColorSpan);
-        else
-            stringBuilder.append("-ve", redForegroundColorSpan);
-        stringBuilder.append("/");
-        if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-            stringBuilder.append("+ve", redForegroundColorSpan);
-        else
-            stringBuilder.append("-ve", redForegroundColorSpan);
-        return stringBuilder;
-    }
 
-    private TbrSpannableStringBuilder getTestResultsStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
+    private TbrSpannableStringBuilder getSmearResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
         if (stringBuilder.length() > 0)
-            stringBuilder.append(",\t");
-        stringBuilder.append("Smr ");
+            stringBuilder.append("Smear ");
         switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
             case "one_plus":
                 stringBuilder.append("1+", redForegroundColorSpan);
@@ -107,6 +102,12 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 break;
             case "three_plus":
                 stringBuilder.append("3+", redForegroundColorSpan);
+                break;
+            case "scanty":
+                stringBuilder.append("Scanty", redForegroundColorSpan);
+                break;
+            case "negative":
+                stringBuilder.append("Negative", redForegroundColorSpan);
                 break;
             default:
                 stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
@@ -119,8 +120,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private TbrSpannableStringBuilder getCultureResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
         if (stringBuilder.length() > 0)
-            stringBuilder.append(", ");
-        stringBuilder.append("Cul ");
+            stringBuilder.append("Culture ");
         stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
         return stringBuilder;
     }
@@ -129,12 +129,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private TbrSpannableStringBuilder getXRayResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
         if (stringBuilder.length() > 0)
-            stringBuilder.append(",\t");
-        stringBuilder.append("CXR ");
+            stringBuilder.append("Chest X-Ray ");
         if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
-            stringBuilder.append("Ind", blackForegroundColorSpan);
+            stringBuilder.append("Indicative", blackForegroundColorSpan);
         else
-            stringBuilder.append("Non", blackForegroundColorSpan);
+            stringBuilder.append("Not Indicative", blackForegroundColorSpan);
         return stringBuilder;
     }
 
@@ -149,4 +148,34 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 context.getResources().getColor(android.R.color.black));
         return blackForegroundColorSpan;
     }
+
+    private TbrSpannableStringBuilder getXpertResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+
+        ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
+        ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
+        ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
+        stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
+        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
+        stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
+        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+        return stringBuilder;
+    }
+
+    private String processXpertResult(String result) {
+
+        if (result == null)
+            return "-ve";
+        switch (result) {
+            case DETECTED:
+                return "+ve";
+            case NOT_DETECTED:
+                return "-ve";
+            case INDETERMINATE:
+                return "?";
+            default:
+                return result;
+        }
+    }
+
+
 }
