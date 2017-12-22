@@ -69,17 +69,20 @@ import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
-import static util.TbrConstants.ENKETO_FORMS.TREATMENT;
+import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
+import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
+import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
+import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
+import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
-import static util.TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER_HEADER;
 
 /**
  * Created by samuelgithengi on 11/8/17.
@@ -266,7 +269,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
-        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository());
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository(), TbrApplication.getInstance().getContext().detailsRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -310,9 +313,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
         ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
-
-        if (viewConfiguration != null) {
+        if (viewConfiguration != null)
             headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
+
+        if (!visibleColumns.isEmpty()) {
             Map<String, Integer> mapping = new HashMap();
             mapping.put(PATIENT, R.id.patient_header);
             mapping.put(RESULTS, R.id.results_header);
@@ -322,8 +326,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(DROPDOWN, R.id.dropdown_header);
             mapping.put(TREAT, R.id.treat_header);
             mapping.put(DIAGNOSIS, R.id.diagnosis_header);
-            mapping.put(INTREATMENT_REGISTER_HEADER, R.id.results_header);
+            mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_header);
             mapping.put(FOLLOWUP, R.id.followup_header);
+            mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_schedule_header);
+            mapping.put(TREATMENT, R.id.treatment_header);
+            mapping.put(BASELINE, R.id.baseline_header);
             TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
 
@@ -430,6 +437,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             switch (view.getId()) {
                 case R.id.dropdown_btn:
                 case R.id.result_lnk:
+                case R.id.intreatment_lnk:
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:
@@ -442,8 +450,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     goToPatientDetailActivity(getViewConfigurationIdentifier());
                     break;
                 case R.id.treat_lnk:
-                    registerActivity.startFormActivity(TREATMENT, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
                     break;
+                case R.id.followup_lnk:
                 case R.id.followup:
                     registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
                     break;

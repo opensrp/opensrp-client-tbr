@@ -151,8 +151,11 @@ public class ResultsRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getReadableDatabase();
             String baselineFilter = "";
-            if (afterBaseline) {
-                baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
+            if (baseline != null) {
+                if (afterBaseline)
+                    baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
+                else
+                    baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
             }
             String query =
                     "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +

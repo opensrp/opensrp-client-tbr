@@ -47,4 +47,6 @@
     <string name="in_treatment_patients">In-treatment Patients</string>
     <string name="treatment_initiation_form">Treatment Initiation Form</string>
     <string name="followup">Followup</string>
+    <string name="treatment">Treatment</string>
+    <string name="baseLine">Baseline</string>
 </resources>

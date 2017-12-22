@@ -4,9 +4,6 @@ import android.view.View;
 
 import org.smartregister.tbr.R;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;
 

@@ -49,7 +49,10 @@ TbrConstants extends AllConstants {
         public static final String TREAT = "treat";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String INTREATMENT_RESULTS = "intreatment_results";
+        public static final String FOLLOWUP_SCHEDULE = "followup_schedule";
+        public static final String TREATMENT = "treatment";
         public static final String FOLLOWUP = "followup";
+        public static final String BASELINE = "baseline";
     }
 
     public static final class VIEW_CONFIGS {
@@ -80,7 +83,7 @@ TbrConstants extends AllConstants {
         public static final String CULTURE = "result_culture";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
-        public static final String TREATMENT = "treatment_initiation";
+        public static final String TREATMENT_INITIATION = "treatment_initiation";
         public static final String FOLLOWUP_VISIT = "followup_visit";
     }
 }
