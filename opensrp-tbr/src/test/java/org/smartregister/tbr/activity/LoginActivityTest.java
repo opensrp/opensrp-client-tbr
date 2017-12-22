@@ -55,12 +55,6 @@ public class LoginActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void onCreateOptionsMenuAddsItemToActionBarIfPresent() {
-        boolean result = activity.onCreateOptionsMenu(menu);
-        junit.framework.Assert.assertTrue(result);
-    }
-
-    @Test
     public void refreshViewsCallsRefreshViewsOnSyncCompleteEvent() {
 
         ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent = new ViewConfigurationSyncCompleteEvent();

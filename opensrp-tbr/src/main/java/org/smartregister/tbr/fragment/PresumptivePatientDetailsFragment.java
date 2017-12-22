@@ -116,18 +116,18 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                     ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                     if (componentViewConfiguration != null) {
                         JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                        View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+                        View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
 
-                        View view = viewParent.findViewById(sampleView.getId());
+                        View view = viewParent.findViewById(json2View.getId());
                         if (view != null) {
                             viewParent.removeView(view);
                         }
-                        viewParent.addView(sampleView);
+                        viewParent.addView(json2View);
                         if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
-                            renderDemographicsView(sampleView, patientDetails);
+                            renderDemographicsView(json2View, patientDetails);
 
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
-                            renderPositiveResultsView(sampleView, patientDetails);
+                            renderPositiveResultsView(json2View, patientDetails);
                             //Record Results click handler
                             TextView recordResults = (TextView) view.findViewById(R.id.record_results);
                             recordResults.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
 
-                            renderServiceHistoryView(sampleView, patientDetails);
+                            renderServiceHistoryView(json2View, patientDetails);
                         }
                     }
                 } catch (Exception e) {
