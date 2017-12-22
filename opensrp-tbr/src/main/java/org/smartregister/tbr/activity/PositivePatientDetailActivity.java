@@ -40,7 +40,7 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
         switch (item.getItemId()) {
             case R.id.treatmentInitiationForm:
                 String entityId = generateRandomUUIDString();
-                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT, entityId, null);
+                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, entityId, null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
