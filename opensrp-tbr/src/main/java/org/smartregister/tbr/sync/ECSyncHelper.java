@@ -19,6 +19,8 @@ import java.util.List;
 
 import static org.smartregister.tbr.activity.LoginActivity.PREF_TEAM_LOCATIONS;
 import static org.smartregister.util.Utils.getPreference;
+import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
+import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by samuelgithengi on 12/19/17.
@@ -27,9 +29,6 @@ import static org.smartregister.util.Utils.getPreference;
 public class ECSyncHelper {
 
     public static final String SEARCH_URL = "/rest/event/sync";
-
-    private static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
-    private static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     private final EventClientRepository eventClientRepository;
     private final Context context;

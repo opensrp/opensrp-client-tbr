@@ -1081,16 +1081,19 @@ public class EnketoFormUtils {
                 Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
                 e.setLocationId(ECSyncHelper.getInstance(context).getDefaultLocationId());
                 saveEvent(e);
-
+                Gson gson = new GsonBuilder().create();
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
-                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
-                    client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
-                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
+                    saveClient(client);
                 } else if (e.getEventType().equals(TREATMENT_INITIATION)) {
-                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
-                    client.put(BASELINE, e.getVersion());
-                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    client.addAttribute(BASELINE, e.getVersion());
+                    saveClient(client);
                 }
+
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);

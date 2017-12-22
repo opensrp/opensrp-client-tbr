@@ -46,7 +46,6 @@ import util.NetworkUtils;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 import static org.smartregister.util.Log.logInfo;
-import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by samuelgithengi on 12/18/17.
@@ -300,9 +299,7 @@ public class SyncService extends Service {
     }
 
     private void complete(FetchStatus fetchStatus) {
-        if (fetchStatus.equals(FetchStatus.nothingFetched)) {
-            ECSyncHelper.getInstance(context).updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
-        }
+        ECSyncHelper.getInstance(context).updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
         sendSyncStatusBroadcastMessage(fetchStatus);
         stopSelf();
     }
@@ -340,14 +337,6 @@ public class SyncService extends Service {
         private Pair<Long, Long> getServerVersionPair() {
             return serverVersionPair;
         }
-    }
-
-    public long getLastSyncTimeStamp() {
-        return Long.parseLong(Utils.getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
-    }
-
-    protected void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
-        Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
 }

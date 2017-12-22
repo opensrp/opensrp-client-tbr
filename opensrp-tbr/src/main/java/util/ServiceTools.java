@@ -1,4 +1,4 @@
-package org.smartregister.tbr.util;
+package util;
 
 import android.app.ActivityManager;
 import android.content.Context;

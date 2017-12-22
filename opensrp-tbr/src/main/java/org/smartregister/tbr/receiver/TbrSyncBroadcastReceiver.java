@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import org.smartregister.tbr.service.SyncService;
 import org.smartregister.tbr.sync.UserConfigurableViewsSyncTask;
-import org.smartregister.tbr.util.ServiceTools;
+import util.ServiceTools;
 
 import static org.smartregister.util.Log.logInfo;
 
