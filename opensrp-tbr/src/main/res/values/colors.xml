@@ -40,7 +40,6 @@
 
     <color name="material_red">#ff554e</color>
     <color name="register_title_grey">#808080</color>
-
     <color name="vaccine_red_bg_stk">#a82525</color>
     <color name="vaccine_red_bg_st">#cd2c2c</color>
     <color name="vaccine_red_bg_end">#be2727</color>
@@ -52,5 +51,4 @@
     <color name="vaccine_na_bg_stk">#D4D4D4</color>
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
-
 </resources>

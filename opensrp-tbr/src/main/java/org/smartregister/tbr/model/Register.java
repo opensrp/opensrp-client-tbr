@@ -28,15 +28,23 @@ public class Register {
 
     public Register(Context context, View view, int totalPatients, int totalPatientsWithDueOverdue) {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
-        Map<String, String> langMap = config == null ? null : config.getLabels();
-        String label = langMap != null && !langMap.isEmpty() ? langMap.get(view.getIdentifier()) : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
-
+        String label = getRegisterLabel(context, view, config);
         this.title = label != null && !label.isEmpty() ? label : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
         this.titleToken = view.getIdentifier();
         this.totalPatients = totalPatients;
         this.totalPatientsWithDueOverdue = totalPatientsWithDueOverdue;
         this.position = view.getResidence().getPosition();
 
+    }
+
+    private String getRegisterLabel(Context context, View view, ViewConfiguration config) {
+
+        Map<String, String> langMap = config == null ? null : config.getLabels();
+        return langMap != null && !langMap.isEmpty() ? langMap.get(view.getIdentifier()) : getStringResource(context, view);
+    }
+
+    public String getStringResource(Context context, View view) {
+        return context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
     }
 
     public String getTitleToken() {

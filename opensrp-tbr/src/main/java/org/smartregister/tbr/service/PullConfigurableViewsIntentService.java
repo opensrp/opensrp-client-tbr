@@ -39,10 +39,11 @@ public class PullConfigurableViewsIntentService extends IntentService {
             try {
                 int count = pullConfigurableViewsServiceHelper.processIntent();
                 if (count > 0) {
-                    Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
                     LanguageConfigurationEvent event = new LanguageConfigurationEvent(true);//To Do add check for language configs
                     Utils.postEvent(event);
                 }
+
+                Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
 
                 //update last sync time
                 String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");

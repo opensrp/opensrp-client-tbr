@@ -57,7 +57,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        processViews(rootView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+        processViewConfigurations(rootView);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -69,9 +69,15 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
         this.patientDetails = patientDetails;
     }
 
-    protected void processViewConfigurations(View rootView, String viewConfigurationIdentifier) {
+    @Override
+    protected String getViewConfigurationIdentifier() {
+        return Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS;
+    }
 
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewConfigurationIdentifier);
+    @Override
+    protected void processViewConfigurations(View rootView) {
+
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
@@ -83,7 +89,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
             });
 
-            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_presumptive_patient_detail_container);
             for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
 
                 try {
@@ -95,14 +101,32 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                     ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                     if (componentViewConfiguration != null) {
                         JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                        View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+                        View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
 
-                        View view = viewParent.findViewById(sampleView.getId());
+                        View view = viewParent.findViewById(json2View.getId());
                         if (view != null) {
                             viewParent.removeView(view);
                         }
-                        viewParent.addView(sampleView);
-                        processViews(sampleView, Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS);
+                        viewParent.addView(json2View);
+                        if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                            renderDemographicsView(json2View, patientDetails);
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                            renderPositiveResultsView(json2View, patientDetails);
+                            //Record Results click handler
+                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            recordResults.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showResultMenu(view);
+
+                                }
+                            });
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+
+                            renderServiceHistoryView(json2View, patientDetails);
+                        }
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -132,28 +156,4 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     protected void onResumption() {
     }
 
-    @Override
-    protected void processViews(View view, String viewConfigurationIdentifier) {
-
-        processViewConfigurations(view, viewConfigurationIdentifier);
-
-        if (view.getId() == R.id.clientDetailsCardView) {
-            renderDemographicsView(view, patientDetails);
-        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
-            renderServiceHistoryView(view, patientDetails);
-
-        } else if (view.getId() == R.id.clientPositiveResultsCardView) {
-            renderPositiveResultsView(view, patientDetails);
-            //Record Results
-            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
-            recordResults.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showResultMenu(view);
-
-                }
-            });
-
-        }
-    }
 }

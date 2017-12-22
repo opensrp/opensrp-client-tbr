@@ -119,11 +119,12 @@ public abstract class BaseActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
+        //Overrides
     }
 
     @Override
     protected void onResumption() {
-
+        //Overrides
     }
 
 }

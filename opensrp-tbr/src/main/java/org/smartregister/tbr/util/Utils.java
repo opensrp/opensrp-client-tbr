@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,8 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 /**
  * Created by ndegwamartin on 10/10/2017.
@@ -76,7 +76,7 @@ public class Utils {
 
 
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
 
@@ -85,7 +85,7 @@ public class Utils {
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
     }
 
@@ -172,5 +172,18 @@ public class Utils {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    public static Animation getRotateAnimation() {
+
+        Animation rotate = new RotateAnimation(
+                0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+        );
+        rotate.setDuration(240);
+        rotate.setRepeatCount(Animation.INFINITE);
+
+        return rotate;
     }
 }

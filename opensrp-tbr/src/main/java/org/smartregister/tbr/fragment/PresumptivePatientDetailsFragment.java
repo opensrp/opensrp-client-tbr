@@ -27,8 +27,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
-
 /**
  * Created by ndegwamartin on 24/11/2017.
  */
@@ -46,7 +44,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(REGISTER_TITLE));
+        activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(Constants.INTENT_KEY.REGISTER_TITLE));
         setupViews(rootView);
         return rootView;
     }
@@ -57,7 +55,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        processViews(rootView, Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
+        processViewConfigurations(rootView);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -69,51 +67,9 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         this.patientDetails = patientDetails;
     }
 
-    protected void processViewConfigurations(View rootView, String viewConfigurationIdentifier) {
-
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewConfigurationIdentifier);
-        if (jsonString == null) return;
-        ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-        List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
-        if (!views.isEmpty()) {
-            Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
-                @Override
-                public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
-                    return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
-                }
-            });
-
-            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.patient_detail_container);
-            for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
-
-                try {
-                    if (componentView.getResidence().getParent() == null) {
-                        componentView.getResidence().setParent(detailsView.getIdentifier());
-                    }
-
-                    String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
-                    ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
-                    if (componentViewConfiguration != null) {
-                        JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                        View sampleView = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
-
-                        View view = viewParent.findViewById(sampleView.getId());
-                        if (view != null) {
-                            viewParent.removeView(view);
-                        }
-                        viewParent.addView(sampleView);
-                        processViews(sampleView,Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS);
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        }
-
-        if (detailsView != null) {
-            processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
-        }
-
+    @Override
+    protected String getViewConfigurationIdentifier() {
+        return Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS;
     }
 
     @Override
@@ -130,30 +86,72 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
     @Override
     protected void onResumption() {
+        //Overrides
     }
 
     @Override
-    protected void processViews(View view, String viewConfigurationIdentifier) {
+    protected void processViewConfigurations(View rootView) {
 
-        processViewConfigurations(view, viewConfigurationIdentifier);
-
-        if (view.getId() == R.id.clientDetailsCardView) {
-            renderDemographicsView(view, patientDetails);
-        } else if (view.getId() == R.id.clientServiceHistoryCardView) {
-            renderServiceHistoryView(view, patientDetails);
-
-        } else if (view.getId() == R.id.clientPositiveResultsCardView) {
-            renderPositiveResultsView(view, patientDetails);
-            //Record Results
-            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
-            recordResults.setOnClickListener(new View.OnClickListener() {
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
+        if (jsonString == null) return;
+        ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
+        if (!views.isEmpty()) {
+            Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
                 @Override
-                public void onClick(View view) {
-                    showResultMenu(view);
-
+                public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
+                    return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
                 }
             });
 
+            LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_presumptive_patient_detail_container);
+            for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
+
+                try {
+                    if (componentView.getResidence().getParent() == null) {
+                        componentView.getResidence().setParent(detailsView.getIdentifier());
+                    }
+
+                    String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
+                    ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
+                    if (componentViewConfiguration != null) {
+                        JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
+                        View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+
+                        View view = viewParent.findViewById(json2View.getId());
+                        if (view != null) {
+                            viewParent.removeView(view);
+                        }
+                        viewParent.addView(json2View);
+                        if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                            renderDemographicsView(json2View, patientDetails);
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                            renderPositiveResultsView(json2View, patientDetails);
+                            //Record Results click handler
+                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            recordResults.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showResultMenu(view);
+
+                                }
+                            });
+
+                        } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+
+                            renderServiceHistoryView(json2View, patientDetails);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
         }
+
+        if (detailsView != null) {
+            processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+        }
+
     }
 }

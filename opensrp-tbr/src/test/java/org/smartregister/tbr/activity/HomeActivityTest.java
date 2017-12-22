@@ -126,7 +126,6 @@ public class HomeActivityTest extends BaseUnitTest {
         TriggerSyncEvent triggerViewConfigurationSyncEvent = new TriggerSyncEvent();
         triggerViewConfigurationSyncEvent.setManualSync(true);
 
-        PowerMockito.doReturn(null).when(spyActivity);
         View view = spyActivity.findViewById(R.id.refreshSyncButton);
         spyActivity.manualSync(view);
 
