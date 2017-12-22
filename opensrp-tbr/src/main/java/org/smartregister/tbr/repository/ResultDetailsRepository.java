@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.model.Register;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,5 +117,43 @@ public class ResultDetailsRepository extends BaseRepository {
             }
         }
         return clientDetails;
+    }
+
+
+    //Temporary
+    public int getRegisterCountByType(String type) {
+        Cursor cursor = null;
+        int total = 0;
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String suffix = "";
+            if (type.equals(Register.PRESUMPTIVE_PATIENTS)) {
+                suffix = "presumptive is NOT NULL and confirmed_tb is NULL";
+            } else if (type.equals(Register.POSITIVE_PATIENTS)) {
+                suffix = "confirmed_tb is NOT NULL and treatment_initiation_date is NULL";
+
+            } else if (type.equals(Register.IN_TREATMENT_PATIENTS)) {
+
+                suffix = "treatment_initiation_date is NOT NULL";
+            }
+
+
+            String query =
+                    "SELECT count(*) total FROM ec_patient WHERE " + suffix;
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    total = cursor.getInt(cursor.getColumnIndex("total"));
+                } while (cursor.moveToNext());
+            }
+            return total;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return total;
     }
 }

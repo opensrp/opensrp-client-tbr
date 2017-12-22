@@ -133,7 +133,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
                             renderPositiveResultsView(json2View, patientDetails);
                             //Record Results click handler
-                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
                             recordResults.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -148,11 +148,11 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
                             renderContactScreeningView(json2View, patientDetails);
 
-                            TextView addContactView = (TextView) view.findViewById(R.id.add_contact);
+                            TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
                             addContactView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    startFormActivity(Constants.FORM.CONTACT_SCREENING, patientDetails.get(Constants.KEY.TBREACH_ID), null);
+                                    Utils.showToast(getActivity(), "Launch TB Contact Form");
                                 }
 
                             });

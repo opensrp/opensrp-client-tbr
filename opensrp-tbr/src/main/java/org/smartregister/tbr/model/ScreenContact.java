@@ -20,12 +20,13 @@ public class ScreenContact {
         isNegative = negative;
     }
 
-    public ScreenContact(String tbreachId, String name, String gender, String stage) {
+    public ScreenContact(String tbreachId, String name, String gender, String stage,boolean isNegative) {
 
         this.stage = stage;
         this.name = name;
         this.gender = gender;
         this.tbreachId = tbreachId;
+        this.isNegative = isNegative;
 
     }
 
