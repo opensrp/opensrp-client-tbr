@@ -8,10 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.tbr.BaseUnitTest;
+import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
+
+import static org.mockito.Mockito.times;
+import static org.powermock.api.mockito.PowerMockito.spy;
 
 /**
  * Created by ndegwamartin on 18/12/2017.
@@ -51,6 +56,17 @@ public class LoginActivityTest extends BaseUnitTest {
 
     @Test
     public void onCreateOptionsMenuAddsItemToActionBarIfPresent() {
-        junit.framework.Assert.assertTrue(activity.onCreateOptionsMenu(menu));
+        boolean result = activity.onCreateOptionsMenu(menu);
+        junit.framework.Assert.assertTrue(result);
+    }
+
+    @Test
+    public void refreshViewsCallsRefreshViewsOnSyncCompleteEvent() {
+
+        ViewConfigurationSyncCompleteEvent viewConfigurationSyncCompleteEvent = new ViewConfigurationSyncCompleteEvent();
+        LoginActivity spyActivity = spy(activity);
+        junit.framework.Assert.assertNotNull(spyActivity);
+        spyActivity.refreshViews(viewConfigurationSyncCompleteEvent);
+        Mockito.verify(spyActivity, times(1)).refreshViews(viewConfigurationSyncCompleteEvent);
     }
 }

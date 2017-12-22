@@ -55,7 +55,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        processViewConfigurations(rootView, getViewConfigurationIdentifier());
+        processViewConfigurations(rootView);
 
         //Remove patient button
         Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
@@ -90,9 +90,9 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     }
 
     @Override
-    protected void processViewConfigurations(View rootView, String viewConfigurationIdentifier) {
+    protected void processViewConfigurations(View rootView) {
 
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(viewConfigurationIdentifier);
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
         if (jsonString == null) return;
         ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();

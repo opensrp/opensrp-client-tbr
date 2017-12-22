@@ -43,7 +43,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     protected Map<String, String> patientDetails;
     protected ResultMenuListener resultMenuListener;
 
-    protected abstract void processViewConfigurations(View view, String viewConfigurationIdentifier);
+    protected abstract void processViewConfigurations(View view);
 
     protected abstract void setPatientDetails(Map<String, String> patientDetails);
 
@@ -180,7 +180,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
-            processViewConfigurations(getView(), getViewConfigurationIdentifier());
+            processViewConfigurations(getView());
         }
 
     }
