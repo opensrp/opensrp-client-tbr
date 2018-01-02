@@ -24,19 +24,21 @@ public class PullConfigurableViewsServiceHelper {
     private ConfigurableViewsRepository configurableViewsRepository;
     private HTTPAgent httpAgent;
     private String baseUrl;
+    private ECSyncHelper syncHelper;
 
-    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository, HTTPAgent httpAgent, String baseUrl) {
+    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository, HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper) {
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
+        this.syncHelper = syncHelper;
     }
 
     protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-            ECSyncHelper.getInstance(applicationContext).updateLastSyncTimeStamp(lastSyncTimeStamp);
+            syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
         }
         return views == null ? 0 : views.length();
     }

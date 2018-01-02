@@ -17,7 +17,6 @@ import org.smartregister.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smartregister.tbr.activity.LoginActivity.PREF_TEAM_LOCATIONS;
 import static org.smartregister.util.Utils.getPreference;
 import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
@@ -154,10 +153,6 @@ public class ECSyncHelper {
 
     public void updateLastCheckTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
-    }
-
-    public String getDefaultLocationId() {
-        return Utils.getPreference(context, PREF_TEAM_LOCATIONS, "").split(",")[0];
     }
 
     public void batchSave(JSONArray events, JSONArray clients) throws Exception {
