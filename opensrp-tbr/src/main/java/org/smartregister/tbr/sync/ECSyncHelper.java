@@ -62,18 +62,18 @@ public class ECSyncHelper {
             Log.i(ECSyncHelper.class.getName(), "URL: " + url);
 
             if (httpAgent == null) {
-                throw new Exception(url + " http agent is null");
+                throw new RuntimeException(url + " http agent is null");
             }
 
             Response resp = httpAgent.fetch(url);
             if (resp.isFailure()) {
-                throw new Exception(url + " not returned data");
+                throw new RuntimeException(url + " not returned data");
             }
 
             return new JSONObject((String) resp.payload());
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
-            throw new Exception(SEARCH_URL + " threw exception", e);
+            throw new RuntimeException(SEARCH_URL + " threw exception", e);
         }
     }
 
@@ -164,5 +164,4 @@ public class ECSyncHelper {
         String[] locationIds = "".split(",");
         System.out.println("locations:" + locationIds[0]);
     }
-
 }
