@@ -11,11 +11,11 @@ import static org.smartregister.util.Log.logInfo;
  * Created by SGithengi on 10/19/17.
  */
 
-public class TbrSyncActionsTask {
+public class UserConfigurableViewsSyncTask {
 
     private final Context context;
 
-    public TbrSyncActionsTask(Context context) {
+    public UserConfigurableViewsSyncTask(Context context) {
         this.context = context;
     }
 

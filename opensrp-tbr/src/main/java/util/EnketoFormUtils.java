@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+import org.smartregister.CoreLibrary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormAttributeParser;
@@ -216,7 +217,7 @@ public class EnketoFormUtils {
                                                                String formName) {
         org.smartregister.clientandeventmodel.FormSubmission v2FormSubmission;
 
-        String anmId = "test";//CoreLibrary.getInstance().context().anmService().fetchDetails().name();
+        String anmId = CoreLibrary.getInstance().context().anmService().fetchDetails().name();
         String instanceId = formSubmission.instanceId();
         String entityId = formSubmission.entityId();
         Long clientVersion = new Date().getTime();
@@ -1072,23 +1073,29 @@ public class EnketoFormUtils {
             try {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
                 if (saveClient) {
                     Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
                     saveClient(c);
                 }
+                AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
                 Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
+                e.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+                e.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+                e.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
                 saveEvent(e);
-
+                Gson gson = new GsonBuilder().create();
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
-                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
-                    client.put(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
-                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
+                    saveClient(client);
                 } else if (e.getEventType().equals(TREATMENT_INITIATION)) {
-                    JSONObject client = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
-                    client.put(BASELINE, e.getVersion());
-                    eventClientRepository.addorUpdateClient(e.getBaseEntityId(), client);
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    client.addAttribute(BASELINE, e.getVersion());
+                    saveClient(client);
                 }
+
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);

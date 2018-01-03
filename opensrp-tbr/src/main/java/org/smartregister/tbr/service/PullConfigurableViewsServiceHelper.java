@@ -8,11 +8,10 @@ import org.json.JSONException;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
-import org.smartregister.util.Utils;
+import org.smartregister.tbr.sync.ECSyncHelper;
 
 import static org.smartregister.tbr.service.PullConfigurableViewsIntentService.VIEWS_URL;
 import static org.smartregister.util.Log.logError;
-import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by samuelgithengi on 10/27/17.
@@ -25,19 +24,21 @@ public class PullConfigurableViewsServiceHelper {
     private ConfigurableViewsRepository configurableViewsRepository;
     private HTTPAgent httpAgent;
     private String baseUrl;
+    private ECSyncHelper syncHelper;
 
-    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository, HTTPAgent httpAgent, String baseUrl) {
+    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository, HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper) {
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
+        this.syncHelper = syncHelper;
     }
 
     protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-            updateLastSyncTimeStamp(lastSyncTimeStamp);
+            syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
         }
         return views == null ? 0 : views.length();
     }
@@ -48,7 +49,7 @@ public class PullConfigurableViewsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + getLastSyncTimeStamp();
+        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {
@@ -63,14 +64,6 @@ public class PullConfigurableViewsServiceHelper {
             return null;
         }
         return new JSONArray((String) resp.payload());
-    }
-
-    public long getLastSyncTimeStamp() {
-        return Long.parseLong(Utils.getPreference(applicationContext, LAST_SYNC_TIMESTAMP, "0"));
-    }
-
-    protected void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
-        Utils.writePreference(applicationContext, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
 }
