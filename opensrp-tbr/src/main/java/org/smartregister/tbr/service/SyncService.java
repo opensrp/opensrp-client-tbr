@@ -180,24 +180,24 @@ public class SyncService extends Service {
                         JSONObject jsonObject = fetchRetry(locations, 0);
                         if (jsonObject == null) {
                             return Observable.just(FetchStatus.fetchedFailed);
-                        } else {
-                            final String NO_OF_EVENTS = "no_of_events";
-                            int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
-                            if (eCount < 0) {
-                                return Observable.just(FetchStatus.fetchedFailed);
-                            } else if (eCount == 0) {
-                                return Observable.just(FetchStatus.nothingFetched);
-                            } else {
-                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
-                                long lastServerVersion = serverVersionPair.second - 1;
-                                if (eCount < EVENT_PULL_LIMIT) {
-                                    lastServerVersion = serverVersionPair.second;
-                                }
-
-                                ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
-                                return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
-                            }
                         }
+                        final String NO_OF_EVENTS = "no_of_events";
+                        int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
+                        if (eCount < 0) {
+                            return Observable.just(FetchStatus.fetchedFailed);
+                        } else if (eCount == 0) {
+                            return Observable.just(FetchStatus.nothingFetched);
+                        } else {
+                            Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
+                            long lastServerVersion = serverVersionPair.second - 1;
+                            if (eCount < EVENT_PULL_LIMIT) {
+                                lastServerVersion = serverVersionPair.second;
+                            }
+
+                            ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
+                            return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
+                        }
+
                     }
                 })
                 .subscribe(new Consumer<Object>() {
