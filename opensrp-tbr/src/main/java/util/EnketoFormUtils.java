@@ -34,7 +34,6 @@ import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
-import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.sync.TbrClientProcessor;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
@@ -1089,8 +1088,11 @@ public class EnketoFormUtils {
                     Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
                     saveClient(c);
                 }
+                AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
                 Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
-                e.setLocationId(ECSyncHelper.getInstance(context).getDefaultLocationId());
+                e.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+                e.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+                e.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
                 saveEvent(e);
                 Gson gson = new GsonBuilder().create();
                 if (e.getEventType().equals(DIAGNOSIS_EVENT)) {

@@ -8,6 +8,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
         Context context = TbrApplication.getInstance().getContext();
         pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
-                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL());
+                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()));
     }
 
 }

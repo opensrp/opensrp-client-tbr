@@ -17,7 +17,6 @@ import org.smartregister.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smartregister.tbr.activity.LoginActivity.PREF_TEAM_LOCATIONS;
 import static org.smartregister.util.Utils.getPreference;
 import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
@@ -63,18 +62,18 @@ public class ECSyncHelper {
             Log.i(ECSyncHelper.class.getName(), "URL: " + url);
 
             if (httpAgent == null) {
-                throw new Exception(url + " http agent is null");
+                throw new SyncException(url + " http agent is null");
             }
 
             Response resp = httpAgent.fetch(url);
             if (resp.isFailure()) {
-                throw new Exception(url + " not returned data");
+                throw new SyncException(url + " not returned data");
             }
 
             return new JSONObject((String) resp.payload());
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
-            throw new Exception(SEARCH_URL + " threw exception", e);
+            throw new SyncException(SEARCH_URL + " threw exception", e);
         }
     }
 
@@ -156,10 +155,6 @@ public class ECSyncHelper {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
-    public String getDefaultLocationId() {
-        return Utils.getPreference(context, PREF_TEAM_LOCATIONS, "").split(",")[0];
-    }
-
     public void batchSave(JSONArray events, JSONArray clients) throws Exception {
         eventClientRepository.batchInsertClients(clients);
         eventClientRepository.batchInsertEvents(events, getLastSyncTimeStamp());
@@ -170,4 +165,13 @@ public class ECSyncHelper {
         System.out.println("locations:" + locationIds[0]);
     }
 
+    private class SyncException extends Exception {
+        public SyncException(String s) {
+            Log.e(getClass().getName(), s);
+        }
+
+        public SyncException(String s, Throwable e) {
+            Log.e(getClass().getName(), "SyncException: " + s, e);
+        }
+    }
 }

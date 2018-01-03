@@ -8,11 +8,11 @@ import org.smartregister.domain.FetchStatus;
 
 public class SyncEvent extends BaseEvent {
 
+    private FetchStatus fetchStatus;
+
     public SyncEvent(FetchStatus fetchStatus) {
         this.fetchStatus = fetchStatus;
     }
-
-    private FetchStatus fetchStatus;
 
     public FetchStatus getFetchStatus() {
         return fetchStatus;

@@ -88,8 +88,7 @@ android {
         // explicitly depend on RxJava's latest version for bug fixes and new features.
         compile 'io.reactivex.rxjava2:rxjava:2.1.5'
 
-
-        compile('org.smartregister:opensrp-client-core:1.1.0-SNAPSHOT@aar') {
+        compile('org.smartregister:opensrp-client-core:1.1.2-SNAPSHOT@aar') {
             transitive = true
             exclude group: 'com.github.bmelnychuk', module: 'atv'
             exclude group: 'com.google.guava', module: 'guava'

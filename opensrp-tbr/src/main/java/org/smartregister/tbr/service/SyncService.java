@@ -54,8 +54,8 @@ import static org.smartregister.util.Log.logInfo;
 public class SyncService extends Service {
 
     private static final Object EVENTS_SYNC_PATH = "/rest/event/add";
-    private static final int EVENT_PUSH_LIMIT = 5;
-    public static final int EVENT_PULL_LIMIT = 5;
+    private static final int EVENT_PUSH_LIMIT = 25;
+    public static final int EVENT_PULL_LIMIT = 25;
     private volatile HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
     private Context context;
@@ -176,61 +176,63 @@ public class SyncService extends Service {
                 .flatMap(new Function<String, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(@NonNull String locations) throws Exception {
-
-                        JSONObject jsonObject = fetchRetry(locations, 0);
-                        if (jsonObject == null) {
-                            return Observable.just(FetchStatus.fetchedFailed);
-                        } else {
-                            final String NO_OF_EVENTS = "no_of_events";
-                            int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
-                            if (eCount < 0) {
-                                return Observable.just(FetchStatus.fetchedFailed);
-                            } else if (eCount == 0) {
-                                return Observable.just(FetchStatus.nothingFetched);
-                            } else {
-                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
-                                long lastServerVersion = serverVersionPair.second - 1;
-                                if (eCount < EVENT_PULL_LIMIT) {
-                                    lastServerVersion = serverVersionPair.second;
-                                }
-
-                                ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
-                                return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
-                            }
-                        }
+                        return processEventClients(ecSyncHelper, locations);
                     }
                 })
                 .subscribe(new Consumer<Object>() {
                     @SuppressWarnings("unchecked")
                     @Override
                     public void accept(Object o) throws Exception {
-                        if (o != null) {
-                            if (o instanceof ResponseParcel) {
-                                ResponseParcel responseParcel = (ResponseParcel) o;
-                                saveResponseParcel(responseParcel);
-                            } else if (o instanceof FetchStatus) {
-                                final FetchStatus fetchStatus = (FetchStatus) o;
-                                if (observables != null && !observables.isEmpty()) {
-                                    Observable.zip(observables, new Function<Object[], Object>() {
-                                        @Override
-                                        public Object apply(@NonNull Object[] objects) throws Exception {
-                                            return FetchStatus.fetched;
-                                        }
-                                    }).subscribe(new Consumer<Object>() {
-                                        @Override
-                                        public void accept(Object o) throws Exception {
-                                            complete(fetchStatus);
-                                        }
-                                    });
-                                } else {
-                                    complete(fetchStatus);
-                                }
-
+                        if (o == null)
+                            return;
+                        else if (o instanceof ResponseParcel) {
+                            ResponseParcel responseParcel = (ResponseParcel) o;
+                            saveResponseParcel(responseParcel);
+                        } else if (o instanceof FetchStatus) {
+                            final FetchStatus fetchStatus = (FetchStatus) o;
+                            if (observables != null && !observables.isEmpty()) {
+                                Observable.zip(observables, new Function<Object[], Object>() {
+                                    @Override
+                                    public Object apply(@NonNull Object[] objects) throws Exception {
+                                        return FetchStatus.fetched;
+                                    }
+                                }).subscribe(new Consumer<Object>() {
+                                    @Override
+                                    public void accept(Object o) throws Exception {
+                                        complete(fetchStatus);
+                                    }
+                                });
+                            } else {
+                                complete(fetchStatus);
                             }
+
                         }
                     }
                 });
 
+    }
+
+    private Observable processEventClients(ECSyncHelper ecSyncHelper, String locations) throws Exception {
+        JSONObject jsonObject = fetchRetry(locations, 0);
+        if (jsonObject == null) {
+            return Observable.just(FetchStatus.fetchedFailed);
+        }
+        final String NO_OF_EVENTS = "no_of_events";
+        int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
+        if (eCount < 0) {
+            return Observable.just(FetchStatus.fetchedFailed);
+        } else if (eCount == 0) {
+            return Observable.just(FetchStatus.nothingFetched);
+        } else {
+            Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
+            long lastServerVersion = serverVersionPair.second - 1;
+            if (eCount < EVENT_PULL_LIMIT) {
+                lastServerVersion = serverVersionPair.second;
+            }
+
+            ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
+            return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
+        }
     }
 
     private void saveResponseParcel(final ResponseParcel responseParcel) {
