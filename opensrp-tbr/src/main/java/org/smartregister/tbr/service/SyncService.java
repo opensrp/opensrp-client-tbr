@@ -54,8 +54,8 @@ import static org.smartregister.util.Log.logInfo;
 public class SyncService extends Service {
 
     private static final Object EVENTS_SYNC_PATH = "/rest/event/add";
-    private static final int EVENT_PUSH_LIMIT = 5;
-    public static final int EVENT_PULL_LIMIT = 5;
+    private static final int EVENT_PUSH_LIMIT = 25;
+    public static final int EVENT_PULL_LIMIT = 25;
     private volatile HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
     private Context context;
