@@ -167,8 +167,11 @@ public class ECSyncHelper {
 
     private class SyncException extends Exception {
         public SyncException(String s) {
+            Log.e(getClass().getName(), s);
         }
-        public SyncException(String s,Throwable e) {
+
+        public SyncException(String s, Throwable e) {
+            Log.e(getClass().getName(), "SyncException: " + s, e);
         }
     }
 }

@@ -204,29 +204,29 @@ public class SyncService extends Service {
                     @SuppressWarnings("unchecked")
                     @Override
                     public void accept(Object o) throws Exception {
-                        if (o != null) {
-                            if (o instanceof ResponseParcel) {
-                                ResponseParcel responseParcel = (ResponseParcel) o;
-                                saveResponseParcel(responseParcel);
-                            } else if (o instanceof FetchStatus) {
-                                final FetchStatus fetchStatus = (FetchStatus) o;
-                                if (observables != null && !observables.isEmpty()) {
-                                    Observable.zip(observables, new Function<Object[], Object>() {
-                                        @Override
-                                        public Object apply(@NonNull Object[] objects) throws Exception {
-                                            return FetchStatus.fetched;
-                                        }
-                                    }).subscribe(new Consumer<Object>() {
-                                        @Override
-                                        public void accept(Object o) throws Exception {
-                                            complete(fetchStatus);
-                                        }
-                                    });
-                                } else {
-                                    complete(fetchStatus);
-                                }
-
+                        if (o == null)
+                            return;
+                        else if (o instanceof ResponseParcel) {
+                            ResponseParcel responseParcel = (ResponseParcel) o;
+                            saveResponseParcel(responseParcel);
+                        } else if (o instanceof FetchStatus) {
+                            final FetchStatus fetchStatus = (FetchStatus) o;
+                            if (observables != null && !observables.isEmpty()) {
+                                Observable.zip(observables, new Function<Object[], Object>() {
+                                    @Override
+                                    public Object apply(@NonNull Object[] objects) throws Exception {
+                                        return FetchStatus.fetched;
+                                    }
+                                }).subscribe(new Consumer<Object>() {
+                                    @Override
+                                    public void accept(Object o) throws Exception {
+                                        complete(fetchStatus);
+                                    }
+                                });
+                            } else {
+                                complete(fetchStatus);
                             }
+
                         }
                     }
                 });
