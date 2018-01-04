@@ -19,7 +19,7 @@ import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
-import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
+import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.mock.HomeActivityTestVersion;
 import org.smartregister.tbr.shadow.RegisterFragmentShadow;
@@ -123,7 +123,7 @@ public class HomeActivityTest extends BaseUnitTest {
 
         HomeActivityTestVersion spyActivity = spy(activity);
         junit.framework.Assert.assertNotNull(spyActivity);
-        TriggerViewConfigurationSyncEvent triggerViewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
+        TriggerSyncEvent triggerViewConfigurationSyncEvent = new TriggerSyncEvent();
         triggerViewConfigurationSyncEvent.setManualSync(true);
 
         View view = spyActivity.findViewById(R.id.refreshSyncButton);

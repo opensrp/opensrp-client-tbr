@@ -86,7 +86,7 @@
           "column_name": "diagnosis_date",
           "type": "Client",
           "json_mapping": {
-            "field": "diagnosis_date"
+            "field": "attributes.diagnosis_date"
           }
         },
         {
@@ -101,7 +101,7 @@
           "column_name": "baseline",
           "type": "Client",
           "json_mapping": {
-            "field": "baseline"
+            "field": "attributes.baseline"
           }
         },
         {

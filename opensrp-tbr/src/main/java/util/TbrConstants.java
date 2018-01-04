@@ -12,6 +12,7 @@ TbrConstants extends AllConstants {
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
+    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     public static final String PATIENT_TABLE_NAME = "ec_patient";
 

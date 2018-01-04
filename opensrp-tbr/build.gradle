@@ -82,7 +82,7 @@ android {
     }
 
     dependencies {
-        compile('org.smartregister:opensrp-client-core:1.1.0-SNAPSHOT@aar') {
+        compile('org.smartregister:opensrp-client-core:1.1.2-SNAPSHOT@aar') {
             transitive = true
             exclude group: 'com.github.bmelnychuk', module: 'atv'
             exclude group: 'com.google.guava', module: 'guava'
@@ -100,6 +100,11 @@ android {
 
         compile project(':json2view')
         compile 'com.google.guava:guava:20.0'
+        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        // Because RxAndroid releases are few and far between, it is recommended you also
+        // explicitly depend on RxJava's latest version for bug fixes and new features.
+        compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+
         androidTestCompile 'junit:junit:4.12'
 
         testCompile 'junit:junit:4.12'
@@ -120,6 +125,7 @@ android {
         androidTestCompile('com.android.support.test:rules:0.5') {
             exclude module: 'support-annotations'
         }
+
     }
 
     task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {

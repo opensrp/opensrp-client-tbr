@@ -13,13 +13,15 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
-import org.smartregister.tbr.event.TriggerViewConfigurationSyncEvent;
+import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.HomeFragment;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
+import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 
@@ -47,13 +49,23 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateLastSync((TextView) findViewById(R.id.registerLastSyncTime));
+    }
+
+    private void populateLastSync(TextView textView) {
+        textView.setText("Last sync: " + Utils.formatDate(new Date(ECSyncHelper.getInstance(this).getLastCheckTimeStamp()), "MMM dd HH:mm"));
+    }
+
     //
     public void manualSync(View view) {
         refreshButton = view;
         view.startAnimation(Utils.getRotateAnimation());
-        TriggerViewConfigurationSyncEvent viewConfigurationSyncEvent = new TriggerViewConfigurationSyncEvent();
-        viewConfigurationSyncEvent.setManualSync(true);
-        postEvent(viewConfigurationSyncEvent);
+        TriggerSyncEvent triggerSyncEvent = new TriggerSyncEvent();
+        triggerSyncEvent.setManualSync(true);
+        postEvent(triggerSyncEvent);
     }
 
     public void postEvent(BaseEvent event) {

@@ -27,9 +27,6 @@ public class LoginActivityTest extends BaseUnitTest {
     private ActivityController<LoginActivity> controller;
     private LoginActivity activity;
 
-    @Mock
-    private Menu menu;
-
     @Before
     public void setUp() {
         org.mockito.MockitoAnnotations.initMocks(this);

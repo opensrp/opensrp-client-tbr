@@ -48,4 +48,7 @@
     <string name="followup">Followup</string>
     <string name="treatment">Treatment</string>
     <string name="baseLine">Baseline</string>
+    <string name="url_separator">/</string>
+    <string name="clients_key">clients</string>
+    <string name="events_key">events</string>
 </resources>
