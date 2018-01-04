@@ -2,13 +2,10 @@ package org.smartregister.tbr.activity;
 
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
