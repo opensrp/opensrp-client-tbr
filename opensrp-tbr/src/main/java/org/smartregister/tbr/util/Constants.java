@@ -30,6 +30,7 @@ public class Constants {
         public static final String LANG = "lang";
         public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
         public static final String POSITIVE_PATIENT_DETAILS = "positive_patient_details";
+        public static final String INTREATMENT_PATIENT_DETAILS = "intreatment_patient_details";
 
         public static class COMPONENTS {
             public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";

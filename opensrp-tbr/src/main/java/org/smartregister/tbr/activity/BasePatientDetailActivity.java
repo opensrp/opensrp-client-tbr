@@ -73,6 +73,11 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
     }
 
+    //remove patient
+    public void recordOutcome(View view) {
+        Utils.showToast(this, "Recording Outcome for patient with ID " + view.getTag(R.id.CLIENT_ID));
+    }
+
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
