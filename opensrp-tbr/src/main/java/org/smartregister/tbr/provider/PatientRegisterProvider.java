@@ -155,6 +155,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case BASELINE:
                     populateBaselineColumn(pc, client, convertView);
                     break;
+                default:
+                    break;
             }
         }
 
@@ -276,6 +278,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("Neg", redForegroundColorSpan);
                 break;
             default:
+                break;
         }
     }
 

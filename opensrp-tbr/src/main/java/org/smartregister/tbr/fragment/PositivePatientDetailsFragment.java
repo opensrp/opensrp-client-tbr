@@ -89,6 +89,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
 
     @Override
     protected void onResumption() {
+        //Overridden method
     }
 
 

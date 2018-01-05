@@ -11,7 +11,6 @@ import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.model.ScreenContact;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
