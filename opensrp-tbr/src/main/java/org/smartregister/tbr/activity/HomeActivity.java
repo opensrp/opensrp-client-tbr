@@ -15,20 +15,24 @@ import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.fragment.RegisterFragment;
+import org.smartregister.tbr.fragment.HomeFragment;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.util.Utils;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
+import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
  */
 
 public class HomeActivity extends BaseActivity {
-    private Toolbar toolbar;
     private static final String TAG = HomeActivity.class.getCanonicalName();
+    private View refreshButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,9 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         if (savedInstanceState == null) {
-            refreshView();
-        }
+            processView();
 
+        }
     }
 
     @Override
@@ -58,7 +62,8 @@ public class HomeActivity extends BaseActivity {
 
     //
     public void manualSync(View view) {
-        Utils.showToast(this, "Manual Syncing ...");
+        refreshButton = view;
+        view.startAnimation(Utils.getRotateAnimation());
         TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
         postEvent(viewConfigurationSyncEvent);
@@ -84,15 +89,30 @@ public class HomeActivity extends BaseActivity {
         super.onStop();
     }
 
-    public void refreshView() {
+    public void processView() {
 
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+
         //set user initials
         if (fullName != null && !fullName.toString().isEmpty()) {
             TextView textView = (TextView) toolbar.findViewById(R.id.custom_toolbar_logo_text);
-            textView.setText(Utils.getInitials(fullName));
+            textView.setText(Utils.getShortInitials(fullName));
         }
+
+        //Set last sync time
+        TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
+        if (lastSyncTimeTextView != null) {
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d HH:mm");
+            lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
+        }
+
+        //Set last sync time
+        TextView serverVersionView = (TextView) findViewById(R.id.serverVersionView);
+        if (serverVersionView != null) {
+            serverVersionView.setText("(Test Mode) Server Version : " + org.smartregister.util.Utils.getPreference(this, LAST_SYNC_TIMESTAMP, "0"));
+        }
+
         //Set App Name
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getApplicationName() != null) {
@@ -102,9 +122,7 @@ public class HomeActivity extends BaseActivity {
             Utils.showDialogMessage(this, "Error", "Missing Main Configuration on server");
         }
         try {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.registers_container, new RegisterFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.registers_container, new HomeFragment()).commit();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -112,16 +130,17 @@ public class HomeActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
-        if (syncCompleteEvent != null) {
-            refreshView();
-        }
+        if (syncCompleteEvent != null && refreshButton != null) {
+            refreshButton.clearAnimation();
+            processView();
 
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromLanguageChange(LanguageConfigurationEvent languageConfigurationEvent) {
         if (languageConfigurationEvent != null) {
-            refreshView();
+            processView();
         }
 
     }

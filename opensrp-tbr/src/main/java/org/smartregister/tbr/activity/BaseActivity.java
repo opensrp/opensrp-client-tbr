@@ -3,7 +3,7 @@ package org.smartregister.tbr.activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +18,7 @@ import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.Log;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -26,13 +27,13 @@ import java.util.Map;
  * Created by ndegwamartin on 09/10/2017.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SecuredActivity {
     private static final int MINIUM_LANG_COUNT = 2;
+    protected Toolbar toolbar;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_toolbar_layout);
     }
 
     @Override
@@ -114,6 +115,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onCreation() {
+        //Overrides
+    }
+
+    @Override
+    protected void onResumption() {
+        //Overrides
     }
 
 }

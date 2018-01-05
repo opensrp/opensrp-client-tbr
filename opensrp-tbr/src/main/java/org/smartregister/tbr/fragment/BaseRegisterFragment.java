@@ -1,5 +1,6 @@
 package org.smartregister.tbr.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,11 +35,14 @@ import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
+import org.smartregister.tbr.activity.PositivePatientDetailActivity;
+import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
@@ -189,8 +193,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void updateSearchView() {
-        getSearchView().removeTextChangedListener(textWatcher);
-        getSearchView().addTextChangedListener(textWatcher);
+        if (getSearchView() != null) {
+            getSearchView().removeTextChangedListener(textWatcher);
+            getSearchView().addTextChangedListener(textWatcher);
+        }
     }
 
     protected FieldOverrides getFieldOverrides() {
@@ -260,6 +266,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void initializeQueries() {
+
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
         PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository(), TbrApplication.getInstance().getContext().detailsRepository());
@@ -295,6 +302,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         super.filterandSortInInitializeQueries();
 
         refresh();
+
     }
 
     protected abstract void populateClientListHeaderView(View view);
@@ -367,10 +375,32 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     protected abstract String getMainCondition();
 
+
     protected abstract String[] getAdditionalColumns(String tableName);
 
     protected String getViewConfigurationIdentifier() {
         return viewConfigurationIdentifier;
+    }
+
+    private void goToPatientDetailActivity(String viewConfigurationIdentifier) {
+        Intent intent = null;
+        switch (viewConfigurationIdentifier) {
+            case TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER:
+                intent = new Intent(getActivity(), PresumptivePatientDetailActivity.class);
+                break;
+            case TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER:
+                intent = new Intent(getActivity(), PositivePatientDetailActivity.class);
+                break;
+            default:
+                break;
+
+        }
+
+        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, getActivity().getIntent().getStringExtra(TOOLBAR_TITLE));
+        intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patient.getDetails());
+        intent.putExtra(Constants.KEY.TBREACH_ID, patient.getDetails().get(Constants.KEY.TBREACH_ID));
+        startActivity(intent);
+
     }
 
     class ResultMenuListener implements PopupMenu.OnMenuItemClickListener {
@@ -412,16 +442,16 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:
-                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get("_id"), null);
+                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), null);
                     break;
                 case R.id.xpert_result_lnk:
-                    registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
-                    ///open detail screen
+                    goToPatientDetailActivity(getViewConfigurationIdentifier());
                     break;
                 case R.id.treat_lnk:
-                    registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:
@@ -433,4 +463,5 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         }
     }
+
 }

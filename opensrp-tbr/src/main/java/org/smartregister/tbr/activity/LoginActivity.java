@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String URDU_LANGUAGE = "Urdu";
     private RemoteLoginTask remoteLoginTask;
     private CheckBox showPasswordCheckBox;
+    public static final String TAG = LoginActivity.class.getCanonicalName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -547,34 +548,40 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
-        if (jsonString == null) return;
-        ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-        LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
-        Background background = metadata.getBackground();
-        if (!metadata.getShowPasswordCheckbox()) {
-            showPasswordCheckBox.setVisibility(View.GONE);
-        } else {
-            showPasswordCheckBox.setVisibility(View.VISIBLE);
-        }
-        if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
-            View canvasRL = findViewById(R.id.canvasRL);
-            GradientDrawable gradientDrawable = new GradientDrawable();
-            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setOrientation(
-                    GradientDrawable.Orientation.valueOf(background.getOrientation()));
-            gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
-                    Color.parseColor(background.getEndColor())});
-            canvasRL.setBackground(gradientDrawable);
-        }
-        if (metadata.getLogoUrl() != null) {
-            ImageView logo = (ImageView) findViewById(R.id.logoImage);
-            DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
-                    getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
-            TextView loginBuild = (TextView) findViewById(R.id.login_build);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
-            lp.setMargins(0, 0, 0, 0);
-            loginBuild.setLayoutParams(lp);
+
+        try {
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
+            if (jsonString == null) return;
+            ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
+            Background background = metadata.getBackground();
+            if (!metadata.getShowPasswordCheckbox()) {
+                showPasswordCheckBox.setVisibility(View.GONE);
+            } else {
+                showPasswordCheckBox.setVisibility(View.VISIBLE);
+            }
+            if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
+                View canvasRL = findViewById(R.id.canvasRL);
+                GradientDrawable gradientDrawable = new GradientDrawable();
+                gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+                gradientDrawable.setOrientation(
+                        GradientDrawable.Orientation.valueOf(background.getOrientation()));
+                gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
+                        Color.parseColor(background.getEndColor())});
+                canvasRL.setBackground(gradientDrawable);
+            }
+            if (metadata.getLogoUrl() != null) {
+                ImageView logo = (ImageView) findViewById(R.id.logoImage);
+                DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
+                        getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
+                TextView loginBuild = (TextView) findViewById(R.id.login_build);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
+                lp.setMargins(0, 0, 0, 0);
+                loginBuild.setLayoutParams(lp);
+            }
+
+        } catch (Exception e) {
+            android.util.Log.d(TAG, e.getMessage());
         }
     }
 
