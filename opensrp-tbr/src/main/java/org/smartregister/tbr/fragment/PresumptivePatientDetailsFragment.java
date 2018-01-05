@@ -50,16 +50,20 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     }
 
     public void setupViews(View rootView) {
+        try {
 
-        //Load Language Token Map
-        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
-        languageTranslations = config == null ? null : config.getLabels();
+            //Load Language Token Map
+            ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
+            languageTranslations = config == null ? null : config.getLabels();
 
-        processViewConfigurations(rootView);
+            processViewConfigurations(rootView);
 
-        //Remove patient button
-        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+            //Remove patient button
+            Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
+            removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override
