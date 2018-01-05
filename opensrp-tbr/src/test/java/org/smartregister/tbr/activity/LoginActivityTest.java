@@ -12,7 +12,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.spy;
 
