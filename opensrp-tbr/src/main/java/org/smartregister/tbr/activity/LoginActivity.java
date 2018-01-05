@@ -343,17 +343,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void showMessageDialog(String message, DialogInterface.OnClickListener ok, DialogInterface.OnClickListener cancel) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(getString(org.smartregister.R.string.login_failed_dialog_title))
-                .setMessage(message)
-                .setPositiveButton("OK", ok)
-                .setNegativeButton("Cancel", cancel)
-                .create();
-
-        dialog.show();
-    }
-
     private void getLocation() {
         tryGetLocation(new Listener<Response<String>>() {
             @Override

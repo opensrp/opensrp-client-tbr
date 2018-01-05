@@ -129,7 +129,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                         } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
                             renderPositiveResultsView(json2View, patientDetails);
                             //Record Results click handler
-                            TextView recordResults = (TextView) view.findViewById(R.id.record_results);
+                            TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
                             recordResults.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
