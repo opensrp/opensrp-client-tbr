@@ -68,7 +68,6 @@ import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
-import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
@@ -313,7 +312,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(PATIENT, R.id.patient_header);
             mapping.put(RESULTS, R.id.results_header);
             mapping.put(DIAGNOSE, R.id.diagnose_header);
-            mapping.put(ENCOUNTER, R.id.encounter_header);
             mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
             mapping.put(SMEAR_RESULTS, R.id.smr_results_header);
             mapping.put(TREAT, R.id.treat_header);

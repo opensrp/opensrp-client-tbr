@@ -45,7 +45,6 @@ TbrConstants extends AllConstants {
         public static final String PATIENT = "patient";
         public static final String RESULTS = "results";
         public static final String DIAGNOSE = "diagnose";
-        public static final String ENCOUNTER = "encounter";
         public static final String XPERT_RESULTS = "xpert_results";
         public static final String SMEAR_RESULTS = "smr_results";
         public static final String TREAT = "treat";

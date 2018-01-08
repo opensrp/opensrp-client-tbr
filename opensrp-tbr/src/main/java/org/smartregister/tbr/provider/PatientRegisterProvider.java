@@ -45,7 +45,6 @@ import static org.smartregister.util.Utils.getValue;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
-import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
@@ -99,7 +98,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             populatePatientColumn(pc, client, convertView);
             if (context instanceof PresumptivePatientRegisterActivity) {
                 populateResultsColumn(pc, client, convertView);
-                populateDiagnoseColumn(client, convertView);
+                populateDiagnoseColumn(pc, client, convertView);
             } else if (context instanceof PositivePatientRegisterActivity) {
                 populateResultsColumn(pc, client, convertView);
                 populateTreatColumn(client, convertView);
@@ -118,10 +117,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                     populateResultsColumn(pc, client, convertView);
                     break;
                 case DIAGNOSE:
-                    populateDiagnoseColumn(client, convertView);
-                    break;
-                case ENCOUNTER:
-                    populateEncounterColumn(pc, convertView);
+                    populateDiagnoseColumn(pc, client, convertView);
                     break;
                 case XPERT_RESULTS:
                     populateXpertResultsColumn(pc, client, convertView);
@@ -157,7 +153,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(PATIENT, R.id.patient_column);
         mapping.put(RESULTS, R.id.results_column);
         mapping.put(DIAGNOSE, R.id.diagnose_column);
-        mapping.put(ENCOUNTER, R.id.encounter_column);
         mapping.put(XPERT_RESULTS, R.id.xpert_results_column);
         mapping.put(SMEAR_RESULTS, R.id.smr_results_column);
         mapping.put(TREAT, R.id.treat_column);
@@ -299,7 +294,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
     }
 
-    private void populateDiagnoseColumn(SmartRegisterClient client, View view) {
+    private void populateDiagnoseColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
+        fillValue((TextView) view.findViewById(R.id.encounter), "Enc: " + getDuration(firstEncounter) + " ago");
         attachOnclickListener(view.findViewById(diagnose_lnk), client);
     }
 
