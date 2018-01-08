@@ -38,7 +38,7 @@ public class PullConfigurableViewsServiceHelper {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-            syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
+            syncHelper.updateLastViewsSyncTimeStamp(lastSyncTimeStamp);
         }
         return views == null ? 0 : views.length();
     }
@@ -49,7 +49,7 @@ public class PullConfigurableViewsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastSyncTimeStamp();
+        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {

@@ -196,9 +196,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
-            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
-            stringBuilder.append(withOtherResults ? "/ " : " RIF ");
-            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+            String mtbResult = testResults.get(TbrConstants.RESULT.MTB_RESULT);
+            stringBuilder.append(processXpertResult(mtbResult), redForegroundColorSpan);
+            if (mtbResult != null && mtbResult.equalsIgnoreCase(DETECTED)) {
+                stringBuilder.append(withOtherResults ? "/ " : "\nRIF ");
+                stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+            }
             return true;
         }
         return false;
@@ -236,7 +239,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
         boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
-        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert);
+        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert, false);
         populateCultureResults(stringBuilder, testResults.get(TbrConstants.RESULT.CULTURE_RESULT));
         populateXrayResults(stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT));
         if (stringBuilder.length() > 0) {
@@ -248,11 +251,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             details.setVisibility(View.GONE);
     }
 
-    private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result, boolean hasXpert) {
+    private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result, boolean hasXpert, boolean smearOnlyColumn) {
         if (result == null) return;
-        else if (hasXpert)
+        else if (hasXpert && !smearOnlyColumn)
             stringBuilder.append(", ");
-        stringBuilder.append("Smr ");
+        else if (!smearOnlyColumn)
+            stringBuilder.append("Smr ");
         switch (result) {
             case "one_plus":
                 stringBuilder.append("1+", redForegroundColorSpan);
@@ -264,10 +268,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append("3+", redForegroundColorSpan);
                 break;
             case "scanty":
-                stringBuilder.append("Sty", redForegroundColorSpan);
+                stringBuilder.append(smearOnlyColumn ? "Scanty" : "Sty", redForegroundColorSpan);
                 break;
             case "negative":
-                stringBuilder.append("Neg", redForegroundColorSpan);
+                stringBuilder.append(smearOnlyColumn ? "Negative" : "Neg", blackForegroundColorSpan);
                 break;
             default:
         }
@@ -313,7 +317,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false);
+        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
         if (stringBuilder.length() > 0) {
             adjustLayoutParams(result);
             results.setVisibility(View.VISIBLE);
