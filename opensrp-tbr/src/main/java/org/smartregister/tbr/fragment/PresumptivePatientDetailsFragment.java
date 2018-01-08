@@ -154,4 +154,9 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         }
 
     }
+
+    @Override
+    protected void renderDefaultLayout(View view) {
+
+    }
 }

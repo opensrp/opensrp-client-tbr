@@ -103,7 +103,7 @@ public class HomeActivity extends BaseActivity {
         //Set last sync time
         TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
-            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d HH:mm");
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
             lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
         }
 

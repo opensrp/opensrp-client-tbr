@@ -54,5 +54,7 @@
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
 
+    <color name="male_initials_background">#D7EAFD</color>
+    <color name="male_initials_text">#3A8BD8</color>
 
 </resources>

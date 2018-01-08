@@ -172,5 +172,10 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
 
     }
 
+    @Override
+    protected void renderDefaultLayout(View view) {
+
+    }
+
 
 }

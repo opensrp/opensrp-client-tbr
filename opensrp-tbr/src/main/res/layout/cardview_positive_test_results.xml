@@ -3,7 +3,7 @@
     android:id="@+id/clientPositiveResultsCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginBottom="15dp"
     android:background="@drawable/border"
     android:orientation="vertical"
     android:padding="10dp">
@@ -29,7 +29,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
-                android:text="@string/positive_results"
+                android:text="@string/results"
                 android:textColor="@color/text_black"
                 android:textSize="20sp" />
 

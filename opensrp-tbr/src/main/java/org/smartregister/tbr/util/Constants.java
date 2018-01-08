@@ -37,6 +37,7 @@ public class Constants {
             public static final String PATIENT_DETAILS_POSITIVE = "component_patient_details_positive";
             public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
             public static final String PATIENT_DETAILS_CONTACT_SCREENING = "component_patient_details_contact_screening";
+            public static final String PATIENT_DETAILS_FOLLOWUP = "component_patient_details_followup";
         }
     }
 
@@ -57,6 +58,7 @@ public class Constants {
         public static final String DOB = "dob";
         public static final String GENDER = "gender";
         public static final String PARTICIPANT_ID = "participant_id";
+        public static final String NEXT_VISIT_DATE = "next_visit_date";
     }
 
     public static final class FORM {

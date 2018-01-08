@@ -22,6 +22,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
+import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
 import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.util.Constants;
@@ -45,6 +46,8 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
     protected abstract void processViewConfigurations(View view);
 
+    protected abstract void renderDefaultLayout(View view);
+
     protected abstract void setPatientDetails(Map<String, String> patientDetails);
 
     protected abstract String getViewConfigurationIdentifier();
@@ -58,6 +61,13 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
         RenderPatientDemographicCardHelper renderPatientDemographicCardHelper = new RenderPatientDemographicCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
         renderPatientDemographicCardHelper.renderView(view, patientDetails);
+
+    }
+
+    protected void renderFollowUpView(View view, Map<String, String> patientDetails) {
+
+        RenderPatientFollowupCardHelper renderPatientFollowupCardHelper = new RenderPatientFollowupCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
+        renderPatientFollowupCardHelper.renderView(view, patientDetails);
 
     }
 
@@ -102,6 +112,32 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
     protected FieldOverrides getFieldOverrides() {
         Map fields = new HashMap();
         fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
+    protected FieldOverrides getTreatmentFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
+        fields.put("first_name", patientDetails.get(TbrConstants.KEY.FIRST_NAME));
+        fields.put("last_name", patientDetails.get(TbrConstants.KEY.LAST_NAME));
+
+        fields.put("gender", patientDetails.get(TbrConstants.KEY.GENDER));
+        String dobString = patientDetails.get(TbrConstants.KEY.DOB);
+        String age = "";
+        if (StringUtils.isNotBlank(dobString)) {
+            try {
+                DateTime birthDateTime = new DateTime(dobString);
+                String duration = DateUtil.getDuration(birthDateTime);
+                if (duration != null) {
+                    age = duration.substring(0, duration.length() - 1);
+                }
+            } catch (Exception e) {
+                Log.e(getClass().getName(), e.toString(), e);
+            }
+        }
+        fields.put("age", age);
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
@@ -184,4 +220,5 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
         }
 
     }
+
 }

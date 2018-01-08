@@ -68,16 +68,6 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         return true;
     }
 
-    //remove patient
-    public void removePatient(View view) {
-        Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
-    }
-
-    //remove patient
-    public void recordOutcome(View view) {
-        Utils.showToast(this, "Recording Outcome for patient with ID " + view.getTag(R.id.CLIENT_ID));
-    }
-
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -129,6 +119,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.DIAGNOSIS);
         formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
         formNames.add(Constants.FORM.CONTACT_SCREENING);
+        formNames.add(TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT);
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -192,4 +183,15 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     }
 
     protected abstract void renderFragmentView();
+
+
+    //remove patient
+    public void removePatient(View view) {
+        Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
+    }
+
+    //remove patient
+    public void recordOutcome(View view) {
+        Utils.showToast(this, "Recording Outcome for patient with ID " + view.getTag(R.id.CLIENT_ID));
+    }
 }
