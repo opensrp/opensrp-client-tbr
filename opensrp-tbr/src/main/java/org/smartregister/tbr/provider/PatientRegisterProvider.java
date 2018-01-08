@@ -45,13 +45,13 @@ import static org.smartregister.util.Utils.getValue;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
-import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -126,8 +126,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case XPERT_RESULTS:
                     populateXpertResultsColumn(pc, client, convertView);
                     break;
-                case DROPDOWN:
-                    populateDropdownColumn(client, convertView);
+                case SMEAR_RESULTS:
+                    populateSmearResultsColumn(pc, client, convertView);
                     break;
                 case TREAT:
                     populateTreatColumn(client, convertView);
@@ -159,7 +159,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(DIAGNOSE, R.id.diagnose_column);
         mapping.put(ENCOUNTER, R.id.encounter_column);
         mapping.put(XPERT_RESULTS, R.id.xpert_results_column);
-        mapping.put(DROPDOWN, R.id.dropdown_column);
+        mapping.put(SMEAR_RESULTS, R.id.smr_results_column);
         mapping.put(TREAT, R.id.treat_column);
         mapping.put(DIAGNOSIS, R.id.diagnosis_column);
         mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_column);
@@ -303,8 +303,22 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         attachOnclickListener(view.findViewById(R.id.treat_lnk), client);
     }
 
-    private void populateDropdownColumn(SmartRegisterClient client, View view) {
-        attachOnclickListener(view.findViewById(R.id.dropdown_btn), client);
+    private void populateSmearResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        View result = view.findViewById(R.id.smr_result_lnk);
+        attachOnclickListener(result, client);
+
+        TextView results = (TextView) view.findViewById(R.id.smr_result_details);
+        attachOnclickListener(results, client);
+
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
+        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false);
+        if (stringBuilder.length() > 0) {
+            adjustLayoutParams(result);
+            results.setVisibility(View.VISIBLE);
+            results.setText(stringBuilder);
+        }
     }
 
     private void populateEncounterColumn(CommonPersonObjectClient pc, View view) {

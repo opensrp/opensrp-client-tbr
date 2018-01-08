@@ -68,13 +68,13 @@ import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
-import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
 import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -315,7 +315,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(DIAGNOSE, R.id.diagnose_header);
             mapping.put(ENCOUNTER, R.id.encounter_header);
             mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
-            mapping.put(DROPDOWN, R.id.dropdown_header);
+            mapping.put(SMEAR_RESULTS, R.id.smr_results_header);
             mapping.put(TREAT, R.id.treat_header);
             mapping.put(DIAGNOSIS, R.id.diagnosis_header);
             mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_header);
@@ -406,7 +406,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 patient = (CommonPersonObjectClient) view.getTag();
             }
             switch (view.getId()) {
-                case R.id.dropdown_btn:
                 case R.id.result_lnk:
                 case R.id.intreatment_lnk:
                     showResultMenu(view);
@@ -416,6 +415,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.xpert_result_lnk:
                     registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
+                    break;
+                case R.id.smr_result_lnk:
+                    registerActivity.startFormActivity(SMEAR, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
                     ///open detail screen
