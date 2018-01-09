@@ -169,11 +169,6 @@ public class ECSyncHelper {
         eventClientRepository.batchInsertEvents(events, getLastSyncTimeStamp());
     }
 
-    public static void main(String[] args) {
-        String[] locationIds = "".split(",");
-        System.out.println("locations:" + locationIds[0]);
-    }
-
     private class SyncException extends Exception {
         public SyncException(String s) {
             Log.e(getClass().getName(), s);

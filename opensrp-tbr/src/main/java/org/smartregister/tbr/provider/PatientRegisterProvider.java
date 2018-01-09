@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Months;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
@@ -223,15 +224,17 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         populateResultsColumn(pc, client, new TbrSpannableStringBuilder(), false, null, button, details);
     }
 
-    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, TbrSpannableStringBuilder stringBuilder, boolean afterBaseline, Long baseline, View button, TextView details) {
+    private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, TbrSpannableStringBuilder stringBuilder, boolean singleResult, Long baseline, View button, TextView details) {
         if (button != null)
             attachOnclickListener(button, client);
         attachOnclickListener(details, client);
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> testResults;
-        if (baseline != null) {
-            testResults = resultsRepository.getLatestResults(baseEntityId, afterBaseline, baseline);
-        } else
+        if (baseline != null)
+            testResults = resultsRepository.getLatestResults(baseEntityId, baseline);
+        else if (singleResult)
+            testResults = resultsRepository.getLatestResult(baseEntityId);
+        else
             testResults = resultsRepository.getLatestResults(baseEntityId);
         boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert, false);
@@ -239,7 +242,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         populateXrayResults(stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT));
         if (stringBuilder.length() > 0) {
             details.setVisibility(View.VISIBLE);
-            details.setText(stringBuilder);
+            details.append(stringBuilder);
             if (button != null)
                 adjustLayoutParams(button);
         } else
@@ -249,8 +252,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result, boolean hasXpert, boolean smearOnlyColumn) {
         if (result == null) return;
         else if (hasXpert && !smearOnlyColumn)
-            stringBuilder.append(", ");
-        else if (!smearOnlyColumn)
+            stringBuilder.append(",\n");
+        if (!smearOnlyColumn)
             stringBuilder.append("Smr ");
         switch (result) {
             case "one_plus":
@@ -276,7 +279,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (result == null)
             return;
         else if (stringBuilder.length() > 0)
-            stringBuilder.append(",\n");
+            stringBuilder.append(", ");
         stringBuilder.append("CXR ");
         if ("indicative".equals(result))
             stringBuilder.append("Ind", blackForegroundColorSpan);
@@ -288,15 +291,15 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateCultureResults(TbrSpannableStringBuilder stringBuilder, String result) {
         if (result == null)
             return;
-        if (stringBuilder.length() > 0)
-            stringBuilder.append(", ");
+        else if (stringBuilder.length() > 0)
+            stringBuilder.append("\n");
         stringBuilder.append("Cul ");
         stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
     }
 
     private void populateDiagnoseColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        fillValue((TextView) view.findViewById(R.id.encounter), "Enc: " + getDuration(firstEncounter) + " ago");
+        fillValue((TextView) view.findViewById(R.id.encounter), "Scr: " + formatDate(firstEncounter));
         attachOnclickListener(view.findViewById(diagnose_lnk), client);
     }
 
@@ -322,15 +325,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
     }
 
-    private void populateEncounterColumn(CommonPersonObjectClient pc, View view) {
-        String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        fillValue((TextView) view.findViewById(R.id.encounter), getDuration(firstEncounter) + " ago");
-    }
-
     private void populateDiagnosisColumn(CommonPersonObjectClient pc, View view) {
         String diagnosis = getValue(pc.getColumnmaps(), KEY.DIAGNOSIS_DATE, false);
         if (!diagnosis.isEmpty())
-            fillValue((TextView) view.findViewById(R.id.diagnosis), getDuration(diagnosis) + " ago");
+            fillValue((TextView) view.findViewById(R.id.diagnosis), formatDate(diagnosis));
+    }
+
+    public String formatDate(String date) {
+        return StringUtils.isNotEmpty(date) ? new DateTime(date).toString("dd/MM/yyyy") : date;
     }
 
     public String getDuration(String date) {
@@ -385,8 +387,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             TextView results = (TextView) view.findViewById(R.id.intreatment_details);
             View button = view.findViewById(R.id.intreatment_lnk);
             results.setVisibility(View.VISIBLE);
-            stringBuilder.append(getDuration(treatmentStartDate) + " ago\n");
-            populateResultsColumn(pc, client, stringBuilder, true, Long.valueOf(baseline), button, results);
+            stringBuilder.append(formatDate(treatmentStartDate) + "\n");
+            results.setText(stringBuilder);
+            stringBuilder.clear();
+            populateResultsColumn(pc, client, stringBuilder, true, null, button, results);
         }
     }
 
@@ -412,7 +416,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
         String treatmentStart = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
-        ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + getDuration(treatmentStart) + " ago");
+        int months = Months.monthsBetween(DateTime.now(), new DateTime(treatmentStart)).getMonths();
+        ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         String patientType = details.get("patient_type");

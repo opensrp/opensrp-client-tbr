@@ -123,7 +123,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         assertEquals("Ali Lango", ((TextView) view.findViewById(R.id.patient_name)).getText());
         assertEquals("#45355435435", ((TextView) view.findViewById(R.id.participant_id)).getText());
         assertEquals("Male", ((TextView) view.findViewById(R.id.gender)).getText());
-        String age = patientRegisterProvider.getDuration(columnMap.get(DOB));
+        String age = patientRegisterProvider.formatDate(columnMap.get(DOB));
         assertEquals(age.substring(0, age.indexOf("y")), ((TextView) view.findViewById(R.id.age)).getText());
     }
 
@@ -215,7 +215,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         String firstEncounter = "2017-11-30T02:40:15.600-0500";
         columnMap.put(TbrConstants.KEY.FIRST_ENCOUNTER, firstEncounter);
         initProvider(ENCOUNTER);
-        assertEquals(patientRegisterProvider.getDuration(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.encounter)).getText());
+        assertEquals(patientRegisterProvider.formatDate(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.encounter)).getText());
 
     }
 
@@ -225,7 +225,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         String firstEncounter = "2017-11-20T02:40:15.600-0500";
         columnMap.put(TbrConstants.KEY.DIAGNOSIS_DATE, firstEncounter);
         initProvider(DIAGNOSIS);
-        assertEquals(patientRegisterProvider.getDuration(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.diagnosis)).getText());
+        assertEquals(patientRegisterProvider.formatDate(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.diagnosis)).getText());
 
     }
 
@@ -233,14 +233,14 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void testGetDuration() {
         patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         Calendar calendar = Calendar.getInstance();
-        assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("0d", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.DATE, -14);
-        assertEquals("2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("2w", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.MONTH, -6);
-        assertEquals("6m 2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("6m 2w", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.YEAR, -30);
-        assertEquals("30y 6m", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
-        assertEquals("", patientRegisterProvider.getDuration(calendar.toString()));
+        assertEquals("30y 6m", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("", patientRegisterProvider.formatDate(calendar.toString()));
 
 
     }
@@ -262,7 +262,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         long baseline = 1513341747;
         columnMap.put(TbrConstants.KEY.BASELINE, String.valueOf(baseline));
         initProvider(INTREATMENT_RESULTS);
-        String expected = patientRegisterProvider.getDuration(treatment) + " ago\n";
+        String expected = patientRegisterProvider.formatDate(treatment) + " ago\n";
         assertEquals(expected, ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
 
 
@@ -352,7 +352,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         results.put("regimen", "2HRZE/HR");
         when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(TREATMENT);
-        assertEquals("Start: " + patientRegisterProvider.getDuration(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
+        assertEquals("Start: " + patientRegisterProvider.formatDate(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
         assertEquals("New", ((TextView) view.findViewById(R.id.patient_type)).getText().toString());
         assertEquals("2HRZE/HR", ((TextView) view.findViewById(R.id.regimen)).getText().toString());
 

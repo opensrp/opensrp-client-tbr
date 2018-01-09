@@ -142,23 +142,20 @@ public class ResultsRepository extends BaseRepository {
     }
 
     public Map<String, String> getLatestResults(String baseEntityId) {
-        return getLatestResults(baseEntityId, false, null);
+        return getLatestResults(baseEntityId, null);
     }
 
-    public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
+    public Map<String, String> getLatestResults(String baseEntityId, Long baseline) {
         Cursor cursor = null;
         Map<String, String> clientDetails = new HashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
             String baselineFilter = "";
             if (baseline != null) {
-                if (afterBaseline)
-                    baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
-                else
                     baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
             }
             String query =
-                    "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                    "SELECT max(" + DATE + "||"+CREATED_AT+")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                             " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
                             + "" + "= '" + baseEntityId + "' "
                             + baselineFilter
@@ -174,6 +171,41 @@ public class ResultsRepository extends BaseRepository {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
                         clientDetails.put(key2, value);
                     }
+                } while (cursor.moveToNext());
+            }
+            return clientDetails;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return clientDetails;
+    }
+
+    public Map<String, String> getLatestResult(String baseEntityId) {
+        Cursor cursor = null;
+        Map<String, String> clientDetails = new HashMap<>();
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String query =
+                    "SELECT max(" + CREATED_AT + ")," + DATE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                            " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
+                            + "" + "= '" + baseEntityId + "' ";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    String value = cursor.getString(cursor.getColumnIndex(VALUE1));
+                    clientDetails.put(key, value);
+                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
+                    if (key2 != null && !key2.isEmpty()) {
+                        value = cursor.getString(cursor.getColumnIndex(VALUE2));
+                        clientDetails.put(key2, value);
+                    }
+                    clientDetails.put(DATE, cursor.getString(cursor.getColumnIndex(DATE)));
+
                 } while (cursor.moveToNext());
             }
             return clientDetails;
