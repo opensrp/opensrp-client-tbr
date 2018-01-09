@@ -9,6 +9,9 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.InTreatmentPatientDetailActivity">
 
+
+    <include layout="@layout/toolbar_patient_register" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,14 +22,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/toolbar_patient_register" />
-
             <include layout="@layout/content_intreatment_patient_detail" />
-
-            <include layout="@layout/footer_remove_patient_button" />
-
-            <include layout="@layout/activity_base" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
+
+    <include layout="@layout/footer_remove_patient_button" />
+
+    <include layout="@layout/activity_base" />
 </android.support.design.widget.CoordinatorLayout>

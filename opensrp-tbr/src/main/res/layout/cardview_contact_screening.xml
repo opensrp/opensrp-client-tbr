@@ -6,7 +6,7 @@
     android:layout_marginBottom="15dp"
     android:background="@drawable/border"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,19 +23,20 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/contact_screening"
-                style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
-                android:text="@string/contact_screening"
+                android:text="@string/contacts"
                 android:textColor="@color/text_black"
-                android:textSize="20sp" />
+                android:textSize="22sp"
+                android:paddingLeft="0dp"/>
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/add_contact"
-                style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -45,7 +46,7 @@
                 android:text="@string/add_contacts"
                 android:textAllCaps="true"
                 android:textColor="#3269D4"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
@@ -65,15 +66,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:paddingLeft="0dp">
+            android:orientation="horizontal">
 
             <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/clientContactView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="20dp">
 
                 <TextView
                     android:id="@+id/clientContactTextView"

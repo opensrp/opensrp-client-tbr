@@ -26,13 +26,15 @@ public class Register {
     private int totalPatientsWithDueOverdue;
     private int position;
 
-    public Register(Context context, View view, int totalPatients, int totalPatientsWithDueOverdue) {
+    public Register(Context context, View view, RegisterCount registerCount) {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         String label = getRegisterLabel(context, view, config);
         this.title = label != null && !label.isEmpty() ? label : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
         this.titleToken = view.getIdentifier();
-        this.totalPatients = totalPatients;
-        this.totalPatientsWithDueOverdue = totalPatientsWithDueOverdue;
+        if (registerCount != null) {
+            this.totalPatients = registerCount.getTotal();
+            this.totalPatientsWithDueOverdue = registerCount.getTotalOverdue();
+        }
         this.position = view.getResidence().getPosition();
 
     }

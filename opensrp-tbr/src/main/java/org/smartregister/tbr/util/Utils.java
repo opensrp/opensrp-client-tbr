@@ -186,4 +186,14 @@ public class Utils {
 
         return rotate;
     }
+
+    public static String getTBTypeByCode(String tbCode) {
+        if (tbCode.equals(Constants.PTB)) {
+            return Constants.PULMONARY;
+        } else if (tbCode.equals(Constants.EPTB)) {
+            return Constants.EXTRA_PULMONARY;
+        } else {
+            return "";
+        }
+    }
 }

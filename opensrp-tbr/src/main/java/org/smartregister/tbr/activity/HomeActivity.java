@@ -107,12 +107,6 @@ public class HomeActivity extends BaseActivity {
             lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
         }
 
-        //Set last sync time
-        TextView serverVersionView = (TextView) findViewById(R.id.serverVersionView);
-        if (serverVersionView != null) {
-            serverVersionView.setText("(Test Mode) Server Version : " + org.smartregister.util.Utils.getPreference(this, LAST_SYNC_TIMESTAMP, "0"));
-        }
-
         //Set App Name
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getApplicationName() != null) {

@@ -49,6 +49,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(REGISTER_TITLE));
+        rootView.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
         setupViews(rootView);
         return rootView;
     }
@@ -151,6 +152,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                             viewParent.addView(json2View);
 
                             if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                                json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
                                 renderDemographicsView(json2View, patientDetails);
 
                             } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {

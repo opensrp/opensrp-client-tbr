@@ -56,5 +56,5 @@
 
     <color name="male_initials_background">#D7EAFD</color>
     <color name="male_initials_text">#3A8BD8</color>
-
+    <color name="text_black">#000000</color>
 </resources>

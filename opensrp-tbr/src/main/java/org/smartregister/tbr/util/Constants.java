@@ -5,6 +5,11 @@ package org.smartregister.tbr.util;
  */
 
 public class Constants {
+    public static final String PTB = "ptb";
+    public static final String EPTB = "eptb";
+    public static final String PULMONARY = "Pulmonary";
+    public static final String EXTRA_PULMONARY = "Extra Pulmonary";
+
     public static class INTENT_KEY {
         public static final String FULL_NAME = "full_name";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
@@ -59,6 +64,8 @@ public class Constants {
         public static final String GENDER = "gender";
         public static final String PARTICIPANT_ID = "participant_id";
         public static final String NEXT_VISIT_DATE = "next_visit_date";
+        public static final String PATIENT_TYPE = "patient_type";
+        public static final String SITE_OF_DISEASE = "site_of_disease";
     }
 
     public static final class FORM {

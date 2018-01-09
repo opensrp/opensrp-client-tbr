@@ -31,20 +31,7 @@ public class InTreatmentPatientDetailActivity extends BasePatientDetailActivity 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_patient_detail_positive_settings, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.treatmentInitiationForm:
-                String entityId = generateRandomUUIDString();
-                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, entityId, null);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override

@@ -50,6 +50,9 @@
     <string name="treatment">Treatment</string>
     <string name="baseLine">Baseline</string>
     <string name="contact_screening">Contact Screening</string>
+    <string name="contact">Contact</string>
+    <string name="contacts">Contacts</string>
+    <string name="add_contact">ADD CONTACT</string>
     <string name="add_contacts">ADD CONTACTS</string>
     <string name="url_separator">/</string>
     <string name="clients_key">clients</string>
