@@ -16,8 +16,11 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
@@ -196,4 +199,41 @@ public class Utils {
             return "";
         }
     }
+
+    public static Integer getMonthCountFromDate(Date date) {
+        String dateFormat = "yyyy-MM-dd";
+        LocalDate start = LocalDate.parse(new SimpleDateFormat(dateFormat).format(date));
+        LocalDate end = LocalDate.parse(new SimpleDateFormat(dateFormat).format(new Date()));
+        start = start.withDayOfMonth(1);
+        end = end.withDayOfMonth(1);
+        return Months.monthsBetween(start, end).getMonths();
+    }
+
+    public static String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
+    }
+
+    public static String getTimeAgo(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration) + " ago";
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
+    }
+
+
 }

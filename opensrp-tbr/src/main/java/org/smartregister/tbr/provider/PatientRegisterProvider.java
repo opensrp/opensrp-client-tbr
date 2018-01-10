@@ -23,6 +23,7 @@ import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -191,7 +192,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.gender), gender);
 
-        String dobString = getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
+        String dobString = Utils.getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
 
         fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
 
@@ -318,27 +319,15 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateEncounterColumn(CommonPersonObjectClient pc, View view) {
         String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        fillValue((TextView) view.findViewById(R.id.encounter), getDuration(firstEncounter) + " ago");
+        fillValue((TextView) view.findViewById(R.id.encounter), Utils.getDuration(firstEncounter) + " ago");
     }
 
     private void populateDiagnosisColumn(CommonPersonObjectClient pc, View view) {
         String diagnosis = getValue(pc.getColumnmaps(), KEY.DIAGNOSIS_DATE, false);
         if (!diagnosis.isEmpty())
-            fillValue((TextView) view.findViewById(R.id.diagnosis), getDuration(diagnosis) + " ago");
+            fillValue((TextView) view.findViewById(R.id.diagnosis), Utils.getDuration(diagnosis) + " ago");
     }
-
-    public String getDuration(String date) {
-        DateTime duration;
-        if (StringUtils.isNotBlank(date)) {
-            try {
-                duration = new DateTime(date);
-                return DateUtil.getDuration(duration);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString(), e);
-            }
-        }
-        return "";
-    }
+    
 
     private void adjustLayoutParams(View view) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
@@ -379,7 +368,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             TextView results = (TextView) view.findViewById(R.id.intreatment_details);
             View button = view.findViewById(R.id.intreatment_lnk);
             results.setVisibility(View.VISIBLE);
-            stringBuilder.append(getDuration(treatmentStartDate) + " ago\n");
+            stringBuilder.append(Utils.getDuration(treatmentStartDate) + " ago\n");
             populateResultsColumn(pc, client, stringBuilder, true, Long.valueOf(baseline), button, results);
         }
     }
@@ -406,7 +395,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
         String treatmentStart = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
-        ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + getDuration(treatmentStart) + " ago");
+        ((TextView) view.findViewById(R.id.treatment_started)).setText("Start: " + Utils.getDuration(treatmentStart) + " ago");
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         String patientType = details.get("patient_type");

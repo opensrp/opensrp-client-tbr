@@ -90,4 +90,50 @@
 
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ECECEC" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/baselineTextView"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Baseline (treatment started 5 months ago)"
+            android:textColor="@color/dark_grey"
+            android:textSize="18sp" />
+
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/baseline_result_details"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:textColor="#757575"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/baseline_no_results_recorded"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="No results recorded"
+            android:textColor="@color/dark_grey"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
 </LinearLayout>
