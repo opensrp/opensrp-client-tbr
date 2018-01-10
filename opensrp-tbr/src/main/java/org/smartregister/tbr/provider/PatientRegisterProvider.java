@@ -299,7 +299,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateDiagnoseColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
-        fillValue((TextView) view.findViewById(R.id.encounter), "Scr: " + formatDate(firstEncounter));
+        fillValue((TextView) view.findViewById(R.id.encounter), "Scr Date:\n" + formatDate(firstEncounter));
         attachOnclickListener(view.findViewById(diagnose_lnk), client);
     }
 
@@ -474,13 +474,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewIdentifier = INTREATMENT_REGISTER_ROW;
             view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
-        ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
-        if (viewConfiguration == null) {
-            return view;
-        } else {
-            return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
+            ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
+            ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
+            if (viewConfiguration != null) {
+                return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+            }
         }
+        return view;
     }
 
     public static void fillValue(TextView v, String value) {

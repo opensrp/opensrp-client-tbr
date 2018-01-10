@@ -6,6 +6,8 @@ public abstract class BaseConfiguration {
 
     private String applicationName;
 
+    private boolean enableJsonViews;
+
     public String getLanguage() {
         return language;
     }
@@ -20,6 +22,14 @@ public abstract class BaseConfiguration {
 
     public void setApplicationName(String applicationName) {
         this.applicationName = applicationName;
+    }
+
+    public boolean isEnableJsonViews() {
+        return enableJsonViews;
+    }
+
+    public void setEnableJsonViews(boolean enableJsonViews) {
+        this.enableJsonViews = enableJsonViews;
     }
 
 }
