@@ -431,8 +431,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateBaselineColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        long baseline = Long.valueOf(getValue(pc.getColumnmaps(), KEY.BASELINE, false));
+        String baselineStr = getValue(pc.getColumnmaps(), KEY.BASELINE, false);
         TextView results = (TextView) view.findViewById(R.id.baseline_details);
+        long baseline = 0l;
+        if (!baselineStr.isEmpty())
+            baseline = Long.valueOf(baselineStr);
         populateResultsColumn(pc, client, stringBuilder, false, baseline, null, results);
     }
 

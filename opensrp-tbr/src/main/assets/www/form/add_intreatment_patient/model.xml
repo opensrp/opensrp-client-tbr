@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <Add_InTreatment_Pt_08.01.18 xmlns:jr="http://openrosa.org/javarosa"
+        <Add_InTreatment_Pt_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="intreatment TB patient"
-            id="add_intx_pt" version="201801100521">
+            id="add_intx_pt" version="201801110804">
             <formhub>
                 <uuid />
             </formhub>
@@ -23,26 +23,35 @@
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <diagnosis>
-                <date_treatment />
+                <date_treatment openmrs_entity="concept"
+                    openmrs_entity_id="TBR: treatment start date" />
                 <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR: tb type" />
-                <site_of_eptb openmrs_entity="concept" />
+                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="eptb" />
                 <other_eptb_site openmrs_entity="concept"
                     openmrs_entity_id="TBR:other specify text" />
                 <registry_number openmrs_entity="concept"
                     openmrs_entity_id="TBR: tb registry number" />
                 <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
-                <treatment_regimen openmrs_entity="concept" />
                 <treatment_phase />
+                <treatment_regimen1 openmrs_entity="concept"
+                    openmrs_entity_id="TBR: treatment_regimen1" />
+                <treatment_regimen2 />
+                <regimen_oth1 />
+                <regimen_oth2 />
             </diagnosis>
             <patient_info>
                 <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
                 <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
                 <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
                 <age openmrs_entity="person" openmrs_entity_id="age" />
+                <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
+                <birthdate_estimated openmrs_entity="person"
+                    openmrs_entity_id="birthdate_estimated">1
+                </birthdate_estimated>
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
                 <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
                 <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
-                <bmi openmrs_entity="concept" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
                 <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
                 <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
                 <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
@@ -67,25 +76,41 @@
             <meta>
                 <instanceID />
             </meta>
-        </Add_InTreatment_Pt_08.01.18>
+        </Add_InTreatment_Pt_11.01.18>
     </instance>
-    <instance id="regimen">
+    <instance id="provinces">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
-                <itextId>static_instance-regimen-0</itextId>
-                <name>1</name>
+                <itextId>static_instance-provinces-0</itextId>
+                <name>kpk</name>
             </item>
             <item>
-                <itextId>static_instance-regimen-1</itextId>
-                <name>2</name>
+                <itextId>static_instance-provinces-1</itextId>
+                <name>sindh</name>
             </item>
             <item>
-                <itextId>static_instance-regimen-2</itextId>
-                <name>3</name>
+                <itextId>static_instance-provinces-2</itextId>
+                <name>balochistan</name>
             </item>
             <item>
-                <itextId>static_instance-regimen-3</itextId>
-                <name>4</name>
+                <itextId>static_instance-provinces-3</itextId>
+                <name>punjab</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-4</itextId>
+                <name>gilgit_baltistan</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-5</itextId>
+                <name>kashmir</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-6</itextId>
+                <name>fata</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-7</itextId>
+                <name>out_of_country</name>
             </item>
         </root>
     </instance>
@@ -133,6 +158,22 @@
             <item>
                 <itextId>static_instance-eptb_site-8</itextId>
                 <openmrs_concept_name>Other non-coded</openmrs_concept_name>
+                <name>other</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="regimen1">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-regimen1-0</itextId>
+                <name>rhzes</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen1-1</itextId>
+                <name>rhze</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen1-2</itextId>
                 <name>other</name>
             </item>
         </root>
@@ -187,42 +228,6 @@
             </item>
         </root>
     </instance>
-    <instance id="provinces">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-provinces-0</itextId>
-                <name>kpk</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-1</itextId>
-                <name>sindh</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-2</itextId>
-                <name>balochistan</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-3</itextId>
-                <name>punjab</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-4</itextId>
-                <name>gilgit_baltistan</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-5</itextId>
-                <name>kashmir</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-6</itextId>
-                <name>fata</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-7</itextId>
-                <name>out_of_country</name>
-            </item>
-        </root>
-    </instance>
     <instance id="hiv_results">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
@@ -263,6 +268,22 @@
                 <openmrs_concept_name>mycobacterium tuberculosis, extrapulmonary
                 </openmrs_concept_name>
                 <name>eptb</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="regimen2">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-regimen2-0</itextId>
+                <name>rhe</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen2-1</itextId>
+                <name>rh</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen2-2</itextId>
+                <name>other</name>
             </item>
         </root>
     </instance>
