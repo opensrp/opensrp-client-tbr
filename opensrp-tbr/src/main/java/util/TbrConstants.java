@@ -39,6 +39,7 @@ TbrConstants extends AllConstants {
         public static final String XRAY_RESULT = "xray_result";
         public static final String CULTURE_RESULT = "culture_result";
         public static final String TEST_RESULT = "test_result";
+        public static final String ERROR_CODE = "error_code";
     }
 
     public static final class REGISTER_COLUMNS {

@@ -74,6 +74,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private static final String DETECTED = "detected";
     private static final String NOT_DETECTED = "not_detected";
     private static final String INDETERMINATE = "indeterminate";
+    private static final String ERROR = "error";
+    private static final String NO_RESULT = "no_result";
 
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
@@ -190,31 +192,42 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
             String mtbResult = testResults.get(TbrConstants.RESULT.MTB_RESULT);
-            stringBuilder.append(processXpertResult(mtbResult), redForegroundColorSpan);
-            if (mtbResult != null && mtbResult.equalsIgnoreCase(DETECTED)) {
+            processXpertResult(mtbResult, stringBuilder);
+            if (testResults.containsKey(TbrConstants.RESULT.ERROR_CODE)) {
+                stringBuilder.append(" ");
+                stringBuilder.append(testResults.get(TbrConstants.RESULT.ERROR_CODE), blackForegroundColorSpan);
+            } else if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT)) {
                 stringBuilder.append(withOtherResults ? "/ " : "\nRIF ");
-                stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+                processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT), stringBuilder);
             }
             return true;
         }
         return false;
     }
 
-    private String processXpertResult(String result) {
+    private void processXpertResult(String result, TbrSpannableStringBuilder stringBuilder) {
         if (result == null)
-            return "-ve";
+            return;
         switch (result) {
             case DETECTED:
-                return "+ve";
+                stringBuilder.append("+ve", redForegroundColorSpan);
+                break;
             case NOT_DETECTED:
-                return "-ve";
+                stringBuilder.append("-ve", blackForegroundColorSpan);
+                break;
             case INDETERMINATE:
-                return "?";
+                stringBuilder.append("?", blackForegroundColorSpan);
+                break;
+            case ERROR:
+                stringBuilder.append("err", blackForegroundColorSpan);
+                break;
+            case NO_RESULT:
+                stringBuilder.append("No result", blackForegroundColorSpan);
+                break;
             default:
-                return result;
+                break;
         }
     }
 
