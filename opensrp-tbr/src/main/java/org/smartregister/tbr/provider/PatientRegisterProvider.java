@@ -381,9 +381,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateIntreatmentResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         String treatmentStartDate = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
-        String baseline = getValue(pc.getColumnmaps(), KEY.BASELINE, false);
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (!treatmentStartDate.isEmpty() && !baseline.isEmpty()) {
+        if (!treatmentStartDate.isEmpty()) {
             TextView results = (TextView) view.findViewById(R.id.intreatment_details);
             View button = view.findViewById(R.id.intreatment_lnk);
             results.setVisibility(View.VISIBLE);
