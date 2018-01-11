@@ -31,12 +31,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by ndegwamartin on 10/10/2017.
  */
 
 public class Utils {
-
     public static final String TAG = Utils.class.getCanonicalName();
 
     public static void showToast(Context context, String message) {
@@ -200,13 +201,13 @@ public class Utils {
         }
     }
 
-    public static Integer getMonthCountFromDate(Date date) {
+    public static Integer getMonthCountFromDate(Date date, Date date2) {
         String dateFormat = "yyyy-MM-dd";
         LocalDate start = LocalDate.parse(new SimpleDateFormat(dateFormat).format(date));
-        LocalDate end = LocalDate.parse(new SimpleDateFormat(dateFormat).format(new Date()));
+        LocalDate end = LocalDate.parse(new SimpleDateFormat(dateFormat).format(date2));
         start = start.withDayOfMonth(1);
         end = end.withDayOfMonth(1);
-        return Months.monthsBetween(start, end).getMonths();
+        return abs(Months.monthsBetween(start, end).getMonths()) + 1;
     }
 
     public static String getDuration(String date) {

@@ -150,7 +150,7 @@ public class ResultsRepository extends BaseRepository {
         Cursor cursor = null;
         Map<String, String> clientDetails = new HashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline, cursor);
+            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String key = cursor.getString(cursor.getColumnIndex(RESULT1));
@@ -179,7 +179,7 @@ public class ResultsRepository extends BaseRepository {
         Result result;
         Map<String, Result> clientDetails = new HashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline, cursor);
+            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     result = new Result();
@@ -194,8 +194,9 @@ public class ResultsRepository extends BaseRepository {
                     String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
                     if (key2 != null && !key2.isEmpty()) {
                         result = new Result();
-                        result.setResult2(key2);
-                        result.setValue2(cursor.getString(cursor.getColumnIndex(VALUE2)));
+                        result.setResult1(key2);
+                        result.setDate(calendar.getTime());
+                        result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE2)));
                         clientDetails.put(key2, result);
                     }
 
@@ -212,7 +213,8 @@ public class ResultsRepository extends BaseRepository {
         return clientDetails;
     }
 
-    private Cursor getLatestResultsCursor(String baseEntityId, boolean afterBaseline, Long baseline, Cursor cursor) {
+    private Cursor getLatestResultsCursor(String baseEntityId, boolean afterBaseline, Long baseline) {
+        Cursor cursor;
         SQLiteDatabase db = getReadableDatabase();
         String baselineFilter = "";
         if (baseline != null) {
@@ -222,11 +224,11 @@ public class ResultsRepository extends BaseRepository {
                 baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
         }
         String query =
-                "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                "SELECT max(" + DATE + ") " + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                         " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
                         + "" + "= '" + baseEntityId + "' "
                         + baselineFilter
-                        + " GROUP BY " + TYPE;
+                        + " GROUP BY " + TYPE + " ORDER BY " + DATE + " DESC";
         cursor = db.rawQuery(query, null);
         return cursor;
     }

@@ -54,7 +54,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
     protected void renderPositiveResultsView(View view, Map<String, String> patientDetails) {
         RenderPositiveResultsCardHelper renderPositiveResultsHelper = new RenderPositiveResultsCardHelper(getActivity(), TbrApplication.getInstance().getResultsRepository());
-        renderPositiveResultsHelper.renderView(view.findViewById(R.id.clientPositiveResultsCardView), patientDetails);
+        renderPositiveResultsHelper.renderView(view, patientDetails);
     }
 
     protected void renderDemographicsView(View view, Map<String, String> patientDetails) {
@@ -73,13 +73,13 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
     protected void renderServiceHistoryView(View view, Map<String, String> patientDetails) {
         RenderServiceHistoryCardHelper renderServiceHistoryHelper = new RenderServiceHistoryCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
-        renderServiceHistoryHelper.renderView(view.findViewById(R.id.clientServiceHistoryCardView), patientDetails);
+        renderServiceHistoryHelper.renderView(view, patientDetails);
     }
 
 
     protected void renderContactScreeningView(View view, Map<String, String> patientDetails) {
         RenderContactScreeningCardHelper renderContactScreeningHelper = new RenderContactScreeningCardHelper(getActivity(), TbrApplication.getInstance().getResultsRepository());
-        renderContactScreeningHelper.renderView(view.findViewById(R.id.clientContactScreeningCardView), patientDetails);
+        renderContactScreeningHelper.renderView(view, patientDetails);
     }
 
     protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
