@@ -242,7 +242,7 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient"))
+        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient") || e.getEventType().equals("intreatment TB patient"))
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
         else
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);

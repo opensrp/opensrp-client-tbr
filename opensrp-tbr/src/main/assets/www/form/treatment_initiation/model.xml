@@ -30,7 +30,7 @@
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
                 <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
                 <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
-                <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="TBR: bmi" />
             </patient_information>
             <tb_information>
                 <treatment_initiation_date openmrs_entity="concept"
