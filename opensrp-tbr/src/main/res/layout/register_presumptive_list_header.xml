@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/client_list_header_dark_grey"
     android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:weightSum="10">
+    android:orientation="horizontal">
 
     <include layout="@layout/register_list_header" />
 
