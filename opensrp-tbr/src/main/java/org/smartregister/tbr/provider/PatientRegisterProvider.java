@@ -2,6 +2,7 @@ package org.smartregister.tbr.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +33,9 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -412,7 +415,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         String nextVisit = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
-            fillValue((TextView) view.findViewById(R.id.followup_text), "Followup\n due " + treatmentStartDate.toString("dd/MM"));
+            fillValue((TextView) view.findViewById(R.id.followup_text), "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
             if (due < 0)
                 followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
@@ -437,7 +440,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             patientType = WordUtils.capitalizeFully(patientType.replace("_", " "));
             ((TextView) view.findViewById(R.id.patient_type)).setText(patientType);
         }
-        ((TextView) view.findViewById(R.id.regimen)).setText(details.get("regimen"));
+        List<String> regimen = new ArrayList();
+        if (details.containsKey(KEY.TREATMENT_REGIMEN))
+            regimen.add(details.get(KEY.TREATMENT_REGIMEN).toUpperCase());
+        if (details.containsKey(KEY.TREATMENT_REGIMEN1))
+            regimen.add(details.get(KEY.TREATMENT_REGIMEN1).toUpperCase());
+        if (details.containsKey(KEY.TREATMENT_REGIMEN2))
+            regimen.add(details.get(KEY.TREATMENT_REGIMEN2).toUpperCase());
+        ((TextView) view.findViewById(R.id.regimen)).setText(TextUtils.join(" ", regimen));
 
     }
 

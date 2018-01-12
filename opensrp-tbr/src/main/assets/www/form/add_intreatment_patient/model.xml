@@ -34,7 +34,7 @@
                 <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
                 <treatment_phase />
                 <treatment_regimen1 openmrs_entity="concept"
-                    openmrs_entity_id="TBR: treatment_regimen1" />
+                    openmrs_entity_id="TBR: treatment regimen" />
                 <treatment_regimen2 />
                 <regimen_oth1 />
                 <regimen_oth2 />

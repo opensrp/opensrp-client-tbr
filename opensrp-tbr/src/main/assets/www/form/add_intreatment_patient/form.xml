@@ -3872,7 +3872,7 @@
         </label>
         <label class="or-branch pre-init calculation non-select ">
             <input name="/Add_InTreatment_Pt_11.01.18/next_visit_date"
-                data-calculate=" /Add_InTreatment_Pt_11.01.18/today  + 30"
+                data-calculate=" format-date(date(/Add_InTreatment_Pt_11.01.18/today  + 30),'%Y-%m-%d')"
                 data-relevant=" /Add_InTreatment_Pt_11.01.18/fu_visit ='yes'" data-type-xml="string"
                 type="hidden" />
         </label>
