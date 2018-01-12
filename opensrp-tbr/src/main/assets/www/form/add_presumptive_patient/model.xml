@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <ScreeningForm_03.10.17_US_OPENMRS xmlns:jr="http://openrosa.org/javarosa"
+        <ScreeningForm_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Screening" id="screening_form"
-            version="201711031420">
+            version="201801120945">
             <formhub>
                 <uuid />
             </formhub>
@@ -57,7 +57,9 @@
             <demographic_info>
                 <age openmrs_entity="person" openmrs_entity_id="age" />
                 <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
-                <birthdate_label />
+                <birthdate_estimated openmrs_entity="person"
+                    openmrs_entity_id="birthdate_estimated">1
+                </birthdate_estimated>
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
             </demographic_info>
             <presumptive_info>
@@ -71,15 +73,14 @@
                 <previous_tb_treatment_outcome openmrs_entity="concept"
                     openmrs_entity_id="TBR:mdr tuberculosis treatment outcome" />
                 <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
+                <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
                 <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
                 <contact_phone_number openmrs_entity="person_attribute"
                     openmrs_entity_id="Primary Contact Number" />
                 <province openmrs_entity="person_address" openmrs_entity_id="stateProvince"
-                    openmrs_entity_parent="usual_residence">sindh
-                </province>
+                    openmrs_entity_parent="usual_residence" />
                 <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage"
-                    openmrs_entity_parent="usual_residence">shikarpur
-                </city_village>
+                    openmrs_entity_parent="usual_residence" />
                 <town openmrs_entity="person_address" openmrs_entity_id="town"
                     openmrs_entity_parent="usual_residence" />
                 <union_council openmrs_entity="person_address" openmrs_entity_id="subTown"
@@ -92,7 +93,7 @@
             <meta>
                 <instanceID />
             </meta>
-        </ScreeningForm_03.10.17_US_OPENMRS>
+        </ScreeningForm_11.01.18>
     </instance>
     <instance id="provinces">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
@@ -1778,55 +1779,100 @@
                 <itextId>static_instance-treatment_outcomes-0</itextId>
                 <name>cured</name>
                 <openmrs_concept_name>Cure, outcome</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'cured' name, 'cured' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'cured' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-1</itextId>
                 <name>defaulted</name>
                 <openmrs_concept_name>DEFAULTED</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'defaulted' name, 'defaulted' code,
+                    1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (
+                    SELECT code FROM concept_reference_term WHERE code = 'defaulted' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-2</itextId>
                 <name>died</name>
                 <openmrs_concept_name>Died</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'died' name, 'died' code, 1 creator,
+                    NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT code
+                    FROM concept_reference_term WHERE code = 'died' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-3</itextId>
                 <name>treatment_completed</name>
                 <openmrs_concept_name>Treatment Complete</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'treatment complete' name,
+                    'treatment complete' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as
+                    tmp WHERE NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code =
+                    'treatment complete' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-4</itextId>
                 <name>transferred_out</name>
                 <openmrs_concept_name>Patient transferred out</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'transferred out' name, 'transferred
+                    out' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT
+                    EXISTS ( SELECT code FROM concept_reference_term WHERE code = 'transferred out'
+                    ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-5</itextId>
-                <name>still_on_treatment</name>
-                <openmrs_concept_name>STILL ON TREATMENT</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <name>regimen_failure</name>
+                <openmrs_concept_name>Regimen Failure</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'regimen failure' name, 'regimen
+                    failure' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE
+                    NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code = 'regimen
+                    failure' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-6</itextId>
-                <name>regimen_failure</name>
-                <openmrs_concept_name>Regimen Failure</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <name>other</name>
+                <openmrs_concept_name>other</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'other' name, 'other' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'other' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-7</itextId>
-                <name>other</name>
-                <openmrs_concept_name>other</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-8</itextId>
                 <name>unknown</name>
                 <openmrs_concept_name>unknown</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>
@@ -1834,17 +1880,14 @@
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-gender-0</itextId>
-                <openmrs_reference_term>0</openmrs_reference_term>
                 <name>male</name>
             </item>
             <item>
                 <itextId>static_instance-gender-1</itextId>
-                <openmrs_reference_term>0</openmrs_reference_term>
                 <name>female</name>
             </item>
             <item>
                 <itextId>static_instance-gender-2</itextId>
-                <openmrs_reference_term>0</openmrs_reference_term>
                 <name>transgender</name>
             </item>
         </root>
@@ -1855,31 +1898,62 @@
                 <itextId>static_instance-hiv_results-0</itextId>
                 <name>negative</name>
                 <openmrs_concept_name>Negative</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'positive' name, 'positive' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'positive' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-hiv_results-1</itextId>
                 <name>positive</name>
                 <openmrs_concept_name>Positive</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'negative' name, 'negative' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'negative' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-hiv_results-2</itextId>
                 <name>indeterminate</name>
                 <openmrs_concept_name>Indeterminate</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'indeterminate' name,
+                    'indeterminate' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp
+                    WHERE NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code =
+                    'indeterminate' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-hiv_results-3</itextId>
                 <name>dont_know</name>
                 <openmrs_concept_name>unknown</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-hiv_results-4</itextId>
                 <name>refuse</name>
                 <openmrs_concept_name>Refused</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>
@@ -2071,25 +2145,49 @@
                 <itextId>static_instance-yes_no-0</itextId>
                 <name>yes</name>
                 <openmrs_concept_name>yes</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'yes' name, 'yes' code, 1 creator,
+                    NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT code
+                    FROM concept_reference_term WHERE code = 'yes' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-yes_no-1</itextId>
                 <name>no</name>
                 <openmrs_concept_name>no</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'no' name, 'no' code, 1 creator,
+                    NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT code
+                    FROM concept_reference_term WHERE code = 'no' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-yes_no-2</itextId>
                 <name>dont_know</name>
                 <openmrs_concept_name>Unknown</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-yes_no-3</itextId>
                 <name>refuse</name>
                 <openmrs_concept_name>Refused</openmrs_concept_name>
-                <openmrs_reference_term>0</openmrs_reference_term>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>
