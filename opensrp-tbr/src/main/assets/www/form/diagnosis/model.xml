@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <Diagnosis_30.10.17_US xmlns:jr="http://openrosa.org/javarosa"
+        <Diagnosis_22.11.17_US xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="TB Diagnosis" id="tb_diagnosis"
-            version="201711020527">
+            version="201711230817">
             <formhub>
                 <uuid />
             </formhub>
@@ -22,11 +22,11 @@
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
-            <confirmed_tb openmrs_entity="concept" openmrs_entity_id="TBR:confirmed tuberculosis" />
-            <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR:diagnosis type" />
+            <confirmed_tb />
+            <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR:diagnosis type"/>
             <meta>
                 <instanceID />
             </meta>
-        </Diagnosis_30.10.17_US>
+        </Diagnosis_22.11.17_US>
     </instance>
 </model>
