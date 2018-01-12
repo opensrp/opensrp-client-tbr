@@ -10,8 +10,7 @@
         android:id="@+id/content_intreatment_patient_detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="15dp">
+        android:orientation="vertical">
 
         <include layout="@layout/cardview_patient_details" />
 

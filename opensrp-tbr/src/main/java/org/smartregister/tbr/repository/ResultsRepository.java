@@ -13,7 +13,7 @@ import org.smartregister.tbr.model.Result;
 import org.smartregister.tbr.util.Constants;
 
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultsRepository extends BaseRepository {
@@ -148,7 +148,7 @@ public class ResultsRepository extends BaseRepository {
 
     public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<>();
+        Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
             cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
             if (cursor != null && cursor.moveToFirst()) {
@@ -177,7 +177,7 @@ public class ResultsRepository extends BaseRepository {
     public Map<String, Result> getLatestResultsAll(String baseEntityId, boolean afterBaseline, Long baseline) {
         Cursor cursor = null;
         Result result;
-        Map<String, Result> clientDetails = new HashMap<>();
+        Map<String, Result> clientDetails = new LinkedHashMap<>();
         try {
             cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
             if (cursor != null && cursor.moveToFirst()) {

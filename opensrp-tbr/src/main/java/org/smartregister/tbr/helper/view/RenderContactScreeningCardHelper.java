@@ -21,7 +21,6 @@ import java.util.Map;
  */
 
 public class RenderContactScreeningCardHelper extends BaseRenderHelper {
-
     public RenderContactScreeningCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
     }
@@ -33,9 +32,11 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
 
-                FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactView);
+                FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactFrameLayout);
                 ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
-                contactsHolderView.removeView(contactViewTemplate);
+                contactViewTemplate.setVisibility(View.GONE);
+                contactsHolderView.removeAllViews();
+                contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
 
                 List<ScreenContact> contacts = new ArrayList<>();
                 contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));

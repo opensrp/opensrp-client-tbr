@@ -12,6 +12,7 @@ import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultDetailsRepository extends BaseRepository {
@@ -96,7 +97,7 @@ public class ResultDetailsRepository extends BaseRepository {
 
     public Map<String, String> getFormResultDetails(String formSubmissionId) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<>();
+        Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =

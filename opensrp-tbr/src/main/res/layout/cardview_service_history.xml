@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="Date"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/client_list_grey"
             android:textSize="20sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:text="Form"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/client_list_grey"
             android:textSize="20sp" />
     </LinearLayout>
 

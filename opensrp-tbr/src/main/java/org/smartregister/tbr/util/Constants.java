@@ -85,4 +85,14 @@ public class Constants {
         public static final String SCREENED = "screened";
         public static final String INTREATMENT = "intreatment";
     }
+
+    public static final class TEST_RESULT {
+        public static final class XPERT {
+            public static final String DETECTED = "detected";
+            public static final String NOT_DETECTED = "not_detected";
+            public static final String INDETERMINATE = "indeterminate";
+            public static final String ERROR = "error";
+            public static final String NO_RESULT = "no_result";
+        }
+    }
 }

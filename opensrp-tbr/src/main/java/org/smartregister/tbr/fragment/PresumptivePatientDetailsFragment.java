@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +19,6 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,7 +30,7 @@ import java.util.Map;
  */
 
 
-public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment {
+public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment implements View.OnClickListener {
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
     private Map<String, String> languageTranslations;
 
@@ -50,16 +48,8 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     }
 
     public void setupViews(View rootView) {
-
-        //Load Language Token Map
-        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
-        languageTranslations = config == null ? null : config.getLabels();
-
+        super.setupViews(rootView);
         processViewConfigurations(rootView);
-
-        //Remove patient button
-        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
     }
 
     @Override
@@ -132,13 +122,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                                 renderPositiveResultsView(json2View, patientDetails);
                                 //Record Results click handler
                                 TextView recordResults = (TextView) view.findViewById(R.id.record_results);
-                                recordResults.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        showResultMenu(view);
-
-                                    }
-                                });
+                                recordResults.setOnClickListener(this);
 
                             } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
 
@@ -167,4 +151,5 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         renderPositiveResultsView(rootView, patientDetails);
         renderServiceHistoryView(rootView, patientDetails);
     }
+
 }

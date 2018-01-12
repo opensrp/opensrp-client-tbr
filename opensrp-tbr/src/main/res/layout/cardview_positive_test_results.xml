@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="First encounter: 27 May 2017"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/client_list_grey"
             android:textSize="18sp" />
 
 
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
             android:maxLines="4"
-            android:textColor="#757575"
+            android:textColor="@color/client_list_grey"
             android:textSize="18sp"
             android:visibility="gone" />
 
@@ -86,16 +86,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="No results recorded"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/client_list_grey"
             android:textSize="18sp" />
 
 
     </LinearLayout>
 
     <View
+        android:id="@+id/baselineHorizontalDividerView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#ECECEC" />
+        android:background="#ECECEC"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,8 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Baseline (treatment started 5 months ago)"
-            android:textColor="@color/dark_grey"
-            android:textSize="18sp" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -133,9 +136,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="No results recorded"
-            android:textColor="@color/dark_grey"
-            android:textSize="18sp" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
-s
+        s
     </LinearLayout>
 </LinearLayout>

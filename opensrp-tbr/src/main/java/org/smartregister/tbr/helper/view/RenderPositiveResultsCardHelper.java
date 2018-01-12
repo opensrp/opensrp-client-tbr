@@ -26,9 +26,6 @@ import util.TbrSpannableStringBuilder;
  */
 
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
-    private static final String DETECTED = "detected";
-    private static final String NOT_DETECTED = "not_detected";
-    private static final String INDETERMINATE = "indeterminate";
 
     public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -51,7 +48,8 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
                     params = new InitializeRenderParams(extra, view, true, false); //latest
                     initializeRenderLayout(params);
-
+                    view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
 
                 } else {
 
@@ -90,28 +88,32 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
 
-        if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-            stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(TbrConstants.RESULT.MTB_RESULT).getDate());
-            getXpertResultStringBuilder(ImmutableMap.of(TbrConstants.RESULT.MTB_RESULT, testResults.get(TbrConstants.RESULT.MTB_RESULT).getValue1(), TbrConstants.RESULT.RIF_RESULT, testResults.get(TbrConstants.RESULT.RIF_RESULT).getValue1()), stringBuilder, false);
-            stringBuilder.append("\n");
-        }
+        for (Map.Entry<String, Result> entry : testResults.entrySet()) {
+            if (testResults.containsKey(entry.getKey()) && !entry.getKey().equals(TbrConstants.RESULT.RIF_RESULT)) {
+                stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(entry.getKey()).getDate());
+                switch (entry.getKey()) {
+                    case TbrConstants.RESULT.MTB_RESULT:
+                        if (testResults.get(TbrConstants.RESULT.RIF_RESULT) != null) {
+                            getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1(), TbrConstants.RESULT.RIF_RESULT, testResults.get(TbrConstants.RESULT.RIF_RESULT).getValue1()), stringBuilder, false);
 
-        if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
-            stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT).getDate());
-            stringBuilder = getSmearResultStringBuilder(ImmutableMap.of(TbrConstants.RESULT.TEST_RESULT, testResults.get(TbrConstants.RESULT.TEST_RESULT).getValue1()), stringBuilder);
-            stringBuilder.append("\n");
+                        } else {
+                            getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder, false);
+                        }
+                        break;
+                    case TbrConstants.RESULT.TEST_RESULT:
+                        stringBuilder = getSmearResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    case TbrConstants.RESULT.XRAY_RESULT:
+                        stringBuilder = getXRayResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    case TbrConstants.RESULT.CULTURE_RESULT:
+                        stringBuilder = getCultureResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    default:
+                        break;
 
-        }
-
-        if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
-            stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(TbrConstants.RESULT.CULTURE_RESULT).getDate());
-            stringBuilder = getCultureResultStringBuilder(ImmutableMap.of(TbrConstants.RESULT.CULTURE_RESULT, testResults.get(TbrConstants.RESULT.CULTURE_RESULT).getValue1()), stringBuilder);
-            stringBuilder.append("\n");
-        }
-        if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
-            stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT).getDate());
-            stringBuilder = getXRayResultStringBuilder(ImmutableMap.of(TbrConstants.RESULT.XRAY_RESULT, testResults.get(TbrConstants.RESULT.XRAY_RESULT).getValue1()), stringBuilder);
-            stringBuilder.append("\n");
+                }
+            }
 
         }
 
@@ -129,15 +131,14 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
         if (params.isIntreatment && !params.isBaseline) {
             Date dateTreatmentInitiatied = org.smartregister.util.Utils.toDate(params.extra.get(TbrConstants.KEY.TREATMENT_INITIATION_DATE), true);
-            stringBuilder.append(Utils.formatDate(dateTestGiven, "dd MMM") + " (M" + Utils.getMonthCountFromDate(dateTreatmentInitiatied, dateTestGiven) + "): ");
+            stringBuilder.append(Utils.formatDate(dateTestGiven, "dd MMM") + " (M" + Utils.getMonthCountFromDate(dateTreatmentInitiatied, dateTestGiven) + ")" + Constants.CHAR.COLON + Constants.CHAR.SPACE);
         }
         return stringBuilder;
     }
 
     private TbrSpannableStringBuilder getSmearResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append("Smear ");
+        stringBuilder.append("Smear ");
         switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
             case "one_plus":
                 stringBuilder.append("1+", redForegroundColorSpan);
@@ -158,51 +159,56 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                 stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
                 break;
         }
+        stringBuilder.append("\n");
         return stringBuilder;
     }
 
 
     private TbrSpannableStringBuilder getCultureResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append("Culture ");
+        stringBuilder.append("Culture ");
         stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
+        stringBuilder.append("\n");
         return stringBuilder;
     }
 
 
     private TbrSpannableStringBuilder getXRayResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append("Chest X-Ray ");
-        if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
+        stringBuilder.append("Chest X-Ray ");
+        if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative")) {
             stringBuilder.append("Indicative", blackForegroundColorSpan);
-        else
+        } else {
             stringBuilder.append("Not Indicative", blackForegroundColorSpan);
+        }
+        stringBuilder.append("\n");
         return stringBuilder;
     }
 
     private ForegroundColorSpan getRedForegroundColorSpan() {
         ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
+                context.getResources().getColor(R.color.test_result_positive_red));
         return redForegroundColorSpan;
     }
 
     private ForegroundColorSpan getBlackForegroundColorSpan() {
         ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
+                context.getResources().getColor(R.color.test_result_negative_black));
         return blackForegroundColorSpan;
     }
 
     private TbrSpannableStringBuilder getXpertResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
-
+        stringBuilder.append("GeneXpert ");
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
         ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
         ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
         stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
         stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
-        stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
-        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+        if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
+            stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+        }
+        stringBuilder.append("\n");
         return stringBuilder;
     }
 
@@ -211,12 +217,16 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         if (result == null)
             return "-ve";
         switch (result) {
-            case DETECTED:
+            case Constants.TEST_RESULT.XPERT.DETECTED:
                 return "+ve";
-            case NOT_DETECTED:
+            case Constants.TEST_RESULT.XPERT.NOT_DETECTED:
                 return "-ve";
-            case INDETERMINATE:
+            case Constants.TEST_RESULT.XPERT.INDETERMINATE:
                 return "?";
+            case Constants.TEST_RESULT.XPERT.ERROR:
+                return "err";
+            case Constants.TEST_RESULT.XPERT.NO_RESULT:
+                return "no_result";
             default:
                 return result;
         }

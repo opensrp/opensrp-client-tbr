@@ -17,11 +17,9 @@ import com.avocarrot.json2view.DynamicView;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,16 +27,14 @@ import java.util.List;
 import java.util.Map;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
-import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 
 /**
  * Created by ndegwamartin on 24/11/2017.
  */
 
 
-public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragment implements View.OnClickListener {
+public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragment {
     private static final String TAG = InTreatmentPatientDetailsFragment.class.getCanonicalName();
-    private Map<String, String> languageTranslations;
 
     @Nullable
     @Override
@@ -54,34 +50,10 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         return rootView;
     }
 
+    @Override
     public void setupViews(View rootView) {
-
-        //Load Language Token Map
-        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
-        languageTranslations = config == null ? null : config.getLabels();
-
+        super.setupViews(rootView);
         processViewConfigurations(rootView);
-
-        //Remove patient button
-        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
-        removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-
-
-        Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
-        recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-        recordOutcomeButton.setVisibility(View.VISIBLE);
-
-
-        Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
-        followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-        followUpButton.setOnClickListener(this);
-
-        //Record Results click handler
-        TextView recordResults = (TextView) rootView.findViewById(R.id.record_results);
-        recordResults.setOnClickListener(this);
-
-        TextView addContactView = (TextView) rootView.findViewById(R.id.add_contact);
-        addContactView.setOnClickListener(this);
     }
 
     @Override
@@ -196,25 +168,6 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         renderPositiveResultsView(rootView, patientDetails);
         renderContactScreeningView(rootView, patientDetails);
         renderFollowUpView(rootView, patientDetails);
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.add_contact:
-                Utils.showToast(getActivity(), "Launch TB Contact Form");
-                break;
-            case R.id.follow_up_button:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
-                break;
-            case R.id.record_results:
-                showResultMenu(view);
-                break;
-            default:
-                break;
-
-        }
     }
 
 }

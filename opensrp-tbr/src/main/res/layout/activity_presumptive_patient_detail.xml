@@ -14,15 +14,12 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <include layout="@layout/content_presumptive_patient_detail" />
 
-            <include layout="@layout/content_presumptive_patient_detail" />
-        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <include layout="@layout/footer_remove_patient_button" />

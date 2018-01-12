@@ -57,4 +57,8 @@
     <color name="male_initials_background">#D7EAFD</color>
     <color name="male_initials_text">#3A8BD8</color>
     <color name="text_black">#000000</color>
+
+    <color name="test_result_positive_red">#c30000</color>
+    <color name="test_result_negative_black">#191919</color>
+
 </resources>

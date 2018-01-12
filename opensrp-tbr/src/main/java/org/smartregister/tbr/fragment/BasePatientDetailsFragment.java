@@ -8,6 +8,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,7 @@ import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
 import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
+import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
@@ -35,14 +37,17 @@ import java.util.Map;
 
 import util.TbrConstants;
 
+import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
+
 /**
  * Created by ndegwamartin on 06/12/2017.
  */
 
-public abstract class BasePatientDetailsFragment extends SecuredFragment {
+public abstract class BasePatientDetailsFragment extends SecuredFragment implements View.OnClickListener {
 
     protected Map<String, String> patientDetails;
     protected ResultMenuListener resultMenuListener;
+    protected Map<String, String> languageTranslations;
 
     protected abstract void processViewConfigurations(View view);
 
@@ -219,6 +224,64 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
             processViewConfigurations(getView());
         }
 
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_contact:
+                Utils.showToast(getActivity(), "Launch TB Contact Form");
+                break;
+            case R.id.follow_up_button:
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
+                break;
+            case R.id.record_results:
+                showResultMenu(view);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    protected void setupViews(View rootView) {
+
+        //Load Language Token Map
+        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
+        languageTranslations = config == null ? null : config.getLabels();
+
+
+        //Remove patient button
+        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
+        if (removePatientButton != null) {
+            removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+        }
+
+
+        Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
+        if (recordOutcomeButton != null) {
+            recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+            recordOutcomeButton.setVisibility(View.VISIBLE);
+        }
+
+
+        Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
+        if (followUpButton != null) {
+            followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+            followUpButton.setOnClickListener(this);
+        }
+
+        //Record Results click handler
+        TextView recordResults = (TextView) rootView.findViewById(R.id.record_results);
+        if (recordResults != null) {
+            recordResults.setOnClickListener(this);
+        }
+
+        TextView addContactView = (TextView) rootView.findViewById(R.id.add_contact);
+        if (addContactView != null) {
+            addContactView.setOnClickListener(this);
+        }
     }
 
 }
