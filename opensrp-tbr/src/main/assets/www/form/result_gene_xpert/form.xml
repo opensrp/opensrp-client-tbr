@@ -34,8 +34,8 @@
             lang="en">Participant ID
         </span>
         <span class="required">*</span>
-        <input name="/GeneXpertForm_10.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" required="required"
-            data-type-xml="string" type="text" />
+        <input name="/GeneXpertForm_10.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+            required="required" type="text" readonly="readonly" />
         <span class="or-constraint-msg " data-itext-id="/GeneXpertForm_10.01.18/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>
@@ -103,8 +103,8 @@
                 test was performed?
             </span>
             <span class="required">*</span>
-            <input name="/GeneXpertForm_10.01.18/test_information/test_date" required="required"
-                data-type-xml="date" type="date" />
+            <input name="/GeneXpertForm_10.01.18/test_information/test_date" data-type-xml="date"
+                required="required" type="date" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
@@ -117,8 +117,8 @@
                 lang="en">Sample ID
             </span>
             <span class="required">*</span>
-            <input name="/GeneXpertForm_10.01.18/test_information/sample_id" required="required"
-                data-type-xml="string" type="text" />
+            <input name="/GeneXpertForm_10.01.18/test_information/sample_id" data-type-xml="string"
+                required="required" type="text" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
@@ -132,8 +132,8 @@
                 Result Date
             </span>
             <span class="required">*</span>
-            <input name="/GeneXpertForm_10.01.18/test_information/result_date" required="required"
-                data-type-xml="date" type="date" />
+            <input name="/GeneXpertForm_10.01.18/test_information/result_date" data-type-xml="date"
+                required="required" type="date" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
@@ -154,8 +154,8 @@
                     <label class="">
                         <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
                             data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
-                            required="required"
-                            data-type-xml="select1" type="radio" value="detected" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="detected" />
                         <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/detected:label"
                             lang="Roman Urdu">
                             Detected
@@ -168,8 +168,8 @@
                     <label class="">
                         <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
                             data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
-                            required="required"
-                            data-type-xml="select1" type="radio" value="not_detected" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="not_detected" />
                         <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/not_detected:label"
                             lang="Roman Urdu">
                             Not Detected
@@ -182,8 +182,8 @@
                     <label class="">
                         <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
                             data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
-                            required="required"
-                            data-type-xml="select1" type="radio" value="indeterminate" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="indeterminate" />
                         <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/indeterminate:label"
                             lang="Roman Urdu">
                             Intdeterminate
@@ -196,8 +196,8 @@
                     <label class="">
                         <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
                             data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
-                            required="required"
-                            data-type-xml="select1" type="radio" value="error" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="error" />
                         <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/error:label"
                             lang="Roman Urdu">
                             Error
@@ -205,6 +205,20 @@
                         <span class="option-label active" data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/error:label"
                             lang="en">
                             Error
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="no_result" />
+                        <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/no_result:label"
+                            lang="Roman Urdu">
+                            No Result
+                        </span>
+                        <span class="option-label active" data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/no_result:label"
+                            lang="en">
+                            No Result
                         </span>
                     </label>
                 </div>

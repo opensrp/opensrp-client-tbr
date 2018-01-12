@@ -2,7 +2,7 @@
     <instance>
         <GeneXpertForm_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="GeneXpert Result"
-            id="genexpert_result" version="201801100514">
+            id="genexpert_result" version="201801120808">
             <formhub>
                 <uuid />
             </formhub>
