@@ -11,7 +11,6 @@ import org.smartregister.repository.Repository;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

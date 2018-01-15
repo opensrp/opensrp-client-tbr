@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
-import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by ndegwamartin on 09/10/2017.

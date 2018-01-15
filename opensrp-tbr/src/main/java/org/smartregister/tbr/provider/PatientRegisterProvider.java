@@ -3,13 +3,11 @@ package org.smartregister.tbr.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -24,7 +22,6 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Utils;
-import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
 import org.smartregister.view.dialog.FilterOption;
@@ -79,10 +76,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
     private DetailsRepository detailsRepository;
-
-
-    private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
-
 
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository, DetailsRepository detailsRepository) {
 
@@ -327,7 +320,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (!diagnosis.isEmpty())
             fillValue((TextView) view.findViewById(R.id.diagnosis), Utils.getDuration(diagnosis) + " ago");
     }
-    
+
 
     private void adjustLayoutParams(View view) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
