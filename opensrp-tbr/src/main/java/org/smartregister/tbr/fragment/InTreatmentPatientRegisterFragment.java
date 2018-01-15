@@ -6,6 +6,7 @@ import org.smartregister.tbr.R;
 
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
+import static util.TbrConstants.KEY.FUTURE_VISIT_DATE;
 import static util.TbrConstants.KEY.NEXT_VISIT_DATE;
 import static util.TbrConstants.KEY.TREATMENT_INITIATION_DATE;
 import static util.TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER_HEADER;
@@ -33,7 +34,8 @@ public class InTreatmentPatientRegisterFragment extends BaseRegisterFragment {
                 tableName + "." + DIAGNOSIS_DATE,
                 tableName + "." + TREATMENT_INITIATION_DATE,
                 tableName + "." + BASELINE,
-                tableName + "." + NEXT_VISIT_DATE};
+                tableName + "." + NEXT_VISIT_DATE,
+                tableName + "." + FUTURE_VISIT_DATE};
     }
 
 }

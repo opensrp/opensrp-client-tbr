@@ -43,6 +43,7 @@ import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
 import static org.smartregister.tbr.R.id.diagnose_lnk;
+import static org.smartregister.tbr.repository.ResultsRepository.DATE;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
@@ -247,9 +248,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         Map<String, String> testResults;
         if (baseline != null)
             testResults = resultsRepository.getLatestResults(baseEntityId, baseline);
-        else if (singleResult)
+        else if (singleResult) {
             testResults = resultsRepository.getLatestResult(baseEntityId);
-        else
+            String results = testResults.get(DATE);
+            if (StringUtils.isNotEmpty(results))
+                stringBuilder.append(new DateTime(Long.valueOf(results)).toString("dd/MM/yyyy") + "\n");
+        } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
         boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert, false);
@@ -395,17 +399,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private void populateIntreatmentResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
-        String treatmentStartDate = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        if (!treatmentStartDate.isEmpty()) {
-            TextView results = (TextView) view.findViewById(R.id.intreatment_details);
-            View button = view.findViewById(R.id.intreatment_lnk);
-            results.setVisibility(View.VISIBLE);
-            stringBuilder.append(formatDate(treatmentStartDate) + "\n");
-            results.setText(stringBuilder);
-            stringBuilder.clear();
-            populateResultsColumn(pc, client, stringBuilder, true, null, button, results);
-        }
+        TextView results = (TextView) view.findViewById(R.id.intreatment_details);
+        View button = view.findViewById(R.id.intreatment_lnk);
+        results.setVisibility(View.VISIBLE);
+        results.setText(stringBuilder);
+        populateResultsColumn(pc, client, stringBuilder, true, null, button, results);
     }
 
     private void populateFollowupScheduleColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {

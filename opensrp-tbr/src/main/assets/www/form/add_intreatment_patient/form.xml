@@ -63,11 +63,14 @@
             <span class="question-label active"
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/date_treatment:label"
                 lang="en">
-                Treatement initiation date
+                Treatment initiation date
             </span>
+            <span class="required">*</span>
             <input name="/Add_InTreatment_Pt_11.01.18/diagnosis/date_treatment" data-type-xml="date"
-                type="date" />
-        </label>
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+            is required
+            </label>
         <fieldset class="question simple-select ">
             <fieldset>
                 <legend>
