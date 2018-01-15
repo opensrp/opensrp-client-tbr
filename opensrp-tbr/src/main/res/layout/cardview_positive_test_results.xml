@@ -140,6 +140,6 @@
             android:textSize="18sp"
             android:visibility="gone" />
 
-        s
+
     </LinearLayout>
 </LinearLayout>

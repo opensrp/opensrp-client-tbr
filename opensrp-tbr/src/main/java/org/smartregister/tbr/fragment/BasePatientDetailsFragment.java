@@ -21,6 +21,7 @@ import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
@@ -100,6 +101,12 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         }
     }
 
+    protected void renderBMIHeightChartView(View view, Map<String, String> patientDetails) {
+
+        RenderBMIHeightChartCardHelper renderBMIHeightChartCardHelper = new RenderBMIHeightChartCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
+        renderBMIHeightChartCardHelper.renderView(view, patientDetails);
+
+    }
 
     @Override
     protected void onCreation() {

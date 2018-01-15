@@ -168,6 +168,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         renderPositiveResultsView(rootView, patientDetails);
         renderContactScreeningView(rootView, patientDetails);
         renderFollowUpView(rootView, patientDetails);
+        renderBMIHeightChartView(rootView, patientDetails);
     }
 
 }

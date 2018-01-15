@@ -18,6 +18,8 @@
 
         <include layout="@layout/cardview_positive_test_results" />
 
+        <include layout="@layout/cardview_bmi_height_chart" />
+
         <include layout="@layout/cardview_contact_screening" />
 
     </LinearLayout>

@@ -58,4 +58,6 @@
     <string name="events_key">events</string>
     <string name="record_outcome">RECORD OUTCOME</string>
     <string name="latest">Latest</string>
+    <string name="bmi">BMI</string>
+    <string name="treatment_start">Treatment Start</string>
 </resources>
