@@ -106,10 +106,6 @@
         "bind": "/model/instance/FollowUpVisit_10.01.18/month"
       },
       {
-        "name": "month",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/month"
-      },
-      {
         "name": "treatment_duration",
         "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_duration"
       },
@@ -120,10 +116,6 @@
       {
         "name": "treatment_regimen1",
         "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen1"
-      },
-      {
-        "name": "treatment_regimen2",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen2"
       },
       {
         "name": "treatment_regimen2",
