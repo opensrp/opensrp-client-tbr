@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.Months;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
@@ -413,6 +412,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         View followup = view.findViewById(R.id.followup);
         attachOnclickListener(followup, client);
         String nextVisit = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
+        if (StringUtils.isEmpty(nextVisit))
+            nextVisit = getValue(pc.getColumnmaps(), KEY.FUTURE_VISIT_DATE, false);
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue((TextView) view.findViewById(R.id.followup_text), "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
@@ -430,23 +431,22 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
-        String treatmentStart = getValue(pc.getColumnmaps(), KEY.TREATMENT_INITIATION_DATE, false);
-        int months = Months.monthsBetween(DateTime.now(), new DateTime(treatmentStart)).getMonths();
-        ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
-        String patientType = details.get("patient_type");
-        if (patientType != null) {
-            patientType = WordUtils.capitalizeFully(patientType.replace("_", " "));
-            ((TextView) view.findViewById(R.id.patient_type)).setText(patientType);
-        }
+        int months = 0;
+        if (details.containsKey(KEY.TREATMENT_MONTH))
+            months = Integer.valueOf(details.get(KEY.TREATMENT_MONTH));
+        ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
+        ((TextView) view.findViewById(R.id.treatment_phase)).setText(StringUtils.capitalize(details.get(KEY.TREATMENT_PHASE)));
         List<String> regimen = new ArrayList();
-        if (details.containsKey(KEY.TREATMENT_REGIMEN))
-            regimen.add(details.get(KEY.TREATMENT_REGIMEN).toUpperCase());
         if (details.containsKey(KEY.TREATMENT_REGIMEN1))
             regimen.add(details.get(KEY.TREATMENT_REGIMEN1).toUpperCase());
         if (details.containsKey(KEY.TREATMENT_REGIMEN2))
             regimen.add(details.get(KEY.TREATMENT_REGIMEN2).toUpperCase());
+        if (details.containsKey(KEY.OTHER_REGIMEN1))
+            regimen.add(details.get(KEY.OTHER_REGIMEN1).toUpperCase());
+        if (details.containsKey(KEY.OTHER_REGIMEN2))
+            regimen.add(details.get(KEY.OTHER_REGIMEN2).toUpperCase());
         ((TextView) view.findViewById(R.id.regimen)).setText(TextUtils.join(" ", regimen));
 
     }

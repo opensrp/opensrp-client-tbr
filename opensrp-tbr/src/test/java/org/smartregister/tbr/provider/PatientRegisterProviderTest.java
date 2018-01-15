@@ -353,7 +353,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(TREATMENT);
         assertEquals("Start: " + patientRegisterProvider.formatDate(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
-        assertEquals("New", ((TextView) view.findViewById(R.id.patient_type)).getText().toString());
+        assertEquals("New", ((TextView) view.findViewById(R.id.treatment_phase)).getText().toString());
         assertEquals("2HRZE/HR", ((TextView) view.findViewById(R.id.regimen)).getText().toString());
 
     }

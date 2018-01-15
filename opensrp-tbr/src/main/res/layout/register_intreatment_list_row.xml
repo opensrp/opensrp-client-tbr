@@ -97,7 +97,7 @@
             android:textSize="16sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/patient_type"
+            android:id="@+id/treatment_phase"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

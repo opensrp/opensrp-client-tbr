@@ -24,7 +24,7 @@ public class InTreatmentPatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return " treatment_initiation_date IS NOT NULL";
+        return TREATMENT_INITIATION_DATE + " IS NOT NULL";
     }
 
     @Override

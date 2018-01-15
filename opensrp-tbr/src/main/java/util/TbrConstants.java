@@ -13,7 +13,7 @@ TbrConstants extends AllConstants {
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
     public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
-    public static final String LAST_VIEWS_SYNC_TIMESTAMP="LAST_VIEWS_SYNC_TIMESTAMP";
+    public static final String LAST_VIEWS_SYNC_TIMESTAMP = "LAST_VIEWS_SYNC_TIMESTAMP";
 
     public static final String PATIENT_TABLE_NAME = "ec_patient";
 
@@ -30,9 +30,13 @@ TbrConstants extends AllConstants {
         public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
         public static final String BASELINE = "baseline";
         public static final String NEXT_VISIT_DATE = "next_visit_date";
-        public static final String TREATMENT_REGIMEN = "treatment_regimen";
+        public static final String FUTURE_VISIT_DATE = "fu_visit_date";
         public static final String TREATMENT_REGIMEN1 = "treatment_regimen1";
         public static final String TREATMENT_REGIMEN2 = "treatment_regimen2";
+        public static final String OTHER_REGIMEN1 = "regimen_oth1";
+        public static final String OTHER_REGIMEN2 = "regimen_oth2";
+        public static final String TREATMENT_PHASE = "treatment_phase";
+        public static final String TREATMENT_MONTH = "treatment_month";
     }
 
 

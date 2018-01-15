@@ -200,12 +200,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return fieldOverrides;
     }
 
+    protected FieldOverrides getFollowUpFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        fields.put("treatment_initiation_date", patient.getDetails().get(KEY.TREATMENT_INITIATION_DATE));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
     protected FieldOverrides getTreatmentFieldOverrides() {
         Map fields = new HashMap();
         fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
         fields.put("first_name", patient.getDetails().get(KEY.FIRST_NAME));
         fields.put("last_name", patient.getDetails().get(KEY.LAST_NAME));
-
         fields.put("gender", patient.getDetails().get(KEY.GENDER));
         String dobString = patient.getDetails().get(KEY.DOB);
         String age = "";
@@ -425,7 +433,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:
-                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getFollowUpFieldOverrides().getJSONString());
                     break;
 
                 default:

@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <FollowUpVisit_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
+        <FollowUpVisit_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Follow up Visit"
-            id="followup_visit" version="201711230919">
+            id="followup_visit" version="201801110945">
             <formhub>
                 <uuid />
             </formhub>
@@ -13,6 +13,7 @@
             <provider_id />
             <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
             <provider_location_name />
+            <treatment_initiation_date />
             <provider_location_note />
             <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
             <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
@@ -21,14 +22,25 @@
             <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
-            <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <encounter_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
             <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
             <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
             <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
+            <category />
+            <month />
             <treatment_duration />
-            <regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+            <treatment_phase />
+            <treatment_regimen1 openmrs_entity="concept" openmrs_entity_id="TBR: treatment regimen" />
+            <treatment_regimen2 />
+            <regimen_oth1 />
+            <regimen_oth2 />
+            <fu_visit />
             <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: return visit date" />
+            <next_visit_date_note />
+            <fu_visit_date />
+            <smear_due_date />
+            <next_smear_due_date_note />
             <adverse_effect openmrs_entity="concept" openmrs_entity_id="TBR: adverse effect" />
             <adverse_effect_specify openmrs_entity="concept"
                 openmrs_entity_id="TBR:other specify text" />
@@ -36,6 +48,6 @@
             <meta>
                 <instanceID />
             </meta>
-        </FollowUpVisit_23.11.17_US>
+        </FollowUpVisit_10.01.18>
     </instance>
 </model>
