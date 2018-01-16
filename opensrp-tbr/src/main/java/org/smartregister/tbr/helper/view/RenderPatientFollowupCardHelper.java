@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -41,7 +40,7 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
                     else if (due == 0) {
                         followUpView.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
                     } else {
-                        ((TextView) view.findViewById(R.id.followup_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                        followUpView.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                         followUpView.setBackgroundResource(R.drawable.due_vaccine_na_bg);
                     }
 
