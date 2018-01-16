@@ -62,6 +62,7 @@ import util.TbrConstants.KEY;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
@@ -71,6 +72,8 @@ import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
+import static util.TbrConstants.KEY.FIRST_NAME;
+import static util.TbrConstants.KEY.LAST_NAME;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
@@ -144,7 +147,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             @Override
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{
-                        new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), KEY.FIRST_NAME),
+                        new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), FIRST_NAME),
                         new CursorCommonObjectSort(getResources().getString(R.string.participant_id), KEY.TBREACH_ID)
                 };
             }
@@ -186,7 +189,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
         MenuItem item = popup.getMenu().getItem(0);
-        item.setTitle(item.getTitle() + patient.getName());
+        String patientName = patient.getColumnmaps().get(FIRST_NAME) + SPACE + patient.getColumnmaps().get(LAST_NAME);
+        item.setTitle(item.getTitle() + SPACE + patientName);
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
@@ -220,8 +224,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected FieldOverrides getTreatmentFieldOverrides() {
         Map fields = new HashMap();
         fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
-        fields.put("first_name", patient.getDetails().get(KEY.FIRST_NAME));
-        fields.put("last_name", patient.getDetails().get(KEY.LAST_NAME));
+        fields.put("first_name", patient.getDetails().get(FIRST_NAME));
+        fields.put("last_name", patient.getDetails().get(LAST_NAME));
         fields.put("gender", patient.getDetails().get(KEY.GENDER));
         String dobString = patient.getDetails().get(KEY.DOB);
         String age = "";
@@ -295,8 +299,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.LAST_INTERACTED_WITH,
                 tableName + "." + KEY.FIRST_ENCOUNTER,
                 tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
-                tableName + "." + KEY.FIRST_NAME,
-                tableName + "." + KEY.LAST_NAME,
+                tableName + "." + FIRST_NAME,
+                tableName + "." + LAST_NAME,
                 tableName + "." + KEY.TBREACH_ID,
                 tableName + "." + KEY.GENDER,
                 tableName + "." + KEY.DOB};
