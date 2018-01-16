@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -81,9 +83,11 @@ import static org.smartregister.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
 import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
+import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
+import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created on 09/10/2017 by SGithengi
@@ -547,7 +551,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String jsonString = preferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN, null);
         if (jsonString == null) return;
         ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
         LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();

@@ -1,17 +1,25 @@
 package org.smartregister.tbr.service;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
+import static org.smartregister.tbr.repository.ConfigurableViewsRepository.IDENTIFIER;
+import static org.smartregister.tbr.repository.ConfigurableViewsRepository.JSON;
 import static org.smartregister.tbr.service.PullConfigurableViewsIntentService.VIEWS_URL;
+import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
+import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created by samuelgithengi on 10/27/17.
@@ -37,10 +45,31 @@ public class PullConfigurableViewsServiceHelper {
     protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
-            long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-            syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
+            //There is any other previous login
+            if (TbrApplication.getInstance().getPassword() == null) {
+                saveLoginConfiguration(views);
+            } else {
+                views = saveLoginConfiguration(views);
+                long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
+                syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
+            }
         }
         return views == null ? 0 : views.length();
+    }
+
+    private JSONArray saveLoginConfiguration(JSONArray views) throws JSONException {
+        for (int i = 0; i < views.length(); i++) {
+            JSONObject jsonObject = views.getJSONObject(i);
+            String identifier = jsonObject.getString(IDENTIFIER);
+            String jsonObjectString = jsonObject.getString(JSON);
+            if (identifier.equals(LOGIN)) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+                preferences.edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, jsonObjectString).commit();
+                views.remove(i);
+                break;
+            }
+        }
+        return views;
     }
 
     private JSONArray fetchConfigurableViews() throws JSONException {
@@ -57,7 +86,7 @@ public class PullConfigurableViewsServiceHelper {
             return null;
         }
 
-        Response resp = httpAgent.fetchWithCredentials(url,"","");
+        Response resp = httpAgent.fetchWithCredentials(url, "", "");
 
         if (resp.isFailure()) {
             logError(url + " not returned data");
