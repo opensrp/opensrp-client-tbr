@@ -35,7 +35,8 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
                     Map<String, String> details = TbrApplication.getInstance().getContext().detailsRepository().getAllDetailsForClient(patientDetails.get(Constants.KEY._ID));
 
                     TextView patientTypeTextView = (TextView) view.findViewById(R.id.patientTypeTextView);
-                    patientTypeTextView.setText(WordUtils.capitalizeFully(details.get(Constants.KEY.PATIENT_TYPE).replace(Constants.CHAR.UNDERSCORE, Constants.CHAR.SPACE)));
+                    if (details.get(Constants.KEY.PATIENT_TYPE) != null)
+                        patientTypeTextView.setText(WordUtils.capitalizeFully(details.get(Constants.KEY.PATIENT_TYPE).replace(Constants.CHAR.UNDERSCORE, Constants.CHAR.SPACE)));
                     patientTypeTextView.setVisibility(View.VISIBLE);
                     if (details.get(Constants.KEY.SITE_OF_DISEASE) != null && !details.get(Constants.KEY.SITE_OF_DISEASE).isEmpty()) {
                         TextView siteOfDiseaseTextView = (TextView) view.findViewById(R.id.siteOfDiseaseTextView);

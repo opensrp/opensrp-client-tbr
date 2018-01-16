@@ -231,7 +231,7 @@ public class ResultsRepository extends BaseRepository {
             groupByClause = " GROUP BY " + TYPE;
         }
         if (orderResults) {
-            baselineFilter = " ORDER BY " + DATE + " DESC";
+            orderByClause = " ORDER BY " + DATE + " DESC";
         }
         String query =
                 "SELECT max(" + DATE + "||" + CREATED_AT + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
