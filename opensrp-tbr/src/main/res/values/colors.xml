@@ -53,4 +53,11 @@
     <color name="vaccine_na_bg_stk">#D4D4D4</color>
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
+    <color name="male_initials_background">#D7EAFD</color>
+    <color name="male_initials_text">#3A8BD8</color>
+    <color name="text_black">#000000</color>
+
+    <color name="test_result_positive_red">#c30000</color>
+    <color name="test_result_negative_black">#191919</color>
+    <color name="line_chart_blue">#218cc5</color>
 </resources>

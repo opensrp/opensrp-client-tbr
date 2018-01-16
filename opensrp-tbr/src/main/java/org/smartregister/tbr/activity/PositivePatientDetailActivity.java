@@ -13,8 +13,6 @@ import java.util.Map;
 
 import util.TbrConstants;
 
-import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
-
 /**
  * Created by ndegwamartin on 09/10/2017.
  */
@@ -39,8 +37,8 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.treatmentInitiationForm:
-                String entityId = generateRandomUUIDString();
-                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, entityId, null);
+                Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, patientDetails.get(Constants.KEY._ID), null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

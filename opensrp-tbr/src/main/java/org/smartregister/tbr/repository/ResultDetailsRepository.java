@@ -9,8 +9,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.tbr.model.Register;
+import org.smartregister.tbr.model.RegisterCount;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultDetailsRepository extends BaseRepository {
@@ -95,7 +96,7 @@ public class ResultDetailsRepository extends BaseRepository {
 
     public Map<String, String> getFormResultDetails(String formSubmissionId) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<>();
+        Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =
@@ -120,10 +121,8 @@ public class ResultDetailsRepository extends BaseRepository {
     }
 
 
-    //Temporary
-    public int getRegisterCountByType(String type) {
+    public RegisterCount getRegisterCountByType(String type) {
         Cursor cursor = null;
-        int total = 0;
         try {
             SQLiteDatabase db = getReadableDatabase();
             String suffix = "";
@@ -138,15 +137,17 @@ public class ResultDetailsRepository extends BaseRepository {
             }
 
 
-            String query =
-                    "SELECT count(*) total FROM ec_patient WHERE " + suffix;
+            String query = "SELECT " +
+                    "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
+                    "    sum(case when " + suffix + " and next_visit_date < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
+                    " FROM ec_patient";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    total = cursor.getInt(cursor.getColumnIndex("total"));
-                } while (cursor.moveToNext());
+
+                return new RegisterCount(cursor.getInt(cursor.getColumnIndex(RegisterCount.REGISTER_COUNT)), cursor.getInt(cursor.getColumnIndex(RegisterCount.OVERDUE_COUNT)));
+
             }
-            return total;
+            return null;
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         } finally {
@@ -154,6 +155,6 @@ public class ResultDetailsRepository extends BaseRepository {
                 cursor.close();
             }
         }
-        return total;
+        return null;
     }
 }

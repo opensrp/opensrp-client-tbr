@@ -6,11 +6,11 @@ package org.smartregister.tbr.model;
 
 public class ScreenContact {
 
-    String stage;
-    String name;
-    String gender;
-    String tbreachId;
-    boolean isNegative = false;
+    private String stage;
+    private String name;
+    private String gender;
+    private String tbreachId;
+    private boolean isNegative = false;
 
     public boolean isNegative() {
         return isNegative;
@@ -20,7 +20,7 @@ public class ScreenContact {
         isNegative = negative;
     }
 
-    public ScreenContact(String tbreachId, String name, String gender, String stage,boolean isNegative) {
+    public ScreenContact(String tbreachId, String name, String gender, String stage, boolean isNegative) {
 
         this.stage = stage;
         this.name = name;

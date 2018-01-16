@@ -35,6 +35,7 @@ import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
@@ -389,6 +390,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 break;
             case TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER:
                 intent = new Intent(getActivity(), PositivePatientDetailActivity.class);
+                break;
+            case TbrConstants.VIEW_CONFIGS.INTREATMENT_REGISTER:
+                intent = new Intent(getActivity(), InTreatmentPatientDetailActivity.class);
                 break;
             default:
                 break;

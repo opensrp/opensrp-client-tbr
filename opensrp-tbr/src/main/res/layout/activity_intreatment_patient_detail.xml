@@ -2,12 +2,13 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activityPresumptiveDetailLayout"
+    android:id="@+id/activityIntreatmentDetailLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/customAppThemeGray"
     android:fitsSystemWindows="true"
-    tools:context=".activity.PresumptivePatientDetailActivity">
+    tools:context=".activity.InTreatmentPatientDetailActivity">
+
 
     <include layout="@layout/toolbar_patient_register" />
 
@@ -19,12 +20,12 @@
         android:padding="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/content_presumptive_patient_detail" />
 
+        <include layout="@layout/content_intreatment_patient_detail" />
     </android.support.v4.widget.NestedScrollView>
+
 
     <include layout="@layout/footer_remove_patient_button" />
 
     <include layout="@layout/activity_base" />
-
 </android.support.design.widget.CoordinatorLayout>

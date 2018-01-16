@@ -20,6 +20,7 @@ import java.util.List;
 import static org.smartregister.util.Utils.getPreference;
 import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
+import static util.TbrConstants.LAST_VIEWS_SYNC_TIMESTAMP;
 
 /**
  * Created by samuelgithengi on 12/19/17.
@@ -145,6 +146,14 @@ public class ECSyncHelper {
 
     public void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
+    }
+
+    public long getLastViewsSyncTimeStamp() {
+        return Long.parseLong(getPreference(context, LAST_VIEWS_SYNC_TIMESTAMP, "0"));
+    }
+
+    public void updateLastViewsSyncTimeStamp(long lastSyncTimeStamp) {
+        Utils.writePreference(context, LAST_VIEWS_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
     public long getLastCheckTimeStamp() {

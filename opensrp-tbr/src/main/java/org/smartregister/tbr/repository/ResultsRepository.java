@@ -10,9 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.tbr.model.Result;
+import org.smartregister.tbr.util.Constants;
 
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultsRepository extends BaseRepository {
@@ -147,23 +148,9 @@ public class ResultsRepository extends BaseRepository {
 
     public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<>();
+        Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
-            SQLiteDatabase db = getReadableDatabase();
-            String baselineFilter = "";
-            if (baseline != null) {
-                if (afterBaseline)
-                    baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
-                else
-                    baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
-            }
-            String query =
-                    "SELECT max(" + DATE + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
-                            " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                            + "" + "= '" + baseEntityId + "' "
-                            + baselineFilter
-                            + " GROUP BY " + TYPE;
-            cursor = db.rawQuery(query, null);
+            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String key = cursor.getString(cursor.getColumnIndex(RESULT1));
@@ -185,6 +172,65 @@ public class ResultsRepository extends BaseRepository {
             }
         }
         return clientDetails;
+    }
+
+    public Map<String, Result> getLatestResultsAll(String baseEntityId, boolean afterBaseline, Long baseline) {
+        Cursor cursor = null;
+        Result result;
+        Map<String, Result> clientDetails = new LinkedHashMap<>();
+        try {
+            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    result = new Result();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)));
+                    result.setDate(calendar.getTime());
+                    result.setResult1(cursor.getString(cursor.getColumnIndex(RESULT1)));
+                    result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE1)));
+
+                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    clientDetails.put(key, result);
+                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
+                    if (key2 != null && !key2.isEmpty()) {
+                        result = new Result();
+                        result.setResult1(key2);
+                        result.setDate(calendar.getTime());
+                        result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE2)));
+                        clientDetails.put(key2, result);
+                    }
+
+                } while (cursor.moveToNext());
+            }
+            return clientDetails;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return clientDetails;
+    }
+
+    private Cursor getLatestResultsCursor(String baseEntityId, boolean afterBaseline, Long baseline) {
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String baselineFilter = "";
+        if (baseline != null) {
+            if (afterBaseline)
+                baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
+            else
+                baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+        }
+        String query =
+                "SELECT max(" + DATE + ") " + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
+                        + "" + "= '" + baseEntityId + "' "
+                        + baselineFilter
+                        + " GROUP BY " + TYPE + " ORDER BY " + DATE + " DESC";
+        cursor = db.rawQuery(query, null);
+        return cursor;
     }
 
 }

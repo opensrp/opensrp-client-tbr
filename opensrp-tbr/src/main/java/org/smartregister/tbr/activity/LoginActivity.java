@@ -399,13 +399,6 @@ public class LoginActivity extends AppCompatActivity {
         remoteLoginTask.execute();
     }
 
-    private void fillUserIfExists() {
-        if (getOpenSRPContext().userService().hasARegisteredUser()) {
-            userNameEditText.setText(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
-            userNameEditText.setEnabled(false);
-        }
-    }
-
     private void hideKeyboard() {
         try {
             InputMethodManager inputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

@@ -47,7 +47,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
                 Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
 
                 //update last sync time
-                String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d H:m");
+                String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
                 Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");

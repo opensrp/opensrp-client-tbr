@@ -11,7 +11,6 @@ import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.model.ScreenContact;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.Map;
  */
 
 public class RenderContactScreeningCardHelper extends BaseRenderHelper {
-
     public RenderContactScreeningCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
     }
@@ -34,42 +32,47 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
 
-                FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactView);
-                ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
-                contactsHolderView.removeView(contactViewTemplate);
+                FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactFrameLayout);
 
-                List<ScreenContact> contacts = new ArrayList<>();
-                contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("2", "EK", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("3", "LL", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("4", "JZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("5", "ES", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("6", "ZP", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("7", "MB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("8", "PL", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("9", "MT", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("10", "NI", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("11", "MZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("12", "TO", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("13", "KK", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("14", "OB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("15", "SG", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                if (contactViewTemplate != null) {
+                    ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
+                    contactViewTemplate.setVisibility(View.GONE);
+                    contactsHolderView.removeAllViews();
+                    contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
 
-                FrameLayout contactView;
+                    List<ScreenContact> contacts = new ArrayList<>();
+                    contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("2", "EK", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("3", "LL", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("4", "JZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("5", "ES", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("6", "ZP", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("7", "MB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("8", "PL", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("9", "MT", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("10", "NI", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("11", "MZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("12", "TO", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("13", "KK", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("14", "OB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("15", "SG", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
 
-                for (int i = 0; i < contacts.size(); i++) {
-                    ScreenContactViewHelper screenContactViewHelper = new ScreenContactViewHelper(context, contactViewTemplate, contacts.get(i));
-                    contactView = screenContactViewHelper.getScreenContactView();
-                    contactView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                    FrameLayout contactView;
 
-                            ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
-                        }
-                    });
+                    for (int i = 0; i < contacts.size(); i++) {
+                        ScreenContactViewHelper screenContactViewHelper = new ScreenContactViewHelper(context, contactViewTemplate, contacts.get(i));
+                        contactView = screenContactViewHelper.getScreenContactView();
+                        contactView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                    contactsHolderView.addView(contactView);
+                                ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                            }
+                        });
 
+                        contactsHolderView.addView(contactView);
+
+                    }
                 }
             }
 

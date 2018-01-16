@@ -21,7 +21,7 @@ public class ScreenContactViewHelper {
 
     public ScreenContactViewHelper(final Context context, View frameView, ScreenContact screenContactData) {
         //start with the frame
-        FrameLayout frameLayoutTemplate = (FrameLayout) frameView.findViewById(R.id.clientContactView);
+        FrameLayout frameLayoutTemplate = (FrameLayout) frameView.findViewById(R.id.clientContactFrameLayout);
         frameLayout = new FrameLayout(context);
         frameLayout.setLayoutParams(frameLayoutTemplate.getLayoutParams());
         frameLayout.setPadding(frameLayoutTemplate.getPaddingLeft(), frameLayoutTemplate.getPaddingTop(), frameLayoutTemplate.getPaddingRight(), frameLayoutTemplate.getPaddingBottom());

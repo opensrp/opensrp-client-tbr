@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
-import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 
 /**
  * Created by ndegwamartin on 09/10/2017.
@@ -62,7 +61,6 @@ public class HomeActivity extends BaseActivity {
 
     //
     public void manualSync(View view) {
-        Utils.showToast(this, "Manual Syncing ...");
         refreshButton = view;
         view.startAnimation(Utils.getRotateAnimation());
         TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
@@ -104,14 +102,8 @@ public class HomeActivity extends BaseActivity {
         //Set last sync time
         TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
-            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d HH:mm");
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
             lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
-        }
-
-        //Set last sync time
-        TextView serverVersionView = (TextView) findViewById(R.id.serverVersionView);
-        if (serverVersionView != null) {
-            serverVersionView.setText("(Test Mode) Server Version : " + org.smartregister.util.Utils.getPreference(this, LAST_SYNC_TIMESTAMP, "0"));
         }
 
         //Set App Name

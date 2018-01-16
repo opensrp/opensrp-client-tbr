@@ -5,6 +5,11 @@ package org.smartregister.tbr.util;
  */
 
 public class Constants {
+    public static final String PTB = "ptb";
+    public static final String EPTB = "eptb";
+    public static final String PULMONARY = "Pulmonary";
+    public static final String EXTRA_PULMONARY = "Extra Pulmonary";
+
     public static class INTENT_KEY {
         public static final String FULL_NAME = "full_name";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
@@ -30,12 +35,14 @@ public class Constants {
         public static final String LANG = "lang";
         public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
         public static final String POSITIVE_PATIENT_DETAILS = "positive_patient_details";
+        public static final String INTREATMENT_PATIENT_DETAILS = "intreatment_patient_details";
 
         public static class COMPONENTS {
             public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";
             public static final String PATIENT_DETAILS_POSITIVE = "component_patient_details_positive";
             public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
             public static final String PATIENT_DETAILS_CONTACT_SCREENING = "component_patient_details_contact_screening";
+            public static final String PATIENT_DETAILS_FOLLOWUP = "component_patient_details_followup";
         }
     }
 
@@ -56,6 +63,10 @@ public class Constants {
         public static final String DOB = "dob";
         public static final String GENDER = "gender";
         public static final String PARTICIPANT_ID = "participant_id";
+        public static final String NEXT_VISIT_DATE = "next_visit_date";
+        public static final String PATIENT_TYPE = "patient_type";
+        public static final String SITE_OF_DISEASE = "site_of_disease";
+        public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
     }
 
     public static final class FORM {
@@ -72,5 +83,15 @@ public class Constants {
         public static final String DIAGNOSED = "diagnosed";
         public static final String SCREENED = "screened";
         public static final String INTREATMENT = "intreatment";
+    }
+
+    public static final class TEST_RESULT {
+        public static final class XPERT {
+            public static final String DETECTED = "detected";
+            public static final String NOT_DETECTED = "not_detected";
+            public static final String INDETERMINATE = "indeterminate";
+            public static final String ERROR = "error";
+            public static final String NO_RESULT = "no_result";
+        }
     }
 }
