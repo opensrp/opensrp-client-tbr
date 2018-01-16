@@ -68,18 +68,14 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         Map<String, Result> testResults = params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
 
         TextView firstEncounterDateView = (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
-        if (!params.isIntreatment) {
-            String dateString = context.getString(R.string.first_encounter);
-            if (params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
-                String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
-                dateString += Constants.CHAR.SPACE + firstEncounterDate;
-            }
-            firstEncounterDateView.setText(dateString);
-        } else if (params.isIntreatment && !params.isBaseline) {
-            firstEncounterDateView.setText(R.string.latest);
+        if (!params.isIntreatment && params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
 
-        } else if (params.isIntreatment && params.isBaseline) {
-            firstEncounterDateView.setText("Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")");
+            String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
+            String dateString = context.getString(R.string.first_encounter) + Constants.CHAR.SPACE + firstEncounterDate;
+            firstEncounterDateView.setText(dateString);
+        } else if (params.isIntreatment) {
+            String baseLineText = "Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")";
+            firstEncounterDateView.setText(params.isBaseline ? baseLineText : context.getString(R.string.latest));
 
         }
         TextView results = (TextView) params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.result_details);
