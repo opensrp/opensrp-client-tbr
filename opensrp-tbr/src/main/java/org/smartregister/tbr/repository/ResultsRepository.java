@@ -234,7 +234,7 @@ public class ResultsRepository extends BaseRepository {
             orderByClause = " ORDER BY " + DATE + " DESC";
         }
         String query =
-                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                "SELECT max(" + DATE + "||" + CREATED_AT + "),"+ DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
                         " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
                         + "" + "= '" + baseEntityId + "' "
                         + baselineFilter

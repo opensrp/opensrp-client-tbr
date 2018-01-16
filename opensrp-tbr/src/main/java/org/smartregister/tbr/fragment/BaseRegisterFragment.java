@@ -186,6 +186,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
         MenuItem item = popup.getMenu().getItem(0);
+        item.setTitle(item.getTitle() + patient.getName());
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
