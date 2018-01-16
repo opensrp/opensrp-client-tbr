@@ -48,7 +48,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
     protected Map<String, String> patientDetails;
     protected ResultMenuListener resultMenuListener;
-    protected Map<String, String> languageTranslations;
+    protected Map<String, String> languageTranslations; 
 
     private static String TAG = BasePatientDetailsFragment.class.getCanonicalName();
 

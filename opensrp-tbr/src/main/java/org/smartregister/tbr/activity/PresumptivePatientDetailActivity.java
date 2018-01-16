@@ -35,7 +35,6 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.tbDiagnosisForm:
-
                 Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
                 startFormActivity(Constants.FORM.DIAGNOSIS, patientDetails.get(Constants.KEY._ID), null);
                 return true;

@@ -2,6 +2,7 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -21,6 +22,9 @@ import java.util.Map;
  */
 
 public class RenderContactScreeningCardHelper extends BaseRenderHelper {
+
+    private static String TAG = RenderContactScreeningCardHelper.class.getCanonicalName();
+
     public RenderContactScreeningCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
     }
@@ -33,7 +37,6 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             public void run() {
 
                 FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactFrameLayout);
-
                 if (contactViewTemplate != null) {
                     ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
                     contactViewTemplate.setVisibility(View.GONE);
@@ -73,6 +76,10 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                         contactsHolderView.addView(contactView);
 
                     }
+
+                } else {
+                    Log.e(TAG, "No Frame Layout contactViewTemplate found");
+
                 }
             }
 
