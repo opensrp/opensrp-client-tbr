@@ -73,13 +73,12 @@ import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
-import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
-import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -208,12 +207,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return fieldOverrides;
     }
 
+    protected FieldOverrides getFollowUpFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        fields.put("treatment_initiation_date", patient.getDetails().get(KEY.TREATMENT_INITIATION_DATE));
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
     protected FieldOverrides getTreatmentFieldOverrides() {
         Map fields = new HashMap();
         fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
         fields.put("first_name", patient.getDetails().get(KEY.FIRST_NAME));
         fields.put("last_name", patient.getDetails().get(KEY.LAST_NAME));
-
         fields.put("gender", patient.getDetails().get(KEY.GENDER));
         String dobString = patient.getDetails().get(KEY.DOB);
         String age = "";
@@ -311,20 +318,19 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
-
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
-        ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
-        if (viewConfiguration != null)
-            headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
-
+        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
+            ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
+            ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
+            if (viewConfiguration != null)
+                headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
+        }
         if (!visibleColumns.isEmpty()) {
             Map<String, Integer> mapping = new HashMap();
             mapping.put(PATIENT, R.id.patient_header);
             mapping.put(RESULTS, R.id.results_header);
             mapping.put(DIAGNOSE, R.id.diagnose_header);
-            mapping.put(ENCOUNTER, R.id.encounter_header);
             mapping.put(XPERT_RESULTS, R.id.xpert_results_header);
-            mapping.put(DROPDOWN, R.id.dropdown_header);
+            mapping.put(SMEAR_RESULTS, R.id.smr_results_header);
             mapping.put(TREAT, R.id.treat_header);
             mapping.put(DIAGNOSIS, R.id.diagnosis_header);
             mapping.put(INTREATMENT_RESULTS, R.id.intreatment_results_header);
@@ -439,7 +445,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 patient = (CommonPersonObjectClient) view.getTag();
             }
             switch (view.getId()) {
-                case R.id.dropdown_btn:
                 case R.id.result_lnk:
                 case R.id.intreatment_lnk:
                     showResultMenu(view);
@@ -450,6 +455,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.xpert_result_lnk:
                     registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
+                case R.id.smr_result_lnk:
+                    registerActivity.startFormActivity(SMEAR, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
+                    break;
                 case R.id.patient_column:
                     goToPatientDetailActivity(getViewConfigurationIdentifier());
                     break;
@@ -459,7 +467,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:
-                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getFollowUpFieldOverrides().getJSONString());
                     break;
 
                 default:

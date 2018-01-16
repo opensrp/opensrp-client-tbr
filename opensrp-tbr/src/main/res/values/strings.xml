@@ -61,4 +61,5 @@
     <string name="latest">Latest</string>
     <string name="bmi">BMI</string>
     <string name="treatment_start">Treatment Start</string>
+    <string name="smr_result">Smr Results</string>
 </resources>

@@ -1,12 +1,12 @@
 {
-  "name": "Diagnosis_30.10.17_US",
+  "name": "Diagnosis_22.11.17_US",
   "title": "TB Diagnosis",
   "sms_keyword": "tb_diagnosis",
   "default_language": "English",
   "instance": {
     "encounter_type": "TB Diagnosis"
   },
-  "version": "201711020527",
+  "version": "201711230817",
   "id_string": "tb_diagnosis",
   "type": "survey",
   "children": [
@@ -122,7 +122,11 @@
       }
     },
     {
+      "bind": {
+        "required": "yes"
+      },
       "label": {
+        "Roman Urdu": "Kya yeh TB ka mareez hai?",
         "English": "Confirmed TB patient"
       },
       "type": "select one",
@@ -146,39 +150,17 @@
             "Roman Urdu": "Nahi",
             "English": "No"
           }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:refused"
-          },
-          "name": "refuse",
-          "label": {
-            "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
-          }
         }
       ],
-      "name": "confirmed_tb",
-      "instance": {
-        "openmrs_entity_id": "TBR:confirmed tuberculosis",
-        "openmrs_entity": "concept"
-      }
+      "name": "confirmed_tb"
     },
     {
       "bind": {
-        "relevant": "${confirmed_tb} = 'yes'"
+        "relevant": "${confirmed_tb} = 'yes'",
+        "required": "yes"
       },
       "label": {
+        "Roman Urdu": "Mareez ki tashkees kis bunyab pe howi?",
         "English": "Has the patient been diagnosed bacteriologically or clinically"
       },
       "type": "select one",
@@ -203,13 +185,23 @@
             "Roman Urdu": "Symptomatically",
             "English": "Symptomatically"
           }
+        },
+        {
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "name": "other",
+          "label": {
+            "Roman Urdu": "Koi aur",
+            "English": "Other"
+          }
         }
       ],
-      "name": "diagnosis_type",
-      "instance": {
-        "openmrs_entity_id": "TBR:diagnosis type",
-        "openmrs_entity": "concept"
-      }
+      "name": "diagnosis_type"
     },
     {
       "control": {

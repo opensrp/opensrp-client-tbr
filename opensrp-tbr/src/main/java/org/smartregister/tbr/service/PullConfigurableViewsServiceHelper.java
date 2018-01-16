@@ -39,6 +39,7 @@ public class PullConfigurableViewsServiceHelper {
         if (baseUrl.endsWith(endString)) {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
+
         String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
         if (httpAgent == null) {

@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <GeneXpertForm_03.10.17_US xmlns:jr="http://openrosa.org/javarosa"
+        <GeneXpertForm_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="GeneXpert Result"
-            id="genexpert_result" version="201710261016">
+            id="genexpert_result" version="201801120808">
             <formhub>
                 <uuid />
             </formhub>
@@ -32,12 +32,12 @@
                 <mtb_result openmrs_entity="concept" openmrs_entity_id="TBR: MTB result" />
                 <mtb_burden openmrs_entity="concept" openmrs_entity_id="TBR: MTB burden" />
                 <rif_result openmrs_entity="concept" openmrs_entity_id="TBR: RIF result" />
-                <error_code openmrs_entity="concept" openmrs_entity_id="TBR: MTB errorcode" />
+                <error_code openmrs_entity="concept" openmrs_entity_id="TBR: MTB errorcode"/>
                 <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             </test_information>
             <meta>
                 <instanceID />
             </meta>
-        </GeneXpertForm_03.10.17_US>
+        </GeneXpertForm_10.01.18>
     </instance>
 </model>

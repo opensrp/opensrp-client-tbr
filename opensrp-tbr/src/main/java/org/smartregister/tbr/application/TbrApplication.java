@@ -37,6 +37,7 @@ import util.TbrConstants;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
+import static util.TbrConstants.KEY.FIRST_ENCOUNTER;
 import static util.TbrConstants.KEY.TREATMENT_INITIATION_DATE;
 
 /**
@@ -161,7 +162,7 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive", "confirmed_tb", DIAGNOSIS_DATE, TREATMENT_INITIATION_DATE};
+        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive", "confirmed_tb", FIRST_ENCOUNTER, DIAGNOSIS_DATE, TREATMENT_INITIATION_DATE};
     }
 
 

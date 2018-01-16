@@ -5,8 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/list_item_height"
     android:background="#eeeeee"
-    android:orientation="horizontal"
-    android:weightSum="10">
+    android:orientation="horizontal">
 
     <include layout="@layout/register_list_row" />
 

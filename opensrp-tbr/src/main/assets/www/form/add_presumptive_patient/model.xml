@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <AddPositivePt_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
-            xmlns:orx="http://openrosa.org/xforms" encounter_type="positive TB patient"
-            id="positive_pt" version="201801121217">
+        <ScreeningForm_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Screening" id="screening_form"
+            version="201801120945">
             <formhub>
                 <uuid />
             </formhub>
@@ -22,43 +22,78 @@
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
-            <confirmed_tb>yes</confirmed_tb>
-            <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR:diagnosis type" />
-            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
-            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
-            <age openmrs_entity="person" openmrs_entity_id="age" />
-            <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
-            <birthdate_estimated openmrs_entity="person" openmrs_entity_id="birthdate_estimated">1
-            </birthdate_estimated>
-            <gender openmrs_entity="person" openmrs_entity_id="gender" />
-            <contact_phone_number openmrs_entity="person_attribute"
-                openmrs_entity_id="Primary Contact Number" />
-            <close_tb_contact openmrs_entity="concept"
-                openmrs_entity_id="TBR:tuberculosis contact" />
-            <previous_tb_treatment openmrs_entity="concept"
-                openmrs_entity_id="TBR:tuberculosis history" />
-            <previous_tb_treatment_outcome openmrs_entity="concept"
-                openmrs_entity_id="TBR:mdr tuberculosis treatment outcome" />
-            <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
-            <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
-            <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
-            <province openmrs_entity="person_address" openmrs_entity_id="stateProvince"
-                openmrs_entity_parent="usual_residence" />
-            <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage"
-                openmrs_entity_parent="usual_residence" />
-            <town openmrs_entity="person_address" openmrs_entity_id="town"
-                openmrs_entity_parent="usual_residence" />
-            <union_council openmrs_entity="person_address" openmrs_entity_id="subTown"
-                openmrs_entity_parent="usual_residence" />
-            <address1 openmrs_entity="person_address" openmrs_entity_id="address1"
-                openmrs_entity_parent="usual_residence" />
-            <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text" />
+            <screening_symptom>
+                <cough openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:cough" />
+                <cough_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration"
+                    openmrs_entity_parent="TBR:cough" />
+                <cough_phlegm openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:productive cough" />
+                <haemoptysis openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:haemoptysis" />
+                <chest_pain openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:chest pain" />
+                <chest_pain_duration openmrs_entity="concept"
+                    openmrs_entity_id="TBR:symptom duration"
+                    openmrs_entity_parent="TBR:chest pain" />
+                <fever openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:fever" />
+                <fever_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration"
+                    openmrs_entity_parent="TBR:fever" />
+                <night_sweats openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:night sweats" />
+                <night_sweats_duration openmrs_entity="concept"
+                    openmrs_entity_id="TBR:symptom duration"
+                    openmrs_entity_parent="TBR:night sweats" />
+                <weight_loss openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:sudden weight loss" />
+                <symptoms_other openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
+                    openmrs_entity_parent="TBR:other" />
+                <symptoms_other_specify openmrs_entity="concept"
+                    openmrs_entity_id="TBR:other specify text" openmrs_entity_parent="TBR:other" />
+                <presumptive openmrs_entity="concept"
+                    openmrs_entity_id="TBR:presumptive tuberculosis case" />
+            </screening_symptom>
+            <demographic_info>
+                <age openmrs_entity="person" openmrs_entity_id="age" />
+                <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
+                <birthdate_estimated openmrs_entity="person"
+                    openmrs_entity_id="birthdate_estimated">1
+                </birthdate_estimated>
+                <gender openmrs_entity="person" openmrs_entity_id="gender" />
+            </demographic_info>
+            <presumptive_info>
+                <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+                <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+                <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+                <close_tb_contact openmrs_entity="concept"
+                    openmrs_entity_id="TBR:tuberculosis contact" />
+                <previous_tb_treatment openmrs_entity="concept"
+                    openmrs_entity_id="TBR:tuberculosis history" />
+                <previous_tb_treatment_outcome openmrs_entity="concept"
+                    openmrs_entity_id="TBR:mdr tuberculosis treatment outcome" />
+                <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
+                <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
+                <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
+                <contact_phone_number openmrs_entity="person_attribute"
+                    openmrs_entity_id="Primary Contact Number" />
+                <province openmrs_entity="person_address" openmrs_entity_id="stateProvince"
+                    openmrs_entity_parent="usual_residence" />
+                <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage"
+                    openmrs_entity_parent="usual_residence" />
+                <town openmrs_entity="person_address" openmrs_entity_id="town"
+                    openmrs_entity_parent="usual_residence" />
+                <union_council openmrs_entity="person_address" openmrs_entity_id="subTown"
+                    openmrs_entity_parent="usual_residence" />
+                <address1 openmrs_entity="person_address" openmrs_entity_id="address1"
+                    openmrs_entity_parent="usual_residence" />
+                <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text" />
+            </presumptive_info>
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             <meta>
                 <instanceID />
             </meta>
-        </AddPositivePt_11.01.18>
+        </ScreeningForm_11.01.18>
     </instance>
     <instance id="provinces">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
@@ -93,226 +128,6 @@
             <item>
                 <itextId>static_instance-provinces-7</itextId>
                 <name>out_of_country</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="eptb_site">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-eptb_site-0</itextId>
-                <openmrs_reference_term>Tuberculous pleural effusion</openmrs_reference_term>
-                <name>pleura</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-1</itextId>
-                <openmrs_reference_term>Tuberculosis of spinal cord</openmrs_reference_term>
-                <name>spine</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-2</itextId>
-                <openmrs_reference_term>Cervical Tuberculous Lymphadenitis</openmrs_reference_term>
-                <name>lymph</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-3</itextId>
-                <openmrs_reference_term>Abdominal tuberculosis</openmrs_reference_term>
-                <name>abdomen</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-4</itextId>
-                <openmrs_reference_term>Tuberculosis of Central Nervous System
-                </openmrs_reference_term>
-                <name>cns</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-5</itextId>
-                <name>renal</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-6</itextId>
-                <openmrs_reference_term>Bone Tuberculosis</openmrs_reference_term>
-                <name>bones</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-7</itextId>
-                <openmrs_reference_term>Genitourinary Tuberculosis</openmrs_reference_term>
-                <name>genitourinary</name>
-            </item>
-            <item>
-                <itextId>static_instance-eptb_site-8</itextId>
-                <openmrs_reference_term>Other non-coded</openmrs_reference_term>
-                <name>other</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="treatment_outcomes">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-treatment_outcomes-0</itextId>
-                <openmrs_concept_name>Cure, outcome</openmrs_concept_name>
-                <name>cured</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-1</itextId>
-                <openmrs_concept_name>DEFAULTED</openmrs_concept_name>
-                <name>defaulted</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-2</itextId>
-                <openmrs_concept_name>Died</openmrs_concept_name>
-                <name>died</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-3</itextId>
-                <openmrs_concept_name>Treatment Complete</openmrs_concept_name>
-                <name>treatment_completed</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-4</itextId>
-                <openmrs_concept_name>Patient transferred out</openmrs_concept_name>
-                <name>transferred_out</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-5</itextId>
-                <openmrs_concept_name>STILL ON TREATMENT</openmrs_concept_name>
-                <name>still_on_treatment</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-6</itextId>
-                <openmrs_concept_name>Regimen Failure</openmrs_concept_name>
-                <name>regimen_failure</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-7</itextId>
-                <openmrs_concept_name>other</openmrs_concept_name>
-                <name>other</name>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-8</itextId>
-                <openmrs_concept_name>unknown</openmrs_concept_name>
-                <name>unknown</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="gender">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-gender-0</itextId>
-                <name>male</name>
-            </item>
-            <item>
-                <itextId>static_instance-gender-1</itextId>
-                <name>female</name>
-            </item>
-            <item>
-                <itextId>static_instance-gender-2</itextId>
-                <name>transgender</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="patient_type">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-patient_type-0</itextId>
-                <openmrs_reference_term>New Diagnosis of Tuberculosis</openmrs_reference_term>
-                <name>new</name>
-            </item>
-            <item>
-                <itextId>static_instance-patient_type-1</itextId>
-                <openmrs_reference_term>Relapse</openmrs_reference_term>
-                <name>relapse</name>
-            </item>
-            <item>
-                <itextId>static_instance-patient_type-2</itextId>
-                <openmrs_reference_term>Transfer In, tuberculosis patient</openmrs_reference_term>
-                <name>transfer _in</name>
-            </item>
-            <item>
-                <itextId>static_instance-patient_type-3</itextId>
-                <openmrs_reference_term>Returned After Loss to Follow-up</openmrs_reference_term>
-                <name>after_ltfu</name>
-            </item>
-            <item>
-                <itextId>static_instance-patient_type-4</itextId>
-                <openmrs_reference_term>Tuberculosis Treatment Failure</openmrs_reference_term>
-                <name>after_failure</name>
-            </item>
-            <item>
-                <itextId>static_instance-patient_type-5</itextId>
-                <openmrs_reference_term>Other non-coded</openmrs_reference_term>
-                <name>other</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="hiv_results">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-hiv_results-0</itextId>
-                <openmrs_concept_name>Negative</openmrs_concept_name>
-                <name>negative</name>
-            </item>
-            <item>
-                <itextId>static_instance-hiv_results-1</itextId>
-                <openmrs_concept_name>Positive</openmrs_concept_name>
-                <name>positive</name>
-            </item>
-            <item>
-                <itextId>static_instance-hiv_results-2</itextId>
-                <openmrs_concept_name>Indeterminate</openmrs_concept_name>
-                <name>indeterminate</name>
-            </item>
-            <item>
-                <itextId>static_instance-hiv_results-3</itextId>
-                <openmrs_concept_name>unknown</openmrs_concept_name>
-                <name>dont_know</name>
-            </item>
-            <item>
-                <itextId>static_instance-hiv_results-4</itextId>
-                <openmrs_concept_name>Refused</openmrs_concept_name>
-                <name>refuse</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="disease_site">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-disease_site-0</itextId>
-                <name>ptb</name>
-            </item>
-            <item>
-                <itextId>static_instance-disease_site-1</itextId>
-                <openmrs_reference_term>mycobacterium tuberculosis, extrapulmonary
-                </openmrs_reference_term>
-                <name>eptb</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="diagnosis">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-diagnosis-0</itextId>
-                <openmrs_concept_name>x-ray, chest</openmrs_concept_name>
-                <name>x_ray</name>
-            </item>
-            <item>
-                <itextId>static_instance-diagnosis-1</itextId>
-                <openmrs_concept_name>SPUTUM FOR ACID FAST BACILLI</openmrs_concept_name>
-                <name>bacteriologically</name>
-            </item>
-            <item>
-                <itextId>static_instance-diagnosis-2</itextId>
-                <openmrs_concept_name>CLINICAL SUSPICION</openmrs_concept_name>
-                <name>symptomatically</name>
-            </item>
-            <item>
-                <itextId>static_instance-diagnosis-3</itextId>
-                <openmrs_concept_name>Unknown</openmrs_concept_name>
-                <name>dont_know</name>
-            </item>
-            <item>
-                <itextId>static_instance-diagnosis-4</itextId>
-                <openmrs_concept_name>other</openmrs_concept_name>
-                <name>other</name>
             </item>
         </root>
     </instance>
@@ -1955,6 +1770,190 @@
                 <town>na</town>
                 <city>na</city>
                 <name>not_applicable</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="treatment_outcomes">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-treatment_outcomes-0</itextId>
+                <name>cured</name>
+                <openmrs_concept_name>Cure, outcome</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'cured' name, 'cured' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'cured' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-1</itextId>
+                <name>defaulted</name>
+                <openmrs_concept_name>DEFAULTED</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'defaulted' name, 'defaulted' code,
+                    1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (
+                    SELECT code FROM concept_reference_term WHERE code = 'defaulted' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-2</itextId>
+                <name>died</name>
+                <openmrs_concept_name>Died</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'died' name, 'died' code, 1 creator,
+                    NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT code
+                    FROM concept_reference_term WHERE code = 'died' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-3</itextId>
+                <name>treatment_completed</name>
+                <openmrs_concept_name>Treatment Complete</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'treatment complete' name,
+                    'treatment complete' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as
+                    tmp WHERE NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code =
+                    'treatment complete' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-4</itextId>
+                <name>transferred_out</name>
+                <openmrs_concept_name>Patient transferred out</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'transferred out' name, 'transferred
+                    out' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT
+                    EXISTS ( SELECT code FROM concept_reference_term WHERE code = 'transferred out'
+                    ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-5</itextId>
+                <name>regimen_failure</name>
+                <openmrs_concept_name>Regimen Failure</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'regimen failure' name, 'regimen
+                    failure' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE
+                    NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code = 'regimen
+                    failure' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-6</itextId>
+                <name>other</name>
+                <openmrs_concept_name>other</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'other' name, 'other' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'other' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-treatment_outcomes-7</itextId>
+                <name>unknown</name>
+                <openmrs_concept_name>unknown</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+        </root>
+    </instance>
+    <instance id="gender">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-gender-0</itextId>
+                <name>male</name>
+            </item>
+            <item>
+                <itextId>static_instance-gender-1</itextId>
+                <name>female</name>
+            </item>
+            <item>
+                <itextId>static_instance-gender-2</itextId>
+                <name>transgender</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="hiv_results">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-hiv_results-0</itextId>
+                <name>negative</name>
+                <openmrs_concept_name>Negative</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'positive' name, 'positive' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'positive' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-hiv_results-1</itextId>
+                <name>positive</name>
+                <openmrs_concept_name>Positive</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'negative' name, 'negative' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'negative' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-hiv_results-2</itextId>
+                <name>indeterminate</name>
+                <openmrs_concept_name>Indeterminate</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'indeterminate' name,
+                    'indeterminate' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp
+                    WHERE NOT EXISTS ( SELECT code FROM concept_reference_term WHERE code =
+                    'indeterminate' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-hiv_results-3</itextId>
+                <name>dont_know</name>
+                <openmrs_concept_name>unknown</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;
+                </openmrs_reference_term>
+            </item>
+            <item>
+                <itextId>static_instance-hiv_results-4</itextId>
+                <name>refuse</name>
+                <openmrs_concept_name>Refused</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>

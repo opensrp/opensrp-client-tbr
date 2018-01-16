@@ -1,8 +1,8 @@
 <model>
     <instance>
-        <TreatmentInitation_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
+        <TreatmentInitation_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Treatment Initiation"
-            id="treatment_initiation" version="201711230919">
+            id="treatment_initiation" version="201801111104">
             <formhub>
                 <uuid />
             </formhub>
@@ -24,13 +24,13 @@
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <patient_information>
                 <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-                <first_name />
-                <last_name />
+                <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
+                <last_name openmrs_entity="person" openmrs_entity_id="last_name"/>
                 <age openmrs_entity="person" openmrs_entity_id="age" />
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
                 <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
                 <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
-                <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="bmi"/>
             </patient_information>
             <tb_information>
                 <treatment_initiation_date openmrs_entity="concept"
@@ -38,18 +38,23 @@
                 <registry_number openmrs_entity="concept"
                     openmrs_entity_id="TBR: tb registry number" />
                 <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR: tb type" />
-                <site_of_eptb openmrs_entity="concept" />
+                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="eptb"/>
                 <other_eptb_site openmrs_entity="concept"
                     openmrs_entity_id="TBR:other specify text" />
                 <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
-                <regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen"/>
+                <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR: treatment regimen" />
+                <fu_visit />
                 <next_visit_date openmrs_entity="concept"
                     openmrs_entity_id="TBR: return visit date" />
+                <next_visit_date_note />
+                <fu_visit_date />
+                <smear_due_date />
+                <next_smear_due_date_note />
                 <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             </tb_information>
             <meta>
                 <instanceID />
             </meta>
-        </TreatmentInitation_23.11.17_US>
+        </TreatmentInitation_10.01.18>
     </instance>
 </model>

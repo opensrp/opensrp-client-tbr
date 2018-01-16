@@ -65,7 +65,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR:confirmed tuberculosis"
+            "formSubmissionField": "confirmed_tb"
           }
         },
         {
@@ -110,6 +110,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "TBR: return visit date"
+          }
+        },
+        {
+          "column_name": "fu_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "fu_visit_date"
           }
         }
       ]

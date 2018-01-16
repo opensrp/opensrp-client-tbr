@@ -144,7 +144,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/dropdown_column"
+        android:id="@+id/smr_results_column"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginRight="1dp"
@@ -154,13 +154,27 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <ImageButton
-            android:id="@+id/dropdown_btn"
+        <TextView
+            android:id="@+id/smr_result_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_horizontal"
+            android:textColor="#757575"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/smr_result_lnk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#ffffff"
-            android:src="@drawable/ic_action_more_vert" />
+            android:layout_marginBottom="3dp"
+            android:text="@string/result"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </merge>

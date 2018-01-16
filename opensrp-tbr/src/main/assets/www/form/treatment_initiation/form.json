@@ -1,12 +1,12 @@
 {
-  "name": "TreatmentInitation_23.11.17_US",
+  "name": "TreatmentInitation_10.01.18",
   "title": "Treatment Initation",
   "sms_keyword": "treatment_initiation",
   "default_language": "English",
   "instance": {
     "encounter_type": "Treatment Initiation"
   },
-  "version": "201711230919",
+  "version": "201801111104",
   "id_string": "treatment_initiation",
   "type": "survey",
   "children": [
@@ -524,12 +524,92 @@
           "instance": {
             "openmrs_entity": "concept"
           },
-          "type": "text",
-          "name": "regimen",
           "label": {
             "Roman Urdu": "Regimen",
             "English": "Regimen"
-          }
+          },
+          "type": "select one",
+          "children": [
+            {
+              "name": "rhze",
+              "label": {
+                "Roman Urdu": "RHZE",
+                "English": "RHZE"
+              }
+            },
+            {
+              "name": "rh",
+              "label": {
+                "Roman Urdu": "RH",
+                "English": "RH"
+              }
+            },
+            {
+              "name": "rhe",
+              "label": {
+                "Roman Urdu": "RHE",
+                "English": "RHE"
+              }
+            },
+            {
+              "name": "rhzes",
+              "label": {
+                "Roman Urdu": "RHZES",
+                "English": "RHZES"
+              }
+            }
+          ],
+          "name": "treatment_regimen"
+        },
+        {
+          "label": {
+            "Roman Urdu": "Agli Tareeq 30 din baad?",
+            "English": "Next Appointment after 30 days?"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: yes"
+              },
+              "name": "yes",
+              "label": {
+                "Roman Urdu": "Haan",
+                "English": "Yes"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: no"
+              },
+              "name": "no",
+              "label": {
+                "Roman Urdu": "Nahi",
+                "English": "No"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: unknown"
+              },
+              "name": "dont_know",
+              "label": {
+                "Roman Urdu": "Pata Nahi",
+                "English": "Don't Know"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: refused"
+              },
+              "name": "refuse",
+              "label": {
+                "Roman Urdu": "Jawab nahi dena",
+                "English": "Refuse"
+              }
+            }
+          ],
+          "name": "fu_visit"
         },
         {
           "instance": {
@@ -537,13 +617,52 @@
             "openmrs_entity": "concept"
           },
           "bind": {
-            "calculate": "${today} + 30"
+            "relevant": "${fu_visit}='yes'",
+            "calculate": "format-date(date-time(decimal-date-time(${treatment_initiation_date})+30),'%Y-%m-%d' )"
           },
           "type": "calculate",
           "name": "next_visit_date",
           "label": {
             "Roman Urdu": "Aagli Tareeq",
             "English": "Next Visit Date"
+          }
+        },
+        {
+          "type": "note",
+          "name": "next_visit_date_note",
+          "label": {
+            "Roman Urdu": "Next Visit Date ${next_visit_date}",
+            "English": "Next Visit Date ${next_visit_date}"
+          }
+        },
+        {
+          "bind": {
+            "relevant": "${fu_visit}='no'"
+          },
+          "type": "date",
+          "name": "fu_visit_date",
+          "label": {
+            "Roman Urdu": "Aagli Tareeq",
+            "English": "Next Visit Date"
+          }
+        },
+        {
+          "bind": {
+            "calculate": "format-date(date-time(decimal-date-time(${treatment_initiation_date})+54),'%Y-%m-%d' )"
+          },
+          "type": "calculate",
+          "name": "smear_due_date",
+          "label": {
+            "Roman Urdu": "Next Smear Due Date",
+            "English": "Next Smear Due Date"
+          }
+        },
+        {
+          "type": "note",
+          "name": "next_smear_due_date_note",
+          "label": {
+            "Roman Urdu": "Next Smear Due Date ${smear_due_date}",
+            "English": "Next Smear Due Date ${smear_due_date}"
           }
         },
         {
