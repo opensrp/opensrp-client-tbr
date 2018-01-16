@@ -24,7 +24,7 @@ import util.TbrSpannableStringBuilder;
  */
 
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
-    TestResultsStringBuilderHelper testResultsStringBuilderHelper;
+    private TestResultsStringBuilderHelper testResultsStringBuilderHelper;
 
     public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -65,15 +65,14 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
     private void initializeRenderLayout(InitializeRenderParams params) {
 
-        Map<String, Result> testResults = params.isBaseline ?
-                ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)))
-                : ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, null);
+        Map<String, Result> testResults = params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
 
         TextView firstEncounterDateView = (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
         if (!params.isIntreatment) {
             String dateString = context.getString(R.string.first_encounter);
             if (params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
-                dateString += Constants.CHAR.SPACE + Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
+                String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
+                dateString += Constants.CHAR.SPACE + firstEncounterDate;
             }
             firstEncounterDateView.setText(dateString);
         } else if (params.isIntreatment && !params.isBaseline) {
@@ -83,7 +82,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
             firstEncounterDateView.setText("Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")");
 
         }
-        TextView results = params.isBaseline ? (TextView) params.view.findViewById(R.id.baseline_result_details) : (TextView) params.view.findViewById(R.id.result_details);
+        TextView results = (TextView) params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.result_details);
 
         TbrSpannableStringBuilder stringBuilder = getConstructedStringBuilder(testResults, params);
 
@@ -96,6 +95,14 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
             params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.no_results_recorded).setVisibility(View.VISIBLE);
 
         }
+    }
+
+    private Map<String, Result> getLatestResults(InitializeRenderParams params) {
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, null);
+    }
+
+    private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
     }
 
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
