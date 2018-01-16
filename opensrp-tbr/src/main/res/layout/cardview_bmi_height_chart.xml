@@ -123,7 +123,8 @@
                 android:scrollHorizontally="true"
                 android:text="24 Nov 2017"
                 android:textColor="@color/client_list_grey"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:gravity="right"/>
 
 
         </LinearLayout>
