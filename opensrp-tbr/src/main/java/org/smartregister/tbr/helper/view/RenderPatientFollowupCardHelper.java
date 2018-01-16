@@ -29,9 +29,10 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
                 Button followUpView = (Button) view.findViewById(R.id.follow_up_button);
-                followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString(), true), "dd/MM"));
+                if (followUpView != null) {
+                    followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString(), true), "dd/MM"));
 
-
+                }
             }
 
         });

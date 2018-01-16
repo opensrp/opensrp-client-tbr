@@ -2,6 +2,7 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -21,6 +22,9 @@ import java.util.Map;
  */
 
 public class RenderContactScreeningCardHelper extends BaseRenderHelper {
+
+    private static String TAG = RenderContactScreeningCardHelper.class.getCanonicalName();
+
     public RenderContactScreeningCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
     }
@@ -33,43 +37,47 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             public void run() {
 
                 FrameLayout contactViewTemplate = (FrameLayout) view.findViewById(R.id.clientContactFrameLayout);
-                ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
-                contactViewTemplate.setVisibility(View.GONE);
-                contactsHolderView.removeAllViews();
-                contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
+                if (contactViewTemplate != null) {
+                    ViewGroup contactsHolderView = (ViewGroup) view.findViewById(R.id.contactScreeningViewContactsHolder);
+                    contactViewTemplate.setVisibility(View.GONE);
+                    contactsHolderView.removeAllViews();
+                    contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
 
-                List<ScreenContact> contacts = new ArrayList<>();
-                contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("2", "EK", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("3", "LL", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("4", "JZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("5", "ES", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("6", "ZP", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("7", "MB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("8", "PL", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("9", "MT", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("10", "NI", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("11", "MZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("12", "TO", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("13", "KK", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("14", "OB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                contacts.add(new ScreenContact("15", "SG", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    List<ScreenContact> contacts = new ArrayList<>();
+                    contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("2", "EK", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("3", "LL", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("4", "JZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("5", "ES", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("6", "ZP", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("7", "MB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("8", "PL", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("9", "MT", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("10", "NI", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("11", "MZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("12", "TO", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("13", "KK", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("14", "OB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
+                    contacts.add(new ScreenContact("15", "SG", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
 
-                FrameLayout contactView;
+                    FrameLayout contactView;
 
-                for (int i = 0; i < contacts.size(); i++) {
-                    ScreenContactViewHelper screenContactViewHelper = new ScreenContactViewHelper(context, contactViewTemplate, contacts.get(i));
-                    contactView = screenContactViewHelper.getScreenContactView();
-                    contactView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                    for (int i = 0; i < contacts.size(); i++) {
+                        ScreenContactViewHelper screenContactViewHelper = new ScreenContactViewHelper(context, contactViewTemplate, contacts.get(i));
+                        contactView = screenContactViewHelper.getScreenContactView();
+                        contactView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                            ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
-                        }
-                    });
+                                ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                            }
+                        });
 
-                    contactsHolderView.addView(contactView);
+                        contactsHolderView.addView(contactView);
 
+                    }
+                } else {
+                    Log.e(TAG, "No Frame Layout contactViewTemplate found");
                 }
             }
 

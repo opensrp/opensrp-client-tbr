@@ -49,6 +49,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     protected Map<String, String> patientDetails;
     protected ResultMenuListener resultMenuListener;
     protected Map<String, String> languageTranslations;
+    private static String TAG = BasePatientDetailsFragment.class.getCanonicalName();
 
     protected abstract void processViewConfigurations(View view);
 
@@ -93,9 +94,14 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         if (!viewLabelsMap.isEmpty()) {
             for (Map.Entry<String, String> entry : viewLabelsMap.entrySet()) {
                 String uniqueIdentifier = entry.getKey();
-                TextView textView = (TextView) parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
-                if (textView != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
-                    textView.setText(languageTranslations.get(entry.getKey()));
+                View view = parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
+                if (view instanceof TextView) {
+                    TextView textView = (TextView) view;
+                    if (textView != null && languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
+                        textView.setText(languageTranslations.get(entry.getKey()));
+                    }
+                } else {
+                    Log.w(TAG, " IDentifier for Language Token '" + uniqueIdentifier + "' clashes with a non TextView");
                 }
             }
         }
