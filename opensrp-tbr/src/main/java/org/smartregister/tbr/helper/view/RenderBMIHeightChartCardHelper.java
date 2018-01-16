@@ -43,22 +43,24 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                 }
 
                 LineChartView bmiLineChartView = (LineChartView) view.findViewById(R.id.bmiHeightLineChartView);
-                Line line = new Line(values).setColor(context.getResources().getColor(R.color.line_chart_blue)).setCubic(true);
-                List<Line> lines = new ArrayList<>();
-                lines.add(line);
+                if (bmiLineChartView != null) {
+                    Line line = new Line(values).setColor(context.getResources().getColor(R.color.line_chart_blue)).setCubic(true);
+                    List<Line> lines = new ArrayList<>();
+                    lines.add(line);
 
-                LineChartData data = new LineChartData();
-                data.setLines(lines);
-                bmiLineChartView.setLineChartData(data);
+                    LineChartData data = new LineChartData();
+                    data.setLines(lines);
+                    bmiLineChartView.setLineChartData(data);
 
-                TextView bmiStartTextView = (TextView) view.findViewById(R.id.bmiStartTextView);
-                bmiStartTextView.setText("BMI: " + String.valueOf(bmiList.get(0)));
-                TextView bmiLastTextView = (TextView) view.findViewById(R.id.bmiLastTextView);
-                bmiLastTextView.setText("BMI: " + String.valueOf(bmiList.get(bmiList.size() - 1)));
-                TextView treatmentStartDateTextView = (TextView) view.findViewById(R.id.treatmentStartDateTextView);
-                TextView treatmentEndDateTextView = (TextView) view.findViewById(R.id.treatmentEndDateTextView);
-                treatmentStartDateTextView.setText(Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.TREATMENT_INITIATION_DATE).toString(), true), "MMM yyyy") + " (" + context.getString(R.string.treatment_start) + ")");
-                treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
+                    TextView bmiStartTextView = (TextView) view.findViewById(R.id.bmiStartTextView);
+                    bmiStartTextView.setText("BMI: " + String.valueOf(bmiList.get(0)));
+                    TextView bmiLastTextView = (TextView) view.findViewById(R.id.bmiLastTextView);
+                    bmiLastTextView.setText("BMI: " + String.valueOf(bmiList.get(bmiList.size() - 1)));
+                    TextView treatmentStartDateTextView = (TextView) view.findViewById(R.id.treatmentStartDateTextView);
+                    TextView treatmentEndDateTextView = (TextView) view.findViewById(R.id.treatmentEndDateTextView);
+                    treatmentStartDateTextView.setText(Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.TREATMENT_INITIATION_DATE).toString(), true), "MMM yyyy") + " (" + context.getString(R.string.treatment_start) + ")");
+                    treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
+                }
 
             }
 

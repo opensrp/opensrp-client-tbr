@@ -41,41 +41,43 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
             public void run() {
 
                 ListView listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
-                listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
+                if (listView != null) {
+                    listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
 
-                String[] mProjection = {
-                        ResultsRepository.ID,
-                        ResultsRepository.TYPE,
-                        ResultsRepository.FORMSUBMISSION_ID,
-                        ResultsRepository.DATE,
-                        ResultsRepository.BASE_ENTITY_ID,
-                        "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
-                };
+                    String[] mProjection = {
+                            ResultsRepository.ID,
+                            ResultsRepository.TYPE,
+                            ResultsRepository.FORMSUBMISSION_ID,
+                            ResultsRepository.DATE,
+                            ResultsRepository.BASE_ENTITY_ID,
+                            "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                    };
 
-                String[] mProjection2 = {
-                        ECClientRepository.ID,
-                        "\"Registration\"",
-                        ECClientRepository.ID,
-                        ECClientRepository.FIRST_ENCOUNTER,
-                        ResultsRepository.BASE_ENTITY_ID,
-                        "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
-                };
+                    String[] mProjection2 = {
+                            ECClientRepository.ID,
+                            "\"Registration\"",
+                            ECClientRepository.ID,
+                            ECClientRepository.FIRST_ENCOUNTER,
+                            ResultsRepository.BASE_ENTITY_ID,
+                            "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                    };
 
-                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-                builder.setTables(ResultsRepository.TABLE_NAME);
-                String projectionStr = getProjectionString(mProjection);
-                String projectionStrTwo = getProjectionString(mProjection2);
+                    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                    builder.setTables(ResultsRepository.TABLE_NAME);
+                    String projectionStr = getProjectionString(mProjection);
+                    String projectionStrTwo = getProjectionString(mProjection2);
 
-                String[] subQueries = new String[]{
-                        "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
-                        "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
-                String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
+                    String[] subQueries = new String[]{
+                            "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
+                            "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
+                    String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
 
 
-                Cursor mCursor = repository.getReadableDatabase().rawQuery(sql, null);
-                ((Activity) context).startManagingCursor(mCursor);
-                ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
-                listView.setAdapter(adapter);
+                    Cursor mCursor = repository.getReadableDatabase().rawQuery(sql, null);
+                    ((Activity) context).startManagingCursor(mCursor);
+                    ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
+                    listView.setAdapter(adapter);
+                }
             }
 
         });
