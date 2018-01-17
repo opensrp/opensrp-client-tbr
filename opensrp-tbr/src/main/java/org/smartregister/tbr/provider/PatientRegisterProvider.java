@@ -252,7 +252,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> testResults;
         if (baseline != null)
-            testResults = resultsRepository.getLatestResults(baseEntityId, baseline);
+            testResults = resultsRepository.getLatestResults(baseEntityId, false,baseline);
         else if (singleResult) {
             testResults = resultsRepository.getLatestResult(baseEntityId);
             String results = testResults.get(DATE);

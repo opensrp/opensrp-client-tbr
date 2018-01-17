@@ -60,6 +60,7 @@ import util.TbrConstants.KEY;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
@@ -184,6 +185,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
         MenuItem item = popup.getMenu().getItem(0);
+        String patientName = patient.getColumnmaps().get(KEY.FIRST_NAME) + SPACE + patient.getColumnmaps().get(KEY.LAST_NAME);
+        item.setTitle(item.getTitle() + SPACE + patientName);
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
