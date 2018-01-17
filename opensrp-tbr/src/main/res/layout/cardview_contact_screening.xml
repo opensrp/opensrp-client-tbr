@@ -6,7 +6,7 @@
     android:layout_marginBottom="15dp"
     android:background="@drawable/border"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
                 android:text="@string/contacts"
-                android:textColor="@color/text_black"
+                android:textColor="#000000"
                 android:textSize="22sp"
                 android:paddingLeft="0dp"/>
 

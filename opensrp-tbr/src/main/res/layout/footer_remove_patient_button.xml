@@ -54,7 +54,7 @@
         android:text="@string/record_outcome"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="@color/text_black"
+        android:textColor="#000000"
         android:textSize="15sp"
         android:visibility="visible"
         app:textAllCaps="true" />

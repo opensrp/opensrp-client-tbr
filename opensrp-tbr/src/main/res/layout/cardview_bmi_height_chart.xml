@@ -6,7 +6,7 @@
     android:layout_marginBottom="15dp"
     android:background="@drawable/border"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:paddingLeft="0dp"
             android:text="@string/bmi"
-            android:textColor="@color/text_black"
+            android:textColor="#000000"
             android:textSize="22sp" />
 
         <lecho.lib.hellocharts.view.LineChartView
@@ -65,7 +65,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="0dp"
                 android:text="BMI: 17.7"
-                android:textColor="@color/text_black"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
@@ -79,7 +79,7 @@
                 android:paddingLeft="0dp"
                 android:text="BMI: 18.6"
                 android:textAllCaps="true"
-                android:textColor="@color/text_black"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
 
