@@ -15,7 +15,6 @@ import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
 import static org.smartregister.tbr.repository.ConfigurableViewsRepository.IDENTIFIER;
-import static org.smartregister.tbr.repository.ConfigurableViewsRepository.JSON;
 import static org.smartregister.tbr.service.PullConfigurableViewsIntentService.VIEWS_URL;
 import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
@@ -51,7 +50,7 @@ public class PullConfigurableViewsServiceHelper {
             } else {
                 views = saveLoginConfiguration(views);
                 long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
-                syncHelper.updateLastSyncTimeStamp(lastSyncTimeStamp);
+                syncHelper.updateLastViewsSyncTimeStamp(lastSyncTimeStamp);
             }
         }
         return views == null ? 0 : views.length();
@@ -61,10 +60,9 @@ public class PullConfigurableViewsServiceHelper {
         for (int i = 0; i < views.length(); i++) {
             JSONObject jsonObject = views.getJSONObject(i);
             String identifier = jsonObject.getString(IDENTIFIER);
-            String jsonObjectString = jsonObject.getString(JSON);
             if (identifier.equals(LOGIN)) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-                preferences.edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, jsonObjectString).commit();
+                preferences.edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, jsonObject.toString()).commit();
                 views.remove(i);
                 break;
             }
@@ -78,7 +76,7 @@ public class PullConfigurableViewsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastSyncTimeStamp();
+        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
 
         if (httpAgent == null) {
