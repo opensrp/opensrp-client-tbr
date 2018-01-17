@@ -16,7 +16,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -542,7 +541,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void processViewCustomizations() {
         try {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = getDefaultSharedPreferences(this);
             String jsonString = preferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN, null);
             if (jsonString == null) return;
             ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
