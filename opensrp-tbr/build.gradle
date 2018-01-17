@@ -126,6 +126,11 @@ android {
             exclude module: 'support-annotations'
         }
 
+        androidTestCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        androidTestCompile "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
+        androidTestCompile "org.powermock:powermock-api-mockito2:$powerMockVersion"
+        androidTestCompile "org.powermock:powermock-classloading-xstream:$powerMockVersion"
+
     }
 
     task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
