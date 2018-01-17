@@ -2,7 +2,6 @@ package org.smartregister.tbr.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -32,13 +31,16 @@ public class PullConfigurableViewsServiceHelper {
     private HTTPAgent httpAgent;
     private String baseUrl;
     private ECSyncHelper syncHelper;
+    private SharedPreferences preferences;
 
-    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository, HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper) {
+    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
+                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, SharedPreferences preferences) {
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
         this.syncHelper = syncHelper;
+        this.preferences = preferences;
     }
 
     protected int processIntent() throws Exception {
@@ -61,7 +63,6 @@ public class PullConfigurableViewsServiceHelper {
             JSONObject jsonObject = views.getJSONObject(i);
             String identifier = jsonObject.getString(IDENTIFIER);
             if (identifier.equals(LOGIN)) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
                 preferences.edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, jsonObject.toString()).commit();
                 views.remove(i);
                 break;

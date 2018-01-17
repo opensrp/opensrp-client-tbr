@@ -2,6 +2,7 @@ package org.smartregister.tbr.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 
 import org.smartregister.Context;
 import org.smartregister.tbr.application.TbrApplication;
@@ -55,7 +56,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
         Context context = TbrApplication.getInstance().getContext();
         pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
-                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()));
+                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()), PreferenceManager.getDefaultSharedPreferences(getApplication()));
     }
 
 }
