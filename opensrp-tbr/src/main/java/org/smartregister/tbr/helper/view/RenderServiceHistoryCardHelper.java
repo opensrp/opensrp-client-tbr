@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import net.sqlcipher.Cursor;

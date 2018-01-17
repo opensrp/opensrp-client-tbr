@@ -32,7 +32,6 @@ import java.util.Map;
 
 public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment implements View.OnClickListener {
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
-    private Map<String, String> languageTranslations;
 
     @Nullable
     @Override

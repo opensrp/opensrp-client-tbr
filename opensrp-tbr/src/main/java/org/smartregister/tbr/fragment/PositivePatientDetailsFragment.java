@@ -88,7 +88,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     protected void processViewConfigurations(View rootView) {
 
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
-        if (jsonString == null || true) {
+        if (jsonString == null) {
             renderDefaultLayout(rootView);
         } else {
             ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
