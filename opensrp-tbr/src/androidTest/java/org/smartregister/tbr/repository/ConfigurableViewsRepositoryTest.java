@@ -33,7 +33,7 @@ public class ConfigurableViewsRepositoryTest {
     private ConfigurableViewsRepository configurableViewsRepository;
 
     @Spy
-    TbrApplication tbrApplication = TbrApplication.getInstance();
+    private TbrApplication tbrApplication = TbrApplication.getInstance();
 
 
     @Before
