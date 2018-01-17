@@ -23,12 +23,14 @@ import org.smartregister.clientandeventmodel.FormEntityConverter;
 import org.smartregister.clientandeventmodel.FormField;
 import org.smartregister.clientandeventmodel.FormInstance;
 import org.smartregister.clientandeventmodel.SubFormData;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.form.FormSubmission;
 import org.smartregister.domain.form.SubForm;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
@@ -1062,6 +1064,15 @@ public class EnketoFormUtils {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
+            if (context instanceof BaseRegisterActivity) {
+                final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
+                registerActivity.refreshList(FetchStatus.fetched);
+                registerActivity.hideProgressDialog();
+                //TODO add once the dialog in enketo library is dismissed
+                //registerActivity.switchToBaseFragment();
+            }
+
             Utils.postEvent(new EnketoFormSaveCompleteEvent());
         }
 
