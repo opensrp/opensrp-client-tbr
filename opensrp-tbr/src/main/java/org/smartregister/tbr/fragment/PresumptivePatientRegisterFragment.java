@@ -1,5 +1,6 @@
 package org.smartregister.tbr.fragment;
 
+
 import android.view.View;
 
 import org.smartregister.tbr.R;
@@ -28,5 +29,6 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     protected String[] getAdditionalColumns(String tableName) {
         return new String[]{};
     }
+
 
 }

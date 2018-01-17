@@ -8,6 +8,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +40,7 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
         ViewHolder holder = null;
         View convertView = convertView_;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.register_row_view, null);
+            convertView = inflater.inflate(R.layout.row_register_view, null);
             holder = new ViewHolder();
             holder.titleTextView = (TextView) convertView.findViewById(R.id.registerTitleView);
             holder.patientCountTextView = (TextView) convertView.findViewById(R.id.patientCountView);
@@ -50,7 +52,6 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
         }
 
         Register register = getItem(position);
-
         holder.titleTextView.setText(register.getTitle());
         holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
         if (register.getTotalPatientsWithDueOverdue() > 0) {
@@ -61,7 +62,8 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
-
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_top);
+        convertView.startAnimation(animation);
         return convertView;
     }
 

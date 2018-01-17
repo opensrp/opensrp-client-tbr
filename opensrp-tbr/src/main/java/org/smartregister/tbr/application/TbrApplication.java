@@ -1,6 +1,8 @@
 package org.smartregister.tbr.application;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -226,9 +228,12 @@ public class TbrApplication extends DrishtiApplication {
         //Set Language
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getLanguage() != null && event.isFromServer()) {
-
             Utils.saveLanguage(config.getLanguage());
-            Utils.showToast(getApplicationContext(), "Syncing Complete...");
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                public void run() {
+                    Utils.showToast(getApplicationContext(), "Syncing round complete...");
+                }
+            });
 
         }
     }
