@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.HomeActivity">
 
-    <include layout="@layout/base_toolbar_layout" />
+    <include layout="@layout/toolbar_base_layout" />
 
     <include layout="@layout/content_home" />
 

@@ -20,7 +20,7 @@ public class ResultsRepository extends BaseRepository {
     private static final String TAG = "ResultsRepository";
 
     public static final String TABLE_NAME = "results";
-    private static final String ID = "_id";
+    public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String TYPE = "type";
     public static final String RESULT1 = "result1";

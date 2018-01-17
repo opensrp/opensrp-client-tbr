@@ -79,7 +79,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan blackForegroundColorSpan;
     private DetailsRepository detailsRepository;
 
+
+    private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
+
+
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository, DetailsRepository detailsRepository) {
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.visibleColumns = visibleColumns;
@@ -205,6 +210,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private String processXpertResult(String result) {
+
         if (result == null)
             return "-ve";
         switch (result) {
@@ -325,7 +331,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 duration = new DateTime(date);
                 return DateUtil.getDuration(duration);
             } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
+                Log.e(TAG, e.toString(), e);
             }
         }
         return "";
@@ -466,6 +472,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     public static void fillValue(TextView v, String value) {
         if (v != null)
             v.setText(value);
+
     }
 
 }
