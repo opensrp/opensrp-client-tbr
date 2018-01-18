@@ -119,6 +119,14 @@
             "field": "obs.fieldCode",
             "formSubmissionField": "fu_visit_date"
           }
+        },
+        {
+          "column_name": "smear_due_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "smear_due_date"
+          }
         }
       ]
     }

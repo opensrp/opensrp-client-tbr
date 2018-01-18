@@ -36,7 +36,9 @@ TbrConstants extends AllConstants {
         public static final String OTHER_REGIMEN1 = "regimen_oth1";
         public static final String OTHER_REGIMEN2 = "regimen_oth2";
         public static final String TREATMENT_PHASE = "treatment_phase";
-        public static final String TREATMENT_MONTH = "treatment_month";
+        public static final String TREATMENT_MONTH = "month";
+        public static final String SMR_NEXT_VISIT_DATE = "smear_due_date";
+
     }
 
 
@@ -59,9 +61,11 @@ TbrConstants extends AllConstants {
         public static final String DIAGNOSIS = "diagnosis";
         public static final String INTREATMENT_RESULTS = "intreatment_results";
         public static final String FOLLOWUP_SCHEDULE = "followup_schedule";
+        public static final String SMEAR_SCHEDULE = "smr_schedule";
         public static final String TREATMENT = "treatment";
         public static final String FOLLOWUP = "followup";
         public static final String BASELINE = "baseline";
+
     }
 
     public static final class VIEW_CONFIGS {

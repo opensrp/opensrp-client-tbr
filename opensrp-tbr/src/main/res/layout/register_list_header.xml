@@ -45,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/smr_result"
+        android:text="@string/smr_results"
         android:layout_weight="2.6"
         android:textAllCaps="true"
         android:textColor="@color/client_list_grey"

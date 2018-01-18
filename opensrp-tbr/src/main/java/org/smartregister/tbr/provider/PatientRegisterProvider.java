@@ -55,6 +55,7 @@ import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -148,6 +149,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 case FOLLOWUP_SCHEDULE:
                     populateFollowupScheduleColumn(pc, client, convertView);
                     break;
+                case SMEAR_SCHEDULE:
+                    populateSmearScheduleColumn(pc, client, convertView);
+                    break;
                 case FOLLOWUP:
                     populateFollowupColumn(convertView, client);
                     break;
@@ -173,6 +177,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_schedule_column);
         mapping.put(BASELINE, R.id.baseline_column);
         mapping.put(TREATMENT, R.id.treatment_column);
+        mapping.put(SMEAR_SCHEDULE, R.id.smr_schedule_column);
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
     }
 
@@ -252,7 +257,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
         Map<String, String> testResults;
         if (baseline != null)
-            testResults = resultsRepository.getLatestResults(baseEntityId, false,baseline);
+            testResults = resultsRepository.getLatestResults(baseEntityId, false, baseline);
         else if (singleResult) {
             testResults = resultsRepository.getLatestResult(baseEntityId);
             String results = testResults.get(DATE);
@@ -428,6 +433,32 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
             else {
                 ((TextView) view.findViewById(R.id.followup_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            }
+        }
+    }
+
+    private void populateSmearScheduleColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+        View followup = view.findViewById(R.id.smr_schedule);
+        attachOnclickListener(followup, client);
+        String nextVisit = getValue(pc.getColumnmaps(), KEY.SMR_NEXT_VISIT_DATE, false);
+        int due = 1;
+        if (!nextVisit.isEmpty()) {
+            try {
+                DateTime treatmentStartDate = DateTime.parse(nextVisit);
+                fillValue((TextView) view.findViewById(R.id.smr_schedule_text), "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
+                due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+
+            } catch (IllegalArgumentException e) {
+                Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
+                fillValue((TextView) view.findViewById(R.id.smr_schedule_text), "Smear\n not due ");
+            }
+            if (due < 0)
+                followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
+            else if (due == 0)
+                followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+            else {
+                ((TextView) view.findViewById(R.id.smr_schedule_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
         }

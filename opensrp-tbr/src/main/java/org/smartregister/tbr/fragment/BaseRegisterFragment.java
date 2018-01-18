@@ -78,6 +78,7 @@ import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_RESULTS;
+import static util.TbrConstants.REGISTER_COLUMNS.SMEAR_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.TREAT;
 import static util.TbrConstants.REGISTER_COLUMNS.TREATMENT;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -339,6 +340,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(FOLLOWUP_SCHEDULE, R.id.followup_schedule_header);
             mapping.put(TREATMENT, R.id.treatment_header);
             mapping.put(BASELINE, R.id.baseline_header);
+            mapping.put(SMEAR_SCHEDULE, R.id.smr_schedule_header);
             TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
 
@@ -434,6 +436,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.xpert_result_lnk:
                     registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
+                case R.id.smr_schedule:
                 case R.id.smr_result_lnk:
                     registerActivity.startFormActivity(SMEAR, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
                     break;

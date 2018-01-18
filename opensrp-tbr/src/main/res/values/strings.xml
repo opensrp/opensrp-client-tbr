@@ -51,5 +51,6 @@
     <string name="url_separator">/</string>
     <string name="clients_key">clients</string>
     <string name="events_key">events</string>
-    <string name="smr_result">Smr Results</string>
+    <string name="smr_results">Smr Results</string>
+    <string name="smr_result">Smr Result</string>
 </resources>
