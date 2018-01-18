@@ -3,8 +3,8 @@ package org.smartregister.tbr.helper.view;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import net.sqlcipher.Cursor;
@@ -27,6 +27,7 @@ import static org.smartregister.tbr.R.id.TB_REACH_ID;
 public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
     public static final String UNION_TABLE_FLAG = "union_table_flag";
+    private static String TAG = RenderServiceHistoryCardHelper.class.getCanonicalName();
 
     public RenderServiceHistoryCardHelper(Context context, ResultDetailsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -40,47 +41,50 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper {
 
             @Override
             public void run() {
+                try {
+                    ListView listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
+                    if (listView != null) {
+                        listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
 
-                ListView listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
-                if (listView != null) {
-                    listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
+                        String[] mProjection = {
+                                ResultsRepository.ID,
+                                ResultsRepository.TYPE,
+                                ResultsRepository.FORMSUBMISSION_ID,
+                                ResultsRepository.DATE,
+                                ResultsRepository.BASE_ENTITY_ID,
+                                "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                        };
 
-                    String[] mProjection = {
-                            ResultsRepository.ID,
-                            ResultsRepository.TYPE,
-                            ResultsRepository.FORMSUBMISSION_ID,
-                            ResultsRepository.DATE,
-                            ResultsRepository.BASE_ENTITY_ID,
-                            "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
-                    };
+                        String[] mProjection2 = {
+                                ECClientRepository.ID,
+                                "\"Registration\"",
+                                ECClientRepository.ID,
+                                ECClientRepository.FIRST_ENCOUNTER,
+                                ResultsRepository.BASE_ENTITY_ID,
+                                "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                        };
 
-                    String[] mProjection2 = {
-                            ECClientRepository.ID,
-                            "\"Registration\"",
-                            ECClientRepository.ID,
-                            ECClientRepository.FIRST_ENCOUNTER,
-                            ResultsRepository.BASE_ENTITY_ID,
-                            "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
-                    };
+                        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                        builder.setTables(ResultsRepository.TABLE_NAME);
+                        String projectionStr = getProjectionString(mProjection);
+                        String projectionStrTwo = getProjectionString(mProjection2);
 
-                    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-                    builder.setTables(ResultsRepository.TABLE_NAME);
-                    String projectionStr = getProjectionString(mProjection);
-                    String projectionStrTwo = getProjectionString(mProjection2);
-
-                    String[] subQueries = new String[]{
-                            "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
-                            "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
-                    String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
+                        String[] subQueries = new String[]{
+                                "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'",
+                                "SELECT " + projectionStrTwo + " FROM " + ECClientRepository.TABLE_NAME + " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + baseEntityId + "'"};
+                        String sql = builder.buildUnionQuery(subQueries, RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC", null);
 
 
-                    Cursor mCursor = repository.getReadableDatabase().rawQuery(sql, null);
-                    ((Activity) context).startManagingCursor(mCursor);
-                    ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
-                    listView.setAdapter(adapter);
+                        Cursor mCursor = repository.getReadableDatabase().rawQuery(sql, null);
+                        ((Activity) context).startManagingCursor(mCursor);
+                        ServiceHistoryAdapter adapter = new ServiceHistoryAdapter(context, mCursor, 0);
+                        listView.setAdapter(adapter);
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
             }
-
         });
 
     }
