@@ -55,8 +55,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
         super.onCreate();
         configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
         Context context = TbrApplication.getInstance().getContext();
-        pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
-                configurableViewsRepository, context.getHttpAgent(), context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()), PreferenceManager.getDefaultSharedPreferences(getApplication()));
+        pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(TbrApplication.getInstance(), context.getHttpAgent(), ECSyncHelper.getInstance(getApplicationContext()), PreferenceManager.getDefaultSharedPreferences(getApplication()));
     }
 
 }

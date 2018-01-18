@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 public class PullConfigurableViewsServiceHelper {
     private static final String TAG = PullConfigurableViewsServiceHelper.class.getCanonicalName();
+    private boolean databaseCreated;
 
     private Context applicationContext;
     private ConfigurableViewsRepository configurableViewsRepository;
@@ -33,21 +35,21 @@ public class PullConfigurableViewsServiceHelper {
     private ECSyncHelper syncHelper;
     private SharedPreferences preferences;
 
-    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
-                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, SharedPreferences preferences) {
-        this.applicationContext = applicationContext;
-        this.configurableViewsRepository = configurableViewsRepository;
+    public PullConfigurableViewsServiceHelper(TbrApplication tbrApplication, HTTPAgent httpAgent, ECSyncHelper syncHelper, SharedPreferences preferences) {
+        this.applicationContext = tbrApplication.getApplicationContext();
+        this.configurableViewsRepository = tbrApplication.getConfigurableViewsRepository();
         this.httpAgent = httpAgent;
-        this.baseUrl = baseUrl;
+        this.baseUrl = tbrApplication.getContext().configuration().dristhiBaseURL();
         this.syncHelper = syncHelper;
         this.preferences = preferences;
+        this.databaseCreated = StringUtils.isNotEmpty(tbrApplication.getPassword());
     }
 
     protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             //There is any other previous login
-            if (TbrApplication.getInstance().getPassword() == null) {
+            if (!databaseCreated) {
                 saveLoginConfiguration(views);
             } else {
                 views = saveLoginConfiguration(views);
