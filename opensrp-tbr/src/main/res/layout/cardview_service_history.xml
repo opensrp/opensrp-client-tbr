@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="15dp"
     android:background="@drawable/border"
     android:orientation="vertical"
     android:padding="10dp">
@@ -23,6 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:paddingTop="15dp">
 
@@ -36,18 +36,21 @@
             android:textColor="@color/client_list_grey"
             android:textSize="20sp" />
 
+        <View
+            android:layout_width="105dp"
+            android:layout_height="match_parent" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/form"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="99dp"
             android:text="Form"
             android:textColor="@color/client_list_grey"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <ListView
+    <org.smartregister.tbr.view.NonScrollableListView
         android:id="@+id/serviceHistoryListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

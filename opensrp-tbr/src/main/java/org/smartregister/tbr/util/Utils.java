@@ -185,7 +185,7 @@ public class Utils {
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f
         );
-        rotate.setDuration(240);
+        rotate.setDuration(100);
         rotate.setRepeatCount(Animation.INFINITE);
 
         return rotate;

@@ -3,7 +3,7 @@
     android:id="@+id/clientContactScreeningCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/border"
     android:orientation="vertical"
     android:padding="10dp">
@@ -42,7 +42,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
                 android:text="@string/add_contact"
                 android:textAllCaps="true"
                 android:textColor="#3269D4"
