@@ -47,6 +47,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     }
 
     public void setupViews(View rootView) {
+
         super.setupViews(rootView);
         processViewConfigurations(rootView);
     }
@@ -82,7 +83,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
     protected void processViewConfigurations(View rootView) {
 
         String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
-        if (jsonString == null ) {
+        if (jsonString == null) {
             renderDefaultLayout(rootView);
         } else {
             ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);

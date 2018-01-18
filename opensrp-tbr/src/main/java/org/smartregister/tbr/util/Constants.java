@@ -21,9 +21,6 @@ public class Constants {
 
     public static class CHAR {
         public static final String SPACE = " ";
-        public static final String UNDERSCORE = "_";
-        public static final String HYPHEN = "-";
-        public static final String COLON = ":";
         public static final String HASH = "#";
         public static final String NO_CHAR = "";
     }
@@ -49,8 +46,6 @@ public class Constants {
     public static final class GENDER {
 
         public static final String MALE = "male";
-        public static final String FEMALE = "female";
-        public static final String TRANSGENDER = "transgender";
     }
 
     public static final class KEY {

@@ -64,6 +64,7 @@ public class HomeActivity extends BaseActivity {
     public void manualSync(View view) {
         refreshButton = view;
         view.startAnimation(Utils.getRotateAnimation());
+<<<<<<< HEAD
         TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
         postEvent(viewConfigurationSyncEvent);
@@ -71,6 +72,11 @@ public class HomeActivity extends BaseActivity {
             TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
             populateLastSync(textView);
         }
+=======
+        TriggerSyncEvent triggerSyncEvent = new TriggerSyncEvent();
+        triggerSyncEvent.setManualSync(true);
+        postEvent(triggerSyncEvent);
+>>>>>>> master
     }
 
     public void postEvent(BaseEvent event) {
