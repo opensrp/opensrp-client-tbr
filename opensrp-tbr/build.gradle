@@ -33,7 +33,7 @@ android {
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        resValue "string", 'opensrp_url', '"https://tbreach-stage.smartregister.org/opensrp/"'
+        resValue "string", 'opensrp_url', '"http://10.20.25.51:8080/opensrp/"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dexOptions {

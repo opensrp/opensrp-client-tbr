@@ -31,8 +31,6 @@ import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
-import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
-import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.PATIENT;
 import static util.TbrConstants.REGISTER_COLUMNS.RESULTS;
 import static util.TbrConstants.REGISTER_COLUMNS.XPERT_RESULTS;
@@ -138,9 +136,7 @@ public class ConfigurableViewsHelperTest extends BaseUnitTest {
         mapping.put(PATIENT, R.id.patient_column);
         mapping.put(RESULTS, R.id.results_column);
         mapping.put(DIAGNOSE, R.id.diagnose_column);
-        mapping.put(ENCOUNTER, R.id.encounter_column);
         mapping.put(XPERT_RESULTS, R.id.xpert_results_column);
-        mapping.put(DROPDOWN, R.id.dropdown_column);
         List<String> views = Arrays.asList("presumptive_register");
         when(configurableViewsRepository.getConfigurableViewJson("presumptive_register")).thenReturn(presumptiveRegisterJson);
         configurableViewsHelper.registerViewConfigurations(views);

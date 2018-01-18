@@ -37,6 +37,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.smartregister.tbr.repository.ResultsRepository.DATE;
 import static util.TbrConstants.KEY.BASE_ENTITY_ID_COLUMN;
 import static util.TbrConstants.KEY.DOB;
 import static util.TbrConstants.KEY.FIRST_NAME;
@@ -46,8 +47,6 @@ import static util.TbrConstants.KEY.TBREACH_ID;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
-import static util.TbrConstants.REGISTER_COLUMNS.DROPDOWN;
-import static util.TbrConstants.REGISTER_COLUMNS.ENCOUNTER;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP;
 import static util.TbrConstants.REGISTER_COLUMNS.FOLLOWUP_SCHEDULE;
 import static util.TbrConstants.REGISTER_COLUMNS.INTREATMENT_RESULTS;
@@ -123,7 +122,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         assertEquals("Ali Lango", ((TextView) view.findViewById(R.id.patient_name)).getText());
         assertEquals("#45355435435", ((TextView) view.findViewById(R.id.participant_id)).getText());
         assertEquals("Male", ((TextView) view.findViewById(R.id.gender)).getText());
-        String age = patientRegisterProvider.formatDate(columnMap.get(DOB));
+        String age = patientRegisterProvider.getDuration(columnMap.get(DOB));
         assertEquals(age.substring(0, age.indexOf("y")), ((TextView) view.findViewById(R.id.age)).getText());
     }
 
@@ -147,7 +146,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         initProvider(RESULTS);
         assertEquals(View.VISIBLE, view.findViewById(R.id.result_details).getVisibility());
 
-        String expected = "Xpe +ve/ -ve";
+        String expected = "Xpe +ve";
         assertEquals(expected, ((TextView) view.findViewById(R.id.result_details)).getText().toString());
 
         results.put(RIF_RESULT, "indeterminate");
@@ -167,12 +166,12 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         initProvider(XPERT_RESULTS);
         assertEquals(View.VISIBLE, view.findViewById(R.id.xpert_result_details).getVisibility());
 
-        String expected = "MTB +ve RIF -ve";
+        String expected = "MTB +ve";
         assertEquals(expected, ((TextView) view.findViewById(R.id.xpert_result_details)).getText().toString());
 
         results.put(RIF_RESULT, "indeterminate");
         initProvider(XPERT_RESULTS);
-        expected = "MTB +ve RIF ?";
+        expected = "MTB +ve\nRIF ?";
         assertEquals(expected, ((TextView) view.findViewById(R.id.xpert_result_details)).getText().toString());
 
     }
@@ -204,28 +203,12 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     }
 
     @Test
-    public void testPopulateDropdownColumn() {
-        String baseEntityID = UUID.randomUUID().toString();
-        View component = testClickOnlyColumn(DROPDOWN, R.id.dropdown_btn, baseEntityID);
-        assertEquals(((SmartRegisterClient) component.getTag()).entityId(), baseEntityID);
-    }
-
-    @Test
-    public void testPopulateEncounterColumn() {
-        String firstEncounter = "2017-11-30T02:40:15.600-0500";
-        columnMap.put(TbrConstants.KEY.FIRST_ENCOUNTER, firstEncounter);
-        initProvider(ENCOUNTER);
-        assertEquals(patientRegisterProvider.formatDate(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.encounter)).getText());
-
-    }
-
-    @Test
     public void testPopulateDiagnosisColumn() {
         view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_positive_list_row, null);
         String firstEncounter = "2017-11-20T02:40:15.600-0500";
         columnMap.put(TbrConstants.KEY.DIAGNOSIS_DATE, firstEncounter);
         initProvider(DIAGNOSIS);
-        assertEquals(patientRegisterProvider.formatDate(firstEncounter) + " ago", ((TextView) view.findViewById(R.id.diagnosis)).getText());
+        assertEquals(patientRegisterProvider.formatDate(firstEncounter), ((TextView) view.findViewById(R.id.diagnosis)).getText());
 
     }
 
@@ -233,14 +216,14 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void testGetDuration() {
         patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);
         Calendar calendar = Calendar.getInstance();
-        assertEquals("0d", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("0d", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.DATE, -14);
-        assertEquals("2w", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.MONTH, -6);
-        assertEquals("6m 2w", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("6m 2w", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
         calendar.add(Calendar.YEAR, -30);
-        assertEquals("30y 6m", patientRegisterProvider.formatDate(new DateTime(calendar.getTimeInMillis()).toString()));
-        assertEquals("", patientRegisterProvider.formatDate(calendar.toString()));
+        assertEquals("30y 6m", patientRegisterProvider.getDuration(new DateTime(calendar.getTimeInMillis()).toString()));
+        assertEquals("", patientRegisterProvider.getDuration(calendar.toString()));
 
 
     }
@@ -257,20 +240,15 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     @Test
     public void testPopulateIntreatmentResultsColumn() {
         view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
-        String treatment = "2017-11-20T02:40:15.600-0500";
-        columnMap.put(TbrConstants.KEY.TREATMENT_INITIATION_DATE, treatment);
-        long baseline = 1513341747;
-        columnMap.put(TbrConstants.KEY.BASELINE, String.valueOf(baseline));
         initProvider(INTREATMENT_RESULTS);
-        String expected = patientRegisterProvider.formatDate(treatment) + " ago\n";
-        assertEquals(expected, ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
-
+        assertEquals("", ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
 
         Map results = new HashMap();
         results.put(TEST_RESULT, "three_plus");
-        when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", true, baseline)).thenReturn(results);
+        results.put(DATE, DateTime.now().getMillis() + "");
+        when(resultsRepository.getLatestResult("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(INTREATMENT_RESULTS);
-        expected += "Smr 3+";
+        String expected = DateTime.now().toString("dd/MM/yyyy") + "\nSmr 3+";
         assertEquals(expected, ((TextView) view.findViewById(R.id.intreatment_details)).getText().toString());
 
     }
@@ -294,7 +272,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         DateTime nextVisitDate = new DateTime();
         columnMap.put(TbrConstants.KEY.NEXT_VISIT_DATE, nextVisitDate.toString());
         initProvider(FOLLOWUP_SCHEDULE);
-        assertEquals("Followup\n due " + nextVisitDate.toString("dd/MM"), ((TextView) view.findViewById(R.id.followup_text)).getText());
+        assertEquals("Followup\n due " + nextVisitDate.toString("dd/MM/yy"), ((TextView) view.findViewById(R.id.followup_text)).getText());
         Activity context = Robolectric.buildActivity(Activity.class).create().get();
         assertEquals(context.getDrawable(R.drawable.due_vaccine_blue_bg), view.findViewById(R.id.followup).getBackground());
 
@@ -352,7 +330,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         results.put("regimen", "2HRZE/HR");
         when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(TREATMENT);
-        assertEquals("Start: " + patientRegisterProvider.formatDate(treatment) + " ago", ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
+        assertEquals("Month " + patientRegisterProvider.formatDate(treatment), ((TextView) view.findViewById(R.id.treatment_started)).getText().toString());
         assertEquals("New", ((TextView) view.findViewById(R.id.treatment_phase)).getText().toString());
         assertEquals("2HRZE/HR", ((TextView) view.findViewById(R.id.regimen)).getText().toString());
 
