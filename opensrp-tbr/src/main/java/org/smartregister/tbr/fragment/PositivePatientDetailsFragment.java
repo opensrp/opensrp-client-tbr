@@ -86,74 +86,79 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
 
     @Override
     protected void processViewConfigurations(View rootView) {
-
-        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
-        if (jsonString == null) {
-            renderDefaultLayout(rootView);
-        } else {
-            ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
-            List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
-            if (!views.isEmpty()) {
-                Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
-                    @Override
-                    public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
-                        return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
-                    }
-                });
-
-                LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_positive_patient_detail_container);
-                for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
-
-                    try {
-                        if (componentView.getResidence().getParent() == null) {
-                            componentView.getResidence().setParent(detailsView.getIdentifier());
-                        }
-
-                        String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
-                        ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
-                        if (componentViewConfiguration != null) {
-                            JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                            View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
-
-                            View view = viewParent.findViewById(json2View.getId());
-                            if (view != null) {
-                                viewParent.removeView(view);
-                            }
-                            viewParent.addView(json2View);
-
-                            if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
-                                renderDemographicsView(json2View, patientDetails);
-
-                            } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
-                                renderPositiveResultsView(json2View, patientDetails);
-                                //Record Results click handler
-                                TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
-                                recordResults.setOnClickListener(this);
-
-                            } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
-
-                                renderServiceHistoryView(json2View, patientDetails);
-                            } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
-                                renderContactScreeningView(json2View, patientDetails);
-
-                                TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
-                                addContactView.setOnClickListener(this);
-
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, e.getMessage());
-
-                    }
-                }
-            } else {
+        try {
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
+            if (jsonString == null) {
                 renderDefaultLayout(rootView);
-            }
+            } else {
+                ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+                List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
+                if (!views.isEmpty()) {
+                    Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
+                        @Override
+                        public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
+                            return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
+                        }
+                    });
 
-            if (detailsView != null) {
-                processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+                    LinearLayout viewParent = (LinearLayout) rootView.findViewById(R.id.content_positive_patient_detail_container);
+                    for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
+
+                        try {
+                            if (componentView.getResidence().getParent() == null) {
+                                componentView.getResidence().setParent(detailsView.getIdentifier());
+                            }
+
+                            String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
+                            ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
+                            if (componentViewConfiguration != null) {
+                                JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
+                                View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
+
+                                View view = viewParent.findViewById(json2View.getId());
+                                if (view != null) {
+                                    viewParent.removeView(view);
+                                }
+                                viewParent.addView(json2View);
+
+                                if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                                    renderDemographicsView(json2View, patientDetails);
+
+                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                                    renderPositiveResultsView(json2View, patientDetails);
+                                    //Record Results click handler
+                                    TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
+                                    recordResults.setOnClickListener(this);
+
+                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+
+                                    renderServiceHistoryView(json2View, patientDetails);
+                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
+                                    renderContactScreeningView(json2View, patientDetails);
+
+                                    TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
+                                    addContactView.setOnClickListener(this);
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+
+                        }
+                    }
+                } else {
+                    renderDefaultLayout(rootView);
+                }
+
+                if (detailsView != null) {
+                    processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+                }
             }
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
         }
+
     }
 
     @Override

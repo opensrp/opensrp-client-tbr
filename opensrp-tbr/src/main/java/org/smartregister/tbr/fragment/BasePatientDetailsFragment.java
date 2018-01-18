@@ -90,20 +90,24 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     }
 
     protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
-        //Process token translations
-        if (!viewLabelsMap.isEmpty()) {
-            for (Map.Entry<String, String> entry : viewLabelsMap.entrySet()) {
-                String uniqueIdentifier = entry.getKey();
-                View view = parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
-                if (view instanceof TextView) {
-                    TextView textView = (TextView) view;
-                    if (textView != null && languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
-                        textView.setText(languageTranslations.get(entry.getKey()));
+        try {
+            //Process token translations
+            if (!viewLabelsMap.isEmpty()) {
+                for (Map.Entry<String, String> entry : viewLabelsMap.entrySet()) {
+                    String uniqueIdentifier = entry.getKey();
+                    View view = parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        if (textView != null && languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
+                            textView.setText(languageTranslations.get(entry.getKey()));
+                        }
+                    } else {
+                        Log.w(TAG, " IDentifier for Language Token '" + uniqueIdentifier + "' clashes with a non TextView");
                     }
-                } else {
-                    Log.w(TAG, " IDentifier for Language Token '" + uniqueIdentifier + "' clashes with a non TextView");
                 }
             }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -264,25 +268,26 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-
-        //Remove patient button
-        Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
-        if (removePatientButton != null) {
-            removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-        }
-
-
-        Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
-        if (recordOutcomeButton != null) {
-            recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-            recordOutcomeButton.setVisibility(View.VISIBLE);
-        }
+        if (patientDetails != null) {
+            //Remove patient button
+            Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
+            if (removePatientButton != null) {
+                removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+            }
 
 
-        Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
-        if (followUpButton != null) {
-            followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-            followUpButton.setOnClickListener(this);
+            Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
+            if (recordOutcomeButton != null) {
+                recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                recordOutcomeButton.setVisibility(View.VISIBLE);
+            }
+
+
+            Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
+            if (followUpButton != null) {
+                followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                followUpButton.setOnClickListener(this);
+            }
         }
 
         //Record Results click handler
