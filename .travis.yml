@@ -51,7 +51,7 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run All Instrumentation Tests
-  #- ./gradlew opensrp-tbr:connectedAndroidTest
+  - ./gradlew opensrp-tbr:connectedAndroidTest
   #Run All Unit tests Unit
   - travis_wait ./gradlew build :opensrp-tbr:jacocoTestReport coveralls --stacktrace
 
