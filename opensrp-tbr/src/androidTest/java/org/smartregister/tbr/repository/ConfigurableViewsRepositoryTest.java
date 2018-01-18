@@ -24,7 +24,7 @@ public class ConfigurableViewsRepositoryTest {
 
     private ConfigurableViewsRepository configurableViewsRepository;
     private String expectedJsonFromAPI;
-    TbrRepositoryShadow repositoryShadow = new TbrRepositoryShadow(TbrApplication.getInstance().getApplicationContext(), TbrApplication.getInstance().getContext());
+    private TbrRepositoryShadow repositoryShadow = new TbrRepositoryShadow(TbrApplication.getInstance().getApplicationContext(), TbrApplication.getInstance().getContext());
 
     @Before
     public void setUp() throws Exception {
