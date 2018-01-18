@@ -8,7 +8,6 @@ import org.smartregister.Context;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.util.Utils;
 
@@ -23,8 +22,6 @@ public class PullConfigurableViewsIntentService extends IntentService {
     public static final String VIEWS_URL = "/rest/viewconfiguration/sync";
 
     private static final String TAG = PullConfigurableViewsIntentService.class.getCanonicalName();
-
-    private ConfigurableViewsRepository configurableViewsRepository;
 
     private PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
 
@@ -53,7 +50,6 @@ public class PullConfigurableViewsIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
         Context context = TbrApplication.getInstance().getContext();
         pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(TbrApplication.getInstance(), context.getHttpAgent(), ECSyncHelper.getInstance(getApplicationContext()), PreferenceManager.getDefaultSharedPreferences(getApplication()));
     }
