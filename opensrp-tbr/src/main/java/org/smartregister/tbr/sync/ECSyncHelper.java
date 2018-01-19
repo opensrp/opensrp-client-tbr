@@ -17,10 +17,12 @@ import org.smartregister.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Utils.getPreference;
 import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;
 import static util.TbrConstants.LAST_VIEWS_SYNC_TIMESTAMP;
+import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created by samuelgithengi on 12/19/17.
@@ -162,6 +164,10 @@ public class ECSyncHelper {
 
     public void updateLastCheckTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
+    }
+
+    public void updateLoginConfigurableViewPreference(String loginJson) {
+        Utils.writePreference(context, VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson);
     }
 
     public void batchSave(JSONArray events, JSONArray clients) throws Exception {

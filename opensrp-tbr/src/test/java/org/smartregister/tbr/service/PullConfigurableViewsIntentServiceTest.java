@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,11 +17,9 @@ import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -30,8 +27,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
-import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created by samuelgithengi on 10/27/17.
@@ -50,9 +45,8 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     @Mock
     private HTTPAgent httpAgent;
 
-    @Spy
-    private SharedPreferences sharedPreferences = context
-            .getSharedPreferences(TbrApplication.class.getName(), Context.MODE_PRIVATE);
+    @Mock
+    private SharedPreferences.Editor editor;
 
     @Spy
     private ECSyncHelper syncHelper = ECSyncHelper.getInstance(context);
@@ -69,11 +63,11 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
 
     @Before
     public void start() {
-        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, sharedPreferences, false);
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, false);
     }
 
     private void initHeaderWithPassword() {
-        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, sharedPreferences, true);
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, true);
     }
 
     @After
@@ -87,7 +81,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
                 .thenReturn(new Response(ResponseStatus.success, "[]"));
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
-        assertEquals(sharedPreferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN, ""), "");
+        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
     }
 
     @Test
@@ -97,8 +91,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper, never()).updateLastViewsSyncTimeStamp(anyLong());
-        assertEquals(new JSONObject(sharedPreferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN,
-                "")).toString(), new JSONArray(loginJson).get(0).toString());
+        verify(syncHelper).updateLoginConfigurableViewPreference(new JSONArray(loginJson).get(0).toString());
     }
 
     @Test
@@ -108,8 +101,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper, never()).updateLastViewsSyncTimeStamp(anyLong());
-        assertEquals(new JSONObject(sharedPreferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN,
-                "")).toString(), new JSONArray(loginandMainJSON).get(0).toString());
+        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
     }
 
     @Test
@@ -120,8 +112,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
-        assertEquals(new JSONObject(sharedPreferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN,
-                "")).toString(), new JSONArray(loginandMainJSON).get(0).toString());
+        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
     }
 
     @Test
@@ -132,8 +123,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
-        verify(sharedPreferences, never()).edit();
-        assertEquals(sharedPreferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN, ""), "");
+        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
     }
 
 

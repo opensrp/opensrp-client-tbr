@@ -1,7 +1,6 @@
 package org.smartregister.tbr.service;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,7 +15,6 @@ import static org.smartregister.tbr.repository.ConfigurableViewsRepository.IDENT
 import static org.smartregister.tbr.service.PullConfigurableViewsIntentService.VIEWS_URL;
 import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
-import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created by samuelgithengi on 10/27/17.
@@ -31,16 +29,14 @@ public class PullConfigurableViewsServiceHelper {
     private HTTPAgent httpAgent;
     private String baseUrl;
     private ECSyncHelper syncHelper;
-    private SharedPreferences preferences;
 
     public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
-                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, SharedPreferences preferences, boolean databaseCreated) {
+                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, boolean databaseCreated) {
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
         this.syncHelper = syncHelper;
-        this.preferences = preferences;
         this.databaseCreated = databaseCreated;
     }
 
@@ -65,7 +61,7 @@ public class PullConfigurableViewsServiceHelper {
             JSONObject jsonObject = views.getJSONObject(i);
             String identifier = jsonObject.getString(IDENTIFIER);
             if (identifier.equals(LOGIN)) {
-                preferences.edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, jsonObject.toString()).commit();
+                syncHelper.updateLoginConfigurableViewPreference(jsonObject.toString());
                 views.remove(i);
                 break;
             }
