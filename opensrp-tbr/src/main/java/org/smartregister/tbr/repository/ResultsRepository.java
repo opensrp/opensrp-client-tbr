@@ -193,9 +193,8 @@ public class ResultsRepository extends BaseRepository {
             orderByClause = " ORDER BY " + DATE + " DESC";
         }
         String query =
-                "SELECT max(" + DATE + "||" + CREATED_AT + "),"+ DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
-                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                        + "" + "= '" + baseEntityId + "' "
+                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + "  = '" + baseEntityId + "' "
                         + baselineFilter
                         + groupByClause + orderByClause;
         cursor = db.rawQuery(query, null);
