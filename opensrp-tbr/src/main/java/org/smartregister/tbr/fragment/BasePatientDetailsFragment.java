@@ -1,5 +1,6 @@
 package org.smartregister.tbr.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.PopupMenu;
 import android.text.Spannable;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
+import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
@@ -28,6 +31,7 @@ import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
 import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
@@ -38,6 +42,7 @@ import java.util.Map;
 
 import util.TbrConstants;
 
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 
 /**
@@ -238,11 +243,23 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
-            processViewConfigurations(getView());
+            if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.DIAGNOSIS)) {
+                initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), Register.POSITIVE_PATIENTS);
+
+            } else if (enketoFormSaveCompleteEvent.getFormName().equals(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION)) {
+                initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), Register.IN_TREATMENT_PATIENTS);
+
+            } else {
+                processViewConfigurations(getView());
+            }
         }
 
     }
 
+    private void initializeRegister(Intent intent, String registerTitle) {
+        intent.putExtra(TOOLBAR_TITLE, registerTitle);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View view) {

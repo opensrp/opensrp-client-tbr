@@ -38,7 +38,7 @@
             android:textSize="20sp" />
 
         <View
-            android:layout_width="105dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView

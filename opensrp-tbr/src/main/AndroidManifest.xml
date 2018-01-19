@@ -83,6 +83,10 @@
 
         <receiver android:name=".receiver.TbrSyncBroadcastReceiver" />
 
+        <provider
+            android:name=".provider.ServiceHistoryProvider"
+            android:authorities="com.smartregister.tbr.service.history.provider" />
+
     </application>
 
 </manifest>

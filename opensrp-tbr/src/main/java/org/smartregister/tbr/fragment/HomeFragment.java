@@ -39,8 +39,14 @@ public class HomeFragment extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         try {
-            super.onActivityCreated(savedInstanceState);
             List<Register> values = new ArrayList<>();
 
             String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);

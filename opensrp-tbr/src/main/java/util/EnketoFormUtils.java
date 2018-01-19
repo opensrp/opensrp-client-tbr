@@ -1060,7 +1060,7 @@ public class EnketoFormUtils {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Utils.postEvent(new EnketoFormSaveCompleteEvent());
+            Utils.postEvent(new EnketoFormSaveCompleteEvent(this.formSubmission.formName()));
         }
 
         @Override
