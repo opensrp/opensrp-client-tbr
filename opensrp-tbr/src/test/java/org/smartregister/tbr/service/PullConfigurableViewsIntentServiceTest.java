@@ -57,9 +57,6 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     @Spy
     private ECSyncHelper syncHelper = ECSyncHelper.getInstance(context);
 
-    @Spy
-    private TbrApplication tbrApplication =  TbrApplication.getInstance();
-
     private PullConfigurableViewsServiceHelper helper;
 
     private String loginandMainJSON = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}," +
@@ -72,11 +69,11 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
 
     @Before
     public void start() {
-        when(tbrApplication.getApplicationContext()).thenReturn(context);
-        when(tbrApplication.getContext()).thenReturn(org.smartregister.Context.getInstance());
-        when(tbrApplication.getConfigurableViewsRepository()).thenReturn(configurableViewsRepository);
-        helper = new PullConfigurableViewsServiceHelper(tbrApplication,
-                httpAgent, syncHelper, sharedPreferences);
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, sharedPreferences, false);
+    }
+
+    private void initHeaderWithPassword() {
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, sharedPreferences, true);
     }
 
     @After
@@ -119,9 +116,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     public void testMainConfigSavedWhenDatabaseExists() throws Exception {
         when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
                 thenReturn(new Response(ResponseStatus.success, loginandMainJSON));
-        when(tbrApplication.getPassword()).thenReturn("Sample_Pass");
-        helper = new PullConfigurableViewsServiceHelper(tbrApplication,
-                httpAgent, syncHelper, sharedPreferences);
+        initHeaderWithPassword();
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
@@ -133,9 +128,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     public void testOnlyMainConfigSavedIfLoginNotUpdated() throws Exception {
         when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
                 thenReturn(new Response(ResponseStatus.success, mainConfigJSon));
-        when(tbrApplication.getPassword()).thenReturn("Sample_Pass");
-        helper = new PullConfigurableViewsServiceHelper(tbrApplication,
-                httpAgent, syncHelper, sharedPreferences);
+        initHeaderWithPassword();
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());

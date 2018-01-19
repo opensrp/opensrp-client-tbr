@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
@@ -35,15 +33,17 @@ public class PullConfigurableViewsServiceHelper {
     private ECSyncHelper syncHelper;
     private SharedPreferences preferences;
 
-    public PullConfigurableViewsServiceHelper(TbrApplication tbrApplication, HTTPAgent httpAgent, ECSyncHelper syncHelper, SharedPreferences preferences) {
-        this.applicationContext = tbrApplication.getApplicationContext();
-        this.configurableViewsRepository = tbrApplication.getConfigurableViewsRepository();
+    public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
+                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, SharedPreferences preferences, boolean databaseCreated) {
+        this.applicationContext = applicationContext;
+        this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
-        this.baseUrl = tbrApplication.getContext().configuration().dristhiBaseURL();
+        this.baseUrl = baseUrl;
         this.syncHelper = syncHelper;
         this.preferences = preferences;
-        this.databaseCreated = StringUtils.isNotEmpty(tbrApplication.getPassword());
+        this.databaseCreated = databaseCreated;
     }
+
 
     protected int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();

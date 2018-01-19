@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.Context;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
@@ -51,7 +52,11 @@ public class PullConfigurableViewsIntentService extends IntentService {
     public void onCreate() {
         super.onCreate();
         Context context = TbrApplication.getInstance().getContext();
-        pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(TbrApplication.getInstance(), context.getHttpAgent(), ECSyncHelper.getInstance(getApplicationContext()), PreferenceManager.getDefaultSharedPreferences(getApplication()));
+        pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
+                TbrApplication.getInstance().getConfigurableViewsRepository(), context.getHttpAgent(),
+                context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()),
+                PreferenceManager.getDefaultSharedPreferences(getApplication()),
+                StringUtils.isNotEmpty(TbrApplication.getInstance().getPassword()));
     }
 
 }
