@@ -80,7 +80,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
 
         String[] mProjection2 = {
                 "0 || " + ECClientRepository.ID + " _id", //union query hence unique identifier
-                "\"Registration\"",
+                "\"Screening\"",
                 ECClientRepository.ID,
                 ECClientRepository.FIRST_ENCOUNTER,
                 ResultsRepository.BASE_ENTITY_ID,
@@ -89,7 +89,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
 
         return new CursorLoader(context, CONTENT_URI,
                 mProjection, " WHERE " + ResultsRepository.BASE_ENTITY_ID + "='" + BASE_ENTITY_ID + "'", mProjection2,
-                RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC");
+                RenderServiceHistoryCardHelper.UNION_TABLE_FLAG + " DESC, " + ResultsRepository.DATE + " DESC, " + ResultsRepository.CREATED_AT + " DESC");
     }
 
     @Override

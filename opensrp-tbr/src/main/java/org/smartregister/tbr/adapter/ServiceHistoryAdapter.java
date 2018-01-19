@@ -42,7 +42,6 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     @Override
     public void onClick(View view) {
         View formView = view.findViewById(R.id.formNameTextView);
-        Utils.showToastShort(mContext, "Opening the " + formView.getTag(R.id.FORM_NAME) + " form");
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
         String tbReachId = ((BasePatientDetailActivity) mContext).getIntent().getStringExtra(Constants.INTENT_KEY.TB_REACH_ID);

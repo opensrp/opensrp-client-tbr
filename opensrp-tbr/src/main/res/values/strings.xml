@@ -28,7 +28,7 @@
     <string name="saving_dialog_title">Saving…</string>
     <string name="please_wait_message">Please wait</string>
     <string name="menu_add_result">Add Result for Zakaria Kalpar</string>
-    <string name="result_gene_xpert">Gene Xpert (Xpt)</string>
+    <string name="result_gene_xpert">Gene Xpert (Xpe)</string>
     <string name="result_smear">Smear (Smr)</string>
     <string name="result_chest_xray">Chest X-ray (CXR)</string>
     <string name="result_culture">Culture (Cul)</string>

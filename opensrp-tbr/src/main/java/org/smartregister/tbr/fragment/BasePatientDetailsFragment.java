@@ -233,9 +233,9 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
         MenuItem item = popup.getMenu().getItem(0);
-        String firstName = getActivity().getString(R.string.add_result_for) + Constants.CHAR.SPACE + patientDetails.get(Constants.KEY.FIRST_NAME);
-        SpannableString s = new SpannableString(firstName);
-        s.setSpan(new StyleSpan(Typeface.BOLD), 0, firstName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String name = getActivity().getString(R.string.add_result_for) + Constants.CHAR.SPACE + patientDetails.get(Constants.KEY.FIRST_NAME) + Constants.CHAR.SPACE + patientDetails.get(Constants.KEY.LAST_NAME);
+        SpannableString s = new SpannableString(name);
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
         popup.show();
     }

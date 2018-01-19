@@ -143,10 +143,7 @@ public class Utils {
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
             long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
-
-            if (timeDiff >= 0) {
-                formattedAge = DateUtil.getDuration(timeDiff);
-            }
+            formattedAge = String.valueOf(timeDiff);
         }
         return formattedAge;
     }

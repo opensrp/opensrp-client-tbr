@@ -64,9 +64,12 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
                     clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.male_light_blue));
                     clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.male_blue));
 
-                } else {
+                } else if (patientDetails.get(Constants.KEY.GENDER).equals(Constants.GENDER.FEMALE)) {
                     clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.female_light_pink));
                     clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.female_pink));
+                } else {
+                    clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.gender_neutral_light_green));
+                    clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.gender_neutral_green));
                 }
             }
 

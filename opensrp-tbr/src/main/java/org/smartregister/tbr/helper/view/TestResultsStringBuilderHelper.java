@@ -40,7 +40,7 @@ public class TestResultsStringBuilderHelper {
                 stringBuilder.append("Scanty", redForegroundColorSpan);
                 break;
             case "negative":
-                stringBuilder.append("Negative", redForegroundColorSpan);
+                stringBuilder.append("Negative", getBlackForegroundColorSpan());
                 break;
             default:
                 stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
@@ -52,9 +52,9 @@ public class TestResultsStringBuilderHelper {
 
 
     public TbrSpannableStringBuilder getCultureResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
+        ForegroundColorSpan colorSpan = testResults.get(TbrConstants.RESULT.CULTURE_RESULT).equals(Constants.RESULT.POSITIVE) ? getRedForegroundColorSpan() : getBlackForegroundColorSpan();
         stringBuilder.append("Culture ");
-        stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
+        stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), colorSpan);
         stringBuilder.append("\n");
         return stringBuilder;
     }
@@ -64,7 +64,7 @@ public class TestResultsStringBuilderHelper {
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
         stringBuilder.append("Chest X-Ray ");
         if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative")) {
-            stringBuilder.append("Indicative", blackForegroundColorSpan);
+            stringBuilder.append("Indicative", getRedForegroundColorSpan());
         } else {
             stringBuilder.append("Not Indicative", blackForegroundColorSpan);
         }
@@ -90,8 +90,12 @@ public class TestResultsStringBuilderHelper {
         ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
         ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
         stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
-        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), redForegroundColorSpan);
-        if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
+        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), testResults.containsKey(Constants.RESULT.ERROR_CODE) ? blackForegroundColorSpan : redForegroundColorSpan);
+        if (testResults.containsKey(Constants.RESULT.ERROR_CODE)) {
+            stringBuilder.append(" ");
+            stringBuilder.append(testResults.get(Constants.RESULT.ERROR_CODE), blackForegroundColorSpan);
+        } else if
+                (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
             stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
             stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
         }

@@ -56,7 +56,7 @@
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="#000000"
         android:textSize="15sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:textAllCaps="true" />
 
 

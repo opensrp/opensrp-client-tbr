@@ -94,4 +94,10 @@ public class Constants {
             public static final String NO_RESULT = "no_result";
         }
     }
+
+    public static final class RESULT {
+
+        public static final String ERROR_CODE = "error_code";
+        public static final String POSITIVE = "positive";
+    }
 }
