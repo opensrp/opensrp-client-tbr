@@ -1,7 +1,6 @@
 package org.smartregister.tbr.service;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import org.json.JSONArray;
 import org.junit.After;
@@ -45,9 +44,6 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     @Mock
     private HTTPAgent httpAgent;
 
-    @Mock
-    private SharedPreferences.Editor editor;
-
     @Spy
     private ECSyncHelper syncHelper = ECSyncHelper.getInstance(context);
 
@@ -66,7 +62,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, false);
     }
 
-    private void initHeaderWithPassword() {
+    private void initWithPassword() {
         helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, true);
     }
 
@@ -108,7 +104,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     public void testMainConfigSavedWhenDatabaseExists() throws Exception {
         when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
                 thenReturn(new Response(ResponseStatus.success, loginandMainJSON));
-        initHeaderWithPassword();
+        initWithPassword();
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
@@ -119,7 +115,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     public void testOnlyMainConfigSavedIfLoginNotUpdated() throws Exception {
         when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
                 thenReturn(new Response(ResponseStatus.success, mainConfigJSon));
-        initHeaderWithPassword();
+        initWithPassword();
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());

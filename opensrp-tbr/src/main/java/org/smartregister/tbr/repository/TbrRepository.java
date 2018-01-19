@@ -69,9 +69,7 @@ public class TbrRepository extends Repository {
     @Override
     public synchronized SQLiteDatabase getReadableDatabase(String password) {
         try {
-            if (password == null)
-                return null;
-            else if (readableDatabase == null || !readableDatabase.isOpen()) {
+            if (readableDatabase == null || !readableDatabase.isOpen()) {
                 if (readableDatabase != null) {
                     readableDatabase.close();
                 }
@@ -87,9 +85,7 @@ public class TbrRepository extends Repository {
 
     @Override
     public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (password == null)
-            return null;
-        else if (writableDatabase == null || !writableDatabase.isOpen()) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
             if (writableDatabase != null) {
                 writableDatabase.close();
             }

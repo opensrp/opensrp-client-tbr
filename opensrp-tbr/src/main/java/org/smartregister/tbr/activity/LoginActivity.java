@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -37,6 +36,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +64,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
 import org.smartregister.view.ProgressIndicator;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -74,6 +74,7 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import util.ImageLoaderRequest;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -541,8 +542,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void processViewCustomizations() {
         try {
-            SharedPreferences preferences = getDefaultSharedPreferences(this);
-            String jsonString = preferences.getString(VIEW_CONFIGURATION_PREFIX + LOGIN, null);
+            String jsonString = Utils.getPreference(this, VIEW_CONFIGURATION_PREFIX + LOGIN, null);
             if (jsonString == null) return;
             ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
@@ -563,9 +563,10 @@ public class LoginActivity extends AppCompatActivity {
                 canvasRL.setBackground(gradientDrawable);
             }
             if (metadata.getLogoUrl() != null) {
-                ImageView logo = (ImageView) findViewById(R.id.logoImage);
-                DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
-                        getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
+                ImageView imageView = (ImageView) findViewById(R.id.logoImage);
+                ImageLoaderRequest.getInstance(this.getApplicationContext()).getImageLoader()
+                        .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
+                                R.drawable.ic_logo, R.drawable.ic_logo)).getBitmap();
                 TextView loginBuild = (TextView) findViewById(R.id.login_build);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
                 lp.setMargins(0, 0, 0, 0);

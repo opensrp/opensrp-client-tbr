@@ -53,7 +53,7 @@ public class PullConfigurableViewsServiceHelper {
                 syncHelper.updateLastViewsSyncTimeStamp(lastSyncTimeStamp);
             }
         }
-        return views == null ? 0 : views.length();
+        return views == null || !databaseCreated ? 0 : views.length();
     }
 
     private JSONArray saveLoginConfiguration(JSONArray views) throws JSONException {
