@@ -52,9 +52,8 @@ script:
   - ls -la
   - ./gradlew opensrp-tbr:clean
   #Run All Instrumentation Tests
-  - ./gradlew opensrp-tbr:connectedAndroidTest
+  #- ./gradlew opensrp-tbr:connectedAndroidTest
   #Run All Unit tests Unit
-  - ./gradlew opensrp-tbr:testDebugUnitTest
   - travis_wait ./gradlew :opensrp-tbr:jacocoTestReport coveralls --stacktrace
 
 after_failure:
