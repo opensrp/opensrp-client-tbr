@@ -20,9 +20,9 @@ import com.android.volley.toolbox.ImageLoader;
 public class ImageLoaderRequest {
 
     private static ImageLoaderRequest imageLoaderRequest;
-    private static Context context;
+    private final Context context;
     private RequestQueue requestQueue;
-    private ImageLoader imageLoader;
+    private final ImageLoader imageLoader;
 
 
     private ImageLoaderRequest(Context context) {
@@ -53,7 +53,7 @@ public class ImageLoaderRequest {
         return imageLoaderRequest;
     }
 
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             Cache cache = new DiskBasedCache(context.getCacheDir(), 10 * 1024 * 1024);
             Network network = new BasicNetwork(new HurlStack());
