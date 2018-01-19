@@ -51,7 +51,6 @@ public class PullConfigurableViewsServiceHelper {
             //There is any other previous login
             if (!databaseCreated) {
                 saveLoginConfiguration(views);
-                return 0;
             } else {
                 views = saveLoginConfiguration(views);
                 long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(views);
