@@ -54,7 +54,7 @@ script:
   #Run All Instrumentation Tests
   - ./gradlew opensrp-tbr:connectedAndroidTest
   #Run All Unit tests Unit
-  - travis_wait ./gradlew :opensrp-tbr:jacocoTestReport coveralls --stacktrace
+  - ./gradlew :opensrp-tbr:jacocoTestReport coveralls --stacktrace
 
 after_failure:
  - pandoc opensrp-tbr/build/reports/tests/index.html -t plain
