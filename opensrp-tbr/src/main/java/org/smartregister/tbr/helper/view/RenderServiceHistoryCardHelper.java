@@ -75,7 +75,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
                 ResultsRepository.FORMSUBMISSION_ID,
                 ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,
-                "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
+                ResultsRepository.CREATED_AT
         };
 
         String[] mProjection2 = {
@@ -84,7 +85,8 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
                 ECClientRepository.ID,
                 ECClientRepository.FIRST_ENCOUNTER,
                 ResultsRepository.BASE_ENTITY_ID,
-                "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG
+                "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
+                ECClientRepository.BASELINE + " " + ResultsRepository.CREATED_AT
         };
 
         return new CursorLoader(context, CONTENT_URI,
@@ -105,12 +107,14 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        //Overridden
     }
 
     public class ECClientRepository {
         public static final String ID = "id";
         public static final String TABLE_NAME = "ec_patient";
         public static final String FIRST_ENCOUNTER = Constants.KEY.FIRST_ENCOUNTER;
+        public static final String BASELINE = "baseline";
     }
 
 }

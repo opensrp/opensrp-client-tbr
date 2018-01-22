@@ -143,9 +143,12 @@ public class Utils {
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
             long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
-            formattedAge = String.valueOf(timeDiff);
+
+            if (timeDiff >= 0) {
+                formattedAge = DateUtil.getDuration(timeDiff);
+            }
         }
-        return formattedAge;
+        return formattedAge.contains("y") ? formattedAge.substring(0, formattedAge.indexOf('y')) : formattedAge;
     }
 
     public static String formatIdentifier(String identifier) {

@@ -13,7 +13,7 @@
         android:paddingLeft="0dp"
         android:text="07 Jun 2017"
         android:textColor="@android:color/black"
-        android:textSize="19sp" />
+        android:textSize="20sp" />
 
 
     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -28,5 +28,5 @@
         android:paddingLeft="0dp"
         android:text="RECORD RESULTS"
         android:textColor="@color/male_dark_blue"
-        android:textSize="19sp" />
+        android:textSize="20sp" />
 </LinearLayout>

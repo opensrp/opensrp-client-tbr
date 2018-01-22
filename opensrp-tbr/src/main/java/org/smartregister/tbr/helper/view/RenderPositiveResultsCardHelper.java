@@ -68,7 +68,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         Map<String, Result> testResults = params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
 
         TextView firstEncounterDateView = (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
-        if (!params.isIntreatment && params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
+        if (hasFirstEncounter(params)) {
 
             String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
             String dateString = context.getString(R.string.first_encounter) + Constants.CHAR.SPACE + firstEncounterDate;
@@ -91,6 +91,10 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
             params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.no_results_recorded).setVisibility(View.VISIBLE);
 
         }
+    }
+
+    private boolean hasFirstEncounter(InitializeRenderParams params) {
+        return !params.isIntreatment && params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty();
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {

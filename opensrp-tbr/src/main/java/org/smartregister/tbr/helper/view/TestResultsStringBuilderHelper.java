@@ -87,15 +87,13 @@ public class TestResultsStringBuilderHelper {
     public TbrSpannableStringBuilder getXpertResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         stringBuilder.append("GeneXpert ");
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
-        ForegroundColorSpan colorSpan = withOtherResults ? redForegroundColorSpan : blackForegroundColorSpan;
+        ForegroundColorSpan colorSpan = getColorSpan(withOtherResults);
         stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
-        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), testResults.containsKey(Constants.RESULT.ERROR_CODE) ? blackForegroundColorSpan : redForegroundColorSpan);
+        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), getColorSpan(testResults.containsKey(Constants.RESULT.ERROR_CODE)));
         if (testResults.containsKey(Constants.RESULT.ERROR_CODE)) {
             stringBuilder.append(" ");
             stringBuilder.append(testResults.get(Constants.RESULT.ERROR_CODE), blackForegroundColorSpan);
-        } else if
-                (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
+        } else if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
             stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
             stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
         }
@@ -121,5 +119,9 @@ public class TestResultsStringBuilderHelper {
             default:
                 return result;
         }
+    }
+
+    private ForegroundColorSpan getColorSpan(boolean isPositive) {
+        return isPositive ? getRedForegroundColorSpan() : getBlackForegroundColorSpan();
     }
 }
