@@ -31,6 +31,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String UNION_TABLE_FLAG = "union_table_flag";
+    public static final String UNION_FLAG_CONCAT_SEPARATOR = " ||\'_\'|| ";
     private static final Uri CONTENT_URI = Uri.parse("content://com.smartregister.tbr.service.history.provider");
     private static final int SERVICE_HISTORY_LOADER_ID = 0;
     private static String TAG = RenderServiceHistoryCardHelper.class.getCanonicalName();
@@ -70,22 +71,22 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         String[] mProjection = {
-                "1 || " + ResultsRepository.ID + " _id", //union query hence unique identifier
+                UNION_TABLE_FLAGS.TEST_RESULT + UNION_FLAG_CONCAT_SEPARATOR + ResultsRepository.ID + " _id", //union query hence unique identifier
                 ResultsRepository.TYPE,
                 ResultsRepository.FORMSUBMISSION_ID,
                 ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,
-                "1 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
+                UNION_TABLE_FLAGS.TEST_RESULT + Constants.CHAR.SPACE + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
                 ResultsRepository.CREATED_AT
         };
 
         String[] mProjection2 = {
-                "0 || " + ECClientRepository.ID + " _id", //union query hence unique identifier
+                UNION_TABLE_FLAGS.SCREENING + UNION_FLAG_CONCAT_SEPARATOR + ECClientRepository.ID + " _id", //union query hence unique identifier
                 "\"Screening\"",
                 ECClientRepository.ID,
-                ECClientRepository.FIRST_ENCOUNTER,
+                ECClientRepository.FIRST_ENCOUNTER + Constants.CHAR.SPACE + ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,
-                "0 " + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
+                UNION_TABLE_FLAGS.SCREENING + Constants.CHAR.SPACE + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
                 ECClientRepository.BASELINE + " " + ResultsRepository.CREATED_AT
         };
 
@@ -115,6 +116,12 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
         public static final String TABLE_NAME = "ec_patient";
         public static final String FIRST_ENCOUNTER = Constants.KEY.FIRST_ENCOUNTER;
         public static final String BASELINE = "baseline";
+        public static final String DIAGNOSIS_DATE = "diagnosis_date";
     }
 
+    public class UNION_TABLE_FLAGS {
+        public static final String SCREENING = "0";
+        public static final String DIAGNOSIS = "1";
+        public static final String TEST_RESULT = "2";
+    }
 }

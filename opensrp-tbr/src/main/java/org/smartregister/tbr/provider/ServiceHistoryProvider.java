@@ -12,6 +12,9 @@ import net.sqlcipher.database.SQLiteQueryBuilder;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Constants;
+
+import static org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper.UNION_FLAG_CONCAT_SEPARATOR;
 
 /**
  * Created by ndegwamartin on 19/01/2018.
@@ -35,11 +38,25 @@ public class ServiceHistoryProvider extends ContentProvider {
 
         String[] subQueries = new String[]{
                 "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + selection,
-                "SELECT " + projectionStrTwo + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection};
+                "SELECT " + projectionStrTwo + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection,
+                "SELECT " + getDiagnosisFormProjection() + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection + " AND diagnosis_date IS NOT NULL AND diagnosis_date != ''"};
         String sql = builder.buildUnionQuery(subQueries, sortOrder, null);
 
-
         return TbrApplication.getInstance().getResultDetailsRepository().getReadableDatabase().rawQuery(sql, null);
+
+    }
+
+    private String getDiagnosisFormProjection() {
+        String[] mProjection3 = {RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.DIAGNOSIS + UNION_FLAG_CONCAT_SEPARATOR + RenderServiceHistoryCardHelper.ECClientRepository.ID + " _id", //union query hence unique identifier
+                "\"Diagnosis\"",
+                RenderServiceHistoryCardHelper.ECClientRepository.ID,
+                RenderServiceHistoryCardHelper.ECClientRepository.DIAGNOSIS_DATE + Constants.CHAR.SPACE + ResultsRepository.DATE,
+                ResultsRepository.BASE_ENTITY_ID,
+                RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.DIAGNOSIS + Constants.CHAR.SPACE + RenderServiceHistoryCardHelper.UNION_TABLE_FLAG,
+                RenderServiceHistoryCardHelper.ECClientRepository.BASELINE + " " + ResultsRepository.CREATED_AT
+        };
+        return getProjectionString(mProjection3);
+
 
     }
 

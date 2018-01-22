@@ -285,27 +285,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         languageTranslations = config == null ? null : config.getLabels();
 
-        if (patientDetails != null) {
-            //Remove patient button
-            Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
-            if (removePatientButton != null) {
-                removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-            }
-
-
-            Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
-            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
-                recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-                recordOutcomeButton.setVisibility(View.VISIBLE);
-            }
-
-
-            Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
-            if (followUpButton != null) {
-                followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
-                followUpButton.setOnClickListener(this);
-            }
-        }
+        setUpButtons(rootView);
 
         //Record Results click handler
         TextView recordResults = (TextView) rootView.findViewById(R.id.record_results);
@@ -316,6 +296,29 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         TextView addContactView = (TextView) rootView.findViewById(R.id.add_contact);
         if (addContactView != null) {
             addContactView.setOnClickListener(this);
+        }
+    }
+
+    private void setUpButtons(View rootView) {
+
+        if (patientDetails != null) {
+            //Remove patient button
+            Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
+            if (removePatientButton != null) {
+                removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+            }
+
+            Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
+            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
+                recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                recordOutcomeButton.setVisibility(View.VISIBLE);
+            }
+
+            Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
+            if (followUpButton != null) {
+                followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                followUpButton.setOnClickListener(this);
+            }
         }
     }
 

@@ -65,9 +65,10 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
     private void initializeRenderLayout(InitializeRenderParams params) {
 
-        Map<String, Result> testResults = params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
+        Map<String, Result> testResults = getTestResults(params);
 
-        TextView firstEncounterDateView = (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
+        TextView firstEncounterDateView = getFirstEncounterDateView(params);
+
         if (hasFirstEncounter(params)) {
 
             String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
@@ -76,9 +77,9 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         } else if (params.isIntreatment) {
             String baseLineText = "Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")";
             firstEncounterDateView.setText(params.isBaseline ? baseLineText : context.getString(R.string.latest));
-
         }
-        TextView results = (TextView) params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.result_details);
+
+        TextView results = getBaselineTextView(params);
 
         TbrSpannableStringBuilder stringBuilder = getConstructedStringBuilder(testResults, params);
 
@@ -93,8 +94,20 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         }
     }
 
+    private TextView getBaselineTextView(InitializeRenderParams params) {
+        return (TextView) params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.result_details);
+    }
+
+    private TextView getFirstEncounterDateView(InitializeRenderParams params) {
+        return (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
+    }
+
     private boolean hasFirstEncounter(InitializeRenderParams params) {
         return !params.isIntreatment && params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty();
+    }
+
+    private Map<String, Result> getTestResults(InitializeRenderParams params) {
+        return params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {

@@ -31,6 +31,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
     private Context mContext;
     private LayoutInflater inflater;
+    private Cursor kasa;
 
     public ServiceHistoryAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
@@ -96,11 +97,12 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, Context context, Cursor cursor) {kasa = cursor;
         TextView dateView = (TextView) view.findViewById(R.id.formfillDateTextView);
-        String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals("1") ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(ResultsRepository.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE.toString())), true), "dd MMM yyyy");
-        dateView.setText(date);
-
+        if (cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)) != null) {
+            String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals(RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.TEST_RESULT) ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)), true), "dd MMM yyyy");
+            dateView.setText(date);
+        }
         TextView formName = (TextView) view.findViewById(R.id.formNameTextView);
         formName.setText(cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE)));
         formName.setOnClickListener(this);
