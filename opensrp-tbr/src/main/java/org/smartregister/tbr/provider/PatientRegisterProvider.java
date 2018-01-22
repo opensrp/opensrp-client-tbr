@@ -425,14 +425,19 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             nextVisit = getValue(pc.getColumnmaps(), KEY.FUTURE_VISIT_DATE, false);
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
-            fillValue((TextView) view.findViewById(R.id.followup_text), "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
+            TextView followupText = (TextView)view.findViewById(R.id.followup_text);
+            fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
-            if (due < 0)
+            if (due < 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-            else if (due == 0)
+                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+            }
+            else if (due == 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+            }
             else {
-                ((TextView) view.findViewById(R.id.followup_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
         }
@@ -444,21 +449,26 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         String nextVisit = getValue(pc.getColumnmaps(), KEY.SMR_NEXT_VISIT_DATE, false);
         int due = 1;
         if (!nextVisit.isEmpty()) {
+            TextView followupText = (TextView) view.findViewById(R.id.smr_schedule_text);
             try {
                 DateTime treatmentStartDate = DateTime.parse(nextVisit);
-                fillValue((TextView) view.findViewById(R.id.smr_schedule_text), "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
+                fillValue(followupText, "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
                 due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
 
             } catch (IllegalArgumentException e) {
                 Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
-                fillValue((TextView) view.findViewById(R.id.smr_schedule_text), "Smear\n not due ");
+                fillValue(followupText, "Smear\n not due ");
             }
-            if (due < 0)
+            if (due < 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-            else if (due == 0)
+                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+            }
+            else if (due == 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+            }
             else {
-                ((TextView) view.findViewById(R.id.smr_schedule_text)).setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
         }
