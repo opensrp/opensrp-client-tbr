@@ -155,6 +155,7 @@ public class ResultsRepository extends BaseRepository {
                     String key = cursor.getString(cursor.getColumnIndex(RESULT1));
                     String value = cursor.getString(cursor.getColumnIndex(VALUE1));
                     clientDetails.put(key, value);
+                    clientDetails.put(DATE, cursor.getString(cursor.getColumnIndex(DATE)));
                     String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
                     if (key2 != null && !key2.isEmpty()) {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
