@@ -30,7 +30,6 @@ public class ResultsRepository extends BaseRepository {
     public static final String FORMSUBMISSION_ID = "formSubmissionId";
     public static final String EVENT_ID = "event_id";
     public static final String DATE = "date";
-    public static final String BASELINE = "baseline";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String ANMID = "anmid";
