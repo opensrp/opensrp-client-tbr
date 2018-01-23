@@ -421,22 +421,18 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         View followup = view.findViewById(R.id.followup);
         attachOnclickListener(followup, client);
         String nextVisit = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
-        if (StringUtils.isEmpty(nextVisit))
-            nextVisit = getValue(pc.getColumnmaps(), KEY.FUTURE_VISIT_DATE, false);
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
-            TextView followupText = (TextView)view.findViewById(R.id.followup_text);
+            TextView followupText = (TextView) view.findViewById(R.id.followup_text);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
             if (due < 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
                 followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            }
-            else if (due == 0) {
+            } else if (due == 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
                 followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            }
-            else {
+            } else {
                 followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
@@ -462,12 +458,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             if (due < 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
                 followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            }
-            else if (due == 0) {
+            } else if (due == 0) {
                 followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
                 followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            }
-            else {
+            } else {
                 followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
@@ -484,14 +478,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
         ((TextView) view.findViewById(R.id.treatment_phase)).setText(StringUtils.capitalize(details.get(KEY.TREATMENT_PHASE)));
         List<String> regimen = new ArrayList();
-        if (details.containsKey(KEY.TREATMENT_REGIMEN1))
-            regimen.add(details.get(KEY.TREATMENT_REGIMEN1).toUpperCase());
-        if (details.containsKey(KEY.TREATMENT_REGIMEN2))
-            regimen.add(details.get(KEY.TREATMENT_REGIMEN2).toUpperCase());
-        if (details.containsKey(KEY.OTHER_REGIMEN1))
-            regimen.add(details.get(KEY.OTHER_REGIMEN1).toUpperCase());
-        if (details.containsKey(KEY.OTHER_REGIMEN2))
-            regimen.add(details.get(KEY.OTHER_REGIMEN2).toUpperCase());
+        if (details.containsKey(KEY.TREATMENT_REGIMEN))
+            regimen.add(details.get(KEY.TREATMENT_REGIMEN).toUpperCase());
+        if (details.containsKey(KEY.OTHER_REGIMEN))
+            regimen.add(details.get(KEY.OTHER_REGIMEN).toUpperCase());
         ((TextView) view.findViewById(R.id.regimen)).setText(TextUtils.join(" ", regimen));
 
     }

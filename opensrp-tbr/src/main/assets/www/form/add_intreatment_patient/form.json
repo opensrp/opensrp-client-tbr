@@ -4,6 +4,270 @@
   "sms_keyword": "add_intx_pt",
   "default_language": "English",
   "choices": {
+    "regimen": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhze"
+        },
+        "label": {
+          "Roman Urdu": "RHZE",
+          "English": "RHZE"
+        },
+        "openmrs_concept_name": "RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL",
+        "name": "rhze"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rh"
+        },
+        "label": {
+          "Roman Urdu": "RH",
+          "English": "RH"
+        },
+        "openmrs_concept_name": "RIFAMPICIN AND ISONIAZID",
+        "name": "rh"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhe"
+        },
+        "label": {
+          "Roman Urdu": "RHE",
+          "English": "RHE"
+        },
+        "openmrs_concept_name": "rifampicin isoniazid and ethambutol",
+        "name": "rhe"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhzes"
+        },
+        "label": {
+          "Roman Urdu": "RHZES",
+          "English": "RHZES"
+        },
+        "openmrs_concept_name": "STREPTOMYCIN/RIFAMPICIN/ISONIAZID/PYRAZINAMIDE/ETHAMBUTOL PROPHYLAXIS",
+        "name": "rhzes"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
+    "eptb_site": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: pleural eptb"
+        },
+        "label": {
+          "Roman Urdu": "Pleural Effusion",
+          "English": "Pleural Effusion"
+        },
+        "openmrs_concept_name": "Tuberculous pleural effusion",
+        "name": "pleura"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: spinal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Spine",
+          "English": "Spine"
+        },
+        "openmrs_concept_name": "Tuberculosis of spinal cord",
+        "name": "spine"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: lymphadenitis eptb"
+        },
+        "label": {
+          "Roman Urdu": "Lymph Node",
+          "English": "Lymph Node"
+        },
+        "openmrs_concept_name": "Cervical Tuberculous Lymphadenitis",
+        "name": "lymph"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: abdominal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Abdomen",
+          "English": "Abdomen"
+        },
+        "openmrs_concept_name": "Abdominal tuberculosis",
+        "name": "abdomen"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: cns eptb"
+        },
+        "label": {
+          "Roman Urdu": "CNS (includes meningeal, brain)",
+          "English": "CNS (includes meningeal, brain)"
+        },
+        "openmrs_concept_name": "Tuberculosis of Central Nervous System",
+        "name": "cns"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: renal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Renal",
+          "English": "Renal"
+        },
+        "openmrs_concept_name": "Tuberculosis of Kidney",
+        "name": "renal"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: bone eptb"
+        },
+        "label": {
+          "Roman Urdu": "Bones",
+          "English": "Bones"
+        },
+        "openmrs_concept_name": "Bone Tuberculosis",
+        "name": "bones"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: genitourinary eptb"
+        },
+        "label": {
+          "Roman Urdu": "Genitourinary",
+          "English": "Genitourinary"
+        },
+        "openmrs_concept_name": "Genitourinary Tuberculosis",
+        "name": "genitourinary"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
+    "gender": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: male"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;",
+        "name": "male",
+        "openmrs_concept_name": "male gender",
+        "label": {
+          "Roman Urdu": "Mard/larka",
+          "English": "Male"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: female"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;",
+        "name": "female",
+        "openmrs_concept_name": "female gender",
+        "label": {
+          "Roman Urdu": "Aurat/larki",
+          "English": "Female"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: third gender"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' third gender' name, ' third gender' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' third gender' ) LIMIT 1;",
+        "name": "transgender",
+        "openmrs_concept_name": "third gender",
+        "label": {
+          "Roman Urdu": "Khwaja sira",
+          "English": "Transgender"
+        }
+      }
+    ],
+    "patient_type": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: new diagnosis"
+        },
+        "label": {
+          "Roman Urdu": "New Case",
+          "English": "New Case"
+        },
+        "openmrs_concept_name": "New Diagnosis of Tuberculosis",
+        "name": "new"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: relapse"
+        },
+        "label": {
+          "Roman Urdu": "Relapse",
+          "English": "Relapse"
+        },
+        "openmrs_concept_name": "Relapse",
+        "name": "relapse"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: transfer in"
+        },
+        "label": {
+          "Roman Urdu": "Transfer In",
+          "English": "Transfer In"
+        },
+        "openmrs_concept_name": "Transfer In, tuberculosis patient",
+        "name": "transfer _in"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: return after lost to followup"
+        },
+        "label": {
+          "Roman Urdu": "Treatment After Loss to Follow-up",
+          "English": "Treatment After Loss to Follow-up"
+        },
+        "openmrs_concept_name": "Returned After Loss to Follow-up",
+        "name": "after_ltfu"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: treatment after failure"
+        },
+        "label": {
+          "Roman Urdu": "Treatment After Failure",
+          "English": "Treatment After Failure"
+        },
+        "openmrs_concept_name": "Tuberculosis Treatment Failure",
+        "name": "after_failure"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
     "provinces": [
       {
         "name": "kpk",
@@ -62,221 +326,6 @@
         }
       }
     ],
-    "eptb_site": [
-      {
-        "instance": {
-          "openmrs_code": "TBR: pleural eptb"
-        },
-        "label": {
-          "English": "Pleural Effusion"
-        },
-        "openmrs_concept_name": "Tuberculous pleural effusion",
-        "name": "pleura"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: spinal eptb"
-        },
-        "label": {
-          "English": "Spine"
-        },
-        "openmrs_concept_name": "Tuberculosis of spinal cord",
-        "name": "spine"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: lymphadenitis eptb"
-        },
-        "label": {
-          "English": "Lymph Node"
-        },
-        "openmrs_concept_name": "Cervical Tuberculous Lymphadenitis",
-        "name": "lymph"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: abdominal eptb"
-        },
-        "label": {
-          "English": "Abdomen"
-        },
-        "openmrs_concept_name": "Abdominal tuberculosis",
-        "name": "abdomen"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: cns eptb"
-        },
-        "label": {
-          "English": "CNS (includes meningeal, brain)"
-        },
-        "openmrs_concept_name": "Tuberculosis of Central Nervous System",
-        "name": "cns"
-      },
-      {
-        "name": "renal",
-        "label": {
-          "English": "Renal"
-        }
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: bone eptb"
-        },
-        "label": {
-          "English": "Bones"
-        },
-        "openmrs_concept_name": "Bone Tuberculosis",
-        "name": "bones"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: genitourinary eptb"
-        },
-        "label": {
-          "English": "Genitourinary"
-        },
-        "openmrs_concept_name": "Genitourinary Tuberculosis",
-        "name": "genitourinary"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: other"
-        },
-        "label": {
-          "English": "Other"
-        },
-        "openmrs_concept_name": "Other non-coded",
-        "name": "other"
-      }
-    ],
-    "diagnosis": [
-      {
-        "openmrs_concept_name": "x-ray, chest",
-        "name": "x_ray",
-        "label": {
-          "Roman Urdu": "X-ray",
-          "English": "X-ray"
-        }
-      },
-      {
-        "openmrs_concept_name": "SPUTUM FOR ACID FAST BACILLI",
-        "name": "bacteriologically",
-        "label": {
-          "Roman Urdu": "Bacteriologically",
-          "English": "Bacteriologically"
-        }
-      },
-      {
-        "openmrs_concept_name": "CLINICAL SUSPICION",
-        "name": "symptomatically",
-        "label": {
-          "Roman Urdu": "Symptomatically",
-          "English": "Symptomatically"
-        }
-      },
-      {
-        "openmrs_concept_name": "Unknown",
-        "name": "dont_know",
-        "label": {
-          "Roman Urdu": "Pata Nahi",
-          "English": "Don't Know"
-        }
-      },
-      {
-        "openmrs_concept_name": "other",
-        "name": "other",
-        "label": {
-          "Roman Urdu": "Koi aur",
-          "English": "Other"
-        }
-      }
-    ],
-    "gender": [
-      {
-        "name": "male",
-        "label": {
-          "Roman Urdu": "Mard/larka",
-          "English": "Male"
-        }
-      },
-      {
-        "name": "female",
-        "label": {
-          "Roman Urdu": "Aurat/larki",
-          "English": "Female"
-        }
-      },
-      {
-        "name": "transgender",
-        "label": {
-          "Roman Urdu": "Khwaja sira",
-          "English": "Transgender"
-        }
-      }
-    ],
-    "patient_type": [
-      {
-        "instance": {
-          "openmrs_code": "TBR: new diagnosis"
-        },
-        "label": {
-          "English": "New Case"
-        },
-        "openmrs_concept_name": "New Diagnosis of Tuberculosis",
-        "name": "new"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: relapse"
-        },
-        "label": {
-          "English": "Relapse"
-        },
-        "openmrs_concept_name": "Relapse",
-        "name": "relapse"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: transfer in"
-        },
-        "label": {
-          "English": "Transfer In"
-        },
-        "openmrs_concept_name": "Transfer In, tuberculosis patient",
-        "name": "transfer _in"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: return after lost to followup"
-        },
-        "label": {
-          "English": "Treatment After Loss to Follow-up"
-        },
-        "openmrs_concept_name": "Returned After Loss to Follow-up",
-        "name": "after_ltfu"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: treatment after failure"
-        },
-        "label": {
-          "English": "Treatment After Failure"
-        },
-        "openmrs_concept_name": "Tuberculosis Treatment Failure",
-        "name": "after_failure"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: other"
-        },
-        "label": {
-          "English": "Other"
-        },
-        "openmrs_concept_name": "Other non-coded",
-        "name": "other"
-      }
-    ],
     "hiv_results": [
       {
         "instance": {
@@ -305,6 +354,7 @@
           "openmrs_code": "TBR:indeterminate"
         },
         "label": {
+          "Roman Urdu": "Indeterminate",
           "English": "Indeterminate"
         },
         "openmrs_concept_name": "Indeterminate",
@@ -335,66 +385,83 @@
     ],
     "disease_site": [
       {
-        "name": "ptb",
+        "instance": {
+          "openmrs_code": "TBR: ptb"
+        },
         "label": {
+          "Roman Urdu": "Pulmonary",
           "English": "Pulmonary"
-        }
+        },
+        "openmrs_concept_name": "PNEUMONIA, TUBERCULOUS",
+        "name": "ptb"
       },
       {
         "instance": {
           "openmrs_code": "TBR: eptb"
         },
         "label": {
+          "Roman Urdu": "Extra Pulmonary",
           "English": "Extra Pulmonary"
         },
         "openmrs_concept_name": "mycobacterium tuberculosis, extrapulmonary",
         "name": "eptb"
       }
     ],
-    "regimen2": [
+    "diagnosis": [
       {
-        "name": "rhe",
+        "instance": {
+          "openmrs_code": "TBR: x-ray"
+        },
         "label": {
-          "Roman Urdu": "RHE",
-          "English": "RHE"
-        }
+          "Roman Urdu": "X-ray",
+          "English": "X-ray"
+        },
+        "openmrs_concept_name": "x-ray, chest",
+        "name": "x_ray"
       },
       {
-        "name": "rh",
+        "instance": {
+          "openmrs_code": "TBR: afb smear"
+        },
         "label": {
-          "Roman Urdu": "RH",
-          "English": "RH"
-        }
+          "Roman Urdu": "Bacteriologically",
+          "English": "Bacteriologically"
+        },
+        "openmrs_concept_name": "SPUTUM FOR ACID FAST BACILLI",
+        "name": "bacteriologically"
       },
       {
-        "name": "other",
+        "instance": {
+          "openmrs_code": "TBR: clinical suspicion"
+        },
         "label": {
-          "Roman Urdu": "Other",
+          "Roman Urdu": "Symptomatically",
+          "English": "Symptomatically"
+        },
+        "openmrs_concept_name": "CLINICAL SUSPICION",
+        "name": "symptomatically"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: unknown"
+        },
+        "label": {
+          "Roman Urdu": "Pata Nahi",
+          "English": "Don't Know"
+        },
+        "openmrs_concept_name": "Unknown",
+        "name": "dont_know"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Koi aur",
           "English": "Other"
-        }
-      }
-    ],
-    "regimen1": [
-      {
-        "name": "rhzes",
-        "label": {
-          "Roman Urdu": "RHZES",
-          "English": "RHZES"
-        }
-      },
-      {
-        "name": "rhze",
-        "label": {
-          "Roman Urdu": "RHZE",
-          "English": "RHZE"
-        }
-      },
-      {
-        "name": "other",
-        "label": {
-          "Roman Urdu": "Other",
-          "English": "Other"
-        }
+        },
+        "openmrs_concept_name": "other",
+        "name": "other"
       }
     ],
     "ucs": [
@@ -3009,18 +3076,26 @@
     ],
     "tx_phase": [
       {
-        "name": "continuation",
+        "instance": {
+          "openmrs_code": "TBR: continuation phase"
+        },
         "label": {
           "Roman Urdu": "Continuation",
           "English": "Continuation"
-        }
+        },
+        "openmrs_concept_name": "continuation phase, tuberculosis treatment",
+        "name": "continuation"
       },
       {
-        "name": "intensive",
+        "instance": {
+          "openmrs_code": "TBR: intensive phase"
+        },
         "label": {
           "Roman Urdu": "Intensive",
           "English": "Intensive"
-        }
+        },
+        "openmrs_concept_name": "initial phase, tuberculosis treatment",
+        "name": "intensive"
       }
     ],
     "yes_no": [
@@ -3065,16 +3140,19 @@
           "openmrs_code": "TBR:refused"
         },
         "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;",
-        "name": "refuse",
+        "name": "refused",
         "openmrs_concept_name": "Refused",
         "label": {
           "Roman Urdu": "Jawab nahi dena",
-          "English": "Refuse"
+          "English": "Refused"
         }
       }
     ]
   },
-  "version": "201801110804",
+  "instance": {
+    "encounter_type": "intreatment TB patient"
+  },
+  "version": "201801230716",
   "id_string": "add_intx_pt",
   "type": "survey",
   "children": [
@@ -3168,7 +3246,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR:phone number",
+        "openmrs_entity_id": "TBR:sim number",
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -3191,13 +3269,18 @@
     },
     {
       "label": {
+        "Roman Urdu": "TB Treatment Information",
         "English": "TB Treatment Information"
       },
       "type": "group",
       "children": [
         {
+          "instance": {
+            "openmrs_entity_id": "TBR: treatment start date",
+            "openmrs_entity": "concept"
+          },
           "type": "date",
-          "name": "date_treatment",
+          "name": "treatment_initiation_date",
           "label": {
             "Roman Urdu": "Ilaaj shuru honey ki tareeq",
             "English": "Treatement initiation date"
@@ -3215,8 +3298,12 @@
           "type": "select one",
           "children": [
             {
+              "instance": {
+                "openmrs_code": "TBR: ptb"
+              },
               "name": "ptb",
               "label": {
+                "Roman Urdu": "Pulmonary",
                 "English": "Pulmonary"
               }
             },
@@ -3226,6 +3313,7 @@
               },
               "name": "eptb",
               "label": {
+                "Roman Urdu": "Extra Pulmonary",
                 "English": "Extra Pulmonary"
               }
             }
@@ -3245,6 +3333,7 @@
             "English": "EP TB Disease Site"
           },
           "instance": {
+            "openmrs_entity_id": "TBR: tb diagnosis",
             "openmrs_entity": "concept"
           },
           "type": "select one",
@@ -3255,6 +3344,7 @@
               },
               "name": "pleura",
               "label": {
+                "Roman Urdu": "Pleural Effusion",
                 "English": "Pleural Effusion"
               }
             },
@@ -3264,6 +3354,7 @@
               },
               "name": "spine",
               "label": {
+                "Roman Urdu": "Spine",
                 "English": "Spine"
               }
             },
@@ -3273,6 +3364,7 @@
               },
               "name": "lymph",
               "label": {
+                "Roman Urdu": "Lymph Node",
                 "English": "Lymph Node"
               }
             },
@@ -3282,6 +3374,7 @@
               },
               "name": "abdomen",
               "label": {
+                "Roman Urdu": "Abdomen",
                 "English": "Abdomen"
               }
             },
@@ -3291,12 +3384,17 @@
               },
               "name": "cns",
               "label": {
+                "Roman Urdu": "CNS (includes meningeal, brain)",
                 "English": "CNS (includes meningeal, brain)"
               }
             },
             {
+              "instance": {
+                "openmrs_code": "TBR: renal eptb"
+              },
               "name": "renal",
               "label": {
+                "Roman Urdu": "Renal",
                 "English": "Renal"
               }
             },
@@ -3306,6 +3404,7 @@
               },
               "name": "bones",
               "label": {
+                "Roman Urdu": "Bones",
                 "English": "Bones"
               }
             },
@@ -3315,6 +3414,7 @@
               },
               "name": "genitourinary",
               "label": {
+                "Roman Urdu": "Genitourinary",
                 "English": "Genitourinary"
               }
             },
@@ -3324,6 +3424,7 @@
               },
               "name": "other",
               "label": {
+                "Roman Urdu": "Other",
                 "English": "Other"
               }
             }
@@ -3376,6 +3477,7 @@
               },
               "name": "new",
               "label": {
+                "Roman Urdu": "New Case",
                 "English": "New Case"
               }
             },
@@ -3385,6 +3487,7 @@
               },
               "name": "relapse",
               "label": {
+                "Roman Urdu": "Relapse",
                 "English": "Relapse"
               }
             },
@@ -3394,6 +3497,7 @@
               },
               "name": "transfer _in",
               "label": {
+                "Roman Urdu": "Transfer In",
                 "English": "Transfer In"
               }
             },
@@ -3403,6 +3507,7 @@
               },
               "name": "after_ltfu",
               "label": {
+                "Roman Urdu": "Treatment After Loss to Follow-up",
                 "English": "Treatment After Loss to Follow-up"
               }
             },
@@ -3412,6 +3517,7 @@
               },
               "name": "after_failure",
               "label": {
+                "Roman Urdu": "Treatment After Failure",
                 "English": "Treatment After Failure"
               }
             },
@@ -3421,13 +3527,30 @@
               },
               "name": "other",
               "label": {
+                "Roman Urdu": "Other",
                 "English": "Other"
               }
             }
           ],
-          "name": "patient_type"
+          "name": "category"
         },
         {
+          "instance": {
+            "openmrs_entity_id": "TBR: tb evaluation month",
+            "openmrs_entity": "concept"
+          },
+          "type": "text",
+          "name": "month",
+          "label": {
+            "Roman Urdu": "Kitney mahiney se ilaaj jari hai",
+            "English": "Treatment Month"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: treatment phase",
+            "openmrs_entity": "concept"
+          },
           "label": {
             "Roman Urdu": "Phase",
             "English": "Treatment Phase"
@@ -3435,6 +3558,9 @@
           "type": "select one",
           "children": [
             {
+              "instance": {
+                "openmrs_code": "TBR: continuation phase"
+              },
               "name": "continuation",
               "label": {
                 "Roman Urdu": "Continuation",
@@ -3442,6 +3568,9 @@
               }
             },
             {
+              "instance": {
+                "openmrs_code": "TBR: intensive phase"
+              },
               "name": "intensive",
               "label": {
                 "Roman Urdu": "Intensive",
@@ -3452,93 +3581,29 @@
           "name": "treatment_phase"
         },
         {
-          "name": "treatment_regimen1",
-          "bind": {
-            "relevant": "${treatment_phase}='intensive'"
-          },
+          "name": "treatment_regimen",
+          "choice_filter": "( (name = 'rhzes' or name = 'rhze') and ${treatment_phase} = 'intensive' ) or \n( (name = 'rhe' or name = 'rh') and ${treatment_phase} = 'continuation' ) or \nname = 'other'",
           "label": {
-            "Roman Urdu": "Intensive Phase Regimen",
-            "English": "Intensive Phase Regimen"
+            "Roman Urdu": "Regimen",
+            "English": "Regimen"
           },
+          "itemset": "regimen",
           "instance": {
+            "openmrs_entity_id": "TBR: regimen",
             "openmrs_entity": "concept"
           },
-          "type": "select one",
-          "children": [
-            {
-              "name": "rhzes",
-              "label": {
-                "Roman Urdu": "RHZES",
-                "English": "RHZES"
-              }
-            },
-            {
-              "name": "rhze",
-              "label": {
-                "Roman Urdu": "RHZE",
-                "English": "RHZE"
-              }
-            },
-            {
-              "name": "other",
-              "label": {
-                "Roman Urdu": "Other",
-                "English": "Other"
-              }
-            }
-          ]
+          "type": "select one"
         },
         {
-          "bind": {
-            "relevant": "${treatment_phase}='continuation'"
+          "instance": {
+            "openmrs_entity_id": "TBR:other specify text",
+            "openmrs_entity": "concept"
           },
-          "label": {
-            "Roman Urdu": "Continuation Phase Regimen",
-            "English": "Continuation Phase Regimen"
-          },
-          "type": "select one",
-          "children": [
-            {
-              "name": "rhe",
-              "label": {
-                "Roman Urdu": "RHE",
-                "English": "RHE"
-              }
-            },
-            {
-              "name": "rh",
-              "label": {
-                "Roman Urdu": "RH",
-                "English": "RH"
-              }
-            },
-            {
-              "name": "other",
-              "label": {
-                "Roman Urdu": "Other",
-                "English": "Other"
-              }
-            }
-          ],
-          "name": "treatment_regimen2"
-        },
-        {
           "bind": {
-            "relevant": "${treatment_regimen1}='other'"
+            "relevant": "${treatment_regimen}='other'"
           },
           "type": "text",
-          "name": "regimen_oth1",
-          "label": {
-            "Roman Urdu": "Other",
-            "English": "Other"
-          }
-        },
-        {
-          "bind": {
-            "relevant": "${treatment_regimen2}='other'"
-          },
-          "type": "text",
-          "name": "regimen_oth2",
+          "name": "regimen_oth",
           "label": {
             "Roman Urdu": "Other",
             "English": "Other"
@@ -3549,6 +3614,7 @@
     },
     {
       "label": {
+        "Roman Urdu": "Mareez Ki Malumaat",
         "English": "Patient Information"
       },
       "type": "group",
@@ -3568,8 +3634,19 @@
           "type": "text",
           "name": "participant_id",
           "label": {
-            "Roman Urdu": "ID",
+            "Roman Urdu": "Participant ID",
             "English": "Participant ID"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity": "person_identifier"
+          },
+          "type": "text",
+          "name": "program_id",
+          "label": {
+            "Roman Urdu": "Program ID",
+            "English": "Program ID"
           }
         },
         {
@@ -3583,7 +3660,7 @@
           "type": "text",
           "name": "first_name",
           "label": {
-            "Roman Urdu": "Naam",
+            "Roman Urdu": "Mareez ka Naam",
             "English": "First Name"
           }
         },
@@ -3595,7 +3672,19 @@
           "type": "text",
           "name": "last_name",
           "label": {
+            "Roman Urdu": "Walid ya Shohar ka naam",
             "English": "Last Name"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity": "person"
+          },
+          "type": "text",
+          "name": "national_id",
+          "label": {
+            "Roman Urdu": "National Identification Number",
+            "English": "National Identification Number"
           }
         },
         {
@@ -3611,6 +3700,7 @@
             "constraint": ". >0 and . <=150"
           },
           "label": {
+            "Roman Urdu": "Umar",
             "English": "Current Age"
           },
           "instance": {
@@ -3632,12 +3722,16 @@
           }
         },
         {
-          "default": "yes",
-          "bind": {
-            "relevant": "${age}!=''"
+          "default": "1",
+          "instance": {
+            "openmrs_entity_id": "birthdate_estimated",
+            "openmrs_entity": "person"
           },
           "type": "hidden",
-          "name": "birthdate_estimated"
+          "name": "birthdate_estimated",
+          "bind": {
+            "relevant": "${age}!=''"
+          }
         },
         {
           "name": "gender",
@@ -3655,6 +3749,9 @@
           "type": "select one",
           "children": [
             {
+              "instance": {
+                "openmrs_code": "TBR: male"
+              },
               "name": "male",
               "label": {
                 "Roman Urdu": "Mard/larka",
@@ -3662,6 +3759,9 @@
               }
             },
             {
+              "instance": {
+                "openmrs_code": "TBR: female"
+              },
               "name": "female",
               "label": {
                 "Roman Urdu": "Aurat/larki",
@@ -3669,6 +3769,9 @@
               }
             },
             {
+              "instance": {
+                "openmrs_code": "TBR: third gender"
+              },
               "name": "transgender",
               "label": {
                 "Roman Urdu": "Khwaja sira",
@@ -3703,6 +3806,7 @@
         },
         {
           "instance": {
+            "openmrs_entity_id": "TBR: body mass index",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -3764,10 +3868,10 @@
               "instance": {
                 "openmrs_code": "TBR:refused"
               },
-              "name": "refuse",
+              "name": "refused",
               "label": {
                 "Roman Urdu": "Jawab nahi dena",
-                "English": "Refuse"
+                "English": "Refused"
               }
             }
           ]
@@ -3833,6 +3937,7 @@
               },
               "name": "indeterminate",
               "label": {
+                "Roman Urdu": "Indeterminate",
                 "English": "Indeterminate"
               }
             },
@@ -4054,7 +4159,7 @@
     },
     {
       "label": {
-        "Roman Urdu": "Agli Tareeq 30 din baad?",
+        "Roman Urdu": "Agli Tareeq 30 din baad deni hai?",
         "English": "Next Appointment after 30 days?"
       },
       "type": "select one",
@@ -4093,29 +4198,25 @@
           "instance": {
             "openmrs_code": "TBR:refused"
           },
-          "name": "refuse",
+          "name": "refused",
           "label": {
             "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
+            "English": "Refused"
           }
         }
       ],
       "name": "fu_visit"
     },
     {
-      "instance": {
-        "openmrs_entity_id": "TBR: return visit date",
-        "openmrs_entity": "concept"
-      },
       "bind": {
         "relevant": "${fu_visit}='yes'",
-        "calculate": "format-date(date(${today} + 30),'%Y-%m-%d')"
+        "calculate": "format-date(date-time(decimal-date-time(${treatment_initiation_date})+30),'%Y-%m-%d')"
       },
       "type": "calculate",
-      "name": "next_visit_date",
+      "name": "visit_date",
       "label": {
-        "Roman Urdu": "Aagli Tareeq",
-        "English": "Next Visit Date"
+        "Roman Urdu": "Agar haan, tou aagli tareeq yeh hai",
+        "English": "30 Days Appointment Date"
       }
     },
     {
@@ -4125,8 +4226,53 @@
       "type": "date",
       "name": "fu_visit_date",
       "label": {
+        "Roman Urdu": "Aagli Tareeq Daley",
+        "English": "Entet Next Visit Date"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR: next visit date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "calculate": "if(${fu_visit}='yes', ${visit_date}, ${fu_visit_date})"
+      },
+      "type": "calculate",
+      "name": "next_visit_date",
+      "label": {
         "Roman Urdu": "Aagli Tareeq",
         "English": "Next Visit Date"
+      }
+    },
+    {
+      "type": "note",
+      "name": "next_visit_date_note",
+      "label": {
+        "Roman Urdu": "Next Visit Date ${next_visit_date}",
+        "English": "Next Visit Date ${next_visit_date}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR: smear due date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "calculate": "if(${category} = 'cat i', \n(\nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 6, format-date(date(${treatment_initiation_date} + 174),'%Y-%m-%d'), 'not due at the moment') \n)\n),\n(\nif(${month} = 3, format-date(date(${treatment_initiation_date} + 84),'%Y-%m-%d'), \nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 8, format-date(date(${treatment_initiation_date} + 204),'%Y-%m-%d'), 'not due at the moment')\n) \n)\n)\n)"
+      },
+      "type": "calculate",
+      "name": "smear_due_date",
+      "label": {
+        "English": "Next Smear Due Date"
+      }
+    },
+    {
+      "type": "note",
+      "name": "next_smear_due_date_note",
+      "label": {
+        "Roman Urdu": "Next Smear Due Date ${smear_due_date}",
+        "English": "Next Smear Due Date ${smear_due_date}"
       }
     },
     {

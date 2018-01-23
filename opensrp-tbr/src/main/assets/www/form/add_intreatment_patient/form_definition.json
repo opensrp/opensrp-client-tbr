@@ -74,8 +74,8 @@
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/client_reg_date"
       },
       {
-        "name": "date_treatment",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/date_treatment"
+        "name": "treatment_initiation_date",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_initiation_date"
       },
       {
         "name": "site_of_disease",
@@ -94,25 +94,24 @@
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/registry_number"
       },
       {
-        "name": "patient_type",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/patient_type"
-      },{
+        "name": "category",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/category"
+      },
+      {
+        "name": "month",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/month"
+      },
+      {
         "name": "treatment_phase",
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
       },
       {
-        "name": "treatment_regimen1",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_regimen1"
+        "name": "treatment_regimen",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_regimen"
       },
       {
-        "name": "treatment_regimen2",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_regimen2"
-      },{
-        "name": "regimen_oth1",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/regimen_oth1"
-      },{
-        "name": "regimen_oth2",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/regimen_oth2"
+        "name": "regimen_oth",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/diagnosis/regimen_oth"
       },
       {
         "name": "participant_id",
@@ -125,6 +124,14 @@
       {
         "name": "last_name",
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/last_name"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/program_id"
+      },
+      {
+        "name": "national_id",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/national_id"
       },
       {
         "name": "age",
@@ -199,12 +206,24 @@
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/fu_visit"
       },
       {
+        "name": "fu_visit_date",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/fu_visit_date"
+      },
+      {
         "name": "next_visit_date",
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/next_visit_date"
       },
       {
-        "name": "fu_visit_date",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/fu_visit_date"
+        "name": "next_visit_date_note",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/next_visit_date_note"
+      },
+      {
+        "name": "smear_due_date",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/smear_due_date"
+      },
+      {
+        "name": "next_smear_due_date_note",
+        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/next_smear_due_date_note"
       },
       {
         "name": "comments",

@@ -109,15 +109,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: return visit date"
-          }
-        },
-        {
-          "column_name": "fu_visit_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "fu_visit_date"
+            "concept": "TBR: next visit date"
           }
         },
         {
@@ -125,7 +117,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "smear_due_date"
+            "concept": "TBR: smear due date"
           }
         }
       ]

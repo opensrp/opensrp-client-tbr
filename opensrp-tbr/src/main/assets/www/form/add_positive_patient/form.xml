@@ -155,6 +155,18 @@
         </span>
     </label>
     <label class="question non-select ">
+        <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/program_id:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/program_id:label"
+            lang="openmrs_code">-
+        </span>
+        <span class="question-label active" data-itext-id="/AddPositivePt_11.01.18/program_id:label"
+            lang="en">Program ID
+        </span>
+        <input name="/AddPositivePt_11.01.18/program_id" data-type-xml="string" type="text" />
+    </label>
+    <label class="question non-select ">
         <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/first_name:label"
             lang="Roman Urdu">Naam
         </span>
@@ -173,7 +185,7 @@
     </label>
     <label class="question non-select ">
         <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/last_name:label"
-            lang="Roman Urdu">-
+            lang="Roman Urdu">Walid ya shohar ka naam
         </span>
         <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/last_name:label"
             lang="openmrs_code">-
@@ -184,8 +196,20 @@
         <input name="/AddPositivePt_11.01.18/last_name" data-type-xml="string" type="text" />
     </label>
     <label class="question non-select ">
+        <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/national_id:label"
+            lang="Roman Urdu">National Identification Number
+        </span>
+        <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/national_id:label"
+            lang="openmrs_code">-
+        </span>
+        <span class="question-label active" data-itext-id="/AddPositivePt_11.01.18/national_id:label"
+            lang="en">National Identification Number
+        </span>
+        <input name="/AddPositivePt_11.01.18/national_id" data-type-xml="string" type="text" />
+    </label>
+    <label class="question non-select ">
         <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/age:label"
-            lang="Roman Urdu">-
+            lang="Roman Urdu">Umar
         </span>
         <span class="question-label " data-itext-id="/AddPositivePt_11.01.18/age:label"
             lang="openmrs_code">-
@@ -496,7 +520,6 @@
             <option value="">...</option>
             <option value="cured">Cured</option>
             <option value="defaulted">Defaulted</option>
-            <option value="died">Died</option>
             <option value="treatment_completed">Treatment Completed</option>
             <option value="transferred_out">Transferred out</option>
             <option value="still_on_treatment">Still on treatment</option>
@@ -511,9 +534,6 @@
             <span data-option-value="defaulted" lang="Roman Urdu">pehley se the shuda</span>
             <span data-option-value="defaulted" lang="openmrs_code">-</span>
             <span data-option-value="defaulted" lang="en">Defaulted</span>
-            <span data-option-value="died" lang="Roman Urdu">Intiqal</span>
-            <span data-option-value="died" lang="openmrs_code">-</span>
-            <span data-option-value="died" lang="en">Died</span>
             <span data-option-value="treatment_completed" lang="Roman Urdu">Ilaaj mukammal ho gaya
                 hay
             </span>
@@ -667,7 +687,7 @@
             <span data-option-value="positive" lang="Roman Urdu">Positive</span>
             <span data-option-value="positive" lang="openmrs_code">-</span>
             <span data-option-value="positive" lang="en">HIV Positive</span>
-            <span data-option-value="indeterminate" lang="Roman Urdu">-</span>
+            <span data-option-value="indeterminate" lang="Roman Urdu">Indeterminate</span>
             <span data-option-value="indeterminate" lang="openmrs_code">-</span>
             <span data-option-value="indeterminate" lang="en">Indeterminate</span>
             <span data-option-value="dont_know" lang="Roman Urdu">Pata Nahi</span>

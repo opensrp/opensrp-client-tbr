@@ -84,6 +84,14 @@
       {
         "name": "participant_id",
         "bind": "/model/instance/AddPositivePt_11.01.18/participant_id"
+      },,
+      {
+        "name": "program_id",
+        "bind": "/model/instance/AddPositivePt_11.01.18/program_id"
+      },
+      {
+        "name": "national_id",
+        "bind": "/model/instance/AddPositivePt_11.01.18/national_id"
       },
       {
         "name": "first_name",

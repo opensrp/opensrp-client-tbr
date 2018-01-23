@@ -2,7 +2,7 @@
     <instance>
         <Add_InTreatment_Pt_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="intreatment TB patient"
-            id="add_intx_pt" version="201801110804">
+            id="add_intx_pt" version="201801230716">
             <formhub>
                 <uuid />
             </formhub>
@@ -20,29 +20,30 @@
             <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
             <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
-            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <diagnosis>
-                <date_treatment openmrs_entity="concept"
+                <treatment_initiation_date openmrs_entity="concept"
                     openmrs_entity_id="TBR: treatment start date" />
                 <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR: tb type" />
-                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="eptb" />
+                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis" />
                 <other_eptb_site openmrs_entity="concept"
                     openmrs_entity_id="TBR:other specify text" />
                 <registry_number openmrs_entity="concept"
                     openmrs_entity_id="TBR: tb registry number" />
-                <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
-                <treatment_phase />
-                <treatment_regimen1 openmrs_entity="concept"
-                    openmrs_entity_id="TBR: treatment regimen" />
-                <treatment_regimen2 />
-                <regimen_oth1 />
-                <regimen_oth2 />
+                <category openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
+                <month openmrs_entity="concept" openmrs_entity_id="TBR: tb evaluation month" />
+                <treatment_phase openmrs_entity="concept"
+                    openmrs_entity_id="TBR: treatment phase" />
+                <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+                <regimen_oth openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" />
             </diagnosis>
             <patient_info>
                 <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+                <program_id />
                 <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
                 <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+                <national_id />
                 <age openmrs_entity="person" openmrs_entity_id="age" />
                 <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
                 <birthdate_estimated openmrs_entity="person"
@@ -51,7 +52,7 @@
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
                 <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
                 <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
-                <bmi openmrs_entity="concept" openmrs_entity_id="bmi" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="TBR: body mass index" />
                 <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
                 <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
                 <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
@@ -70,47 +71,47 @@
                 <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text" />
             </patient_info>
             <fu_visit />
-            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: return visit date" />
+            <visit_date />
             <fu_visit_date />
+            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: next visit date" />
+            <next_visit_date_note />
+            <smear_due_date openmrs_entity="concept" openmrs_entity_id="TBR: smear due date" />
+            <next_smear_due_date_note />
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             <meta>
                 <instanceID />
             </meta>
         </Add_InTreatment_Pt_11.01.18>
     </instance>
-    <instance id="provinces">
+    <instance id="regimen">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
-                <itextId>static_instance-provinces-0</itextId>
-                <name>kpk</name>
+                <itextId>static_instance-regimen-0</itextId>
+                <openmrs_concept_name>RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL
+                </openmrs_concept_name>
+                <name>rhze</name>
             </item>
             <item>
-                <itextId>static_instance-provinces-1</itextId>
-                <name>sindh</name>
+                <itextId>static_instance-regimen-1</itextId>
+                <openmrs_concept_name>RIFAMPICIN AND ISONIAZID</openmrs_concept_name>
+                <name>rh</name>
             </item>
             <item>
-                <itextId>static_instance-provinces-2</itextId>
-                <name>balochistan</name>
+                <itextId>static_instance-regimen-2</itextId>
+                <openmrs_concept_name>rifampicin isoniazid and ethambutol</openmrs_concept_name>
+                <name>rhe</name>
             </item>
             <item>
-                <itextId>static_instance-provinces-3</itextId>
-                <name>punjab</name>
+                <itextId>static_instance-regimen-3</itextId>
+                <openmrs_concept_name>STREPTOMYCIN/RIFAMPICIN/ISONIAZID/PYRAZINAMIDE/ETHAMBUTOL
+                    PROPHYLAXIS
+                </openmrs_concept_name>
+                <name>rhzes</name>
             </item>
             <item>
-                <itextId>static_instance-provinces-4</itextId>
-                <name>gilgit_baltistan</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-5</itextId>
-                <name>kashmir</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-6</itextId>
-                <name>fata</name>
-            </item>
-            <item>
-                <itextId>static_instance-provinces-7</itextId>
-                <name>out_of_country</name>
+                <itextId>static_instance-regimen-4</itextId>
+                <openmrs_concept_name>Other non-coded</openmrs_concept_name>
+                <name>other</name>
             </item>
         </root>
     </instance>
@@ -143,6 +144,7 @@
             </item>
             <item>
                 <itextId>static_instance-eptb_site-5</itextId>
+                <openmrs_concept_name>Tuberculosis of Kidney</openmrs_concept_name>
                 <name>renal</name>
             </item>
             <item>
@@ -162,35 +164,44 @@
             </item>
         </root>
     </instance>
-    <instance id="regimen1">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-regimen1-0</itextId>
-                <name>rhzes</name>
-            </item>
-            <item>
-                <itextId>static_instance-regimen1-1</itextId>
-                <name>rhze</name>
-            </item>
-            <item>
-                <itextId>static_instance-regimen1-2</itextId>
-                <name>other</name>
-            </item>
-        </root>
-    </instance>
     <instance id="gender">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-gender-0</itextId>
                 <name>male</name>
+                <openmrs_concept_name>male gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-gender-1</itextId>
                 <name>female</name>
+                <openmrs_concept_name>female gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-gender-2</itextId>
                 <name>transgender</name>
+                <openmrs_concept_name>third gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' third gender' name, ' third
+                    gender' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT
+                    EXISTS ( SELECT code FROM concept_reference_term WHERE code = ' third gender' )
+                    LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>
@@ -228,6 +239,42 @@
             </item>
         </root>
     </instance>
+    <instance id="provinces">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-provinces-0</itextId>
+                <name>kpk</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-1</itextId>
+                <name>sindh</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-2</itextId>
+                <name>balochistan</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-3</itextId>
+                <name>punjab</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-4</itextId>
+                <name>gilgit_baltistan</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-5</itextId>
+                <name>kashmir</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-6</itextId>
+                <name>fata</name>
+            </item>
+            <item>
+                <itextId>static_instance-provinces-7</itextId>
+                <name>out_of_country</name>
+            </item>
+        </root>
+    </instance>
     <instance id="hiv_results">
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
@@ -261,6 +308,7 @@
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-disease_site-0</itextId>
+                <openmrs_concept_name>PNEUMONIA, TUBERCULOUS</openmrs_concept_name>
                 <name>ptb</name>
             </item>
             <item>
@@ -268,22 +316,6 @@
                 <openmrs_concept_name>mycobacterium tuberculosis, extrapulmonary
                 </openmrs_concept_name>
                 <name>eptb</name>
-            </item>
-        </root>
-    </instance>
-    <instance id="regimen2">
-        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
-            <item>
-                <itextId>static_instance-regimen2-0</itextId>
-                <name>rhe</name>
-            </item>
-            <item>
-                <itextId>static_instance-regimen2-1</itextId>
-                <name>rh</name>
-            </item>
-            <item>
-                <itextId>static_instance-regimen2-2</itextId>
-                <name>other</name>
             </item>
         </root>
     </instance>
@@ -2144,10 +2176,13 @@
         <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-tx_phase-0</itextId>
+                <openmrs_concept_name>continuation phase, tuberculosis treatment
+                </openmrs_concept_name>
                 <name>continuation</name>
             </item>
             <item>
                 <itextId>static_instance-tx_phase-1</itextId>
+                <openmrs_concept_name>initial phase, tuberculosis treatment</openmrs_concept_name>
                 <name>intensive</name>
             </item>
         </root>
@@ -2192,7 +2227,7 @@
             </item>
             <item>
                 <itextId>static_instance-yes_no-3</itextId>
-                <name>refuse</name>
+                <name>refused</name>
                 <openmrs_concept_name>Refused</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
                     (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,

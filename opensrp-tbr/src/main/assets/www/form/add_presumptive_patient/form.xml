@@ -39,14 +39,15 @@
                 lang="openmrs_code">-
             </span>
             <span class="question-label active" data-itext-id="/ScreeningForm_11.01.18/screening_symptom:label"
-                lang="en">TB Symtom Screening
+                lang="en">TB Symptom Screening
             </span>
         </h4>
         <fieldset class="question simple-select ">
             <fieldset>
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough:label"
-                        lang="Roman Urdu">-
+                        lang="Roman Urdu">Kya
+                        aapko khaasi hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough:label"
                         lang="openmrs_code">-
@@ -134,7 +135,8 @@
         </fieldset>
         <label class="question or-branch pre-init non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough_duration:label"
-                lang="Roman Urdu">-
+                lang="Roman Urdu">Agar
+                haan, kab se?
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough_duration:label"
                 lang="openmrs_code">-
@@ -166,7 +168,7 @@
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough_phlegm:label"
                         lang="Roman Urdu">
-                        -
+                        Kya aapki khaasi mein balgam ati hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/cough_phlegm:label"
                         lang="openmrs_code">
@@ -266,7 +268,7 @@
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/haemoptysis:label"
                         lang="Roman Urdu">
-                        -
+                        Kya aapki khaasi mein khoon ata hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/haemoptysis:label"
                         lang="openmrs_code">
@@ -365,7 +367,8 @@
             <fieldset>
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/chest_pain:label"
-                        lang="Roman Urdu">-
+                        lang="Roman Urdu">
+                        Kya aapko seeney mein dard mehsoos hota hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/chest_pain:label"
                         lang="openmrs_code">-
@@ -458,7 +461,7 @@
         <label class="question or-branch pre-init non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/chest_pain_duration:label"
                 lang="Roman Urdu">
-                -
+                Agar haan, kab se?
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/chest_pain_duration:label"
                 lang="openmrs_code">
@@ -491,7 +494,8 @@
             <fieldset>
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/fever:label"
-                        lang="Roman Urdu">-
+                        lang="Roman Urdu">Kya
+                        aapko bhukar hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/fever:label"
                         lang="openmrs_code">-
@@ -579,7 +583,8 @@
         </fieldset>
         <label class="question or-branch pre-init non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/fever_duration:label"
-                lang="Roman Urdu">-
+                lang="Roman Urdu">Agar
+                haan, kab se?
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/fever_duration:label"
                 lang="openmrs_code">-
@@ -611,7 +616,7 @@
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/night_sweats:label"
                         lang="Roman Urdu">
-                        -
+                        Kya aapko thandey paseeney atey hain?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/night_sweats:label"
                         lang="openmrs_code">
@@ -706,7 +711,7 @@
         <label class="question or-branch pre-init non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/night_sweats_duration:label"
                 lang="Roman Urdu">
-                -
+                Agar haan, kab se?
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/night_sweats_duration:label"
                 lang="openmrs_code">
@@ -742,7 +747,7 @@
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/weight_loss:label"
                         lang="Roman Urdu">
-                        -
+                        Kya aapka wazan bohut tezi se gir raha hai?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/weight_loss:label"
                         lang="openmrs_code">
@@ -838,7 +843,7 @@
                 <legend>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other:label"
                         lang="Roman Urdu">
-                        -
+                        Kya aapko koi aur alamaat hain?
                     </span>
                     <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other:label"
                         lang="openmrs_code">
@@ -846,7 +851,7 @@
                     </span>
                     <span class="question-label active" data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other:label"
                         lang="en">
-                        Do you currently have any other symtoms(s)?
+                        Do you currently have any other symptoms(s)?
                     </span>
                     <span class="required">*</span>
                 </legend>
@@ -932,7 +937,7 @@
         <label class="question or-branch pre-init non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other_specify:label"
                 lang="Roman Urdu">
-                -
+                Agar haan, konsi?
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other_specify:label"
                 lang="openmrs_code">
@@ -940,7 +945,7 @@
             </span>
             <span class="question-label active" data-itext-id="/ScreeningForm_11.01.18/screening_symptom/symptoms_other_specify:label"
                 lang="en">
-                If yes, what symtom(s)?
+                If yes, what symptom(s)?
             </span>
             <input name="/ScreeningForm_11.01.18/screening_symptom/symptoms_other_specify"
                 data-relevant=" /ScreeningForm_11.01.18/screening_symptom/symptoms_other  = 'yes'"
@@ -963,7 +968,7 @@
         </h4>
         <label class="question non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/demographic_info/age:label"
-                lang="Roman Urdu">-
+                lang="Roman Urdu">Umar
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/demographic_info/age:label"
                 lang="openmrs_code">-
@@ -1103,7 +1108,8 @@
         </label>
         <label class="question non-select ">
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/last_name:label"
-                lang="Roman Urdu">-
+                lang="Roman Urdu">Walid ya
+                shohar ka naam
             </span>
             <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/last_name:label"
                 lang="openmrs_code">-
@@ -1144,6 +1150,34 @@
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/program_id:label"
+                lang="Roman Urdu">Program ID
+            </span>
+            <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/program_id:label"
+                lang="openmrs_code">-
+            </span>
+            <span class="question-label active" data-itext-id="/ScreeningForm_11.01.18/presumptive_info/program_id:label"
+                lang="en">Program ID
+            </span>
+            <input name="/ScreeningForm_11.01.18/presumptive_info/program_id" data-type-xml="string"
+                type="text" />
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/national_id:label"
+                lang="Roman Urdu">National
+                Identification Number
+            </span>
+            <span class="question-label " data-itext-id="/ScreeningForm_11.01.18/presumptive_info/national_id:label"
+                lang="openmrs_code">-
+            </span>
+            <span class="question-label active" data-itext-id="/ScreeningForm_11.01.18/presumptive_info/national_id:label"
+                lang="en">National
+                Identification Number
+            </span>
+            <input name="/ScreeningForm_11.01.18/presumptive_info/national_id" data-type-xml="string"
+                type="text" />
         </label>
         <fieldset class="question simple-select ">
             <fieldset>
@@ -1359,7 +1393,6 @@
                 <option value="">...</option>
                 <option value="cured">Cured</option>
                 <option value="defaulted">Defaulted</option>
-                <option value="died">Died</option>
                 <option value="treatment_completed">Treatment Completed</option>
                 <option value="transferred_out">Transferred out</option>
                 <option value="regimen_failure">Regimen Failure</option>
@@ -1373,9 +1406,6 @@
                 <span data-option-value="defaulted" lang="Roman Urdu">pehley se the shuda</span>
                 <span data-option-value="defaulted" lang="openmrs_code">-</span>
                 <span data-option-value="defaulted" lang="en">Defaulted</span>
-                <span data-option-value="died" lang="Roman Urdu">Intiqal</span>
-                <span data-option-value="died" lang="openmrs_code">-</span>
-                <span data-option-value="died" lang="en">Died</span>
                 <span data-option-value="treatment_completed" lang="Roman Urdu">Ilaaj mukammal ho
                     gaya hay
                 </span>

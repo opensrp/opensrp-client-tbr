@@ -130,6 +130,10 @@
         "bind": "/model/instance/ScreeningForm_11.01.18/screening_symptom/presumptive"
       },
       {
+        "name": "age",
+        "bind": "/model/instance/ScreeningForm_11.01.18/demographic_info/age"
+      },
+      {
         "name": "birthdate",
         "bind": "/model/instance/ScreeningForm_11.01.18/demographic_info/birthdate"
       },
@@ -152,6 +156,14 @@
       {
         "name": "participant_id",
         "bind": "/model/instance/ScreeningForm_11.01.18/presumptive_info/participant_id"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/ScreeningForm_11.01.18/presumptive_info/program_id"
+      },
+      {
+        "name": "national_id",
+        "bind": "/model/instance/ScreeningForm_11.01.18/presumptive_info/national_id"
       },
       {
         "name": "close_tb_contact",
