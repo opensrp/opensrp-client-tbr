@@ -1,5 +1,6 @@
 package org.smartregister.tbr.enketoform;
 
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,6 +17,7 @@ public class ModelXMLHandler extends DefaultHandler {
     String currentValue = "";
     List<Model> tags;
     Model model;
+    private String eventType;
 
     // Called when tag starts
     @Override
@@ -26,7 +28,9 @@ public class ModelXMLHandler extends DefaultHandler {
         currentValue = "";
         if (localName.equals("instance"))
             tags = new ArrayList<>();
-        if (tags != null) {
+        else if (tags != null && tags.isEmpty() && StringUtils.isNotEmpty(attributes.getValue("encounter_type"))) {
+            eventType = attributes.getValue("encounter_type");
+        } else if (tags != null) {
             model = new Model(localName, attributes.getValue("openmrs_entity"), attributes.getValue("openmrs_entity_id"));
         }
 
@@ -59,5 +63,9 @@ public class ModelXMLHandler extends DefaultHandler {
 
     public List<Model> getTags() {
         return tags;
+    }
+
+    public String getEventType() {
+        return eventType;
     }
 }
