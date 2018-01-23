@@ -438,7 +438,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:
-                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getTreatmentFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), getTreatmentFieldOverrides().getJSONString());
                     break;
 
                 default:

@@ -15,6 +15,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.activity.LoginActivity;
+import org.smartregister.tbr.enketoform.PopulateEnketoFormUtils;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
@@ -54,6 +55,7 @@ public class TbrApplication extends DrishtiApplication {
     private ConfigurableViewsHelper configurableViewsHelper;
 
     private static final String TAG = TbrApplication.class.getCanonicalName();
+    private PopulateEnketoFormUtils populateEnketoFormUtils;
 
     @Override
     public void onCreate() {
@@ -197,6 +199,13 @@ public class TbrApplication extends DrishtiApplication {
             configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(), getJsonSpecHelper(), getApplicationContext());
         }
         return configurableViewsHelper;
+    }
+
+    public PopulateEnketoFormUtils getPopulateEnketoFormUtils() {
+        if (populateEnketoFormUtils == null) {
+            populateEnketoFormUtils = PopulateEnketoFormUtils.getInstance(getApplicationContext());
+        }
+        return populateEnketoFormUtils;
     }
 
     private void setUpEventHandling() {

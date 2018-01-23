@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.enketoform.PopulateEnketoFormUtils;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
@@ -46,9 +48,11 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
         String tbReachId = ((BasePatientDetailActivity) mContext).getIntent().getStringExtra(Constants.INTENT_KEY.TB_REACH_ID);
-
+        String formSubmissionId = formView.getTag(R.id.BASE_ENTITY_ID).toString();
+        PopulateEnketoFormUtils enketoFormUtils = TbrApplication.getInstance().getPopulateEnketoFormUtils();
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
+                enketoFormUtils.populateForm(formSubmissionId, Constants.FORM.RESULT_GENE_EXPERT);
                 ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
                 break;
             case R.id.result_smear:
