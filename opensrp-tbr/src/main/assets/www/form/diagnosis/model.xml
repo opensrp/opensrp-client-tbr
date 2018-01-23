@@ -2,7 +2,7 @@
     <instance>
         <Diagnosis_22.11.17_US xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="TB Diagnosis" id="tb_diagnosis"
-            version="201711230817">
+            version="201801221157">
             <formhub>
                 <uuid />
             </formhub>
@@ -20,10 +20,16 @@
             <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
             <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
-            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
-            <confirmed_tb />
-            <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR:diagnosis type"/>
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id  />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
+            <confirmed_tb openmrs_entity="concept" openmrs_entity_id="TBR: confirmed tb patient" />
+            <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis method" />
             <meta>
                 <instanceID />
             </meta>

@@ -70,8 +70,32 @@
         "bind": "/model/instance/Diagnosis_22.11.17_US/phonenumber"
       },
       {
-        "name": "client_reg_date",
-        "bind": "/model/instance/Diagnosis_22.11.17_US/client_reg_date"
+        "name": "participant_id",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/participant_id"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/program_id"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/Diagnosis_22.11.17_US/pt_name_note"
       },
       {
         "name": "confirmed_tb",

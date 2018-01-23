@@ -21,6 +21,9 @@
             <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <confirmed_tb openmrs_entity="concept" openmrs_entity_id="TBR: confirmed tb patient">
+                yes
+            </confirmed_tb>
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis method" />
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />

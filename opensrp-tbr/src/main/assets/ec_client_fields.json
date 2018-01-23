@@ -65,7 +65,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "confirmed_tb"
+            "concept": "TBR: confirmed tb patient"
           }
         },
         {
