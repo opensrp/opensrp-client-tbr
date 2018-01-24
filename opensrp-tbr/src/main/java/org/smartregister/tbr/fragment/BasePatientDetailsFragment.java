@@ -43,6 +43,7 @@ import java.util.Map;
 import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 
 /**
@@ -265,7 +266,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_contact:
-                Utils.showToast(getActivity(), "Launch TB Contact Form");
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
@@ -292,17 +293,12 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         if (recordResults != null) {
             recordResults.setOnClickListener(this);
         }
-
-        TextView addContactView = (TextView) rootView.findViewById(R.id.add_contact);
-        if (addContactView != null) {
-            addContactView.setOnClickListener(this);
-        }
     }
 
     private void setUpButtons(View rootView) {
 
         if (patientDetails != null) {
-            //Remove patient button
+
             Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
             if (removePatientButton != null) {
                 removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
@@ -318,6 +314,12 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             if (followUpButton != null) {
                 followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                 followUpButton.setOnClickListener(this);
+            }
+
+            TextView addContactView = (TextView) rootView.findViewById(R.id.add_contact);
+            if (addContactView != null) {
+                addContactView.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                addContactView.setOnClickListener(this);
             }
         }
     }

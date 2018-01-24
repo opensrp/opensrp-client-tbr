@@ -9,11 +9,13 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.HomeFragment;
@@ -109,11 +111,11 @@ public class HomeActivity extends BaseActivity {
 
         //Set App Name
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
+        TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
         if (config != null && config.getApplicationName() != null) {
-            TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
             title.setText(config.getApplicationName());
         } else {
-            Utils.showDialogMessage(this, "Error", "Missing Main Configuration on server");
+            title.setText(R.string.app_title);
         }
         try {
             getSupportFragmentManager().beginTransaction().replace(R.id.registers_container, new HomeFragment()).commit();

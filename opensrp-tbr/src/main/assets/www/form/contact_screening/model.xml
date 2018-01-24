@@ -1,7 +1,7 @@
 <model>
     <instance>
-        <ContactScreeningform_23.11.17_US encounter_type="Contact Screening"
-            id="contact_screening_form" version="201711230852">
+        <ContactScreeningform_11.01.18 encounter_type="Contact Screening"
+            id="contact_screening_form" version="201801221208">
             <formhub>
                 <uuid />
             </formhub>
@@ -19,8 +19,14 @@
             <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
             <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
-            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id openmrs_entity="person_identifier" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
             <cough openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
                 openmrs_entity_parent="TBR:cough" />
             <cough_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration"
@@ -36,11 +42,11 @@
             <fever openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
                 openmrs_entity_parent="TBR:fever" />
             <fever_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration"
-                openmrs_entity_parent="TBR:fever" />
+                openmrs_entity_parent="TBR:fever duration" />
             <night_sweats openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
                 openmrs_entity_parent="TBR:night sweats" />
             <night_sweats_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration"
-                openmrs_entity_parent="TBR:night sweats" />
+                openmrs_entity_parent="TBR:night sweats duration" />
             <weight_loss openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
                 openmrs_entity_parent="TBR:sudden weight loss" />
             <symptoms_other openmrs_entity="concept" openmrs_entity_id="TBR:symptom present"
@@ -48,12 +54,13 @@
             <symptoms_other_specify openmrs_entity="concept"
                 openmrs_entity_id="TBR:other specify text" openmrs_entity_parent="TBR:other" />
             <presumptive openmrs_entity="concept"
-                openmrs_entity_id="TBR:presumptive tuberculosis case" />
+                openmrs_entity_id="TBR:presumptive tuberculosis case"
+                openmrs_entity_parent="TBR: presumptive tuberculosis case" />
             <presumptive_info>
                 <previous_tb_treatment openmrs_entity="concept"
                     openmrs_entity_id="TBR:tuberculosis history" />
                 <previous_tb_treatment_outcome openmrs_entity="concept"
-                    openmrs_entity_id="TBR:mdr tuberculosis treatment outcome" />
+                    openmrs_entity_id="TBR:patient category" />
                 <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
                 <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
                 <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
@@ -79,7 +86,7 @@
             <meta>
                 <instanceID />
             </meta>
-        </ContactScreeningform_23.11.17_US>
+        </ContactScreeningform_11.01.18>
     </instance>
     <instance id="provinces">
         <root>
@@ -1085,18 +1092,6 @@
             </item>
             <item>
                 <itextId>static_instance-treatment_outcomes-2</itextId>
-                <name>died</name>
-                <openmrs_concept_name>Died</openmrs_concept_name>
-                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
-                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
-                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
-                    concept_reference_source WHERE name='TBR'), 'died' name, 'died' code, 1 creator,
-                    NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT code
-                    FROM concept_reference_term WHERE code = 'died' ) LIMIT 1;
-                </openmrs_reference_term>
-            </item>
-            <item>
-                <itextId>static_instance-treatment_outcomes-3</itextId>
                 <name>treatment_completed</name>
                 <openmrs_concept_name>Treatment Complete</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
@@ -1109,7 +1104,7 @@
                 </openmrs_reference_term>
             </item>
             <item>
-                <itextId>static_instance-treatment_outcomes-4</itextId>
+                <itextId>static_instance-treatment_outcomes-3</itextId>
                 <name>transferred_out</name>
                 <openmrs_concept_name>Patient transferred out</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
@@ -1122,7 +1117,7 @@
                 </openmrs_reference_term>
             </item>
             <item>
-                <itextId>static_instance-treatment_outcomes-5</itextId>
+                <itextId>static_instance-treatment_outcomes-4</itextId>
                 <name>regimen_failure</name>
                 <openmrs_concept_name>Regimen Failure</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
@@ -1135,7 +1130,7 @@
                 </openmrs_reference_term>
             </item>
             <item>
-                <itextId>static_instance-treatment_outcomes-6</itextId>
+                <itextId>static_instance-treatment_outcomes-5</itextId>
                 <name>other</name>
                 <openmrs_concept_name>other</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
@@ -1147,7 +1142,7 @@
                 </openmrs_reference_term>
             </item>
             <item>
-                <itextId>static_instance-treatment_outcomes-7</itextId>
+                <itextId>static_instance-treatment_outcomes-6</itextId>
                 <name>unknown</name>
                 <openmrs_concept_name>unknown</openmrs_concept_name>
                 <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
@@ -1165,14 +1160,39 @@
             <item>
                 <itextId>static_instance-gender-0</itextId>
                 <name>male</name>
+                <openmrs_concept_name>male gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-gender-1</itextId>
                 <name>female</name>
+                <openmrs_concept_name>female gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1
+                    creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS ( SELECT
+                    code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;
+                </openmrs_reference_term>
             </item>
             <item>
                 <itextId>static_instance-gender-2</itextId>
                 <name>transgender</name>
+                <openmrs_concept_name>third gender</openmrs_concept_name>
+                <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term`
+                    (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`,
+                    `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM
+                    concept_reference_source WHERE name='TBR'), ' third gender' name, ' third
+                    gender' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT
+                    EXISTS ( SELECT code FROM concept_reference_term WHERE code = ' third gender' )
+                    LIMIT 1;
+                </openmrs_reference_term>
             </item>
         </root>
     </instance>

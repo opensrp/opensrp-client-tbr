@@ -8,123 +8,160 @@
         <option data-dir="ltr" value="en">English</option>
     </select>
     <label class="question note non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/provider_location_note:label"
-            lang="Roman Urdu">Shehr: <span class="or-output"
-            data-value=" /ContactScreeningform_23.11.17_US/provider_city "></span> ;
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_city "></span> ;
             Town: <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_town "></span> ; UC: <span
-                class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_uc "></span> ; Center ka
-            naam:
-            <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_location_name "></span>
+                data-value=" /ContactScreeningform_11.01.18/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_uc "></span> ;
+            Center ka naam: <span class="or-output"
+                data-value=" /ContactScreeningform_11.01.18/provider_location_name "></span>
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/provider_location_note:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/provider_location_note:label"
-            lang="en">City: <span class="or-output"
-            data-value=" /ContactScreeningform_23.11.17_US/provider_city "></span> ;
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_city "></span> ;
             Town: <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_town "></span> ; UC: <span
-                class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_uc "></span> ; Center Name:
-            <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/provider_location_name "></span>
+                data-value=" /ContactScreeningform_11.01.18/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_uc "></span> ;
+            Center Name: <span class="or-output"
+                data-value=" /ContactScreeningform_11.01.18/provider_location_name "></span>
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/provider_location_note"
-            data-type-xml="string" readonly="readonly" type="text" />
+        <input name="/ContactScreeningform_11.01.18/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/participant_id:label"
+            lang="Roman Urdu">ID
+        </span>
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/participant_id:label"
+            lang="openmrs_code">-
+        </span>
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/participant_id:label"
+            lang="en">Participant ID
+        </span>
+        <span class="required">*</span>
+        <input name="/ContactScreeningform_11.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+            required="required" type="text" />
+        <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/participant_id:jr:constraintMsg"
+            lang="openmrs_code">-
+        </span>
+        <span class="or-constraint-msg active" data-itext-id="/ContactScreeningform_11.01.18/participant_id:jr:constraintMsg"
+            lang="en">Maximum
+            20 digits and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/program_id_note:label"
+            lang="openmrs_code">-
+        </span>
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/program_id_note:label"
+            lang="en">Program ID: <span
+            class="or-output" data-value=" /ContactScreeningform_11.01.18/program_id "></span>
+        </span>
+        <input name="/ContactScreeningform_11.01.18/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/pt_name_note:label"
+            lang="Roman Urdu">Mareez ka naam:
+            <span class="or-output" data-value=" /ContactScreeningform_11.01.18/first_name "></span>
+            <span class="or-output" data-value=" /ContactScreeningform_11.01.18/last_name "></span>
+        </span>
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/pt_name_note:label"
+            lang="openmrs_code">-
+        </span>
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/pt_name_note:label"
+            lang="en">Patient Name:
+            <span class="or-output" data-value=" /ContactScreeningform_11.01.18/first_name "></span>
+            <span class="or-output" data-value=" /ContactScreeningform_11.01.18/last_name "></span>
+        </span>
+        <input name="/ContactScreeningform_11.01.18/pt_name_note" data-type-xml="string" readonly="readonly"
+            type="text" />
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough:label" lang="Roman Urdu">
-                    -
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough:label"
+                    lang="Roman Urdu">Kya aapko khaasi hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough:label" lang="en">Are you
-                    currently
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/cough:label"
+                    lang="en">Are you currently
                     coughing?
                 </span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough"
-                        data-name="/ContactScreeningform_23.11.17_US/cough" data-type-xml="select1"
-                        required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/yes:label"
+                    <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/yes:label" lang="en">
-                        Yes
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough/yes:label"
+                        lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough"
-                        data-name="/ContactScreeningform_23.11.17_US/cough" data-type-xml="select1"
-                        required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/no:label"
+                    <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/no:label" lang="en">
-                        No
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough/no:label"
+                        lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough"
-                        data-name="/ContactScreeningform_23.11.17_US/cough" data-type-xml="select1"
-                        required="required" type="radio" value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/dont_know:label"
                         lang="Roman Urdu">Pata
                         Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/dont_know:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/dont_know:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/dont_know:label"
-                        lang="en">
-                        Don't Know
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough/dont_know:label"
+                        lang="en">Don't
+                        Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough"
-                        data-name="/ContactScreeningform_23.11.17_US/cough" data-type-xml="select1"
-                        required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/refuse:label"
-                        lang="Roman Urdu">Jawab
-                        nahi dena
+                    <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/refuse:label"
+                        lang="Roman Urdu">Jawab nahi
+                        dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/refuse:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/refuse:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough/refuse:label"
                         lang="en">Refuse
                     </span>
                 </label>
@@ -135,30 +172,27 @@
         </span>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:label"
-            lang="Roman Urdu">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough_duration:label"
+            lang="Roman Urdu">Agar haan, kab se?
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough_duration:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:label" lang="en">If yes,
-            for how
-            long have you been coughing?
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_duration:label"
+            lang="en">If yes, for how long
+            have you been coughing?
         </span>
-        <span class="or-hint " data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/cough_duration:hint"
             lang="Roman Urdu">-
         </span>
-        <span class="or-hint " data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/cough_duration:hint"
             lang="openmrs_code">-
         </span>
-        <span class="or-hint active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/cough_duration:hint" lang="en">(weeks)
+        <span class="or-hint active" data-itext-id="/ContactScreeningform_11.01.18/cough_duration:hint"
+            lang="en">(weeks)
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/cough_duration" data-constraint=".&gt;0"
-            data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'" data-type-xml="int"
+        <input name="/ContactScreeningform_11.01.18/cough_duration" data-constraint=".&gt;0"
+            data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="int"
             type="number" />
         <span class="or-constraint-msg active" data-i18n="constraint.invalid" lang="">Value not
             allowed
@@ -167,96 +201,80 @@
     <fieldset class="question simple-select or-branch pre-init ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm:label"
+                    lang="Roman Urdu">Kya aapki
+                    khaasi mein balgam ati hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm:label" lang="en">
-                    Do you
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm:label"
+                    lang="en">Do you
                     currently cough up phlegm or sputum?
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/yes:label"
-                        lang="Roman Urdu">
-                        Haan
+                    <input name="/ContactScreeningform_11.01.18/cough_phlegm" data-name="/ContactScreeningform_11.01.18/cough_phlegm"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/yes:label"
+                        lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/yes:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/yes:label"
                         lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/no:label"
+                    <input name="/ContactScreeningform_11.01.18/cough_phlegm" data-name="/ContactScreeningform_11.01.18/cough_phlegm"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/cough_phlegm" data-name="/ContactScreeningform_11.01.18/cough_phlegm"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/dont_know:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/dont_know:label"
                         lang="openmrs_code">
                         -
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-name="/ContactScreeningform_23.11.17_US/cough_phlegm"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/refuse:label"
+                    <input name="/ContactScreeningform_11.01.18/cough_phlegm" data-name="/ContactScreeningform_11.01.18/cough_phlegm"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/refuse:label"
                         lang="Roman Urdu">
                         Jawab nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/refuse:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/refuse:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/cough_phlegm/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/cough_phlegm/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -267,94 +285,79 @@
     <fieldset class="question simple-select or-branch pre-init ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis:label"
+                    lang="Roman Urdu">Kya aapki
+                    khaasi mein khoon ata hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis:label" lang="en">Do
-                    you
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/haemoptysis:label"
+                    lang="en">Do you
                     currently cough up blood?
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/yes:label"
+                    <input name="/ContactScreeningform_11.01.18/haemoptysis" data-name="/ContactScreeningform_11.01.18/haemoptysis"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/yes:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/yes:label"
                         lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/no:label"
+                    <input name="/ContactScreeningform_11.01.18/haemoptysis" data-name="/ContactScreeningform_11.01.18/haemoptysis"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/haemoptysis" data-name="/ContactScreeningform_11.01.18/haemoptysis"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/dont_know:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/dont_know:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-name="/ContactScreeningform_23.11.17_US/haemoptysis"
-                        data-relevant=" /ContactScreeningform_23.11.17_US/cough  = 'yes'"
-                        data-type-xml="select1" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/refuse:label"
+                    <input name="/ContactScreeningform_11.01.18/haemoptysis" data-name="/ContactScreeningform_11.01.18/haemoptysis"
+                        data-relevant=" /ContactScreeningform_11.01.18/cough  = 'yes'" data-type-xml="select1"
+                        type="radio"
+                        value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/refuse:label"
                         lang="Roman Urdu">
                         Jawab nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/refuse:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/refuse:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/haemoptysis/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/haemoptysis/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -365,92 +368,76 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain:label"
+                    lang="Roman Urdu">Kya aapko seeney
+                    mein dard mehsoos hota hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain:label" lang="en">Do
-                    you
-                    currently have chest pain?
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain:label"
+                    lang="en">Do you currently
+                    have chest pain?
                 </span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-type-xml="select1" required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/yes:label"
+                    <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/yes:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain/yes:label"
                         lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-type-xml="select1" required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/no:label"
+                    <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-type-xml="select1" required="required" type="radio"
-                        value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/dont_know:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/dont_know:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-name="/ContactScreeningform_23.11.17_US/chest_pain"
-                        data-type-xml="select1" required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/refuse:label"
-                        lang="Roman Urdu">
-                        Jawab nahi dena
+                    <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/refuse:label"
+                        lang="Roman Urdu">Jawab
+                        nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/refuse:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/refuse:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -462,34 +449,30 @@
         </span>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:label"
-            lang="Roman Urdu">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:label"
+            lang="Roman Urdu">Agar haan, kab
+            se?
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:label" lang="en">If
-            yes, for
-            how long?
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:label"
+            lang="en">If yes, for how
+            long?
         </span>
-        <span class="or-hint "
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:hint"
             lang="Roman Urdu">-
         </span>
-        <span class="or-hint "
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:hint"
             lang="openmrs_code">-
         </span>
-        <span class="or-hint active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/chest_pain_duration:hint" lang="en">
-            (weeks)
+        <span class="or-hint active" data-itext-id="/ContactScreeningform_11.01.18/chest_pain_duration:hint"
+            lang="en">(weeks)
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/chest_pain_duration" data-constraint=".&gt;0"
-            data-relevant=" /ContactScreeningform_23.11.17_US/chest_pain  = 'yes'"
-            data-type-xml="int" type="number" />
+        <input name="/ContactScreeningform_11.01.18/chest_pain_duration" data-constraint=".&gt;0"
+            data-relevant=" /ContactScreeningform_11.01.18/chest_pain  = 'yes'"
+            data-type-xml="int"
+            type="number" />
         <span class="or-constraint-msg active" data-i18n="constraint.invalid" lang="">Value not
             allowed
         </span>
@@ -497,90 +480,75 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/fever:label" lang="Roman Urdu">
-                    -
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/fever:label"
+                    lang="Roman Urdu">Kya aapko bhukar hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/fever:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/fever:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/fever:label" lang="en">Do you
-                    currently
-                    have a fever?
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/fever:label"
+                    lang="en">Do you currently have
+                    a fever?
                 </span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/fever"
-                        data-name="/ContactScreeningform_23.11.17_US/fever" data-type-xml="select1"
-                        required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/yes:label"
+                    <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/yes:label" lang="en">
-                        Yes
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/fever/yes:label"
+                        lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/fever"
-                        data-name="/ContactScreeningform_23.11.17_US/fever" data-type-xml="select1"
-                        required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/no:label"
+                    <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/no:label" lang="en">
-                        No
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/fever/no:label"
+                        lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/fever"
-                        data-name="/ContactScreeningform_23.11.17_US/fever" data-type-xml="select1"
-                        required="required" type="radio" value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/dont_know:label"
                         lang="Roman Urdu">Pata
                         Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/dont_know:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/dont_know:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/dont_know:label"
-                        lang="en">
-                        Don't Know
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/fever/dont_know:label"
+                        lang="en">Don't
+                        Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/fever"
-                        data-name="/ContactScreeningform_23.11.17_US/fever" data-type-xml="select1"
-                        required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/refuse:label"
-                        lang="Roman Urdu">Jawab
-                        nahi dena
+                    <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/refuse:label"
+                        lang="Roman Urdu">Jawab nahi
+                        dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/refuse:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/refuse:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/fever/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/fever/refuse:label"
                         lang="en">Refuse
                     </span>
                 </label>
@@ -591,30 +559,27 @@
         </span>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:label"
-            lang="Roman Urdu">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/fever_duration:label"
+            lang="Roman Urdu">Agar haan, kab se?
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/fever_duration:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:label" lang="en">If yes,
-            for how
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/fever_duration:label"
+            lang="en">If yes, for how
             long?
         </span>
-        <span class="or-hint " data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/fever_duration:hint"
             lang="Roman Urdu">-
         </span>
-        <span class="or-hint " data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/fever_duration:hint"
             lang="openmrs_code">-
         </span>
-        <span class="or-hint active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/fever_duration:hint" lang="en">(weeks)
+        <span class="or-hint active" data-itext-id="/ContactScreeningform_11.01.18/fever_duration:hint"
+            lang="en">(weeks)
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/fever_duration" data-constraint=".&gt;0"
-            data-relevant=" /ContactScreeningform_23.11.17_US/fever  = 'yes'" data-type-xml="int"
+        <input name="/ContactScreeningform_11.01.18/fever_duration" data-constraint=".&gt;0"
+            data-relevant=" /ContactScreeningform_11.01.18/fever  = 'yes'" data-type-xml="int"
             type="number" />
         <span class="or-constraint-msg active" data-i18n="constraint.invalid" lang="">Value not
             allowed
@@ -623,17 +588,15 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats:label"
+                    lang="Roman Urdu">Kya aapko
+                    thandey paseeney atey hain?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats:label" lang="en">
-                    Do you
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats:label"
+                    lang="en">Do you
                     currently have drenching night sweats (so that you have to change your
                     bedclothes)?
                 </span>
@@ -641,77 +604,62 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-type-xml="select1" required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/yes:label"
-                        lang="Roman Urdu">
-                        Haan
+                    <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/yes:label"
+                        lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/yes:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats/yes:label"
                         lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-type-xml="select1" required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/no:label"
+                    <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-type-xml="select1" required="required" type="radio"
-                        value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/dont_know:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/dont_know:label"
                         lang="openmrs_code">
                         -
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-name="/ContactScreeningform_23.11.17_US/night_sweats"
-                        data-type-xml="select1" required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/refuse:label"
+                    <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/refuse:label"
                         lang="Roman Urdu">
                         Jawab nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/refuse:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/refuse:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -723,35 +671,30 @@
         </span>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:label"
-            lang="Roman Urdu">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:label"
+            lang="Roman Urdu">Agar haan,
+            kab se?
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:label" lang="en">
-            If yes,
-            for how long?
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:label"
+            lang="en">If yes, for
+            how long?
         </span>
-        <span class="or-hint "
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:hint"
             lang="Roman Urdu">-
         </span>
-        <span class="or-hint "
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:hint"
+        <span class="or-hint " data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:hint"
             lang="openmrs_code">-
         </span>
-        <span class="or-hint active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/night_sweats_duration:hint" lang="en">
-            (weeks)
+        <span class="or-hint active" data-itext-id="/ContactScreeningform_11.01.18/night_sweats_duration:hint"
+            lang="en">(weeks)
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/night_sweats_duration"
-            data-constraint=".&gt;0"
-            data-relevant=" /ContactScreeningform_23.11.17_US/night_sweats  = 'yes'"
-            data-type-xml="int" type="number" />
+        <input name="/ContactScreeningform_11.01.18/night_sweats_duration" data-constraint=".&gt;0"
+            data-relevant=" /ContactScreeningform_11.01.18/night_sweats  = 'yes'"
+            data-type-xml="int"
+            type="number" />
         <span class="or-constraint-msg active" data-i18n="constraint.invalid" lang="">Value not
             allowed
         </span>
@@ -759,92 +702,76 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss:label"
+                    lang="Roman Urdu">Kya aapka wazan
+                    bohut tezi se gir raha hai?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss:label" lang="en">In
-                    the past
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/weight_loss:label"
+                    lang="en">In the past
                     month, have you unexpectedly lost weight?
                 </span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-type-xml="select1" required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/yes:label"
+                    <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/yes:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/weight_loss/yes:label"
                         lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-type-xml="select1" required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/no:label"
+                    <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/weight_loss/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-type-xml="select1" required="required" type="radio"
-                        value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/dont_know:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/dont_know:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/weight_loss/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-name="/ContactScreeningform_23.11.17_US/weight_loss"
-                        data-type-xml="select1" required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/refuse:label"
+                    <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/refuse:label"
                         lang="Roman Urdu">
                         Jawab nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/refuse:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/refuse:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/weight_loss/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/weight_loss/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -858,96 +785,77 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other:label"
-                    lang="Roman Urdu">-
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other:label"
+                    lang="Roman Urdu">Kya aapko
+                    koi aur alamaat hain?
                 </span>
-                <span class="question-label "
-                    data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other:label"
+                <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active"
-                    data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other:label"
+                <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other:label"
                     lang="en">Do you
-                    currently have any other symtoms(s)?
+                    currently have any other symptoms(s)?
                 </span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-type-xml="select1" required="required" type="radio" value="yes" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/yes:label"
-                        lang="Roman Urdu">
-                        Haan
+                    <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="yes" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/yes:label"
+                        lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/yes:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/yes:label"
-                        lang="en">
-                        Yes
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/yes:label"
+                        lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-type-xml="select1" required="required" type="radio" value="no" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/no:label"
-                        lang="Roman Urdu">
-                        Nahi
+                    <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="no" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/no:label"
+                        lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/no:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/no:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/no:label"
                         lang="en">No
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-type-xml="select1" required="required" type="radio"
-                        value="dont_know" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/dont_know:label"
+                    <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="dont_know" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/dont_know:label"
                         lang="Roman Urdu">
                         Pata Nahi
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/dont_know:label"
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/dont_know:label"
                         lang="openmrs_code">
                         -
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/dont_know:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/dont_know:label"
                         lang="en">
                         Don't Know
                     </span>
                 </label>
                 <label class="">
-                    <input name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-name="/ContactScreeningform_23.11.17_US/symptoms_other"
-                        data-type-xml="select1" required="required" type="radio" value="refuse" />
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/refuse:label"
+                    <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="refuse" />
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/refuse:label"
                         lang="Roman Urdu">
                         Jawab nahi dena
                     </span>
-                    <span class="option-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/refuse:label"
-                        lang="openmrs_code">
-                        -
+                    <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/refuse:label"
+                        lang="openmrs_code">-
                     </span>
-                    <span class="option-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other/refuse:label"
+                    <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/refuse:label"
                         lang="en">
                         Refuse
                     </span>
@@ -959,56 +867,49 @@
         </span>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other_specify:label"
-            lang="Roman Urdu">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other_specify:label"
+            lang="Roman Urdu">Agar haan,
+            konsi?
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other_specify:label"
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other_specify:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/symptoms_other_specify:label"
-            lang="en">If yes,
-            what symtom(s)?
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/symptoms_other_specify:label"
+            lang="en">If yes, what
+            symptom(s)?
         </span>
-        <input name="/ContactScreeningform_23.11.17_US/symptoms_other_specify"
-            data-relevant=" /ContactScreeningform_23.11.17_US/symptoms_other  = 'yes'"
-            data-type-xml="string" type="text" />
+        <input name="/ContactScreeningform_11.01.18/symptoms_other_specify" data-relevant=" /ContactScreeningform_11.01.18/symptoms_other  = 'yes'"
+            data-type-xml="string"
+            type="text" />
     </label>
-    <section name="/ContactScreeningform_23.11.17_US/presumptive_info"
+    <section name="/ContactScreeningform_11.01.18/presumptive_info"
         class="or-group or-branch pre-init "
-        data-relevant=" /ContactScreeningform_23.11.17_US/presumptive ='yes'">
+        data-relevant=" /ContactScreeningform_11.01.18/presumptive ='yes'">
         <h4>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info:label"
-                lang="Roman Urdu">-
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info:label"
+                lang="Roman Urdu">Presumptive
+                Information
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info:label"
                 lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info:label" lang="en">
-                Presumptive
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info:label"
+                lang="en">Presumptive
                 Information
             </span>
         </h4>
         <fieldset class="question simple-select ">
             <fieldset>
                 <legend>
-                    <span class="question-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment:label"
+                    <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment:label"
                         lang="Roman Urdu">
                         Kya aapne kabhi TB ka ilaaj karwaya hai?
                     </span>
-                    <span class="question-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment:label"
+                    <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment:label"
                         lang="openmrs_code">
                         -
                     </span>
-                    <span class="question-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment:label"
+                    <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment:label"
                         lang="en">
                         Have you ever taken TB treatment for more than one month?
                     </span>
@@ -1016,87 +917,73 @@
                 </legend>
                 <div class="option-wrapper">
                     <label class="">
-                        <input
-                            name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-type-xml="select1" required="required" type="radio" value="yes" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/yes:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="yes" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/yes:label"
                             lang="Roman Urdu">
                             Haan
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/yes:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/yes:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/yes:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/yes:label"
                             lang="en">
                             Yes
                         </span>
                     </label>
                     <label class="">
-                        <input
-                            name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-type-xml="select1" required="required" type="radio" value="no" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/no:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="no" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/no:label"
                             lang="Roman Urdu">
                             Nahi
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/no:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/no:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/no:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/no:label"
                             lang="en">
                             No
                         </span>
                     </label>
                     <label class="">
-                        <input
-                            name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-type-xml="select1" required="required" type="radio"
-                            value="dont_know" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/dont_know:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="dont_know" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/dont_know:label"
                             lang="Roman Urdu">
                             Pata Nahi
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/dont_know:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/dont_know:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/dont_know:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/dont_know:label"
                             lang="en">
                             Don't Know
                         </span>
                     </label>
                     <label class="">
-                        <input
-                            name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment"
-                            data-type-xml="select1" required="required" type="radio"
-                            value="refuse" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/refuse:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="refuse" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/refuse:label"
                             lang="Roman Urdu">
                             Jawab nahi dena
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/refuse:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/refuse:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment/refuse:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/refuse:label"
                             lang="en">
                             Refuse
                         </span>
@@ -1108,31 +995,28 @@
             </span>
         </fieldset>
         <label class="question or-appearance-minimal  or-branch pre-init ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment_outcome:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome:label"
                 lang="Roman Urdu">
                 Agar haan, tou uska nateja kya tha?
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment_outcome:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome:label"
                 lang="openmrs_code">
                 -
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment_outcome:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome:label"
                 lang="en">
                 If yes, what was the outcome of your previous TB treatment?
             </span>
             <span class="required">*</span>
             <select
-                name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment_outcome"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment_outcome"
-                data-relevant=" /ContactScreeningform_23.11.17_US/presumptive_info/previous_tb_treatment  = 'yes'"
-                data-type-xml="select1" required="required">
+                name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome"
+                data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment  = 'yes'"
+                data-type-xml="select1"
+                required="required">
                 <option value="">...</option>
                 <option value="cured">Cured</option>
                 <option value="defaulted">Defaulted</option>
-                <option value="died">Died</option>
                 <option value="treatment_completed">Treatment Completed</option>
                 <option value="transferred_out">Treansferred out</option>
                 <option value="regimen_failure">Regimen Failure</option>
@@ -1146,9 +1030,6 @@
                 <span data-option-value="defaulted" lang="Roman Urdu">pehley se the shuda</span>
                 <span data-option-value="defaulted" lang="openmrs_code">-</span>
                 <span data-option-value="defaulted" lang="en">Defaulted</span>
-                <span data-option-value="died" lang="Roman Urdu">Intiqal</span>
-                <span data-option-value="died" lang="openmrs_code">-</span>
-                <span data-option-value="died" lang="en">Died</span>
                 <span data-option-value="treatment_completed" lang="Roman Urdu">Ilaaj mukammal ho
                     gaya hay
                 </span>
@@ -1176,102 +1057,89 @@
         <fieldset class="question simple-select ">
             <fieldset>
                 <legend>
-                    <span class="question-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test:label"
+                    <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test:label"
                         lang="Roman Urdu">
                         Kya aapne HIV ka test pishley 6 mahino mein karwaya hai?
                     </span>
-                    <span class="question-label "
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test:label"
+                    <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test:label"
                         lang="openmrs_code">
                         -
                     </span>
-                    <span class="question-label active"
-                        data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test:label"
+                    <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test:label"
                         lang="en">
-                        Have you had an HIV test in the past 6 months?
+                        Have you had an HIV test in the past?
                     </span>
                     <span class="required">*</span>
                 </legend>
                 <div class="option-wrapper">
                     <label class="">
-                        <input name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-type-xml="select1" required="required" type="radio" value="yes" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/yes:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="yes" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/yes:label"
                             lang="Roman Urdu">
                             Haan
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/yes:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/yes:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/yes:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/yes:label"
                             lang="en">
                             Yes
                         </span>
                     </label>
                     <label class="">
-                        <input name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-type-xml="select1" required="required" type="radio" value="no" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/no:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="no" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/no:label"
                             lang="Roman Urdu">
                             Nahi
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/no:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/no:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/no:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/no:label"
                             lang="en">
                             No
                         </span>
                     </label>
                     <label class="">
-                        <input name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-type-xml="select1" required="required" type="radio"
-                            value="dont_know" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/dont_know:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="dont_know" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/dont_know:label"
                             lang="Roman Urdu">
                             Pata Nahi
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/dont_know:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/dont_know:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/dont_know:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/dont_know:label"
                             lang="en">
                             Don't Know
                         </span>
                     </label>
                     <label class="">
-                        <input name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test"
-                            data-type-xml="select1" required="required" type="radio"
-                            value="refuse" />
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/refuse:label"
+                        <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="refuse" />
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/refuse:label"
                             lang="Roman Urdu">
                             Jawab nahi dena
                         </span>
-                        <span class="option-label "
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/refuse:label"
+                        <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/refuse:label"
                             lang="openmrs_code">
                             -
                         </span>
-                        <span class="option-label active"
-                            data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_test/refuse:label"
+                        <span class="option-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/refuse:label"
                             lang="en">
                             Refuse
                         </span>
@@ -1283,49 +1151,44 @@
             </span>
         </fieldset>
         <label class="question or-branch pre-init non-select ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_date:label"
-                lang="Roman Urdu">
-                Agar haan, test ki tareeq
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_date:label"
+                lang="Roman Urdu">Agar
+                haan, test ki tareeq
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_date:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_date:label"
                 lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_date:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_date:label"
                 lang="en">If
                 yes, date of test?
             </span>
             <span class="required">*</span>
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_date"
-                data-relevant=" /ContactScreeningform_23.11.17_US/presumptive_info/hiv_test  = 'yes'"
-                data-type-xml="date" required="required" type="date" />
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_date" data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/hiv_test  = 'yes'"
+                data-type-xml="date"
+                required="required"
+                type="date" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
         </label>
         <label class="question or-appearance-minimal  or-branch pre-init ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_results:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_results:label"
                 lang="Roman Urdu">
                 Test ka natija
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_results:label"
-                lang="openmrs_code">
-                -
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_results:label"
+                lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_results:label"
-                lang="en">
-                If yes, what is your HIV status?
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_results:label"
+                lang="en">If
+                yes, what is your HIV status?
             </span>
             <span class="required">*</span>
-            <select name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_results"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/hiv_results"
-                data-relevant=" /ContactScreeningform_23.11.17_US/presumptive_info/hiv_test  = 'yes'"
-                data-type-xml="select1" required="required">
+            <select name="/ContactScreeningform_11.01.18/presumptive_info/hiv_results"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_results"
+                data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/hiv_test  = 'yes'"
+                data-type-xml="select1"
+                required="required">
                 <option value="">...</option>
                 <option value="negative">HIV Negative</option>
                 <option value="positive">HIV Positive</option>
@@ -1340,7 +1203,7 @@
                 <span data-option-value="positive" lang="Roman Urdu">Positive</span>
                 <span data-option-value="positive" lang="openmrs_code">-</span>
                 <span data-option-value="positive" lang="en">HIV Positive</span>
-                <span data-option-value="indeterminate" lang="Roman Urdu">-</span>
+                <span data-option-value="indeterminate" lang="Roman Urdu">Indeterminate</span>
                 <span data-option-value="indeterminate" lang="openmrs_code">-</span>
                 <span data-option-value="indeterminate" lang="en">Indeterminate</span>
                 <span data-option-value="dont_know" lang="Roman Urdu">Pata Nahi</span>
@@ -1355,38 +1218,33 @@
             </span>
         </label>
         <label class="question non-select ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:label"
                 lang="Roman Urdu">
                 Mobile phone number:
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:label"
                 lang="openmrs_code">
                 -
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:label"
                 lang="en">
                 Mobile phone number:
             </span>
             <span class="required">*</span>
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number"
-                data-constraint="regex(., '^03[0-9]{9}$')" data-type-xml="string"
-                required="required" type="text" />
-            <span class="or-constraint-msg "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:jr:constraintMsg"
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number"
+                data-constraint="regex(., '^03[0-9]{9}$')"
+                data-type-xml="string" required="required"
+                type="text" />
+            <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:jr:constraintMsg"
                 lang="Roman Urdu">
                 Phone number 11 hindason par mushtamil aur mundarja zail shakal main hona chahiey:
                 03*********
             </span>
-            <span class="or-constraint-msg "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:jr:constraintMsg"
+            <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:jr:constraintMsg"
                 lang="openmrs_code">
                 -
             </span>
-            <span class="or-constraint-msg active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/contact_phone_number:jr:constraintMsg"
+            <span class="or-constraint-msg active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:jr:constraintMsg"
                 lang="en">
                 Phone number should be 11 digits in the following format: 03*********
             </span>
@@ -1395,23 +1253,19 @@
             </span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/province:label"
-                lang="Roman Urdu">
-                Suba
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/province:label"
+                lang="Roman Urdu">Suba
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/province:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/province:label"
                 lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/province:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/province:label"
                 lang="en">
                 Province
             </span>
             <span class="required">*</span>
-            <select name="/ContactScreeningform_23.11.17_US/presumptive_info/province"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/province"
+            <select name="/ContactScreeningform_11.01.18/presumptive_info/province"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/province"
                 data-type-xml="select1" required="required">
                 <option value="">...</option>
                 <option value="kpk">Khyber Pakhtunkhwa</option>
@@ -1454,27 +1308,22 @@
             </span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/city_village:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/city_village:label"
                 lang="Roman Urdu">
                 Shehr
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/city_village:label"
-                lang="openmrs_code">
-                -
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/city_village:label"
+                lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/city_village:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/city_village:label"
                 lang="en">
                 City
             </span>
             <span class="required">*</span>
-            <select name="/ContactScreeningform_23.11.17_US/presumptive_info/city_village"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/city_village"
+            <select name="/ContactScreeningform_11.01.18/presumptive_info/city_village"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/city_village"
                 data-type-xml="select1" required="required">
-                <option class="itemset-template"
-                    data-items-path="instance('cities')/root/item[province= /ContactScreeningform_23.11.17_US/presumptive_info/province  or province='na']"
+                <option class="itemset-template" data-items-path="instance('cities')/root/item[province= /ContactScreeningform_11.01.18/presumptive_info/province  or province='na']"
                     value="">
                     ...
                 </option>
@@ -1542,25 +1391,21 @@
             </span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/town:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/town:label"
                 lang="Roman Urdu">Town /
                 Qasbah / Basti
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/town:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/town:label"
                 lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/town:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/town:label"
                 lang="en">Town
             </span>
             <span class="required">*</span>
-            <select name="/ContactScreeningform_23.11.17_US/presumptive_info/town"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/town"
-                data-type-xml="select1" required="required">
-                <option class="itemset-template"
-                    data-items-path="instance('towns')/root/item[(province= /ContactScreeningform_23.11.17_US/presumptive_info/province  and city= /ContactScreeningform_23.11.17_US/presumptive_info/city_village  ) or city='na']"
+            <select name="/ContactScreeningform_11.01.18/presumptive_info/town"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/town" data-type-xml="select1"
+                required="required">
+                <option class="itemset-template" data-items-path="instance('towns')/root/item[(province= /ContactScreeningform_11.01.18/presumptive_info/province  and city= /ContactScreeningform_11.01.18/presumptive_info/city_village  ) or city='na']"
                     value="">
                     ...
                 </option>
@@ -1790,27 +1635,23 @@
             </span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/union_council:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/union_council:label"
                 lang="Roman Urdu">
                 Union Council
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/union_council:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/union_council:label"
                 lang="openmrs_code">
                 -
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/union_council:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/union_council:label"
                 lang="en">
                 Union Council
             </span>
             <span class="required">*</span>
-            <select name="/ContactScreeningform_23.11.17_US/presumptive_info/union_council"
-                data-name="/ContactScreeningform_23.11.17_US/presumptive_info/union_council"
+            <select name="/ContactScreeningform_11.01.18/presumptive_info/union_council"
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/union_council"
                 data-type-xml="select1" required="required">
-                <option class="itemset-template"
-                    data-items-path="instance('ucs')/root/item[(province= /ContactScreeningform_23.11.17_US/presumptive_info/province  and city= /ContactScreeningform_23.11.17_US/presumptive_info/city_village  and town= /ContactScreeningform_23.11.17_US/presumptive_info/town ) or town='na']"
+                <option class="itemset-template" data-items-path="instance('ucs')/root/item[(province= /ContactScreeningform_11.01.18/presumptive_info/province  and city= /ContactScreeningform_11.01.18/presumptive_info/city_village  and town= /ContactScreeningform_11.01.18/presumptive_info/town ) or town='na']"
                     value="">
                     ...
                 </option>
@@ -3930,148 +3771,139 @@
             </span>
         </label>
         <label class="question non-select ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/address1:label"
-                lang="Roman Urdu">
-                Ghar ka pata
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/address1:label"
+                lang="Roman Urdu">Ghar
+                ka pata
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/address1:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/address1:label"
                 lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/address1:label"
-                lang="en">
-                Home Address
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/address1:label"
+                lang="en">Home
+                Address
             </span>
             <span class="required">*</span>
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/address1"
-                data-type-xml="string" required="required" type="text" />
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/address1" data-type-xml="string"
+                required="required" type="text" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>
         </label>
         <label class="question note non-select ">
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/full_address:label"
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/full_address:label"
                 lang="Roman Urdu">
                 Poora Pata: <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/address1 "></span>, <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/address1 "></span>, <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/union_council "></span>, <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/union_council "></span>, <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/town "></span>. <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/town "></span>. <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/city_village "></span>.
-                <span class="or-output"
-                    data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/province "></span>
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/city_village "></span>. <span
+                class="or-output"
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/province "></span>
             </span>
-            <span class="question-label "
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/full_address:label"
-                lang="openmrs_code">
-                -
+            <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/full_address:label"
+                lang="openmrs_code">-
             </span>
-            <span class="question-label active"
-                data-itext-id="/ContactScreeningform_23.11.17_US/presumptive_info/full_address:label"
+            <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/full_address:label"
                 lang="en">
                 Full address: <span class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/address1 "></span>, <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/address1 "></span>, <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/union_council "></span>, <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/union_council "></span>, <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/town "></span>. <span
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/town "></span>. <span
                 class="or-output"
-                data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/city_village "></span>.
-                <span class="or-output"
-                    data-value=" /ContactScreeningform_23.11.17_US/presumptive_info/province "></span>
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/city_village "></span>. <span
+                class="or-output"
+                data-value=" /ContactScreeningform_11.01.18/presumptive_info/province "></span>
             </span>
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/full_address"
-                data-type-xml="string" readonly="readonly" type="text" />
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/full_address" data-type-xml="string"
+                readonly="readonly" type="text" />
         </label>
     </section><!--end of group -->
     <label class="question non-select or-appearance-multiline ">
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/comments:label" lang="Roman Urdu">
-            Tabsarah
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/comments:label"
+            lang="Roman Urdu">Tabsarah
         </span>
-        <span class="question-label "
-            data-itext-id="/ContactScreeningform_23.11.17_US/comments:label" lang="openmrs_code">-
+        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/comments:label"
+            lang="openmrs_code">-
         </span>
-        <span class="question-label active"
-            data-itext-id="/ContactScreeningform_23.11.17_US/comments:label" lang="en">Comments
+        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/comments:label"
+            lang="en">Comments
         </span>
-        <textarea name="/ContactScreeningform_23.11.17_US/comments"
-            data-type-xml="string"></textarea>
+        <textarea name="/ContactScreeningform_11.01.18/comments" data-type-xml="string"></textarea>
     </label>
     <fieldset style="display:none;" id="or-preload-items">
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/start" data-preload="timestamp"
+            <input name="/ContactScreeningform_11.01.18/start" data-preload="timestamp"
                 data-preload-params="start" data-type-xml="dateTime" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/end" data-preload="timestamp"
-                data-preload-params="end" data-type-xml="dateTime" type="hidden" />
+            <input name="/ContactScreeningform_11.01.18/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/today" data-preload="date"
-                data-preload-params="today" data-type-xml="date" type="hidden" />
+            <input name="/ContactScreeningform_11.01.18/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/deviceid" data-preload="property"
+            <input name="/ContactScreeningform_11.01.18/deviceid" data-preload="property"
                 data-preload-params="deviceid" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/subscriberid" data-preload="property"
+            <input name="/ContactScreeningform_11.01.18/subscriberid" data-preload="property"
                 data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/simserial" data-preload="property"
+            <input name="/ContactScreeningform_11.01.18/simserial" data-preload="property"
                 data-preload-params="simserial" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/phonenumber" data-preload="property"
+            <input name="/ContactScreeningform_11.01.18/phonenumber" data-preload="property"
                 data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
         </label>
     </fieldset>
     <fieldset style="display:none;" id="or-calculated-items">
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/client_reg_date"
-                data-calculate=" /ContactScreeningform_23.11.17_US/today " data-type-xml="string"
+            <input name="/ContactScreeningform_11.01.18/client_reg_date" data-calculate=" /ContactScreeningform_11.01.18/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/presumptive" data-calculate="if( /ContactScreeningform_11.01.18/cough ='yes' or  /ContactScreeningform_11.01.18/chest_pain ='yes' or  /ContactScreeningform_11.01.18/cough_phlegm ='yes' or  /ContactScreeningform_11.01.18/fever ='yes' or  /ContactScreeningform_11.01.18/night_sweats ='yes' or  /ContactScreeningform_11.01.18/weight_loss ='yes' or  /ContactScreeningform_11.01.18/haemoptysis ='yes','yes','no')"
+                data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/presumptive"
-                data-calculate="if( /ContactScreeningform_23.11.17_US/cough ='yes' or  /ContactScreeningform_23.11.17_US/chest_pain ='yes' or  /ContactScreeningform_23.11.17_US/cough_phlegm ='yes' or  /ContactScreeningform_23.11.17_US/fever ='yes' or  /ContactScreeningform_23.11.17_US/night_sweats ='yes' or  /ContactScreeningform_23.11.17_US/weight_loss ='yes' or  /ContactScreeningform_23.11.17_US/haemoptysis ='yes','yes','no')"
-                data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/provincename"
-                data-calculate="jr:choice-name( /ContactScreeningform_23.11.17_US/presumptive_info/province , ' /ContactScreeningform_23.11.17_US/presumptive_info/province ')"
-                data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/city_villagename"
-                data-calculate="jr:choice-name( /ContactScreeningform_23.11.17_US/presumptive_info/city_village , ' /ContactScreeningform_23.11.17_US/presumptive_info/city_village ')"
-                data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/townname"
-                data-calculate="jr:choice-name( /ContactScreeningform_23.11.17_US/presumptive_info/town , ' /ContactScreeningform_23.11.17_US/presumptive_info/town ')"
-                data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/presumptive_info/union_councilname"
-                data-calculate="jr:choice-name( /ContactScreeningform_23.11.17_US/presumptive_info/union_council , ' /ContactScreeningform_23.11.17_US/presumptive_info/union_council ')"
-                data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/meta/instanceID"
-                data-calculate="concat('uuid:', uuid())" data-type-xml="string" type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/ContactScreeningform_23.11.17_US/formhub/uuid"
-                data-calculate="'1ad5e7e1f2b44520aee330cc360b8d86'" data-type-xml="string"
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/provincename" data-calculate="jr:choice-name( /ContactScreeningform_11.01.18/presumptive_info/province , ' /ContactScreeningform_11.01.18/presumptive_info/province ')"
+                data-type-xml="string"
                 type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/city_villagename"
+                data-calculate="jr:choice-name( /ContactScreeningform_11.01.18/presumptive_info/city_village , ' /ContactScreeningform_11.01.18/presumptive_info/city_village ')"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/townname" data-calculate="jr:choice-name( /ContactScreeningform_11.01.18/presumptive_info/town , ' /ContactScreeningform_11.01.18/presumptive_info/town ')"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/union_councilname"
+                data-calculate="jr:choice-name( /ContactScreeningform_11.01.18/presumptive_info/union_council , ' /ContactScreeningform_11.01.18/presumptive_info/union_council ')"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/ContactScreeningform_11.01.18/formhub/uuid" data-calculate="'33af5163364b416e93fd68ee8512d868'"
+                data-type-xml="string" type="hidden" />
         </label>
     </fieldset>
 </form>

@@ -97,7 +97,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {kasa = cursor;
+    public void bindView(View view, Context context, Cursor cursor) {
         TextView dateView = (TextView) view.findViewById(R.id.formfillDateTextView);
         if (cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)) != null) {
             String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals(RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.TEST_RESULT) ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)), true), "dd MMM yyyy");
