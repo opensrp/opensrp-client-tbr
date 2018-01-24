@@ -36,6 +36,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,7 +64,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
 import org.smartregister.view.LockingBackgroundTask;
 import org.smartregister.view.ProgressIndicator;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -73,6 +74,7 @@ import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import util.ImageLoaderRequest;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -81,9 +83,11 @@ import static org.smartregister.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
 import static org.smartregister.domain.LoginResponse.SUCCESS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
+import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 import static org.smartregister.util.Log.logVerbose;
+import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created on 09/10/2017 by SGithengi
@@ -537,9 +541,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processViewCustomizations() {
-
         try {
-            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.LOGIN);
+            String jsonString = Utils.getPreference(this, VIEW_CONFIGURATION_PREFIX + LOGIN, null);
             if (jsonString == null) return;
             ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
@@ -560,9 +563,10 @@ public class LoginActivity extends AppCompatActivity {
                 canvasRL.setBackground(gradientDrawable);
             }
             if (metadata.getLogoUrl() != null) {
-                ImageView logo = (ImageView) findViewById(R.id.logoImage);
-                DrishtiApplication.getCachedImageLoaderInstance().get(metadata.getLogoUrl(), logo,
-                        getOpenSRPContext().getDrawableResource(R.drawable.ic_logo)).getBitmap();
+                ImageView imageView = (ImageView) findViewById(R.id.logoImage);
+                ImageLoaderRequest.getInstance(this.getApplicationContext()).getImageLoader()
+                        .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
+                                R.drawable.ic_logo, R.drawable.ic_logo)).getBitmap();
                 TextView loginBuild = (TextView) findViewById(R.id.login_build);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
                 lp.setMargins(0, 0, 0, 0);
