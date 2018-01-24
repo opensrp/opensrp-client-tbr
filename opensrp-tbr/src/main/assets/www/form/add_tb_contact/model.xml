@@ -1,6 +1,7 @@
 <model>
     <instance>
-        <AddContactForm_23.11.17_US xmlns:jr="http://openrosa.org/javarosa" encounter_type="Add TB Contact" id="add_contact"
+        <AddContactForm_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Add TB Contact" id="add_contact"
             version="201801221159">
             <formhub>
                 <uuid />

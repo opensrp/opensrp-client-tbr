@@ -1,8 +1,7 @@
 <model>
     <instance>
         <FollowUpVisit_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
-            xmlns:orx="http://openrosa.org/xforms" encounter_type="Follow up Visit"
-            id="followup_visit" version="201711230919">
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Follow up Visit" id="followup_visit" version="201711230919">
             <formhub>
                 <uuid />
             </formhub>

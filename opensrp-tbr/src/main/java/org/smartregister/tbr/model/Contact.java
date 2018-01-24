@@ -7,7 +7,7 @@ package org.smartregister.tbr.model;
 public class Contact {
 
     private Long id;
-    private String parentBaseEntityId;
+    private String baseEntityId;
     private String indexRelationship;
     private String stage;
     private String firstName;
@@ -36,12 +36,12 @@ public class Contact {
         this.updatedAt = updatedAt;
     }
 
-    public String getParentBaseEntityId() {
-        return parentBaseEntityId;
+    public String getBaseEntityId() {
+        return baseEntityId;
     }
 
-    public void setParentBaseEntityId(String parentBaseEntityId) {
-        this.parentBaseEntityId = parentBaseEntityId;
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
     }
 
     public String getIndexRelationship() {

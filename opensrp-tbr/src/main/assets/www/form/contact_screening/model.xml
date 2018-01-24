@@ -1,7 +1,8 @@
 <model>
     <instance>
-        <ContactScreeningform_11.01.18 encounter_type="Contact Screening"
-            id="contact_screening_form" version="201801221208">
+        <ContactScreeningform_11.01.18 xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Contact Screening"
+            id="contact_screening_form" version="201801230936">
             <formhub>
                 <uuid />
             </formhub>
@@ -22,7 +23,7 @@
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-            <program_id openmrs_entity="person_identifier" />
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
             <program_id_note />
             <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
             <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
@@ -89,7 +90,7 @@
         </ContactScreeningform_11.01.18>
     </instance>
     <instance id="provinces">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-provinces-0</itextId>
                 <name>kpk</name>
@@ -125,7 +126,7 @@
         </root>
     </instance>
     <instance id="ucs">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-ucs-0</itextId>
                 <name>madeji</name>
@@ -1065,7 +1066,7 @@
         </root>
     </instance>
     <instance id="treatment_outcomes">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-treatment_outcomes-0</itextId>
                 <name>cured</name>
@@ -1156,7 +1157,7 @@
         </root>
     </instance>
     <instance id="gender">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-gender-0</itextId>
                 <name>male</name>
@@ -1197,7 +1198,7 @@
         </root>
     </instance>
     <instance id="hiv_results">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-hiv_results-0</itextId>
                 <name>negative</name>
@@ -1262,7 +1263,7 @@
         </root>
     </instance>
     <instance id="towns">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-towns-0</itextId>
                 <name>garhi_yasin</name>
@@ -1362,7 +1363,7 @@
         </root>
     </instance>
     <instance id="cities">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-cities-0</itextId>
                 <name>shikarpur</name>
@@ -1390,7 +1391,7 @@
         </root>
     </instance>
     <instance id="yes_no">
-        <root>
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
             <item>
                 <itextId>static_instance-yes_no-0</itextId>
                 <name>yes</name>

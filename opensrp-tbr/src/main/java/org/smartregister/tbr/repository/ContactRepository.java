@@ -26,7 +26,7 @@ public class ContactRepository extends BaseRepository {
     public static final String LAST_NAME = "last_name";
     public static final String STAGE = "stage";
     public static final String INDEX_RELATIONSHIP = "index_relationship";
-    public static final String PARENT_BASE_ENTITY_ID = "parent_base_entity_id";//index
+    public static final String BASE_ENTITY_ID = "base_entity_id";//index / parent Base Entity ID
     public static final String AGE = "age";
     public static final String GENDER = "gender";
     public static final String IS_NEGATIVE = "is_negative";
@@ -39,7 +39,7 @@ public class ContactRepository extends BaseRepository {
             CONTACT_ID + "  VARCHAR  NULL, " +
             FIRST_NAME + "  VARCHAR NULL," +
             LAST_NAME + "  VARCHAR NOT NULL, " +
-            PARENT_BASE_ENTITY_ID + "  VARCHAR NOT NULL," +
+            BASE_ENTITY_ID + "  VARCHAR NOT NULL," +
             INDEX_RELATIONSHIP + "  VARCHAR NOT NULL, " +
             AGE + "  VARCHAR NOT NULL, " +
             GENDER + "  VARCHAR NOT NULL, " +
@@ -50,13 +50,13 @@ public class ContactRepository extends BaseRepository {
             UPDATED_AT + " INTEGER NOT NULL, " +
             "UNIQUE(" + CONTACT_ID + ", " + FORM_SUBMISSION_ID + ") ON CONFLICT IGNORE )";
 
-    private static final String INDEX_CONTACT_ID = "CREATE INDEX_" + CONTACT_ID + " " + TABLE_NAME + "_" + CONTACT_ID +
+    private static final String INDEX_CONTACT_ID = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_ID +
             "_index ON " + TABLE_NAME + "(" + CONTACT_ID + " COLLATE NOCASE);";
 
-    private static final String INDEX_PARENT_BASE_ENTITY_ID = "CREATE INDEX_" + PARENT_BASE_ENTITY_ID + " " + TABLE_NAME + "_" + PARENT_BASE_ENTITY_ID +
-            "_index ON " + TABLE_NAME + "(" + PARENT_BASE_ENTITY_ID + " COLLATE NOCASE);";
+    private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
+            "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
 
-    private static final String INDEX_FORM_SUBMISSION_ID = "CREATE INDEX_" + FORM_SUBMISSION_ID + " " + TABLE_NAME + "_" + FORM_SUBMISSION_ID +
+    private static final String INDEX_FORM_SUBMISSION_ID = "CREATE INDEX " + TABLE_NAME + "_" + FORM_SUBMISSION_ID +
             "_index ON " + TABLE_NAME + "(" + FORM_SUBMISSION_ID + " COLLATE NOCASE);";
 
     public ContactRepository(Repository repository) {
@@ -66,7 +66,7 @@ public class ContactRepository extends BaseRepository {
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_CONTACT_ID);
-        database.execSQL(INDEX_PARENT_BASE_ENTITY_ID);
+        database.execSQL(INDEX_BASE_ENTITY_ID);
         database.execSQL(INDEX_FORM_SUBMISSION_ID);
     }
 
@@ -99,7 +99,7 @@ public class ContactRepository extends BaseRepository {
         values.put(CONTACT_ID, contact.getContactId());
         values.put(FIRST_NAME, contact.getFirstName());
         values.put(LAST_NAME, contact.getLastName());
-        values.put(PARENT_BASE_ENTITY_ID, contact.getParentBaseEntityId());
+        values.put(BASE_ENTITY_ID, contact.getBaseEntityId());
         values.put(AGE, contact.getAge());
         values.put(INDEX_RELATIONSHIP, contact.getIndexRelationship());
         values.put(GENDER, contact.getGender());
@@ -153,7 +153,7 @@ public class ContactRepository extends BaseRepository {
                     contact.setLastName(cursor.getString(cursor.getColumnIndex(ContactRepository.LAST_NAME)));
                     contact.setGender(cursor.getString(cursor.getColumnIndex(ContactRepository.GENDER)));
                     contact.setFormSubmissionId(cursor.getString(cursor.getColumnIndex(ContactRepository.FORM_SUBMISSION_ID)));
-                    contact.setParentBaseEntityId(cursor.getString(cursor.getColumnIndex(ContactRepository.PARENT_BASE_ENTITY_ID)));
+                    contact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(ContactRepository.BASE_ENTITY_ID)));
                     contact.setIndexRelationship(cursor.getString(cursor.getColumnIndex(ContactRepository.INDEX_RELATIONSHIP)));
                     contact.setCreatedAt(cursor.getString(cursor.getColumnIndex(ContactRepository.CREATED_AT)));
                     contact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(ContactRepository.UPDATED_AT)));

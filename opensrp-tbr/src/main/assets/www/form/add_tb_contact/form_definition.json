@@ -2,8 +2,8 @@
   "form_data_definition_version": "1",
   "form": {
     "default_bind_path": "/model/instance/AddContactForm_23.11.17_US",
-    "bind_type": "ec_client_contact",
-    "ec_bind_type": "ec_client_contact",
+    "bind_type": "ec_contacts",
+    "ec_bind_type": "ec_contacts",
     "fields": [
       {
         "name": "id",
