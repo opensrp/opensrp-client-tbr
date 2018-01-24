@@ -55,7 +55,10 @@ public class TbrApplication extends DrishtiApplication {
     private ConfigurableViewsHelper configurableViewsHelper;
 
     private static final String TAG = TbrApplication.class.getCanonicalName();
+
     private PopulateEnketoFormUtils populateEnketoFormUtils;
+
+    private String password;
 
     @Override
     public void onCreate() {
@@ -102,6 +105,14 @@ public class TbrApplication extends DrishtiApplication {
 
         }
         return repository;
+    }
+
+    public String getPassword() {
+        if (password == null) {
+            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
     }
 
     @Override
