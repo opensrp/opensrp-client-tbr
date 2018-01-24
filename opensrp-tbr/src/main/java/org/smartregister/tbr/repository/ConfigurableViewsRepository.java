@@ -24,9 +24,9 @@ public class ConfigurableViewsRepository extends BaseRepository {
 
     public static final String TABLE_NAME = "configurable_views";
     private static final String ID = "view_id";
-    private static final String IDENTIFIER = "identifier";
+    public static final String IDENTIFIER = "identifier";
     private static final String SERVER_VERSION = "serverVersion";
-    private static final String JSON = "json";
+    public static final String JSON = "json";
     private static final String DATE_CREATED = "date_created";
     private static final String DATE_UPDATED = "date_updated";
 

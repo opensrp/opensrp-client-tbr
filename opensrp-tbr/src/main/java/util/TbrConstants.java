@@ -13,8 +13,11 @@ TbrConstants extends AllConstants {
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
     public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
+    public static final String LAST_VIEWS_SYNC_TIMESTAMP = "LAST_VIEWS_SYNC_TIMESTAMP";
 
     public static final String PATIENT_TABLE_NAME = "ec_patient";
+
+    public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final class KEY {
         public static final String FIRST_NAME = "first_name";

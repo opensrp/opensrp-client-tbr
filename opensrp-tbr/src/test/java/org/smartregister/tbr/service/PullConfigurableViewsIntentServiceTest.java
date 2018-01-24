@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,23 +39,31 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     @Mock
     private ConfigurableViewsRepository configurableViewsRepository;
 
-    @Mock
-    private Context context;
+    private Context context = RuntimeEnvironment.application;
 
     @Mock
     private HTTPAgent httpAgent;
 
     @Spy
-    private ECSyncHelper syncHelper = ECSyncHelper.getInstance(RuntimeEnvironment.application);
+    private ECSyncHelper syncHelper = ECSyncHelper.getInstance(context);
 
     private PullConfigurableViewsServiceHelper helper;
 
-    private String expectedJsonFromAPI = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
+    private String loginandMainJSON = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}," +
+            "{\"_id\":\"19a2e8aa6739d77a2b780199c6122867\",\"_rev\":\"54-79e394bd5040770ee002eedff1ba360b\",\"type\":\"ViewConfiguration\",\"serverVersion\":1515566670940,\"identifier\":\"main\",\"metadata\":{\"type\":\"Main\",\"language\":\"en\",\"applicationName\":\"TB Rich\",\"enableJsonViews\":false}}]";
 
+
+    private String mainConfigJSon = "[{\"_id\":\"19a2e8aa6739d77a2b780199c6122867\",\"_rev\":\"54-79e394bd5040770ee002eedff1ba360b\",\"type\":\"ViewConfiguration\",\"serverVersion\":1515566670940,\"identifier\":\"main\",\"metadata\":{\"type\":\"Main\",\"language\":\"en\",\"applicationName\":\"TB Rich\",\"enableJsonViews\":false}}]";
+
+    private String loginJson = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
 
     @Before
     public void start() {
-        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper);
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, false);
+    }
+
+    private void initWithPassword() {
+        helper = new PullConfigurableViewsServiceHelper(context, configurableViewsRepository, httpAgent, "", syncHelper, true);
     }
 
     @After
@@ -65,26 +72,61 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     }
 
     @Test
-    public void testFetchConfigurableViewDontSavewhenAPIReturnsNothing() throws Exception {
-        expectedJsonFromAPI = "[]";
-        when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
+    public void testDontSavewhenAPIReturnsNothing() throws Exception {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString()))
+                .thenReturn(new Response(ResponseStatus.success, "[]"));
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
+        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
     }
 
     @Test
-    public void testConfigurableViewsSavesWhenAPIReturnsViews() throws Exception {
-        when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
-        doNothing().when(syncHelper).updateLastSyncTimeStamp(anyLong());
+    public void testLoginConfigurationSavedToPreferences() throws Exception {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
+                thenReturn(new Response(ResponseStatus.success, loginJson));
+        helper.processIntent();
+        verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
+        verify(syncHelper, never()).updateLastViewsSyncTimeStamp(anyLong());
+        verify(syncHelper).updateLoginConfigurableViewPreference(new JSONArray(loginJson).get(0).toString());
+    }
+
+    @Test
+    public void testMainConfigNotSavedWhenDatabaseNotCreated() throws Exception {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
+                thenReturn(new Response(ResponseStatus.success, loginandMainJSON));
+        helper.processIntent();
+        verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
+        verify(syncHelper, never()).updateLastViewsSyncTimeStamp(anyLong());
+        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
+    }
+
+    @Test
+    public void testMainConfigSavedWhenDatabaseExists() throws Exception {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
+                thenReturn(new Response(ResponseStatus.success, loginandMainJSON));
+        initWithPassword();
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
+        verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
+        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
+    }
+
+    @Test
+    public void testOnlyMainConfigSavedIfLoginNotUpdated() throws Exception {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString())).
+                thenReturn(new Response(ResponseStatus.success, mainConfigJSon));
+        initWithPassword();
+        helper.processIntent();
+        verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
+        verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
+        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
     }
 
 
     @Test
-    public void testConfigurableViewsOnException() {
-        when(httpAgent.fetch(anyString())).thenReturn(new Response(ResponseStatus.success, expectedJsonFromAPI));
-        doNothing().when(syncHelper).updateLastSyncTimeStamp(anyLong());
+    public void testNoExceptionRaised() {
+        when(httpAgent.fetchWithCredentials(anyString(), anyString(), anyString()))
+                .thenReturn(new Response(ResponseStatus.success, loginJson));
         try {
             helper.processIntent();
         } catch (Exception e) {
