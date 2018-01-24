@@ -31,7 +31,8 @@ public class ModelXMLHandler extends DefaultHandler {
         else if (tags != null && tags.isEmpty() && StringUtils.isNotEmpty(attributes.getValue("encounter_type"))) {
             eventType = attributes.getValue("encounter_type");
         } else if (tags != null) {
-            model = new Model(localName, attributes.getValue("openmrs_entity"), attributes.getValue("openmrs_entity_id"));
+            model = new Model(localName, attributes.getValue("openmrs_entity"),
+                    attributes.getValue("openmrs_entity_id"), attributes.getValue("openmrs_entity_parent"));
         }
 
     }

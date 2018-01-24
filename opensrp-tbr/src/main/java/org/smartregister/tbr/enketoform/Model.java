@@ -12,14 +12,17 @@ public class Model {
 
     private String openMRSEntityId;
 
+    private String openMRSEntityParent;
+
     public String getTag() {
         return tag;
     }
 
-    public Model(String tag, String openMRSEntity, String openMRSEntityId) {
+    public Model(String tag, String openMRSEntity, String openMRSEntityId, String openMRSEntityParent) {
         this.tag = tag;
         this.openMRSEntity = openMRSEntity;
         this.openMRSEntityId = openMRSEntityId;
+        this.openMRSEntityParent = openMRSEntityParent;
     }
 
     public String getOpenMRSEntity() {
@@ -28,5 +31,9 @@ public class Model {
 
     public String getOpenMRSEntityId() {
         return openMRSEntityId;
+    }
+
+    public String getOpenMRSEntityParent() {
+        return openMRSEntityParent;
     }
 }

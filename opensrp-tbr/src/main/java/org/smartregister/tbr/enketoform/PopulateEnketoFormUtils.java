@@ -16,6 +16,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.form.FieldOverrides;
@@ -37,6 +38,10 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import static org.smartregister.clientandeventmodel.FormEntityConstants.FieldType.person;
+import static org.smartregister.clientandeventmodel.FormEntityConstants.FieldType.person_address;
+import static org.smartregister.clientandeventmodel.FormEntityConstants.FieldType.person_attribute;
+import static org.smartregister.clientandeventmodel.FormEntityConstants.FieldType.person_identifier;
 import static org.smartregister.clientandeventmodel.FormEntityConstants.Person;
 import static org.smartregister.repository.EventClientRepository.Table.event;
 import static org.smartregister.repository.EventClientRepository.event_column;
@@ -102,13 +107,18 @@ public class PopulateEnketoFormUtils {
                         fields.put(tag.getTag(), TextUtils.join(",", observation.getHumanReadableValues()));
                     else
                         fields.put(tag.getTag(), observation.getValue());
-                } else if (tag.getOpenMRSEntity() != null &&
-                        tag.getOpenMRSEntity().equals("person")) {
-                    if (client == null)
+                } else if (tag.getOpenMRSEntity() != null) {
+                    if (client == null && tag.getOpenMRSEntity().startsWith(person.name()))
                         client = fetchClient(baseEntityId);
-                    fields.put(tag.getTag(), retrieveClientPropertyValue(client, tag));
-                } else if (tag.getOpenMRSEntity() != null &&
-                        tag.getOpenMRSEntity().equals("person_identifier")) {
+                    if (tag.getOpenMRSEntity().equals(person.name())) {
+                        fields.put(tag.getTag(), retrieveClientPropertyValue(client, tag));
+                    } else if (tag.getOpenMRSEntity().equals(person_identifier.name())) {
+                        fields.put(tag.getTag(), client.getIdentifier(tag.getOpenMRSEntityId()));
+                    } else if (tag.getOpenMRSEntity().equals(person_attribute.name())) {
+                        fields.put(tag.getTag(), client.getAttribute(tag.getOpenMRSEntityId()));
+                    } else if (tag.getOpenMRSEntity().equals(person_address.name())) {
+                        fields.put(tag.getTag(), retrieveAddressPropertyValue(client.getAddress(tag.getOpenMRSEntityParent()), tag));
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -149,6 +159,55 @@ public class PopulateEnketoFormUtils {
                 return client.getDeathdateApprox().toString();
             case client_type:
                 return client.getClientType();
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Retrieve address property Value as populated by
+     * org.smartregister.clientandeventmodel.FormEntityConverter.fillAddressFields()
+     */
+    private String retrieveAddressPropertyValue(Address address, Model tag) {
+        switch (tag.getOpenMRSEntityId()) {
+            case "start_date":
+            case "startDate":
+                return dateFormat.format(address.getStartDate());
+            case "end_date":
+            case "endDate":
+                return dateFormat.format(address.getEndDate());
+            case "latitude":
+                return address.getLatitude();
+            case "longitute":
+                return address.getLongitude();
+            case "geopoint":
+                return address.getGeopoint();
+            case "postal_code":
+            case "postalCode":
+                return address.getPostalCode();
+            case "sub_town":
+            case "subTown":
+                return address.getSubTown();
+            case "town":
+                return address.getTown();
+            case "sub_district":
+            case "subDistrict":
+                return address.getSubDistrict();
+            case "district":
+            case "county":
+            case "county_district":
+                return address.getCountyDistrict();
+            case "city":
+            case "village":
+            case "cityVillage":
+            case "city_village":
+                return address.getCityVillage();
+            case "state":
+            case "state_province":
+            case "stateProvince":
+                return address.getStateProvince();
+            case "country":
+                return address.getCountry();
             default:
                 return null;
         }
