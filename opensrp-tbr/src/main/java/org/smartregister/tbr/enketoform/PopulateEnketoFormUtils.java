@@ -166,9 +166,11 @@ public class PopulateEnketoFormUtils {
 
     /**
      * Retrieve address property Value as populated by
-     * org.smartregister.clientandeventmodel.FormEntityConverter.fillAddressFields()
+     * org.smartregister.clientandeventmodel.FormEntityConverter.fillAddressFields
      */
     private String retrieveAddressPropertyValue(Address address, Model tag) {
+        if (address == null)
+            return null;
         switch (tag.getOpenMRSEntityId()) {
             case "start_date":
             case "startDate":
@@ -209,7 +211,7 @@ public class PopulateEnketoFormUtils {
             case "country":
                 return address.getCountry();
             default:
-                return null;
+                return address.getAddressField(tag.getOpenMRSEntityId());
         }
     }
 
