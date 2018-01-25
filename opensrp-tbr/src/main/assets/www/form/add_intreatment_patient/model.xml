@@ -40,10 +40,11 @@
             </diagnosis>
             <patient_info>
                 <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-                <program_id />
+                <program_id openmrs_entity="person_identifier"
+                    openmrs_entity_id="TBREACH Program ID" />
                 <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
                 <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
-                <national_id />
+                <national_id openmrs_entity="person_attribute" openmrs_entity_id="CNIC"/>
                 <age openmrs_entity="person" openmrs_entity_id="age" />
                 <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
                 <birthdate_estimated openmrs_entity="person"

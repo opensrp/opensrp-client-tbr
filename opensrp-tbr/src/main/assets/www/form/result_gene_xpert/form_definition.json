@@ -78,6 +78,26 @@
         "bind": "/model/instance/GeneXpertForm_10.01.18/participant_id"
       },
       {
+        "name": "program_id",
+        "bind": "/model/instance/GeneXpertForm_10.01.18/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/GeneXpertForm_10.01.18/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/GeneXpertForm_10.01.18/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/GeneXpertForm_10.01.18/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/GeneXpertForm_10.01.18/pt_name_note"
+      },
+      {
         "name": "genexpert_performed",
         "bind": "/model/instance/GeneXpertForm_10.01.18/genexpert_performed"
       },

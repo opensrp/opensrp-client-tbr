@@ -75,12 +75,27 @@
       },
       {
         "name": "participant_id",
-        "bind": "/model/instance/CultureForm_03.10.17_US/participant_id",
-        "shouldLoadValue": true
+        "bind": "/model/instance/CultureForm_03.10.17_US/participant_id"
       },
       {
-        "name": "culture_taken",
-        "bind": "/model/instance/CultureForm_03.10.17_US/culture_taken"
+        "name": "program_id",
+        "bind": "/model/instance/CultureForm_03.10.17_US/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/CultureForm_03.10.17_US/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/CultureForm_03.10.17_US/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/CultureForm_03.10.17_US/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/CultureForm_03.10.17_US/pt_name_note"
       },
       {
         "name": "test_date",

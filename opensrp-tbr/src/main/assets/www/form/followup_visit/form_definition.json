@@ -82,6 +82,26 @@
         "bind": "/model/instance/FollowUpVisit_10.01.18/participant_id"
       },
       {
+        "name": "program_id",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/pt_name_note"
+      },
+      {
         "name": "weight",
         "bind": "/model/instance/FollowUpVisit_10.01.18/weight"
       },
@@ -106,32 +126,28 @@
         "bind": "/model/instance/FollowUpVisit_10.01.18/month"
       },
       {
-        "name": "treatment_duration",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_duration"
-      },
-      {
         "name": "treatment_phase",
         "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_phase"
       },
       {
-        "name": "treatment_regimen1",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen1"
+        "name": "treatment_regimen",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen"
       },
       {
-        "name": "treatment_regimen2",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen2"
-      },
-      {
-        "name": "regimen_oth1",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/regimen_oth1"
-      },
-      {
-        "name": "regimen_oth2",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/regimen_oth2"
+        "name": "regimen_oth",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/regimen_oth"
       },
       {
         "name": "fu_visit",
         "bind": "/model/instance/FollowUpVisit_10.01.18/fu_visit"
+      },
+      {
+        "name": "visit_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/visit_date"
+      },
+      {
+        "name": "fu_visit_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/fu_visit_date"
       },
       {
         "name": "next_visit_date",
@@ -140,10 +156,6 @@
       {
         "name": "next_visit_date_note",
         "bind": "/model/instance/FollowUpVisit_10.01.18/next_visit_date_note"
-      },
-      {
-        "name": "fu_visit_date",
-        "bind": "/model/instance/FollowUpVisit_10.01.18/fu_visit_date"
       },
       {
         "name": "smear_due_date",

@@ -75,8 +75,11 @@
       },
       {
         "name": "participant_id",
-        "bind": "/model/instance/TreatmentInitation_10.01.18/patient_information/participant_id",
-        "shouldLoadValue": true
+        "bind": "/model/instance/TreatmentInitation_10.01.18/patient_information/participant_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/patient_information/program_id_note"
       },
       {
         "name": "first_name",
@@ -85,6 +88,10 @@
       {
         "name": "last_name",
         "bind": "/model/instance/TreatmentInitation_10.01.18/patient_information/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/patient_information/pt_name_note"
       },
       {
         "name": "age",
@@ -127,12 +134,28 @@
         "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/patient_type"
       },
       {
+        "name": "treatment_phase",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/treatment_phase"
+      },
+      {
+        "name": "treatment_phase_note",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/treatment_phase_note"
+      },
+      {
         "name": "treatment_regimen",
         "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
       },
       {
         "name": "fu_visit",
         "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/fu_visit"
+      },
+      {
+        "name": "visit_date",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/visit_date"
+      },
+      {
+        "name": "fu_visit_date",
+        "bind": "/model/instance/TreatmentInitation_10.01.18/tb_information/fu_visit_date"
       },
       {
         "name": "next_visit_date",

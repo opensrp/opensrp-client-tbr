@@ -35,7 +35,7 @@
         </span>
         <span class="required">*</span>
         <input name="/GeneXpertForm_10.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
-            required="required" type="text" readonly="readonly" />
+            required="required" type="text" />
         <span class="or-constraint-msg " data-itext-id="/GeneXpertForm_10.01.18/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>
@@ -46,6 +46,32 @@
         <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
             required
         </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/GeneXpertForm_10.01.18/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label active" data-itext-id="/GeneXpertForm_10.01.18/program_id_note:label"
+            lang="en">Program ID: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/program_id "></span>
+        </span>
+        <input name="/GeneXpertForm_10.01.18/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/GeneXpertForm_10.01.18/pt_name_note:label"
+            lang="Roman Urdu">-
+        </span>
+        <span class="question-label active" data-itext-id="/GeneXpertForm_10.01.18/pt_name_note:label"
+            lang="en">Patient Name:
+            <span class="or-output" data-value=" /GeneXpertForm_10.01.18/first_name "></span>
+            <span class="or-output" data-value=" /GeneXpertForm_10.01.18/last_name "></span>
+        </span>
+        <input name="/GeneXpertForm_10.01.18/pt_name_note" data-type-xml="string" readonly="readonly"
+            type="text" />
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
@@ -348,22 +374,6 @@
                         <span class="option-label active" data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/indeterminate:label"
                             lang="en">
                             Indeterminate
-                        </span>
-                    </label>
-                    <label class="">
-                        <input name="/GeneXpertForm_10.01.18/test_information/rif_result"
-                            data-name="/GeneXpertForm_10.01.18/test_information/rif_result"
-                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
-                            data-type-xml="select1"
-                            type="radio"
-                            value="error" />
-                        <span class="option-label " data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/error:label"
-                            lang="Roman Urdu">
-                            Error
-                        </span>
-                        <span class="option-label active" data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/error:label"
-                            lang="en">
-                            Error
                         </span>
                     </label>
                 </div>

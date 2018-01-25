@@ -3,10 +3,117 @@
   "title": "Follow up Visit",
   "sms_keyword": "followup_visit",
   "default_language": "English",
+  "choices": {
+    "regimen": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhze"
+        },
+        "label": {
+          "Roman Urdu": "RHZE",
+          "English": "RHZE"
+        },
+        "openmrs_concept_name": "RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL",
+        "name": "rhze"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rh"
+        },
+        "label": {
+          "Roman Urdu": "RH",
+          "English": "RH"
+        },
+        "openmrs_concept_name": "RIFAMPICIN AND ISONIAZID",
+        "name": "rh"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhe"
+        },
+        "label": {
+          "Roman Urdu": "RHE",
+          "English": "RHE"
+        },
+        "openmrs_concept_name": "rifampicin isoniazid and ethambutol",
+        "name": "rhe"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: rhzes"
+        },
+        "label": {
+          "Roman Urdu": "RHZES",
+          "English": "RHZES"
+        },
+        "openmrs_concept_name": "STREPTOMYCIN/RIFAMPICIN/ISONIAZID/PYRAZINAMIDE/ETHAMBUTOL PROPHYLAXIS",
+        "name": "rhzes"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
+    "tx_phase": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: continuation phase"
+        },
+        "label": {
+          "Roman Urdu": "Continuation",
+          "English": "Continuation"
+        },
+        "openmrs_concept_name": "continuation phase, tuberculosis treatment",
+        "name": "continuation"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: intensive phase"
+        },
+        "label": {
+          "Roman Urdu": "Intensive",
+          "English": "Intensive"
+        },
+        "openmrs_concept_name": "initial phase, tuberculosis treatment",
+        "name": "intensive"
+      }
+    ],
+    "yes_no": [
+      {
+        "instance": {
+          "openmrs_code": "TBR:yes"
+        },
+        "label": {
+          "Roman Urdu": "Haan",
+          "English": "Yes"
+        },
+        "openmrs_concept_name": "yes",
+        "name": "yes"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:no"
+        },
+        "label": {
+          "Roman Urdu": "Nahi",
+          "English": "No"
+        },
+        "openmrs_concept_name": "no",
+        "name": "no"
+      }
+    ]
+  },
   "instance": {
     "encounter_type": "Follow up Visit"
   },
-  "version": "201801110945",
+  "version": "201801251521",
   "id_string": "followup_visit",
   "type": "survey",
   "children": [
@@ -43,7 +150,15 @@
       "name": "provider_location_name"
     },
     {
-      "type": "date",
+      "type": "note",
+      "name": "provider_location_note",
+      "label": {
+        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
+        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+      }
+    },
+    {
+      "type": "hidden",
       "name": "treatment_initiation_date",
       "label": {
         "English": "Treatment Initiation Date"
@@ -51,10 +166,10 @@
     },
     {
       "type": "note",
-      "name": "provider_location_note",
+      "name": "treatment_initiation_date_note",
       "label": {
-        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
-        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+        "Roman Urdu": "Ilaaj shuru honey ki tareeq: ${treatment_initiation_date}",
+        "English": "Treatment Initiation Date: ${treatment_initiation_date}"
       }
     },
     {
@@ -107,7 +222,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR:phone number",
+        "openmrs_entity_id": "TBR:sim number",
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -149,8 +264,65 @@
     },
     {
       "instance": {
+        "openmrs_entity_id": "TBREACH Program ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
+      "instance": {
         "openmrs_entity_id": "TBR: weight",
         "openmrs_entity": "concept"
+      },
+      "bind": {
+        "required": "yes"
       },
       "type": "integer",
       "name": "weight",
@@ -173,7 +345,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "bmi",
+        "openmrs_entity_id": "TBR: body mass index",
         "openmrs_entity": "concept"
       },
       "bind": {
@@ -187,34 +359,34 @@
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBR: patient category",
+        "openmrs_entity": "concept"
+      },
       "type": "text",
       "name": "category",
       "label": {
+        "Roman Urdu": "Category",
         "English": "Category"
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBR: tb evaluation month",
+        "openmrs_entity": "concept"
+      },
       "type": "text",
       "name": "month",
       "label": {
-        "English": "Month"
-      }
-    },
-    {
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
         "Roman Urdu": "Kitney mahiney se ilaaj jari hai",
-        "English": "Treatment Duration"
-      },
-      "type": "integer",
-      "name": "treatment_duration",
-      "hint": {
-        "English": "(month of treatment)"
+        "English": "Treatment Month"
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBR: treatment phase",
+        "openmrs_entity": "concept"
+      },
       "label": {
         "Roman Urdu": "Phase",
         "English": "Treatment Phase"
@@ -222,6 +394,9 @@
       "type": "select one",
       "children": [
         {
+          "instance": {
+            "openmrs_code": "TBR: continuation phase"
+          },
           "name": "continuation",
           "label": {
             "Roman Urdu": "Continuation",
@@ -229,6 +404,9 @@
           }
         },
         {
+          "instance": {
+            "openmrs_code": "TBR: intensive phase"
+          },
           "name": "intensive",
           "label": {
             "Roman Urdu": "Intensive",
@@ -239,93 +417,29 @@
       "name": "treatment_phase"
     },
     {
-      "name": "treatment_regimen1",
-      "bind": {
-        "relevant": "${treatment_phase}='intensive'"
-      },
+      "name": "treatment_regimen",
+      "choice_filter": "( (name = 'rhzes' or name = 'rhze') and ${treatment_phase} = 'intensive' ) or \n( (name = 'rhe' or name = 'rh') and ${treatment_phase} = 'continuation' ) or \nname = 'other'",
       "label": {
-        "Roman Urdu": "Intensive Phase Regimen",
-        "English": "Intensive Phase Regimen"
+        "Roman Urdu": "Regimen",
+        "English": "Regimen"
       },
+      "itemset": "regimen",
       "instance": {
+        "openmrs_entity_id": "TBR: regimen",
         "openmrs_entity": "concept"
       },
-      "type": "select one",
-      "children": [
-        {
-          "name": "rhzes",
-          "label": {
-            "Roman Urdu": "RHZES",
-            "English": "RHZES"
-          }
-        },
-        {
-          "name": "rhze",
-          "label": {
-            "Roman Urdu": "RHZE",
-            "English": "RHZE"
-          }
-        },
-        {
-          "name": "other",
-          "label": {
-            "Roman Urdu": "Other",
-            "English": "Other"
-          }
-        }
-      ]
+      "type": "select one"
     },
     {
-      "bind": {
-        "relevant": "${treatment_phase}='continuation'"
+      "instance": {
+        "openmrs_entity_id": "TBR:other specify text",
+        "openmrs_entity": "concept"
       },
-      "label": {
-        "Roman Urdu": "Continuation Phase Regimen",
-        "English": "Continuation Phase Regimen"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "name": "rhe",
-          "label": {
-            "Roman Urdu": "RHE",
-            "English": "RHE"
-          }
-        },
-        {
-          "name": "rh",
-          "label": {
-            "Roman Urdu": "RH",
-            "English": "RH"
-          }
-        },
-        {
-          "name": "other",
-          "label": {
-            "Roman Urdu": "Other",
-            "English": "Other"
-          }
-        }
-      ],
-      "name": "treatment_regimen2"
-    },
-    {
       "bind": {
-        "relevant": "${treatment_regimen1}='other'"
+        "relevant": "${treatment_regimen}='other'"
       },
       "type": "text",
-      "name": "regimen_oth1",
-      "label": {
-        "Roman Urdu": "Other",
-        "English": "Other"
-      }
-    },
-    {
-      "bind": {
-        "relevant": "${treatment_regimen2}='other'"
-      },
-      "type": "text",
-      "name": "regimen_oth2",
+      "name": "regimen_oth",
       "label": {
         "Roman Urdu": "Other",
         "English": "Other"
@@ -333,7 +447,7 @@
     },
     {
       "label": {
-        "Roman Urdu": "Agli Tareeq 30 din baad?",
+        "Roman Urdu": "Agli Tareeq 30 din baad deni hai?",
         "English": "Next Appointment after 30 days?"
       },
       "type": "select one",
@@ -357,33 +471,46 @@
             "Roman Urdu": "Nahi",
             "English": "No"
           }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR: unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
         }
       ],
       "name": "fu_visit"
     },
     {
+      "bind": {
+        "relevant": "${fu_visit}='yes'",
+        "calculate": "format-date(date-time(decimal-date-time(${treatment_initiation_date})+30),'%Y-%m-%d')"
+      },
+      "type": "calculate",
+      "name": "visit_date",
+      "label": {
+        "Roman Urdu": "Agar haan, tou aagli tareeq yeh hai",
+        "English": "30 Days Appointment Date"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "${fu_visit}='no'"
+      },
+      "type": "date",
+      "name": "fu_visit_date",
+      "label": {
+        "Roman Urdu": "Aagli Tareeq Daley",
+        "English": "Entet Next Visit Date"
+      }
+    },
+    {
       "instance": {
+        "openmrs_entity_id": "TBR: next visit date",
         "openmrs_entity": "concept"
       },
       "bind": {
-        "relevant": "${fu_visit}='yes'",
-        "calculate": "format-date(date(${today} + 30),'%Y-%m-%d')"
+        "calculate": "if(${fu_visit}='yes', ${visit_date}, ${fu_visit_date})"
       },
       "type": "calculate",
       "name": "next_visit_date",
       "label": {
-        "Roman Urdu": "Aagli tareeq",
-        "English": "Next Appointment Date"
+        "Roman Urdu": "Aagli Tareeq",
+        "English": "Next Visit Date"
       }
     },
     {
@@ -395,17 +522,10 @@
       }
     },
     {
-      "bind": {
-        "relevant": "${fu_visit}='no'"
+      "instance": {
+        "openmrs_entity_id": "TBR: smear due date",
+        "openmrs_entity": "concept"
       },
-      "type": "date",
-      "name": "fu_visit_date",
-      "label": {
-        "Roman Urdu": "Aagli Tareeq",
-        "English": "Next Visit Date"
-      }
-    },
-    {
       "bind": {
         "calculate": "if(${category} = 'cat i', \n(\nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 6, format-date(date(${treatment_initiation_date} + 174),'%Y-%m-%d'), 'not due at the moment') \n)\n),\n(\nif(${month} = 3, format-date(date(${treatment_initiation_date} + 84),'%Y-%m-%d'), \nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 8, format-date(date(${treatment_initiation_date} + 204),'%Y-%m-%d'), 'not due at the moment')\n) \n)\n)\n)"
       },
@@ -425,7 +545,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: adverse effect",
+        "openmrs_entity_id": "TBR: adverse drug effect",
         "openmrs_entity": "concept"
       },
       "label": {
@@ -452,16 +572,6 @@
           "label": {
             "Roman Urdu": "Nahi",
             "English": "No"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR: unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
           }
         }
       ],

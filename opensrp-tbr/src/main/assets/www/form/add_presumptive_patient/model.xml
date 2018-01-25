@@ -67,8 +67,9 @@
                 <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
                 <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
                 <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-                <program_id />
-                <national_id />
+                <program_id openmrs_entity="person_identifier"
+                    openmrs_entity_id="TBREACH Program ID" />
+                <national_id openmrs_entity="person_attribute" openmrs_entity_id="CNIC" />
                 <close_tb_contact openmrs_entity="concept"
                     openmrs_entity_id="TBR:tuberculosis contact" />
                 <previous_tb_treatment openmrs_entity="concept"
