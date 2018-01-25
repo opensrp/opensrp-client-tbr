@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.model.ScreenContact;
+import org.smartregister.tbr.model.Contact;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 
 /**
  * Created by ndegwamartin on 22/12/2017.
@@ -21,7 +22,7 @@ public class ScreenContactViewHelper {
     private FrameLayout frameLayout;
     private static String TAG = RenderContactScreeningCardHelper.class.getCanonicalName();
 
-    public ScreenContactViewHelper(final Context context, View frameView, ScreenContact screenContactData) {
+    public ScreenContactViewHelper(final Context context, View frameView, Contact screenContactData) {
         //start with the frame
         FrameLayout frameLayoutTemplate = (FrameLayout) frameView.findViewById(R.id.clientContactFrameLayout);
         if (frameLayoutTemplate != null) {
@@ -29,7 +30,7 @@ public class ScreenContactViewHelper {
             frameLayout.setLayoutParams(frameLayoutTemplate.getLayoutParams());
             frameLayout.setPadding(frameLayoutTemplate.getPaddingLeft(), frameLayoutTemplate.getPaddingTop(), frameLayoutTemplate.getPaddingRight(), frameLayoutTemplate.getPaddingBottom());
             frameLayout.setId(View.generateViewId());
-            frameLayout.setTag(R.id.CONTACT_ID, screenContactData.getTbreachId());
+            frameLayout.setTag(R.id.CONTACT_ID, screenContactData.getContactId());
 
             //Initials TextView
             TextView contactViewInitialsTemplate = (TextView) frameView.findViewById(R.id.clientContactTextView);
@@ -39,7 +40,8 @@ public class ScreenContactViewHelper {
             initialsTextView.setPadding(contactViewInitialsTemplate.getPaddingLeft(), contactViewInitialsTemplate.getPaddingTop(), contactViewInitialsTemplate.getPaddingRight(), contactViewInitialsTemplate.getPaddingBottom());
             initialsTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, contactViewInitialsTemplate.getTextSize() / 2);
             initialsTextView.setGravity(contactViewInitialsTemplate.getGravity());
-            initialsTextView.setText(screenContactData.getName());
+            String fullname = screenContactData.getFirstName() != null ? screenContactData.getFirstName() + Constants.CHAR.SPACE + screenContactData.getLastName() : screenContactData.getFirstName();
+            initialsTextView.setText(Utils.getInitials(fullname));
 
             if (screenContactData.getGender().equals(Constants.GENDER.FEMALE)) {
                 initialsTextView.setBackground(context.getResources().getDrawable(R.color.female_light_pink));
@@ -52,7 +54,6 @@ public class ScreenContactViewHelper {
                 initialsTextView.setTextColor(context.getResources().getColor(R.color.gender_neutral_green));
             }
 
-
             ImageView indicatorImageViewTemplate = (ImageView) frameView.findViewById(R.id.clientContactIndicatorImageView);
             ImageView indicatorImageView = new ImageView(context);
 
@@ -62,9 +63,9 @@ public class ScreenContactViewHelper {
             indicatorImageView.setPadding(indicatorImageViewTemplate.getPaddingLeft(), indicatorImageViewTemplate.getPaddingTop(), indicatorImageViewTemplate.getPaddingRight(), indicatorImageViewTemplate.getPaddingBottom());
             indicatorImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             indicatorImageView.setId(View.generateViewId());
-            indicatorImageView.setTag(R.id.CONTACT_ID, screenContactData);
+            indicatorImageView.setTag(R.id.CONTACT, screenContactData);
 
-            if (screenContactData.isNegative()) {
+            if (screenContactData.isNegative() != null && screenContactData.isNegative()) {
                 indicatorImageView.setVisibility(View.GONE);
                 initialsTextView.setBackground(context.getResources().getDrawable(R.color.disabled_light_gray));
                 initialsTextView.setTextColor(context.getResources().getColor(R.color.disabled_gray));

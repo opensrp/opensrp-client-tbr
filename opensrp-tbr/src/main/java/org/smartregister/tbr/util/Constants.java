@@ -76,6 +76,8 @@ public class Constants {
         public static final String DIAGNOSIS = "diagnosis";
         public static final String RESULT_GENE_EXPERT = "result_gene_xpert";
         public static final String CONTACT_SCREENING = "contact_screening";
+        public static final String REMOVE_PATIENT = "remove_patient";
+        public static final String TREATMENT_OUTCOME = "treatment_outcome";
     }
 
     public static final class SCREEN_STAGE {

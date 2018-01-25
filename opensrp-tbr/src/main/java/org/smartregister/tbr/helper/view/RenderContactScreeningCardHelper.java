@@ -7,15 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.model.ScreenContact;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.model.Contact;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 /**
  * Created by ndegwamartin on 23/11/2017.
@@ -43,23 +47,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                     contactsHolderView.removeAllViews();
                     contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
 
-                    List<ScreenContact> contacts = new ArrayList<>();
-                    contacts.add(new ScreenContact("1", "MN", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("2", "EK", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("3", "LL", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("4", "JZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("5", "ES", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("6", "ZP", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("7", "MB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("8", "PL", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("9", "MT", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("10", "NI", Constants.GENDER.MALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("11", "MZ", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("12", "TO", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.SCREENED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("13", "KK", Constants.GENDER.TRANSGENDER, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("14", "OB", Constants.GENDER.MALE, Constants.SCREEN_STAGE.DIAGNOSED, !isPrimeNumber(contacts.size())));
-                    contacts.add(new ScreenContact("15", "SG", Constants.GENDER.FEMALE, Constants.SCREEN_STAGE.INTREATMENT, !isPrimeNumber(contacts.size())));
-
+                    List<Contact> contacts = getDummyData();
                     FrameLayout contactView;
 
                     for (int i = 0; i < contacts.size(); i++) {
@@ -68,8 +56,32 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                         contactView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                Contact screenContactData = (Contact) view.getTag(R.id.CONTACT);
+                                if (screenContactData != null) {
 
-                                ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                                    if (screenContactData.getStage() == null) {
+                                        ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED) && screenContactData.isNegative() == null) {
+                                        showNegativeContactPopUp();
+
+                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.INTREATMENT)) {
+                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
+                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
+                                        //  ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.INTREATMENT,patientDetails);
+
+                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED)) {
+                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
+                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
+                                        //  ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.DIAGNOSED,patientDetails);
+
+                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.SCREENED) && screenContactData.isNegative()) {
+
+                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
+                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
+                                        // ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.SCREENED,patientDetails);
+                                    }
+
+                                }
                             }
                         });
 
@@ -85,6 +97,10 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
 
     }
 
+    private void showNegativeContactPopUp() {
+
+    }
+
     //Demo only
     public boolean isPrimeNumber(int number) {
 
@@ -94,5 +110,139 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             }
         }
         return true;
+    }
+
+    private List<Contact> getDummyData() {
+        List<Contact> contacts = new ArrayList<>();
+        Contact a;
+
+        a = new Contact();
+        a.setFirstName("Ezekiel");
+        a.setLastName("Kashoosha");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Laban");
+        a.setLastName("Lego");
+        a.setGender(Constants.GENDER.TRANSGENDER);
+        a.setStage(Constants.SCREEN_STAGE.DIAGNOSED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Joyce");
+        a.setLastName("Zabina");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.INTREATMENT);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Elenor");
+        a.setLastName("Swila");
+        a.setGender(Constants.GENDER.FEMALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Zipporah");
+        a.setLastName("Paliba");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Mickal");
+        a.setLastName("Bati");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Peter");
+        a.setLastName("Leddy");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Mimi");
+        a.setLastName("Taurus");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Nicole");
+        a.setLastName("Isipi");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Malengo");
+        a.setLastName("Zumba");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.DIAGNOSED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+
+        a = new Contact();
+        a.setFirstName("Teanaa");
+        a.setLastName("Orembe");
+        a.setGender(Constants.GENDER.FEMALE);
+        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Kingsom");
+        a.setLastName("Kilele");
+        a.setGender(Constants.GENDER.TRANSGENDER);
+        a.setStage(Constants.SCREEN_STAGE.DIAGNOSED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Oboro");
+        a.setLastName("Bogoti");
+        a.setGender(Constants.GENDER.MALE);
+        a.setStage(Constants.SCREEN_STAGE.DIAGNOSED);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        a = new Contact();
+        a.setFirstName("Supagirl");
+        a.setLastName("Galeli");
+        a.setGender(Constants.GENDER.FEMALE);
+        a.setStage(Constants.SCREEN_STAGE.INTREATMENT);
+        a.setNegative(!isPrimeNumber(contacts.size()));
+        a.setContactId(generateRandomUUIDString());
+        contacts.add(a);
+
+        return contacts;
     }
 }

@@ -55,8 +55,5 @@ public class PresumptivePatientDetailActivityTest extends BaseUnitTest {
 
         PresumptivePatientDetailActivity spyActivity = spy(activity);
         junit.framework.Assert.assertNotNull(spyActivity);
-        Mockito.doNothing().when(spyActivity).initViewByFragmentType(any(BasePatientDetailsFragment.class));
-        spyActivity.renderFragmentView();
-        Mockito.verify(spyActivity, times(1)).initViewByFragmentType(any(BasePatientDetailsFragment.class));
     }
 }

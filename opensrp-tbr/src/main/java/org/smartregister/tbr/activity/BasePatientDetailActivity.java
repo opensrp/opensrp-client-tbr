@@ -1,13 +1,13 @@
 package org.smartregister.tbr.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -15,18 +15,20 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.fragment.BasePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
 import util.TbrConstants;
+
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
 /**
  * Created by ndegwamartin on 17/11/2017.
@@ -126,6 +128,8 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.CONTACT_SCREENING);
         formNames.add(TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT);
         formNames.add(TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT);
+        formNames.add(Constants.FORM.REMOVE_PATIENT);
+        formNames.add(Constants.FORM.TREATMENT_OUTCOME);
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -189,13 +193,27 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     }
 
 
-    //remove patient
-    public void removePatient(View view) {
-        Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
-    }
+    public void goToPatientDetailActivity(String viewConfigurationIdentifier, Map patientDetails) {
+        Intent intent = null;
+        switch (viewConfigurationIdentifier) {
+            case Constants.SCREEN_STAGE.SCREENED:
+                intent = new Intent(this, PresumptivePatientDetailActivity.class);
+                break;
+            case Constants.SCREEN_STAGE.DIAGNOSED:
+                intent = new Intent(this, PositivePatientDetailActivity.class);
+                break;
+            case Constants.SCREEN_STAGE.INTREATMENT:
+                intent = new Intent(this, InTreatmentPatientDetailActivity.class);
+                break;
+            default:
+                break;
 
-    //remove patient
-    public void recordOutcome(View view) {
-        Utils.showToast(this, "Recording Outcome for patient with ID " + view.getTag(R.id.CLIENT_ID));
+        }
+
+        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, this.getIntent().getStringExtra(TOOLBAR_TITLE));
+        intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
+        intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(Constants.KEY.TBREACH_ID).toString());
+        startActivity(intent);
+
     }
 }

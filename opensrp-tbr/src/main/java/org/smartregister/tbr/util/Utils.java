@@ -3,6 +3,7 @@ package org.smartregister.tbr.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -22,6 +23,9 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
+import org.smartregister.tbr.activity.PositivePatientDetailActivity;
+import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.util.DateUtil;
@@ -29,9 +33,13 @@ import org.smartregister.util.DateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
+import util.TbrConstants;
+
 import static java.lang.Math.abs;
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
 /**
  * Created by ndegwamartin on 10/10/2017.
@@ -185,7 +193,7 @@ public class Utils {
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f
         );
-        rotate.setDuration(100);
+        rotate.setDuration(50);
         rotate.setRepeatCount(Animation.INFINITE);
 
         return rotate;
@@ -235,6 +243,5 @@ public class Utils {
         }
         return "";
     }
-
 
 }

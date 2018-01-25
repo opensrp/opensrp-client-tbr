@@ -6,7 +6,8 @@
     android:layout_marginBottom="5dp"
     android:background="@drawable/border"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:visibility="gone">
 
     <LinearLayout
         android:layout_width="match_parent"

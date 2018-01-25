@@ -31,7 +31,8 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
                 Button followUpView = (Button) view.findViewById(R.id.follow_up_button);
-                if (followUpView != null) {
+                if (followUpView != null && patientDetails.get(Constants.KEY.NEXT_VISIT_DATE) != null) {
+                    ((View) followUpView.getParent().getParent()).setVisibility(View.VISIBLE);
                     followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString(), true), "dd/MM"));
                     DateTime treatmentStartDate = DateTime.parse(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString());
                     int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
@@ -45,6 +46,8 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
                     }
 
 
+                } else {
+                    ((View) followUpView.getParent().getParent()).setVisibility(View.GONE);
                 }
             }
 

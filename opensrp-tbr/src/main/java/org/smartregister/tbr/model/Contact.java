@@ -15,7 +15,7 @@ public class Contact {
     private String age;
     private String gender;
     private String contactId;
-    private boolean isNegative;
+    private Boolean isNegative;
     private String formSubmissionId;
 
     private String nationalID;
@@ -102,11 +102,11 @@ public class Contact {
         this.contactId = contactId;
     }
 
-    public boolean isNegative() {
+    public Boolean isNegative() {
         return isNegative;
     }
 
-    public void setNegative(boolean negative) {
+    public void setNegative(Boolean negative) {
         isNegative = negative;
     }
 

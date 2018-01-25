@@ -47,7 +47,7 @@ public class ContactRepository extends BaseRepository {
             GENDER + " VARCHAR NOT NULL, " +
             STAGE + " VARCHAR NULL, " +
             FORM_SUBMISSION_ID + " VARCHAR NOT NULL, " +
-            IS_NEGATIVE + " BOOLEAN TRUE, " +
+            IS_NEGATIVE + " BOOLEAN NULL, " +
             CREATED_AT + " VARCHAR NOT NULL, " +
             UPDATED_AT + " INTEGER NOT NULL, " +
             "UNIQUE(" + CONTACT_ID + ", " + FORM_SUBMISSION_ID + ") ON CONFLICT IGNORE )";

@@ -20,8 +20,11 @@ import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
+import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
+import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
@@ -43,8 +46,6 @@ import java.util.Map;
 import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
-import static util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT;
-import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 
 /**
  * Created by ndegwamartin on 06/12/2017.
@@ -266,13 +267,19 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
                 break;
             case R.id.record_results:
                 showResultMenu(view);
+                break;
+            case R.id.remove_patient:
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.REMOVE_PATIENT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
+                break;
+            case R.id.record_outcome:
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.TREATMENT_OUTCOME, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
                 break;
             default:
                 break;
@@ -302,12 +309,14 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             Button removePatientButton = (Button) rootView.findViewById(R.id.remove_patient);
             if (removePatientButton != null) {
                 removePatientButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                removePatientButton.setOnClickListener(this);
             }
 
             Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
             if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
                 recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                 recordOutcomeButton.setVisibility(View.VISIBLE);
+                recordOutcomeButton.setOnClickListener(this);
             }
 
             Button followUpButton = (Button) rootView.findViewById(R.id.follow_up_button);
