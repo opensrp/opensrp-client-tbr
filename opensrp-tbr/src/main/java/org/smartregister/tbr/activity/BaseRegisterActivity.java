@@ -203,6 +203,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     public void onFormClosed(String recordId, String formName) {
         Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        hideProgressDialog();
         switchToBaseFragment();
     }
 
