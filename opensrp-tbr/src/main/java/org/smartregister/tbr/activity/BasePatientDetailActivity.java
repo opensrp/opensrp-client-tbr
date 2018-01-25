@@ -183,5 +183,10 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+    }
+
     protected abstract void renderFragmentView();
 }

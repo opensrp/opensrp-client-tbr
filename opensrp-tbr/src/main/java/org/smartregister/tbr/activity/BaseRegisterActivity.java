@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -197,6 +198,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             hideProgressDialog();
             switchToBaseFragment();
         }
+    }
+
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        switchToBaseFragment();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
