@@ -83,7 +83,7 @@ android {
                 exclude group: 'com.google.guava', module: 'guava'
             }
 
-            compile('org.smartregister:opensrp-client-enketo:1.0.1-SNAPSHOT@aar') {
+            compile('org.smartregister:opensrp-client-enketo:1.0.2-SNAPSHOT@aar') {
                 transitive = true
             }
             compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -120,8 +120,8 @@ android {
             }
             androidTestCompile('com.android.support.test:rules:0.5') {
                 exclude module: 'support-annotations'
-
             }
+
         }
 
     }

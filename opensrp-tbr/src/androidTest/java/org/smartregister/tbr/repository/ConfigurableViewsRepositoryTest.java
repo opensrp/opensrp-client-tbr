@@ -23,11 +23,15 @@ import static org.junit.Assert.assertTrue;
 public class ConfigurableViewsRepositoryTest {
 
     private ConfigurableViewsRepository configurableViewsRepository;
+    private String expectedJsonFromAPI;
+    private TbrRepositoryShadow repositoryShadow = new TbrRepositoryShadow(TbrApplication.getInstance().getApplicationContext(), TbrApplication.getInstance().getContext());
 
     @Before
     public void setUp() throws Exception {
-        configurableViewsRepository = TbrApplication.getInstance().getConfigurableViewsRepository();
+        configurableViewsRepository = new ConfigurableViewsRepository(repositoryShadow);
         configurableViewsRepository.getWritableDatabase().delete(ConfigurableViewsRepository.TABLE_NAME, null, null);
+        expectedJsonFromAPI = "[{\"_id\":\"19a2e8aa6739d77a2b780199c6122867\",\"_rev\":\"54-79e394bd5040770ee002eedff1ba360b\",\"type\":\"ViewConfiguration\",\"serverVersion\":1515566670940,\"identifier\":\"main\",\"metadata\":{\"type\":\"Main\",\"language\":\"en\",\"applicationName\":\"TB Rich\",\"enableJsonViews\":false}}]";
+
     }
 
     @After
@@ -38,40 +42,37 @@ public class ConfigurableViewsRepositoryTest {
     @Test
     @SmallTest
     public void testSaveViewConfiguration() throws Exception {
-        String expectedJsonFromAPI = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
         JSONArray jsonArray = new JSONArray(expectedJsonFromAPI);
-        assertFalse(configurableViewsRepository.configurableViewExists("login"));
+        assertFalse(configurableViewsRepository.configurableViewExists("main"));
         long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(jsonArray);
-        assertEquals(1508765191, lastSyncTimeStamp);
-        assertTrue(configurableViewsRepository.configurableViewExists("login"));
+        assertEquals(1515566670940l, lastSyncTimeStamp);
+        assertTrue(configurableViewsRepository.configurableViewExists("main"));
     }
 
     @Test
     @SmallTest
     public void testGetConfigurableViewJson() throws Exception {
-        String jsonFromAPI = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
-        JSONArray jsonArrayFromAPI = new JSONArray(jsonFromAPI);
-        assertFalse(configurableViewsRepository.configurableViewExists("login"));
+        JSONArray jsonArrayFromAPI = new JSONArray(expectedJsonFromAPI);
+        assertFalse(configurableViewsRepository.configurableViewExists("main"));
         long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(jsonArrayFromAPI);
-        String jsonFromDB = configurableViewsRepository.getConfigurableViewJson("login");
-        assertEquals(1508765191, lastSyncTimeStamp);
+        String jsonFromDB = configurableViewsRepository.getConfigurableViewJson("main");
+        assertEquals(1515566670940l, lastSyncTimeStamp);
         assertEquals(jsonArrayFromAPI.get(0).toString(), new JSONObject(jsonFromDB).toString());
     }
 
     @Test
     @SmallTest
     public void testUpdateViewConfiguration() throws Exception {
-        String jsonFromAPI = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765191,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":false,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51260\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
-        JSONArray jsonArrayFromAPI = new JSONArray(jsonFromAPI);
-        assertFalse(configurableViewsRepository.configurableViewExists("login"));
+        JSONArray jsonArrayFromAPI = new JSONArray(expectedJsonFromAPI);
+        assertFalse(configurableViewsRepository.configurableViewExists("main"));
         long lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(jsonArrayFromAPI);
-        assertEquals(1508765191, lastSyncTimeStamp);
-        assertTrue(configurableViewsRepository.configurableViewExists("login"));
-        String updatedJsonFromAPI = "[{\"type\":\"ViewConfiguration\",\"serverVersion\":1508765254,\"identifier\":\"login\",\"metadata\":{\"type\":\"Login\",\"language\":null,\"applicationName\":null,\"showPasswordCheckbox\":true,\"logoUrl\":\"http://10.20.25.51:8080/assets/icon3.png\",\"background\":{\"orientation\":\"BOTTOM_TOP\",\"startColor\":\"#a51262\",\"endColor\":\"#ea62ca\"}},\"_id\":\"19a2e8aa6739d77a2b780199c6122866\",\"_rev\":\"7-25b620fe5a397976b163add92d133d92\"}]";
+        assertEquals(1515566670940l, lastSyncTimeStamp);
+        assertTrue(configurableViewsRepository.configurableViewExists("main"));
+        String updatedJsonFromAPI = "[{\"_id\":\"19a2e8aa6739d77a2b780199c6122867\",\"_rev\":\"54-79e394bd5040770ee002eedff1ba360b\",\"type\":\"ViewConfiguration\",\"serverVersion\":1515566670998,\"identifier\":\"main\",\"metadata\":{\"type\":\"Main\",\"language\":\"fr\",\"applicationName\":\"TB REACH\",\"enableJsonViews\":true}}]";
         JSONArray updatedJsonArrayFromAPI = new JSONArray(updatedJsonFromAPI);
         lastSyncTimeStamp = configurableViewsRepository.saveConfigurableViews(updatedJsonArrayFromAPI);
-        String jsonFromDB = configurableViewsRepository.getConfigurableViewJson("login");
-        assertEquals(1508765254, lastSyncTimeStamp);
+        String jsonFromDB = configurableViewsRepository.getConfigurableViewJson("main");
+        assertEquals(1515566670998l, lastSyncTimeStamp);
         assertEquals(updatedJsonArrayFromAPI.get(0).toString(), new JSONObject(jsonFromDB).toString());
     }
 

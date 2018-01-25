@@ -19,13 +19,8 @@ public class TbrRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
 
-    //TODO Retrieve password from somewhere
-    private String password = "Sample_PASS";
-
-
     public TbrRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), TbrApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
-
     }
 
     @Override
@@ -64,12 +59,12 @@ public class TbrRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase(password);
+        return getReadableDatabase(TbrApplication.getInstance().getPassword());
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase(password);
+        return getWritableDatabase(TbrApplication.getInstance().getPassword());
     }
 
     @Override
