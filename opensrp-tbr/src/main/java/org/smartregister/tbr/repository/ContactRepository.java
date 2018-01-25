@@ -33,19 +33,21 @@ public class ContactRepository extends BaseRepository {
     public static final String FORM_SUBMISSION_ID = "form_submission_id";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT = "updated_at";
+    public static final String NATIONAL_ID = "national_id";
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-            CONTACT_ID + "  VARCHAR  NULL, " +
-            FIRST_NAME + "  VARCHAR NULL," +
-            LAST_NAME + "  VARCHAR NOT NULL, " +
+            CONTACT_ID + "  VARCHAR NULL, " +
+            FIRST_NAME + "  VARCHAR NOT NULL," +
+            LAST_NAME + "  VARCHAR NULL, " +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL," +
-            INDEX_RELATIONSHIP + "  VARCHAR NOT NULL, " +
+            INDEX_RELATIONSHIP + "  VARCHAR NULL, " +
+            NATIONAL_ID + "  VARCHAR NULL, " +
             AGE + "  VARCHAR NOT NULL, " +
-            GENDER + "  VARCHAR NOT NULL, " +
-            STAGE + "  VARCHAR NOT NULL, " +
-            FORM_SUBMISSION_ID + "  VARCHAR NOT NULL, " +
-            IS_NEGATIVE + "  BOOLEAN TRUE, " +
+            GENDER + " VARCHAR NOT NULL, " +
+            STAGE + " VARCHAR NULL, " +
+            FORM_SUBMISSION_ID + " VARCHAR NOT NULL, " +
+            IS_NEGATIVE + " BOOLEAN TRUE, " +
             CREATED_AT + " VARCHAR NOT NULL, " +
             UPDATED_AT + " INTEGER NOT NULL, " +
             "UNIQUE(" + CONTACT_ID + ", " + FORM_SUBMISSION_ID + ") ON CONFLICT IGNORE )";
@@ -59,6 +61,9 @@ public class ContactRepository extends BaseRepository {
     private static final String INDEX_FORM_SUBMISSION_ID = "CREATE INDEX " + TABLE_NAME + "_" + FORM_SUBMISSION_ID +
             "_index ON " + TABLE_NAME + "(" + FORM_SUBMISSION_ID + " COLLATE NOCASE);";
 
+    private static final String INDEX_NATIONAL_ID = "CREATE INDEX " + TABLE_NAME + "_" + NATIONAL_ID +
+            "_index ON " + TABLE_NAME + "(" + NATIONAL_ID + " COLLATE NOCASE);";
+
     public ContactRepository(Repository repository) {
         super(repository);
     }
@@ -68,6 +73,7 @@ public class ContactRepository extends BaseRepository {
         database.execSQL(INDEX_CONTACT_ID);
         database.execSQL(INDEX_BASE_ENTITY_ID);
         database.execSQL(INDEX_FORM_SUBMISSION_ID);
+        database.execSQL(INDEX_NATIONAL_ID);
     }
 
     public void saveContact(Contact contact) {
@@ -105,6 +111,7 @@ public class ContactRepository extends BaseRepository {
         values.put(GENDER, contact.getGender());
         values.put(STAGE, contact.getStage());
         values.put(IS_NEGATIVE, contact.isNegative());
+        values.put(NATIONAL_ID, contact.getNationalID());
         values.put(FORM_SUBMISSION_ID, contact.getFormSubmissionId());
         values.put(CREATED_AT, contact.getCreatedAt());
         values.put(UPDATED_AT, contact.getUpdatedAt());
@@ -159,6 +166,7 @@ public class ContactRepository extends BaseRepository {
                     contact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(ContactRepository.UPDATED_AT)));
                     contact.setStage(cursor.getString(cursor.getColumnIndex(ContactRepository.STAGE)));
                     contact.setNegative(cursor.getInt(cursor.getColumnIndex(ContactRepository.IS_NEGATIVE)) > 0);
+                    contact.setNationalID(cursor.getString(cursor.getColumnIndex(ContactRepository.NATIONAL_ID)));
 
                     contacts.add(contact);
                 } while (cursor.moveToNext());

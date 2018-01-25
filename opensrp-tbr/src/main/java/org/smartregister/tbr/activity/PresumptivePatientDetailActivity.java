@@ -1,6 +1,7 @@
 package org.smartregister.tbr.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,8 +22,15 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        renderFragmentView();
 
+    }
+
+    @Override
+    protected Fragment getDetailFragment() {
+        PresumptivePatientDetailsFragment mBaseFragment = new PresumptivePatientDetailsFragment();
+        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        mBaseFragment.setPatientDetails(patientDetails);
+        return mBaseFragment;
     }
 
     @Override
@@ -41,14 +49,6 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void renderFragmentView() {
-        PresumptivePatientDetailsFragment mBaseFragment = new PresumptivePatientDetailsFragment();
-        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
-        mBaseFragment.setPatientDetails(patientDetails);
-        initViewByFragmentType(mBaseFragment);
     }
 
 }

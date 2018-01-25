@@ -266,7 +266,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());

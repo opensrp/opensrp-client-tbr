@@ -82,7 +82,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
 
         String[] mProjection2 = {
                 UNION_TABLE_FLAGS.SCREENING + UNION_FLAG_CONCAT_SEPARATOR + ECClientRepository.ID + " _id", //union query hence unique identifier
-                "\"Screening\"",
+                "\"" + FORM_TITLE.SCREENING + "\"",
                 ECClientRepository.ID,
                 ECClientRepository.FIRST_ENCOUNTER + Constants.CHAR.SPACE + ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,
@@ -123,5 +123,10 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
         public static final String SCREENING = "0";
         public static final String DIAGNOSIS = "1";
         public static final String TEST_RESULT = "2";
+    }
+
+    public class FORM_TITLE {
+        public static final String SCREENING = "Screening";
+        public static final String DIAGNOSIS = "Diagnosis";
     }
 }

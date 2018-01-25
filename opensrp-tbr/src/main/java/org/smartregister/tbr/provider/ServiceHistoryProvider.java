@@ -48,7 +48,7 @@ public class ServiceHistoryProvider extends ContentProvider {
 
     private String getDiagnosisFormProjection() {
         String[] mProjection3 = {RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.DIAGNOSIS + UNION_FLAG_CONCAT_SEPARATOR + RenderServiceHistoryCardHelper.ECClientRepository.ID + " _id", //union query hence unique identifier
-                "\"Diagnosis\"",
+                "\"" + RenderServiceHistoryCardHelper.FORM_TITLE.DIAGNOSIS + "\"",
                 RenderServiceHistoryCardHelper.ECClientRepository.ID,
                 RenderServiceHistoryCardHelper.ECClientRepository.DIAGNOSIS_DATE + Constants.CHAR.SPACE + ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,

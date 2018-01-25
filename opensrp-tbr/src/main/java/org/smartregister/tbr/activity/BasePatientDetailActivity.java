@@ -46,12 +46,15 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
         formNames = this.buildFormNameList();
+
+        initializeEnketoForms();
     }
 
-    protected void initViewByFragmentType(BasePatientDetailsFragment baseRegisterFragment) {
+    private void initializeEnketoForms() {
 
+        Fragment baseFragment = getDetailFragment();
         // Instantiate a ViewPager and a PagerAdapter.
-        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, baseRegisterFragment);
+        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, baseFragment);
         mPager.setOffscreenPageLimit(formNames.length);
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -61,6 +64,8 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
             }
         });
     }
+
+    protected abstract Fragment getDetailFragment();
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -182,8 +187,6 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     public void savePartialFormData(String formData, String id, String formName, JSONObject fieldOverrides) {
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
     }
-
-    protected abstract void renderFragmentView();
 
 
     //remove patient

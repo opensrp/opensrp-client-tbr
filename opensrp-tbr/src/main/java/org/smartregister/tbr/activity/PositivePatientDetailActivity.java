@@ -1,6 +1,7 @@
 package org.smartregister.tbr.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,14 +24,21 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        renderFragmentView();
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_patient_detail_positive_settings, menu);
         return true;
+    }
+
+    @Override
+    protected Fragment getDetailFragment() {
+
+        PositivePatientDetailsFragment fragment = new PositivePatientDetailsFragment();
+        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        fragment.setPatientDetails(patientDetails);
+        return fragment;
     }
 
     @Override
@@ -43,14 +51,6 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void renderFragmentView() {
-        PositivePatientDetailsFragment mBaseFragment = new PositivePatientDetailsFragment();
-        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
-        mBaseFragment.setPatientDetails(patientDetails);
-        initViewByFragmentType(mBaseFragment);
     }
 
 }

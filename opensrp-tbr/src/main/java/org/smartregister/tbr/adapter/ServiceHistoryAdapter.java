@@ -82,7 +82,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
             return R.id.result_chest_xray;
         } else if (StringUtils.containsIgnoreCase(formName, "culture")) {
             return R.id.result_culture;
-        } else if (StringUtils.containsIgnoreCase(formName, "registration")) {
+        } else if (StringUtils.containsIgnoreCase(formName, "screening")) {
             return R.id.addNewPatient;
         } else if (StringUtils.containsIgnoreCase(formName, "diagnosis")) {
             return R.id.tbDiagnosisForm;

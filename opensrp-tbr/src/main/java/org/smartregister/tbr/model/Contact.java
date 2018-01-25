@@ -17,6 +17,8 @@ public class Contact {
     private String contactId;
     private boolean isNegative;
     private String formSubmissionId;
+
+    private String nationalID;
     private String createdAt;
     private Long updatedAt;
 
@@ -122,5 +124,13 @@ public class Contact {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNationalID() {
+        return nationalID;
+    }
+
+    public void setNationalID(String nationalID) {
+        this.nationalID = nationalID;
     }
 }
