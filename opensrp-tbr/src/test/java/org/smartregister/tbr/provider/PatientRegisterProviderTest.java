@@ -326,7 +326,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         view = LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.register_intreatment_list_row, null);
         Map results = new HashMap();
         results.put(KEY.TREATMENT_PHASE, "Intensive");
-        results.put(KEY.TREATMENT_REGIMEN1, "2HRZE/HR");
+        results.put(KEY.TREATMENT_REGIMEN, "2HRZE/HR");
         results.put(KEY.TREATMENT_MONTH, "6");
         when(detailsRepository.getAllDetailsForClient("255c9df9-42ba-424d-a235-bd4ea5da77ae")).thenReturn(results);
         initProvider(TREATMENT);
