@@ -189,7 +189,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) view.findViewById(R.id.participant_id), "#" + getValue(pc.getColumnmaps(), KEY.TBREACH_ID, false));
+        fillValue((TextView) view.findViewById(R.id.participant_id), "#" + getValue(pc.getColumnmaps(), KEY.PARTICIPANT_ID, false));
 
         String gender = getValue(pc.getColumnmaps(), KEY.GENDER, true);
 
@@ -419,11 +419,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateFollowupScheduleColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View followup = view.findViewById(R.id.followup);
+        TextView followupText = (TextView) view.findViewById(R.id.followup_text);
         attachOnclickListener(followup, client);
         String nextVisit = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
-            TextView followupText = (TextView) view.findViewById(R.id.followup_text);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
             if (due < 0) {
@@ -436,16 +436,19 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
+        } else {
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            followupText.setText("");
         }
     }
 
     private void populateSmearScheduleColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View followup = view.findViewById(R.id.smr_schedule);
+        TextView followupText = (TextView) view.findViewById(R.id.smr_schedule_text);
         attachOnclickListener(followup, client);
         String nextVisit = getValue(pc.getColumnmaps(), KEY.SMR_NEXT_VISIT_DATE, false);
         int due = 1;
         if (!nextVisit.isEmpty()) {
-            TextView followupText = (TextView) view.findViewById(R.id.smr_schedule_text);
             try {
                 DateTime treatmentStartDate = DateTime.parse(nextVisit);
                 fillValue(followupText, "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
@@ -465,6 +468,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                 followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             }
+        } else {
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            followupText.setText("");
         }
     }
 

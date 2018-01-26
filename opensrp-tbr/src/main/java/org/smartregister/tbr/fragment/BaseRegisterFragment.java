@@ -145,7 +145,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{
                         new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), KEY.FIRST_NAME),
-                        new CursorCommonObjectSort(getResources().getString(R.string.participant_id), KEY.TBREACH_ID)
+                        new CursorCommonObjectSort(getResources().getString(R.string.participant_id), KEY.PARTICIPANT_ID)
                 };
             }
 
@@ -201,17 +201,24 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         }
     }
 
-    protected FieldOverrides getFieldOverrides() {
+    private Map populateFieldOverrides() {
         Map fields = new HashMap();
-        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        fields.put(KEY.PARTICIPANT_ID, patient.getDetails().get(KEY.PARTICIPANT_ID));
+        fields.put(KEY.FIRST_NAME, patient.getDetails().get(KEY.FIRST_NAME));
+        fields.put(KEY.LAST_NAME, patient.getDetails().get(KEY.LAST_NAME));
+        fields.put(KEY.PROGRAM_ID, patient.getDetails().get(KEY.PROGRAM_ID));
+        return fields;
+    }
+
+    protected FieldOverrides getFieldOverrides() {
+        Map fields = populateFieldOverrides();
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
     }
 
     protected FieldOverrides getFollowUpFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
+        Map fields = populateFieldOverrides();
         fields.put("treatment_initiation_date", patient.getDetails().get(KEY.TREATMENT_INITIATION_DATE));
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
@@ -219,11 +226,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected FieldOverrides getTreatmentFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patient.getDetails().get(KEY.TBREACH_ID));
-        fields.put("first_name", patient.getDetails().get(KEY.FIRST_NAME));
-        fields.put("last_name", patient.getDetails().get(KEY.LAST_NAME));
-        fields.put("gender", patient.getDetails().get(KEY.GENDER));
+        Map fields = populateFieldOverrides();
+        fields.put(KEY.GENDER, patient.getDetails().get(KEY.GENDER));
         String dobString = patient.getDetails().get(KEY.DOB);
         String age = "";
         if (StringUtils.isNotBlank(dobString)) {
@@ -237,7 +241,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 Log.e(getClass().getName(), e.toString(), e);
             }
         }
-        fields.put("age", age);
+        fields.put(KEY.AGE, age);
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
@@ -298,7 +302,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
                 tableName + "." + KEY.FIRST_NAME,
                 tableName + "." + KEY.LAST_NAME,
-                tableName + "." + KEY.TBREACH_ID,
+                tableName + "." + KEY.PARTICIPANT_ID,
+                tableName + "." + KEY.PROGRAM_ID,
                 tableName + "." + KEY.GENDER,
                 tableName + "." + KEY.DOB};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
@@ -431,14 +436,14 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     showResultMenu(view);
                     break;
                 case R.id.diagnose_lnk:
-                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), null);
+                    registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.xpert_result_lnk:
                     registerActivity.startFormActivity(GENE_XPERT, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.smr_schedule:
                 case R.id.smr_result_lnk:
-                    registerActivity.startFormActivity(SMEAR, patient.getDetails().get("_id"), getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(SMEAR, patient.getDetails().get(Constants.KEY._ID), getFieldOverrides().getJSONString());
                     break;
                 case R.id.patient_column:
                     Intent intent = new Intent(registerActivity, PresumptivePatientDetailActivity.class);
@@ -452,7 +457,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.followup_lnk:
                 case R.id.followup:
-                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get("_id"), getFollowUpFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), getFollowUpFieldOverrides().getJSONString());
                     break;
 
                 default:

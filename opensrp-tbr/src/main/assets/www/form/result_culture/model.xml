@@ -28,8 +28,8 @@
             <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
             <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
             <pt_name_note />
-            <sample_id openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date" />
-            <test_date openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
+            <sample_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
+            <test_date openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date" />
             <result_date openmrs_entity="concept" openmrs_entity_id="TBR:test result date" />
             <culture_result openmrs_entity="concept" openmrs_entity_id="TBR: culture result" />
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />

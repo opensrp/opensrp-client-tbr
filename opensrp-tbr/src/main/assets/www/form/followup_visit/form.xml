@@ -59,7 +59,7 @@
         </span>
         <span class="required">*</span>
         <input name="/FollowUpVisit_10.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
-            required="required" type="text" />
+            readonly="readonly" required="required" type="text" />
         <span class="or-constraint-msg " data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>

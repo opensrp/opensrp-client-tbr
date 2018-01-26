@@ -42,7 +42,7 @@ import static util.TbrConstants.KEY.DOB;
 import static util.TbrConstants.KEY.FIRST_NAME;
 import static util.TbrConstants.KEY.GENDER;
 import static util.TbrConstants.KEY.LAST_NAME;
-import static util.TbrConstants.KEY.TBREACH_ID;
+import static util.TbrConstants.KEY.PARTICIPANT_ID;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
@@ -112,7 +112,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
         columnMap.put(FIRST_NAME, "Ali");
         columnMap.put(LAST_NAME, "Lango");
-        columnMap.put(TBREACH_ID, "45355435435");
+        columnMap.put(PARTICIPANT_ID, "45355435435");
         columnMap.put(DOB, "2016-11-30T00:00:00.000-0500");
         columnMap.put(GENDER, "male");
 

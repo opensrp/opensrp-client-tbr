@@ -11,10 +11,17 @@
           }
         },
         {
-          "column_name": "tbreach_id",
+          "column_name": "participant_id",
           "type": "Client",
           "json_mapping": {
             "field": "identifiers.TBREACH ID"
+          }
+        },
+        {
+          "column_name": "program_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH Program ID"
           }
         },
         {

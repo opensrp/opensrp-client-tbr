@@ -23,7 +23,9 @@ TbrConstants extends AllConstants {
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
         public static final String DOB = "dob";
-        public static final String TBREACH_ID = "tbreach_id";
+        public static final String AGE = "age";
+        public static final String PARTICIPANT_ID = "participant_id";
+        public static final String PROGRAM_ID = "program_id";
         public static final String GENDER = "gender";
         public static final String BASE_ENTITY_ID_COLUMN = "base_entity_id";
         public static final String FIRST_ENCOUNTER = "first_encounter";
@@ -37,6 +39,8 @@ TbrConstants extends AllConstants {
         public static final String TREATMENT_PHASE = "treatment_phase";
         public static final String TREATMENT_MONTH = "month";
         public static final String SMR_NEXT_VISIT_DATE = "smear_due_date";
+        public static final String PRESUMPTIVE = "presumptive";
+        public static final String CONFIRMED_TB = "confirmed_tb";
 
     }
 

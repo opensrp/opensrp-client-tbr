@@ -1069,8 +1069,6 @@ public class EnketoFormUtils {
                 final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
                 registerActivity.hideProgressDialog();
-                //TODO add once the dialog in enketo library is dismissed
-                //registerActivity.switchToBaseFragment();
             }
 
             Utils.postEvent(new EnketoFormSaveCompleteEvent());
