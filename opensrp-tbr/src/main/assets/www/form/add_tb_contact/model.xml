@@ -2,7 +2,7 @@
     <instance>
         <AddContactForm_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Add TB Contact" id="add_contact"
-            version="201801221159">
+            version="201801261239">
             <formhub>
                 <uuid />
             </formhub>
@@ -25,15 +25,19 @@
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
             <household_members />
             <contact_information_count />
-            <contact_information jr:template="">
+            <contact_information template="" >
                 <contact_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
                 <contact_first_name openmrs_entity="person" openmrs_entity_id="first_name" />
                 <contact_last_name openmrs_entity="person" openmrs_entity_id="last_name" />
                 <relationship_type openmrs_entity="concept"
                     openmrs_entity_id="TBR: tuberculosis contact" />
                 <national_id />
-                <contact_age openmrs_entity="person" />
-                <contact_gender openmrs_entity="person" />
+                <contact_age openmrs_entity="person" openmrs_entity_id="age" />
+                <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
+                <birthdate_estimated openmrs_entity="person"
+                    openmrs_entity_id="birthdate_estimated">1
+                </birthdate_estimated>
+                <contact_gender openmrs_entity="person" openmrs_entity_id="gender" />
             </contact_information>
             <meta>
                 <instanceID />

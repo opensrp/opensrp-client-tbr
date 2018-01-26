@@ -32,6 +32,9 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
             "Culture Result", "X-Ray Result"};
 
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient",
+            "intreatment TB patient", "Add TB Contact"};
+
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
 

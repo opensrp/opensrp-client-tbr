@@ -121,6 +121,60 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_contact",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "contact_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH ID"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        },
+        {
+          "column_name": "screened",
+          "type": "Event",
+          "json_mapping": {
+            "field": "screened"
+          }
+        }
+      ]
     }
   ]
 }

@@ -2,8 +2,8 @@
   "form_data_definition_version": "1",
   "form": {
     "default_bind_path": "/model/instance/AddContactForm_23.11.17_US",
-    "bind_type": "ec_contacts",
-    "ec_bind_type": "ec_contacts",
+    "bind_type": "ec_contact",
+    "ec_bind_type": "ec_contact",
     "fields": [
       {
         "name": "id",
@@ -108,6 +108,14 @@
       {
         "name": "age",
         "bind": "/model/instance/AddContactForm_23.11.17_US/contact_information/contact_age"
+      },
+      {
+        "name": "birthdate",
+        "bind": "/model/instance/AddContactForm_23.11.17_US/contact_information/birthdate"
+      },
+      {
+        "name": "birthdate_estimated",
+        "bind": "/model/instance/AddContactForm_23.11.17_US/contact_information/birthdate_estimated"
       },
       {
         "name": "gender",

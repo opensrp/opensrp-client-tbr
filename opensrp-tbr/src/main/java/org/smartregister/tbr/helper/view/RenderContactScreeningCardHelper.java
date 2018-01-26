@@ -120,7 +120,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
         a.setFirstName("Ezekiel");
         a.setLastName("Kashoosha");
         a.setGender(Constants.GENDER.MALE);
-        a.setStage(Constants.SCREEN_STAGE.SCREENED);
+        a.setStage(Constants.SCREEN_STAGE.NOTSCREENED);
         a.setNegative(!isPrimeNumber(contacts.size()));
         a.setContactId(generateRandomUUIDString());
         contacts.add(a);

@@ -51,6 +51,7 @@ import java.io.StringWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,7 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import static org.smartregister.tbr.sync.TbrClientProcessor.CLIENT_EVENTS;
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
@@ -242,7 +244,7 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient"))
+        if (Arrays.asList(CLIENT_EVENTS).contains(e.getEventType()))
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
         else
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);
