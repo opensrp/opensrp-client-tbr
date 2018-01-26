@@ -1,12 +1,12 @@
 {
-  "name": "Diagnosis_30.10.17_US",
+  "name": "Diagnosis_22.11.17_US",
   "title": "TB Diagnosis",
   "sms_keyword": "tb_diagnosis",
   "default_language": "English",
   "instance": {
     "encounter_type": "TB Diagnosis"
   },
-  "version": "201711020527",
+  "version": "201801221157",
   "id_string": "tb_diagnosis",
   "type": "survey",
   "children": [
@@ -100,7 +100,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR:phone number",
+        "openmrs_entity_id": "TBR:sim number",
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -122,8 +122,89 @@
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBREACH ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "English": "Maximum 20 digits and cannot contain anything other than number"
+        },
+        "required": "yes",
+        "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+      },
+      "type": "text",
+      "name": "participant_id",
       "label": {
+        "Roman Urdu": "ID",
+        "English": "Participant ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
+      "name": "confirmed_tb",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Kya yeh TB ka mareez hai?",
         "English": "Confirmed TB patient"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR: confirmed tb patient",
+        "openmrs_entity": "concept"
       },
       "type": "select one",
       "children": [
@@ -146,10 +227,58 @@
             "Roman Urdu": "Nahi",
             "English": "No"
           }
+        }
+      ]
+    },
+    {
+      "name": "diagnosis_type",
+      "bind": {
+        "relevant": "${confirmed_tb} = 'yes'",
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Mareez ki tashkees kis bunyab pe howi?",
+        "English": "Has the patient been diagnosed bacteriologically or clinically"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR: tb diagnosis method",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR: x-ray"
+          },
+          "name": "x_ray",
+          "label": {
+            "Roman Urdu": "X-ray",
+            "English": "X-ray"
+          }
         },
         {
           "instance": {
-            "openmrs_code": "TBR:unknown"
+            "openmrs_code": "TBR: afb smear"
+          },
+          "name": "bacteriologically",
+          "label": {
+            "Roman Urdu": "Bacteriologically",
+            "English": "Bacteriologically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: clinical suspicion"
+          },
+          "name": "symptomatically",
+          "label": {
+            "Roman Urdu": "Symptomatically",
+            "English": "Symptomatically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: unknown"
           },
           "name": "dont_know",
           "label": {
@@ -159,57 +288,15 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR:refused"
+            "openmrs_code": "TBR: other"
           },
-          "name": "refuse",
+          "name": "other",
           "label": {
-            "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
+            "Roman Urdu": "Koi aur",
+            "English": "Other"
           }
         }
-      ],
-      "name": "confirmed_tb",
-      "instance": {
-        "openmrs_entity_id": "TBR:confirmed tuberculosis",
-        "openmrs_entity": "concept"
-      }
-    },
-    {
-      "bind": {
-        "relevant": "${confirmed_tb} = 'yes'"
-      },
-      "label": {
-        "English": "Has the patient been diagnosed bacteriologically or clinically"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "name": "x_ray",
-          "label": {
-            "Roman Urdu": "X-ray",
-            "English": "X-ray"
-          }
-        },
-        {
-          "name": "bacteriologically",
-          "label": {
-            "Roman Urdu": "Bacteriologically",
-            "English": "Bacteriologically"
-          }
-        },
-        {
-          "name": "symptomatically",
-          "label": {
-            "Roman Urdu": "Symptomatically",
-            "English": "Symptomatically"
-          }
-        }
-      ],
-      "name": "diagnosis_type",
-      "instance": {
-        "openmrs_entity_id": "TBR:diagnosis type",
-        "openmrs_entity": "concept"
-      }
+      ]
     },
     {
       "control": {

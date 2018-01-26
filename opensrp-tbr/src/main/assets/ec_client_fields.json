@@ -11,10 +11,17 @@
           }
         },
         {
-          "column_name": "tbreach_id",
+          "column_name": "participant_id",
           "type": "Client",
           "json_mapping": {
             "field": "identifiers.TBREACH ID"
+          }
+        },
+        {
+          "column_name": "program_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH Program ID"
           }
         },
         {
@@ -65,7 +72,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR:confirmed tuberculosis"
+            "concept": "TBR: confirmed tb patient"
           }
         },
         {
@@ -109,7 +116,15 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: return visit date"
+            "concept": "TBR: next visit date"
+          }
+        },
+        {
+          "column_name": "smear_due_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: smear due date"
           }
         }
       ]

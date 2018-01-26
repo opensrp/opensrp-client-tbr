@@ -244,10 +244,10 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient"))
-            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true), null);
+        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient") || e.getEventType().equals("intreatment TB patient"))
+            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true, e), null);
         else
-            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false), null);
+            org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false, e), null);
 
     }
 
@@ -1053,11 +1053,13 @@ public class EnketoFormUtils {
         private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
         private Context context;
         private boolean saveClient;
+        private Event event;
 
-        public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context, boolean hasClient) {
+        public SavePatientAsyncTask(org.smartregister.clientandeventmodel.FormSubmission formSubmission, Context context, boolean hasClient, Event event) {
             this.formSubmission = formSubmission;
             this.context = context;
             this.saveClient = hasClient;
+            this.event = event;
         }
 
         @Override
@@ -1067,8 +1069,6 @@ public class EnketoFormUtils {
                 final BaseRegisterActivity registerActivity = ((BaseRegisterActivity) context);
                 registerActivity.refreshList(FetchStatus.fetched);
                 registerActivity.hideProgressDialog();
-                //TODO add once the dialog in enketo library is dismissed
-                //registerActivity.switchToBaseFragment();
             }
 
             Utils.postEvent(new EnketoFormSaveCompleteEvent());
@@ -1089,21 +1089,20 @@ public class EnketoFormUtils {
                     saveClient(c);
                 }
                 AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
-                Event e = formEntityConverter.getEventFromFormSubmission(formSubmission);
-                e.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
-                e.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
-                e.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
-                saveEvent(e);
+                event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+                event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+                event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+                saveEvent(event);
                 Gson gson = new GsonBuilder().create();
-                if (e.getEventType().equals(DIAGNOSIS_EVENT)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
                     Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(e.getEventDate()).toString());
+                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
                     saveClient(client);
-                } else if (e.getEventType().equals(TREATMENT_INITIATION)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(e.getBaseEntityId());
+                } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
                     Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(BASELINE, e.getVersion());
+                    client.addAttribute(BASELINE, event.getVersion());
                     saveClient(client);
                 }
 

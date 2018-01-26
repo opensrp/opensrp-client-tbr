@@ -94,7 +94,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
     protected FieldOverrides getFieldOverrides() {
         Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
+        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
@@ -102,7 +102,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment {
 
     protected FieldOverrides getRegistrationFieldOverrides() {
         Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
+        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
         fields.put("first_name", patientDetails.get(TbrConstants.KEY.FIRST_NAME));
         fields.put("last_name", patientDetails.get(TbrConstants.KEY.LAST_NAME));
 

@@ -1,65 +1,64 @@
 {
-  "name": "AddPositivePt_11.01.18",
-  "title": "Add Positive Patient",
-  "sms_keyword": "positive_pt",
+  "name": "Add_InTreatment_Pt_11.01.18",
+  "title": "Add In-Treatment Patients",
+  "sms_keyword": "add_intx_pt",
   "default_language": "English",
   "choices": {
-    "provinces": [
+    "regimen": [
       {
-        "name": "kpk",
+        "instance": {
+          "openmrs_code": "TBR: rhze"
+        },
         "label": {
-          "Roman Urdu": "Khyber Pakhtunkhwa",
-          "English": "Khyber Pakhtunkhwa"
-        }
+          "Roman Urdu": "RHZE",
+          "English": "RHZE"
+        },
+        "openmrs_concept_name": "RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL",
+        "name": "rhze"
       },
       {
-        "name": "sindh",
+        "instance": {
+          "openmrs_code": "TBR: rh"
+        },
         "label": {
-          "Roman Urdu": "Sindh",
-          "English": "Sindh"
-        }
+          "Roman Urdu": "RH",
+          "English": "RH"
+        },
+        "openmrs_concept_name": "RIFAMPICIN AND ISONIAZID",
+        "name": "rh"
       },
       {
-        "name": "balochistan",
+        "instance": {
+          "openmrs_code": "TBR: rhe"
+        },
         "label": {
-          "Roman Urdu": "Balochistan",
-          "English": "Balochistan"
-        }
+          "Roman Urdu": "RHE",
+          "English": "RHE"
+        },
+        "openmrs_concept_name": "rifampicin isoniazid and ethambutol",
+        "name": "rhe"
       },
       {
-        "name": "punjab",
+        "instance": {
+          "openmrs_code": "TBR: rhzes"
+        },
         "label": {
-          "Roman Urdu": "Punjab",
-          "English": "Punjab"
-        }
+          "Roman Urdu": "RHZES",
+          "English": "RHZES"
+        },
+        "openmrs_concept_name": "STREPTOMYCIN/RIFAMPICIN/ISONIAZID/PYRAZINAMIDE/ETHAMBUTOL PROPHYLAXIS",
+        "name": "rhzes"
       },
       {
-        "name": "gilgit_baltistan",
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
         "label": {
-          "Roman Urdu": "Gilgit Baltistan",
-          "English": "Gilgit Baltistan"
-        }
-      },
-      {
-        "name": "kashmir",
-        "label": {
-          "Roman Urdu": "Kashmir",
-          "English": "Kashmir"
-        }
-      },
-      {
-        "name": "fata",
-        "label": {
-          "Roman Urdu": "FATA",
-          "English": "FATA"
-        }
-      },
-      {
-        "name": "out_of_country",
-        "label": {
-          "Roman Urdu": "Mulk se baahir",
-          "English": "Out of Country"
-        }
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
       }
     ],
     "eptb_site": [
@@ -163,96 +162,6 @@
         "name": "other"
       }
     ],
-    "treatment_outcomes": [
-      {
-        "instance": {
-          "openmrs_code": "TBR:cured"
-        },
-        "label": {
-          "Roman Urdu": "Sehatyaab",
-          "English": "Cured"
-        },
-        "openmrs_concept_name": "Cure, outcome",
-        "name": "cured"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:defaulted"
-        },
-        "label": {
-          "Roman Urdu": "pehley se the shuda",
-          "English": "Defaulted"
-        },
-        "openmrs_concept_name": "DEFAULTED",
-        "name": "defaulted"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:treatment complete"
-        },
-        "label": {
-          "Roman Urdu": "Ilaaj mukammal ho gaya hay",
-          "English": "Treatment Completed"
-        },
-        "openmrs_concept_name": "Treatment Complete",
-        "name": "treatment_completed"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:transferred out"
-        },
-        "label": {
-          "Roman Urdu": "ilaaj ke liye koi aur jagah ruju kiya",
-          "English": "Transferred out"
-        },
-        "openmrs_concept_name": "Patient transferred out",
-        "name": "transferred_out"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:under treatment"
-        },
-        "label": {
-          "Roman Urdu": "Zer-e-ilaj hain",
-          "English": "Still on treatment"
-        },
-        "openmrs_concept_name": "STILL ON TREATMENT",
-        "name": "still_on_treatment"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:regimen failure"
-        },
-        "label": {
-          "Roman Urdu": "ilaaj nakaam raha",
-          "English": "Regimen Failure"
-        },
-        "openmrs_concept_name": "Regimen Failure",
-        "name": "regimen_failure"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:other"
-        },
-        "label": {
-          "Roman Urdu": "Koi aur",
-          "English": "Other"
-        },
-        "openmrs_concept_name": "other",
-        "name": "other"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:unknown"
-        },
-        "label": {
-          "Roman Urdu": "Pata nahi",
-          "English": "Unknown"
-        },
-        "openmrs_concept_name": "unknown",
-        "name": "unknown"
-      }
-    ],
     "gender": [
       {
         "instance": {
@@ -338,7 +247,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: regimen failure"
+          "openmrs_code": "TBR: treatment after failure"
         },
         "label": {
           "Roman Urdu": "Treatment After Failure",
@@ -357,6 +266,64 @@
         },
         "openmrs_concept_name": "Other non-coded",
         "name": "other"
+      }
+    ],
+    "provinces": [
+      {
+        "name": "kpk",
+        "label": {
+          "Roman Urdu": "Khyber Pakhtunkhwa",
+          "English": "Khyber Pakhtunkhwa"
+        }
+      },
+      {
+        "name": "sindh",
+        "label": {
+          "Roman Urdu": "Sindh",
+          "English": "Sindh"
+        }
+      },
+      {
+        "name": "balochistan",
+        "label": {
+          "Roman Urdu": "Balochistan",
+          "English": "Balochistan"
+        }
+      },
+      {
+        "name": "punjab",
+        "label": {
+          "Roman Urdu": "Punjab",
+          "English": "Punjab"
+        }
+      },
+      {
+        "name": "gilgit_baltistan",
+        "label": {
+          "Roman Urdu": "Gilgit Baltistan",
+          "English": "Gilgit Baltistan"
+        }
+      },
+      {
+        "name": "kashmir",
+        "label": {
+          "Roman Urdu": "Kashmir",
+          "English": "Kashmir"
+        }
+      },
+      {
+        "name": "fata",
+        "label": {
+          "Roman Urdu": "FATA",
+          "English": "FATA"
+        }
+      },
+      {
+        "name": "out_of_country",
+        "label": {
+          "Roman Urdu": "Mulk se baahir",
+          "English": "Out of Country"
+        }
       }
     ],
     "hiv_results": [
@@ -421,18 +388,19 @@
         "instance": {
           "openmrs_code": "TBR: ptb"
         },
-        "name": "ptb",
         "label": {
-          "Roman Urdu": "PTB",
+          "Roman Urdu": "Pulmonary",
           "English": "Pulmonary"
-        }
+        },
+        "openmrs_concept_name": "PNEUMONIA, TUBERCULOUS",
+        "name": "ptb"
       },
       {
         "instance": {
           "openmrs_code": "TBR: eptb"
         },
         "label": {
-          "Roman Urdu": "EP TB",
+          "Roman Urdu": "Extra Pulmonary",
           "English": "Extra Pulmonary"
         },
         "openmrs_concept_name": "mycobacterium tuberculosis, extrapulmonary",
@@ -3106,6 +3074,30 @@
         }
       }
     ],
+    "tx_phase": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: continuation phase"
+        },
+        "label": {
+          "Roman Urdu": "Continuation",
+          "English": "Continuation"
+        },
+        "openmrs_concept_name": "continuation phase, tuberculosis treatment",
+        "name": "continuation"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: intensive phase"
+        },
+        "label": {
+          "Roman Urdu": "Intensive",
+          "English": "Intensive"
+        },
+        "openmrs_concept_name": "initial phase, tuberculosis treatment",
+        "name": "intensive"
+      }
+    ],
     "yes_no": [
       {
         "instance": {
@@ -3148,20 +3140,20 @@
           "openmrs_code": "TBR:refused"
         },
         "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;",
-        "name": "refuse",
+        "name": "refused",
         "openmrs_concept_name": "Refused",
         "label": {
           "Roman Urdu": "Jawab nahi dena",
-          "English": "Refuse"
+          "English": "Refused"
         }
       }
     ]
   },
   "instance": {
-    "encounter_type": "positive TB patient"
+    "encounter_type": "intreatment TB patient"
   },
-  "version": "201801221442",
-  "id_string": "positive_pt",
+  "version": "201801230716",
+  "id_string": "add_intx_pt",
   "type": "survey",
   "children": [
     {
@@ -3276,778 +3268,1011 @@
       }
     },
     {
-      "instance": {
-        "openmrs_entity_id": "TBR: tb diagnosis method",
-        "openmrs_entity": "concept"
-      },
       "label": {
-        "Roman Urdu": "Mareez ki tashkees kis bunyab pe howi?",
-        "English": "Has the patient been diagnosed bacteriologically or clinically"
+        "Roman Urdu": "TB Treatment Information",
+        "English": "TB Treatment Information"
       },
-      "type": "select one",
+      "type": "group",
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: x-ray"
+            "openmrs_entity_id": "TBR: treatment start date",
+            "openmrs_entity": "concept"
           },
-          "name": "x_ray",
+          "type": "date",
+          "name": "treatment_initiation_date",
           "label": {
-            "Roman Urdu": "X-ray",
-            "English": "X-ray"
+            "Roman Urdu": "Ilaaj shuru honey ki tareeq",
+            "English": "Treatement initiation date"
           }
         },
         {
           "instance": {
-            "openmrs_code": "TBR: afb smear"
+            "openmrs_entity_id": "TBR: tb type",
+            "openmrs_entity": "concept"
           },
-          "name": "bacteriologically",
           "label": {
-            "Roman Urdu": "Bacteriologically",
-            "English": "Bacteriologically"
+            "Roman Urdu": "Mareez ko kis qism ka TB hai",
+            "English": "Type of TB Diagnosed"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: ptb"
+              },
+              "name": "ptb",
+              "label": {
+                "Roman Urdu": "Pulmonary",
+                "English": "Pulmonary"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: eptb"
+              },
+              "name": "eptb",
+              "label": {
+                "Roman Urdu": "Extra Pulmonary",
+                "English": "Extra Pulmonary"
+              }
+            }
+          ],
+          "name": "site_of_disease"
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "site_of_eptb",
+          "bind": {
+            "relevant": "${site_of_disease}='eptb'"
+          },
+          "label": {
+            "Roman Urdu": "EP TB ki jagah",
+            "English": "EP TB Disease Site"
+          },
+          "instance": {
+            "openmrs_entity_id": "TBR: tb diagnosis",
+            "openmrs_entity": "concept"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: pleural eptb"
+              },
+              "name": "pleura",
+              "label": {
+                "Roman Urdu": "Pleural Effusion",
+                "English": "Pleural Effusion"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: spinal eptb"
+              },
+              "name": "spine",
+              "label": {
+                "Roman Urdu": "Spine",
+                "English": "Spine"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: lymphadenitis eptb"
+              },
+              "name": "lymph",
+              "label": {
+                "Roman Urdu": "Lymph Node",
+                "English": "Lymph Node"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: abdominal eptb"
+              },
+              "name": "abdomen",
+              "label": {
+                "Roman Urdu": "Abdomen",
+                "English": "Abdomen"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: cns eptb"
+              },
+              "name": "cns",
+              "label": {
+                "Roman Urdu": "CNS (includes meningeal, brain)",
+                "English": "CNS (includes meningeal, brain)"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: renal eptb"
+              },
+              "name": "renal",
+              "label": {
+                "Roman Urdu": "Renal",
+                "English": "Renal"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: bone eptb"
+              },
+              "name": "bones",
+              "label": {
+                "Roman Urdu": "Bones",
+                "English": "Bones"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: genitourinary eptb"
+              },
+              "name": "genitourinary",
+              "label": {
+                "Roman Urdu": "Genitourinary",
+                "English": "Genitourinary"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: other"
+              },
+              "name": "other",
+              "label": {
+                "Roman Urdu": "Other",
+                "English": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR:other specify text",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "relevant": "${site_of_eptb}='other'"
+          },
+          "type": "text",
+          "name": "other_eptb_site",
+          "label": {
+            "Roman Urdu": "Wazai karein",
+            "English": "Specify EP TB Disease Site"
           }
         },
         {
           "instance": {
-            "openmrs_code": "TBR: clinical suspicion"
+            "openmrs_entity_id": "TBR: tb registry number",
+            "openmrs_entity": "concept"
           },
-          "name": "symptomatically",
+          "bind": {
+            "required": "yes"
+          },
+          "type": "integer",
+          "name": "registry_number",
           "label": {
-            "Roman Urdu": "Symptomatically",
-            "English": "Symptomatically"
+            "Roman Urdu": "TB Registry number",
+            "English": "TB Registry Number"
           }
         },
         {
           "instance": {
-            "openmrs_code": "TBR: unknown"
+            "openmrs_entity_id": "TBR: patient catergory",
+            "openmrs_entity": "concept"
           },
-          "name": "dont_know",
           "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
+            "Roman Urdu": "Mareez type",
+            "English": "Patient Type"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: new diagnosis"
+              },
+              "name": "new",
+              "label": {
+                "Roman Urdu": "New Case",
+                "English": "New Case"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: relapse"
+              },
+              "name": "relapse",
+              "label": {
+                "Roman Urdu": "Relapse",
+                "English": "Relapse"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: transfer in"
+              },
+              "name": "transfer _in",
+              "label": {
+                "Roman Urdu": "Transfer In",
+                "English": "Transfer In"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: return after lost to followup"
+              },
+              "name": "after_ltfu",
+              "label": {
+                "Roman Urdu": "Treatment After Loss to Follow-up",
+                "English": "Treatment After Loss to Follow-up"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: treatment after failure"
+              },
+              "name": "after_failure",
+              "label": {
+                "Roman Urdu": "Treatment After Failure",
+                "English": "Treatment After Failure"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: other"
+              },
+              "name": "other",
+              "label": {
+                "Roman Urdu": "Other",
+                "English": "Other"
+              }
+            }
+          ],
+          "name": "category"
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: tb evaluation month",
+            "openmrs_entity": "concept"
+          },
+          "type": "text",
+          "name": "month",
+          "label": {
+            "Roman Urdu": "Kitney mahiney se ilaaj jari hai",
+            "English": "Treatment Month"
           }
         },
         {
           "instance": {
-            "openmrs_code": "TBR: other"
+            "openmrs_entity_id": "TBR: treatment phase",
+            "openmrs_entity": "concept"
           },
-          "name": "other",
           "label": {
-            "Roman Urdu": "Koi aur",
+            "Roman Urdu": "Phase",
+            "English": "Treatment Phase"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: continuation phase"
+              },
+              "name": "continuation",
+              "label": {
+                "Roman Urdu": "Continuation",
+                "English": "Continuation"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: intensive phase"
+              },
+              "name": "intensive",
+              "label": {
+                "Roman Urdu": "Intensive",
+                "English": "Intensive"
+              }
+            }
+          ],
+          "name": "treatment_phase"
+        },
+        {
+          "name": "treatment_regimen",
+          "choice_filter": "( (name = 'rhzes' or name = 'rhze') and ${treatment_phase} = 'intensive' ) or \n( (name = 'rhe' or name = 'rh') and ${treatment_phase} = 'continuation' ) or \nname = 'other'",
+          "label": {
+            "Roman Urdu": "Regimen",
+            "English": "Regimen"
+          },
+          "itemset": "regimen",
+          "instance": {
+            "openmrs_entity_id": "TBR: regimen",
+            "openmrs_entity": "concept"
+          },
+          "type": "select one"
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR:other specify text",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "relevant": "${treatment_regimen}='other'"
+          },
+          "type": "text",
+          "name": "regimen_oth",
+          "label": {
+            "Roman Urdu": "Other",
             "English": "Other"
           }
         }
       ],
-      "name": "diagnosis_type"
+      "name": "diagnosis"
     },
     {
-      "instance": {
-        "openmrs_entity_id": "TBREACH ID",
-        "openmrs_entity": "person_identifier"
+      "label": {
+        "Roman Urdu": "Mareez Ki Malumaat",
+        "English": "Patient Information"
       },
-      "bind": {
-        "jr:constraintMsg": {
-          "English": "Maximum 20 digits and cannot contain anything other than number"
+      "type": "group",
+      "children": [
+        {
+          "instance": {
+            "openmrs_entity_id": "TBREACH ID",
+            "openmrs_entity": "person_identifier"
+          },
+          "bind": {
+            "jr:constraintMsg": {
+              "English": "Maximum 20 digits and cannot contain anything other than number"
+            },
+            "required": "yes",
+            "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+          },
+          "type": "text",
+          "name": "participant_id",
+          "label": {
+            "Roman Urdu": "Participant ID",
+            "English": "Participant ID"
+          }
         },
-        "required": "yes",
-        "constraint": "regex(., '[A-Z0-9]{0,20}$')"
-      },
-      "type": "text",
-      "name": "participant_id",
-      "label": {
-        "Roman Urdu": "ID",
-        "English": "Participant ID"
-      }
-    },
-    {
-      "instance": {
-        "openmrs_entity": "person_identifier"
-      },
-      "type": "text",
-      "name": "program_id",
-      "label": {
-        "Roman Urdu": "Program ID",
-        "English": "Program ID"
-      }
-    },
-    {
-      "instance": {
-        "openmrs_entity_id": "first_name",
-        "openmrs_entity": "person"
-      },
-      "bind": {
-        "required": "yes"
-      },
-      "type": "text",
-      "name": "first_name",
-      "label": {
-        "Roman Urdu": "Naam",
-        "English": "First Name"
-      }
-    },
-    {
-      "instance": {
-        "openmrs_entity_id": "last_name",
-        "openmrs_entity": "person"
-      },
-      "type": "text",
-      "name": "last_name",
-      "label": {
-        "Roman Urdu": "Walid ya shohar ka naam",
-        "English": "Last Name"
-      }
-    },
-    {
-      "instance": {
-        "openmrs_entity": "person"
-      },
-      "type": "text",
-      "name": "national_id",
-      "label": {
-        "Roman Urdu": "National Identification Number",
-        "English": "National Identification Number"
-      }
-    },
-    {
-      "name": "age",
-      "hint": {
-        "English": "(years)"
-      },
-      "bind": {
-        "jr:constraintMsg": {
-          "English": "Must be at least a year old and less than 150 years of age"
+        {
+          "instance": {
+            "openmrs_entity": "person_identifier"
+          },
+          "type": "text",
+          "name": "program_id",
+          "label": {
+            "Roman Urdu": "Program ID",
+            "English": "Program ID"
+          }
         },
-        "required": "yes",
-        "constraint": ". >0 and . <=150"
-      },
-      "label": {
-        "Roman Urdu": "Umar",
-        "English": "Current Age"
-      },
-      "instance": {
-        "openmrs_entity_id": "age",
-        "openmrs_entity": "person"
-      },
-      "type": "integer"
+        {
+          "instance": {
+            "openmrs_entity_id": "first_name",
+            "openmrs_entity": "person"
+          },
+          "bind": {
+            "required": "yes"
+          },
+          "type": "text",
+          "name": "first_name",
+          "label": {
+            "Roman Urdu": "Mareez ka Naam",
+            "English": "First Name"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "last_name",
+            "openmrs_entity": "person"
+          },
+          "type": "text",
+          "name": "last_name",
+          "label": {
+            "Roman Urdu": "Walid ya Shohar ka naam",
+            "English": "Last Name"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity": "person"
+          },
+          "type": "text",
+          "name": "national_id",
+          "label": {
+            "Roman Urdu": "National Identification Number",
+            "English": "National Identification Number"
+          }
+        },
+        {
+          "name": "age",
+          "hint": {
+            "English": "(years)"
+          },
+          "bind": {
+            "jr:constraintMsg": {
+              "English": "Must be at least a year old and less than 150 years of age"
+            },
+            "required": "yes",
+            "constraint": ". >0 and . <=150"
+          },
+          "label": {
+            "Roman Urdu": "Umar",
+            "English": "Current Age"
+          },
+          "instance": {
+            "openmrs_entity_id": "age",
+            "openmrs_entity": "person"
+          },
+          "type": "integer"
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "birthdate",
+            "openmrs_entity": "person"
+          },
+          "type": "calculate",
+          "name": "birthdate",
+          "bind": {
+            "relevant": "${age}!=''",
+            "calculate": "format-date(date((${today})-(${age}*365.25)),'%Y-%m-%d' )"
+          }
+        },
+        {
+          "default": "1",
+          "instance": {
+            "openmrs_entity_id": "birthdate_estimated",
+            "openmrs_entity": "person"
+          },
+          "type": "hidden",
+          "name": "birthdate_estimated",
+          "bind": {
+            "relevant": "${age}!=''"
+          }
+        },
+        {
+          "name": "gender",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Jins",
+            "English": "Gender"
+          },
+          "instance": {
+            "openmrs_entity_id": "gender",
+            "openmrs_entity": "person"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: male"
+              },
+              "name": "male",
+              "label": {
+                "Roman Urdu": "Mard/larka",
+                "English": "Male"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: female"
+              },
+              "name": "female",
+              "label": {
+                "Roman Urdu": "Aurat/larki",
+                "English": "Female"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: third gender"
+              },
+              "name": "transgender",
+              "label": {
+                "Roman Urdu": "Khwaja sira",
+                "English": "Transgender"
+              }
+            }
+          ]
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: weight",
+            "openmrs_entity": "concept"
+          },
+          "type": "decimal",
+          "name": "weight",
+          "label": {
+            "Roman Urdu": "Wazan",
+            "English": "Weight(kg)"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: height",
+            "openmrs_entity": "concept"
+          },
+          "type": "decimal",
+          "name": "height",
+          "label": {
+            "Roman Urdu": "Kad",
+            "English": "Height (m)"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: body mass index",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "calculate": "${weight} div (${height}*${height})"
+          },
+          "type": "calculate",
+          "name": "bmi",
+          "label": {
+            "Roman Urdu": "BMI",
+            "English": "BMI"
+          }
+        },
+        {
+          "name": "hiv_test",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Kya aapne HIV ka test pishley 6 mahino mein karwaya hai?",
+            "English": "Have you had an HIV test in the past?"
+          },
+          "instance": {
+            "openmrs_entity_id": "TBR:hiv test",
+            "openmrs_entity": "concept"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR:yes"
+              },
+              "name": "yes",
+              "label": {
+                "Roman Urdu": "Haan",
+                "English": "Yes"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:no"
+              },
+              "name": "no",
+              "label": {
+                "Roman Urdu": "Nahi",
+                "English": "No"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:unknown"
+              },
+              "name": "dont_know",
+              "label": {
+                "Roman Urdu": "Pata Nahi",
+                "English": "Don't Know"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:refused"
+              },
+              "name": "refused",
+              "label": {
+                "Roman Urdu": "Jawab nahi dena",
+                "English": "Refused"
+              }
+            }
+          ]
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: hiv test date",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "relevant": "${hiv_test} = 'yes'",
+            "required": "yes"
+          },
+          "type": "date",
+          "name": "hiv_date",
+          "label": {
+            "Roman Urdu": "Agar haan, test ki tareeq",
+            "English": "If yes, date of test?"
+          }
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "hiv_results",
+          "bind": {
+            "relevant": "${hiv_test} = 'yes'",
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Test ka natija",
+            "English": "If yes, what is your HIV status?"
+          },
+          "instance": {
+            "openmrs_entity_id": "TBR:hiv test result",
+            "openmrs_entity": "concept"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR:positive"
+              },
+              "name": "negative",
+              "label": {
+                "Roman Urdu": "Negative",
+                "English": "HIV Negative"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:negative"
+              },
+              "name": "positive",
+              "label": {
+                "Roman Urdu": "Positive",
+                "English": "HIV Positive"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:indeterminate"
+              },
+              "name": "indeterminate",
+              "label": {
+                "Roman Urdu": "Indeterminate",
+                "English": "Indeterminate"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:unknown"
+              },
+              "name": "dont_know",
+              "label": {
+                "Roman Urdu": "Pata Nahi",
+                "English": "Don't Know"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:refused"
+              },
+              "name": "refuse",
+              "label": {
+                "Roman Urdu": "Jawab deney se inkaar",
+                "English": "Refuse"
+              }
+            }
+          ]
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "Primary Contact Number",
+            "openmrs_entity": "person_attribute"
+          },
+          "bind": {
+            "jr:constraintMsg": {
+              "Roman Urdu": "Phone number 11 hindason par mushtamil aur mundarja zail shakal main hona chahiey: 03*********",
+              "English": "Phone number should be 11 digits in the following format: 03*********"
+            },
+            "required": "yes",
+            "constraint": "regex(., '^03[0-9]{9}$')"
+          },
+          "type": "text",
+          "name": "contact_phone_number",
+          "label": {
+            "Roman Urdu": "Mobile phone number:",
+            "English": "Mobile phone number:"
+          }
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "province",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Suba",
+            "English": "Province"
+          },
+          "instance": {
+            "openmrs_entity_parent": "usual_residence",
+            "openmrs_entity_id": "stateProvince",
+            "openmrs_entity": "person_address"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "name": "kpk",
+              "label": {
+                "Roman Urdu": "Khyber Pakhtunkhwa",
+                "English": "Khyber Pakhtunkhwa"
+              }
+            },
+            {
+              "name": "sindh",
+              "label": {
+                "Roman Urdu": "Sindh",
+                "English": "Sindh"
+              }
+            },
+            {
+              "name": "balochistan",
+              "label": {
+                "Roman Urdu": "Balochistan",
+                "English": "Balochistan"
+              }
+            },
+            {
+              "name": "punjab",
+              "label": {
+                "Roman Urdu": "Punjab",
+                "English": "Punjab"
+              }
+            },
+            {
+              "name": "gilgit_baltistan",
+              "label": {
+                "Roman Urdu": "Gilgit Baltistan",
+                "English": "Gilgit Baltistan"
+              }
+            },
+            {
+              "name": "kashmir",
+              "label": {
+                "Roman Urdu": "Kashmir",
+                "English": "Kashmir"
+              }
+            },
+            {
+              "name": "fata",
+              "label": {
+                "Roman Urdu": "FATA",
+                "English": "FATA"
+              }
+            },
+            {
+              "name": "out_of_country",
+              "label": {
+                "Roman Urdu": "Mulk se baahir",
+                "English": "Out of Country"
+              }
+            }
+          ]
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "city_village",
+          "choice_filter": "province=${province} or province='na'",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Shehr",
+            "English": "City"
+          },
+          "itemset": "cities",
+          "instance": {
+            "openmrs_entity_parent": "usual_residence",
+            "openmrs_entity_id": "cityVillage",
+            "openmrs_entity": "person_address"
+          },
+          "type": "select one"
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "town",
+          "choice_filter": "(province=${province} and city=${city_village} ) or city='na'",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Town / Qasbah / Basti",
+            "English": "Town"
+          },
+          "itemset": "towns",
+          "instance": {
+            "openmrs_entity_parent": "usual_residence",
+            "openmrs_entity_id": "town",
+            "openmrs_entity": "person_address"
+          },
+          "type": "select one"
+        },
+        {
+          "control": {
+            "appearance": "minimal"
+          },
+          "name": "union_council",
+          "choice_filter": "(province=${province} and city=${city_village} and town=${town}) or town='na'",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Union Council",
+            "English": "Union Council"
+          },
+          "itemset": "ucs",
+          "instance": {
+            "openmrs_entity_parent": "usual_residence",
+            "openmrs_entity_id": "subTown",
+            "openmrs_entity": "person_address"
+          },
+          "type": "select one"
+        },
+        {
+          "instance": {
+            "openmrs_entity_parent": "usual_residence",
+            "openmrs_entity_id": "address1",
+            "openmrs_entity": "person_address"
+          },
+          "bind": {
+            "required": "yes"
+          },
+          "type": "text",
+          "name": "address1",
+          "label": {
+            "Roman Urdu": "Ghar ka pata",
+            "English": "Home Address"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR:full address text",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "calculate": "jr:choice-name(${province}, '${province}')"
+          },
+          "type": "note",
+          "name": "full_address",
+          "label": {
+            "Roman Urdu": "Poora Pata: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}",
+            "English": "Full address: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}"
+          }
+        }
+      ],
+      "name": "patient_info"
     },
     {
-      "instance": {
-        "openmrs_entity_id": "birthdate",
-        "openmrs_entity": "person"
+      "label": {
+        "Roman Urdu": "Agli Tareeq 30 din baad deni hai?",
+        "English": "Next Appointment after 30 days?"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:yes"
+          },
+          "name": "yes",
+          "label": {
+            "Roman Urdu": "Haan",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:no"
+          },
+          "name": "no",
+          "label": {
+            "Roman Urdu": "Nahi",
+            "English": "No"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:refused"
+          },
+          "name": "refused",
+          "label": {
+            "Roman Urdu": "Jawab nahi dena",
+            "English": "Refused"
+          }
+        }
+      ],
+      "name": "fu_visit"
+    },
+    {
+      "bind": {
+        "relevant": "${fu_visit}='yes'",
+        "calculate": "format-date(date-time(decimal-date-time(${treatment_initiation_date})+30),'%Y-%m-%d')"
       },
       "type": "calculate",
-      "name": "birthdate",
-      "bind": {
-        "relevant": "${age}!=''",
-        "calculate": "format-date(date((${today})-(${age}*365.25)),'%Y-%m-%d' )"
+      "name": "visit_date",
+      "label": {
+        "Roman Urdu": "Agar haan, tou aagli tareeq yeh hai",
+        "English": "30 Days Appointment Date"
       }
     },
     {
-      "default": "1",
-      "instance": {
-        "openmrs_entity_id": "birthdate_estimated",
-        "openmrs_entity": "person"
-      },
-      "type": "hidden",
-      "name": "birthdate_estimated",
       "bind": {
-        "relevant": "${age}!=''"
-      }
-    },
-    {
-      "name": "gender",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Jins",
-        "English": "Gender"
-      },
-      "instance": {
-        "openmrs_entity_id": "gender",
-        "openmrs_entity": "person"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR: male"
-          },
-          "name": "male",
-          "label": {
-            "Roman Urdu": "Mard/larka",
-            "English": "Male"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR: female"
-          },
-          "name": "female",
-          "label": {
-            "Roman Urdu": "Aurat/larki",
-            "English": "Female"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR: third gender"
-          },
-          "name": "transgender",
-          "label": {
-            "Roman Urdu": "Khwaja sira",
-            "English": "Transgender"
-          }
-        }
-      ]
-    },
-    {
-      "instance": {
-        "openmrs_entity_id": "Primary Contact Number",
-        "openmrs_entity": "person_attribute"
-      },
-      "bind": {
-        "jr:constraintMsg": {
-          "Roman Urdu": "Phone number 11 hindason par mushtamil aur mundarja zail shakal main hona chahiey: 03*********",
-          "English": "Phone number should be 11 digits in the following format: 03*********"
-        },
-        "required": "yes",
-        "constraint": "regex(., '^03[0-9]{9}$')"
-      },
-      "type": "text",
-      "name": "contact_phone_number",
-      "label": {
-        "Roman Urdu": "Mobile phone number:",
-        "English": "Mobile phone number:"
-      }
-    },
-    {
-      "name": "close_tb_contact",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Kya aapke kissi kareebi dost ya rishtedaar ko TB howa hai?",
-        "English": "Have you ever been in close contact with someone who was sick with TB?"
-      },
-      "instance": {
-        "openmrs_entity_id": "TBR:tuberculosis contact",
-        "openmrs_entity": "concept"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR:yes"
-          },
-          "name": "yes",
-          "label": {
-            "Roman Urdu": "Haan",
-            "English": "Yes"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:no"
-          },
-          "name": "no",
-          "label": {
-            "Roman Urdu": "Nahi",
-            "English": "No"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:refused"
-          },
-          "name": "refuse",
-          "label": {
-            "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
-          }
-        }
-      ]
-    },
-    {
-      "name": "previous_tb_treatment",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Kya aapne kabhi TB ka ilaaj karwaya hai?",
-        "English": "Have you ever taken TB treatment for more than one month?"
-      },
-      "instance": {
-        "openmrs_entity_id": "TBR:tuberculosis history",
-        "openmrs_entity": "concept"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR:yes"
-          },
-          "name": "yes",
-          "label": {
-            "Roman Urdu": "Haan",
-            "English": "Yes"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:no"
-          },
-          "name": "no",
-          "label": {
-            "Roman Urdu": "Nahi",
-            "English": "No"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:refused"
-          },
-          "name": "refuse",
-          "label": {
-            "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
-          }
-        }
-      ]
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "previous_tb_treatment_outcome",
-      "bind": {
-        "relevant": "${previous_tb_treatment} = 'yes'",
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Agar haan, tou uska nateja kya tha?",
-        "English": "If yes, what was the outcome of your previous TB treatment?"
-      },
-      "instance": {
-        "openmrs_entity_id": "TBR:patient category",
-        "openmrs_entity": "concept"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR:cured"
-          },
-          "name": "cured",
-          "label": {
-            "Roman Urdu": "Sehatyaab",
-            "English": "Cured"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:defaulted"
-          },
-          "name": "defaulted",
-          "label": {
-            "Roman Urdu": "pehley se the shuda",
-            "English": "Defaulted"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:treatment complete"
-          },
-          "name": "treatment_completed",
-          "label": {
-            "Roman Urdu": "Ilaaj mukammal ho gaya hay",
-            "English": "Treatment Completed"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:transferred out"
-          },
-          "name": "transferred_out",
-          "label": {
-            "Roman Urdu": "ilaaj ke liye koi aur jagah ruju kiya",
-            "English": "Transferred out"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:under treatment"
-          },
-          "name": "still_on_treatment",
-          "label": {
-            "Roman Urdu": "Zer-e-ilaj hain",
-            "English": "Still on treatment"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:regimen failure"
-          },
-          "name": "regimen_failure",
-          "label": {
-            "Roman Urdu": "ilaaj nakaam raha",
-            "English": "Regimen Failure"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:other"
-          },
-          "name": "other",
-          "label": {
-            "Roman Urdu": "Koi aur",
-            "English": "Other"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "unknown",
-          "label": {
-            "Roman Urdu": "Pata nahi",
-            "English": "Unknown"
-          }
-        }
-      ]
-    },
-    {
-      "name": "hiv_test",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Kya aapne HIV ka test pishley 6 mahino mein karwaya hai?",
-        "English": "Have you had an HIV test in the past?"
-      },
-      "instance": {
-        "openmrs_entity_id": "TBR:hiv test",
-        "openmrs_entity": "concept"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR:yes"
-          },
-          "name": "yes",
-          "label": {
-            "Roman Urdu": "Haan",
-            "English": "Yes"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:no"
-          },
-          "name": "no",
-          "label": {
-            "Roman Urdu": "Nahi",
-            "English": "No"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:refused"
-          },
-          "name": "refuse",
-          "label": {
-            "Roman Urdu": "Jawab nahi dena",
-            "English": "Refuse"
-          }
-        }
-      ]
-    },
-    {
-      "instance": {
-        "openmrs_entity_id": "TBR: hiv test date",
-        "openmrs_entity": "concept"
-      },
-      "bind": {
-        "relevant": "${hiv_test} = 'yes'",
-        "required": "yes"
+        "relevant": "${fu_visit}='no'"
       },
       "type": "date",
-      "name": "hiv_date",
+      "name": "fu_visit_date",
       "label": {
-        "Roman Urdu": "Agar haan, test ki tareeq",
-        "English": "If yes, date of test?"
-      }
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "hiv_results",
-      "bind": {
-        "relevant": "${hiv_test} = 'yes'",
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Test ka natija",
-        "English": "If yes, what is your HIV status?"
-      },
-      "instance": {
-        "openmrs_entity_id": "TBR:hiv test result",
-        "openmrs_entity": "concept"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "instance": {
-            "openmrs_code": "TBR:positive"
-          },
-          "name": "negative",
-          "label": {
-            "Roman Urdu": "Negative",
-            "English": "HIV Negative"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:negative"
-          },
-          "name": "positive",
-          "label": {
-            "Roman Urdu": "Positive",
-            "English": "HIV Positive"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:indeterminate"
-          },
-          "name": "indeterminate",
-          "label": {
-            "Roman Urdu": "Indeterminate",
-            "English": "Indeterminate"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:unknown"
-          },
-          "name": "dont_know",
-          "label": {
-            "Roman Urdu": "Pata Nahi",
-            "English": "Don't Know"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_code": "TBR:refused"
-          },
-          "name": "refuse",
-          "label": {
-            "Roman Urdu": "Jawab deney se inkaar",
-            "English": "Refuse"
-          }
-        }
-      ]
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "province",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Suba",
-        "English": "Province"
-      },
-      "instance": {
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity_id": "stateProvince",
-        "openmrs_entity": "person_address"
-      },
-      "type": "select one",
-      "children": [
-        {
-          "name": "kpk",
-          "label": {
-            "Roman Urdu": "Khyber Pakhtunkhwa",
-            "English": "Khyber Pakhtunkhwa"
-          }
-        },
-        {
-          "name": "sindh",
-          "label": {
-            "Roman Urdu": "Sindh",
-            "English": "Sindh"
-          }
-        },
-        {
-          "name": "balochistan",
-          "label": {
-            "Roman Urdu": "Balochistan",
-            "English": "Balochistan"
-          }
-        },
-        {
-          "name": "punjab",
-          "label": {
-            "Roman Urdu": "Punjab",
-            "English": "Punjab"
-          }
-        },
-        {
-          "name": "gilgit_baltistan",
-          "label": {
-            "Roman Urdu": "Gilgit Baltistan",
-            "English": "Gilgit Baltistan"
-          }
-        },
-        {
-          "name": "kashmir",
-          "label": {
-            "Roman Urdu": "Kashmir",
-            "English": "Kashmir"
-          }
-        },
-        {
-          "name": "fata",
-          "label": {
-            "Roman Urdu": "FATA",
-            "English": "FATA"
-          }
-        },
-        {
-          "name": "out_of_country",
-          "label": {
-            "Roman Urdu": "Mulk se baahir",
-            "English": "Out of Country"
-          }
-        }
-      ]
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "city_village",
-      "choice_filter": "province=${province} or province='na'",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Shehr",
-        "English": "City"
-      },
-      "itemset": "cities",
-      "instance": {
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity_id": "cityVillage",
-        "openmrs_entity": "person_address"
-      },
-      "type": "select one"
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "town",
-      "choice_filter": "(province=${province} and city=${city_village} ) or city='na'",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Town / Qasbah / Basti",
-        "English": "Town"
-      },
-      "itemset": "towns",
-      "instance": {
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity_id": "town",
-        "openmrs_entity": "person_address"
-      },
-      "type": "select one"
-    },
-    {
-      "control": {
-        "appearance": "minimal"
-      },
-      "name": "union_council",
-      "choice_filter": "(province=${province} and city=${city_village} and town=${town}) or town='na'",
-      "bind": {
-        "required": "yes"
-      },
-      "label": {
-        "Roman Urdu": "Union Council",
-        "English": "Union Council"
-      },
-      "itemset": "ucs",
-      "instance": {
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity_id": "subTown",
-        "openmrs_entity": "person_address"
-      },
-      "type": "select one"
-    },
-    {
-      "instance": {
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity_id": "address1",
-        "openmrs_entity": "person_address"
-      },
-      "bind": {
-        "required": "yes"
-      },
-      "type": "text",
-      "name": "address1",
-      "label": {
-        "Roman Urdu": "Ghar ka pata",
-        "English": "Home Address"
+        "Roman Urdu": "Aagli Tareeq Daley",
+        "English": "Entet Next Visit Date"
       }
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR:full address text",
+        "openmrs_entity_id": "TBR: next visit date",
         "openmrs_entity": "concept"
       },
       "bind": {
-        "calculate": "jr:choice-name(${province}, '${province}')"
+        "calculate": "if(${fu_visit}='yes', ${visit_date}, ${fu_visit_date})"
       },
+      "type": "calculate",
+      "name": "next_visit_date",
+      "label": {
+        "Roman Urdu": "Aagli Tareeq",
+        "English": "Next Visit Date"
+      }
+    },
+    {
       "type": "note",
-      "name": "full_address",
+      "name": "next_visit_date_note",
       "label": {
-        "Roman Urdu": "Poora Pata: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}",
-        "English": "Full address: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}"
+        "Roman Urdu": "Next Visit Date ${next_visit_date}",
+        "English": "Next Visit Date ${next_visit_date}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR: smear due date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "calculate": "if(${category} = 'cat i', \n(\nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 6, format-date(date(${treatment_initiation_date} + 174),'%Y-%m-%d'), 'not due at the moment') \n)\n),\n(\nif(${month} = 3, format-date(date(${treatment_initiation_date} + 84),'%Y-%m-%d'), \nif(${month} = 5, format-date(date(${treatment_initiation_date} + 144),'%Y-%m-%d'), \nif(${month} = 8, format-date(date(${treatment_initiation_date} + 204),'%Y-%m-%d'), 'not due at the moment')\n) \n)\n)\n)"
+      },
+      "type": "calculate",
+      "name": "smear_due_date",
+      "label": {
+        "English": "Next Smear Due Date"
+      }
+    },
+    {
+      "type": "note",
+      "name": "next_smear_due_date_note",
+      "label": {
+        "Roman Urdu": "Next Smear Due Date ${smear_due_date}",
+        "English": "Next Smear Due Date ${smear_due_date}"
       }
     },
     {
