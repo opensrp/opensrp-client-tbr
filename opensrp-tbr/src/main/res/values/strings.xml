@@ -61,4 +61,5 @@
     <string name="bmi">BMI</string>
     <string name="positive_patients">Positive Patients</string>
     <string name="presumptive_patients">Presumptive Patients</string>
+    <string name="treatment_start">Treatment Start</string>
 </resources>
