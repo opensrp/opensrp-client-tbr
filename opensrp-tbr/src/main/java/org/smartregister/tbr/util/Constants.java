@@ -42,6 +42,7 @@ public class Constants {
             public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
             public static final String PATIENT_DETAILS_CONTACT_SCREENING = "component_patient_details_contact_screening";
             public static final String PATIENT_DETAILS_FOLLOWUP = "component_patient_details_followup";
+            public static final String PATIENT_DETAILS_BMI = "component_patient_details_bmi";
         }
     }
 

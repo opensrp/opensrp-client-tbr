@@ -46,6 +46,9 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(REGISTER_TITLE));
         rootView.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
+        if (patientDetails != null && patientDetails.containsKey(Constants.KEY._ID)) {
+            rootView.setTag(R.id.BASE_ENTITY_ID, patientDetails.get(Constants.KEY._ID));
+        }
         setupViews(rootView);
         return rootView;
     }
@@ -139,6 +142,10 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                                     Button followUpButton = (Button) json2View.findViewById(R.id.follow_up_button);
                                     followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                                     followUpButton.setOnClickListener(this);
+                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_BMI)) {
+                                    json2View.setTag(R.id.BASE_ENTITY_ID, patientDetails.get(Constants.KEY._ID));
+                                    renderBMIHeightChartView(json2View, patientDetails);
+
                                 } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
                                     renderContactScreeningView(json2View, patientDetails);
 

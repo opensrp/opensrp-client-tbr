@@ -64,7 +64,6 @@ public class HomeActivity extends BaseActivity {
 
     //
     public void manualSync(View view) {
-        refreshButton = view;
         view.startAnimation(Utils.getRotateAnimation());
         TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
         viewConfigurationSyncEvent.setManualSync(true);
@@ -95,6 +94,8 @@ public class HomeActivity extends BaseActivity {
 
         String fullName = getOpenSRPContext().allSharedPreferences().getANMPreferredName(
                 getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+
+        refreshButton = findViewById(R.id.refreshSyncButton); //assign RefreshButton
 
         //set user initials
         if (fullName != null && !fullName.toString().isEmpty()) {
@@ -149,5 +150,14 @@ public class HomeActivity extends BaseActivity {
         }
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void triggerSyncSpinner(SyncEvent syncEvent) {
+        if (syncEvent != null && syncEvent.getFetchStatus().equals(FetchStatus.fetchStarted) && refreshButton != null) {
+            refreshButton.startAnimation(Utils.getRotateAnimation());
+        }
+
+    }
+
 
 }

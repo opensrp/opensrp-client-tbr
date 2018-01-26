@@ -23,6 +23,7 @@ import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.BMISaveEvent;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
@@ -255,16 +256,23 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
             if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.DIAGNOSIS)) {
-                initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), getTranslatedToken(Register.POSITIVE_PATIENTS,getString(R.string.positive_patients)));
+                initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), getTranslatedToken(Register.POSITIVE_PATIENTS, getString(R.string.positive_patients)));
 
             } else if (enketoFormSaveCompleteEvent.getFormName().equals(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION)) {
-                initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS,getString(R.string.in_treatment_patients)));
+                initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS, getString(R.string.in_treatment_patients)));
 
             } else {
                 processViewConfigurations(getView());
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshView(BMISaveEvent bmiSaveEvent) {
+        if (bmiSaveEvent != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
+            processViewConfigurations(getView());
+        }
     }
 
     private void initializeRegister(Intent intent, String registerTitle) {

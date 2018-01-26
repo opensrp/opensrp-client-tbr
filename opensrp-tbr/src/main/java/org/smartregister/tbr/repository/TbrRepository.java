@@ -34,6 +34,7 @@ public class TbrRepository extends Repository {
         ResultsRepository.createTable(database);
         ResultDetailsRepository.createTable(database);
         ContactRepository.createTable(database);
+        BMIRepository.createTable(database);
         //onUpgrade(database, 1, 2);
 
     }
