@@ -20,11 +20,8 @@ import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
-import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
-import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
@@ -105,8 +102,10 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                     View view = parentView.findViewById(Utils.getLayoutIdentifierResourceId(getActivity(), uniqueIdentifier));
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
-                        if (textView != null && languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(entry.getKey())) {
-                            textView.setText(languageTranslations.get(entry.getKey()));
+                        if (textView != null) {
+                            String translated = getTranslatedToken(entry.getKey());
+                            textView.setText(translated);
+
                         }
                     } else {
                         Log.w(TAG, " IDentifier for Language Token '" + uniqueIdentifier + "' clashes with a non TextView");
@@ -116,6 +115,16 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
+    }
+
+    private String getTranslatedToken(String token) {
+        return getTranslatedToken(token, token);
+    }
+
+    private String getTranslatedToken(String token, String defaultReturn) {
+        if (languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(token)) {
+            return languageTranslations.get(token);
+        } else return defaultReturn;
     }
 
     protected void renderBMIHeightChartView(View view, Map<String, String> patientDetails) {
@@ -246,10 +255,10 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void refreshView(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
         if (enketoFormSaveCompleteEvent != null) {
             if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.DIAGNOSIS)) {
-                initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), Register.POSITIVE_PATIENTS);
+                initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), getTranslatedToken(Register.POSITIVE_PATIENTS,getString(R.string.positive_patients)));
 
             } else if (enketoFormSaveCompleteEvent.getFormName().equals(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION)) {
-                initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), Register.IN_TREATMENT_PATIENTS);
+                initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS,getString(R.string.in_treatment_patients)));
 
             } else {
                 processViewConfigurations(getView());
