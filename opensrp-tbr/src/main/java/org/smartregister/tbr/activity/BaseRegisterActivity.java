@@ -291,8 +291,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             Log.i(TAG, "saveFormSubmission: ", e);
             switchToBaseFragment();
         }
-        //TODO Remove once the dialog in enketo library is dismissed
-        //
     }
 
     @Override
