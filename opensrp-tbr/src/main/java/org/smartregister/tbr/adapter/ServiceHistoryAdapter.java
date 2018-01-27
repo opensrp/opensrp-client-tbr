@@ -33,7 +33,6 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
     private Context mContext;
     private LayoutInflater inflater;
-    private Cursor kasa;
 
     public ServiceHistoryAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);

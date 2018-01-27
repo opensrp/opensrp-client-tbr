@@ -12,7 +12,7 @@ env:
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
     - MALLOC_ARENA_MAX=2
-    - ADB_INSTALL_TIMEOUT=5 #increment timeout to 5 mins
+    - ADB_INSTALL_TIMEOUT=10 #increment timeout to 10 mins
 
 android:
   components:
