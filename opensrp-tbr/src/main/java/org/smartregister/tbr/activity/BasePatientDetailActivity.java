@@ -15,6 +15,7 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
@@ -41,13 +42,19 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     protected FragmentPagerAdapter mPagerAdapter;
     protected int currentPage;
     private static final String TAG = BasePatientDetailActivity.class.getCanonicalName();
+    private boolean formIsReadonly;
+    protected Map<String, String> patientDetails;
+    protected FormOverridesHelper formOverridesHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+
         formNames = this.buildFormNameList();
+        patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        formOverridesHelper = new FormOverridesHelper(patientDetails);
 
         initializeEnketoForms();
     }
@@ -75,7 +82,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         return true;
     }
 
-    public void startFormActivity(String formName, String entityId, String metaData) {
+    public void startFormActivity(String formName, String entityId, String metaData, boolean readonly) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
@@ -87,15 +94,21 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
                     displayFormFragment.setFieldOverides(metaData);
                     displayFormFragment.setListener(this);
                     displayFormFragment.setResize(false);
+                    if (readonly)
+                        displayFormFragment.displayFormAsReadonly();
                 }
             }
-
+            formIsReadonly = readonly;
             mPager.setCurrentItem(formIndex, false);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        startFormActivity(formName, entityId, metaData, false);
     }
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
@@ -135,6 +148,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
 
     private void switchToBaseFragment() {
         final int prevPageIndex = currentPage;
+        formIsReadonly = false;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -153,7 +167,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
 
     @Override
     public void onBackPressed() {
-        if (currentPage != 0) {
+        if (currentPage != 0 && !formIsReadonly) {
             new AlertDialog.Builder(this, R.style.TbrAlertDialog)
                     .setMessage(R.string.form_back_confirm_dialog_message)
                     .setTitle(R.string.form_back_confirm_dialog_title)
@@ -171,6 +185,8 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
                                 }
                             })
                     .show();
+        } else if (currentPage != 0 && formIsReadonly) {
+            switchToBaseFragment();
         } else {
             super.onBackPressed(); // allow back key only if we are
         }
@@ -215,5 +231,11 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(Constants.KEY.TBREACH_ID).toString());
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        switchToBaseFragment();
     }
 }

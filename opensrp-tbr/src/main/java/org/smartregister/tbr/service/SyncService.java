@@ -274,7 +274,7 @@ public class SyncService extends Service {
 
     }
 
-    private JSONObject fetchRetry(String locations, int count) throws Exception {
+    private JSONObject fetchRetry(String locations, int count) {
         // Request spacing
         try {
             final int ONE_SECOND = 1000;

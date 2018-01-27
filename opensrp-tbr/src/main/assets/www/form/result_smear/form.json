@@ -6,7 +6,7 @@
   "instance": {
     "encounter_type": "Smear Result"
   },
-  "version": "201710050607",
+  "version": "201801230940",
   "id_string": "smear_result_form",
   "type": "survey",
   "children": [
@@ -107,7 +107,7 @@
     {
       "instance": {
         "openmrs_entity_parent": "Mobile phone number assigned by SIM",
-        "openmrs_entity_id": "TBR:phone number",
+        "openmrs_entity_id": "TBR:sim number",
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -144,6 +144,60 @@
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBREACH Program ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
       "label": {
         "English": "Test Information"
       },
@@ -161,6 +215,7 @@
           "type": "date",
           "name": "test_date",
           "label": {
+            "Roman Urdu": "Test ki tareeq",
             "English": "Date when sample was obtained?"
           }
         },
@@ -176,6 +231,7 @@
           "type": "text",
           "name": "sample_id",
           "label": {
+            "Roman Urdu": "Sample ID",
             "English": "Sample ID"
           }
         },
@@ -192,6 +248,7 @@
           "type": "date",
           "name": "result_date",
           "label": {
+            "Roman Urdu": "Result ki tareeq",
             "English": "Test Result Date"
           }
         },
@@ -201,6 +258,7 @@
             "required": "yes"
           },
           "label": {
+            "Roman Urdu": "Test ka nateeja",
             "English": "Smear Result"
           },
           "instance": {
@@ -246,6 +304,7 @@
               },
               "name": "scanty",
               "label": {
+                "Roman Urdu": "Scanty",
                 "English": "Scanty"
               }
             },
@@ -255,6 +314,7 @@
               },
               "name": "negative",
               "label": {
+                "Roman Urdu": "Negative",
                 "English": "Negative"
               }
             }

@@ -31,11 +31,10 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import util.ServiceTools;
 import util.TbrConstants;
+import util.TbrConstants.KEY;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
-import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
-import static util.TbrConstants.KEY.TREATMENT_INITIATION_DATE;
 
 /**
  * Created by keyman on 23/08/2017.
@@ -163,12 +162,14 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{"tbreach_id", "first_name", "last_name"};
+        return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME, KEY.LAST_NAME};
 
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{"tbreach_id", "first_name", "last_interacted_with", "presumptive", "confirmed_tb", DIAGNOSIS_DATE, TREATMENT_INITIATION_DATE};
+        return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME,
+                KEY.LAST_INTERACTED_WITH, KEY.PRESUMPTIVE, KEY.CONFIRMED_TB, KEY.FIRST_ENCOUNTER,
+                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE};
     }
 
 
@@ -201,7 +202,8 @@ public class TbrApplication extends DrishtiApplication {
 
     public ConfigurableViewsHelper getConfigurableViewsHelper() {
         if (configurableViewsHelper == null) {
-            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(), getJsonSpecHelper(), getApplicationContext());
+            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(),
+                    getJsonSpecHelper(), getApplicationContext());
         }
         return configurableViewsHelper;
     }

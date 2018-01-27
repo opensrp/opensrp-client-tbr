@@ -2,7 +2,7 @@
     <instance>
         <CultureForm_03.10.17_US xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Culture Result"
-            id="culture_result_form" version="201710261014">
+            id="culture_result_form" version="201801230940">
             <formhub>
                 <uuid />
             </formhub>
@@ -23,15 +23,16 @@
             <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
-            <culture_taken />
-            <afb_culture>
-                <test_date openmrs_entity="concept"
-                    openmrs_entity_id="TBR:sample collection date" />
-                <sample_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
-                <result_date openmrs_entity="concept" openmrs_entity_id="TBR:test result date" />
-                <culture_result openmrs_entity="concept" openmrs_entity_id="TBR: culture result" />
-                <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
-            </afb_culture>
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
+            <sample_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
+            <test_date openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date" />
+            <result_date openmrs_entity="concept" openmrs_entity_id="TBR:test result date" />
+            <culture_result openmrs_entity="concept" openmrs_entity_id="TBR: culture result" />
+            <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             <meta>
                 <instanceID />
             </meta>

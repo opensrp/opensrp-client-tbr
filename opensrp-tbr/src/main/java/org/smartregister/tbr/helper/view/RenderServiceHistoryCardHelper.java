@@ -52,7 +52,6 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-
                 listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
                 if (listView != null) {
                     listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));

@@ -2,7 +2,7 @@
     <instance>
         <SmearForm_03.10.17_US_OPENMRS xmlns:jr="http://openrosa.org/javarosa"
             xmlns:orx="http://openrosa.org/xforms" encounter_type="Smear Result"
-            id="smear_result_form" version="201710050607">
+            id="smear_result_form" version="201801230940">
             <formhub>
                 <uuid />
             </formhub>
@@ -26,10 +26,15 @@
                 openmrs_entity_parent="Mobile subscriber identifier" />
             <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number"
                 openmrs_entity_parent="SIM serial number" />
-            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:phone number"
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number"
                 openmrs_entity_parent="Mobile phone number assigned by SIM" />
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
             <test_information>
                 <test_date openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date"
                     openmrs_entity_parent="Specimen collection date" />

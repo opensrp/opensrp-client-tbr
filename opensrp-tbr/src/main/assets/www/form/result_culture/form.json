@@ -6,7 +6,7 @@
   "instance": {
     "encounter_type": "Culture Result"
   },
-  "version": "201710261014",
+  "version": "201801230940",
   "id_string": "culture_result_form",
   "type": "survey",
   "children": [
@@ -141,141 +141,155 @@
       }
     },
     {
+      "instance": {
+        "openmrs_entity_id": "TBREACH Program ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sample collection date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "sample_id",
+      "label": {
+        "Roman Urdu": "Sample ID",
+        "English": "Sample ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sample id",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "date",
+      "name": "test_date",
+      "label": {
+        "Roman Urdu": "Test ki tareeq",
+        "English": "Date of Test?"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:test result date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "date",
+      "name": "result_date",
+      "label": {
+        "Roman Urdu": "Result ki tareeq",
+        "English": "Date of Result?"
+      }
+    },
+    {
+      "name": "culture_result",
       "bind": {
         "required": "yes"
       },
       "label": {
-        "English": "AFB Culture Taken?"
+        "Roman Urdu": "Test ka nateeja",
+        "English": "Culture Result"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR: culture result",
+        "openmrs_entity": "concept"
       },
       "type": "select one",
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: yes"
+            "openmrs_code": "TBR: positive"
           },
-          "name": "yes",
+          "name": "positive",
           "label": {
-            "Roman Urdu": "Haan",
-            "English": "Yes"
+            "Roman Urdu": "Positive",
+            "English": "Positive"
           }
         },
         {
           "instance": {
-            "openmrs_code": "TBR: no"
+            "openmrs_code": "TBR: negative"
           },
-          "name": "no",
+          "name": "negative",
           "label": {
-            "Roman Urdu": "Nahi",
-            "English": "No"
+            "Roman Urdu": "Negative",
+            "English": "Negative"
           }
         }
-      ],
-      "name": "culture_taken"
+      ]
     },
     {
-      "bind": {
-        "relevant": "${culture_taken} = 'yes'"
+      "control": {
+        "appearance": "multiline"
       },
+      "instance": {
+        "openmrs_entity_id": "TBR:additional notes",
+        "openmrs_entity": "concept"
+      },
+      "type": "text",
+      "name": "comments",
       "label": {
-        "English": "Test Information"
-      },
-      "type": "group",
-      "children": [
-        {
-          "instance": {
-            "openmrs_entity_id": "TBR:sample collection date",
-            "openmrs_entity": "concept"
-          },
-          "bind": {
-            "required": "yes"
-          },
-          "type": "text",
-          "name": "sample_id",
-          "label": {
-            "English": "Sample ID"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_entity_id": "TBR:sample id",
-            "openmrs_entity": "concept"
-          },
-          "bind": {
-            "required": "yes"
-          },
-          "type": "date",
-          "name": "test_date",
-          "label": {
-            "English": "Date of Test?"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_entity_id": "TBR:test result date",
-            "openmrs_entity": "concept"
-          },
-          "bind": {
-            "required": "yes"
-          },
-          "type": "date",
-          "name": "result_date",
-          "label": {
-            "English": "Date of Result?"
-          }
-        },
-        {
-          "name": "culture_result",
-          "bind": {
-            "required": "yes"
-          },
-          "label": {
-            "English": "Culture Result"
-          },
-          "instance": {
-            "openmrs_entity_id": "TBR: culture result",
-            "openmrs_entity": "concept"
-          },
-          "type": "select one",
-          "children": [
-            {
-              "instance": {
-                "openmrs_code": "TBR: positive"
-              },
-              "name": "positive",
-              "label": {
-                "Roman Urdu": "Positive",
-                "English": "Positive"
-              }
-            },
-            {
-              "instance": {
-                "openmrs_code": "TBR: negative"
-              },
-              "name": "negative",
-              "label": {
-                "Roman Urdu": "Negative",
-                "English": "Negative"
-              }
-            }
-          ]
-        },
-        {
-          "control": {
-            "appearance": "multiline"
-          },
-          "instance": {
-            "openmrs_entity_id": "TBR:additional notes",
-            "openmrs_entity": "concept"
-          },
-          "type": "text",
-          "name": "comments",
-          "label": {
-            "Roman Urdu": "Tabsarah",
-            "English": "Comments"
-          }
-        }
-      ],
-      "name": "afb_culture"
+        "Roman Urdu": "Tabsarah",
+        "English": "Comments"
+      }
     },
     {
       "control": {

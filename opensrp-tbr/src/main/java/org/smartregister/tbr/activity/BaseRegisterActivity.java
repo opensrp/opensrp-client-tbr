@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -199,6 +200,13 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        hideProgressDialog();
+        switchToBaseFragment();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshList(SyncEvent syncEvent) {
         if (syncEvent != null && syncEvent.getFetchStatus().equals(FetchStatus.fetched))
@@ -283,8 +291,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             Log.i(TAG, "saveFormSubmission: ", e);
             switchToBaseFragment();
         }
-        //TODO Remove once the dialog in enketo library is dismissed
-        //
     }
 
     @Override
