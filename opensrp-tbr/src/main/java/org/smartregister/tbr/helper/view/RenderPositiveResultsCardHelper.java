@@ -111,11 +111,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, null);
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), null);
     }
 
     private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), false, Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
     }
 
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {

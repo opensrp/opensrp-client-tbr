@@ -31,7 +31,6 @@ public class ResultsRepository extends BaseRepository {
     public static final String FORMSUBMISSION_ID = "formSubmissionId";
     public static final String EVENT_ID = "event_id";
     public static final String DATE = "date";
-    public static final String BASELINE = "baseline";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String ANMID = "anmid";
@@ -146,16 +145,18 @@ public class ResultsRepository extends BaseRepository {
         return getLatestResults(baseEntityId, false, null);
     }
 
-    public Map<String, String> getLatestResults(String baseEntityId, boolean afterBaseline, Long baseline) {
+    public Map<String, String> getLatestResults(String baseEntityId, boolean singleResult, Long baseline) {
         Cursor cursor = null;
         Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, singleResult, false);
+
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String key = cursor.getString(cursor.getColumnIndex(RESULT1));
                     String value = cursor.getString(cursor.getColumnIndex(VALUE1));
                     clientDetails.put(key, value);
+                    clientDetails.put(DATE, cursor.getString(cursor.getColumnIndex(DATE)));
                     String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
                     if (key2 != null && !key2.isEmpty()) {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
@@ -174,12 +175,41 @@ public class ResultsRepository extends BaseRepository {
         return clientDetails;
     }
 
-    public Map<String, Result> getLatestResultsAll(String baseEntityId, boolean afterBaseline, Long baseline) {
+    public Map<String, String> getLatestResult(String baseEntityId) {
+        return getLatestResults(baseEntityId, true, null);
+    }
+
+    private Cursor getLatestResultsCursor(String baseEntityId, Long baseline, boolean singleResult, boolean orderResults) {
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String baselineFilter = "";
+        String orderByClause = "";
+        String groupByClause = "";
+        if (baseline != null) {
+            baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+        }
+        if (!singleResult) {
+            groupByClause = " GROUP BY " + TYPE;
+        }
+        if (orderResults) {
+            orderByClause = " ORDER BY " + DATE + " DESC";
+        }
+        String query =
+                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + "  = '" + baseEntityId + "' "
+                        + baselineFilter
+                        + groupByClause + orderByClause;
+
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline) {
         Cursor cursor = null;
         Result result;
         Map<String, Result> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, afterBaseline, baseline);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, false, false);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     result = new Result();
@@ -212,25 +242,4 @@ public class ResultsRepository extends BaseRepository {
         }
         return clientDetails;
     }
-
-    private Cursor getLatestResultsCursor(String baseEntityId, boolean afterBaseline, Long baseline) {
-        Cursor cursor;
-        SQLiteDatabase db = getReadableDatabase();
-        String baselineFilter = "";
-        if (baseline != null) {
-            if (afterBaseline)
-                baselineFilter = "AND " + CREATED_AT + ">=" + baseline + "";
-            else
-                baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
-        }
-        String query =
-                "SELECT max(" + DATE + ") " + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
-                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " " + ""
-                        + "" + "= '" + baseEntityId + "' "
-                        + baselineFilter
-                        + " GROUP BY " + TYPE + " ORDER BY " + DATE + " DESC";
-        cursor = db.rawQuery(query, null);
-        return cursor;
-    }
-
 }

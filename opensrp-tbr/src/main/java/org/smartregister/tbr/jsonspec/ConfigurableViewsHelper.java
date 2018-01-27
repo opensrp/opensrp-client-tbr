@@ -15,6 +15,7 @@ import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -64,8 +65,11 @@ public class ConfigurableViewsHelper {
         for (View view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
                 visibleColumns.add(view);
-            if (visibleColumns.size() == maxColumns)
-                break;
+        }
+        if (!isTabletSize && visibleColumns.size() > maxColumns) {
+            View[] columnsArray = visibleColumns.toArray(new View[]{});
+            visibleColumns.clear();
+            visibleColumns.addAll(Arrays.asList(Arrays.copyOf(columnsArray, 3)));
         }
         return visibleColumns;
     }

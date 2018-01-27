@@ -88,4 +88,17 @@ public class View {
         this.metadata = metadata;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof View) {
+            View other = (View) o;
+            return other.getIdentifier().equals(getIdentifier());
+        }
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return getIdentifier().hashCode();
+    }
 }

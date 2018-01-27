@@ -70,7 +70,7 @@ public class Constants {
     }
 
     public static final class FORM {
-        public static final String NEW_PATIENT_REGISTRATION = "new_patient_registration";
+        public static final String NEW_PATIENT_REGISTRATION = "add_presumptive_patient";
         public static final String RESULT_SMEAR = "result_smear";
         public static final String RESULT_CHEST_XRAY = "result_chest_xray";
         public static final String RESULT_CULTURE = "result_culture";

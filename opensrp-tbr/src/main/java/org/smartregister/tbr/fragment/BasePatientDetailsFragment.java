@@ -12,12 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.joda.time.DateTime;
-import org.json.JSONObject;
-import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
@@ -25,6 +21,7 @@ import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BMISaveEvent;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
@@ -35,10 +32,8 @@ import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
-import org.smartregister.util.DateUtil;
 import org.smartregister.view.fragment.SecuredFragment;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import util.TbrConstants;
@@ -55,6 +50,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     protected ResultMenuListener resultMenuListener;
     protected Map<String, String> languageTranslations;
     private static String TAG = BasePatientDetailsFragment.class.getCanonicalName();
+    private FormOverridesHelper formOverridesHelper;
 
     protected abstract void processViewConfigurations(View view);
 
@@ -139,73 +135,13 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     protected void onCreation() {
 
         resultMenuListener = new ResultMenuListener(patientDetails.get(Constants.KEY._ID));
+        formOverridesHelper = new FormOverridesHelper(patientDetails);
 
     }
 
     @Override
     protected void onResumption() {
         //Overrides
-    }
-
-
-    protected FieldOverrides getFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
-    }
-
-    protected FieldOverrides getTreatmentFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
-        fields.put("first_name", patientDetails.get(TbrConstants.KEY.FIRST_NAME));
-        fields.put("last_name", patientDetails.get(TbrConstants.KEY.LAST_NAME));
-
-        fields.put("gender", patientDetails.get(TbrConstants.KEY.GENDER));
-        String dobString = patientDetails.get(TbrConstants.KEY.DOB);
-        String age = "";
-        if (StringUtils.isNotBlank(dobString)) {
-            try {
-                DateTime birthDateTime = new DateTime(dobString);
-                String duration = DateUtil.getDuration(birthDateTime);
-                if (duration != null) {
-                    age = duration.substring(0, duration.length() - 1);
-                }
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            }
-        }
-        fields.put("age", age);
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
-    }
-
-    protected FieldOverrides getRegistrationFieldOverrides() {
-        Map fields = new HashMap();
-        fields.put("participant_id", patientDetails.get(TbrConstants.KEY.TBREACH_ID));
-        fields.put("first_name", patientDetails.get(TbrConstants.KEY.FIRST_NAME));
-        fields.put("last_name", patientDetails.get(TbrConstants.KEY.LAST_NAME));
-
-        fields.put("gender", patientDetails.get(TbrConstants.KEY.GENDER));
-        String dobString = patientDetails.get(TbrConstants.KEY.DOB);
-        String age = "";
-        if (StringUtils.isNotBlank(dobString)) {
-            try {
-                DateTime birthDateTime = new DateTime(dobString);
-                String duration = DateUtil.getDuration(birthDateTime);
-                if (duration != null) {
-                    age = duration.substring(0, duration.length() - 1);
-                }
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            }
-        }
-        fields.put("age", age);
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
     }
 
 
@@ -222,16 +158,16 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             BasePatientDetailActivity registerActivity = (BasePatientDetailActivity) getActivity();
             switch (item.getItemId()) {
                 case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.GENE_XPERT, clientIdentifier, getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.GENE_XPERT, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_smear:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.SMEAR, clientIdentifier, getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.SMEAR, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_chest_xray:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, clientIdentifier, getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_culture:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CULTURE, clientIdentifier, getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CULTURE, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 default:
                     return false;
@@ -284,19 +220,19 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), getTreatmentFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                 break;
             case R.id.record_results:
                 showResultMenu(view);
                 break;
             case R.id.remove_patient:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.REMOVE_PATIENT, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.REMOVE_PATIENT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
                 break;
             case R.id.record_outcome:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.TREATMENT_OUTCOME, view.getTag(R.id.CLIENT_ID).toString(), getFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.TREATMENT_OUTCOME, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
                 break;
             default:
                 break;

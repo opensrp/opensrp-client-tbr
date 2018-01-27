@@ -46,7 +46,7 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
         switch (item.getItemId()) {
             case R.id.treatmentInitiationForm:
                 Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
-                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, patientDetails.get(Constants.KEY._ID), null);
+                startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, patientDetails.get(Constants.KEY._ID), formOverridesHelper.getTreatmentFieldOverrides().getJSONString());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
