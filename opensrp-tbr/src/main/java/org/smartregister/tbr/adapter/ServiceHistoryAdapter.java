@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.clientandeventmodel.populateform.PopulateEnketoFormUtils;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
@@ -45,31 +47,35 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
         Utils.showToastShort(mContext, "Opening the " + formView.getTag(R.id.FORM_NAME) + " form");
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
-        String tbReachId = ((BasePatientDetailActivity) mContext).getIntent().getStringExtra(Constants.INTENT_KEY.TB_REACH_ID);
-
+        String formSubmissionId = formView.getTag(R.id.FORM_SUBMISSION_ID).toString();
+        String baseEntityId = formView.getTag(R.id.BASE_ENTITY_ID).toString();
+        PopulateEnketoFormUtils enketoFormUtils = PopulateEnketoFormUtils.getInstance(mContext,TbrApplication.getInstance().getEventClientRepository());
+        String form;
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_GENE_EXPERT, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                form = Constants.FORM.RESULT_GENE_EXPERT;
                 break;
             case R.id.result_smear:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_SMEAR, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                form = Constants.FORM.RESULT_SMEAR;
                 break;
             case R.id.result_chest_xray:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CHEST_XRAY, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
-
+                form = Constants.FORM.RESULT_CHEST_XRAY;
                 break;
             case R.id.result_culture:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.RESULT_CULTURE, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                form = Constants.FORM.RESULT_CULTURE;
                 break;
             case R.id.addNewPatient:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.NEW_PATIENT_REGISTRATION, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                formSubmissionId=null;
+                form = Constants.FORM.NEW_PATIENT_REGISTRATION;
                 break;
             case R.id.tbDiagnosisForm:
-                ((BasePatientDetailActivity) mContext).startFormActivity(Constants.FORM.DIAGNOSIS, formView.getTag(R.id.BASE_ENTITY_ID).toString(), getFieldOverrides(tbReachId).getJSONString());
+                form = Constants.FORM.DIAGNOSIS;
                 break;
             default:
-                break;
+                return;
         }
+        FieldOverrides formOverrides = enketoFormUtils.populateFormOverrides(baseEntityId,formSubmissionId, form);
+        ((BasePatientDetailActivity) mContext).startFormActivity(form, baseEntityId, formOverrides.getJSONString(),true);
 
     }
 
