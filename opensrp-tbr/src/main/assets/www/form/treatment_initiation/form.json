@@ -1,20 +1,12 @@
 {
-<<<<<<< HEAD
-  "name": "TreatmentInitation_23.11.17_US",
-=======
   "name": "TreatmentInitation_10.01.18",
->>>>>>> master
   "title": "Treatment Initation",
   "sms_keyword": "treatment_initiation",
   "default_language": "English",
   "instance": {
     "encounter_type": "Treatment Initiation"
   },
-<<<<<<< HEAD
-  "version": "201711230919",
-=======
   "version": "201801251501",
->>>>>>> master
   "id_string": "treatment_initiation",
   "type": "survey",
   "children": [
@@ -108,11 +100,7 @@
     },
     {
       "instance": {
-<<<<<<< HEAD
-        "openmrs_entity_id": "TBR:phone number",
-=======
         "openmrs_entity_id": "TBR:sim number",
->>>>>>> master
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -127,11 +115,7 @@
         "calculate": "${today}"
       },
       "type": "calculate",
-<<<<<<< HEAD
-      "name": "client_reg_date",
-=======
       "name": "encounter_date",
->>>>>>> master
       "label": {
         "Roman Urdu": "Indraj ki Tareekh",
         "English": "Data Entry Date"
@@ -139,11 +123,7 @@
     },
     {
       "label": {
-<<<<<<< HEAD
-        "Roman Urdu": "Patient Information",
-=======
         "Roman Urdu": "Mareez ki malumaat",
->>>>>>> master
         "English": "Patient Information"
       },
       "type": "group",
@@ -168,12 +148,6 @@
           }
         },
         {
-<<<<<<< HEAD
-          "bind": {
-            "required": "yes"
-          },
-          "type": "text",
-=======
           "instance": {
             "openmrs_entity_id": "TBREACH Program ID",
             "openmrs_entity": "person_identifier"
@@ -205,7 +179,6 @@
             "openmrs_entity": "person"
           },
           "type": "hidden",
->>>>>>> master
           "name": "first_name",
           "label": {
             "Roman Urdu": "Naam",
@@ -213,11 +186,6 @@
           }
         },
         {
-<<<<<<< HEAD
-          "type": "text",
-          "name": "last_name",
-          "label": {
-=======
           "instance": {
             "openmrs_entity_id": "last_name",
             "openmrs_entity": "person"
@@ -226,13 +194,10 @@
           "name": "last_name",
           "label": {
             "Roman Urdu": "Walid ya shohar ka nam",
->>>>>>> master
             "English": "Last Name"
           }
         },
         {
-<<<<<<< HEAD
-=======
           "type": "note",
           "name": "pt_name_note",
           "label": {
@@ -241,7 +206,6 @@
           }
         },
         {
->>>>>>> master
           "name": "age",
           "hint": {
             "English": "(years)"
@@ -315,12 +279,9 @@
             "openmrs_entity_id": "TBR: weight",
             "openmrs_entity": "concept"
           },
-<<<<<<< HEAD
-=======
           "bind": {
             "required": "yes"
           },
->>>>>>> master
           "type": "decimal",
           "name": "weight",
           "label": {
@@ -342,10 +303,7 @@
         },
         {
           "instance": {
-<<<<<<< HEAD
-=======
             "openmrs_entity_id": "TBR: body mass index",
->>>>>>> master
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -363,10 +321,7 @@
     },
     {
       "label": {
-<<<<<<< HEAD
-=======
         "Roman Urdu": "TB Information",
->>>>>>> master
         "English": "TB Information"
       },
       "type": "group",
@@ -413,17 +368,12 @@
           "type": "select one",
           "children": [
             {
-<<<<<<< HEAD
-              "name": "ptb",
-              "label": {
-=======
               "instance": {
                 "openmrs_code": "TBR: ptb"
               },
               "name": "ptb",
               "label": {
                 "Roman Urdu": "Pulmonary",
->>>>>>> master
                 "English": "Pulmonary"
               }
             },
@@ -433,10 +383,7 @@
               },
               "name": "eptb",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Extra Pulmonary",
->>>>>>> master
                 "English": "Extra Pulmonary"
               }
             }
@@ -456,10 +403,7 @@
             "English": "EP TB Disease Site"
           },
           "instance": {
-<<<<<<< HEAD
-=======
             "openmrs_entity_id": "TBR: tb diagnosis",
->>>>>>> master
             "openmrs_entity": "concept"
           },
           "type": "select one",
@@ -470,10 +414,7 @@
               },
               "name": "pleura",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Pleural Effusion",
->>>>>>> master
                 "English": "Pleural Effusion"
               }
             },
@@ -483,10 +424,7 @@
               },
               "name": "spine",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Spine",
->>>>>>> master
                 "English": "Spine"
               }
             },
@@ -496,10 +434,7 @@
               },
               "name": "lymph",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Lymph Node",
->>>>>>> master
                 "English": "Lymph Node"
               }
             },
@@ -509,10 +444,7 @@
               },
               "name": "abdomen",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Abdomen",
->>>>>>> master
                 "English": "Abdomen"
               }
             },
@@ -522,25 +454,17 @@
               },
               "name": "cns",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "CNS (includes meningeal, brain)",
->>>>>>> master
                 "English": "CNS (includes meningeal, brain)"
               }
             },
             {
-<<<<<<< HEAD
-              "name": "renal",
-              "label": {
-=======
               "instance": {
                 "openmrs_code": "TBR: renal eptb"
               },
               "name": "renal",
               "label": {
                 "Roman Urdu": "Renal",
->>>>>>> master
                 "English": "Renal"
               }
             },
@@ -550,10 +474,7 @@
               },
               "name": "bones",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Bones",
->>>>>>> master
                 "English": "Bones"
               }
             },
@@ -563,10 +484,7 @@
               },
               "name": "genitourinary",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Genitourinary",
->>>>>>> master
                 "English": "Genitourinary"
               }
             },
@@ -576,10 +494,7 @@
               },
               "name": "other",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Other",
->>>>>>> master
                 "English": "Other"
               }
             }
@@ -617,10 +532,7 @@
               },
               "name": "new",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "New Case",
->>>>>>> master
                 "English": "New Case"
               }
             },
@@ -630,10 +542,7 @@
               },
               "name": "relapse",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Relapse",
->>>>>>> master
                 "English": "Relapse"
               }
             },
@@ -643,10 +552,7 @@
               },
               "name": "transfer _in",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Transfer In",
->>>>>>> master
                 "English": "Transfer In"
               }
             },
@@ -656,27 +562,17 @@
               },
               "name": "after_ltfu",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Treatment After Loss to Follow-up",
->>>>>>> master
                 "English": "Treatment After Loss to Follow-up"
               }
             },
             {
               "instance": {
-<<<<<<< HEAD
-                "openmrs_code": "TBR: treatment after failure"
-              },
-              "name": "after_failure",
-              "label": {
-=======
                 "openmrs_code": "TBR: regimen failure"
               },
               "name": "after_failure",
               "label": {
                 "Roman Urdu": "Treatment After Failure",
->>>>>>> master
                 "English": "Treatment After Failure"
               }
             },
@@ -686,10 +582,7 @@
               },
               "name": "other",
               "label": {
-<<<<<<< HEAD
-=======
                 "Roman Urdu": "Other",
->>>>>>> master
                 "English": "Other"
               }
             }
@@ -697,16 +590,6 @@
           "name": "patient_type"
         },
         {
-<<<<<<< HEAD
-          "instance": {
-            "openmrs_entity": "concept"
-          },
-          "type": "text",
-          "name": "regimen",
-          "label": {
-            "Roman Urdu": "Regimen",
-            "English": "Regimen"
-=======
           "name": "treatment_phase",
           "default": "Intensive",
           "bind": {
@@ -867,24 +750,15 @@
           "label": {
             "Roman Urdu": "Aagli Tareeq Daley",
             "English": "Entet Next Visit Date"
->>>>>>> master
           }
         },
         {
           "instance": {
-<<<<<<< HEAD
-            "openmrs_entity_id": "TBR: return visit date",
-            "openmrs_entity": "concept"
-          },
-          "bind": {
-            "calculate": "${today} + 30"
-=======
             "openmrs_entity_id": "TBR: next visit date",
             "openmrs_entity": "concept"
           },
           "bind": {
             "calculate": "if(${fu_visit}='yes', ${visit_date}, ${fu_visit_date})"
->>>>>>> master
           },
           "type": "calculate",
           "name": "next_visit_date",
@@ -894,8 +768,6 @@
           }
         },
         {
-<<<<<<< HEAD
-=======
           "type": "note",
           "name": "next_visit_date_note",
           "label": {
@@ -927,7 +799,6 @@
           }
         },
         {
->>>>>>> master
           "control": {
             "appearance": "multiline"
           },

@@ -100,11 +100,7 @@
     },
     {
       "instance": {
-<<<<<<< HEAD
-        "openmrs_entity_id": "TBR:phone number",
-=======
         "openmrs_entity_id": "TBR:sim number",
->>>>>>> master
         "openmrs_entity": "concept"
       },
       "type": "phonenumber",
@@ -145,8 +141,6 @@
       }
     },
     {
-<<<<<<< HEAD
-=======
       "instance": {
         "openmrs_entity_id": "TBREACH Program ID",
         "openmrs_entity": "person_identifier"
@@ -199,7 +193,6 @@
       }
     },
     {
->>>>>>> master
       "bind": {
         "required": "yes"
       },
@@ -291,21 +284,15 @@
             "English": "X-Ray Result"
           },
           "instance": {
-<<<<<<< HEAD
-=======
             "openmrs_entity_id": "TBR: x-ray result",
->>>>>>> master
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
-<<<<<<< HEAD
-=======
               "instance": {
                 "openmrs_code": "TBR: indicative of TB"
               },
->>>>>>> master
               "name": "indicative",
               "label": {
                 "Roman Urdu": "Indicative of TB",
@@ -313,12 +300,9 @@
               }
             },
             {
-<<<<<<< HEAD
-=======
               "instance": {
                 "openmrs_code": "TBR: not indicative of TB"
               },
->>>>>>> master
               "name": "not indicative",
               "label": {
                 "Roman Urdu": "Not Indicative of TB",
