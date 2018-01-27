@@ -124,9 +124,10 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
                         View view = viewParent.findViewById(json2View.getId());
                         if (view != null) {
-                            viewParent.removeView(view);
+                            //viewParent.removeView(view);
+                            json2View = view;
                         }
-                        viewParent.addView(json2View);
+                        //viewParent.addView(json2View);
                         if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
                             renderDemographicsView(json2View, patientDetails);
 
