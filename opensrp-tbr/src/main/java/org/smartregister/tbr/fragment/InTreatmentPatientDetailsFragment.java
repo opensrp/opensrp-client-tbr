@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avocarrot.json2view.DynamicView;
-
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
@@ -35,6 +33,7 @@ import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
 public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragment {
     private static final String TAG = InTreatmentPatientDetailsFragment.class.getCanonicalName();
+    private ViewConfiguration detailsView;
 
     @Nullable
     @Override
@@ -96,7 +95,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                 renderDefaultLayout(rootView);
 
             } else {
-                ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+                detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
                 List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
                 if (!views.isEmpty()) {
                     Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
@@ -117,14 +116,9 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                             String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
                             ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                             if (componentViewConfiguration != null) {
-                                JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                                View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
 
-                                View view = viewParent.findViewById(json2View.getId());
-                                if (view != null) {
-                                    viewParent.removeView(view);
-                                }
-                                viewParent.addView(json2View);
+                                ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent) : viewParent;
 
                                 if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
                                     json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
@@ -163,7 +157,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                 }
 
                 if (detailsView != null) {
-                    processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+                    processLanguageTokens(detailsView.getLabels(), rootView);
                 }
             }
         } catch (Exception e) {

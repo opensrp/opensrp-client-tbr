@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
@@ -21,7 +20,6 @@ import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,9 +82,7 @@ public class HomeFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        TextView registerTitle = (TextView) view.findViewById(R.id.registerTitleView);
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-        Utils.showToast(getActivity(), registerTitle.getText().toString() + " Register!");
         Register register = (Register) this.getListAdapter().getItem(position);
         if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
             initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);

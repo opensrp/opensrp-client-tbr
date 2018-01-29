@@ -173,7 +173,7 @@
         <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/month:label"
             lang="en">Treatment Month
         </span>
-        <input name="/FollowUpVisit_10.01.18/month" data-type-xml="string" type="text" />
+        <input name="/FollowUpVisit_10.01.18/month" data-type-xml="int" type="number" />
     </label>
     <fieldset class="question simple-select ">
         <fieldset>

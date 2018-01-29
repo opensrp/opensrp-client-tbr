@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avocarrot.json2view.DynamicView;
-
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
@@ -32,6 +30,7 @@ import java.util.Map;
 
 public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragment implements View.OnClickListener {
     private static final String TAG = PresumptivePatientDetailsFragment.class.getCanonicalName();
+    private ViewConfiguration detailsView;
 
     @Nullable
     @Override
@@ -86,7 +85,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
             if (jsonString == null) {
                 renderDefaultLayout(rootView);
             } else {
-                ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+                detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
                 List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
                 if (!views.isEmpty()) {
                     Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
@@ -107,14 +106,10 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                             String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
                             ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                             if (componentViewConfiguration != null) {
-                                JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                                View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
 
-                                View view = viewParent.findViewById(json2View.getId());
-                                if (view != null) {
-                                    viewParent.removeView(view);
-                                }
-                                viewParent.addView(json2View);
+                                ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent) : viewParent;
+
                                 if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
                                     renderDemographicsView(json2View, patientDetails);
 
@@ -128,6 +123,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
                                     renderServiceHistoryView(json2View, patientDetails);
                                 }
+
                             }
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage());
@@ -137,9 +133,10 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                     renderDefaultLayout(rootView);
                 }
 
-                if (detailsView != null) {
-                    processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+                if (detailsView != null && detailsView.getLabels() != null && detailsView.getLabels().size() > 0) {
+                    processLanguageTokens(detailsView.getLabels(), rootView);
                 }
+
             }
         } catch (Exception e) {
 

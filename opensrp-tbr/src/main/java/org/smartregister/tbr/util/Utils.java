@@ -236,4 +236,15 @@ public class Utils {
         return "";
     }
 
+    public static Integer getIntegerValue(Object object) {
+        int val = 0;
+        if (object != null) {
+            try {
+                val = Integer.parseInt(object.toString());
+            } catch (NumberFormatException e) {
+                val = 0;
+            }
+        }
+        return val;
+    }
 }

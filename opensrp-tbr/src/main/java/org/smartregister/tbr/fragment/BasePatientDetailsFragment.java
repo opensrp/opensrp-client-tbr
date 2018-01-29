@@ -20,7 +20,6 @@ import org.smartregister.tbr.activity.HomeActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.BMISaveEvent;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
@@ -91,7 +90,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         renderContactScreeningHelper.renderView(view, patientDetails);
     }
 
-    protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
+    protected void processLanguageTokens(Map<String, String> viewLabelsMap, View parentView) {
         try {
             //Process token translations
             if (!viewLabelsMap.isEmpty()) {
@@ -101,7 +100,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
                         if (textView != null) {
-                            String translated = getTranslatedToken(entry.getKey());
+                            String translated = getTranslatedToken(entry.getKey(), textView.getText().toString());
                             textView.setText(translated);
 
                         }
@@ -205,13 +204,6 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             }
         }
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshView(BMISaveEvent bmiSaveEvent) {
-        if (bmiSaveEvent != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
-            processViewConfigurations(getView());
-        }
     }
 
     private void initializeRegister(Intent intent, String registerTitle) {

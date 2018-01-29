@@ -24,6 +24,7 @@ import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -480,7 +481,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         int months = 0;
         if (details.containsKey(KEY.TREATMENT_MONTH))
-            months = Integer.valueOf(details.get(KEY.TREATMENT_MONTH));
+            months = Utils.getIntegerValue((details.get(KEY.TREATMENT_MONTH)));
         ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
         ((TextView) view.findViewById(R.id.treatment_phase)).setText(StringUtils.capitalize(details.get(KEY.TREATMENT_PHASE)));
         List<String> regimen = new ArrayList();
@@ -540,7 +541,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewIdentifier = INTREATMENT_REGISTER_ROW;
             view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
-        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
+        if (TbrApplication.getJsonSpecHelper().isEnableJsonViews()) {
             ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
             ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
             if (viewConfiguration != null) {

@@ -151,7 +151,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                 }
 
                 if (detailsView != null) {
-                    processLanguageTokens(detailsView.getLabels(), languageTranslations, rootView);
+                    processLanguageTokens(detailsView.getLabels(), rootView);
                 }
             }
         } catch (Exception e) {
