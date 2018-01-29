@@ -62,8 +62,6 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_top);
-        convertView.startAnimation(animation);
         return convertView;
     }
 

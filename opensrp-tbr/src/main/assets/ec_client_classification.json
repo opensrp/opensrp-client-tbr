@@ -46,6 +46,20 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Remove Patient",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Treatment Outcome",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }
