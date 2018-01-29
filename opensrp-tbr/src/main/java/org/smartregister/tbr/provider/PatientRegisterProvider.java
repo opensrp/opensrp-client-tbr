@@ -247,6 +247,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View button = view.findViewById(R.id.result_lnk);
         TextView details = (TextView) view.findViewById(R.id.result_details);
+        details.setText(new String());
         populateResultsColumn(pc, client, new TbrSpannableStringBuilder(), false, null, button, details);
     }
 
@@ -438,7 +439,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            followupText.setText("");
+            followupText.setText(R.string.followup);
         }
     }
 
@@ -470,7 +471,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            followupText.setText("");
+            followupText.setText("Smear \nnot due");
         }
     }
 
