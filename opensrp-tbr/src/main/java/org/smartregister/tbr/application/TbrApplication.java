@@ -171,7 +171,7 @@ public class TbrApplication extends DrishtiApplication {
     private static String[] getFtsSortFields() {
         return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME,
                 KEY.LAST_INTERACTED_WITH, KEY.PRESUMPTIVE, KEY.CONFIRMED_TB, KEY.FIRST_ENCOUNTER,
-                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE};
+                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE, KEY.DATE_REMOVED};
     }
 
 

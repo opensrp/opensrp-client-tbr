@@ -85,17 +85,16 @@ public class TestResultsStringBuilderHelper {
     }
 
     public TbrSpannableStringBuilder getXpertResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
-        stringBuilder.append("GeneXpert ");
+        stringBuilder.append("Gene Xpert ");
         ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        ForegroundColorSpan colorSpan = getColorSpan(withOtherResults);
         stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
-        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), getColorSpan(testResults.containsKey(Constants.RESULT.ERROR_CODE)));
-        if (testResults.containsKey(Constants.RESULT.ERROR_CODE)) {
+        stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.MTB_RESULT)), getColorSpan(testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)));
+        if (testResults.containsKey(TbrConstants.RESULT.ERROR_CODE)) {
             stringBuilder.append(" ");
             stringBuilder.append(testResults.get(Constants.RESULT.ERROR_CODE), blackForegroundColorSpan);
-        } else if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)) {
+        } else if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED) && testResults.get(TbrConstants.RESULT.RIF_RESULT) != null) {
             stringBuilder.append(withOtherResults ? "/ " : " / RIF ");
-            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), colorSpan);
+            stringBuilder.append(processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT)), getColorSpan(testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(Constants.TEST_RESULT.XPERT.DETECTED)));
         }
         stringBuilder.append("\n");
         return stringBuilder;
@@ -115,7 +114,7 @@ public class TestResultsStringBuilderHelper {
             case Constants.TEST_RESULT.XPERT.ERROR:
                 return "err";
             case Constants.TEST_RESULT.XPERT.NO_RESULT:
-                return "no_result";
+                return "No result";
             default:
                 return result;
         }

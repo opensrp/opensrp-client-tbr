@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.activity.HomeActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
@@ -197,6 +198,8 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             } else if (enketoFormSaveCompleteEvent.getFormName().equals(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION)) {
                 initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS, getString(R.string.in_treatment_patients)));
 
+            } else if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.REMOVE_PATIENT) || enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.TREATMENT_OUTCOME)) {
+                startActivity(new Intent(getActivity(), HomeActivity.class));
             } else {
                 processViewConfigurations(getView());
             }

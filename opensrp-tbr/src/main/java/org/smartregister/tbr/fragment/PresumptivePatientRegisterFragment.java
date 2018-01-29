@@ -4,6 +4,7 @@ package org.smartregister.tbr.fragment;
 import android.view.View;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.helper.DBQueryHelper;
 
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_HEADER;
 
@@ -22,7 +23,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return " presumptive =\"yes\" AND confirmed_tb IS NULL";
+        return DBQueryHelper.getPresumptivePatientRegisterCondition();
     }
 
     @Override

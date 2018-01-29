@@ -13,6 +13,7 @@ import org.smartregister.tbr.model.Result;
 import org.smartregister.tbr.repository.BMIRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -30,13 +31,13 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String TAG = "TbrClientProcessor";
     private static TbrClientProcessor instance;
 
-    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
-            "Culture Result", "X-Ray Result"};
+    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result"};
 
-    private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "Treatment Initiation", "In Treatment"};
+    private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
 
-    public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
-    public static final String TREATMENT_INITIATION = "Treatment Initiation";
+    private static final String[] REMOVE_PATIENT_EVENT_TYPES = {"Remove Patient", "Treatment Outcome"};
+
+    private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
     public TbrClientProcessor(Context context) {
         super(context);
@@ -112,7 +113,9 @@ public class TbrClientProcessor extends ClientProcessor {
                 Float height = contentValues.getAsFloat(BMIRepository.HEIGHT);
                 Float bmi = contentValues.getAsFloat(BMIRepository.BMI);
                 String baseEntityId = contentValues.getAsString(BMIRepository.BASE_ENTITY_ID);
-                String createdAt = contentValues.getAsString(BMIRepository.CREATED_AT);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
+                Date date = simpleDateFormat.parse(contentValues.getAsString(BMIRepository.CREATED_AT));
+                String createdAt = Utils.formatDate(date, SQLITE_DATE_FORMAT);
 
                 bmiRepository.saveBMIRecord(baseEntityId, weight != null ? weight : 0f, height, bmi, createdAt);
 
@@ -140,7 +143,7 @@ public class TbrClientProcessor extends ClientProcessor {
             ContentValues contentValues = processCaseModel(event, clientResultJson);
             // save the values to db
             if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
                 Date date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
                 ResultsRepository resultsRepository = TbrApplication.getInstance().getResultsRepository();
                 Result result = new Result();
@@ -296,5 +299,4 @@ public class TbrClientProcessor extends ClientProcessor {
         }
         return obs;
     }
-
 }

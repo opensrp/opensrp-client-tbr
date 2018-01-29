@@ -55,7 +55,12 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
                 listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
                 if (listView != null) {
                     listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
-                    ((Activity) context).getLoaderManager().initLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    LoaderManager loaderManager = ((Activity) context).getLoaderManager();
+                    if (loaderManager.getLoader(SERVICE_HISTORY_LOADER_ID) != null) {
+                        loaderManager.restartLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    } else {
+                        loaderManager.initLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    }
 
                 }
 

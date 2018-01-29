@@ -3,6 +3,7 @@ package org.smartregister.tbr.fragment;
 import android.view.View;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.helper.DBQueryHelper;
 
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
@@ -25,7 +26,7 @@ public class InTreatmentPatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return TREATMENT_INITIATION_DATE + " IS NOT NULL";
+        return DBQueryHelper.getIntreatmentPatientRegisterCondition();
     }
 
     @Override

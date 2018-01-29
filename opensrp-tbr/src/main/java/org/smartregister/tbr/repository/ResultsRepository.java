@@ -212,22 +212,34 @@ public class ResultsRepository extends BaseRepository {
             cursor = getLatestResultsCursor(baseEntityId, baseline, false, false);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
+
+
+                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
+
                     result = new Result();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)));
                     result.setDate(calendar.getTime());
-                    result.setResult1(cursor.getString(cursor.getColumnIndex(RESULT1)));
+                    result.setResult1(key);
                     result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE1)));
 
-                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    if (key2 != null && !key2.isEmpty() && key2.equals(Constants.RESULT.ERROR_CODE)) {
+
+                        result.setResult2(key2);
+                        result.setValue2(cursor.getString(cursor.getColumnIndex(VALUE2)));
+                    }
+
                     clientDetails.put(key, result);
-                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
-                    if (key2 != null && !key2.isEmpty()) {
+
+                    if (key2 != null && !key2.isEmpty() && !key2.equals(Constants.RESULT.ERROR_CODE)) {
+
                         result = new Result();
-                        result.setResult1(key2);
                         result.setDate(calendar.getTime());
+                        result.setResult1(key2);
                         result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE2)));
                         clientDetails.put(key2, result);
+
                     }
 
                 } while (cursor.moveToNext());

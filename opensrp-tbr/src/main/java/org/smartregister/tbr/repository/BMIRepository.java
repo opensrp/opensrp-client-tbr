@@ -145,7 +145,7 @@ public class BMIRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =
-                    "SELECT height FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + baseEntityId + "' AND height IS NOT NULL ORDER BY " + BMIRepository.CREATED_AT + " DESC";
+                    "SELECT height FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + baseEntityId + "' AND height IS NOT NULL AND height > 0 ORDER BY " + BMIRepository.CREATED_AT + " DESC";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 return cursor.getFloat(cursor.getColumnIndex(BMIRepository.HEIGHT));
@@ -170,8 +170,7 @@ public class BMIRepository extends BaseRepository {
         bmiRecord.setBaseEntityId(baseEntityId);
         bmiRecord.setHeight(height);
         bmiRecord.setWeight(weight);
-        String[] dateArray = createdAt.split("T");
-        bmiRecord.setCreatedAt(dateArray[0]);
+        bmiRecord.setCreatedAt(createdAt);
         if (workingHeight != null) {
             if (bmi == null) {
                 workingBmi = calculateBMI(weight, workingHeight);
@@ -187,7 +186,7 @@ public class BMIRepository extends BaseRepository {
     public Float calculateBMI(Float weight, Float height) {
         Float bmi = null;
         if (height != null && height > 0 && weight != null && weight > 0) {
-            float heightValue = height / 100;
+            float heightValue = height;
             float weightValue = weight;
 
             bmi = weightValue / (heightValue * heightValue);

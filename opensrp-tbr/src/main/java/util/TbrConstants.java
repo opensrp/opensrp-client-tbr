@@ -41,6 +41,8 @@ TbrConstants extends AllConstants {
         public static final String SMR_NEXT_VISIT_DATE = "smear_due_date";
         public static final String PRESUMPTIVE = "presumptive";
         public static final String CONFIRMED_TB = "confirmed_tb";
+        public static final String DATE_REMOVED = "date_removed";
+        public static final String ATTRIBUTE_DATEREMOVED = "dateRemoved";//different
 
     }
 

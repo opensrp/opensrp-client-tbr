@@ -35,6 +35,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.sync.TbrClientProcessor;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
@@ -61,10 +62,9 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
-import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
 import static util.TbrConstants.KEY.BASELINE;
+import static util.TbrConstants.KEY.ATTRIBUTE_DATEREMOVED;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 
 /**
@@ -1072,7 +1072,6 @@ public class EnketoFormUtils {
             }
 
             Utils.postEvent(new EnketoFormSaveCompleteEvent(this.formSubmission.formName()));
-
         }
 
         @Override
@@ -1095,15 +1094,20 @@ public class EnketoFormUtils {
                 event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
                 saveEvent(event);
                 Gson gson = new GsonBuilder().create();
-                if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
+                if (event.getEventType().equals(Constants.EVENT.TB_DIAGNOSIS)) {
                     JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
                     Client client = gson.fromJson(json.toString(), Client.class);
                     client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
                     saveClient(client);
-                } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
+                } else if (event.getEventType().equals(Constants.EVENT.TREATMENT_INITIATION)) {
                     JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
                     Client client = gson.fromJson(json.toString(), Client.class);
                     client.addAttribute(BASELINE, event.getVersion());
+                    saveClient(client);
+                } else if (event.getEventType().equals(Constants.EVENT.REMOVE_PATIENT) || event.getEventType().equals(Constants.EVENT.TREATMENT_OUTCOME)) {
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    client.addAttribute(ATTRIBUTE_DATEREMOVED, new DateTime(event.getEventDate()).toString());
                     saveClient(client);
                 }
 
@@ -1118,6 +1122,7 @@ public class EnketoFormUtils {
                     Event evin = (Event) cm.get("event");
                     saveEvent(evin);
                 }
+
                 long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
 

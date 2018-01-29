@@ -9,11 +9,13 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
+import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.HomeFragment;
@@ -134,8 +136,7 @@ public class HomeActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
-        if (enketoFormSaveCompleteEvent != null && refreshButton != null) {
-            refreshButton.clearAnimation();
+        if (enketoFormSaveCompleteEvent != null) {
             processView();
 
         }
@@ -147,6 +148,14 @@ public class HomeActivity extends BaseActivity {
             processView();
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void refreshView(SyncEvent syncEvent) {
+        if (syncEvent != null) {
+            processView();
+
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
