@@ -155,5 +155,4 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
         renderPositiveResultsView(rootView, patientDetails);
         renderServiceHistoryView(rootView, patientDetails);
     }
-
 }

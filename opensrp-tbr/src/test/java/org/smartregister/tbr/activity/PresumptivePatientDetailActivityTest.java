@@ -6,15 +6,11 @@ import android.util.Log;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.fragment.BasePatientDetailsFragment;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.spy;
 
 /**

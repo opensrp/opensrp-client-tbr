@@ -75,8 +75,27 @@
       },
       {
         "name": "participant_id",
-        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/participant_id",
-        "shouldLoadValue": true
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/participant_id"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/SmearForm_03.10.17_US_OPENMRS/pt_name_note"
       },
       {
         "name": "test_date",

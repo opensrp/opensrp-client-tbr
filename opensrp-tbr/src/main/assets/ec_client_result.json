@@ -62,7 +62,7 @@
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: Xray result",
+        "concept": "TBR: x-ray result",
         "value_field": "formSubmissionField"
       }
     },
@@ -70,7 +70,7 @@
       "column_name": "value1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: Xray result"
+        "concept": "TBR: x-ray result"
       }
     },
     {
@@ -92,7 +92,7 @@
       "column_name": "result2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: MTB errorcode",
+        "concept": "TBR: error code",
         "value_field": "formSubmissionField"
       }
     },
@@ -100,7 +100,7 @@
       "column_name": "value2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: MTB errorcode"
+        "concept": "TBR: error code"
       }
     },
     {

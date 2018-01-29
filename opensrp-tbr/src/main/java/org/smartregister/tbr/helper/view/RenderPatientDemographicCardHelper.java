@@ -44,7 +44,7 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
                     }
                 }
                 TextView tbReachIdTextView = (TextView) view.findViewById(R.id.tbReachIdTextView);
-                tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.TBREACH_ID)));
+                tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.PARTICIPANT_ID)));
 
                 TextView clientAgeTextView = (TextView) view.findViewById(R.id.clientAgeTextView);
                 String dobString = patientDetails.get(Constants.KEY.DOB);
