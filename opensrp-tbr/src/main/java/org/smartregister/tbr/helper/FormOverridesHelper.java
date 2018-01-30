@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.DateUtil;
 
 import java.util.HashMap;
@@ -71,5 +72,12 @@ public class FormOverridesHelper {
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;
+    }
+
+    public FieldOverrides getAddContactFieldOverrides() {
+        Map fields = new HashMap();
+        fields.put(TbrConstants.KEY.PARTICIPANT_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
+        fields.put(TbrConstants.KEY.PARENT_ENTITY_ID,patientDetails.get(Constants.KEY._ID));
+        return new FieldOverrides(new JSONObject(fields).toString());
     }
 }

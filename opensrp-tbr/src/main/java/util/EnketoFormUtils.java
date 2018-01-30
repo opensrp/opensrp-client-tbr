@@ -813,7 +813,7 @@ public class EnketoFormUtils {
 
                             String childTableName = subFormDefinition.getString("ec_bind_type");
                             String sql = "select * from '" + childTableName + "' where "
-                                    + "relational_id = '" + entityId + "'";
+                                    + "id = '" + entityId + "'";
                             String childRecordsString = theAppContext.formDataRepository().
                                     queryList(sql);
                             JSONArray childRecords = new JSONArray(childRecordsString);
@@ -1050,6 +1050,14 @@ public class EnketoFormUtils {
         return null;
     }
 
+    private Event tagSyncMetadata(Event event) {
+        AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+        event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+        event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+        return event;
+    }
+
 
     class SavePatientAsyncTask extends AsyncTask<Void, Void, Void> {
         private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
@@ -1091,10 +1099,7 @@ public class EnketoFormUtils {
                     Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
                     saveClient(c);
                 }
-                AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
-                event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
-                event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
-                event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+                event = tagSyncMetadata(event);
                 saveEvent(event);
                 Gson gson = new GsonBuilder().create();
                 if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
@@ -1113,17 +1118,16 @@ public class EnketoFormUtils {
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);
                 for (Map<String, Object> cm : dep.values()) {
-                    if (saveClient) {
-                        Client cin = (Client) cm.get("client");
-                        saveClient(cin);
-                    }
+                    Client cin = (Client) cm.get("client");
+                    saveClient(cin);
                     Event evin = (Event) cm.get("event");
+                    evin = tagSyncMetadata(evin);
                     saveEvent(evin);
                 }
                 long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
-
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
             } catch (Exception e) {
                 android.util.Log.e(TAG, e.toString(), e);
             }

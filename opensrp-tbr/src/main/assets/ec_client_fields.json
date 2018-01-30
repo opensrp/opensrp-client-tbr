@@ -148,10 +148,17 @@
           }
         },
         {
-          "column_name": "contact_id",
+          "column_name": "parent_entity_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.TBREACH ID"
+            "field": "relationships.parent"
+          }
+        },
+        {
+          "column_name": "program_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH Program ID"
           }
         },
         {
@@ -186,7 +193,8 @@
           "column_name": "screened",
           "type": "Event",
           "json_mapping": {
-            "field": "screened"
+            "field": "obs.fieldCode",
+            "formSubmissionField": "screened"
           }
         }
       ]

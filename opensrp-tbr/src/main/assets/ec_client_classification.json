@@ -49,7 +49,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "Add TB Contact",
+            "field_value": "TB Contact",
             "creates_case": [
               "ec_contact"
             ]

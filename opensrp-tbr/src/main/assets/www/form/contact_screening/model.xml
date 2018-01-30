@@ -84,6 +84,7 @@
                 <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text" />
             </presumptive_info>
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
+            <screened>yes</screened>
             <meta>
                 <instanceID />
             </meta>

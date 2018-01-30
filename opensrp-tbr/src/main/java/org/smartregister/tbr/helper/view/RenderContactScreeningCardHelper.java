@@ -53,13 +53,14 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                     for (int i = 0; i < contacts.size(); i++) {
                         ScreenContactViewHelper screenContactViewHelper = new ScreenContactViewHelper(context, contactViewTemplate, contacts.get(i));
                         contactView = screenContactViewHelper.getScreenContactView();
+                        contactView.setTag(R.id.CONTACT,contacts.get(i));
                         contactView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Contact screenContactData = (Contact) view.getTag(R.id.CONTACT);
                                 if (screenContactData != null) {
 
-                                    if (screenContactData.getStage() == null) {
+                                    if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.NOTSCREENED)) {
                                         ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
                                     } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED) && screenContactData.isNegative() == null) {
                                         showNegativeContactPopUp();
