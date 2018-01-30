@@ -35,6 +35,7 @@ import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.FormOverridesHelper;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
@@ -277,11 +278,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
-        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
-            ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
-            ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_HEADER);
+        ConfigurableViewsHelper helper = TbrApplication.getInstance().getConfigurableViewsHelper();
+        if (helper.isJsonViewsEnabled()) {
+            ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewConfigurationIdentifier);
+            ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_HEADER);
             if (viewConfiguration != null)
-                headerLayout = TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
+                headerLayout = helper.inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
         }
         if (!visibleColumns.isEmpty()) {
             Map<String, Integer> mapping = new HashMap();
@@ -298,7 +300,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(TREATMENT, R.id.treatment_header);
             mapping.put(BASELINE, R.id.baseline_header);
             mapping.put(SMEAR_SCHEDULE, R.id.smr_schedule_header);
-            TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
+            helper.processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
 
         clientsView.addHeaderView(headerLayout);

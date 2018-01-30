@@ -22,6 +22,7 @@ import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.util.DateUtil;
@@ -541,11 +542,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewIdentifier = INTREATMENT_REGISTER_ROW;
             view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
-        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
-            ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
-            ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
+        ConfigurableViewsHelper helper = TbrApplication.getInstance().getConfigurableViewsHelper();
+        if (helper.isJsonViewsEnabled()) {
+            ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewIdentifier);
+            ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
             if (viewConfiguration != null) {
-                return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+                return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
             }
         }
         return view;
