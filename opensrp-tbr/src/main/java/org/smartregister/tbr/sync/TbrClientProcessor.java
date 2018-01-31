@@ -13,6 +13,7 @@ import org.smartregister.tbr.model.Result;
 import org.smartregister.tbr.repository.BMIRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.text.SimpleDateFormat;
@@ -39,6 +40,8 @@ public class TbrClientProcessor extends ClientProcessor {
 
     private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
+    private static final String EVENT_TYPE_KEY = "eventType";
+
     public TbrClientProcessor(Context context) {
         super(context);
     }
@@ -60,7 +63,7 @@ public class TbrClientProcessor extends ClientProcessor {
         if (!events.isEmpty()) {
             for (JSONObject event : events) {
 
-                String eventType = event.has("eventType") ? event.getString("eventType") : null;
+                String eventType = event.has(EVENT_TYPE_KEY) ? event.getString(EVENT_TYPE_KEY) : null;
                 if (eventType == null) {
                     continue;
                 }
@@ -84,8 +87,10 @@ public class TbrClientProcessor extends ClientProcessor {
                         continue;
                     }
                     //iterate through the events
-                    if (event.has("client")) {
-                        processEvent(event, event.getJSONObject("client"), clientClassificationJson);
+                    if (event.has(Constants.KEY.CLIENT)) {
+                        processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson);
+
+                        // processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson, Arrays.asList(new String[]{TbrConstants.KEY.DEATHDATE, TbrConstants.KEY.DATE_REMOVED}));
                     }
                 }
             }

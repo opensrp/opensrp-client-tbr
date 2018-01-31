@@ -108,7 +108,7 @@ public class BMIRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =
-                    "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + bMIRecordBaseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0 AND " + BMIRepository.BMI + " > 0";
+                    "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + bMIRecordBaseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 BMIRecord bMIRecord;

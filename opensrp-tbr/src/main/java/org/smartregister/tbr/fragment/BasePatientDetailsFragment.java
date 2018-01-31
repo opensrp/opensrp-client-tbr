@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.HomeActivity;
@@ -21,6 +22,7 @@ import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
@@ -206,6 +208,13 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshView(SyncEvent syncEvent) {
+        if (syncEvent != null && syncEvent.getFetchStatus().equals(FetchStatus.fetched)) {
+            processViewConfigurations(getView());
+        }
+    }
+
     private void initializeRegister(Intent intent, String registerTitle) {
         intent.putExtra(TOOLBAR_TITLE, registerTitle);
         startActivity(intent);
@@ -279,6 +288,35 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                 addContactView.setOnClickListener(this);
             }
         }
+    }
+
+    protected int getCardviewIdentifierByConfiguration(String viewConfigurationIdentifier) {
+
+        int res = 0;
+        switch (viewConfigurationIdentifier) {
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS:
+                res = R.id.clientDetailsCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE:
+                res = R.id.clientPositiveResultsCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY:
+                res = R.id.clientServiceHistoryCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_BMI:
+                res = R.id.clientBMIHeightChartCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING:
+                res = R.id.clientContactScreeningCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_FOLLOWUP:
+                res = R.id.clientFollowupCardView;
+                break;
+
+            default:
+                break;
+        }
+        return res;
     }
 
 }

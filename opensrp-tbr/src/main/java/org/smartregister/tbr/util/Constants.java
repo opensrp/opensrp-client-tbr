@@ -67,6 +67,8 @@ public class Constants {
         public static final String PATIENT_TYPE = "patient_type";
         public static final String SITE_OF_DISEASE = "site_of_disease";
         public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
+        public static final String CLIENT = "client";
+
     }
 
     public static final class FORM {

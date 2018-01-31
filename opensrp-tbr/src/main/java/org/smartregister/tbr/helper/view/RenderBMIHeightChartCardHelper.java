@@ -48,6 +48,10 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                     if (bmiRecordWrapper.getBmiRecords().size() > 0) {
                         List<BMIRecord> bmiList = bmiRecordWrapper.getBmiRecords();
                         boolean isWeightOnly = bmiRecordWrapper.getRecordType().equals(BMIRecordWrapper.BMIRecordsTYPE.WEIGHTS);
+                        if (isWeightOnly) {
+                            TextView title = (TextView) view.findViewById(R.id.bmi);
+                            title.setText(R.string.Weight);
+                        }
                         List<PointValue> values = new ArrayList<>();
                         for (int i = 0; i < bmiList.size(); i++) {
                             if (isWeightOnly) {

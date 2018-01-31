@@ -43,6 +43,7 @@ TbrConstants extends AllConstants {
         public static final String CONFIRMED_TB = "confirmed_tb";
         public static final String DATE_REMOVED = "date_removed";
         public static final String ATTRIBUTE_DATEREMOVED = "dateRemoved";//different
+        public static final String DEATHDATE = "deathdate";
 
     }
 

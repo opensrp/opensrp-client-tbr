@@ -118,7 +118,9 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                             if (componentViewConfiguration != null) {
 
                                 ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
-                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent) : viewParent;
+
+                                View fallbackView = viewParent.findViewById(getCardviewIdentifierByConfiguration(componentViewConfiguration.getIdentifier()));
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView) : fallbackView;
 
                                 if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
                                     json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());

@@ -150,18 +150,15 @@ public class ConfigurableViewsHelper {
         }
     }
 
-    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent) {
-        android.view.View json2View = getDynamicView(viewConfiguration, viewParent);
-        if (json2View != null) {
-            android.view.View view = viewParent.findViewById(json2View.getId());
-            if (view != null) {
-                viewParent.removeView(view);
-            }
-            viewParent.addView(json2View);
+    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent, android.view.View fallbackLayout) {
 
-        } else {
-            json2View = viewParent;
+        android.view.View json2View = getDynamicView(viewConfiguration, viewParent);
+        if (fallbackLayout != null) {
+            viewParent.removeView(fallbackLayout);
         }
+
+        json2View = json2View != null ? json2View : fallbackLayout;
+        viewParent.addView(json2View);
 
         return json2View;
     }
