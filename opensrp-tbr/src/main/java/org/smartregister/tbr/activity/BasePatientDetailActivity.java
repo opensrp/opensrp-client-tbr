@@ -209,16 +209,16 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     }
 
 
-    public void goToPatientDetailActivity(String viewConfigurationIdentifier, Map patientDetails) {
+    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map patientDetails) {
         Intent intent = null;
         switch (viewConfigurationIdentifier) {
-            case Constants.SCREEN_STAGE.SCREENED:
+            case PRESUMPTIVE:
                 intent = new Intent(this, PresumptivePatientDetailActivity.class);
                 break;
-            case Constants.SCREEN_STAGE.DIAGNOSED:
+            case POSITIVE:
                 intent = new Intent(this, PositivePatientDetailActivity.class);
                 break;
-            case Constants.SCREEN_STAGE.INTREATMENT:
+            case IN_TREATMENT:
                 intent = new Intent(this, InTreatmentPatientDetailActivity.class);
                 break;
             default:

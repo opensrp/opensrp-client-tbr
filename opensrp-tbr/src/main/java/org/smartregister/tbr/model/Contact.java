@@ -1,5 +1,7 @@
 package org.smartregister.tbr.model;
 
+import static org.smartregister.tbr.util.Constants.ScreenStage;
+
 /**
  * Created by ndegwamartin on 23/01/2018.
  */
@@ -9,13 +11,12 @@ public class Contact {
     private Long id;
     private String baseEntityId;
     private String indexRelationship;
-    private String stage;
+    private ScreenStage stage;
     private String firstName;
     private String lastName;
     private String age;
     private String gender;
     private String contactId;
-    private Boolean isNegative;
     private String formSubmissionId;
 
     private String nationalID;
@@ -54,11 +55,11 @@ public class Contact {
         this.indexRelationship = indexRelationship;
     }
 
-    public String getStage() {
+    public ScreenStage getStage() {
         return stage;
     }
 
-    public void setStage(String stage) {
+    public void setStage(ScreenStage stage) {
         this.stage = stage;
     }
 
@@ -100,14 +101,6 @@ public class Contact {
 
     public void setContactId(String contactId) {
         this.contactId = contactId;
-    }
-
-    public Boolean isNegative() {
-        return isNegative;
-    }
-
-    public void setNegative(Boolean negative) {
-        isNegative = negative;
     }
 
     public String getFormSubmissionId() {

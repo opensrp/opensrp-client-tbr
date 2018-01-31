@@ -8,20 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.Contact;
 import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.smartregister.tbr.util.Constants.FORM;
+import static org.smartregister.tbr.util.Constants.ScreenStage;
 import static util.TbrConstants.CONTACT_TABLE_NAME;
 import static util.TbrConstants.KEY;
 import static util.TbrConstants.PATIENT_TABLE_NAME;
@@ -52,7 +55,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                     contactsHolderView.removeAllViews();
                     contactsHolderView.addView(contactViewTemplate);//Reinstate default guy for next reuse
 
-                    List<Contact> contacts = getContacts(metadata.get(KEY.BASE_ENTITY_ID));
+                    final List<Contact> contacts = getContacts(metadata.get(KEY.BASE_ENTITY_ID));
                     FrameLayout contactView;
 
                     for (int i = 0; i < contacts.size(); i++) {
@@ -64,29 +67,14 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                             public void onClick(View view) {
                                 Contact screenContactData = (Contact) view.getTag(R.id.CONTACT);
                                 if (screenContactData != null) {
-
-                                    if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.NOT_SCREENED)) {
-                                        ((BasePatientDetailActivity) context).startFormActivity(Constants.FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
-                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED) && screenContactData.isNegative() == null) {
+                                    if (screenContactData.getStage().equals(ScreenStage.NOT_SCREENED)) {
+                                        ((BasePatientDetailActivity) context).startFormActivity(FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                                    } else if (screenContactData.getStage().equals(ScreenStage.SCREENED)) {
                                         showNegativeContactPopUp();
-
-                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.INTREATMENT)) {
-                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
-                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
-                                        //  ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.INTREATMENT,patientDetails);
-
-                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED)) {
-                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
-                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
-                                        //  ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.DIAGNOSED,patientDetails);
-
-                                    } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.SCREENED) && screenContactData.isNegative()) {
-
-                                        screenContactData.setContactId("1f1af838-d36c-4f84-aae0-49110fb7be80");
-                                        JSONObject jsonObject = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(screenContactData.getContactId());
-                                        // ((BasePatientDetailActivity) context).goToPatientDetailActivity(Constants.SCREEN_STAGE.SCREENED,patientDetails);
+                                    } else {
+                                        ((BasePatientDetailActivity) context).goToPatientDetailActivity(
+                                                screenContactData.getStage(), getCommonPersonObjectDetails(screenContactData.getBaseEntityId()));
                                     }
-
                                 }
                             }
                         });
@@ -125,6 +113,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 " ,c." + KEY.GENDER +
                 " ,c." + KEY.DOB +
                 ", c. " + KEY.PROGRAM_ID +
+                ", c. " + KEY.BASE_ENTITY_ID +
                 ", p. " + KEY.PRESUMPTIVE +
                 ", p. " + KEY.CONFIRMED_TB +
                 ", p. " + KEY.TREATMENT_INITIATION_DATE +
@@ -133,22 +122,26 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 " WHERE c." + KEY.PARENT_ENTITY_ID + "= ?";
         Cursor cursor = null;
         try {
-            cursor = TbrApplication.getInstance().getRepository().getReadableDatabase().rawQuery(sql, new String[]{baseEntityId});
+            cursor = getReadableDatabase().rawQuery(sql, new String[]{baseEntityId});
             while (cursor.moveToNext()) {
                 Contact c = new Contact();
+                c.setBaseEntityId(cursor.getString(cursor.getColumnIndex(KEY.BASE_ENTITY_ID)));
                 c.setFirstName(cursor.getString(cursor.getColumnIndex(KEY.FIRST_NAME)));
                 c.setLastName(cursor.getString(cursor.getColumnIndex(KEY.LAST_NAME)));
                 c.setGender(cursor.getString(cursor.getColumnIndex(KEY.GENDER)));
                 c.setContactId(cursor.getString(cursor.getColumnIndex(KEY.PROGRAM_ID)));
                 c.setAge(Utils.getFormattedAgeString(cursor.getString(cursor.getColumnIndex(KEY.DOB))));
+                String presumptive = cursor.getString(cursor.getColumnIndex(KEY.PRESUMPTIVE));
                 if (StringUtils.isNotEmpty(cursor.getString(cursor.getColumnIndex(KEY.TREATMENT_INITIATION_DATE))))
-                    c.setStage(Constants.SCREEN_STAGE.INTREATMENT);
+                    c.setStage(ScreenStage.IN_TREATMENT);
                 else if (StringUtils.isNotEmpty(cursor.getString(cursor.getColumnIndex(KEY.CONFIRMED_TB))))
-                    c.setStage(Constants.SCREEN_STAGE.DIAGNOSED);
-                else if (StringUtils.isNotEmpty(cursor.getString(cursor.getColumnIndex(KEY.PRESUMPTIVE))))
-                    c.setStage(Constants.SCREEN_STAGE.SCREENED);
+                    c.setStage(ScreenStage.POSITIVE);
+                else if (StringUtils.isNotEmpty(presumptive) && presumptive.equalsIgnoreCase("yes"))
+                    c.setStage(ScreenStage.PRESUMPTIVE);
+                else if (StringUtils.isNotEmpty(presumptive) && presumptive.equalsIgnoreCase("no"))
+                    c.setStage(ScreenStage.SCREENED);
                 else
-                    c.setStage(Constants.SCREEN_STAGE.NOT_SCREENED);
+                    c.setStage(ScreenStage.NOT_SCREENED);
                 contacts.add(c);
             }
 
@@ -159,5 +152,26 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 cursor.close();
         }
         return contacts;
+    }
+
+    private SQLiteDatabase getReadableDatabase() {
+        return TbrApplication.getInstance().getRepository().getReadableDatabase();
+    }
+
+    private Map getCommonPersonObjectDetails(String baseEntityId) {
+        Cursor cursor = null;
+        Map details = new HashMap();
+        try {
+            cursor = getReadableDatabase().query(PATIENT_TABLE_NAME, null, KEY.BASE_ENTITY_ID + "=?"
+                    , new String[]{baseEntityId}, null, null, null);
+            details = TbrApplication.getInstance().getContext().commonrepository(PATIENT_TABLE_NAME)
+                    .getCommonPersonObjectFromCursor(cursor).getDetails();
+        } catch (Exception e) {
+            Log.e(TAG, "error occcured fetching CommonPersonObject: ", e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return details;
     }
 }

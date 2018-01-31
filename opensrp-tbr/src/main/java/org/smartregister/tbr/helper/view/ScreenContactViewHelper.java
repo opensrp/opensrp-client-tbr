@@ -65,16 +65,16 @@ public class ScreenContactViewHelper {
             indicatorImageView.setId(View.generateViewId());
             indicatorImageView.setTag(R.id.CONTACT, screenContactData);
 
-            if (screenContactData.isNegative() != null && screenContactData.isNegative()) {
+            if (screenContactData.getStage().equals(Constants.ScreenStage.SCREENED)) {
                 indicatorImageView.setVisibility(View.GONE);
                 initialsTextView.setBackground(context.getResources().getDrawable(R.color.disabled_light_gray));
                 initialsTextView.setTextColor(context.getResources().getColor(R.color.disabled_gray));
             } else {
-                if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.SCREENED)) {
+                if (screenContactData.getStage().equals(Constants.ScreenStage.PRESUMPTIVE)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_screened));
-                } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED)) {
+                } else if (screenContactData.getStage().equals(Constants.ScreenStage.POSITIVE)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_diagnosed));
-                } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.INTREATMENT)) {
+                } else if (screenContactData.getStage().equals(Constants.ScreenStage.IN_TREATMENT)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_intreatment));
                 }
             }
