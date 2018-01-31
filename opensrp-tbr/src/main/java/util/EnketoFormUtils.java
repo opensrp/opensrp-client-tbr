@@ -1104,22 +1104,25 @@ public class EnketoFormUtils {
                 event = tagSyncMetadata(event);
                 saveEvent(event);
                 Gson gson = new GsonBuilder().create();
-                if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
-                    Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
-                    saveClient(client);
-                } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
-                    Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(BASELINE, event.getVersion());
-                    saveClient(client);
-                } else if (event.getEventType().equals(CONTACT_SCREENING)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
-                    Client client = gson.fromJson(json.toString(), Client.class);
-                    Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
-                    client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
-                    saveClient(client);
+                if (event.getEventType() != null) {
+                    if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
+                        saveClient(client);
+                    } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        client.addAttribute(BASELINE, event.getVersion());
+                        saveClient(client);
+                    } else if (event.getEventType().equals(CONTACT_SCREENING)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                        client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
+                        client.setAddresses(c.getAddresses());
+                        saveClient(client);
+                    }
                 }
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.

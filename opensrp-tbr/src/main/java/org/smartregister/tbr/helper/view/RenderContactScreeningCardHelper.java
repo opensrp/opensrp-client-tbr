@@ -67,17 +67,17 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                         contactView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Contact screenContactData = (Contact) view.getTag(R.id.CONTACT);
-                                Map contactDetails = getCommonPersonObjectDetails(screenContactData.getBaseEntityId());
-                                if (screenContactData != null) {
-                                    if (screenContactData.getStage().equals(ScreenStage.NOT_SCREENED)) {
+                                Contact contact = (Contact) view.getTag(R.id.CONTACT);
+                                Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId());
+                                if (contact != null) {
+                                    if (contact.getStage().equals(ScreenStage.NOT_SCREENED)) {
                                         FormOverridesHelper formOverridesHelper = new FormOverridesHelper(contactDetails);
-                                        ((BasePatientDetailActivity) context).startFormActivity(TbrConstants.ENKETO_FORMS.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), formOverridesHelper.getContactScreeningFieldOverrides().getJSONString());
-                                    } else if (screenContactData.getStage().equals(ScreenStage.SCREENED)) {
+                                        ((BasePatientDetailActivity) context).startFormActivity(TbrConstants.ENKETO_FORMS.CONTACT_SCREENING, contact.getBaseEntityId(), formOverridesHelper.getContactScreeningFieldOverrides().getJSONString());
+                                    } else if (contact.getStage().equals(ScreenStage.SCREENED)) {
                                         showNegativeContactPopUp();
                                     } else {
                                         ((BasePatientDetailActivity) context).goToPatientDetailActivity(
-                                                screenContactData.getStage(), contactDetails);
+                                                contact.getStage(), contactDetails);
                                     }
                                 }
                             }
@@ -97,17 +97,6 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
 
     private void showNegativeContactPopUp() {
 
-    }
-
-    //Demo only
-    public boolean isPrimeNumber(int number) {
-
-        for (int i = 2; i <= number / 2; i++) {
-            if (number % i == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private List<Contact> getContacts(String baseEntityId) {

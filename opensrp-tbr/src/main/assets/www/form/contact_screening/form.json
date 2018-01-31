@@ -64,1642 +64,2344 @@
     ],
     "ucs": [
       {
-        "name": "madeji",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Madeji",
           "English": "Madeji"
-        }
+        },
+        "name": "madeji",
+        "city": "shikarpur"
       },
       {
-        "name": "mirzapur",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Mirzapur",
           "English": "Mirzapur"
-        }
+        },
+        "name": "mirzapur",
+        "city": "shikarpur"
       },
       {
-        "name": "bambihar",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Bambihar",
           "English": "Bambihar"
-        }
+        },
+        "name": "bambihar",
+        "city": "shikarpur"
       },
       {
-        "name": "gaheja",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Gaheja",
           "English": "Gaheja"
-        }
+        },
+        "name": "gaheja",
+        "city": "shikarpur"
       },
       {
-        "name": "panah_udho",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Panah Udho",
           "English": "Panah Udho"
-        }
+        },
+        "name": "panah_udho",
+        "city": "shikarpur"
       },
       {
-        "name": "nausharo_abro",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Nausharo Abro",
           "English": "Nausharo Abro"
-        }
+        },
+        "name": "nausharo_abro",
+        "city": "shikarpur"
       },
       {
-        "name": "garhi_yasin_uc",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Garhi Yasin UC",
           "English": "Garhi Yasin UC"
-        }
+        },
+        "name": "garhi_yasin_uc",
+        "city": "shikarpur"
       },
       {
-        "name": "chato_mangi",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Chato Mangi",
           "English": "Chato Mangi"
-        }
+        },
+        "name": "chato_mangi",
+        "city": "shikarpur"
       },
       {
-        "name": "amrot",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Amrot",
           "English": "Amrot"
-        }
+        },
+        "name": "amrot",
+        "city": "shikarpur"
       },
       {
-        "name": "jindo_dero",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Jindo Dero",
           "English": "Jindo Dero"
-        }
+        },
+        "name": "jindo_dero",
+        "city": "shikarpur"
       },
       {
-        "name": "waryaso",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Waryaso",
           "English": "Waryaso"
-        }
+        },
+        "name": "waryaso",
+        "city": "shikarpur"
       },
       {
-        "name": "dakhan",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Dakhan",
           "English": "Dakhan"
-        }
+        },
+        "name": "dakhan",
+        "city": "shikarpur"
       },
       {
-        "name": "nim_horo",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Nim Horo",
           "English": "Nim Horo"
-        }
+        },
+        "name": "nim_horo",
+        "city": "shikarpur"
       },
       {
-        "name": "other_garhi_yasin",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Deegar",
           "English": "Other"
-        }
+        },
+        "name": "other_garhi_yasin",
+        "city": "shikarpur"
       },
       {
-        "name": "na_garhi_yasin",
+        "province": "sindh",
+        "town": "garhi_yasin",
         "label": {
           "Roman Urdu": "Qaabil-e-atlaaq nahi",
           "English": "Not Applicable"
-        }
+        },
+        "name": "na_garhi_yasin",
+        "city": "shikarpur"
       },
       {
-        "name": "thairo",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Thairo",
           "English": "Thairo"
-        }
+        },
+        "name": "thairo",
+        "city": "shikarpur"
       },
       {
-        "name": "pir_bux_hujra",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Pir Bux Hujra",
           "English": "Pir Bux Hujra"
-        }
+        },
+        "name": "pir_bux_hujra",
+        "city": "shikarpur"
       },
       {
-        "name": "gari_daakho",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Gari Daakho",
           "English": "Gari Daakho"
-        }
+        },
+        "name": "gari_daakho",
+        "city": "shikarpur"
       },
       {
-        "name": "muhammad_bagh",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Muhammad Bagh",
           "English": "Muhammad Bagh"
-        }
+        },
+        "name": "muhammad_bagh",
+        "city": "shikarpur"
       },
       {
-        "name": "raheemabad",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Raheemabad",
           "English": "Raheemabad"
-        }
+        },
+        "name": "raheemabad",
+        "city": "shikarpur"
       },
       {
-        "name": "mian_sahib",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Mian Sahib",
           "English": "Mian Sahib"
-        }
+        },
+        "name": "mian_sahib",
+        "city": "shikarpur"
       },
       {
-        "name": "khanpur_uc",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Khanpur UC",
           "English": "Khanpur UC"
-        }
+        },
+        "name": "khanpur_uc",
+        "city": "shikarpur"
       },
       {
-        "name": "gari_telgo",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Gari Teigo",
           "English": "Gari Telgo"
-        }
+        },
+        "name": "gari_telgo",
+        "city": "shikarpur"
       },
       {
-        "name": "zarkhai",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Zarkhai",
           "English": "Zarkhai"
-        }
+        },
+        "name": "zarkhai",
+        "city": "shikarpur"
       },
       {
-        "name": "shabbirabad",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Shabbirabad",
           "English": "Shabbirabad"
-        }
+        },
+        "name": "shabbirabad",
+        "city": "shikarpur"
       },
       {
-        "name": "other_khanpur",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Deegar",
           "English": "Other"
-        }
+        },
+        "name": "other_khanpur",
+        "city": "shikarpur"
       },
       {
-        "name": "na_khanpur",
+        "province": "sindh",
+        "town": "khanpur",
         "label": {
           "Roman Urdu": "Qaabil-e-atlaaq nahi",
           "English": "Not Applicable"
-        }
+        },
+        "name": "na_khanpur",
+        "city": "shikarpur"
       },
       {
-        "name": "chak",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Chak",
           "English": "Chak"
-        }
+        },
+        "name": "chak",
+        "city": "shikarpur"
       },
       {
-        "name": "mungrani",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Mungrani",
           "English": "Mungrani"
-        }
+        },
+        "name": "mungrani",
+        "city": "shikarpur"
       },
       {
-        "name": "rustam",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Rustam",
           "English": "Rustam"
-        }
+        },
+        "name": "rustam",
+        "city": "shikarpur"
       },
       {
-        "name": "ruk",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Ruk",
           "English": "Ruk"
-        }
+        },
+        "name": "ruk",
+        "city": "shikarpur"
       },
       {
-        "name": "sher_kot",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Sher Kot",
           "English": "Sher Kot"
-        }
+        },
+        "name": "sher_kot",
+        "city": "shikarpur"
       },
       {
-        "name": "wazirabad",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Wazirabad",
           "English": "Wazirabad"
-        }
+        },
+        "name": "wazirabad",
+        "city": "shikarpur"
       },
       {
-        "name": "lakhi_uc",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Lakhi UC",
           "English": "Lakhi UC"
-        }
+        },
+        "name": "lakhi_uc",
+        "city": "shikarpur"
       },
       {
-        "name": "sehwani",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Sehwani",
           "English": "Sehwani"
-        }
+        },
+        "name": "sehwani",
+        "city": "shikarpur"
       },
       {
-        "name": "bhirkan",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Bhirkan",
           "English": "Bhirkan"
-        }
+        },
+        "name": "bhirkan",
+        "city": "shikarpur"
       },
       {
-        "name": "taib",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Taib",
           "English": "Taib"
-        }
+        },
+        "name": "taib",
+        "city": "shikarpur"
       },
       {
-        "name": "abdu",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Abdu",
           "English": "Abdu"
-        }
+        },
+        "name": "abdu",
+        "city": "shikarpur"
       },
       {
-        "name": "other_binqasim",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Deegar",
           "English": "Other"
-        }
+        },
+        "name": "other_binqasim",
+        "city": "shikarpur"
       },
       {
-        "name": "na_binqasim",
+        "province": "sindh",
+        "town": "lakhi",
         "label": {
           "Roman Urdu": "Qaabil-e-atlaaq nahi",
           "English": "Not Applicable"
-        }
+        },
+        "name": "na_binqasim",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_1",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 1",
           "English": "UC 1"
-        }
+        },
+        "name": "uc_1",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_2",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 2",
           "English": "UC 2"
-        }
+        },
+        "name": "uc_2",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_3",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 3",
           "English": "UC 3"
-        }
+        },
+        "name": "uc_3",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_4",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 4",
           "English": "UC 4"
-        }
+        },
+        "name": "uc_4",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_5",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 5",
           "English": "UC 5"
-        }
+        },
+        "name": "uc_5",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_6",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 6",
           "English": "UC 6"
-        }
+        },
+        "name": "uc_6",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_7",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 7",
           "English": "UC 7"
-        }
+        },
+        "name": "uc_7",
+        "city": "shikarpur"
       },
       {
-        "name": "uc_8",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "UC 8",
           "English": "UC 8"
-        }
+        },
+        "name": "uc_8",
+        "city": "shikarpur"
       },
       {
-        "name": "jagan",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Jagan",
           "English": "Jagan"
-        }
+        },
+        "name": "jagan",
+        "city": "shikarpur"
       },
       {
-        "name": "lodra",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Lodra",
           "English": "Lodra"
-        }
+        },
+        "name": "lodra",
+        "city": "shikarpur"
       },
       {
-        "name": "sultan_kot",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Sultan Kot",
           "English": "Sultan Kot"
-        }
+        },
+        "name": "sultan_kot",
+        "city": "shikarpur"
       },
       {
-        "name": "karan",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Karan",
           "English": "Karan"
-        }
+        },
+        "name": "karan",
+        "city": "shikarpur"
       },
       {
-        "name": "jahanwah",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Jahanwah",
           "English": "Jahanwah"
-        }
+        },
+        "name": "jahanwah",
+        "city": "shikarpur"
       },
       {
-        "name": "jano",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Jano",
           "English": "Jano"
-        }
+        },
+        "name": "jano",
+        "city": "shikarpur"
       },
       {
-        "name": "humayun",
+        "province": "sindh",
+        "town": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Humayun",
           "English": "Humayun"
-        }
+        },
+        "name": "humayun",
+        "city": "shikarpur"
       },
       {
-        "name": "bilal_colony",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Bilal Colony",
           "English": "Bilal Colony"
-        }
+        },
+        "name": "bilal_colony",
+        "city": "karachi"
       },
       {
-        "name": "nasir_colony",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Nasir Colony",
           "English": "Nasir Colony"
-        }
+        },
+        "name": "nasir_colony",
+        "city": "karachi"
       },
       {
-        "name": "chakra_goth",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Chakra Goth",
           "English": "Chakra Goth"
-        }
+        },
+        "name": "chakra_goth",
+        "city": "karachi"
       },
       {
-        "name": "mustafa_taj_colony",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Mustafa Taj Colony",
           "English": "Mustafa Taj Colony"
-        }
+        },
+        "name": "mustafa_taj_colony",
+        "city": "karachi"
       },
       {
-        "name": "hundred_quarters",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Hundred Quarters",
           "English": "Hundred Quarters"
-        }
+        },
+        "name": "hundred_quarters",
+        "city": "karachi"
       },
       {
-        "name": "gulzar_colony",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Gulzar Colony",
           "English": "Gulzar Colony"
-        }
+        },
+        "name": "gulzar_colony",
+        "city": "karachi"
       },
       {
-        "name": "korangi_sector_33",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Korangi Sector 33",
           "English": "Korangi Sector 33"
-        }
+        },
+        "name": "korangi_sector_33",
+        "city": "karachi"
       },
       {
-        "name": "zaman_town",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Zaman Town",
           "English": "Zaman Town"
-        }
+        },
+        "name": "zaman_town",
+        "city": "karachi"
       },
       {
-        "name": "hasrat_mohani_colony",
+        "province": "sindh",
+        "town": "korangi",
         "label": {
           "Roman Urdu": "Hasrat Mohani Colony",
           "English": "Hasrat Mohani Colony"
-        }
+        },
+        "name": "hasrat_mohani_colony",
+        "city": "karachi"
       },
       {
-        "name": "gulshan_e_ghazi",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Gulshan-e-Ghazi",
           "English": "Gulshan-e-Ghazi"
-        }
+        },
+        "name": "gulshan_e_ghazi",
+        "city": "karachi"
       },
       {
-        "name": "ittehad_town",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Ittehad Town",
           "English": "Ittehad Town"
-        }
+        },
+        "name": "ittehad_town",
+        "city": "karachi"
       },
       {
-        "name": "islam_nagar",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Islam Nagar",
           "English": "Islam Nagar"
-        }
+        },
+        "name": "islam_nagar",
+        "city": "karachi"
       },
       {
-        "name": "nai_abadi",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Nai Abadi",
           "English": "Nai Abadi"
-        }
+        },
+        "name": "nai_abadi",
+        "city": "karachi"
       },
       {
-        "name": "saeedabad",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Saeedabad",
           "English": "Saeedabad"
-        }
+        },
+        "name": "saeedabad",
+        "city": "karachi"
       },
       {
-        "name": "muslim_mujahid_colony",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Muslim Mujahid Colony",
           "English": "Muslim Mujahid Colony"
-        }
+        },
+        "name": "muslim_mujahid_colony",
+        "city": "karachi"
       },
       {
-        "name": "muhajir_camp",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Muhajir Camp",
           "English": "Muhajir Camp"
-        }
+        },
+        "name": "muhajir_camp",
+        "city": "karachi"
       },
       {
-        "name": "rasheedabad",
+        "province": "sindh",
+        "town": "baldia",
         "label": {
           "Roman Urdu": "Rasheedabad",
           "English": "Rasheedabad"
-        }
+        },
+        "name": "rasheedabad",
+        "city": "karachi"
       },
       {
-        "name": "ibrahim_hyderi",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Ibrahim Hyderi",
           "English": "Ibrahim Hyderi"
-        }
+        },
+        "name": "ibrahim_hyderi",
+        "city": "karachi"
       },
       {
-        "name": "rehri",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Rehri",
           "English": "Rehri"
-        }
+        },
+        "name": "rehri",
+        "city": "karachi"
       },
       {
-        "name": "cattle_colony",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Cattle Colony",
           "English": "Cattle Colony"
-        }
+        },
+        "name": "cattle_colony",
+        "city": "karachi"
       },
       {
-        "name": "qaidabad",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Qaidabad",
           "English": "Qaidabad"
-        }
+        },
+        "name": "qaidabad",
+        "city": "karachi"
       },
       {
-        "name": "landhi_colony",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Landhi Colony",
           "English": "Landhi Colony"
-        }
+        },
+        "name": "landhi_colony",
+        "city": "karachi"
       },
       {
-        "name": "gulshan_e_hadeed",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Gulshan-e-Hadeed",
           "English": "Gulshan-e-Hadeed"
-        }
+        },
+        "name": "gulshan_e_hadeed",
+        "city": "karachi"
       },
       {
-        "name": "gaghar",
+        "province": "sindh",
+        "town": "bin_qasim",
         "label": {
           "Roman Urdu": "Gaghar",
           "English": "Gaghar"
-        }
+        },
+        "name": "gaghar",
+        "city": "karachi"
       },
       {
-        "name": "murad_memon_goth",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Murad Memon Goth",
           "English": "Murad Memon Goth"
-        }
+        },
+        "name": "murad_memon_goth",
+        "city": "karachi"
       },
       {
-        "name": "darsano_chana",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Darsano Chana",
           "English": "Darsano Chana"
-        }
+        },
+        "name": "darsano_chana",
+        "city": "karachi"
       },
       {
-        "name": "gujro",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Gujro",
           "English": "Gujro"
-        }
+        },
+        "name": "gujro",
+        "city": "karachi"
       },
       {
-        "name": "songal",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Songal",
           "English": "Songal"
-        }
+        },
+        "name": "songal",
+        "city": "karachi"
       },
       {
-        "name": "maymarabad",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Maymarabad",
           "English": "Maymarabad"
-        }
+        },
+        "name": "maymarabad",
+        "city": "karachi"
       },
       {
-        "name": "yousuf_goth",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Yousuf Goth",
           "English": "Yousuf Goth"
-        }
+        },
+        "name": "yousuf_goth",
+        "city": "karachi"
       },
       {
-        "name": "manghopir",
+        "province": "sindh",
+        "town": "gadap",
         "label": {
           "Roman Urdu": "Manghopir",
           "English": "Manghopir"
-        }
+        },
+        "name": "manghopir",
+        "city": "karachi"
       },
       {
-        "name": "azizabad",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Azizabad",
           "English": "Azizabad"
-        }
+        },
+        "name": "azizabad",
+        "city": "karachi"
       },
       {
-        "name": "karimabad",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Karimabad",
           "English": "Karimabad"
-        }
+        },
+        "name": "karimabad",
+        "city": "karachi"
       },
       {
-        "name": "aisha_manzil",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Aisha Manzil",
           "English": "Aisha Manzil"
-        }
+        },
+        "name": "aisha_manzil",
+        "city": "karachi"
       },
       {
-        "name": "ancholi",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Ancholi",
           "English": "Ancholi"
-        }
+        },
+        "name": "ancholi",
+        "city": "karachi"
       },
       {
-        "name": "naseerabad",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Naseerabad",
           "English": "Naseerabad"
-        }
+        },
+        "name": "naseerabad",
+        "city": "karachi"
       },
       {
-        "name": "yaseenabad",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Yaseenabad",
           "English": "Yaseenabad"
-        }
+        },
+        "name": "yaseenabad",
+        "city": "karachi"
       },
       {
-        "name": "water_pump",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Water Pump",
           "English": "Water Pump"
-        }
+        },
+        "name": "water_pump",
+        "city": "karachi"
       },
       {
-        "name": "shafiq_mill_colony",
+        "province": "sindh",
+        "town": "gulberg",
         "label": {
           "Roman Urdu": "Shafiq Mill Colony",
           "English": "Shafiq Mill Colony"
-        }
+        },
+        "name": "shafiq_mill_colony",
+        "city": "karachi"
       },
       {
-        "name": "delhi_mercantile_society",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Delhi Mercantile Society",
           "English": "Delhi Mercantile Society"
-        }
+        },
+        "name": "delhi_mercantile_society",
+        "city": "karachi"
       },
       {
-        "name": "civic_centre",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Civic Centre",
           "English": "Civic Centre"
-        }
+        },
+        "name": "civic_centre",
+        "city": "karachi"
       },
       {
-        "name": "pir_ilahi_buksh_colony",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Pir Ilahi Buksh Colony",
           "English": "Pir Ilahi Buksh Colony"
-        }
+        },
+        "name": "pir_ilahi_buksh_colony",
+        "city": "karachi"
       },
       {
-        "name": "essa_nagri",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Essa Nagri",
           "English": "Essa Nagri"
-        }
+        },
+        "name": "essa_nagri",
+        "city": "karachi"
       },
       {
-        "name": "gulshan_e_iqbal",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Gulshan-e-Iqbal",
           "English": "Gulshan-e-Iqbal"
-        }
+        },
+        "name": "gulshan_e_iqbal",
+        "city": "karachi"
       },
       {
-        "name": "gillani_railway_station",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Gillani Railway Station",
           "English": "Gillani Railway Station"
-        }
+        },
+        "name": "gillani_railway_station",
+        "city": "karachi"
       },
       {
-        "name": "shanti_nagar",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Shanti Nagar",
           "English": "Shanti Nagar"
-        }
+        },
+        "name": "shanti_nagar",
+        "city": "karachi"
       },
       {
-        "name": "jamali_colony",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Jamali Colony",
           "English": "Jamali Colony"
-        }
+        },
+        "name": "jamali_colony",
+        "city": "karachi"
       },
       {
-        "name": "gulshan_e_iqbal_ii",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Gulshan-e-Iqbal II",
           "English": "Gulshan-e-Iqbal II"
-        }
+        },
+        "name": "gulshan_e_iqbal_ii",
+        "city": "karachi"
       },
       {
-        "name": "pehlwan_goth",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Pehlwan Goth",
           "English": "Pehlwan Goth"
-        }
+        },
+        "name": "pehlwan_goth",
+        "city": "karachi"
       },
       {
-        "name": "matrovil_colony",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Matrovil Colony",
           "English": "Matrovil Colony"
-        }
+        },
+        "name": "matrovil_colony",
+        "city": "karachi"
       },
       {
-        "name": "gulzar_e_hijri",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Gulzar-e-Hijri",
           "English": "Gulzar-e-Hijri"
-        }
+        },
+        "name": "gulzar_e_hijri",
+        "city": "karachi"
       },
       {
-        "name": "safooran_goth",
+        "province": "sindh",
+        "town": "gulshan",
         "label": {
           "Roman Urdu": "Safooran Goth",
           "English": "Safooran Goth"
-        }
+        },
+        "name": "safooran_goth",
+        "city": "karachi"
       },
       {
-        "name": "akhtar_colony",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Akhtar Colony",
           "English": "Akhtar Colony"
-        }
+        },
+        "name": "akhtar_colony",
+        "city": "karachi"
       },
       {
-        "name": "manzoor_colony",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Manzoor Colony",
           "English": "Manzoor Colony"
-        }
+        },
+        "name": "manzoor_colony",
+        "city": "karachi"
       },
       {
-        "name": "azam_basti",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Azam Basti",
           "English": "Azam Basti"
-        }
+        },
+        "name": "azam_basti",
+        "city": "karachi"
       },
       {
-        "name": "chanesar_goth",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Chanesar Goth",
           "English": "Chanesar Goth"
-        }
+        },
+        "name": "chanesar_goth",
+        "city": "karachi"
       },
       {
-        "name": "mahmudabad",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Mahmudabad",
           "English": "Mahmudabad"
-        }
+        },
+        "name": "mahmudabad",
+        "city": "karachi"
       },
       {
-        "name": "pechs",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "P.E.C.H.S.",
           "English": "P.E.C.H.S."
-        }
+        },
+        "name": "pechs",
+        "city": "karachi"
       },
       {
-        "name": "pechs_ii",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "P.E.C.H.S. II",
           "English": "P.E.C.H.S. II"
-        }
+        },
+        "name": "pechs_ii",
+        "city": "karachi"
       },
       {
-        "name": "jut_line",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Jut Line",
           "English": "Jut Line"
-        }
+        },
+        "name": "jut_line",
+        "city": "karachi"
       },
       {
-        "name": "central_jacob_lines",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Central Jacob Lines",
           "English": "Central Jacob Lines"
-        }
+        },
+        "name": "central_jacob_lines",
+        "city": "karachi"
       },
       {
-        "name": "jamshed_quarters",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Jamshed Quarters",
           "English": "Jamshed Quarters"
-        }
+        },
+        "name": "jamshed_quarters",
+        "city": "karachi"
       },
       {
-        "name": "garden_east",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Garden East",
           "English": "Garden East"
-        }
+        },
+        "name": "garden_east",
+        "city": "karachi"
       },
       {
-        "name": "soldier_bazar",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Soldier Bazar",
           "English": "Soldier Bazar"
-        }
+        },
+        "name": "soldier_bazar",
+        "city": "karachi"
       },
       {
-        "name": "pakistan_quarters",
+        "province": "sindh",
+        "town": "jamshed",
         "label": {
           "Roman Urdu": "Pakistan Quarters",
           "English": "Pakistan Quarters"
-        }
+        },
+        "name": "pakistan_quarters",
+        "city": "karachi"
       },
       {
-        "name": "bhutta_village",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Bhutta Village",
           "English": "Bhutta Village"
-        }
+        },
+        "name": "bhutta_village",
+        "city": "karachi"
       },
       {
-        "name": "sultanabad",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Sultanabad",
           "English": "Sultanabad"
-        }
+        },
+        "name": "sultanabad",
+        "city": "karachi"
       },
       {
-        "name": "kiamari_uc",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Kiamari UC",
           "English": "Kiamari UC"
-        }
+        },
+        "name": "kiamari_uc",
+        "city": "karachi"
       },
       {
-        "name": "baba_bhit",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Baba Bhit",
           "English": "Baba Bhit"
-        }
+        },
+        "name": "baba_bhit",
+        "city": "karachi"
       },
       {
-        "name": "machar_colony",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Machar Colony",
           "English": "Machar Colony"
-        }
+        },
+        "name": "machar_colony",
+        "city": "karachi"
       },
       {
-        "name": "maripur",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Maripur",
           "English": "Maripur"
-        }
+        },
+        "name": "maripur",
+        "city": "karachi"
       },
       {
-        "name": "shershah",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "SherShah",
           "English": "SherShah"
-        }
+        },
+        "name": "shershah",
+        "city": "karachi"
       },
       {
-        "name": "gabo_pat",
+        "province": "sindh",
+        "town": "kiamari",
         "label": {
           "Roman Urdu": "Gabo Pat",
           "English": "Gabo Pat"
-        }
+        },
+        "name": "gabo_pat",
+        "city": "karachi"
       },
       {
-        "name": "muzafarabad",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Muzafarabad",
           "English": "Muzafarabad"
-        }
+        },
+        "name": "muzafarabad",
+        "city": "karachi"
       },
       {
-        "name": "muslimabad",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Muslimabad",
           "English": "Muslimabad"
-        }
+        },
+        "name": "muslimabad",
+        "city": "karachi"
       },
       {
-        "name": "dawood_chowrangi",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Dawood Chowrangi",
           "English": "Dawood Chowrangi"
-        }
+        },
+        "name": "dawood_chowrangi",
+        "city": "karachi"
       },
       {
-        "name": "moinabad",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Moinabad",
           "English": "Moinabad"
-        }
+        },
+        "name": "moinabad",
+        "city": "karachi"
       },
       {
-        "name": "sharafi_goth",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Sharafi Goth",
           "English": "Sharafi Goth"
-        }
+        },
+        "name": "sharafi_goth",
+        "city": "karachi"
       },
       {
-        "name": "bhutto_nagar",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Bhutto Nagar",
           "English": "Bhutto Nagar"
-        }
+        },
+        "name": "bhutto_nagar",
+        "city": "karachi"
       },
       {
-        "name": "khawaja_ajmeer_colony",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Khawaja Ajmeer Colony",
           "English": "Khawaja Ajmeer Colony"
-        }
+        },
+        "name": "khawaja_ajmeer_colony",
+        "city": "karachi"
       },
       {
-        "name": "landhi_uc",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Landhi UC",
           "English": "Landhi UC"
-        }
+        },
+        "name": "landhi_uc",
+        "city": "karachi"
       },
       {
-        "name": "awami_colony",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Awami Colony",
           "English": "Awami Colony"
-        }
+        },
+        "name": "awami_colony",
+        "city": "karachi"
       },
       {
-        "name": "burmee_colony",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Burmee Colony",
           "English": "Burmee Colony"
-        }
+        },
+        "name": "burmee_colony",
+        "city": "karachi"
       },
       {
-        "name": "korangi_uc",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Korangi UC",
           "English": "Korangi UC"
-        }
+        },
+        "name": "korangi_uc",
+        "city": "karachi"
       },
       {
-        "name": "sherabad",
+        "province": "sindh",
+        "town": "landhi",
         "label": {
           "Roman Urdu": "Sherabad",
           "English": "Sherabad"
-        }
+        },
+        "name": "sherabad",
+        "city": "karachi"
       },
       {
-        "name": "rizvia_society",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Rizvia Society",
           "English": "Rizvia Society"
-        }
+        },
+        "name": "rizvia_society",
+        "city": "karachi"
       },
       {
-        "name": "firdous_colony",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Firdous Colony",
           "English": "Firdous Colony"
-        }
+        },
+        "name": "firdous_colony",
+        "city": "karachi"
       },
       {
-        "name": "super_market",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Super Market",
           "English": "Super Market"
-        }
+        },
+        "name": "super_market",
+        "city": "karachi"
       },
       {
-        "name": "dak_khana",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Dak Khana",
           "English": "Dak Khana"
-        }
+        },
+        "name": "dak_khana",
+        "city": "karachi"
       },
       {
-        "name": "qasimabad",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Qasimabad",
           "English": "Qasimabad"
-        }
+        },
+        "name": "qasimabad",
+        "city": "karachi"
       },
       {
-        "name": "bandhani_colony",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Bandhani Colony",
           "English": "Bandhani Colony"
-        }
+        },
+        "name": "bandhani_colony",
+        "city": "karachi"
       },
       {
-        "name": "sharifabad",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Sharifabad",
           "English": "Sharifabad"
-        }
+        },
+        "name": "sharifabad",
+        "city": "karachi"
       },
       {
-        "name": "commercial_area",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Commercial Area",
           "English": "Commercial Area"
-        }
+        },
+        "name": "commercial_area",
+        "city": "karachi"
       },
       {
-        "name": "mujahid_colony",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Mujahid Colony",
           "English": "Mujahid Colony"
-        }
+        },
+        "name": "mujahid_colony",
+        "city": "karachi"
       },
       {
-        "name": "nazimabad",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Nazimabad",
           "English": "Nazimabad"
-        }
+        },
+        "name": "nazimabad",
+        "city": "karachi"
       },
       {
-        "name": "abbasi_shaheed",
+        "province": "sindh",
+        "town": "liaquatabad",
         "label": {
           "Roman Urdu": "Abbasi Shaheed",
           "English": "Abbasi Shaheed"
-        }
+        },
+        "name": "abbasi_shaheed",
+        "city": "karachi"
       },
       {
-        "name": "agra_taj_colony",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Agra Taj Colony",
           "English": "Agra Taj Colony"
-        }
+        },
+        "name": "agra_taj_colony",
+        "city": "karachi"
       },
       {
-        "name": "daryaabad",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Daryaabad",
           "English": "Daryaabad"
-        }
+        },
+        "name": "daryaabad",
+        "city": "karachi"
       },
       {
-        "name": "nawabad",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Nawabad",
           "English": "Nawabad"
-        }
+        },
+        "name": "nawabad",
+        "city": "karachi"
       },
       {
-        "name": "khada_memon_society",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Khada Memon Society",
           "English": "Khada Memon Society"
-        }
+        },
+        "name": "khada_memon_society",
+        "city": "karachi"
       },
       {
-        "name": "baghdadi",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Baghdadi",
           "English": "Baghdadi"
-        }
+        },
+        "name": "baghdadi",
+        "city": "karachi"
       },
       {
-        "name": "shah_baig_line",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Shah Baig Line",
           "English": "Shah Baig Line"
-        }
+        },
+        "name": "shah_baig_line",
+        "city": "karachi"
       },
       {
-        "name": "bihar_colony",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Bihar Colony",
           "English": "Bihar Colony"
-        }
+        },
+        "name": "bihar_colony",
+        "city": "karachi"
       },
       {
-        "name": "ragiwara",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Ragiwara",
           "English": "Ragiwara"
-        }
+        },
+        "name": "ragiwara",
+        "city": "karachi"
       },
       {
-        "name": "singo_line",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Singo Line",
           "English": "Singo Line"
-        }
+        },
+        "name": "singo_line",
+        "city": "karachi"
       },
       {
-        "name": "chakiwara",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Chakiwara",
           "English": "Chakiwara"
-        }
+        },
+        "name": "chakiwara",
+        "city": "karachi"
       },
       {
-        "name": "allama_iqbal_colony",
+        "province": "sindh",
+        "town": "lyari",
         "label": {
           "Roman Urdu": "Allama Iqbal Colony",
           "English": "Allama Iqbal Colony"
-        }
+        },
+        "name": "allama_iqbal_colony",
+        "city": "karachi"
       },
       {
-        "name": "model_colony",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Model Colony",
           "English": "Model Colony"
-        }
+        },
+        "name": "model_colony",
+        "city": "karachi"
       },
       {
-        "name": "kala_board",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Kala Board",
           "English": "Kala Board"
-        }
+        },
+        "name": "kala_board",
+        "city": "karachi"
       },
       {
-        "name": "saudabad",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Saudabad",
           "English": "Saudabad"
-        }
+        },
+        "name": "saudabad",
+        "city": "karachi"
       },
       {
-        "name": "khokhra_par",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Khokhra Par",
           "English": "Khokhra Par"
-        }
+        },
+        "name": "khokhra_par",
+        "city": "karachi"
       },
       {
-        "name": "jafar_e_tayyar",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Jafar-e-Tayyar",
           "English": "Jafar-e-Tayyar"
-        }
+        },
+        "name": "jafar_e_tayyar",
+        "city": "karachi"
       },
       {
-        "name": "gharibabad",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Gharibabad",
           "English": "Gharibabad"
-        }
+        },
+        "name": "gharibabad",
+        "city": "karachi"
       },
       {
-        "name": "ghazi_brohi_goth",
+        "province": "sindh",
+        "town": "malir",
         "label": {
           "Roman Urdu": "Ghazi Brohi Goth",
           "English": "Ghazi Brohi Goth"
-        }
+        },
+        "name": "ghazi_brohi_goth",
+        "city": "karachi"
       },
       {
-        "name": "kalyana",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Kalyana",
           "English": "Kalyana"
-        }
+        },
+        "name": "kalyana",
+        "city": "karachi"
       },
       {
-        "name": "sir_syed_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Sir Syed Colony",
           "English": "Sir Syed Colony"
-        }
+        },
+        "name": "sir_syed_colony",
+        "city": "karachi"
       },
       {
-        "name": "fatima_jinnah_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Fatima Jinnah Colony",
           "English": "Fatima Jinnah Colony"
-        }
+        },
+        "name": "fatima_jinnah_colony",
+        "city": "karachi"
       },
       {
-        "name": "godhra",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Godhra",
           "English": "Godhra"
-        }
+        },
+        "name": "godhra",
+        "city": "karachi"
       },
       {
-        "name": "abu_zar_ghaffari",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Abu Zar Ghaffari",
           "English": "Abu Zar Ghaffari"
-        }
+        },
+        "name": "abu_zar_ghaffari",
+        "city": "karachi"
       },
       {
-        "name": "hakim_ahsan",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Hakim Ahsan",
           "English": "Hakim Ahsan"
-        }
+        },
+        "name": "hakim_ahsan",
+        "city": "karachi"
       },
       {
-        "name": "madina_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Madina Colony",
           "English": "Madina Colony"
-        }
+        },
+        "name": "madina_colony",
+        "city": "karachi"
       },
       {
-        "name": "faisal_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Faisal Colony",
           "English": "Faisal Colony"
-        }
+        },
+        "name": "faisal_colony",
+        "city": "karachi"
       },
       {
-        "name": "khamiso_goth",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Khamiso Goth",
           "English": "Khamiso Goth"
-        }
+        },
+        "name": "khamiso_goth",
+        "city": "karachi"
       },
       {
-        "name": "mustufa_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Mustufa Colony",
           "English": "Mustufa Colony"
-        }
+        },
+        "name": "mustufa_colony",
+        "city": "karachi"
       },
       {
-        "name": "khawaja_ajmeer_nagri",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Khawaja Ajmeer Nagri",
           "English": "Khawaja Ajmeer Nagri"
-        }
+        },
+        "name": "khawaja_ajmeer_nagri",
+        "city": "karachi"
       },
       {
-        "name": "gulshan_e_saeed",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Gulshan-e-Saeed",
           "English": "Gulshan-e-Saeed"
-        }
+        },
+        "name": "gulshan_e_saeed",
+        "city": "karachi"
       },
       {
-        "name": "shah_nawaz_bhutto_colony",
+        "province": "sindh",
+        "town": "new_karachi",
         "label": {
           "Roman Urdu": "Shah Nawaz Bhutto Colony",
           "English": "Shah Nawaz Bhutto Colony"
-        }
+        },
+        "name": "shah_nawaz_bhutto_colony",
+        "city": "karachi"
       },
       {
-        "name": "paposh_nagar",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Paposh Nagar",
           "English": "Paposh Nagar"
-        }
+        },
+        "name": "paposh_nagar",
+        "city": "karachi"
       },
       {
-        "name": "pahar_ganj",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Pahar Ganj",
           "English": "Pahar Ganj"
-        }
+        },
+        "name": "pahar_ganj",
+        "city": "karachi"
       },
       {
-        "name": "khandu_goth",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Khandu Goth",
           "English": "Khandu Goth"
-        }
+        },
+        "name": "khandu_goth",
+        "city": "karachi"
       },
       {
-        "name": "hyderi",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Hyderi",
           "English": "Hyderi"
-        }
+        },
+        "name": "hyderi",
+        "city": "karachi"
       },
       {
-        "name": "sakhi_hassan",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Sakhi Hassan",
           "English": "Sakhi Hassan"
-        }
+        },
+        "name": "sakhi_hassan",
+        "city": "karachi"
       },
       {
-        "name": "farooq_e_azam",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Farooq-e-Azam",
           "English": "Farooq-e-Azam"
-        }
+        },
+        "name": "farooq_e_azam",
+        "city": "karachi"
       },
       {
-        "name": "nusrat_bhutto_colony",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Nusrat Bhutto Colony",
           "English": "Nusrat Bhutto Colony"
-        }
+        },
+        "name": "nusrat_bhutto_colony",
+        "city": "karachi"
       },
       {
-        "name": "shadman_town",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Shadman Town",
           "English": "Shadman Town"
-        }
+        },
+        "name": "shadman_town",
+        "city": "karachi"
       },
       {
-        "name": "buffer_zone",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Buffer Zone",
           "English": "Buffer Zone"
-        }
+        },
+        "name": "buffer_zone",
+        "city": "karachi"
       },
       {
-        "name": "buffer_zone_ii",
+        "province": "sindh",
+        "town": "north_nazimabad",
         "label": {
           "Roman Urdu": "Buffer Zone II",
           "English": "Buffer Zone II"
-        }
+        },
+        "name": "buffer_zone_ii",
+        "city": "karachi"
       },
       {
-        "name": "mominabad",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Mominabad",
           "English": "Mominabad"
-        }
+        },
+        "name": "mominabad",
+        "city": "karachi"
       },
       {
-        "name": "haryana_colony",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Haryana Colony",
           "English": "Haryana Colony"
-        }
+        },
+        "name": "haryana_colony",
+        "city": "karachi"
       },
       {
-        "name": "hanifabad",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Hanifabad",
           "English": "Hanifabad"
-        }
+        },
+        "name": "hanifabad",
+        "city": "karachi"
       },
       {
-        "name": "mohammad_nagar",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Mohammad Nagar",
           "English": "Mohammad Nagar"
-        }
+        },
+        "name": "mohammad_nagar",
+        "city": "karachi"
       },
       {
-        "name": "madina_colony_orangi",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Madina Colony Orangi",
           "English": "Madina Colony Orangi"
-        }
+        },
+        "name": "madina_colony_orangi",
+        "city": "karachi"
       },
       {
-        "name": "ghaziabad",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Ghaziabad",
           "English": "Ghaziabad"
-        }
+        },
+        "name": "ghaziabad",
+        "city": "karachi"
       },
       {
-        "name": "chisti_nagar",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Chisti Nagar",
           "English": "Chisti Nagar"
-        }
+        },
+        "name": "chisti_nagar",
+        "city": "karachi"
       },
       {
-        "name": "bilal_colony_orangi",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Bilal Colony Orangi",
           "English": "Bilal Colony Orangi"
-        }
+        },
+        "name": "bilal_colony_orangi",
+        "city": "karachi"
       },
       {
-        "name": "iqbal_baloch_colony",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Iqbal Baloch Colony",
           "English": "Iqbal Baloch Colony"
-        }
+        },
+        "name": "iqbal_baloch_colony",
+        "city": "karachi"
       },
       {
-        "name": "ghabool_town",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Ghabool Town",
           "English": "Ghabool Town"
-        }
+        },
+        "name": "ghabool_town",
+        "city": "karachi"
       },
       {
-        "name": "data_nagar",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Data Nagar",
           "English": "Data Nagar"
-        }
+        },
+        "name": "data_nagar",
+        "city": "karachi"
       },
       {
-        "name": "mujahidabad",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Mujahidabad",
           "English": "Mujahidabad"
-        }
+        },
+        "name": "mujahidabad",
+        "city": "karachi"
       },
       {
-        "name": "baloch_goth",
+        "province": "sindh",
+        "town": "orangi",
         "label": {
           "Roman Urdu": "Baloch Goth",
           "English": "Baloch Goth"
-        }
+        },
+        "name": "baloch_goth",
+        "city": "karachi"
       },
       {
-        "name": "old_haji_camp",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Old Haji Camp",
           "English": "Old Haji Camp"
-        }
+        },
+        "name": "old_haji_camp",
+        "city": "karachi"
       },
       {
-        "name": "garden",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Garden",
           "English": "Garden"
-        }
+        },
+        "name": "garden",
+        "city": "karachi"
       },
       {
-        "name": "kharadar",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Kharadar",
           "English": "Kharadar"
-        }
+        },
+        "name": "kharadar",
+        "city": "karachi"
       },
       {
-        "name": "city_railway_colony",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "City Railway Colony",
           "English": "City Railway Colony"
-        }
+        },
+        "name": "city_railway_colony",
+        "city": "karachi"
       },
       {
-        "name": "nanak_wara",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Nanak Wara",
           "English": "Nanak Wara"
-        }
+        },
+        "name": "nanak_wara",
+        "city": "karachi"
       },
       {
-        "name": "gazdarabad",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Gazdarabad",
           "English": "Gazdarabad"
-        }
+        },
+        "name": "gazdarabad",
+        "city": "karachi"
       },
       {
-        "name": "millat_nagar_islam_pura",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Millat Nagar/Islam Pura",
           "English": "Millat Nagar/Islam Pura"
-        }
+        },
+        "name": "millat_nagar_islam_pura",
+        "city": "karachi"
       },
       {
-        "name": "saddar_uc",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Saddar UC",
           "English": "Saddar UC"
-        }
+        },
+        "name": "saddar_uc",
+        "city": "karachi"
       },
       {
-        "name": "civil_line",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Civil Line",
           "English": "Civil Line"
-        }
+        },
+        "name": "civil_line",
+        "city": "karachi"
       },
       {
-        "name": "clifton",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Clifton",
           "English": "Clifton"
-        }
+        },
+        "name": "clifton",
+        "city": "karachi"
       },
       {
-        "name": "kehkashan",
+        "province": "sindh",
+        "town": "saddar",
         "label": {
           "Roman Urdu": "Kehkashan",
           "English": "Kehkashan"
-        }
+        },
+        "name": "kehkashan",
+        "city": "karachi"
       },
       {
-        "name": "natha_khan_goth",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Natha Khan Goth",
           "English": "Natha Khan Goth"
-        }
+        },
+        "name": "natha_khan_goth",
+        "city": "karachi"
       },
       {
-        "name": "pak_sadat_colony",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Pak Sadat Colony",
           "English": "Pak Sadat Colony"
-        }
+        },
+        "name": "pak_sadat_colony",
+        "city": "karachi"
       },
       {
-        "name": "drigh_colony",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Drigh Colony",
           "English": "Drigh Colony"
-        }
+        },
+        "name": "drigh_colony",
+        "city": "karachi"
       },
       {
-        "name": "raita_plot",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Raita Plot",
           "English": "Raita Plot"
-        }
+        },
+        "name": "raita_plot",
+        "city": "karachi"
       },
       {
-        "name": "moria_khan_goth",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Moria Khan Goth",
           "English": "Moria Khan Goth"
-        }
+        },
+        "name": "moria_khan_goth",
+        "city": "karachi"
       },
       {
-        "name": "rafa_e_aam_society",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Rafa-e-Aam Society",
           "English": "Rafa-e-Aam Society"
-        }
+        },
+        "name": "rafa_e_aam_society",
+        "city": "karachi"
       },
       {
-        "name": "al_falah_society",
+        "province": "sindh",
+        "town": "shah_faisal",
         "label": {
           "Roman Urdu": "Al-Falah Society",
           "English": "Al-Falah Society"
-        }
+        },
+        "name": "al_falah_society",
+        "city": "karachi"
       },
       {
-        "name": "pak_colony",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Pak Colony",
           "English": "Pak Colony"
-        }
+        },
+        "name": "pak_colony",
+        "city": "karachi"
       },
       {
-        "name": "old_golimar",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Old Golimar",
           "English": "Old Golimar"
-        }
+        },
+        "name": "old_golimar",
+        "city": "karachi"
       },
       {
-        "name": "jahanabad",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Jahanabad",
           "English": "Jahanabad"
-        }
+        },
+        "name": "jahanabad",
+        "city": "karachi"
       },
       {
-        "name": "metrovil",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Metrovil",
           "English": "Metrovil"
-        }
+        },
+        "name": "metrovil",
+        "city": "karachi"
       },
       {
-        "name": "bhawani_chali",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Bhawani Chali",
           "English": "Bhawani Chali"
-        }
+        },
+        "name": "bhawani_chali",
+        "city": "karachi"
       },
       {
-        "name": "frontier_colony",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Frontier Colony",
           "English": "Frontier Colony"
-        }
+        },
+        "name": "frontier_colony",
+        "city": "karachi"
       },
       {
-        "name": "banaras_colony",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Banaras Colony",
           "English": "Banaras Colony"
-        }
+        },
+        "name": "banaras_colony",
+        "city": "karachi"
       },
       {
-        "name": "qasba_colony",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Qasba Colony",
           "English": "Qasba Colony"
-        }
+        },
+        "name": "qasba_colony",
+        "city": "karachi"
       },
       {
-        "name": "islamia_colony",
+        "province": "sindh",
+        "town": "site",
         "label": {
           "Roman Urdu": "Islamia Colony",
           "English": "Islamia Colony"
-        }
+        },
+        "name": "islamia_colony",
+        "city": "karachi"
       },
       {
-        "name": "other",
+        "province": "na",
+        "town": "na",
         "label": {
           "Roman Urdu": "Deegar",
           "English": "Other"
-        }
+        },
+        "name": "other",
+        "city": "na"
       },
       {
-        "name": "not_applicable",
+        "province": "na",
+        "town": "na",
         "label": {
           "Roman Urdu": "Qaabil-e-atlaaq nahi",
           "English": "Not Applicable"
-        }
+        },
+        "name": "not_applicable",
+        "city": "na"
       }
     ],
     "treatment_outcomes": [
@@ -1890,6 +2592,8 @@
     ],
     "towns": [
       {
+        "province": "sindh",
+        "city": "shikarpur",
         "name": "garhi_yasin",
         "label": {
           "Roman Urdu": "Garhi Yasin",
@@ -1897,6 +2601,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "shikarpur",
         "name": "khanpur",
         "label": {
           "Roman Urdu": "Khanpur",
@@ -1904,6 +2610,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "shikarpur",
         "name": "lakhi",
         "label": {
           "Roman Urdu": "Lakhi",
@@ -1911,6 +2619,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "shikarpur",
         "name": "shikarpur_taluka",
         "label": {
           "Roman Urdu": "Shikarpur Taluka",
@@ -1918,6 +2628,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "korangi",
         "label": {
           "Roman Urdu": "Korangi",
@@ -1925,6 +2637,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "landhi",
         "label": {
           "Roman Urdu": "Landhi",
@@ -1932,6 +2646,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "baldia",
         "label": {
           "Roman Urdu": "Baldia",
@@ -1939,6 +2655,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "bin_qasim",
         "label": {
           "Roman Urdu": "Bin Qasim",
@@ -1946,6 +2664,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "gadap",
         "label": {
           "Roman Urdu": "Gadap",
@@ -1953,6 +2673,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "gulberg",
         "label": {
           "Roman Urdu": "Gulberg",
@@ -1960,6 +2682,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "gulshan",
         "label": {
           "Roman Urdu": "Gulshan",
@@ -1967,6 +2691,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "jamshed",
         "label": {
           "Roman Urdu": "Jamshed",
@@ -1974,6 +2700,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "kiamari",
         "label": {
           "Roman Urdu": "Kiamari",
@@ -1981,6 +2709,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "liaquatabad",
         "label": {
           "Roman Urdu": "Liaquatabad",
@@ -1988,6 +2718,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "lyari",
         "label": {
           "Roman Urdu": "Lyari",
@@ -1995,6 +2727,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "malir",
         "label": {
           "Roman Urdu": "Malir",
@@ -2002,6 +2736,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "new_karachi",
         "label": {
           "Roman Urdu": "New Karachi",
@@ -2009,6 +2745,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "north_nazimabad",
         "label": {
           "Roman Urdu": "North Nazimabad",
@@ -2016,6 +2754,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "orangi",
         "label": {
           "Roman Urdu": "Orangi",
@@ -2023,6 +2763,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "saddar",
         "label": {
           "Roman Urdu": "Saddar",
@@ -2030,6 +2772,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "shah_faisal",
         "label": {
           "Roman Urdu": "Shah Faisal",
@@ -2037,6 +2781,8 @@
         }
       },
       {
+        "province": "sindh",
+        "city": "karachi",
         "name": "site",
         "label": {
           "Roman Urdu": "S.I.T.E.",
@@ -2044,6 +2790,8 @@
         }
       },
       {
+        "province": "na",
+        "city": "na",
         "name": "other",
         "label": {
           "Roman Urdu": "Deegar",
@@ -2051,6 +2799,8 @@
         }
       },
       {
+        "province": "na",
+        "city": "na",
         "name": "not_applicable",
         "label": {
           "Roman Urdu": "Qaabil-e-atlaaq nahi",
@@ -2060,6 +2810,7 @@
     ],
     "cities": [
       {
+        "province": "sindh",
         "name": "shikarpur",
         "label": {
           "Roman Urdu": "Shikarpur",
@@ -2067,6 +2818,7 @@
         }
       },
       {
+        "province": "sindh",
         "name": "karachi",
         "label": {
           "Roman Urdu": "Karachi",
@@ -2074,6 +2826,7 @@
         }
       },
       {
+        "province": "punjab",
         "name": "hafizabad",
         "label": {
           "Roman Urdu": "Hafizabad",
@@ -2081,6 +2834,7 @@
         }
       },
       {
+        "province": "punjab",
         "name": "muzaffargarh",
         "label": {
           "Roman Urdu": "Muzaffargarh",
@@ -2088,6 +2842,7 @@
         }
       },
       {
+        "province": "na",
         "name": "other",
         "label": {
           "Roman Urdu": "Deegar",
@@ -2095,6 +2850,7 @@
         }
       },
       {
+        "province": "na",
         "name": "not_applicable",
         "label": {
           "Roman Urdu": "Not Applicable",
@@ -2156,7 +2912,7 @@
   "instance": {
     "encounter_type": "Contact Screening"
   },
-  "version": "201801230936",
+  "version": "201801311354",
   "id_string": "contact_screening_form",
   "type": "survey",
   "children": [
