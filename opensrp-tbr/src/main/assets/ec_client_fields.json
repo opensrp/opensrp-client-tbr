@@ -188,14 +188,6 @@
           "json_mapping": {
             "field": "birthdate"
           }
-        },
-        {
-          "column_name": "screened",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "screened"
-          }
         }
       ]
     }
