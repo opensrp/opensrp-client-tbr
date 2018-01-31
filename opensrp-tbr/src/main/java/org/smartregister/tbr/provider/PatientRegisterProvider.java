@@ -256,7 +256,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (button != null)
             attachOnclickListener(button, client);
         attachOnclickListener(details, client);
-        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
+        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
         Map<String, String> testResults;
         if (baseline != null)
             testResults = resultsRepository.getLatestResults(baseEntityId, false, baseline);
@@ -345,7 +345,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.smr_result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
@@ -397,7 +397,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateXpertResult(testResults, stringBuilder, false);
@@ -478,7 +478,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
-        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
+        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         int months = 0;
         if (details.containsKey(KEY.TREATMENT_MONTH))

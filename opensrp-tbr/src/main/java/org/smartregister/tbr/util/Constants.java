@@ -81,7 +81,7 @@ public class Constants {
     }
 
     public static final class SCREEN_STAGE {
-        public static final String NOTSCREENED = "notscreened";
+        public static final String NOT_SCREENED = "notscreened";
         public static final String SCREENED = "screened";
         public static final String DIAGNOSED = "diagnosed";
         public static final String INTREATMENT = "intreatment";

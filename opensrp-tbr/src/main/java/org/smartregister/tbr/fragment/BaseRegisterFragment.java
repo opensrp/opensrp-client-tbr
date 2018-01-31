@@ -252,7 +252,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + ".relationalid",
                 tableName + "." + KEY.LAST_INTERACTED_WITH,
                 tableName + "." + KEY.FIRST_ENCOUNTER,
-                tableName + "." + KEY.BASE_ENTITY_ID_COLUMN,
+                tableName + "." + KEY.BASE_ENTITY_ID,
                 tableName + "." + KEY.FIRST_NAME,
                 tableName + "." + KEY.LAST_NAME,
                 tableName + "." + KEY.PARTICIPANT_ID,

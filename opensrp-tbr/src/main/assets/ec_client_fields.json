@@ -148,7 +148,7 @@
           }
         },
         {
-          "column_name": "parent_entity_id",
+          "column_name": "relational_id",
           "type": "Client",
           "json_mapping": {
             "field": "relationships.parent"

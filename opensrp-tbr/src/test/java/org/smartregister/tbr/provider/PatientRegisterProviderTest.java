@@ -37,7 +37,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.smartregister.tbr.repository.ResultsRepository.DATE;
 import static util.TbrConstants.KEY;
-import static util.TbrConstants.KEY.BASE_ENTITY_ID_COLUMN;
+import static util.TbrConstants.KEY.BASE_ENTITY_ID;
 import static util.TbrConstants.KEY.DOB;
 import static util.TbrConstants.KEY.FIRST_NAME;
 import static util.TbrConstants.KEY.GENDER;
@@ -95,7 +95,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     public void setupTest() {
         Activity activity = Robolectric.buildActivity(Activity.class).create().get();
         view = LayoutInflater.from(activity).inflate(R.layout.register_presumptive_list_row, null);
-        columnMap.put(BASE_ENTITY_ID_COLUMN, "255c9df9-42ba-424d-a235-bd4ea5da77ae");
+        columnMap.put(BASE_ENTITY_ID, "255c9df9-42ba-424d-a235-bd4ea5da77ae");
         smartRegisterClient.setColumnmaps(columnMap);
     }
 
