@@ -74,88 +74,84 @@
         "bind": "/model/instance/ContactScreeningForm_11.01.18/client_reg_date"
       },
       {
-        "name": "cough",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/cough"
+        "name": "participant_id",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/participant_id"
       },
       {
-        "name": "cough_duration",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/cough_duration"
+        "name": "program_id",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/program_id"
       },
       {
-        "name": "cough_phlegm",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/cough_phlegm"
-      },
-      {
-        "name": "haemoptysis",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/haemoptysis"
-      },
-      {
-        "name": "chest_pain",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/chest_pain"
-      },
-      {
-        "name": "chest_pain_duration",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/chest_pain_duration"
-      },
-      {
-        "name": "fever",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/fever"
-      },
-      {
-        "name": "fever_duration",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/fever_duration"
-      },
-      {
-        "name": "night_sweats",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/night_sweats"
-      },
-      {
-        "name": "night_sweats_duration",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/night_sweats_duration"
-      },
-      {
-        "name": "weight_loss",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/weight_loss"
-      },
-      {
-        "name": "symptoms_other",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/symptoms_other"
-      },
-      {
-        "name": "symptoms_other_specify",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/symptoms_other_specify"
-      },
-      {
-        "name": "presumptive",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/screening_symptom/presumptive"
-      },
-      {
-        "name": "birthdate",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/demographic_info/birthdate"
-      },
-      {
-        "name": "birthdate_estimated",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/demographic_info/birthdate_estimated"
-      },
-      {
-        "name": "gender",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/demographic_info/gender"
+        "name": "program_id_note",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/program_id_note"
       },
       {
         "name": "first_name",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/first_name"
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/first_name"
       },
       {
         "name": "last_name",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/last_name"
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/last_name"
       },
       {
-        "name": "participant_id",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/participant_id"
+        "name": "pt_name_note",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/pt_name_note"
       },
       {
-        "name": "close_tb_contact",
-        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/close_tb_contact"
+        "name": "cough",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/cough"
+      },
+      {
+        "name": "cough_duration",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/cough_duration"
+      },
+      {
+        "name": "cough_phlegm",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/cough_phlegm"
+      },
+      {
+        "name": "haemoptysis",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/haemoptysis"
+      },
+      {
+        "name": "chest_pain",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/chest_pain"
+      },
+      {
+        "name": "chest_pain_duration",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/chest_pain_duration"
+      },
+      {
+        "name": "fever",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/fever"
+      },
+      {
+        "name": "fever_duration",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/fever_duration"
+      },
+      {
+        "name": "night_sweats",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/night_sweats"
+      },
+      {
+        "name": "night_sweats_duration",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/night_sweats_duration"
+      },
+      {
+        "name": "weight_loss",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/weight_loss"
+      },
+      {
+        "name": "symptoms_other",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/symptoms_other"
+      },
+      {
+        "name": "symptoms_other_specify",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/symptoms_other_specify"
+      },
+      {
+        "name": "presumptive",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive"
       },
       {
         "name": "previous_tb_treatment",
@@ -200,6 +196,22 @@
       {
         "name": "address1",
         "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/address1"
+      },
+      {
+        "name": "provincename",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/provincename"
+      },
+      {
+        "name": "city_villagename",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/city_villagename"
+      },
+      {
+        "name": "townname",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/townname"
+      },
+      {
+        "name": "union_councilname",
+        "bind": "/model/instance/ContactScreeningForm_11.01.18/presumptive_info/union_councilname"
       },
       {
         "name": "full_address",

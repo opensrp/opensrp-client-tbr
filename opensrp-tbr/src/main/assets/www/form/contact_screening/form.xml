@@ -43,9 +43,8 @@
             lang="en">Participant ID
         </span>
         <span class="required">*</span>
-        <input name="/ContactScreeningform_11.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')"
-            data-required="true()" data-type-xml="string"
-            type="text" />
+        <input name="/ContactScreeningform_11.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+            required="required" type="text" />
         <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>
@@ -71,8 +70,8 @@
             lang="en">Program ID: <span
             class="or-output" data-value=" /ContactScreeningform_11.01.18/program_id "></span>
         </span>
-        <input name="/ContactScreeningform_11.01.18/program_id_note" data-required="true()"
-            data-type-xml="string" readonly="readonly" type="text" />
+        <input name="/ContactScreeningform_11.01.18/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
         <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
             required
         </span>
@@ -112,7 +111,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/yes:label"
                         lang="Roman Urdu">Haan
@@ -126,7 +125,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/no:label"
                         lang="Roman Urdu">Nahi
@@ -140,7 +139,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/dont_know:label"
                         lang="Roman Urdu">Pata
@@ -156,7 +155,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/cough" data-name="/ContactScreeningform_11.01.18/cough"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/cough/refuse:label"
                         lang="Roman Urdu">Jawab nahi
@@ -388,7 +387,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/yes:label"
                         lang="Roman Urdu">Haan
@@ -402,7 +401,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/no:label"
                         lang="Roman Urdu">Nahi
@@ -416,7 +415,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/dont_know:label"
                         lang="Roman Urdu">
@@ -432,7 +431,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/chest_pain" data-name="/ContactScreeningform_11.01.18/chest_pain"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/chest_pain/refuse:label"
                         lang="Roman Urdu">Jawab
@@ -499,7 +498,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/yes:label"
                         lang="Roman Urdu">Haan
@@ -513,7 +512,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/no:label"
                         lang="Roman Urdu">Nahi
@@ -527,7 +526,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/dont_know:label"
                         lang="Roman Urdu">Pata
@@ -543,7 +542,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/fever" data-name="/ContactScreeningform_11.01.18/fever"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/fever/refuse:label"
                         lang="Roman Urdu">Jawab nahi
@@ -609,7 +608,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/yes:label"
                         lang="Roman Urdu">Haan
@@ -623,7 +622,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/no:label"
                         lang="Roman Urdu">Nahi
@@ -637,7 +636,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/dont_know:label"
                         lang="Roman Urdu">
@@ -654,7 +653,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/night_sweats" data-name="/ContactScreeningform_11.01.18/night_sweats"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/night_sweats/refuse:label"
                         lang="Roman Urdu">
@@ -722,7 +721,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/yes:label"
                         lang="Roman Urdu">Haan
@@ -736,7 +735,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/no:label"
                         lang="Roman Urdu">Nahi
@@ -750,7 +749,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/dont_know:label"
                         lang="Roman Urdu">
@@ -766,7 +765,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/weight_loss" data-name="/ContactScreeningform_11.01.18/weight_loss"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/weight_loss/refuse:label"
                         lang="Roman Urdu">
@@ -805,7 +804,7 @@
             <div class="option-wrapper">
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="yes" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/yes:label"
                         lang="Roman Urdu">Haan
@@ -819,7 +818,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="no" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/no:label"
                         lang="Roman Urdu">Nahi
@@ -833,7 +832,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="dont_know" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/dont_know:label"
                         lang="Roman Urdu">
@@ -850,7 +849,7 @@
                 </label>
                 <label class="">
                     <input name="/ContactScreeningform_11.01.18/symptoms_other" data-name="/ContactScreeningform_11.01.18/symptoms_other"
-                        data-required="true()" data-type-xml="select1"
+                        data-type-xml="select1" required="required"
                         type="radio" value="refuse" />
                     <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/symptoms_other/refuse:label"
                         lang="Roman Urdu">
@@ -923,8 +922,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="yes" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="yes" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/yes:label"
                             lang="Roman Urdu">
                             Haan
@@ -941,8 +940,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="no" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="no" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/no:label"
                             lang="Roman Urdu">
                             Nahi
@@ -959,8 +958,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="dont_know" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="dont_know" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/dont_know:label"
                             lang="Roman Urdu">
                             Pata Nahi
@@ -977,8 +976,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="refuse" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="refuse" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment/refuse:label"
                             lang="Roman Urdu">
                             Jawab nahi dena
@@ -1016,8 +1015,8 @@
                 name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome"
                 data-name="/ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment_outcome"
                 data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/previous_tb_treatment  = 'yes'"
-                data-required="true()"
-                data-type-xml="select1">
+                data-type-xml="select1"
+                required="required">
                 <option value="">...</option>
                 <option value="cured">Cured</option>
                 <option value="defaulted">Defaulted</option>
@@ -1079,8 +1078,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="yes" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="yes" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/yes:label"
                             lang="Roman Urdu">
                             Haan
@@ -1097,8 +1096,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="no" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="no" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/no:label"
                             lang="Roman Urdu">
                             Nahi
@@ -1115,8 +1114,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="dont_know" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="dont_know" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/dont_know:label"
                             lang="Roman Urdu">
                             Pata Nahi
@@ -1133,8 +1132,8 @@
                     <label class="">
                         <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
                             data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_test"
-                            data-required="true()"
-                            data-type-xml="select1" type="radio" value="refuse" />
+                            data-type-xml="select1"
+                            required="required" type="radio" value="refuse" />
                         <span class="option-label " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/hiv_test/refuse:label"
                             lang="Roman Urdu">
                             Jawab nahi dena
@@ -1168,8 +1167,8 @@
             </span>
             <span class="required">*</span>
             <input name="/ContactScreeningform_11.01.18/presumptive_info/hiv_date" data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/hiv_test  = 'yes'"
-                data-required="true()"
                 data-type-xml="date"
+                required="required"
                 type="date" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
@@ -1191,8 +1190,8 @@
             <select name="/ContactScreeningform_11.01.18/presumptive_info/hiv_results"
                 data-name="/ContactScreeningform_11.01.18/presumptive_info/hiv_results"
                 data-relevant=" /ContactScreeningform_11.01.18/presumptive_info/hiv_test  = 'yes'"
-                data-required="true()"
-                data-type-xml="select1">
+                data-type-xml="select1"
+                required="required">
                 <option value="">...</option>
                 <option value="negative">HIV Negative</option>
                 <option value="positive">HIV Positive</option>
@@ -1237,7 +1236,7 @@
             <span class="required">*</span>
             <input name="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number"
                 data-constraint="regex(., '^03[0-9]{9}$')"
-                data-required="true()" data-type-xml="string"
+                data-type-xml="string" required="required"
                 type="text" />
             <span class="or-constraint-msg " data-itext-id="/ContactScreeningform_11.01.18/presumptive_info/contact_phone_number:jr:constraintMsg"
                 lang="Roman Urdu">
@@ -1270,7 +1269,7 @@
             <span class="required">*</span>
             <select name="/ContactScreeningform_11.01.18/presumptive_info/province"
                 data-name="/ContactScreeningform_11.01.18/presumptive_info/province"
-                data-required="true()" data-type-xml="select1">
+                data-type-xml="select1" required="required">
                 <option value="">...</option>
                 <option value="kpk">Khyber Pakhtunkhwa</option>
                 <option value="sindh">Sindh</option>
@@ -1326,7 +1325,7 @@
             <span class="required">*</span>
             <select name="/ContactScreeningform_11.01.18/presumptive_info/city_village"
                 data-name="/ContactScreeningform_11.01.18/presumptive_info/city_village"
-                data-required="true()" data-type-xml="select1">
+                data-type-xml="select1" required="required">
                 <option class="itemset-template" data-items-path="instance('cities')/root/item[province= /ContactScreeningform_11.01.18/presumptive_info/province  or province='na']"
                     value="">
                     ...
@@ -1407,8 +1406,8 @@
             </span>
             <span class="required">*</span>
             <select name="/ContactScreeningform_11.01.18/presumptive_info/town"
-                data-name="/ContactScreeningform_11.01.18/presumptive_info/town"
-                data-required="true()" data-type-xml="select1">
+                data-name="/ContactScreeningform_11.01.18/presumptive_info/town" data-type-xml="select1"
+                required="required">
                 <option class="itemset-template" data-items-path="instance('towns')/root/item[(province= /ContactScreeningform_11.01.18/presumptive_info/province  and city= /ContactScreeningform_11.01.18/presumptive_info/city_village  ) or city='na']"
                     value="">
                     ...
@@ -1654,7 +1653,7 @@
             <span class="required">*</span>
             <select name="/ContactScreeningform_11.01.18/presumptive_info/union_council"
                 data-name="/ContactScreeningform_11.01.18/presumptive_info/union_council"
-                data-required="true()" data-type-xml="select1">
+                data-type-xml="select1" required="required">
                 <option class="itemset-template" data-items-path="instance('ucs')/root/item[(province= /ContactScreeningform_11.01.18/presumptive_info/province  and city= /ContactScreeningform_11.01.18/presumptive_info/city_village  and town= /ContactScreeningform_11.01.18/presumptive_info/town ) or town='na']"
                     value="">
                     ...
@@ -3787,8 +3786,8 @@
                 Address
             </span>
             <span class="required">*</span>
-            <input name="/ContactScreeningform_11.01.18/presumptive_info/address1" data-required="true()"
-                data-type-xml="string" type="text" />
+            <input name="/ContactScreeningform_11.01.18/presumptive_info/address1" data-type-xml="string"
+                required="required" type="text" />
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
             </span>

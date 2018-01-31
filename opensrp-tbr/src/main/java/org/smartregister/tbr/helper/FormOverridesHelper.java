@@ -77,7 +77,13 @@ public class FormOverridesHelper {
     public FieldOverrides getAddContactFieldOverrides() {
         Map fields = new HashMap();
         fields.put(TbrConstants.KEY.PARTICIPANT_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
-        fields.put(TbrConstants.KEY.PARENT_ENTITY_ID,patientDetails.get(Constants.KEY._ID));
+        fields.put(TbrConstants.KEY.PARENT_ENTITY_ID, patientDetails.get(Constants.KEY._ID));
+        return new FieldOverrides(new JSONObject(fields).toString());
+    }
+
+    public FieldOverrides getContactScreeningFieldOverrides() {
+        Map fields = populateFieldOverrides();
+        fields.remove(TbrConstants.KEY.PARTICIPANT_ID);
         return new FieldOverrides(new JSONObject(fields).toString());
     }
 }

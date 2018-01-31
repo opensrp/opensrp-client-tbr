@@ -17,6 +17,7 @@ TbrConstants extends AllConstants {
 
     public static final String PATIENT_TABLE_NAME = "ec_patient";
     public static final String CONTACT_TABLE_NAME = "ec_contact";
+    public static final String TBREACH_ID = "TBREACH ID";
 
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
@@ -105,6 +106,7 @@ TbrConstants extends AllConstants {
         public static final String FOLLOWUP_VISIT = "followup_visit";
         public static final String ADD_TB_CONTACT = "add_tb_contact";
         public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
+        public static final String CONTACT_SCREENING = "contact_screening";
 
     }
 }

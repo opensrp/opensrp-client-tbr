@@ -37,6 +37,7 @@ public class TbrClientProcessor extends ClientProcessor {
 
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
+    public static final String CONTACT_SCREENING = "Contact Screening";
 
     public TbrClientProcessor(Context context) {
         super(context);

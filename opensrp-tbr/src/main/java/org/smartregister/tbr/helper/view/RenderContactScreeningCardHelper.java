@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.model.Contact;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Utils;
@@ -23,7 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.smartregister.tbr.util.Constants.FORM;
+import util.TbrConstants;
+
 import static org.smartregister.tbr.util.Constants.ScreenStage;
 import static util.TbrConstants.CONTACT_TABLE_NAME;
 import static util.TbrConstants.KEY;
@@ -66,14 +68,16 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                             @Override
                             public void onClick(View view) {
                                 Contact screenContactData = (Contact) view.getTag(R.id.CONTACT);
+                                Map contactDetails = getCommonPersonObjectDetails(screenContactData.getBaseEntityId());
                                 if (screenContactData != null) {
                                     if (screenContactData.getStage().equals(ScreenStage.NOT_SCREENED)) {
-                                        ((BasePatientDetailActivity) context).startFormActivity(FORM.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), null);
+                                        FormOverridesHelper formOverridesHelper = new FormOverridesHelper(contactDetails);
+                                        ((BasePatientDetailActivity) context).startFormActivity(TbrConstants.ENKETO_FORMS.CONTACT_SCREENING, view.getTag(R.id.CONTACT_ID).toString(), formOverridesHelper.getContactScreeningFieldOverrides().getJSONString());
                                     } else if (screenContactData.getStage().equals(ScreenStage.SCREENED)) {
                                         showNegativeContactPopUp();
                                     } else {
                                         ((BasePatientDetailActivity) context).goToPatientDetailActivity(
-                                                screenContactData.getStage(), getCommonPersonObjectDetails(screenContactData.getBaseEntityId()));
+                                                screenContactData.getStage(), contactDetails);
                                     }
                                 }
                             }
@@ -146,7 +150,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "error occcured during fetching Contacts: ", e);
+            Log.e(TAG, "error occcured fetching Contacts: ", e);
         } finally {
             if (cursor != null)
                 cursor.close();
@@ -162,10 +166,11 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
         Cursor cursor = null;
         Map details = new HashMap();
         try {
-            cursor = getReadableDatabase().query(PATIENT_TABLE_NAME, null, KEY.BASE_ENTITY_ID + "=?"
+            cursor = getReadableDatabase().query(CONTACT_TABLE_NAME, null, KEY.BASE_ENTITY_ID + "=?"
                     , new String[]{baseEntityId}, null, null, null);
-            details = TbrApplication.getInstance().getContext().commonrepository(PATIENT_TABLE_NAME)
-                    .getCommonPersonObjectFromCursor(cursor).getDetails();
+            if (cursor.moveToFirst())
+                details = TbrApplication.getInstance().getContext().commonrepository(CONTACT_TABLE_NAME)
+                        .sqliteRowToMap(cursor);
         } catch (Exception e) {
             Log.e(TAG, "error occcured fetching CommonPersonObject: ", e);
         } finally {

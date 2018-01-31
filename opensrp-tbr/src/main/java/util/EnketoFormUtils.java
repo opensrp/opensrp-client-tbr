@@ -63,11 +63,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.smartregister.tbr.sync.TbrClientProcessor.CLIENT_EVENTS;
+import static org.smartregister.tbr.sync.TbrClientProcessor.CONTACT_SCREENING;
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
+import static util.TbrConstants.TBREACH_ID;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -1112,8 +1114,13 @@ public class EnketoFormUtils {
                     Client client = gson.fromJson(json.toString(), Client.class);
                     client.addAttribute(BASELINE, event.getVersion());
                     saveClient(client);
+                } else if (event.getEventType().equals(CONTACT_SCREENING)) {
+                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                    Client client = gson.fromJson(json.toString(), Client.class);
+                    Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                    client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
+                    saveClient(client);
                 }
-
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);
