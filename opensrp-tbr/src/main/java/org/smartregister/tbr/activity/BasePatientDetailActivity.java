@@ -209,7 +209,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     }
 
 
-    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map patientDetails) {
+    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map<String,String> patientDetails) {
         Intent intent = null;
         switch (viewConfigurationIdentifier) {
             case PRESUMPTIVE:
@@ -228,7 +228,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
 
         intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, this.getIntent().getStringExtra(TOOLBAR_TITLE));
         intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
-        intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(Constants.KEY.TBREACH_ID).toString());
+        intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
         startActivity(intent);
 
     }

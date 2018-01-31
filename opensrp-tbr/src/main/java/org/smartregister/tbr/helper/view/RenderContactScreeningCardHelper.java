@@ -17,6 +17,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.model.Contact;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                                     } else if (contact.getStage().equals(ScreenStage.SCREENED)) {
                                         showNegativeContactPopUp();
                                     } else {
+                                        contactDetails.put(Constants.KEY._ID, contact.getBaseEntityId());
                                         ((BasePatientDetailActivity) context).goToPatientDetailActivity(
                                                 contact.getStage(), contactDetails);
                                     }
