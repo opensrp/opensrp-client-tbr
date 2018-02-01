@@ -249,7 +249,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View button = view.findViewById(R.id.result_lnk);
         TextView details = (TextView) view.findViewById(R.id.result_details);
-        details.setText(new String());
+        details.setText("");
         populateResultsColumn(pc, client, new TbrSpannableStringBuilder(), false, null, button, details);
     }
 
