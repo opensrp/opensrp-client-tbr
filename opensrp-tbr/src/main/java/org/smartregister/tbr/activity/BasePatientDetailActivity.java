@@ -16,7 +16,9 @@ import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.helper.FormOverridesHelper;
+import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
@@ -209,24 +211,28 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     }
 
 
-    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map<String,String> patientDetails) {
+    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map<String, String> patientDetails) {
         Intent intent = null;
+        String registerToken = null;
         switch (viewConfigurationIdentifier) {
             case PRESUMPTIVE:
                 intent = new Intent(this, PresumptivePatientDetailActivity.class);
+                registerToken = Register.PRESUMPTIVE_PATIENTS;
                 break;
             case POSITIVE:
                 intent = new Intent(this, PositivePatientDetailActivity.class);
+                registerToken = Register.POSITIVE_PATIENTS;
                 break;
             case IN_TREATMENT:
                 intent = new Intent(this, InTreatmentPatientDetailActivity.class);
+                registerToken = Register.IN_TREATMENT_PATIENTS;
                 break;
             default:
                 break;
 
         }
-
-        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, this.getIntent().getStringExtra(TOOLBAR_TITLE));
+        String registerTitle = Utils.readPrefString(this, TOOLBAR_TITLE + registerToken, "");
+        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerTitle);
         intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
         intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
         startActivity(intent);

@@ -69,14 +69,15 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                             @Override
                             public void onClick(View view) {
                                 Contact contact = (Contact) view.getTag(R.id.CONTACT);
-                                Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId());
                                 if (contact != null) {
                                     if (contact.getStage().equals(ScreenStage.NOT_SCREENED)) {
+                                        Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId(), CONTACT_TABLE_NAME);
                                         FormOverridesHelper formOverridesHelper = new FormOverridesHelper(contactDetails);
                                         ((BasePatientDetailActivity) context).startFormActivity(TbrConstants.ENKETO_FORMS.CONTACT_SCREENING, contact.getBaseEntityId(), formOverridesHelper.getContactScreeningFieldOverrides().getJSONString());
                                     } else if (contact.getStage().equals(ScreenStage.SCREENED)) {
                                         showNegativeContactPopUp();
                                     } else {
+                                        Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId(), PATIENT_TABLE_NAME);
                                         contactDetails.put(Constants.KEY._ID, contact.getBaseEntityId());
                                         ((BasePatientDetailActivity) context).goToPatientDetailActivity(
                                                 contact.getStage(), contactDetails);
@@ -153,14 +154,14 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
         return TbrApplication.getInstance().getRepository().getReadableDatabase();
     }
 
-    private Map getCommonPersonObjectDetails(String baseEntityId) {
+    private Map getCommonPersonObjectDetails(String baseEntityId, String tableName) {
         Cursor cursor = null;
         Map details = new HashMap();
         try {
-            cursor = getReadableDatabase().query(CONTACT_TABLE_NAME, null, KEY.BASE_ENTITY_ID + "=?"
+            cursor = getReadableDatabase().query(tableName, null, KEY.BASE_ENTITY_ID + "=?"
                     , new String[]{baseEntityId}, null, null, null);
             if (cursor.moveToFirst())
-                details = TbrApplication.getInstance().getContext().commonrepository(CONTACT_TABLE_NAME)
+                details = TbrApplication.getInstance().getContext().commonrepository(tableName)
                         .sqliteRowToMap(cursor);
         } catch (Exception e) {
             Log.e(TAG, "error occcured fetching CommonPersonObject: ", e);
