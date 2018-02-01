@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.util.Constants;
 
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class ScreenedPatientDetailsFragment extends BasePatientDetailsFragment {
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setTitle(Constants.SCREENED_PATIENT);
+        activity.getSupportActionBar().setTitle(R.string.negative_screened_contact);
         setupViews(rootView);
         return rootView;
     }

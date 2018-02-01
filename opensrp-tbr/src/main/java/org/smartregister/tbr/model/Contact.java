@@ -18,7 +18,7 @@ public class Contact {
     private String gender;
     private String contactId;
     private String formSubmissionId;
-
+    private boolean index;
     private String nationalID;
     private String createdAt;
     private Long updatedAt;
@@ -109,6 +109,14 @@ public class Contact {
 
     public void setFormSubmissionId(String formSubmissionId) {
         this.formSubmissionId = formSubmissionId;
+    }
+
+    public boolean isIndex() {
+        return index;
+    }
+
+    public void setIndex(boolean index) {
+        this.index = index;
     }
 
     public Long getId() {

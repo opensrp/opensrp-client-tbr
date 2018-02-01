@@ -107,12 +107,27 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 ", p. " + KEY.PRESUMPTIVE +
                 ", p. " + KEY.CONFIRMED_TB +
                 ", p. " + KEY.TREATMENT_INITIATION_DATE +
+                ", '0' as " + KEY.INDEX +
                 " FROM " + CONTACT_TABLE_NAME + " c " +
                 " LEFT JOIN " + PATIENT_TABLE_NAME + " p ON c." + KEY.BASE_ENTITY_ID + "=p." + KEY.BASE_ENTITY_ID +
-                " WHERE c." + KEY.PARENT_ENTITY_ID + "= ?";
+                " WHERE c." + KEY.PARENT_ENTITY_ID + "= ? UNION " +
+                "SELECT p." + KEY.FIRST_NAME +
+                " ,p." + KEY.LAST_NAME +
+                " ,p." + KEY.GENDER +
+                " ,p." + KEY.DOB +
+                ", p. " + KEY.PROGRAM_ID +
+                ", p. " + KEY.BASE_ENTITY_ID +
+                ", p. " + KEY.PRESUMPTIVE +
+                ", p. " + KEY.CONFIRMED_TB +
+                ", p. " + KEY.TREATMENT_INITIATION_DATE +
+                ", '1' as " + KEY.INDEX +
+                " FROM " + CONTACT_TABLE_NAME + " c " +
+                " JOIN " + PATIENT_TABLE_NAME + " p ON c." + KEY.PARENT_ENTITY_ID + "=p." + KEY.BASE_ENTITY_ID +
+                " WHERE c." + KEY.BASE_ENTITY_ID + "= ?";
+
         Cursor cursor = null;
         try {
-            cursor = getReadableDatabase().rawQuery(sql, new String[]{baseEntityId});
+            cursor = getReadableDatabase().rawQuery(sql, new String[]{baseEntityId, baseEntityId});
             while (cursor.moveToNext()) {
                 Contact c = new Contact();
                 c.setBaseEntityId(cursor.getString(cursor.getColumnIndex(KEY.BASE_ENTITY_ID)));
@@ -121,6 +136,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 c.setGender(cursor.getString(cursor.getColumnIndex(KEY.GENDER)));
                 c.setContactId(cursor.getString(cursor.getColumnIndex(KEY.PROGRAM_ID)));
                 c.setAge(Utils.getFormattedAgeString(cursor.getString(cursor.getColumnIndex(KEY.DOB))));
+                c.setIndex(cursor.getInt(cursor.getColumnIndex(KEY.INDEX)) == 1);
                 String presumptive = cursor.getString(cursor.getColumnIndex(KEY.PRESUMPTIVE));
                 if (StringUtils.isNotEmpty(cursor.getString(cursor.getColumnIndex(KEY.TREATMENT_INITIATION_DATE))))
                     c.setStage(ScreenStage.IN_TREATMENT);

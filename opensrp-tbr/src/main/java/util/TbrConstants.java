@@ -44,6 +44,7 @@ TbrConstants extends AllConstants {
         public static final String PRESUMPTIVE = "presumptive";
         public static final String CONFIRMED_TB = "confirmed_tb";
         public static final String PARENT_ENTITY_ID = "relational_id";
+        public static final String INDEX = "_index";
 
     }
 

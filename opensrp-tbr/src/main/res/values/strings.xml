@@ -64,4 +64,6 @@
     <string name="treatment_start">Treatment Start</string>
     <string name="smr_results">Smr Results</string>
     <string name="smr_result">Smr Result</string>
+    <string name="negative_screened_contact">Negative Screened Contact</string>
+    <string name="index">Index</string>
 </resources>
