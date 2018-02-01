@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 
 import org.smartregister.tbr.fragment.InTreatmentPatientDetailsFragment;
-import org.smartregister.tbr.fragment.PresumptivePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
 
 import java.util.HashMap;
