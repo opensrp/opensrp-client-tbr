@@ -16,6 +16,8 @@ TbrConstants extends AllConstants {
     public static final String LAST_VIEWS_SYNC_TIMESTAMP = "LAST_VIEWS_SYNC_TIMESTAMP";
 
     public static final String PATIENT_TABLE_NAME = "ec_patient";
+    public static final String CONTACT_TABLE_NAME = "ec_contact";
+    public static final String TBREACH_ID = "TBREACH ID";
 
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
@@ -27,7 +29,7 @@ TbrConstants extends AllConstants {
         public static final String PARTICIPANT_ID = "participant_id";
         public static final String PROGRAM_ID = "program_id";
         public static final String GENDER = "gender";
-        public static final String BASE_ENTITY_ID_COLUMN = "base_entity_id";
+        public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String FIRST_ENCOUNTER = "first_encounter";
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
         public static final String DIAGNOSIS_DATE = "diagnosis_date";
@@ -41,6 +43,8 @@ TbrConstants extends AllConstants {
         public static final String SMR_NEXT_VISIT_DATE = "smear_due_date";
         public static final String PRESUMPTIVE = "presumptive";
         public static final String CONFIRMED_TB = "confirmed_tb";
+        public static final String PARENT_ENTITY_ID = "relational_id";
+        public static final String INDEX = "_index";
 
     }
 
@@ -103,6 +107,7 @@ TbrConstants extends AllConstants {
         public static final String FOLLOWUP_VISIT = "followup_visit";
         public static final String ADD_TB_CONTACT = "add_tb_contact";
         public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
+        public static final String CONTACT_SCREENING = "contact_screening";
 
     }
 }

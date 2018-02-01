@@ -80,11 +80,8 @@ public class Constants {
         public static final String TREATMENT_OUTCOME = "treatment_outcome";
     }
 
-    public static final class SCREEN_STAGE {
-
-        public static final String DIAGNOSED = "diagnosed";
-        public static final String SCREENED = "screened";
-        public static final String INTREATMENT = "intreatment";
+    public enum ScreenStage {
+        NOT_SCREENED, PRESUMPTIVE, SCREENED, POSITIVE, IN_TREATMENT;
     }
 
     public static final class TEST_RESULT {

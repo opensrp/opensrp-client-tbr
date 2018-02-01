@@ -46,6 +46,20 @@
             "creates_case": [
               "ec_patient"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TB Contact",
+            "creates_case": [
+              "ec_contact"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Contact Screening",
+            "creates_case": [
+              "ec_patient"
+            ]
           }
         ]
       }

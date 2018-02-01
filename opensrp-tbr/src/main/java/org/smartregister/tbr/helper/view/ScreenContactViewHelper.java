@@ -5,6 +5,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +22,10 @@ import org.smartregister.tbr.util.Utils;
 public class ScreenContactViewHelper {
     private FrameLayout frameLayout;
     private static String TAG = RenderContactScreeningCardHelper.class.getCanonicalName();
+    private Context context;
 
     public ScreenContactViewHelper(final Context context, View frameView, Contact screenContactData) {
+        this.context = context;
         //start with the frame
         FrameLayout frameLayoutTemplate = (FrameLayout) frameView.findViewById(R.id.clientContactFrameLayout);
         if (frameLayoutTemplate != null) {
@@ -65,27 +68,53 @@ public class ScreenContactViewHelper {
             indicatorImageView.setId(View.generateViewId());
             indicatorImageView.setTag(R.id.CONTACT, screenContactData);
 
-            if (screenContactData.isNegative() != null && screenContactData.isNegative()) {
+            if (screenContactData.getStage().equals(Constants.ScreenStage.SCREENED)) {
                 indicatorImageView.setVisibility(View.GONE);
                 initialsTextView.setBackground(context.getResources().getDrawable(R.color.disabled_light_gray));
                 initialsTextView.setTextColor(context.getResources().getColor(R.color.disabled_gray));
             } else {
-                if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.SCREENED)) {
+                if (screenContactData.getStage().equals(Constants.ScreenStage.PRESUMPTIVE)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_screened));
-                } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.DIAGNOSED)) {
+                } else if (screenContactData.getStage().equals(Constants.ScreenStage.POSITIVE)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_diagnosed));
-                } else if (screenContactData.getStage().equals(Constants.SCREEN_STAGE.INTREATMENT)) {
+                } else if (screenContactData.getStage().equals(Constants.ScreenStage.IN_TREATMENT)) {
                     indicatorImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_indicator_intreatment));
                 }
+            }
+
+            TextView indexTextView = null;
+            if (screenContactData.isIndex()) {
+                //adjust framelayout to accomodate index textView
+                ViewGroup.LayoutParams frameLayoutParams = frameLayout.getLayoutParams();
+                frameLayoutParams.height = convertToDp(100);
+                frameLayout.setLayoutParams(frameLayoutParams);
+                //resize initials textView to static size
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contactViewInitialsTemplate.getLayoutParams();
+                params.height = convertToDp(80);
+                params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                initialsTextView.setLayoutParams(params);
+
+                TextView contactViewIndexTemplate = (TextView) frameView.findViewById(R.id.clientIndexContactTextView);
+                indexTextView = new TextView(context);
+                indexTextView.setText(R.string.index);
+                indexTextView.setLayoutParams(contactViewIndexTemplate.getLayoutParams());
+                indexTextView.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+                indexTextView.setVisibility(View.VISIBLE);
             }
 
             //Add them up
             frameLayout.addView(initialsTextView);
             frameLayout.addView(indicatorImageView);
+            if (indexTextView != null)
+                frameLayout.addView(indexTextView);
         } else {
             Log.e(TAG, "No FrameLayout found with identifier clientContactFrameLayout Found");
         }
 
+    }
+
+    private int convertToDp(int pixels) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels, context.getResources().getDisplayMetrics());
     }
 
     public FrameLayout getScreenContactView() {
