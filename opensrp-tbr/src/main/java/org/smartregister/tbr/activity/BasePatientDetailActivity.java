@@ -213,7 +213,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
 
     public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map<String, String> patientDetails) {
         Intent intent = null;
-        String registerToken = null;
+        String registerToken = "";
         switch (viewConfigurationIdentifier) {
             case PRESUMPTIVE:
                 intent = new Intent(this, PresumptivePatientDetailActivity.class);
@@ -226,6 +226,9 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
             case IN_TREATMENT:
                 intent = new Intent(this, InTreatmentPatientDetailActivity.class);
                 registerToken = Register.IN_TREATMENT_PATIENTS;
+                break;
+            case SCREENED:
+                intent = new Intent(this, ScreenedPatientDetailActivity.class);
                 break;
             default:
                 break;

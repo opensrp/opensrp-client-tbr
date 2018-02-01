@@ -9,6 +9,7 @@ public class Constants {
     public static final String EPTB = "eptb";
     public static final String PULMONARY = "Pulmonary";
     public static final String EXTRA_PULMONARY = "Extra Pulmonary";
+    public static final String SCREENED_PATIENT = "Negative Screened Contact";
 
     public static class INTENT_KEY {
         public static final String FULL_NAME = "full_name";

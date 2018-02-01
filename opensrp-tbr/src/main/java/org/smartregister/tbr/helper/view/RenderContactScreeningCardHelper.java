@@ -74,8 +74,6 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                                         Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId(), CONTACT_TABLE_NAME);
                                         FormOverridesHelper formOverridesHelper = new FormOverridesHelper(contactDetails);
                                         ((BasePatientDetailActivity) context).startFormActivity(TbrConstants.ENKETO_FORMS.CONTACT_SCREENING, contact.getBaseEntityId(), formOverridesHelper.getContactScreeningFieldOverrides().getJSONString());
-                                    } else if (contact.getStage().equals(ScreenStage.SCREENED)) {
-                                        showNegativeContactPopUp(getCommonPersonObjectDetails(contact.getBaseEntityId(), CONTACT_TABLE_NAME));
                                     } else {
                                         Map contactDetails = getCommonPersonObjectDetails(contact.getBaseEntityId(), PATIENT_TABLE_NAME);
                                         contactDetails.put(Constants.KEY._ID, contact.getBaseEntityId());
@@ -95,10 +93,6 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
             }
 
         });
-
-    }
-
-    private void showNegativeContactPopUp(Map commonPersonObjectDetails) {
 
     }
 
