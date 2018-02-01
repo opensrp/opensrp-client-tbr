@@ -71,13 +71,18 @@ public class HomeFragment extends ListFragment {
 
                 values.addAll(getDefaultRegisterList());
             }
-
+            saveRegisterTitles(values);
             RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values);
             setListAdapter(adapter);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
+    }
+
+    private void saveRegisterTitles(List<Register> registers) {
+        for (Register register : registers)
+            Utils.writePrefString(getActivity(), TOOLBAR_TITLE + register.getTitleToken(), register.getTitle());
     }
 
     @Override

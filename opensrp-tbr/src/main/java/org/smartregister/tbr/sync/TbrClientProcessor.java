@@ -41,6 +41,12 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String EVENT_TYPE_KEY = "eventType";
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient",
+            "intreatment TB patient"};
+
+    public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
+    public static final String TREATMENT_INITIATION = "Treatment Initiation";
+    public static final String CONTACT_SCREENING = "Contact Screening";
 
     public TbrClientProcessor(Context context) {
         super(context);

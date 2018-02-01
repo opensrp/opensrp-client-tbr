@@ -38,9 +38,8 @@ import org.smartregister.view.fragment.SecuredFragment;
 
 import java.util.Map;
 
-import util.TbrConstants;
-
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static util.TbrConstants.ENKETO_FORMS;
 
 /**
  * Created by ndegwamartin on 06/12/2017.
@@ -160,16 +159,16 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             BasePatientDetailActivity registerActivity = (BasePatientDetailActivity) getActivity();
             switch (item.getItemId()) {
                 case R.id.result_gene_xpert:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.GENE_XPERT, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(ENKETO_FORMS.GENE_XPERT, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_smear:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.SMEAR, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(ENKETO_FORMS.SMEAR, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_chest_xray:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CHEST_XRAY, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(ENKETO_FORMS.CHEST_XRAY, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 case R.id.result_culture:
-                    registerActivity.startFormActivity(TbrConstants.ENKETO_FORMS.CULTURE, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
+                    registerActivity.startFormActivity(ENKETO_FORMS.CULTURE, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
                 default:
                     return false;
@@ -196,7 +195,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.DIAGNOSIS)) {
                 initializeRegister(new Intent(getActivity(), PositivePatientRegisterActivity.class), getTranslatedToken(Register.POSITIVE_PATIENTS, getString(R.string.positive_patients)));
 
-            } else if (enketoFormSaveCompleteEvent.getFormName().equals(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION)) {
+            } else if (enketoFormSaveCompleteEvent.getFormName().equals(ENKETO_FORMS.TREATMENT_INITIATION)) {
                 initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS, getString(R.string.in_treatment_patients)));
 
             } else if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.REMOVE_PATIENT) || enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.TREATMENT_OUTCOME)) {
@@ -224,10 +223,10 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getAddContactFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                 break;
             case R.id.record_results:
                 showResultMenu(view);
