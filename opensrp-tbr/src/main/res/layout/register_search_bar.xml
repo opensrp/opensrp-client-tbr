@@ -51,7 +51,8 @@
         android:layout_marginLeft="@dimen/register_status_bar_margin"
         android:layout_marginRight="@dimen/register_status_bar_margin"
         android:layout_weight="1"
-        android:background="@drawable/scan_qr_code_bg">
+        android:background="@drawable/scan_qr_code_bg"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
