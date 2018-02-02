@@ -97,8 +97,10 @@ public class ScreenContactViewHelper {
                 TextView contactViewIndexTemplate = (TextView) frameView.findViewById(R.id.clientIndexContactTextView);
                 indexTextView = new TextView(context);
                 indexTextView.setText(R.string.index);
-                indexTextView.setLayoutParams(contactViewIndexTemplate.getLayoutParams());
-                indexTextView.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+                params= (FrameLayout.LayoutParams) contactViewIndexTemplate.getLayoutParams();
+                params.gravity=Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+                indexTextView.setLayoutParams(params);
+                indexTextView.setGravity(Gravity.BOTTOM | Gravity.CENTER);
                 indexTextView.setVisibility(View.VISIBLE);
             }
 
