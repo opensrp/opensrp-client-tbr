@@ -16,8 +16,11 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
@@ -28,12 +31,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by ndegwamartin on 10/10/2017.
  */
 
 public class Utils {
-
     public static final String TAG = Utils.class.getCanonicalName();
 
     public static void showToast(Context context, String message) {
@@ -144,7 +148,7 @@ public class Utils {
                 formattedAge = DateUtil.getDuration(timeDiff);
             }
         }
-        return formattedAge;
+        return formattedAge.contains("y") ? formattedAge.substring(0, formattedAge.indexOf('y')) : formattedAge;
     }
 
     public static String formatIdentifier(String identifier) {
@@ -181,9 +185,55 @@ public class Utils {
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f
         );
-        rotate.setDuration(240);
+        rotate.setDuration(50);
         rotate.setRepeatCount(Animation.INFINITE);
 
         return rotate;
     }
+
+    public static String getTBTypeByCode(String tbCode) {
+        if (tbCode.equals(Constants.PTB)) {
+            return Constants.PULMONARY;
+        } else if (tbCode.equals(Constants.EPTB)) {
+            return Constants.EXTRA_PULMONARY;
+        } else {
+            return "";
+        }
+    }
+
+    public static Integer getMonthCountFromDate(Date date, Date date2) {
+        String dateFormat = "yyyy-MM-dd";
+        LocalDate start = LocalDate.parse(new SimpleDateFormat(dateFormat).format(date));
+        LocalDate end = LocalDate.parse(new SimpleDateFormat(dateFormat).format(date2));
+        start = start.withDayOfMonth(1);
+        end = end.withDayOfMonth(1);
+        return abs(Months.monthsBetween(start, end).getMonths()) + 1;
+    }
+
+    public static String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
+    }
+
+    public static String getTimeAgo(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration) + " ago";
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
+    }
+
 }

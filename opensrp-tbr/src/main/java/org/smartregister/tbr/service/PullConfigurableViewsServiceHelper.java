@@ -19,9 +19,9 @@ import static org.smartregister.util.Log.logError;
 /**
  * Created by samuelgithengi on 10/27/17.
  */
-
 public class PullConfigurableViewsServiceHelper {
     private static final String TAG = PullConfigurableViewsServiceHelper.class.getCanonicalName();
+
     private boolean databaseCreated;
 
     private Context applicationContext;
@@ -32,6 +32,7 @@ public class PullConfigurableViewsServiceHelper {
 
     public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
                                               HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, boolean databaseCreated) {
+
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
         this.httpAgent = httpAgent;
@@ -77,19 +78,17 @@ public class PullConfigurableViewsServiceHelper {
 
         String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
-
         if (httpAgent == null) {
             logError(url + " http agent is null");
             return null;
         }
 
-        Response resp = httpAgent.fetchWithCredentials(url, "", "");
 
+        Response resp = httpAgent.fetchWithCredentials(url, "", "");
         if (resp.isFailure()) {
             logError(url + " not returned data");
             return null;
         }
         return new JSONArray((String) resp.payload());
     }
-
 }

@@ -1,0 +1,99 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/TreatmentOutcome_23.11.17_US",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "provider_uc",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_uc"
+      },
+      {
+        "name": "provider_town",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_town"
+      },
+      {
+        "name": "provider_city",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_city"
+      },
+      {
+        "name": "provider_province",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_province"
+      },
+      {
+        "name": "provider_id",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_id"
+      },
+      {
+        "name": "provider_location_id",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_location_id"
+      },
+      {
+        "name": "provider_location_name",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_location_name"
+      },
+      {
+        "name": "provider_location_note",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/provider_location_note"
+      },
+      {
+        "name": "start",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/end"
+      },
+      {
+        "name": "today",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/today"
+      },
+      {
+        "name": "deviceid",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/deviceid"
+      },
+      {
+        "name": "subscriberid",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/subscriberid"
+      },
+      {
+        "name": "simserial",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/simserial"
+      },
+      {
+        "name": "phonenumber",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/phonenumber"
+      },
+      {
+        "name": "date_removed",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/encounter_date"
+      },
+      {
+        "name": "confirmed_tb",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/diagnosis/confirmed_tb"
+      },
+      {
+        "name": "diagnosis_type",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/diagnosis/diagnosis_type"
+      },
+      {
+        "name": "participant_id",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/patient_info/participant_id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/patient_info/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/TreatmentOutcome_23.11.17_US/patient_info/last_name"
+      }
+    ]
+  }
+}

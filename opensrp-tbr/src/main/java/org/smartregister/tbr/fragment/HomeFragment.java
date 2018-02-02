@@ -18,6 +18,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.model.Residence;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
+import org.smartregister.tbr.model.RegisterCount;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
@@ -38,8 +39,14 @@ public class HomeFragment extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         try {
-            super.onActivityCreated(savedInstanceState);
             List<Register> values = new ArrayList<>();
 
             String jsonString = getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.HOME);
@@ -49,8 +56,7 @@ public class HomeFragment extends ListFragment {
                 List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
                 for (org.smartregister.tbr.jsonspec.model.View view : views) {
                     if (view.isVisible()) {
-                        values.add(new Register(getActivity(), view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
+                        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
                     }
                 }
                 if (values.size() > 0) {
@@ -67,13 +73,18 @@ public class HomeFragment extends ListFragment {
 
                 values.addAll(getDefaultRegisterList());
             }
-
+            saveRegisterTitles(values);
             RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values);
             setListAdapter(adapter);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
+    }
+
+    private void saveRegisterTitles(List<Register> registers) {
+        for (Register register : registers)
+            Utils.writePrefString(getActivity(), TOOLBAR_TITLE + register.getTitleToken(), register.getTitle());
     }
 
     @Override
@@ -96,30 +107,10 @@ public class HomeFragment extends ListFragment {
         startActivity(intent);
     }
 
-    public static class RegisterDataRepository {
-        public static int getPatientCountByRegisterType(String registerType) {
-            if (registerType.equals(Register.PRESUMPTIVE_PATIENTS)) {
-                return 12;
-            } else if (registerType.equals(Register.POSITIVE_PATIENTS)) {
-                return 13;
-            } else if (registerType.equals(Register.IN_TREATMENT_PATIENTS)) {
-                return 4;
-            } else {
-                return 0;
-            }
-        }
+    public static RegisterCount getPatientCountByRegisterType(String registerType) {
 
-        public static int getOverduePatientCountByRegisterType(String registerType) {
-            if (registerType.equals(Register.PRESUMPTIVE_PATIENTS)) {
-                return 0;
-            } else if (registerType.equals(Register.POSITIVE_PATIENTS)) {
-                return 10;
-            } else if (registerType.equals(Register.IN_TREATMENT_PATIENTS)) {
-                return 2;
-            } else {
-                return 0;
-            }
-        }
+        return TbrApplication.getInstance().getResultDetailsRepository().getRegisterCountByType(registerType);
+
     }
 
     private ConfigurableViewsRepository getConfigurableViewsRepository() {
@@ -138,8 +129,7 @@ public class HomeFragment extends ListFragment {
         residence.setPosition(0);
         view.setResidence(residence);
 
-        values.add(new Register(getActivity(), view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
+        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
         view = new org.smartregister.tbr.jsonspec.model.View();
         view.setIdentifier(Register.POSITIVE_PATIENTS);
@@ -147,8 +137,7 @@ public class HomeFragment extends ListFragment {
         residence.setPosition(1);
         view.setResidence(residence);
 
-        values.add(new Register(getActivity(), view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
+        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
         view = new org.smartregister.tbr.jsonspec.model.View();
         view.setIdentifier(Register.IN_TREATMENT_PATIENTS);
@@ -156,8 +145,7 @@ public class HomeFragment extends ListFragment {
 
         residence.setPosition(2);
         view.setResidence(residence);
-        values.add(new Register(getActivity(), view, RegisterDataRepository.getPatientCountByRegisterType(view.getIdentifier()),
-                RegisterDataRepository.getOverduePatientCountByRegisterType(view.getIdentifier())));
+        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
         return values;
     }
 }

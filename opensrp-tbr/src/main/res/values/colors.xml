@@ -37,6 +37,8 @@
     <color name="female_dark_pink">#b73bb6</color>
     <color name="female_pink">#de47dc</color>
     <color name="female_light_pink">#f7dbf7</color>
+    <color name="disabled_gray">#c4c4c4</color>
+    <color name="disabled_light_gray">#f0f0f0</color>
 
     <color name="material_red">#ff554e</color>
     <color name="register_title_grey">#808080</color>
@@ -51,6 +53,14 @@
     <color name="vaccine_na_bg_stk">#D4D4D4</color>
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
+
+    <color name="male_initials_background">#D7EAFD</color>
+    <color name="male_initials_text">#3A8BD8</color>
+    <color name="text_black">#000000</color>
+
+    <color name="test_result_positive_red">#c30000</color>
+    <color name="test_result_negative_black">#191919</color>
+    <color name="line_chart_blue">#218cc5</color>
 
 
 </resources>

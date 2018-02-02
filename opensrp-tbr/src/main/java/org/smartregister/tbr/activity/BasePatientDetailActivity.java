@@ -1,13 +1,13 @@
 package org.smartregister.tbr.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -15,17 +15,23 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.fragment.BasePatientDetailsFragment;
+import org.smartregister.tbr.helper.FormOverridesHelper;
+import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
+import util.TbrConstants;
+
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
 /**
  * Created by ndegwamartin on 17/11/2017.
@@ -39,19 +45,27 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
     protected int currentPage;
     private static final String TAG = BasePatientDetailActivity.class.getCanonicalName();
     private boolean formIsReadonly;
+    protected Map<String, String> patientDetails;
+    protected FormOverridesHelper formOverridesHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+
         formNames = this.buildFormNameList();
+        patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        formOverridesHelper = new FormOverridesHelper(patientDetails);
+
+        initializeEnketoForms();
     }
 
-    protected void initViewByFragmentType(BasePatientDetailsFragment baseRegisterFragment) {
+    private void initializeEnketoForms() {
 
+        Fragment baseFragment = getDetailFragment();
         // Instantiate a ViewPager and a PagerAdapter.
-        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, baseRegisterFragment);
+        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames, baseFragment);
         mPager.setOffscreenPageLimit(formNames.length);
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -62,15 +76,12 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         });
     }
 
+    protected abstract Fragment getDetailFragment();
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    //remove patient
-    public void removePatient(View view) {
-        Utils.showToast(this, "Removing patient with ID " + view.getTag(R.id.CLIENT_ID));
     }
 
     public void startFormActivity(String formName, String entityId, String metaData, boolean readonly) {
@@ -128,6 +139,12 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.RESULT_CHEST_XRAY);
         formNames.add(Constants.FORM.RESULT_CULTURE);
         formNames.add(Constants.FORM.DIAGNOSIS);
+        formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
+        formNames.add(Constants.FORM.CONTACT_SCREENING);
+        formNames.add(TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT);
+        formNames.add(TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT);
+        formNames.add(Constants.FORM.REMOVE_PATIENT);
+        formNames.add(Constants.FORM.TREATMENT_OUTCOME);
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -193,11 +210,41 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
     }
 
+
+    public void goToPatientDetailActivity(Constants.ScreenStage viewConfigurationIdentifier, Map<String, String> patientDetails) {
+        Intent intent = null;
+        String registerToken = "";
+        switch (viewConfigurationIdentifier) {
+            case PRESUMPTIVE:
+                intent = new Intent(this, PresumptivePatientDetailActivity.class);
+                registerToken = Register.PRESUMPTIVE_PATIENTS;
+                break;
+            case POSITIVE:
+                intent = new Intent(this, PositivePatientDetailActivity.class);
+                registerToken = Register.POSITIVE_PATIENTS;
+                break;
+            case IN_TREATMENT:
+                intent = new Intent(this, InTreatmentPatientDetailActivity.class);
+                registerToken = Register.IN_TREATMENT_PATIENTS;
+                break;
+            case SCREENED:
+                intent = new Intent(this, ScreenedPatientDetailActivity.class);
+                break;
+            default:
+                break;
+
+        }
+        String registerTitle = Utils.readPrefString(this, TOOLBAR_TITLE + registerToken, "");
+        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerTitle);
+        intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
+        intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
+        startActivity(intent);
+
+    }
+
     @Override
     public void onFormClosed(String recordId, String formName) {
         Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
         switchToBaseFragment();
     }
-
-    protected abstract void renderFragmentView();
 }

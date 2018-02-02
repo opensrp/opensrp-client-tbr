@@ -8,8 +8,10 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.model.Register;
+import org.smartregister.tbr.model.RegisterCount;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultDetailsRepository extends BaseRepository {
@@ -94,7 +96,7 @@ public class ResultDetailsRepository extends BaseRepository {
 
     public Map<String, String> getFormResultDetails(String formSubmissionId) {
         Cursor cursor = null;
-        Map<String, String> clientDetails = new HashMap<>();
+        Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
             String query =
@@ -116,5 +118,43 @@ public class ResultDetailsRepository extends BaseRepository {
             }
         }
         return clientDetails;
+    }
+
+
+    public RegisterCount getRegisterCountByType(String type) {
+        Cursor cursor = null;
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String suffix = "";
+            if (type.equals(Register.PRESUMPTIVE_PATIENTS)) {
+                suffix = "presumptive is NOT NULL and confirmed_tb is NULL";
+            } else if (type.equals(Register.POSITIVE_PATIENTS)) {
+                suffix = "confirmed_tb is NOT NULL and treatment_initiation_date is NULL";
+
+            } else if (type.equals(Register.IN_TREATMENT_PATIENTS)) {
+
+                suffix = "treatment_initiation_date is NOT NULL";
+            }
+
+
+            String query = "SELECT " +
+                    "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
+                    "    sum(case when " + suffix + " and next_visit_date < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
+                    " FROM ec_patient";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+
+                return new RegisterCount(cursor.getInt(cursor.getColumnIndex(RegisterCount.REGISTER_COUNT)), cursor.getInt(cursor.getColumnIndex(RegisterCount.OVERDUE_COUNT)));
+
+            }
+            return null;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return null;
     }
 }

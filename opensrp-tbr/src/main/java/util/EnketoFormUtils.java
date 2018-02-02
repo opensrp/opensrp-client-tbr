@@ -53,6 +53,7 @@ import java.io.StringWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +62,14 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import static org.smartregister.tbr.sync.TbrClientProcessor.CLIENT_EVENTS;
+import static org.smartregister.tbr.sync.TbrClientProcessor.CONTACT_SCREENING;
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
+import static util.TbrConstants.TBREACH_ID;
 
 /**
  * Created by samuelgithengi on 11/3/17.
@@ -244,7 +248,7 @@ public class EnketoFormUtils {
 
         Event e = formEntityConverter.getEventFromFormSubmission(v2FormSubmission);
 
-        if (e.getEventType().equals("Screening") || e.getEventType().equals("positive TB patient") || e.getEventType().equals("intreatment TB patient"))
+        if (Arrays.asList(CLIENT_EVENTS).contains(e.getEventType()))
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, true, e), null);
         else
             org.smartregister.util.Utils.startAsyncTask(new SavePatientAsyncTask(v2FormSubmission, mContext, false, e), null);
@@ -811,7 +815,7 @@ public class EnketoFormUtils {
 
                             String childTableName = subFormDefinition.getString("ec_bind_type");
                             String sql = "select * from '" + childTableName + "' where "
-                                    + "relational_id = '" + entityId + "'";
+                                    + "id = '" + entityId + "'";
                             String childRecordsString = theAppContext.formDataRepository().
                                     queryList(sql);
                             JSONArray childRecords = new JSONArray(childRecordsString);
@@ -1048,6 +1052,14 @@ public class EnketoFormUtils {
         return null;
     }
 
+    private Event tagSyncMetadata(Event event) {
+        AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+        event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+        event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+        return event;
+    }
+
 
     class SavePatientAsyncTask extends AsyncTask<Void, Void, Void> {
         private final org.smartregister.clientandeventmodel.FormSubmission formSubmission;
@@ -1071,7 +1083,8 @@ public class EnketoFormUtils {
                 registerActivity.hideProgressDialog();
             }
 
-            Utils.postEvent(new EnketoFormSaveCompleteEvent());
+            Utils.postEvent(new EnketoFormSaveCompleteEvent(this.formSubmission.formName()));
+
         }
 
         @Override
@@ -1088,39 +1101,43 @@ public class EnketoFormUtils {
                     Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
                     saveClient(c);
                 }
-                AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
-                event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
-                event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
-                event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+                event = tagSyncMetadata(event);
                 saveEvent(event);
                 Gson gson = new GsonBuilder().create();
-                if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
-                    Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
-                    saveClient(client);
-                } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
-                    JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
-                    Client client = gson.fromJson(json.toString(), Client.class);
-                    client.addAttribute(BASELINE, event.getVersion());
-                    saveClient(client);
+                if (event.getEventType() != null) {
+                    if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        client.addAttribute(DIAGNOSIS_DATE, new DateTime(event.getEventDate()).toString());
+                        saveClient(client);
+                    } else if (event.getEventType().equals(TREATMENT_INITIATION)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        client.addAttribute(BASELINE, event.getVersion());
+                        saveClient(client);
+                    } else if (event.getEventType().equals(CONTACT_SCREENING)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        Client c = formEntityConverter.getClientFromFormSubmission(formSubmission);
+                        client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
+                        client.setAddresses(c.getAddresses());
+                        saveClient(client);
+                    }
                 }
-
 
                 Map<String, Map<String, Object>> dep = formEntityConverter.
                         getDependentClientsFromFormSubmission(formSubmission);
                 for (Map<String, Object> cm : dep.values()) {
-                    if (saveClient) {
-                        Client cin = (Client) cm.get("client");
-                        saveClient(cin);
-                    }
+                    Client cin = (Client) cm.get("client");
+                    saveClient(cin);
                     Event evin = (Event) cm.get("event");
+                    evin = tagSyncMetadata(evin);
                     saveEvent(evin);
                 }
                 long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
-
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
             } catch (Exception e) {
                 android.util.Log.e(TAG, e.toString(), e);
             }

@@ -27,10 +27,11 @@ public class RegisterTest extends BaseUnitTest {
     @Mock
     private JsonSpecHelper jsonSpecHelper;
 
+    @Mock
+    private RegisterCount registerCount;
+
     private static final String TITlE = "title";
     private static final String TITlE_TOKEN = "title_token";
-    private static final int INT_0 = 0;
-    private static final int INT_1 = 1;
     private static final int INT_10 = 10;
     private static final int INT_20 = 20;
 
@@ -44,14 +45,14 @@ public class RegisterTest extends BaseUnitTest {
     @Test
     public void assertDefaultConstructorsCreateNonNullObjectOnInstantiation() {
         Mockito.when(view.getResidence()).thenReturn(residence);
-        junit.framework.Assert.assertNotNull(new RegisterTestVersion(RuntimeEnvironment.application, view, INT_0, INT_1));
+        junit.framework.Assert.assertNotNull(new RegisterTestVersion(RuntimeEnvironment.application, view, registerCount));
     }
 
 
     @Test
     public void assertTestGettersAndSetters() {
         Mockito.when(view.getResidence()).thenReturn(residence);
-        Register register = new RegisterTestVersion(RuntimeEnvironment.application, view, INT_0, INT_1);
+        Register register = new RegisterTestVersion(RuntimeEnvironment.application, view, registerCount);
 
         register.setTitle(TITlE);
         junit.framework.Assert.assertEquals(TITlE, register.getTitle());
@@ -68,8 +69,8 @@ public class RegisterTest extends BaseUnitTest {
 
     private class RegisterTestVersion extends Register {
 
-        public RegisterTestVersion(Context context, View view, int totalPatients, int totalPatientsWithDueOverdue) {
-            super(context, view, totalPatients, totalPatientsWithDueOverdue);
+        public RegisterTestVersion(Context context, View view, RegisterCount registerCount) {
+            super(context, view, registerCount);
         }
 
         @Override

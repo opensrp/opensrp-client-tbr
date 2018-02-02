@@ -15,7 +15,6 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
@@ -190,7 +189,7 @@ public class SyncService extends Service {
                             } else if (eCount == 0) {
                                 return Observable.just(FetchStatus.nothingFetched);
                             } else {
-                                Pair<Long, Long> serverVersionPair = getMinMaxServerVersions(jsonObject);
+                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
                                 long lastServerVersion = serverVersionPair.second - 1;
                                 if (eCount < EVENT_PULL_LIMIT) {
                                     lastServerVersion = serverVersionPair.second;
@@ -327,40 +326,6 @@ public class SyncService extends Service {
             observables = new ArrayList<>();
             handleSync();
         }
-    }
-
-    private Pair<Long, Long> getMinMaxServerVersions(JSONObject jsonObject) {
-        final String EVENTS = "events";
-        final String SERVER_VERSION = "serverVersion";
-        try {
-            if (jsonObject != null && jsonObject.has(EVENTS)) {
-                JSONArray events = jsonObject.getJSONArray(EVENTS);
-
-                long maxServerVersion = Long.MIN_VALUE;
-                long minServerVersion = Long.MAX_VALUE;
-
-                for (int i = 0; i < events.length(); i++) {
-                    Object o = events.get(i);
-                    if (o instanceof JSONObject) {
-                        JSONObject jo = (JSONObject) o;
-                        if (jo.has(SERVER_VERSION)) {
-                            long serverVersion = jo.getLong(SERVER_VERSION);
-                            if (serverVersion > maxServerVersion) {
-                                maxServerVersion = serverVersion;
-                            }
-
-                            if (serverVersion < minServerVersion) {
-                                minServerVersion = serverVersion;
-                            }
-                        }
-                    }
-                }
-                return Pair.create(minServerVersion, maxServerVersion);
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.getMessage());
-        }
-        return Pair.create(0L, 0L);
     }
 
     private class ResponseParcel {
