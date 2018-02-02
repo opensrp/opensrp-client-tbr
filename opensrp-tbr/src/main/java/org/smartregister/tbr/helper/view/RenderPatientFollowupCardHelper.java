@@ -40,10 +40,12 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
                         followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE), true), "dd/MM"));
                         DateTime treatmentStartDate = DateTime.parse(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString());
                         int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
-                        if (due < 0)
+                        if (due < 0) {
                             followUpView.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                        else if (due == 0) {
+                            followUpView.setTextColor(context.getResources().getColor(R.color.white));
+                        } else if (due == 0) {
                             followUpView.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                            followUpView.setTextColor(context.getResources().getColor(R.color.white));
                         } else {
                             followUpView.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                             followUpView.setBackgroundResource(R.drawable.due_vaccine_na_bg);

@@ -110,23 +110,24 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
                                 ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
 
                                 View fallbackView = viewParent.findViewById(getCardviewIdentifierByConfiguration(componentViewConfiguration.getIdentifier()));
-                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView) : fallbackView;
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView, componentView.isVisible()) : fallbackView;
+                                if (componentView.isVisible()) {
+                                    if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
 
-                                if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+                                        renderDemographicsView(json2View, patientDetails);
 
-                                    renderDemographicsView(json2View, patientDetails);
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                                        renderPositiveResultsView(json2View, patientDetails);
+                                        //Record Results click handler
+                                        TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
+                                        recordResults.setOnClickListener(this);
 
-                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
-                                    renderPositiveResultsView(json2View, patientDetails);
-                                    //Record Results click handler
-                                    TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
-                                    recordResults.setOnClickListener(this);
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
 
-                                } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+                                        renderServiceHistoryView(json2View, patientDetails);
+                                    }
 
-                                    renderServiceHistoryView(json2View, patientDetails);
                                 }
-
                             }
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage());

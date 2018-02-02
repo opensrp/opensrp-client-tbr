@@ -14,7 +14,7 @@ public class View {
 
     private Residence residence;
 
-    private boolean visible;
+    private boolean visible = true;
 
     private String label;
 
