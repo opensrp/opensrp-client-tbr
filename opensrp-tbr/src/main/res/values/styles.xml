@@ -20,6 +20,13 @@
     <style name="AppTheme.Login">
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textSize">@dimen/login_font_size</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
+    <style name="CheckBoxAppTheme">
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:colorControlNormal">@android:color/white</item>
+        <item name="android:colorControlHighlight">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
     </style>
 
