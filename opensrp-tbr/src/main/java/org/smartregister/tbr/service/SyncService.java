@@ -17,18 +17,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.sync.TbrClientProcessor;
-import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -46,6 +44,7 @@ import io.reactivex.schedulers.Schedulers;
 import util.NetworkUtils;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+import static org.smartregister.tbr.BuildConfig.SYNC_TYPE;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -165,21 +164,22 @@ public class SyncService extends Service {
     private void pullECFromServer() {
         final ECSyncHelper ecSyncHelper = ECSyncHelper.getInstance(context);
 
-        // Fetch locations
-        String locations = Utils.getPreference(context, LoginActivity.PREF_TEAM_LOCATIONS, "");
-        if (StringUtils.isBlank(locations)) {
+        // Fetch team
+        AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        String teamId = sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+        if (StringUtils.isBlank(teamId)) {
             sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed, true);
             return;
         }
 
-        Observable.just(locations)
+        Observable.just(teamId)
                 .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
                 .subscribeOn(Schedulers.computation())
                 .flatMap(new Function<String, ObservableSource<?>>() {
                     @Override
-                    public ObservableSource<?> apply(@NonNull String locations) throws Exception {
+                    public ObservableSource<?> apply(@NonNull String teamId) throws Exception {
 
-                        JSONObject jsonObject = fetchRetry(locations, 0);
+                        JSONObject jsonObject = fetchRetry(teamId, 0);
                         if (jsonObject == null) {
                             return Observable.just(FetchStatus.fetchedFailed);
                         } else {
@@ -274,7 +274,7 @@ public class SyncService extends Service {
 
     }
 
-    private JSONObject fetchRetry(String locations, int count) {
+    private JSONObject fetchRetry(String syncPropertyValue, int count) {
         // Request spacing
         try {
             final int ONE_SECOND = 1000;
@@ -284,7 +284,7 @@ public class SyncService extends Service {
         }
 
         try {
-            return ECSyncHelper.getInstance(context).fetchAsJsonObject(AllConstants.SyncFilters.FILTER_LOCATION_ID, locations);
+            return ECSyncHelper.getInstance(context).fetchAsJsonObject(SYNC_TYPE, syncPropertyValue);
 
         } catch (Exception e) {
             Log.e(getClass().getName(), e.getMessage(), e);
@@ -294,7 +294,7 @@ public class SyncService extends Service {
                 return null;
             } else {
                 int newCount = count + 1;
-                return fetchRetry(locations, newCount);
+                return fetchRetry(syncPropertyValue, newCount);
             }
 
         }
