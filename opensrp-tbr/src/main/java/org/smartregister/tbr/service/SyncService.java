@@ -15,20 +15,17 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.sync.TbrClientProcessor;
-import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -46,6 +43,7 @@ import io.reactivex.schedulers.Schedulers;
 import util.NetworkUtils;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+import static org.smartregister.tbr.BuildConfig.SYNC_TYPE;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -165,21 +163,22 @@ public class SyncService extends Service {
     private void pullECFromServer() {
         final ECSyncHelper ecSyncHelper = ECSyncHelper.getInstance(context);
 
-        // Fetch locations
-        String locations = Utils.getPreference(context, LoginActivity.PREF_TEAM_LOCATIONS, "");
-        if (StringUtils.isBlank(locations)) {
+        // Fetch team
+        AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        String teamId = sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+        if (StringUtils.isBlank(teamId)) {
             sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed, true);
             return;
         }
 
-        Observable.just(locations)
+        Observable.just(teamId)
                 .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
                 .subscribeOn(Schedulers.computation())
                 .flatMap(new Function<String, ObservableSource<?>>() {
                     @Override
-                    public ObservableSource<?> apply(@NonNull String locations) throws Exception {
+                    public ObservableSource<?> apply(@NonNull String teamId) throws Exception {
 
-                        JSONObject jsonObject = fetchRetry(locations, 0);
+                        JSONObject jsonObject = fetchRetry(teamId, 0);
                         if (jsonObject == null) {
                             return Observable.just(FetchStatus.fetchedFailed);
                         } else {
@@ -190,7 +189,7 @@ public class SyncService extends Service {
                             } else if (eCount == 0) {
                                 return Observable.just(FetchStatus.nothingFetched);
                             } else {
-                                Pair<Long, Long> serverVersionPair = getMinMaxServerVersions(jsonObject);
+                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
                                 long lastServerVersion = serverVersionPair.second - 1;
                                 if (eCount < EVENT_PULL_LIMIT) {
                                     lastServerVersion = serverVersionPair.second;
@@ -274,7 +273,7 @@ public class SyncService extends Service {
 
     }
 
-    private JSONObject fetchRetry(String locations, int count) {
+    private JSONObject fetchRetry(String syncPropertyValue, int count) {
         // Request spacing
         try {
             final int ONE_SECOND = 1000;
@@ -284,7 +283,7 @@ public class SyncService extends Service {
         }
 
         try {
-            return ECSyncHelper.getInstance(context).fetchAsJsonObject(AllConstants.SyncFilters.FILTER_LOCATION_ID, locations);
+            return ECSyncHelper.getInstance(context).fetchAsJsonObject(SYNC_TYPE, syncPropertyValue);
 
         } catch (Exception e) {
             Log.e(getClass().getName(), e.getMessage(), e);
@@ -294,7 +293,7 @@ public class SyncService extends Service {
                 return null;
             } else {
                 int newCount = count + 1;
-                return fetchRetry(locations, newCount);
+                return fetchRetry(syncPropertyValue, newCount);
             }
 
         }
@@ -327,40 +326,6 @@ public class SyncService extends Service {
             observables = new ArrayList<>();
             handleSync();
         }
-    }
-
-    private Pair<Long, Long> getMinMaxServerVersions(JSONObject jsonObject) {
-        final String EVENTS = "events";
-        final String SERVER_VERSION = "serverVersion";
-        try {
-            if (jsonObject != null && jsonObject.has(EVENTS)) {
-                JSONArray events = jsonObject.getJSONArray(EVENTS);
-
-                long maxServerVersion = Long.MIN_VALUE;
-                long minServerVersion = Long.MAX_VALUE;
-
-                for (int i = 0; i < events.length(); i++) {
-                    Object o = events.get(i);
-                    if (o instanceof JSONObject) {
-                        JSONObject jo = (JSONObject) o;
-                        if (jo.has(SERVER_VERSION)) {
-                            long serverVersion = jo.getLong(SERVER_VERSION);
-                            if (serverVersion > maxServerVersion) {
-                                maxServerVersion = serverVersion;
-                            }
-
-                            if (serverVersion < minServerVersion) {
-                                minServerVersion = serverVersion;
-                            }
-                        }
-                    }
-                }
-                return Pair.create(minServerVersion, maxServerVersion);
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.getMessage());
-        }
-        return Pair.create(0L, 0L);
     }
 
     private class ResponseParcel {
