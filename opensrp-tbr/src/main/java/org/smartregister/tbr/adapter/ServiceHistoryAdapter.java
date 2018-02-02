@@ -34,7 +34,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     private Context mContext;
     private LayoutInflater inflater;
 
-    public ServiceHistoryAdapter(Context context, net.sqlcipher.Cursor cursor, int flags) {
+    public ServiceHistoryAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
         this.mContext = context;
 
@@ -44,12 +44,11 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     @Override
     public void onClick(View view) {
         View formView = view.findViewById(R.id.formNameTextView);
-        Utils.showToastShort(mContext, "Opening the " + formView.getTag(R.id.FORM_NAME) + " form");
 
         int formIdentifier = getFormIdentifierFromName(formView.getTag(R.id.FORM_NAME).toString());
         String formSubmissionId = formView.getTag(R.id.FORM_SUBMISSION_ID).toString();
         String baseEntityId = formView.getTag(R.id.BASE_ENTITY_ID).toString();
-        PopulateEnketoFormUtils enketoFormUtils = PopulateEnketoFormUtils.getInstance(mContext,TbrApplication.getInstance().getEventClientRepository());
+        PopulateEnketoFormUtils enketoFormUtils = PopulateEnketoFormUtils.getInstance(mContext, TbrApplication.getInstance().getEventClientRepository());
         String form;
         switch (formIdentifier) {
             case R.id.result_gene_xpert:
@@ -65,17 +64,18 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
                 form = Constants.FORM.RESULT_CULTURE;
                 break;
             case R.id.addNewPatient:
-                formSubmissionId=null;
+                formSubmissionId = null;
                 form = Constants.FORM.NEW_PATIENT_REGISTRATION;
                 break;
             case R.id.tbDiagnosisForm:
+                formSubmissionId = null;
                 form = Constants.FORM.DIAGNOSIS;
                 break;
             default:
                 return;
         }
-        FieldOverrides formOverrides = enketoFormUtils.populateFormOverrides(baseEntityId,formSubmissionId, form);
-        ((BasePatientDetailActivity) mContext).startFormActivity(form, baseEntityId, formOverrides.getJSONString(),true);
+        FieldOverrides formOverrides = enketoFormUtils.populateFormOverrides(baseEntityId, formSubmissionId, form);
+        ((BasePatientDetailActivity) mContext).startFormActivity(form, baseEntityId, formOverrides.getJSONString(), true);
 
     }
 
@@ -88,7 +88,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
             return R.id.result_chest_xray;
         } else if (StringUtils.containsIgnoreCase(formName, "culture")) {
             return R.id.result_culture;
-        } else if (StringUtils.containsIgnoreCase(formName, "registration")) {
+        } else if (StringUtils.containsIgnoreCase(formName, "screening")) {
             return R.id.addNewPatient;
         } else if (StringUtils.containsIgnoreCase(formName, "diagnosis")) {
             return R.id.tbDiagnosisForm;
@@ -105,9 +105,10 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView dateView = (TextView) view.findViewById(R.id.formfillDateTextView);
-        String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals("1") ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(ResultsRepository.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE.toString())), true), "dd MMM yyyy");
-        dateView.setText(date);
-
+        if (cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)) != null) {
+            String date = cursor.getString(cursor.getColumnIndex(RenderServiceHistoryCardHelper.UNION_TABLE_FLAG)).equals(RenderServiceHistoryCardHelper.UNION_TABLE_FLAGS.TEST_RESULT) ? Utils.formatDateFromLong(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)), "dd MMM yyyy") : Utils.formatDate(org.smartregister.util.Utils.toDate(cursor.getString(cursor.getColumnIndex(Constants.KEY.DATE)), true), "dd MMM yyyy");
+            dateView.setText(date);
+        }
         TextView formName = (TextView) view.findViewById(R.id.formNameTextView);
         formName.setText(cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE)));
         formName.setOnClickListener(this);

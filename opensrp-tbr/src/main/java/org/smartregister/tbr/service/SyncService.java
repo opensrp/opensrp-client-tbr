@@ -16,18 +16,16 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.sync.TbrClientProcessor;
-import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -45,6 +43,7 @@ import io.reactivex.schedulers.Schedulers;
 import util.NetworkUtils;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+import static org.smartregister.tbr.BuildConfig.SYNC_TYPE;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -61,6 +60,7 @@ public class SyncService extends Service {
     private Context context;
     private HTTPAgent httpAgent;
     private List<Observable<?>> observables;
+    private boolean fetchFinished;
 
     @Nullable
     @Override
@@ -103,7 +103,7 @@ public class SyncService extends Service {
         }
         sendSyncStatusBroadcastMessage(FetchStatus.fetchStarted);
         if (!NetworkUtils.isNetworkAvailable()) {
-            sendSyncStatusBroadcastMessage(FetchStatus.noConnection);
+            sendSyncStatusBroadcastMessage(FetchStatus.noConnection, true);
             return;
         }
 
@@ -113,7 +113,7 @@ public class SyncService extends Service {
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
-            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed);
+            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed, true);
         }
 
     }
@@ -162,77 +162,64 @@ public class SyncService extends Service {
 
     private void pullECFromServer() {
         final ECSyncHelper ecSyncHelper = ECSyncHelper.getInstance(context);
-        // Fetch locations
-        String locations = Utils.getPreference(context, LoginActivity.PREF_TEAM_LOCATIONS, "");
-        if (StringUtils.isBlank(locations)) {
-            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed);
-            stopSelf();
+
+        // Fetch team
+        AllSharedPreferences sharedPreferences = TbrApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        String teamId = sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+        if (StringUtils.isBlank(teamId)) {
+            sendSyncStatusBroadcastMessage(FetchStatus.fetchedFailed, true);
             return;
         }
 
-        Observable.just(locations)
+        Observable.just(teamId)
                 .observeOn(AndroidSchedulers.from(mHandlerThread.getLooper()))
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .flatMap(new Function<String, ObservableSource<?>>() {
                     @Override
-                    public ObservableSource<?> apply(@NonNull String locations) throws Exception {
-                        return processEventClients(ecSyncHelper, locations);
+                    public ObservableSource<?> apply(@NonNull String teamId) throws Exception {
+
+                        JSONObject jsonObject = fetchRetry(teamId, 0);
+                        if (jsonObject == null) {
+                            return Observable.just(FetchStatus.fetchedFailed);
+                        } else {
+                            final String NO_OF_EVENTS = "no_of_events";
+                            int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
+                            if (eCount < 0) {
+                                return Observable.just(FetchStatus.fetchedFailed);
+                            } else if (eCount == 0) {
+                                return Observable.just(FetchStatus.nothingFetched);
+                            } else {
+                                Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
+                                long lastServerVersion = serverVersionPair.second - 1;
+                                if (eCount < EVENT_PULL_LIMIT) {
+                                    lastServerVersion = serverVersionPair.second;
+                                }
+
+                                ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
+                                return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
+                            }
+                        }
                     }
                 })
                 .subscribe(new Consumer<Object>() {
                     @SuppressWarnings("unchecked")
                     @Override
                     public void accept(Object o) throws Exception {
-                        if (o == null)
-                            return;
-                        else if (o instanceof ResponseParcel) {
-                            ResponseParcel responseParcel = (ResponseParcel) o;
-                            saveResponseParcel(responseParcel);
-                        } else if (o instanceof FetchStatus) {
-                            final FetchStatus fetchStatus = (FetchStatus) o;
-                            if (observables != null && !observables.isEmpty()) {
-                                Observable.zip(observables, new Function<Object[], Object>() {
-                                    @Override
-                                    public Object apply(@NonNull Object[] objects) throws Exception {
-                                        return FetchStatus.fetched;
-                                    }
-                                }).subscribe(new Consumer<Object>() {
-                                    @Override
-                                    public void accept(Object o) throws Exception {
-                                        complete(fetchStatus);
-                                    }
-                                });
-                            } else {
-                                complete(fetchStatus);
+                        if (o != null) {
+                            if (o instanceof ResponseParcel) {
+                                ResponseParcel responseParcel = (ResponseParcel) o;
+                                saveResponseParcel(responseParcel);
+                            } else if (o instanceof FetchStatus) {
+                                final FetchStatus fetchStatus = (FetchStatus) o;
+                                if (observables == null || observables.isEmpty()) {
+                                    complete(fetchStatus);
+                                } else {
+                                    fetchFinished = true;
+                                }
                             }
-
                         }
                     }
                 });
-
-    }
-
-    private Observable processEventClients(ECSyncHelper ecSyncHelper, String locations) throws Exception {
-        JSONObject jsonObject = fetchRetry(locations, 0);
-        if (jsonObject == null) {
-            return Observable.just(FetchStatus.fetchedFailed);
-        }
-        final String NO_OF_EVENTS = "no_of_events";
-        int eCount = jsonObject.has(NO_OF_EVENTS) ? jsonObject.getInt(NO_OF_EVENTS) : 0;
-        if (eCount < 0) {
-            return Observable.just(FetchStatus.fetchedFailed);
-        } else if (eCount == 0) {
-            return Observable.just(FetchStatus.nothingFetched);
-        } else {
-            Pair<Long, Long> serverVersionPair = ecSyncHelper.getMinMaxServerVersions(jsonObject);
-            long lastServerVersion = serverVersionPair.second - 1;
-            if (eCount < EVENT_PULL_LIMIT) {
-                lastServerVersion = serverVersionPair.second;
-            }
-
-            ecSyncHelper.updateLastSyncTimeStamp(lastServerVersion);
-            return Observable.just(new ResponseParcel(jsonObject, serverVersionPair));
-        }
     }
 
     private void saveResponseParcel(final ResponseParcel responseParcel) {
@@ -263,18 +250,30 @@ public class SyncService extends Service {
         observable.subscribe(new Consumer<FetchStatus>() {
             @Override
             public void accept(FetchStatus fetchStatus) throws Exception {
-                sendSyncStatusBroadcastMessage(FetchStatus.fetched);
+                // Remove observable from list
                 observables.remove(observable);
+                Log.i(getClass().getName(), "Deleted: one observable, new count:" + observables.size());
+
+                if ((observables == null || observables.isEmpty()) && fetchFinished) {
+                    complete(FetchStatus.fetched);
+                } else {
+                    sendSyncStatusBroadcastMessage(FetchStatus.fetched);
+
+                }
             }
         });
 
+        // Add observable to list
         observables.add(observable);
+
+        Long observableSize = observables == null ? 0L : observables.size();
+        Log.i(getClass().getName(), "Added: one observable, new count: " + observableSize);
 
         pullECFromServer();
 
     }
 
-    private JSONObject fetchRetry(String locations, int count) {
+    private JSONObject fetchRetry(String syncPropertyValue, int count) {
         // Request spacing
         try {
             final int ONE_SECOND = 1000;
@@ -284,7 +283,7 @@ public class SyncService extends Service {
         }
 
         try {
-            return ECSyncHelper.getInstance(context).fetchAsJsonObject(AllConstants.SyncFilters.FILTER_LOCATION_ID, locations);
+            return ECSyncHelper.getInstance(context).fetchAsJsonObject(SYNC_TYPE, syncPropertyValue);
 
         } catch (Exception e) {
             Log.e(getClass().getName(), e.getMessage(), e);
@@ -294,7 +293,7 @@ public class SyncService extends Service {
                 return null;
             } else {
                 int newCount = count + 1;
-                return fetchRetry(locations, newCount);
+                return fetchRetry(syncPropertyValue, newCount);
             }
 
         }
@@ -302,12 +301,18 @@ public class SyncService extends Service {
 
     private void complete(FetchStatus fetchStatus) {
         ECSyncHelper.getInstance(context).updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
-        sendSyncStatusBroadcastMessage(fetchStatus);
+        sendSyncStatusBroadcastMessage(fetchStatus, true);
         stopSelf();
     }
 
     private void sendSyncStatusBroadcastMessage(FetchStatus fetchStatus) {
+        sendSyncStatusBroadcastMessage(fetchStatus, false);
+    }
+
+    private void sendSyncStatusBroadcastMessage(FetchStatus fetchStatus, boolean isComplete) {
         EventBus.getDefault().post(new SyncEvent(fetchStatus));
+        if (isComplete)
+            stopSelf();
     }
 
     // inner classes

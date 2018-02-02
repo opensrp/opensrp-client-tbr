@@ -50,6 +50,23 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PositivePatientDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.InTreatmentPatientDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ScreenedPatientDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activity.PositivePatientRegisterActivity"
@@ -72,6 +89,10 @@
         <service android:name=".service.PullConfigurableViewsIntentService" />
 
         <receiver android:name=".receiver.TbrSyncBroadcastReceiver" />
+
+        <provider
+            android:name=".provider.ServiceHistoryProvider"
+            android:authorities="com.smartregister.tbr.service.history.provider" />
 
     </application>
 

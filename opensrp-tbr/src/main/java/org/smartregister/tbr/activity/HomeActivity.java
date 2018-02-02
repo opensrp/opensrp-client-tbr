@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.BaseEvent;
+import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
@@ -63,9 +64,13 @@ public class HomeActivity extends BaseActivity {
     public void manualSync(View view) {
         refreshButton = view;
         view.startAnimation(Utils.getRotateAnimation());
-        TriggerSyncEvent triggerSyncEvent = new TriggerSyncEvent();
-        triggerSyncEvent.setManualSync(true);
-        postEvent(triggerSyncEvent);
+        TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
+        viewConfigurationSyncEvent.setManualSync(true);
+        postEvent(viewConfigurationSyncEvent);
+        if (view != null) {
+            TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
+            populateLastSync(textView);
+        }
     }
 
     public void postEvent(BaseEvent event) {
@@ -98,22 +103,20 @@ public class HomeActivity extends BaseActivity {
         //Set last sync time
         TextView lastSyncTimeTextView = (TextView) findViewById(R.id.registerLastSyncTime);
         if (lastSyncTimeTextView != null) {
-            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM d HH:mm");
+            String defaultLastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
             lastSyncTimeTextView.setText("Last sync: " + Utils.readPrefString(this, LAST_SYNC_TIME_STRING, defaultLastSyncTime));
         }
 
         //Set App Name
         MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
+        TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
         if (config != null && config.getApplicationName() != null) {
-            TextView title = (TextView) toolbar.findViewById(R.id.custom_toolbar_title);
             title.setText(config.getApplicationName());
         } else {
-            Utils.showDialogMessage(this, "Error", "Missing Main Configuration on server");
+            title.setText(R.string.app_title);
         }
         try {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.registers_container, new HomeFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.registers_container, new HomeFragment()).commit();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -122,6 +125,15 @@ public class HomeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViewFromConfigurationChange(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
         if (syncCompleteEvent != null && refreshButton != null) {
+            refreshButton.clearAnimation();
+            processView();
+
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    public void refreshViewFromConfigurationChange(EnketoFormSaveCompleteEvent enketoFormSaveCompleteEvent) {
+        if (enketoFormSaveCompleteEvent != null && refreshButton != null) {
             refreshButton.clearAnimation();
             processView();
 

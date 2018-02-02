@@ -1,0 +1,38 @@
+<model>
+    <instance>
+        <RemovePt_23.11.17 xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Remove Patient"
+            id="removal_reason" version="201801230938">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
+            <reason_removal openmrs_entity="concept" openmrs_entity_id="TBR: remove patient" />
+            <oth_specify openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" />
+            <meta>
+                <instanceID />
+            </meta>
+        </RemovePt_23.11.17>
+    </instance>
+</model>

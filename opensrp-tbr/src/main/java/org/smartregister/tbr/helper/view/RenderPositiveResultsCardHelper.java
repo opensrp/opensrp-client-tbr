@@ -2,16 +2,18 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.text.WordUtils;
+import com.google.common.collect.ImmutableMap;
+
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.model.Result;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
+import java.util.Date;
 import java.util.Map;
 
 import util.TbrConstants;
@@ -22,10 +24,11 @@ import util.TbrSpannableStringBuilder;
  */
 
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
-    private static final String DETECTED = "detected";
+    private TestResultsStringBuilderHelper testResultsStringBuilderHelper;
 
     public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
+        testResultsStringBuilderHelper = new TestResultsStringBuilderHelper(context);
     }
 
     @Override
@@ -35,118 +38,141 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
                 String baseEntityId = extra.get(Constants.KEY._ID);
-                view.setTag(baseEntityId);
+                view.setTag(R.id.BASE_ENTITY_ID, baseEntityId);
 
-                String dateString = context.getString(R.string.first_encounter);
-                if (extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty()) {
-                    dateString += Constants.CHAR.SPACE + Utils.formatDate(org.smartregister.util.Utils.toDate(extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
-                }
 
-                TextView firstEncounterDateView = (TextView) view.findViewById(R.id.firstEncounterDateTextView);
-                firstEncounterDateView.setText(dateString);
-                TextView results = (TextView) view.findViewById(R.id.result_details);
-                Map<String, String> testResults = ((ResultsRepository) repository).getLatestResults(baseEntityId);
+                if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS) {
 
-                TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-                if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
-                    stringBuilder = getMTBResultStringBuilder(testResults, stringBuilder);
-                }
+                    InitializeRenderParams params = new InitializeRenderParams(extra, view, true, true);//baseline
+                    initializeRenderLayout(params);
 
-                if (testResults.containsKey(TbrConstants.RESULT.TEST_RESULT)) {
-                    stringBuilder = getTestResultsStringBuilder(testResults, stringBuilder);
+                    params = new InitializeRenderParams(extra, view, true, false); //latest
+                    initializeRenderLayout(params);
+                    view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
 
-                }
-
-                if (testResults.containsKey(TbrConstants.RESULT.CULTURE_RESULT)) {
-                    stringBuilder = getCultureResultStringBuilder(testResults, stringBuilder);
-                }
-                if (testResults.containsKey(TbrConstants.RESULT.XRAY_RESULT)) {
-                    stringBuilder = getXRayResultStringBuilder(testResults, stringBuilder);
-
-                }
-                if (stringBuilder.length() > 0) {
-                    results.setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.no_results_recorded).setVisibility(View.GONE);
-                    results.setText(stringBuilder);
                 } else {
-                    results.setVisibility(View.GONE);
-                    view.findViewById(R.id.no_results_recorded).setVisibility(View.VISIBLE);
+
+                    InitializeRenderParams params = new InitializeRenderParams(extra, view, false, false);
+                    initializeRenderLayout(params);
                 }
+
             }
 
         });
 
     }
 
-    private TbrSpannableStringBuilder getMTBResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
-        stringBuilder.append("Xpe ");
-        if (testResults.get(TbrConstants.RESULT.MTB_RESULT).equals(DETECTED))
-            stringBuilder.append("+ve", redForegroundColorSpan);
-        else
-            stringBuilder.append("-ve", redForegroundColorSpan);
-        stringBuilder.append("/");
-        if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT) && testResults.get(TbrConstants.RESULT.RIF_RESULT).equals(DETECTED))
-            stringBuilder.append("+ve", redForegroundColorSpan);
-        else
-            stringBuilder.append("-ve", redForegroundColorSpan);
-        return stringBuilder;
+    private void initializeRenderLayout(InitializeRenderParams params) {
+
+        Map<String, Result> testResults = getTestResults(params);
+
+        TextView firstEncounterDateView = getFirstEncounterDateView(params);
+
+        if (hasFirstEncounter(params)) {
+
+            String firstEncounterDate = Utils.formatDate(org.smartregister.util.Utils.toDate(params.extra.get(Constants.KEY.FIRST_ENCOUNTER).toString(), true), "dd MMM yyyy");
+            String dateString = context.getString(R.string.first_encounter) + Constants.CHAR.SPACE + firstEncounterDate;
+            firstEncounterDateView.setText(dateString);
+        } else if (params.isIntreatment) {
+            String baseLineText = "Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")";
+            firstEncounterDateView.setText(params.isBaseline ? baseLineText : context.getString(R.string.latest));
+        }
+
+        TextView results = getBaselineTextView(params);
+
+        TbrSpannableStringBuilder stringBuilder = getConstructedStringBuilder(testResults, params);
+
+        if (stringBuilder.length() > 0) {
+            results.setVisibility(View.VISIBLE);
+            params.view.findViewById(params.isBaseline ? R.id.baseline_no_results_recorded : R.id.no_results_recorded).setVisibility(View.GONE);
+            results.setText(stringBuilder);
+        } else {
+            results.setVisibility(View.GONE);
+            params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.no_results_recorded).setVisibility(View.VISIBLE);
+
+        }
     }
 
-    private TbrSpannableStringBuilder getTestResultsStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan redForegroundColorSpan = getRedForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append(",\t");
-        stringBuilder.append("Smr ");
-        switch (testResults.get(TbrConstants.RESULT.TEST_RESULT)) {
-            case "one_plus":
-                stringBuilder.append("1+", redForegroundColorSpan);
-                break;
-            case "two_plus":
-                stringBuilder.append("2+", redForegroundColorSpan);
-                break;
-            case "three_plus":
-                stringBuilder.append("3+", redForegroundColorSpan);
-                break;
-            default:
-                stringBuilder.append(WordUtils.capitalize(testResults.get(TbrConstants.RESULT.TEST_RESULT).substring(0, 2)), redForegroundColorSpan);
-                break;
+    private TextView getBaselineTextView(InitializeRenderParams params) {
+        return (TextView) params.view.findViewById(params.isBaseline ? R.id.baseline_result_details : R.id.result_details);
+    }
+
+    private TextView getFirstEncounterDateView(InitializeRenderParams params) {
+        return (TextView) params.view.findViewById(params.isBaseline ? R.id.baselineTextView : R.id.firstEncounterDateTextView);
+    }
+
+    private boolean hasFirstEncounter(InitializeRenderParams params) {
+        return !params.isIntreatment && params.extra.containsKey(Constants.KEY.FIRST_ENCOUNTER) && !params.extra.get(Constants.KEY.FIRST_ENCOUNTER).isEmpty();
+    }
+
+    private Map<String, Result> getTestResults(InitializeRenderParams params) {
+        return params.isBaseline ? getBaselineTestResults(params) : getLatestResults(params);
+    }
+
+    private Map<String, Result> getLatestResults(InitializeRenderParams params) {
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), null);
+    }
+
+    private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
+    }
+
+    private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
+        if (params.isIntreatment && !params.isBaseline) {
+            Date dateTreatmentInitiatied = org.smartregister.util.Utils.toDate(params.extra.get(TbrConstants.KEY.TREATMENT_INITIATION_DATE), true);
+            stringBuilder.append(Utils.formatDate(dateTestGiven, "dd MMM") + " (M" + Utils.getMonthCountFromDate(dateTreatmentInitiatied, dateTestGiven) + ")" + Constants.CHAR.COLON + Constants.CHAR.SPACE);
         }
         return stringBuilder;
     }
 
+    private TbrSpannableStringBuilder getConstructedStringBuilder(Map<String, Result> testResults, InitializeRenderParams params) {
+        TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
 
-    private TbrSpannableStringBuilder getCultureResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append(", ");
-        stringBuilder.append("Cul ");
-        stringBuilder.append(WordUtils.capitalizeFully(testResults.get(TbrConstants.RESULT.CULTURE_RESULT).substring(0, 3)), blackForegroundColorSpan);
+        for (Map.Entry<String, Result> entry : testResults.entrySet()) {
+            if (testResults.containsKey(entry.getKey()) && !entry.getKey().equals(TbrConstants.RESULT.RIF_RESULT)) {
+                stringBuilder = getResultPrefixBuilder(params, stringBuilder, testResults.get(entry.getKey()).getDate());
+                switch (entry.getKey()) {
+                    case TbrConstants.RESULT.MTB_RESULT:
+                        if (testResults.get(TbrConstants.RESULT.RIF_RESULT) != null) {
+                            testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1(), TbrConstants.RESULT.RIF_RESULT, testResults.get(TbrConstants.RESULT.RIF_RESULT).getValue1()), stringBuilder, false);
+
+                        } else {
+                            testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder, false);
+                        }
+                        break;
+                    case TbrConstants.RESULT.TEST_RESULT:
+                        stringBuilder = testResultsStringBuilderHelper.getSmearResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    case TbrConstants.RESULT.XRAY_RESULT:
+                        stringBuilder = testResultsStringBuilderHelper.getXRayResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    case TbrConstants.RESULT.CULTURE_RESULT:
+                        stringBuilder = testResultsStringBuilderHelper.getCultureResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+
+        }
         return stringBuilder;
     }
 
+    private class InitializeRenderParams {
+        public Map<String, String> extra;
+        public View view;
+        public boolean isBaseline;
+        public boolean isIntreatment;
 
-    private TbrSpannableStringBuilder getXRayResultStringBuilder(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder) {
-        ForegroundColorSpan blackForegroundColorSpan = getBlackForegroundColorSpan();
-        if (stringBuilder.length() > 0)
-            stringBuilder.append(",\t");
-        stringBuilder.append("CXR ");
-        if (testResults.get(TbrConstants.RESULT.XRAY_RESULT).equals("indicative"))
-            stringBuilder.append("Ind", blackForegroundColorSpan);
-        else
-            stringBuilder.append("Non", blackForegroundColorSpan);
-        return stringBuilder;
+        public InitializeRenderParams(Map<String, String> extra, View view, boolean isIntreatment, boolean isBaseline) {
+            this.extra = extra;
+            this.view = view;
+            this.isBaseline = isBaseline;
+            this.isIntreatment = isIntreatment;
+        }
+
     }
 
-    private ForegroundColorSpan getRedForegroundColorSpan() {
-        ForegroundColorSpan redForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.holo_red_dark));
-        return redForegroundColorSpan;
-    }
-
-    private ForegroundColorSpan getBlackForegroundColorSpan() {
-        ForegroundColorSpan blackForegroundColorSpan = new ForegroundColorSpan(
-                context.getResources().getColor(android.R.color.black));
-        return blackForegroundColorSpan;
-    }
 }

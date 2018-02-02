@@ -22,6 +22,7 @@ import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.util.DateUtil;
@@ -247,6 +248,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View button = view.findViewById(R.id.result_lnk);
         TextView details = (TextView) view.findViewById(R.id.result_details);
+        details.setText("");
         populateResultsColumn(pc, client, new TbrSpannableStringBuilder(), false, null, button, details);
     }
 
@@ -254,7 +256,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (button != null)
             attachOnclickListener(button, client);
         attachOnclickListener(details, client);
-        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
+        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
         Map<String, String> testResults;
         if (baseline != null)
             testResults = resultsRepository.getLatestResults(baseEntityId, false, baseline);
@@ -343,7 +345,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.smr_result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
@@ -395,7 +397,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TextView results = (TextView) view.findViewById(R.id.xpert_result_details);
         attachOnclickListener(results, client);
 
-        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false));
+        Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateXpertResult(testResults, stringBuilder, false);
@@ -426,19 +428,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
-            if (due < 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else if (due == 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else {
-                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-                followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            }
+            populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            followupText.setText("");
+            followupText.setText(R.string.followup);
         }
     }
 
@@ -458,25 +451,29 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
                 fillValue(followupText, "Smear\n not due ");
             }
-            if (due < 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else if (due == 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else {
-                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-                followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            }
+            populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            followupText.setText("");
+            followupText.setText("Smear \nnot due");
         }
     }
 
 
+    private void populateSchedule(int due, View followup, TextView followupText) {
+        if (due < 0) {
+            followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        } else if (due == 0) {
+            followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        } else {
+            followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+        }
+    }
+
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
-        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID_COLUMN, false);
+        String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         int months = 0;
         if (details.containsKey(KEY.TREATMENT_MONTH))
@@ -540,11 +537,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewIdentifier = INTREATMENT_REGISTER_ROW;
             view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
-        if (TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews()) {
-            ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewIdentifier);
-            ViewConfiguration commonConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(COMMON_REGISTER_ROW);
+        ConfigurableViewsHelper helper = TbrApplication.getInstance().getConfigurableViewsHelper();
+        if (helper.isJsonViewsEnabled()) {
+            ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewIdentifier);
+            ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
             if (viewConfiguration != null) {
-                return TbrApplication.getInstance().getConfigurableViewsHelper().inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+                return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
             }
         }
         return view;

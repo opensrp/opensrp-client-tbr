@@ -1,0 +1,98 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/RemovePt_23.11.17",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "provider_uc",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_uc"
+      },
+      {
+        "name": "provider_town",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_town"
+      },
+      {
+        "name": "provider_city",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_city"
+      },
+      {
+        "name": "provider_province",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_province"
+      },
+      {
+        "name": "provider_id",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_id"
+      },
+      {
+        "name": "provider_location_id",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_location_id"
+      },
+      {
+        "name": "provider_location_name",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_location_name"
+      },
+      {
+        "name": "provider_location_note",
+        "bind": "/model/instance/RemovePt_23.11.17/provider_location_note"
+      },
+      {
+        "name": "start",
+        "bind": "/model/instance/RemovePt_23.11.17/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/RemovePt_23.11.17/end"
+      },
+      {
+        "name": "today",
+        "bind": "/model/instance/RemovePt_23.11.17/today"
+      },
+      {
+        "name": "deviceid",
+        "bind": "/model/instance/RemovePt_23.11.17/deviceid"
+      },
+      {
+        "name": "subscriberid",
+        "bind": "/model/instance/RemovePt_23.11.17/subscriberid"
+      },
+      {
+        "name": "simserial",
+        "bind": "/model/instance/RemovePt_23.11.17/simserial"
+      },
+      {
+        "name": "phonenumber",
+        "bind": "/model/instance/RemovePt_23.11.17/phonenumber"
+      },
+      {
+        "name": "client_reg_date",
+        "bind": "/model/instance/RemovePt_23.11.17/client_reg_date"
+      },
+      {
+        "name": "confirmed_tb",
+        "bind": "/model/instance/RemovePt_23.11.17/diagnosis/confirmed_tb"
+      },
+      {
+        "name": "diagnosis_type",
+        "bind": "/model/instance/RemovePt_23.11.17/diagnosis/diagnosis_type"
+      },
+      {
+        "name": "participant_id",
+        "bind": "/model/instance/RemovePt_23.11.17/patient_info/participant_id"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/RemovePt_23.11.17/patient_info/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/RemovePt_23.11.17/patient_info/last_name"
+      }
+    ]
+  }
+}

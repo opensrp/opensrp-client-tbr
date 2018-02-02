@@ -1,0 +1,397 @@
+{
+  "name": "AddContactForm_23.11.17_US",
+  "title": "Add TB Contact",
+  "sms_keyword": "add_contact",
+  "default_language": "English",
+  "instance": {
+    "encounter_type": "Add TB Contact"
+  },
+  "version": "201801261239",
+  "id_string": "add_contact",
+  "type": "survey",
+  "children": [
+    {
+      "type": "hidden",
+      "name": "provider_uc"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_town"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_city"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_province"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_id"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "location_id",
+        "openmrs_entity": "encounter"
+      },
+      "type": "hidden",
+      "name": "provider_location_id"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_location_name"
+    },
+    {
+      "type": "note",
+      "name": "provider_location_note",
+      "label": {
+        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
+        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form start datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "start",
+      "name": "start"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form end datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "end",
+      "name": "end"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:data enty datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "today",
+      "name": "today"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:device id",
+        "openmrs_entity": "concept"
+      },
+      "type": "deviceid",
+      "name": "deviceid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:subscriber id",
+        "openmrs_entity": "concept"
+      },
+      "type": "subscriberid",
+      "name": "subscriberid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim serial number",
+        "openmrs_entity": "concept"
+      },
+      "type": "simserial",
+      "name": "simserial"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim number",
+        "openmrs_entity": "concept"
+      },
+      "type": "phonenumber",
+      "name": "phonenumber"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "encounter_date",
+        "openmrs_entity": "encounter"
+      },
+      "bind": {
+        "calculate": "${today}"
+      },
+      "type": "calculate",
+      "name": "encounter_date",
+      "label": {
+        "Roman Urdu": "Indraj ki Tareekh",
+        "English": "Data Entry Date"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBREACH ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "English": "Maximum 20 digits and cannot contain anything other than number"
+        },
+        "required": "yes",
+        "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+      },
+      "type": "text",
+      "name": "participant_id",
+      "label": {
+        "Roman Urdu": "ID",
+        "English": "Participant ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "household_members",
+      "label": {
+        "Roman Urdu": "Aap ke ilawa, aapke ghar mein kitney afraad rehtey hain?",
+        "English": "How many people (excluding you) sleep in your home?"
+      }
+    },
+    {
+      "bind": {
+        "readonly": "true()",
+        "calculate": "${household_members}"
+      },
+      "type": "calculate",
+      "name": "contact_information_count"
+    },
+    {
+      "control": {
+        "jr:count": "${contact_information_count}"
+      },
+      "type": "repeat",
+      "children": [
+        {
+          "instance": {
+            "openmrs_entity_id": "TBREACH ID",
+            "openmrs_entity": "person_identifier"
+          },
+          "bind": {
+            "jr:constraintMsg": {
+              "English": "Maximum 20 digits and cannot contain anything other than number"
+            },
+            "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+          },
+          "type": "text",
+          "name": "contact_id",
+          "label": {
+            "Roman Urdu": "Contact ID",
+            "English": "Contact ID"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "first_name",
+            "openmrs_entity": "person"
+          },
+          "bind": {
+            "required": "yes"
+          },
+          "type": "text",
+          "name": "contact_first_name",
+          "label": {
+            "Roman Urdu": "Naam",
+            "English": "First Name"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "last_name",
+            "openmrs_entity": "person"
+          },
+          "type": "text",
+          "name": "contact_last_name",
+          "label": {
+            "Roman Urdu": "Walid ya shohar ka naam",
+            "English": "Last Name"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "TBR: tuberculosis contact",
+            "openmrs_entity": "concept"
+          },
+          "label": {
+            "Roman Urdu": "Mareez se rishta kya hai",
+            "English": "Relationship to Index Patient"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: family member"
+              },
+              "name": "family_member",
+              "label": {
+                "Roman Urdu": "Khun ka rishta",
+                "English": "Family Member"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: classmate"
+              },
+              "name": "classmate",
+              "label": {
+                "Roman Urdu": "Saat parhtey hain",
+                "English": "Classmate"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: friend"
+              },
+              "name": "friend",
+              "label": {
+                "Roman Urdu": "Dost",
+                "English": "Friend"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: other"
+              },
+              "name": "other",
+              "label": {
+                "Roman Urdu": "Koi Aur",
+                "English": "Other"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: co-worker"
+              },
+              "name": "co_worker",
+              "label": {
+                "Roman Urdu": "Saat kaam kartey hain",
+                "English": "Co-Worker"
+              }
+            }
+          ],
+          "name": "relationship_type"
+        },
+        {
+          "type": "text",
+          "name": "national_id",
+          "label": {
+            "Roman Urdu": "National Identification Number",
+            "English": "National Identification Number"
+          }
+        },
+        {
+          "name": "contact_age",
+          "hint": {
+            "English": "(years)"
+          },
+          "bind": {
+            "jr:constraintMsg": {
+              "English": "Must be at least a year old and less than 150 years of age"
+            },
+            "required": "yes",
+            "constraint": ". >0 and . <=150"
+          },
+          "label": {
+            "Roman Urdu": "Umar",
+            "English": "Age"
+          },
+          "instance": {
+            "openmrs_entity": "person"
+          },
+          "type": "integer"
+        },
+        {
+          "instance": {
+            "openmrs_entity_id": "birthdate",
+            "openmrs_entity": "person"
+          },
+          "type": "calculate",
+          "name": "birthdate",
+          "bind": {
+            "relevant": "${contact_age}!=''",
+            "calculate": "format-date(date((${today})-(${contact_age}*365.25)),'%Y-%m-%d' )"
+          }
+        },
+        {
+          "default": "1",
+          "instance": {
+            "openmrs_entity_id": "birthdate_estimated",
+            "openmrs_entity": "person"
+          },
+          "type": "hidden",
+          "name": "birthdate_estimated",
+          "bind": {
+            "relevant": "${contact_age}!=''"
+          }
+        },
+        {
+          "name": "contact_gender",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Jins",
+            "English": "Gender"
+          },
+          "instance": {
+            "openmrs_entity": "person"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR: male"
+              },
+              "name": "male",
+              "label": {
+                "Roman Urdu": "Mard/larka",
+                "English": "Male"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: female"
+              },
+              "name": "female",
+              "label": {
+                "Roman Urdu": "Aurat/larki",
+                "English": "Female"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR: third gender"
+              },
+              "name": "transgender",
+              "label": {
+                "Roman Urdu": "Khwaja sira",
+                "English": "Transgender"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "contact_information"
+    },
+    {
+      "control": {
+        "bodyless": true
+      },
+      "type": "group",
+      "children": [
+        {
+          "bind": {
+            "readonly": "true()",
+            "calculate": "concat('uuid:', uuid())"
+          },
+          "type": "calculate",
+          "name": "instanceID"
+        }
+      ],
+      "name": "meta"
+    }
+  ]
+}

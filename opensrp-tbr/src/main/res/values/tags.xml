@@ -5,4 +5,7 @@
     <item name="FORM_SUBMITTED_DATE" type="id" />
     <item name="BASE_ENTITY_ID" type="id" />
     <item name="TB_REACH_ID" type="id" />
+    <item name="CONTACT_ID" type="id" />
+    <item name="VIEW_CONFIGURATION_ID" type="id" />
+    <item name="CONTACT" type="id" />
 </resources>

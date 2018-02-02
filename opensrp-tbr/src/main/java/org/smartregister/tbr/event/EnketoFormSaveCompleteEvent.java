@@ -5,4 +5,18 @@ package org.smartregister.tbr.event;
  */
 
 public class EnketoFormSaveCompleteEvent extends BaseEvent {
+    private String formName;
+
+    public EnketoFormSaveCompleteEvent(String formName) {
+        this.formName = formName;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
+
 }

@@ -4,49 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:layout_margin="10dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/border"
     android:orientation="vertical"
     android:padding="10dp">
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/service_history"
-        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
         android:text="Service History"
-        android:textColor="@color/text_black"
-        android:textSize="20sp" />
-
+        android:textColor="#000000"
+        android:textSize="22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:paddingBottom="10dp"
         android:paddingTop="15dp">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/date"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
-            android:layout_width="wrap_content"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:paddingLeft="0dp"
             android:text="Date"
-            android:textColor="@color/dark_grey"
-            android:textSize="20sp" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="19sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/form"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:paddingLeft="0dp"
             android:text="Form"
-            android:textColor="@color/dark_grey"
-            android:textSize="20sp" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="19sp" />
     </LinearLayout>
 
-    <ListView
+    <org.smartregister.tbr.view.NonScrollableListView
         android:id="@+id/serviceHistoryListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
