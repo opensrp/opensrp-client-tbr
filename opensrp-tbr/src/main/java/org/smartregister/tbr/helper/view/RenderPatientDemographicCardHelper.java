@@ -33,7 +33,7 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
                 try {
-                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS) {
+                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT) {
                         Map<String, String> details = TbrApplication.getInstance().getContext().detailsRepository().getAllDetailsForClient(patientDetails.get(Constants.KEY._ID));
 
                         TextView patientTypeTextView = (TextView) view.findViewById(R.id.patientTypeTextView);

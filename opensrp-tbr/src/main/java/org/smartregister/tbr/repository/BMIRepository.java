@@ -105,14 +105,27 @@ public class BMIRepository extends BaseRepository {
         return id;
     }
 
-    private List<BMIRecord> getBMIRecordsByBMIRecordID(String bMIRecordBaseEntityId) {
+    private List<BMIRecord> getBMIRecordsByBaseEntityId(String bMIRecordBaseEntityId) {
+        String query =
+                "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + bMIRecordBaseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0";
+        return getBMIRecordsCore(bMIRecordBaseEntityId, query);
+
+    }
+
+    private List<BMIRecord> getBmiRecordsWithoutHeightByBaseEntityId(String baseEntityId) {
+
+        String query =
+                "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + baseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0 AND " + BMIRepository.HEIGHT + " IS NULL";
+        return getBMIRecordsCore(baseEntityId, query);
+    }
+
+    private List<BMIRecord> getBMIRecordsCore(String baseEntityId, String sqlQuery) {
         Cursor cursor = null;
         List<BMIRecord> bMIRecords = new ArrayList<>();
         try {
             SQLiteDatabase db = getReadableDatabase();
-            String query =
-                    "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + bMIRecordBaseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0";
-            cursor = db.rawQuery(query, null);
+
+            cursor = db.rawQuery(sqlQuery, null);
             if (cursor != null && cursor.moveToFirst()) {
                 BMIRecord bMIRecord;
                 do {
@@ -138,6 +151,7 @@ public class BMIRepository extends BaseRepository {
             }
         }
         return bMIRecords;
+
 
     }
 
@@ -179,9 +193,21 @@ public class BMIRepository extends BaseRepository {
             }
 
             bmiRecord.setBmi(workingBmi);
+
+            //update all others which lack a bmi if we have height
+            List<BMIRecord> invalidBMIRecords = getBmiRecordsWithoutHeightByBaseEntityId(baseEntityId);
+            if (invalidBMIRecords != null && !invalidBMIRecords.isEmpty()) {
+                for (BMIRecord record : invalidBMIRecords) {
+                    record.setHeight(workingHeight);
+                    record.setBmi(calculateBMI(record.getWeight(), workingHeight));
+                    saveRecord(record);
+                }
+            }
+
         }
 
-        saveRecord(bmiRecord);
+        saveRecord(bmiRecord); //save new record
+
     }
 
     public Float calculateBMI(Float weight, Float height) {
@@ -198,7 +224,7 @@ public class BMIRepository extends BaseRepository {
     public BMIRecordWrapper getBMIRecords(String baseEntityId) {
         Float height = fetchBMIHeightByBaseEntityId(baseEntityId);
         String type = height != null ? BMIRecordWrapper.BMIRecordsTYPE.BMIS : BMIRecordWrapper.BMIRecordsTYPE.WEIGHTS;
-        return new BMIRecordWrapper(type, getBMIRecordsByBMIRecordID(baseEntityId));
+        return new BMIRecordWrapper(type, getBMIRecordsByBaseEntityId(baseEntityId));
 
     }
 }

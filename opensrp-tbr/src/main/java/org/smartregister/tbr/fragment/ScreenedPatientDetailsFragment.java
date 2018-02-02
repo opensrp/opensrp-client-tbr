@@ -32,6 +32,13 @@ public class ScreenedPatientDetailsFragment extends BasePatientDetailsFragment {
     }
 
     @Override
+    public void setupViews(View rootView) {
+        super.setupViews(rootView);
+        processViewConfigurations(rootView);
+
+    }
+
+    @Override
     protected void processViewConfigurations(View rootView) {
         renderDefaultLayout(rootView);
     }

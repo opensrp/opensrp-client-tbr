@@ -58,7 +58,7 @@ public class PresumptivePatientDetailsFragment extends BasePatientDetailsFragmen
 
     @Override
     protected String getViewConfigurationIdentifier() {
-        return Constants.CONFIGURATION.PRESUMPTIVE_PATIENT_DETAILS;
+        return Constants.CONFIGURATION.PATIENT_DETAILS_PRESUMPTIVE;
     }
 
     @Override

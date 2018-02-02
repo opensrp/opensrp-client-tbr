@@ -60,7 +60,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
 
     @Override
     protected String getViewConfigurationIdentifier() {
-        return Constants.CONFIGURATION.POSITIVE_PATIENT_DETAILS;
+        return Constants.CONFIGURATION.PATIENT_DETAILS_POSITIVE;
     }
 
 
@@ -133,6 +133,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                                         renderContactScreeningView(json2View, patientDetails);
 
                                         TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
+                                        addContactView.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                                         addContactView.setOnClickListener(this);
 
                                     }

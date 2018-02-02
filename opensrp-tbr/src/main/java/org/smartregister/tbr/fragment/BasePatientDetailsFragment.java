@@ -269,7 +269,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             }
 
             Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
-            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
+            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT)) {
                 recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                 recordOutcomeButton.setVisibility(View.VISIBLE);
                 recordOutcomeButton.setOnClickListener(this);

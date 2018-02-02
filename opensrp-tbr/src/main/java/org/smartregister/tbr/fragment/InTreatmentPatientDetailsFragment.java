@@ -65,7 +65,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
 
     @Override
     protected String getViewConfigurationIdentifier() {
-        return Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS;
+        return Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT;
     }
 
 
@@ -147,6 +147,7 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
                                         renderContactScreeningView(json2View, patientDetails);
 
                                         TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
+                                        addContactView.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                                         addContactView.setOnClickListener(this);
 
                                     }

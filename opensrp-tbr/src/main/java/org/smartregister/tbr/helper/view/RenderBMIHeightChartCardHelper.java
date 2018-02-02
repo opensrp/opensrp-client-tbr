@@ -52,12 +52,18 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                             TextView title = (TextView) view.findViewById(R.id.bmi);
                             title.setText(R.string.Weight);
                         }
+
+                        Integer maxValue = 0;
+
                         List<PointValue> values = new ArrayList<>();
                         for (int i = 0; i < bmiList.size(); i++) {
                             if (isWeightOnly) {
                                 values.add(new PointValue(i, bmiList.get(i).getWeight()));
+                                maxValue = bmiList.get(i).getWeight() > maxValue ? bmiList.get(i).getWeight().intValue() : maxValue;
+
                             } else {
                                 values.add(new PointValue(i, bmiList.get(i).getBmi()));
+                                maxValue = bmiList.get(i).getBmi() > maxValue ? bmiList.get(i).getBmi().intValue() : maxValue;
                             }
                         }
 
@@ -84,6 +90,7 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                                 treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
                                 bmiLastTextView.setVisibility(View.VISIBLE);
                                 treatmentEndDateTextView.setVisibility(View.VISIBLE);
+                                resetViewport(bmiLineChartView, maxValue, values.size());
                             } else {
                                 final Viewport viewPort = new Viewport(bmiLineChartView.getMaximumViewport());
                                 viewPort.top = 100;
@@ -92,7 +99,7 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                                 viewPort.right = 100;
                                 bmiLineChartView.setMaximumViewport(viewPort);
                                 bmiLineChartView.setCurrentViewport(viewPort);
-                                bmiLineChartView.setViewportCalculationEnabled(true);
+                                bmiLineChartView.setViewportCalculationEnabled(false);
 
                                 bmiLastTextView.setVisibility(View.GONE);
                                 treatmentEndDateTextView.setVisibility(View.GONE);
@@ -115,5 +122,14 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
 
     private BMIRecordWrapper getData(String baseEntityId) {
         return TbrApplication.getInstance().getBmiRepository().getBMIRecords(baseEntityId);
+    }
+
+    private void resetViewport(LineChartView chart, long largestValue, long itemsCount) {
+        // Reset viewport height range to (0,100)
+        Viewport v = chart.getMaximumViewport();
+        v.set(0, largestValue + 10, itemsCount - 1, 0);
+        chart.setMaximumViewport(v);
+        chart.setCurrentViewport(v);
+        chart.setViewportCalculationEnabled(false);
     }
 }

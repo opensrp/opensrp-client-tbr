@@ -44,7 +44,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                     view.setTag(R.id.BASE_ENTITY_ID, baseEntityId);
 
 
-                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS) {
+                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT) {
 
                         InitializeRenderParams params = new InitializeRenderParams(extra, view, true, true);//baseline
                         initializeRenderLayout(params);
