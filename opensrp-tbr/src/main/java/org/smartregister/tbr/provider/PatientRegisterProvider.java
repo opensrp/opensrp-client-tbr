@@ -428,16 +428,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
             int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
-            if (due < 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else if (due == 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else {
-                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-                followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            }
+            populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             followupText.setText(R.string.followup);
@@ -460,22 +451,26 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
                 fillValue(followupText, "Smear\n not due ");
             }
-            if (due < 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else if (due == 0) {
-                followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
-                followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            } else {
-                followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-                followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
-            }
+            populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
             followupText.setText("Smear \nnot due");
         }
     }
 
+
+    private void populateSchedule(int due, View followup, TextView followupText) {
+        if (due < 0) {
+            followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        } else if (due == 0) {
+            followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        } else {
+            followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+        }
+    }
 
     private void populateTreatmentColumn(CommonPersonObjectClient pc, View view) {
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
