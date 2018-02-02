@@ -38,7 +38,7 @@ public class ServiceHistoryProvider extends ContentProvider {
 
         String[] subQueries = new String[]{
                 "SELECT " + projectionStr + " FROM " + ResultsRepository.TABLE_NAME + selection,
-                "SELECT " + projectionStrTwo + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection,
+                "SELECT " + projectionStrTwo + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + " p INNER JOIN event e ON e.baseEntityId=p.base_entity_id " + selection + "  AND e.eventType in (\"Screening\", \"positive TB patient\",\"Contact Screening\") ",
                 "SELECT " + getDiagnosisFormProjection() + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection + " AND diagnosis_date IS NOT NULL AND diagnosis_date != ''"};
         String sql = builder.buildUnionQuery(subQueries, sortOrder, null);
 

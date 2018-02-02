@@ -12,6 +12,16 @@ public class BMIRecord {
     private Float height;
     private Float weight;
     private Float bmi;
+    private String treatmentInitiationDate;
+
+    public String getTreatmentInitiationDate() {
+        return treatmentInitiationDate;
+    }
+
+    public void setTreatmentInitiationDate(String treatmentInitiationDate) {
+        this.treatmentInitiationDate = treatmentInitiationDate;
+    }
+
     private String createdAt;
     private Long updatedAt;
 

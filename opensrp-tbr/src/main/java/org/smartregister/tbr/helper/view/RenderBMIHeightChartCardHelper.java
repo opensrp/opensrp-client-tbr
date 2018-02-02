@@ -78,10 +78,12 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                             TextView bmiLastTextView = (TextView) view.findViewById(R.id.bmiLastTextView);
 
                             TextView treatmentEndDateTextView = (TextView) view.findViewById(R.id.treatmentEndDateTextView);
-                            if (values.size() > 0) {
+                            if (values.size() > 1) {
 
                                 bmiLastTextView.setText(isWeightOnly ? String.valueOf(bmiList.get(bmiList.size() - 1).getWeight()) + " kg" : "BMI: " + String.format("%.1f", bmiList.get(bmiList.size() - 1).getBmi()));
                                 treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
+                                bmiLastTextView.setVisibility(View.VISIBLE);
+                                treatmentEndDateTextView.setVisibility(View.VISIBLE);
                             } else {
                                 final Viewport viewPort = new Viewport(bmiLineChartView.getMaximumViewport());
                                 viewPort.top = 100;

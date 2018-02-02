@@ -66,7 +66,7 @@ public class Utils {
             for (String s : fullname.split(Constants.CHAR.SPACE)) {
                 initials.append(s.charAt(0));
             }
-            return initials.toString();
+            return initials.toString().toUpperCase();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;

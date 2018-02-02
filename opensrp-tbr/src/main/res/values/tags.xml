@@ -8,4 +8,5 @@
     <item name="CONTACT_ID" type="id" />
     <item name="VIEW_CONFIGURATION_ID" type="id" />
     <item name="CONTACT" type="id" />
+    <item name="POSITIVE_TB_PATIENT" type="id" />
 </resources>

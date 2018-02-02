@@ -102,11 +102,15 @@ public class Constants {
         public static final String ERROR_CODE = "error_code";
         public static final String POSITIVE = "positive";
     }
-    public static final class EVENT{
+
+    public static final class EVENT {
 
         public static final String TB_DIAGNOSIS = "TB Diagnosis";
         public static final String TREATMENT_INITIATION = "Treatment Initiation";
         public static final String REMOVE_PATIENT = "Remove Patient";
         public static final String TREATMENT_OUTCOME = "Treatment Outcome";
+        public static final String SCREENING = "screening";
+        public static final String POSITIVE_TB_PATIENT = "positive TB patient";
+        public static final String CONTACT_SCREENING = "Contact Screening";
     }
 }

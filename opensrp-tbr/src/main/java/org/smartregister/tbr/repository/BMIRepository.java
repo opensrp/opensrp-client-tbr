@@ -26,6 +26,7 @@ public class BMIRepository extends BaseRepository {
     public static final String WEIGHT = "weight";
     public static final String BMI = "bmi";
     public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT = "updated_at";
 
@@ -35,6 +36,7 @@ public class BMIRepository extends BaseRepository {
             WEIGHT + "  VARCHAR NOT NULL," +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL," +
             BMI + "  VARCHAR NULL, " +
+            TREATMENT_INITIATION_DATE + " INTEGER NULL, " +
             CREATED_AT + " INTEGER NOT NULL, " +
             UPDATED_AT + " INTEGER NULL )";
 
@@ -81,6 +83,7 @@ public class BMIRepository extends BaseRepository {
         values.put(WEIGHT, bMIRecord.getWeight());
         values.put(BMI, bMIRecord.getBmi());
         values.put(BASE_ENTITY_ID, bMIRecord.getBaseEntityId());
+        values.put(TREATMENT_INITIATION_DATE, bMIRecord.getTreatmentInitiationDate());
         values.put(CREATED_AT, bMIRecord.getCreatedAt());
         values.put(UPDATED_AT, bMIRecord.getUpdatedAt());
         return values;
@@ -119,6 +122,7 @@ public class BMIRepository extends BaseRepository {
                     bMIRecord.setBmi(cursor.getFloat(cursor.getColumnIndex(BMIRepository.BMI)));
                     bMIRecord.setWeight(cursor.getFloat(cursor.getColumnIndex(BMIRepository.WEIGHT)));
                     bMIRecord.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BMIRepository.BASE_ENTITY_ID)));
+                    bMIRecord.setTreatmentInitiationDate(cursor.getString(cursor.getColumnIndex(BMIRepository.TREATMENT_INITIATION_DATE)));
                     bMIRecord.setCreatedAt(cursor.getString(cursor.getColumnIndex(BMIRepository.CREATED_AT)));
                     bMIRecord.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(BMIRepository.UPDATED_AT)));
 

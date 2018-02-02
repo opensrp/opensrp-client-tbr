@@ -145,6 +145,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT);
         formNames.add(Constants.FORM.REMOVE_PATIENT);
         formNames.add(Constants.FORM.TREATMENT_OUTCOME);
+        formNames.add(TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT);
         return formNames.toArray(new String[formNames.size()]);
     }
 

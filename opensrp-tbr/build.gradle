@@ -6,6 +6,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:1.3.1"
         classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -19,6 +20,7 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 22
@@ -75,7 +77,11 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
         }
-
+        apt {
+            arguments {
+                eventBusIndex "org.smartregister.tbr.TBREventBusIndex"
+            }
+        }
         dependencies {
             compile('org.smartregister:opensrp-client-core:1.1.6-SNAPSHOT@aar') {
                 transitive = true
@@ -92,6 +98,7 @@ android {
             compile 'com.android.support:appcompat-v7:22.2.1'
             compile 'com.android.support:recyclerview-v7:22.2.1'
             compile 'org.greenrobot:eventbus:3.1.1'
+            apt 'org.greenrobot:eventbus-annotation-processor:3.1.1'
 
             compile project(':json2view')
             compile 'com.google.guava:guava:20.0'
@@ -100,6 +107,7 @@ android {
             // explicitly depend on RxJava's latest version for bug fixes and new features.
             compile 'io.reactivex.rxjava2:rxjava:2.1.5'
             compile 'com.github.lecho:hellocharts-android:v1.5.8'
+
 
             androidTestCompile 'junit:junit:4.12'
 

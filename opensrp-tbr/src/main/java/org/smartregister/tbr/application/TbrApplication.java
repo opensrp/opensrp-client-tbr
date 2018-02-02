@@ -218,7 +218,7 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private void setUpEventHandling() {
-
+        EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
         EventBus.getDefault().register(this);
 
     }

@@ -36,13 +36,10 @@ public class TbrClientProcessor extends ClientProcessor {
 
     private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
 
-    private static final String[] REMOVE_PATIENT_EVENT_TYPES = {"Remove Patient", "Treatment Outcome"};
-
     private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String EVENT_TYPE_KEY = "eventType";
-    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient",
-            "intreatment TB patient"};
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient"};
 
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
@@ -96,7 +93,7 @@ public class TbrClientProcessor extends ClientProcessor {
                     if (event.has(Constants.KEY.CLIENT)) {
                         processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson);
 
-                        // processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson, Arrays.asList(new String[]{TbrConstants.KEY.DEATHDATE, TbrConstants.KEY.DATE_REMOVED}));
+                        // processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson, Arrays.asList(new String[]{"deathdate", "attributes.dateRemoved"}));
                     }
                 }
             }
@@ -125,7 +122,8 @@ public class TbrClientProcessor extends ClientProcessor {
                 Float bmi = contentValues.getAsFloat(BMIRepository.BMI);
                 String baseEntityId = contentValues.getAsString(BMIRepository.BASE_ENTITY_ID);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
-                Date date = simpleDateFormat.parse(contentValues.getAsString(BMIRepository.CREATED_AT));
+                String bmiRecordDate = contentValues.containsKey(BMIRepository.TREATMENT_INITIATION_DATE) ? BMIRepository.TREATMENT_INITIATION_DATE : BMIRepository.CREATED_AT;
+                Date date = simpleDateFormat.parse(contentValues.getAsString(bmiRecordDate));
                 String createdAt = Utils.formatDate(date, SQLITE_DATE_FORMAT);
 
                 bmiRepository.saveBMIRecord(baseEntityId, weight != null ? weight : 0f, height, bmi, createdAt);

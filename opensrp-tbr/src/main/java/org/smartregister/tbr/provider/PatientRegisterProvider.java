@@ -441,6 +441,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             followupText.setText(R.string.followup);
         }
     }

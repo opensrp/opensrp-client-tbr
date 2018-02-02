@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avocarrot.json2view.DynamicView;
-
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 
@@ -88,7 +86,7 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
     protected void processViewConfigurations(View rootView) {
         try {
             String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
-            if (jsonString == null || true) {
+            if (jsonString == null) {
                 renderDefaultLayout(rootView);
             } else {
                 ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
@@ -112,14 +110,12 @@ public class PositivePatientDetailsFragment extends BasePatientDetailsFragment {
                             String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
                             ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
                             if (componentViewConfiguration != null) {
-                                JSONObject jsonViewObject = new JSONObject(componentViewConfiguration.getJsonView());
-                                View json2View = DynamicView.createView(getActivity().getApplicationContext(), jsonViewObject, viewParent);
 
-                                View view = viewParent.findViewById(json2View.getId());
-                                if (view != null) {
-                                    viewParent.removeView(view);
-                                }
-                                viewParent.addView(json2View);
+                                ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
+
+                                View fallbackView = viewParent.findViewById(getCardviewIdentifierByConfiguration(componentViewConfiguration.getIdentifier()));
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView) : fallbackView;
+
 
                                 if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
                                     renderDemographicsView(json2View, patientDetails);
