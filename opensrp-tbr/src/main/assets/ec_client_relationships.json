@@ -1,7 +1,7 @@
 [
   {
     "client_relationship": "parent",
-    "field": "parent_entity_id",
+    "field": "relational_id",
     "comment": "this field is the name as it appears in the parent client document"
   }
 ]
