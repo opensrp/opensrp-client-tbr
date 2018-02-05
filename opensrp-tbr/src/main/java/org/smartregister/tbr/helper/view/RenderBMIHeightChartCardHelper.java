@@ -92,17 +92,9 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                                 treatmentEndDateTextView.setVisibility(View.VISIBLE);
                                 resetViewport(bmiLineChartView, maxValue, values.size());
                             } else {
-                                final Viewport viewPort = new Viewport(bmiLineChartView.getMaximumViewport());
-                                viewPort.top = 100;
-                                viewPort.bottom = 0;
-                                viewPort.left = 0;
-                                viewPort.right = 100;
-                                bmiLineChartView.setMaximumViewport(viewPort);
-                                bmiLineChartView.setCurrentViewport(viewPort);
-                                bmiLineChartView.setViewportCalculationEnabled(false);
-
                                 bmiLastTextView.setVisibility(View.GONE);
                                 treatmentEndDateTextView.setVisibility(View.GONE);
+                                resetViewport(bmiLineChartView, 100, 100);
                             }
                         }
                     } else {
@@ -125,7 +117,6 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
     }
 
     private void resetViewport(LineChartView chart, long largestValue, long itemsCount) {
-        // Reset viewport height range to (0,100)
         Viewport v = chart.getMaximumViewport();
         v.set(0, largestValue + 10, itemsCount - 1, 0);
         chart.setMaximumViewport(v);
