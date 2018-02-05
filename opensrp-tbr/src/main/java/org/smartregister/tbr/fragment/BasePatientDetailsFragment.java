@@ -297,7 +297,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS:
                 res = R.id.clientDetailsCardView;
                 break;
-            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE:
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_RESULTS:
                 res = R.id.clientPositiveResultsCardView;
                 break;
             case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY:
@@ -353,12 +353,13 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                                 View fallbackView = viewParent.findViewById(getCardViewIdentifierByConfiguration(componentViewConfiguration.getIdentifier()));
                                 View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView, componentView.isVisible()) : fallbackView;
                                 if (componentView.isVisible()) {
+                                    json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
 
                                     if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
-                                        json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
+
                                         renderDemographicsView(json2View, patientDetails);
 
-                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_POSITIVE)) {
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_RESULTS)) {
                                         renderPositiveResultsView(json2View, patientDetails);
                                         //Record Results click handler
                                         TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);

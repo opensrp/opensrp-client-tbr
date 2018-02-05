@@ -209,7 +209,7 @@ public class ResultsRepository extends BaseRepository {
         Result result;
         Map<String, Result> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, baseline, false, false);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, false, true);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
 
