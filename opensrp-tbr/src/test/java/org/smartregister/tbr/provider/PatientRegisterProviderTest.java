@@ -152,7 +152,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
 
         results.put(RIF_RESULT, "indeterminate");
         initProvider(RESULTS);
-        expected = "Xpe +ve/ ?";
+        expected = "Xpe +ve/?";
         assertEquals(expected, details.getText().toString());
 
     }
@@ -314,7 +314,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
         results.put(XRAY_RESULT, "not indicative");
         when(resultsRepository.getLatestResults("255c9df9-42ba-424d-a235-bd4ea5da77ae", false, baseline)).thenReturn(results);
         initProvider(BASELINE);
-        expected = "Smr 1+\nCul Pos, CXR NonI";
+        expected = "Smr 1+\nCul Pos, CXR NInd";
         assertEquals(expected, details.getText().toString());
 
 

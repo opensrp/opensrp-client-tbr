@@ -82,6 +82,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private static final String INDETERMINATE = "indeterminate";
     private static final String ERROR = "error";
     private static final String NO_RESULT = "no_result";
+    private static final String POSITIVE = "positive";
+    private static final String NEGATIVE = "negative";
+
 
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
@@ -214,7 +217,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append(" ");
                 stringBuilder.append(testResults.get(TbrConstants.RESULT.ERROR_CODE), blackForegroundColorSpan);
             } else if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT)) {
-                stringBuilder.append(withOtherResults ? "/ " : "\nRIF ");
+                stringBuilder.append(withOtherResults ? "/" : "\nRIF ");
                 processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT), stringBuilder);
             }
             return true;
@@ -276,7 +279,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             details.setVisibility(View.VISIBLE);
             details.append(stringBuilder);
             if (button != null)
-                adjustLayoutParams(button);
+                adjustLayoutParams(button, details);
         } else
             details.setVisibility(View.GONE);
     }
@@ -314,9 +317,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             stringBuilder.append(", ");
         stringBuilder.append("CXR ");
         if ("indicative".equals(result))
-            stringBuilder.append("Ind", blackForegroundColorSpan);
+            stringBuilder.append("Ind", redForegroundColorSpan);
         else
-            stringBuilder.append("NonI", blackForegroundColorSpan);
+            stringBuilder.append("NInd", blackForegroundColorSpan);
 
     }
 
@@ -326,7 +329,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         else if (stringBuilder.length() > 0)
             stringBuilder.append("\n");
         stringBuilder.append("Cul ");
-        stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
+        if (result.equalsIgnoreCase(POSITIVE))
+            stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), redForegroundColorSpan);
+        if (result.equalsIgnoreCase(NEGATIVE))
+            stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
     }
 
     private void populateDiagnoseColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
@@ -351,7 +357,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result);
+            adjustLayoutParams(result, results);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -380,10 +386,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return "";
     }
 
-    private void adjustLayoutParams(View view) {
+    private void adjustLayoutParams(View view, TextView details) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         view.setLayoutParams(params);
+
+        params = details.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        details.setLayoutParams(params);
     }
 
     private void attachOnclickListener(View view, SmartRegisterClient client) {
@@ -404,7 +414,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         populateXpertResult(testResults, stringBuilder, false);
 
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result);
+            adjustLayoutParams(result, results);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }

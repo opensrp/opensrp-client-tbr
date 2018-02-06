@@ -38,12 +38,10 @@
             android:background="@drawable/due_vaccine_blue_bg"
             android:gravity="center_vertical"
             android:hapticFeedbackEnabled="true"
-            android:inputType="textCapCharacters"
             android:padding="15dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:text="@string/followup"
-            android:textAllCaps="true"
             android:textColor="@color/status_bar_text_almost_white"
             android:textSize="22sp" />
     </LinearLayout>

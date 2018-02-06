@@ -28,6 +28,10 @@ public class FormOverridesHelper {
         this.patientDetails = patientDetails;
     }
 
+    public void setPatientDetails(Map<String, String> patientDetails) {
+        this.patientDetails = patientDetails;
+    }
+
     public Map populateFieldOverrides() {
         Map fields = new HashMap();
         fields.put(TbrConstants.KEY.PARTICIPANT_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
