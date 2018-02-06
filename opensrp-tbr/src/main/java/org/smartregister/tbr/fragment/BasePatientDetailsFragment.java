@@ -43,6 +43,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import util.TbrConstants;
+
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS;
 
@@ -222,9 +224,10 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
     @Override
     public void onClick(View view) {
+        formOverridesHelper.setPatientDetails(patientDetails);
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getAddContactFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.ADD_TB_CONTACT, patientDetails.get(TbrConstants.KEY.BASE_ENTITY_ID), formOverridesHelper.getAddContactFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
