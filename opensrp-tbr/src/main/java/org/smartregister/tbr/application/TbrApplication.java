@@ -80,7 +80,7 @@ public class TbrApplication extends DrishtiApplication {
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
-        //setUpEventHandling();
+        setUpEventHandling();
 
     }
 
@@ -218,7 +218,13 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private void setUpEventHandling() {
-        EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
+        try {
+            EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
+        } catch
+                (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
         EventBus.getDefault().register(this);
 
     }
