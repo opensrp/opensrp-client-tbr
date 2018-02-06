@@ -80,7 +80,7 @@ public class TbrApplication extends DrishtiApplication {
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
-        setUpEventHandling();
+        //setUpEventHandling();
 
     }
 

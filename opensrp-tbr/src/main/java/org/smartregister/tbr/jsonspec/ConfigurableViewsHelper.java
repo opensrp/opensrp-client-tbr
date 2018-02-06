@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * Created by samuelgithengi on 11/21/17.
@@ -135,7 +134,7 @@ public class ConfigurableViewsHelper {
             if (isHeader)
                 registerColumns.setLayoutParams(
                         new AbsListView.LayoutParams(
-                                MATCH_PARENT,
+                                AbsListView.LayoutParams.MATCH_PARENT,
                                 AbsListView.LayoutParams.WRAP_CONTENT));
             else {
                 registerColumns.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
