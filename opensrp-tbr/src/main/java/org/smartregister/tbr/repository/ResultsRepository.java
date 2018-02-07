@@ -149,7 +149,7 @@ public class ResultsRepository extends BaseRepository {
         Cursor cursor = null;
         Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, baseline, singleResult, false);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, singleResult, false, false);
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -179,14 +179,18 @@ public class ResultsRepository extends BaseRepository {
         return getLatestResults(baseEntityId, true, null);
     }
 
-    private Cursor getLatestResultsCursor(String baseEntityId, Long baseline, boolean singleResult, boolean orderResults) {
+    private Cursor getLatestResultsCursor(String baseEntityId, Long baseline, boolean singleResult, boolean orderResults, boolean afterBaseline) {
         Cursor cursor;
         SQLiteDatabase db = getReadableDatabase();
         String baselineFilter = "";
         String orderByClause = "";
         String groupByClause = "";
         if (baseline != null) {
-            baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+            if (afterBaseline) {
+                baselineFilter = "AND " + CREATED_AT + ">" + baseline + "";
+            } else {
+                baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+            }
         }
         if (!singleResult) {
             groupByClause = " GROUP BY " + TYPE;
@@ -204,12 +208,12 @@ public class ResultsRepository extends BaseRepository {
         return cursor;
     }
 
-    public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline) {
+    public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline, boolean afterBaseline) {
         Cursor cursor = null;
         Result result;
         Map<String, Result> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, baseline, false, true);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, false, true, afterBaseline);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
 
