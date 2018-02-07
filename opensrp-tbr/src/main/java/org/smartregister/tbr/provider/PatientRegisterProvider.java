@@ -438,7 +438,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
-            int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+            int due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
             populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
@@ -457,7 +457,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             try {
                 DateTime treatmentStartDate = DateTime.parse(nextVisit);
                 fillValue(followupText, "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
-                due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+                due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
 
             } catch (IllegalArgumentException e) {
                 Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
