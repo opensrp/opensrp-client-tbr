@@ -51,8 +51,6 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
                         params = new InitializeRenderParams(extra, view, true, false); //latest
                         initializeRenderLayout(params);
-                        view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
 
                     } else {
 
@@ -83,6 +81,20 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         } else if (params.isIntreatment) {
             String baseLineText = "Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")";
             firstEncounterDateView.setText(params.isBaseline ? baseLineText : context.getString(R.string.latest));
+            //hide latest section if no data
+
+            if (!params.isBaseline && testResults.isEmpty()) {
+
+                View view = params.view.findViewById(R.id.latest_section_wrapper);
+                view.setVisibility(View.GONE);
+
+                View horizontalLine = params.view.findViewById(R.id.baselineHorizontalDividerView);
+                horizontalLine.setVisibility(View.GONE);
+            }else{
+
+                params.view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
+                params.view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
+            }
         }
 
         TextView results = getBaselineTextView(params);
@@ -117,11 +129,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), null);
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)) : null, true);
     }
 
     private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)), false);
     }
 
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
