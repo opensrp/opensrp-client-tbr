@@ -32,6 +32,7 @@ import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
@@ -41,6 +42,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
+import util.TbrConstants;
 
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
 import static util.TbrConstants.ENKETO_FORMS.CULTURE;
@@ -86,6 +88,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 currentPage = position;
             }
         });
+        initializeEnketoFormFragment(formNames.get(0), null, null, false);
+        //mPager.setCurrentItem(0, false);
     }
 
     protected abstract Fragment getRegisterFragment();
@@ -229,6 +233,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void startFormActivity(String formName, String entityId, String metaData) {
+        initializeEnketoFormFragment(formName, entityId, metaData, true);
+    }
+
+
+    public void initializeEnketoFormFragment(String formName, String entityId, String metaData, boolean displayForm) {
         try {
             int formIndex = formNames.indexOf(formName) + 1; // add the offset
             if (entityId != null || metaData != null) {
@@ -243,7 +252,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 }
             }
 
-            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+            if (displayForm)
+                mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 
         } catch (Exception e) {
             Log.e(TAG, "startFormActivity: ", e);
@@ -262,6 +272,15 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         formNames.add(CHEST_XRAY);
         formNames.add(CULTURE);
         formNames.add(DIAGNOSIS);
+
+        formNames.add(Constants.FORM.NEW_PATIENT_REGISTRATION);
+        formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
+        formNames.add(Constants.FORM.CONTACT_SCREENING);
+        formNames.add(TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT);
+        formNames.add(TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT);
+        formNames.add(Constants.FORM.REMOVE_PATIENT);
+        formNames.add(Constants.FORM.TREATMENT_OUTCOME);
+        formNames.add(TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT);
         return formNames;
     }
 
