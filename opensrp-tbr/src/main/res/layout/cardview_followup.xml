@@ -30,21 +30,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="horizontal">
 
 
             <Button
                 android:id="@+id/follow_up_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:background="@drawable/due_vaccine_blue_bg"
                 android:gravity="center_vertical"
                 android:hapticFeedbackEnabled="true"
+                android:minWidth="250dp"
                 android:padding="15dp"
                 android:text="@string/followup"
                 android:textColor="@color/status_bar_text_almost_white"
