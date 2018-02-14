@@ -8,8 +8,8 @@ import java.util.List;
 
 public class BMIRecordWrapper {
 
-    List<BMIRecord> bmiRecords;
-    String recordType;
+    private List<BMIRecord> bmiRecords;
+    private String recordType;
 
     public BMIRecordWrapper(String recordType, List<BMIRecord> bmiRecords) {
         this.recordType = recordType;

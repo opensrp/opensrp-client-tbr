@@ -1,7 +1,5 @@
 package org.smartregister.tbr.model;
 
-import java.util.Date;
-
 /**
  * Created by ndegwamartin on 26/01/2018.
  */
@@ -13,6 +11,8 @@ public class BMIRecord {
     private Float weight;
     private Float bmi;
     private String treatmentInitiationDate;
+    private String createdAt;
+    private Long updatedAt;
 
     public String getTreatmentInitiationDate() {
         return treatmentInitiationDate;
@@ -22,8 +22,6 @@ public class BMIRecord {
         this.treatmentInitiationDate = treatmentInitiationDate;
     }
 
-    private String createdAt;
-    private Long updatedAt;
 
     public Long getId() {
         return id;

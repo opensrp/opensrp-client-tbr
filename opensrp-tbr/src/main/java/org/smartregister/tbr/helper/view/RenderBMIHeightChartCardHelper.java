@@ -67,36 +67,8 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
                             }
                         }
 
-                        LineChartView bmiLineChartView = (LineChartView) view.findViewById(R.id.bmiHeightLineChartView);
-                        if (bmiLineChartView != null) {
-                            Line line = new Line(values).setColor(context.getResources().getColor(R.color.line_chart_blue)).setCubic(true);
-                            List<Line> lines = new ArrayList<>();
-                            lines.add(line);
+                        processBMILineChartView(bmiList, isWeightOnly, maxValue, values, view, patientDetails);
 
-                            LineChartData data = new LineChartData();
-                            data.setLines(lines);
-                            bmiLineChartView.setLineChartData(data);
-
-                            TextView bmiStartTextView = (TextView) view.findViewById(R.id.bmiStartTextView);
-                            bmiStartTextView.setText(isWeightOnly ? String.valueOf(bmiList.get(0).getWeight()) + " kg" : "BMI: " + String.format("%.1f", bmiList.get(0).getBmi()));
-                            TextView treatmentStartDateTextView = (TextView) view.findViewById(R.id.treatmentStartDateTextView);
-                            treatmentStartDateTextView.setText(Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.TREATMENT_INITIATION_DATE), true), "MMM yyyy") + " (" + context.getString(R.string.treatment_start) + ")");
-                            TextView bmiLastTextView = (TextView) view.findViewById(R.id.bmiLastTextView);
-
-                            TextView treatmentEndDateTextView = (TextView) view.findViewById(R.id.treatmentEndDateTextView);
-                            if (values.size() > 1) {
-
-                                bmiLastTextView.setText(isWeightOnly ? String.valueOf(bmiList.get(bmiList.size() - 1).getWeight()) + " kg" : "BMI: " + String.format("%.1f", bmiList.get(bmiList.size() - 1).getBmi()));
-                                treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
-                                bmiLastTextView.setVisibility(View.VISIBLE);
-                                treatmentEndDateTextView.setVisibility(View.VISIBLE);
-                                resetViewport(bmiLineChartView, maxValue, values.size());
-                            } else {
-                                bmiLastTextView.setVisibility(View.GONE);
-                                treatmentEndDateTextView.setVisibility(View.GONE);
-                                resetViewport(bmiLineChartView, 100, 100);
-                            }
-                        }
                     } else {
                         View bmiView = ((View) view.getParent()).findViewById(R.id.clientBMIHeightChartCardView);
                         if (bmiView != null) {
@@ -110,6 +82,39 @@ public class RenderBMIHeightChartCardHelper extends BaseRenderHelper {
             }
 
         });
+    }
+
+    private void processBMILineChartView(List<BMIRecord> bmiList, boolean isWeightOnly, Integer maxValue, List<PointValue> values, View view, Map<String, String> patientDetails) {
+        LineChartView bmiLineChartView = (LineChartView) view.findViewById(R.id.bmiHeightLineChartView);
+        if (bmiLineChartView != null) {
+            Line line = new Line(values).setColor(context.getResources().getColor(R.color.line_chart_blue)).setCubic(true);
+            List<Line> lines = new ArrayList<>();
+            lines.add(line);
+
+            LineChartData data = new LineChartData();
+            data.setLines(lines);
+            bmiLineChartView.setLineChartData(data);
+
+            TextView bmiStartTextView = (TextView) view.findViewById(R.id.bmiStartTextView);
+            bmiStartTextView.setText(isWeightOnly ? String.valueOf(bmiList.get(0).getWeight()) + " kg" : "BMI: " + String.format("%.1f", bmiList.get(0).getBmi()));
+            TextView treatmentStartDateTextView = (TextView) view.findViewById(R.id.treatmentStartDateTextView);
+            treatmentStartDateTextView.setText(Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.TREATMENT_INITIATION_DATE), true), "MMM yyyy") + " (" + context.getString(R.string.treatment_start) + ")");
+            TextView bmiLastTextView = (TextView) view.findViewById(R.id.bmiLastTextView);
+
+            TextView treatmentEndDateTextView = (TextView) view.findViewById(R.id.treatmentEndDateTextView);
+            if (values.size() > 1) {
+
+                bmiLastTextView.setText(isWeightOnly ? String.valueOf(bmiList.get(bmiList.size() - 1).getWeight()) + " kg" : "BMI: " + String.format("%.1f", bmiList.get(bmiList.size() - 1).getBmi()));
+                treatmentEndDateTextView.setText(Utils.formatDate(Calendar.getInstance().getTime(), "dd MMM yyyy"));
+                bmiLastTextView.setVisibility(View.VISIBLE);
+                treatmentEndDateTextView.setVisibility(View.VISIBLE);
+                resetViewport(bmiLineChartView, maxValue, values.size());
+            } else {
+                bmiLastTextView.setVisibility(View.GONE);
+                treatmentEndDateTextView.setVisibility(View.GONE);
+                resetViewport(bmiLineChartView, 100, 100);
+            }
+        }
     }
 
     private BMIRecordWrapper getData(String baseEntityId) {

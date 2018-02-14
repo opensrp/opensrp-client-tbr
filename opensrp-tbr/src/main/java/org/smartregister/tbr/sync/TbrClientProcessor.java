@@ -104,13 +104,10 @@ public class TbrClientProcessor extends ClientProcessor {
 
         try {
 
-            if (event == null || event.length() == 0) {
+            if (!isValidRecord(event, clientBMIJson)) {
                 return false;
             }
 
-            if (clientBMIJson == null || clientBMIJson.length() == 0) {
-                return false;
-            }
             ContentValues contentValues = processCaseModel(event, clientBMIJson);
             // save the values to db
             if (contentValues != null && contentValues.size() > 0 && contentValues.getAsFloat(BMIRepository.WEIGHT) != null) {
@@ -138,17 +135,27 @@ public class TbrClientProcessor extends ClientProcessor {
 
     }
 
+    private boolean isValidRecord(JSONObject event, JSONObject jsonObject) {
+
+        if (event == null || event.length() == 0) {
+            return false;
+        }
+
+        if (jsonObject == null || jsonObject.length() == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean processResult(JSONObject event, JSONObject clientResultJson) {
 
         try {
 
-            if (event == null || event.length() == 0) {
+            if (!isValidRecord(event, clientResultJson)) {
                 return false;
             }
 
-            if (clientResultJson == null || clientResultJson.length() == 0) {
-                return false;
-            }
             ContentValues contentValues = processCaseModel(event, clientResultJson);
             // save the values to db
             if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {

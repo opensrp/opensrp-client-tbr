@@ -108,7 +108,7 @@ public class BMIRepository extends BaseRepository {
     private List<BMIRecord> getBMIRecordsByBaseEntityId(String bMIRecordBaseEntityId) {
         String query =
                 "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + bMIRecordBaseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0";
-        return getBMIRecordsCore(bMIRecordBaseEntityId, query);
+        return getBMIRecordsCore(query);
 
     }
 
@@ -116,10 +116,10 @@ public class BMIRepository extends BaseRepository {
 
         String query =
                 "SELECT * FROM " + BMIRepository.TABLE_NAME + " WHERE " + BMIRepository.BASE_ENTITY_ID + " = '" + baseEntityId + "' AND " + BMIRepository.WEIGHT + " > 0 AND " + BMIRepository.HEIGHT + " IS NULL";
-        return getBMIRecordsCore(baseEntityId, query);
+        return getBMIRecordsCore(query);
     }
 
-    private List<BMIRecord> getBMIRecordsCore(String baseEntityId, String sqlQuery) {
+    private List<BMIRecord> getBMIRecordsCore(String sqlQuery) {
         Cursor cursor = null;
         List<BMIRecord> bMIRecords = new ArrayList<>();
         try {

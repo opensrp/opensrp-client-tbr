@@ -118,10 +118,6 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         }
     }
 
-    private String getTranslatedToken(String token) {
-        return getTranslatedToken(token, token);
-    }
-
     private String getTranslatedToken(String token, String defaultReturn) {
         if (languageTranslations != null && !languageTranslations.isEmpty() && languageTranslations.containsKey(token)) {
             return languageTranslations.get(token);
