@@ -104,7 +104,7 @@ public class TbrClientProcessor extends ClientProcessor {
 
         try {
 
-            if (!isValidRecord(event, clientBMIJson)) {
+            if (isInValidRecord(event, clientBMIJson)) {
                 return false;
             }
 
@@ -135,24 +135,16 @@ public class TbrClientProcessor extends ClientProcessor {
 
     }
 
-    private boolean isValidRecord(JSONObject event, JSONObject jsonObject) {
+    private boolean isInValidRecord(JSONObject event, JSONObject jsonObject) {
 
-        if (event == null || event.length() == 0) {
-            return false;
-        }
-
-        if (jsonObject == null || jsonObject.length() == 0) {
-            return false;
-        }
-
-        return true;
+        return event == null || event.length() == 0 || jsonObject == null || jsonObject.length() == 0;
     }
 
     private boolean processResult(JSONObject event, JSONObject clientResultJson) {
 
         try {
 
-            if (!isValidRecord(event, clientResultJson)) {
+            if (isInValidRecord(event, clientResultJson)) {
                 return false;
             }
 
