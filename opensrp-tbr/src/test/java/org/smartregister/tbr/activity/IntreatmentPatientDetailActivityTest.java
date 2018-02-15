@@ -10,6 +10,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.tbr.BaseUnitTest;
+import static junit.framework.TestCase.assertNotNull;
 
 import static org.powermock.api.mockito.PowerMockito.spy;
 
@@ -50,6 +51,6 @@ public class IntreatmentPatientDetailActivityTest extends BaseUnitTest {
     public void activitySetUpCorrectlyWithNoException() {
 
         InTreatmentPatientDetailActivity spyActivity = spy(activity);
-        junit.framework.Assert.assertNotNull(spyActivity);
+        assertNotNull(spyActivity);
     }
 }
