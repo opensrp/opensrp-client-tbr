@@ -55,7 +55,12 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
                 listView = (ListView) view.findViewById(R.id.serviceHistoryListView);
                 if (listView != null) {
                     listView.setTag(TB_REACH_ID, metadata.get(Constants.KEY.TBREACH_ID));
-                    ((Activity) context).getLoaderManager().initLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    LoaderManager loaderManager = ((Activity) context).getLoaderManager();
+                    if (loaderManager.getLoader(SERVICE_HISTORY_LOADER_ID) != null) {
+                        loaderManager.restartLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    } else {
+                        loaderManager.initLoader(SERVICE_HISTORY_LOADER_ID, null, loaderManagerCallbackInterface);
+                    }
 
                 }
 
@@ -81,7 +86,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
 
         String[] mProjection2 = {
                 UNION_TABLE_FLAGS.SCREENING + UNION_FLAG_CONCAT_SEPARATOR + ECClientRepository.ID + " _id", //union query hence unique identifier
-                "\"" + FORM_TITLE.SCREENING + "\"",
+                ECClientRepository.EVENT_TYPE,
                 ECClientRepository.ID,
                 ECClientRepository.FIRST_ENCOUNTER + Constants.CHAR.SPACE + ResultsRepository.DATE,
                 ResultsRepository.BASE_ENTITY_ID,
@@ -116,6 +121,7 @@ public class RenderServiceHistoryCardHelper extends BaseRenderHelper implements
         public static final String FIRST_ENCOUNTER = Constants.KEY.FIRST_ENCOUNTER;
         public static final String BASELINE = "baseline";
         public static final String DIAGNOSIS_DATE = "diagnosis_date";
+        public static final String EVENT_TYPE = "eventType";
     }
 
     public class UNION_TABLE_FLAGS {

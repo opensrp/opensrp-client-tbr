@@ -2,6 +2,7 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import util.TbrSpannableStringBuilder;
 
 public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     private TestResultsStringBuilderHelper testResultsStringBuilderHelper;
+    private static String TAG = RenderPositiveResultsCardHelper.class.getCanonicalName();
 
     public RenderPositiveResultsCardHelper(Context context, ResultsRepository detailsRepository) {
         super(context, detailsRepository);
@@ -37,24 +39,26 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
             @Override
             public void run() {
-                String baseEntityId = extra.get(Constants.KEY._ID);
-                view.setTag(R.id.BASE_ENTITY_ID, baseEntityId);
+                try {
+                    String baseEntityId = extra.get(Constants.KEY._ID);
+                    view.setTag(R.id.BASE_ENTITY_ID, baseEntityId);
 
 
-                if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS) {
+                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT) {
 
-                    InitializeRenderParams params = new InitializeRenderParams(extra, view, true, true);//baseline
-                    initializeRenderLayout(params);
+                        InitializeRenderParams params = new InitializeRenderParams(extra, view, true, true);//baseline
+                        initializeRenderLayout(params);
 
-                    params = new InitializeRenderParams(extra, view, true, false); //latest
-                    initializeRenderLayout(params);
-                    view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
+                        params = new InitializeRenderParams(extra, view, true, false); //latest
+                        initializeRenderLayout(params);
 
-                } else {
+                    } else {
 
-                    InitializeRenderParams params = new InitializeRenderParams(extra, view, false, false);
-                    initializeRenderLayout(params);
+                        InitializeRenderParams params = new InitializeRenderParams(extra, view, false, false);
+                        initializeRenderLayout(params);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
 
             }
@@ -77,6 +81,20 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
         } else if (params.isIntreatment) {
             String baseLineText = "Baseline (treatment started " + Utils.getTimeAgo(params.extra.get(Constants.KEY.TREATMENT_INITIATION_DATE)) + ")";
             firstEncounterDateView.setText(params.isBaseline ? baseLineText : context.getString(R.string.latest));
+            //hide latest section if no data
+
+            if (!params.isBaseline && testResults.isEmpty()) {
+
+                View view = params.view.findViewById(R.id.latest_section_wrapper);
+                view.setVisibility(View.GONE);
+
+                View horizontalLine = params.view.findViewById(R.id.baselineHorizontalDividerView);
+                horizontalLine.setVisibility(View.GONE);
+            }else{
+
+                params.view.findViewById(R.id.baselineHorizontalDividerView).setVisibility(View.VISIBLE);
+                params.view.findViewById(R.id.baselineTextView).setVisibility(View.VISIBLE);
+            }
         }
 
         TextView results = getBaselineTextView(params);
@@ -111,11 +129,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), null);
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)) : null, true);
     }
 
     private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
-        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)));
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)), false);
     }
 
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
@@ -138,7 +156,11 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
                             testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1(), TbrConstants.RESULT.RIF_RESULT, testResults.get(TbrConstants.RESULT.RIF_RESULT).getValue1()), stringBuilder, false);
 
                         } else {
-                            testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder, false);
+                            if (testResults.get(entry.getKey()).getResult2() != null) {
+                                testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1(), testResults.get(entry.getKey()).getResult2(), testResults.get(entry.getKey()).getValue2()), stringBuilder, false);
+                            } else {
+                                testResultsStringBuilderHelper.getXpertResultStringBuilder(ImmutableMap.of(entry.getKey(), testResults.get(entry.getKey()).getValue1()), stringBuilder, false);
+                            }
                         }
                         break;
                     case TbrConstants.RESULT.TEST_RESULT:

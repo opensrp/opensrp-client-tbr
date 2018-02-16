@@ -32,16 +32,17 @@ public class Constants {
         public static final String HOME = "home";
         public static final String MAIN = "main";
         public static final String LANG = "lang";
-        public static final String PRESUMPTIVE_PATIENT_DETAILS = "presumptive_patient_details";
-        public static final String POSITIVE_PATIENT_DETAILS = "positive_patient_details";
-        public static final String INTREATMENT_PATIENT_DETAILS = "intreatment_patient_details";
+        public static final String PATIENT_DETAILS_PRESUMPTIVE = "patient_details_presumptive";
+        public static final String PATIENT_DETAILS_POSITIVE = "patient_details_positive";
+        public static final String PATIENT_DETAILS_INTREATMENT = "patient_details_intreatment";
 
         public static class COMPONENTS {
             public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";
-            public static final String PATIENT_DETAILS_POSITIVE = "component_patient_details_positive";
+            public static final String PATIENT_DETAILS_RESULTS = "component_patient_details_results";
             public static final String PATIENT_DETAILS_SERVICE_HISTORY = "component_patient_details_service_history";
             public static final String PATIENT_DETAILS_CONTACT_SCREENING = "component_patient_details_contact_screening";
             public static final String PATIENT_DETAILS_FOLLOWUP = "component_patient_details_followup";
+            public static final String PATIENT_DETAILS_BMI = "component_patient_details_bmi";
         }
     }
 
@@ -66,6 +67,8 @@ public class Constants {
         public static final String PATIENT_TYPE = "patient_type";
         public static final String SITE_OF_DISEASE = "site_of_disease";
         public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
+        public static final String CLIENT = "client";
+
     }
 
     public static final class FORM {
@@ -98,5 +101,14 @@ public class Constants {
 
         public static final String ERROR_CODE = "error_code";
         public static final String POSITIVE = "positive";
+    }
+
+    public static final class EVENT {
+
+        public static final String REMOVE_PATIENT = "Remove Patient";
+        public static final String TREATMENT_OUTCOME = "Treatment Outcome";
+        public static final String SCREENING = "screening";
+        public static final String POSITIVE_TB_PATIENT = "positive TB patient";
+        public static final String CONTACT_SCREENING = "Contact Screening";
     }
 }

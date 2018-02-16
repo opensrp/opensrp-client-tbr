@@ -11,7 +11,6 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.populateform.PopulateEnketoFormUtils;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.tbr.R;
@@ -22,8 +21,7 @@ import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
-import java.util.HashMap;
-import java.util.Map;
+import util.TbrConstants;
 
 /**
  * Created by ndegwamartin on 20/11/2017.
@@ -71,6 +69,14 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
                 formSubmissionId = null;
                 form = Constants.FORM.DIAGNOSIS;
                 break;
+            case R.id.contact_screening:
+                formSubmissionId = null;
+                form = Constants.FORM.CONTACT_SCREENING;
+                break;
+            case R.id.POSITIVE_TB_PATIENT:
+                formSubmissionId = null;
+                form = TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT;
+                break;
             default:
                 return;
         }
@@ -88,10 +94,14 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
             return R.id.result_chest_xray;
         } else if (StringUtils.containsIgnoreCase(formName, "culture")) {
             return R.id.result_culture;
-        } else if (StringUtils.containsIgnoreCase(formName, "screening")) {
-            return R.id.addNewPatient;
         } else if (StringUtils.containsIgnoreCase(formName, "diagnosis")) {
             return R.id.tbDiagnosisForm;
+        } else if (StringUtils.equalsIgnoreCase(formName, Constants.EVENT.CONTACT_SCREENING)) {
+            return R.id.contact_screening;
+        } else if (StringUtils.containsIgnoreCase(formName, Constants.EVENT.POSITIVE_TB_PATIENT)) {
+            return R.id.POSITIVE_TB_PATIENT;
+        } else if (StringUtils.containsIgnoreCase(formName, Constants.EVENT.SCREENING)) {
+            return R.id.addNewPatient;
         } else {
             return 0;
         }
@@ -110,7 +120,7 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
             dateView.setText(date);
         }
         TextView formName = (TextView) view.findViewById(R.id.formNameTextView);
-        formName.setText(cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE)));
+        formName.setText(StringUtils.capitalize(cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE))));
         formName.setOnClickListener(this);
         formName.setTag(cursor.getString(cursor.getColumnIndex(ResultsRepository.ID)));
         formName.setTag(R.id.FORM_NAME, cursor.getString(cursor.getColumnIndex(ResultsRepository.TYPE)));
@@ -120,15 +130,6 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
 
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_from_top);
         view.startAnimation(animation);
-    }
-
-    private FieldOverrides getFieldOverrides(String tbreachId) {
-        FieldOverrides fieldOverrides = null;
-        Map fields = new HashMap();
-        fields.put(Constants.KEY.PARTICIPANT_ID, tbreachId);
-        JSONObject fieldOverridesJson = new JSONObject(fields);
-        fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
-        return fieldOverrides;
     }
 
 }

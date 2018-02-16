@@ -10,8 +10,11 @@ import org.json.JSONObject;
 import org.smartregister.sync.ClientProcessor;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.Result;
+import org.smartregister.tbr.repository.BMIRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -29,11 +32,14 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String TAG = "TbrClientProcessor";
     private static TbrClientProcessor instance;
 
-    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result",
-            "Culture Result", "X-Ray Result"};
+    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result"};
 
-    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient",
-            "intreatment TB patient"};
+    private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
+
+    private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
+
+    private static final String EVENT_TYPE_KEY = "eventType";
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient"};
 
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
@@ -55,11 +61,12 @@ public class TbrClientProcessor extends ClientProcessor {
     public synchronized void processClient(List<JSONObject> events) throws Exception {
         String clientClassificationStr = getFileContents("ec_client_classification.json");
         String clientResultStr = getFileContents("ec_client_result.json");
+        String clientBMIStr = getFileContents("ec_client_bmi.json");
 
         if (!events.isEmpty()) {
             for (JSONObject event : events) {
 
-                String eventType = event.has("eventType") ? event.getString("eventType") : null;
+                String eventType = event.has(EVENT_TYPE_KEY) ? event.getString(EVENT_TYPE_KEY) : null;
                 if (eventType == null) {
                     continue;
                 }
@@ -71,34 +78,80 @@ public class TbrClientProcessor extends ClientProcessor {
                     }
                     processResult(event, clientResultJson);
                 } else {
+                    if (Arrays.asList(BMI_EVENT_TYPES).contains(eventType)) {
+                        JSONObject clientBMIJson = new JSONObject(clientBMIStr);
+                        if (!isNullOrEmptyJSONObject(clientBMIJson)) {
+                            processBMI(event, clientBMIJson);
+                        }
+                    }
+
                     JSONObject clientClassificationJson = new JSONObject(clientClassificationStr);
                     if (isNullOrEmptyJSONObject(clientClassificationJson)) {
                         continue;
                     }
                     //iterate through the events
-                    if (event.has("client")) {
-                        processEvent(event, event.getJSONObject("client"), clientClassificationJson);
+                    if (event.has(Constants.KEY.CLIENT)) {
+                        processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson);
+
+                        // processEvent(event, event.getJSONObject(Constants.KEY.CLIENT), clientClassificationJson, Arrays.asList(new String[]{"deathdate", "attributes.dateRemoved"}));
                     }
                 }
             }
         }
     }
 
+    private boolean processBMI(JSONObject event, JSONObject clientBMIJson) {
+
+        try {
+
+            if (isInValidRecord(event, clientBMIJson)) {
+                return false;
+            }
+
+            ContentValues contentValues = processCaseModel(event, clientBMIJson);
+            // save the values to db
+            if (contentValues != null && contentValues.size() > 0 && contentValues.getAsFloat(BMIRepository.WEIGHT) != null) {
+
+                BMIRepository bmiRepository = TbrApplication.getInstance().getBmiRepository();
+
+                Float weight = contentValues.getAsFloat(BMIRepository.WEIGHT);
+                Float height = contentValues.getAsFloat(BMIRepository.HEIGHT);
+                Float bmi = contentValues.getAsFloat(BMIRepository.BMI);
+                String baseEntityId = contentValues.getAsString(BMIRepository.BASE_ENTITY_ID);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
+                String bmiRecordDate = contentValues.containsKey(BMIRepository.TREATMENT_INITIATION_DATE) ? BMIRepository.TREATMENT_INITIATION_DATE : BMIRepository.CREATED_AT;
+                Date date = simpleDateFormat.parse(contentValues.getAsString(bmiRecordDate));
+                String createdAt = Utils.formatDate(date, SQLITE_DATE_FORMAT);
+
+                bmiRepository.saveBMIRecord(baseEntityId, weight != null ? weight : 0f, height, bmi, createdAt);
+
+            }
+            return true;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+            return false;
+        }
+
+    }
+
+    private boolean isInValidRecord(JSONObject event, JSONObject jsonObject) {
+
+        return event == null || event.length() == 0 || jsonObject == null || jsonObject.length() == 0;
+    }
+
     private boolean processResult(JSONObject event, JSONObject clientResultJson) {
 
         try {
 
-            if (event == null || event.length() == 0) {
+            if (isInValidRecord(event, clientResultJson)) {
                 return false;
             }
 
-            if (clientResultJson == null || clientResultJson.length() == 0) {
-                return false;
-            }
             ContentValues contentValues = processCaseModel(event, clientResultJson);
             // save the values to db
             if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
                 Date date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
                 ResultsRepository resultsRepository = TbrApplication.getInstance().getResultsRepository();
                 Result result = new Result();
@@ -254,5 +307,4 @@ public class TbrClientProcessor extends ClientProcessor {
         }
         return obs;
     }
-
 }

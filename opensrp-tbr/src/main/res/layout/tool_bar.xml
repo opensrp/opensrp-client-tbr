@@ -154,14 +154,12 @@
     <ImageView
         android:layout_width="@dimen/smart_register_nav_bar_separator"
         android:layout_height="fill_parent"
-        android:layout_toRightOf="@+id/clinic_selection"
         android:scaleType="fitXY"
         android:src="@drawable/separator" />
 
     <ImageView
         android:layout_width="@dimen/smart_register_nav_bar_separator"
         android:layout_height="fill_parent"
-        android:layout_toLeftOf="@+id/clinic_selection"
         android:scaleType="fitXY"
         android:src="@drawable/separator" />
 
@@ -171,7 +169,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/clinic_selection"
         android:background="@drawable/transparent_gray_background"
         android:gravity="center"
         android:paddingLeft="15dp"

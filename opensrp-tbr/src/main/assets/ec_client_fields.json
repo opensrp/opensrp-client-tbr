@@ -129,10 +129,9 @@
         },
         {
           "column_name": "date_removed",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "TBR: return visit date"
+            "field": "attributes.dateRemoved"
           }
         }
       ]

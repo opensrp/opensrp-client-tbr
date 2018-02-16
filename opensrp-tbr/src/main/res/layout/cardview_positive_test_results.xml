@@ -9,49 +9,47 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/positive_results"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="0dp"
+            android:scrollHorizontally="true"
+            android:text="@string/results"
+            android:textColor="#000000"
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/positive_results"
-                style="@style/CustomFontTextViewStyle.ClientList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="0dp"
-                android:text="@string/results"
-                android:textColor="#000000"
-                android:textSize="22sp" />
+            android:textSize="22sp" />
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/record_results"
-                style="@style/CustomFontTextViewStyle.ClientList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:text="@string/record_results"
-                android:textAllCaps="true"
-                android:textColor="#3269D4"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/record_results"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:text="@string/record_results"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/latest_section_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

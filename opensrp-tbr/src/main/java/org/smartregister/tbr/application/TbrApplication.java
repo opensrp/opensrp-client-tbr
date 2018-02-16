@@ -19,6 +19,7 @@ import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.JsonSpecHelper;
 import org.smartregister.tbr.jsonspec.model.MainConfig;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
+import org.smartregister.tbr.repository.BMIRepository;
 import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
@@ -49,6 +50,7 @@ public class TbrApplication extends DrishtiApplication {
     private static CommonFtsObject commonFtsObject;
     private ResultDetailsRepository resultDetailsRepository;
     private ConfigurableViewsHelper configurableViewsHelper;
+    private BMIRepository bmiRepository;
 
     private static final String TAG = TbrApplication.class.getCanonicalName();
     private String password;
@@ -169,7 +171,7 @@ public class TbrApplication extends DrishtiApplication {
     private static String[] getFtsSortFields() {
         return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME,
                 KEY.LAST_INTERACTED_WITH, KEY.PRESUMPTIVE, KEY.CONFIRMED_TB, KEY.FIRST_ENCOUNTER,
-                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE};
+                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE, KEY.DATE_REMOVED};
     }
 
 
@@ -208,7 +210,20 @@ public class TbrApplication extends DrishtiApplication {
         return configurableViewsHelper;
     }
 
+    public BMIRepository getBmiRepository() {
+        if (bmiRepository == null) {
+            bmiRepository = new BMIRepository(getRepository());
+        }
+        return bmiRepository;
+    }
+
     private void setUpEventHandling() {
+        try {
+            EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
+        } catch
+                (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
 
         EventBus.getDefault().register(this);
 

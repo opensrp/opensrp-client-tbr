@@ -60,6 +60,10 @@ public class JsonSpecHelper {
         }
     }
 
+    public boolean isEnableJsonViews() {
+        return getMainConfiguration() != null && getMainConfiguration().isEnableJsonViews();
+    }
+
     public List<String> getAvailableLanguages() {
         List<String> languages = new ArrayList<>();
         try {

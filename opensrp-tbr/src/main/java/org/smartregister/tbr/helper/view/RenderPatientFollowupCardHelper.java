@@ -2,6 +2,7 @@ package org.smartregister.tbr.helper.view;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +21,8 @@ import java.util.Map;
 
 public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
 
+    private static final String TAG = RenderPatientFollowupCardHelper.class.getCanonicalName();
+
     public RenderPatientFollowupCardHelper(Context context, ResultDetailsRepository detailsRepository) {
         super(context, detailsRepository);
     }
@@ -30,24 +33,33 @@ public class RenderPatientFollowupCardHelper extends BaseRenderHelper {
 
             @Override
             public void run() {
-                Button followUpView = (Button) view.findViewById(R.id.follow_up_button);
-                if (followUpView != null && patientDetails.get(Constants.KEY.NEXT_VISIT_DATE) != null) {
-                    ((View) followUpView.getParent().getParent()).setVisibility(View.VISIBLE);
-                    followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString(), true), "dd/MM"));
-                    DateTime treatmentStartDate = DateTime.parse(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString());
-                    int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
-                    if (due < 0)
-                        followUpView.setBackgroundResource(R.drawable.due_vaccine_red_bg);
-                    else if (due == 0) {
-                        followUpView.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                try {
+                    Button followUpView = (Button) view.findViewById(R.id.follow_up_button);
+                    followUpView.setAllCaps(false);
+                    if (followUpView != null && patientDetails.get(Constants.KEY.NEXT_VISIT_DATE) != null) {
+
+                        followUpView.setText(context.getString(R.string.followup) + " - due " + Utils.formatDate(org.smartregister.util.Utils.toDate(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE), true), "dd/MM"));
+                        DateTime treatmentStartDate = DateTime.parse(patientDetails.get(Constants.KEY.NEXT_VISIT_DATE).toString());
+                        int due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
+                        if (due < 0) {
+                            followUpView.setBackgroundResource(R.drawable.due_vaccine_red_bg);
+                            followUpView.setTextColor(context.getResources().getColor(R.color.white));
+                        } else if (due == 0) {
+                            followUpView.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                            followUpView.setTextColor(context.getResources().getColor(R.color.white));
+                        } else {
+                            followUpView.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+                            followUpView.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+                        }
+
+
                     } else {
+                        followUpView.setText(R.string.followup);
                         followUpView.setTextColor(context.getResources().getColor(R.color.client_list_grey));
                         followUpView.setBackgroundResource(R.drawable.due_vaccine_na_bg);
                     }
-
-
-                } else {
-                    ((View) followUpView.getParent().getParent()).setVisibility(View.GONE);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
             }
 

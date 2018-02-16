@@ -110,7 +110,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 ", '0' as " + KEY.INDEX +
                 " FROM " + CONTACT_TABLE_NAME + " c " +
                 " LEFT JOIN " + PATIENT_TABLE_NAME + " p ON c." + KEY.BASE_ENTITY_ID + "=p." + KEY.BASE_ENTITY_ID +
-                " WHERE c." + KEY.PARENT_ENTITY_ID + "= ? UNION " +
+                " WHERE c." + KEY.RELATIONAL_ID + "= ? UNION " +
                 "SELECT p." + KEY.FIRST_NAME +
                 " ,p." + KEY.LAST_NAME +
                 " ,p." + KEY.GENDER +
@@ -122,7 +122,7 @@ public class RenderContactScreeningCardHelper extends BaseRenderHelper {
                 ", p. " + KEY.TREATMENT_INITIATION_DATE +
                 ", '1' as " + KEY.INDEX +
                 " FROM " + CONTACT_TABLE_NAME + " c " +
-                " JOIN " + PATIENT_TABLE_NAME + " p ON c." + KEY.PARENT_ENTITY_ID + "=p." + KEY.BASE_ENTITY_ID +
+                " JOIN " + PATIENT_TABLE_NAME + " p ON c." + KEY.RELATIONAL_ID + "=p." + KEY.BASE_ENTITY_ID +
                 " WHERE c." + KEY.BASE_ENTITY_ID + "= ?";
 
         Cursor cursor = null;

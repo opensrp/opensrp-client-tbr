@@ -66,7 +66,7 @@ public class Utils {
             for (String s : fullname.split(Constants.CHAR.SPACE)) {
                 initials.append(s.charAt(0));
             }
-            return initials.toString();
+            return initials.toString().toUpperCase();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
@@ -236,4 +236,15 @@ public class Utils {
         return "";
     }
 
+    public static Integer getIntegerValue(Object object) {
+        int val = 0;
+        if (object != null) {
+            try {
+                val = Integer.parseInt(object.toString());
+            } catch (NumberFormatException e) {
+                val = 0;
+            }
+        }
+        return val;
+    }
 }

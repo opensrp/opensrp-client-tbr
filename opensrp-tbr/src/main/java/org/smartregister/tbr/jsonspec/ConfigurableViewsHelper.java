@@ -3,7 +3,6 @@ package org.smartregister.tbr.jsonspec;
 import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
@@ -26,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * Created by samuelgithengi on 11/21/17.
@@ -135,17 +135,40 @@ public class ConfigurableViewsHelper {
                 registerColumns.setLayoutParams(
                         new AbsListView.LayoutParams(
                                 AbsListView.LayoutParams.MATCH_PARENT,
-                                AbsListView.LayoutParams.MATCH_PARENT));
-            else
-                registerColumns.setLayoutParams(
-                        new WindowManager.LayoutParams(
-                                WindowManager.LayoutParams.MATCH_PARENT,
-                                WindowManager.LayoutParams.MATCH_PARENT));
+                                AbsListView.LayoutParams.WRAP_CONTENT));
+            else {
+                registerColumns.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
+                        (int) context.getResources().getDimension(R.dimen.list_item_height)));
+            }
             return registerColumns;
         } catch (Exception e) {
             Log.e(TAG, "inflateDynamicView: ", e);
             return fallback;
         }
+    }
+
+    public android.view.View getDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent) {
+        try {
+            JSONObject jsonView = new JSONObject(viewConfiguration.getJsonView());
+            android.view.View view = DynamicView.createView(context, jsonView, viewParent);
+            return view;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent, android.view.View fallbackLayout, boolean isVisible) {
+
+        android.view.View json2View = getDynamicView(viewConfiguration, viewParent);
+        if (fallbackLayout != null) {
+            viewParent.removeView(fallbackLayout);
+        }
+        if (isVisible) {
+            json2View = json2View != null ? json2View : fallbackLayout;
+            viewParent.addView(json2View);
+        }
+
+        return json2View;
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)

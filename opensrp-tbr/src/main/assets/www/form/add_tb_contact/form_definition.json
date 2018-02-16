@@ -94,8 +94,7 @@
         "default_bind_path": "/model/instance/AddContactForm_23.11.17_US/contact_information",
         "fields": [
           {
-            "name": "id",
-            "shouldLoadValue": true
+            "name": "id"
           },
           {
             "name": "contact_id",

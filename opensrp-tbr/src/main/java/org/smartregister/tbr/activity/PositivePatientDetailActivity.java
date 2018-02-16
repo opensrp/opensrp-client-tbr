@@ -10,7 +10,6 @@ import org.smartregister.tbr.fragment.PositivePatientDetailsFragment;
 import org.smartregister.tbr.util.Constants;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import util.TbrConstants;
 
@@ -36,7 +35,7 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
     protected Fragment getDetailFragment() {
 
         PositivePatientDetailsFragment fragment = new PositivePatientDetailsFragment();
-        Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+        patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
         fragment.setPatientDetails(patientDetails);
         return fragment;
     }
@@ -45,7 +44,8 @@ public class PositivePatientDetailActivity extends BasePatientDetailActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.treatmentInitiationForm:
-                Map<String, String> patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+                patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+                formOverridesHelper.setPatientDetails(patientDetails);
                 startFormActivity(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION, patientDetails.get(Constants.KEY._ID), formOverridesHelper.getTreatmentFieldOverrides().getJSONString());
                 return true;
             default:

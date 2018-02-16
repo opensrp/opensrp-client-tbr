@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.helper.DBQueryHelper;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
 
@@ -120,20 +121,19 @@ public class ResultDetailsRepository extends BaseRepository {
         return clientDetails;
     }
 
-
     public RegisterCount getRegisterCountByType(String type) {
         Cursor cursor = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
             String suffix = "";
             if (type.equals(Register.PRESUMPTIVE_PATIENTS)) {
-                suffix = "presumptive is NOT NULL and confirmed_tb is NULL";
+                suffix = DBQueryHelper.getPresumptivePatientRegisterCondition();
             } else if (type.equals(Register.POSITIVE_PATIENTS)) {
-                suffix = "confirmed_tb is NOT NULL and treatment_initiation_date is NULL";
+                suffix = DBQueryHelper.getPositivePatientRegisterCondition();
 
             } else if (type.equals(Register.IN_TREATMENT_PATIENTS)) {
 
-                suffix = "treatment_initiation_date is NOT NULL";
+                suffix = DBQueryHelper.getIntreatmentPatientRegisterCondition();
             }
 
 

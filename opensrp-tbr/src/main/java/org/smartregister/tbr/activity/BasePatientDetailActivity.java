@@ -74,6 +74,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
                 currentPage = position;
             }
         });
+        initializeEnketoFormFragment(formNames[0], null, null, false, false);
     }
 
     protected abstract Fragment getDetailFragment();
@@ -84,7 +85,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         return true;
     }
 
-    public void startFormActivity(String formName, String entityId, String metaData, boolean readonly) {
+    public void initializeEnketoFormFragment(String formName, String entityId, String metaData, boolean displayForm, boolean readonly) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
@@ -101,7 +102,8 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
                 }
             }
             formIsReadonly = readonly;
-            mPager.setCurrentItem(formIndex, false);
+            if (displayForm)
+                mPager.setCurrentItem(formIndex, false);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,8 +111,12 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
 
     }
 
+    public void startFormActivity(String formName, String entityId, String metaData, boolean readonly) {
+        initializeEnketoFormFragment(formName, entityId, metaData, true, readonly);
+    }
+
     public void startFormActivity(String formName, String entityId, String metaData) {
-        startFormActivity(formName, entityId, metaData, false);
+        initializeEnketoFormFragment(formName, entityId, metaData, true, false);
     }
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
@@ -145,6 +151,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(TbrConstants.ENKETO_FORMS.ADD_TB_CONTACT);
         formNames.add(Constants.FORM.REMOVE_PATIENT);
         formNames.add(Constants.FORM.TREATMENT_OUTCOME);
+        formNames.add(TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT);
         return formNames.toArray(new String[formNames.size()]);
     }
 

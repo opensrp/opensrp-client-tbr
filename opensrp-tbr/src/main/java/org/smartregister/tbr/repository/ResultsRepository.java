@@ -149,7 +149,7 @@ public class ResultsRepository extends BaseRepository {
         Cursor cursor = null;
         Map<String, String> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, baseline, singleResult, false);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, singleResult, false, false);
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -179,14 +179,18 @@ public class ResultsRepository extends BaseRepository {
         return getLatestResults(baseEntityId, true, null);
     }
 
-    private Cursor getLatestResultsCursor(String baseEntityId, Long baseline, boolean singleResult, boolean orderResults) {
+    private Cursor getLatestResultsCursor(String baseEntityId, Long baseline, boolean singleResult, boolean orderResults, boolean afterBaseline) {
         Cursor cursor;
         SQLiteDatabase db = getReadableDatabase();
         String baselineFilter = "";
         String orderByClause = "";
         String groupByClause = "";
         if (baseline != null) {
-            baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+            if (afterBaseline) {
+                baselineFilter = "AND " + CREATED_AT + ">" + baseline + "";
+            } else {
+                baselineFilter = "AND " + CREATED_AT + "<=" + baseline + "";
+            }
         }
         if (!singleResult) {
             groupByClause = " GROUP BY " + TYPE;
@@ -204,30 +208,42 @@ public class ResultsRepository extends BaseRepository {
         return cursor;
     }
 
-    public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline) {
+    public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline, boolean afterBaseline) {
         Cursor cursor = null;
         Result result;
         Map<String, Result> clientDetails = new LinkedHashMap<>();
         try {
-            cursor = getLatestResultsCursor(baseEntityId, baseline, false, false);
+            cursor = getLatestResultsCursor(baseEntityId, baseline, false, true, afterBaseline);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
+
+
+                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
+
                     result = new Result();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(Constants.KEY.DATE)));
                     result.setDate(calendar.getTime());
-                    result.setResult1(cursor.getString(cursor.getColumnIndex(RESULT1)));
+                    result.setResult1(key);
                     result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE1)));
 
-                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+                    if (key2 != null && !key2.isEmpty() && key2.equals(Constants.RESULT.ERROR_CODE)) {
+
+                        result.setResult2(key2);
+                        result.setValue2(cursor.getString(cursor.getColumnIndex(VALUE2)));
+                    }
+
                     clientDetails.put(key, result);
-                    String key2 = cursor.getString(cursor.getColumnIndex(RESULT2));
-                    if (key2 != null && !key2.isEmpty()) {
+
+                    if (key2 != null && !key2.isEmpty() && !key2.equals(Constants.RESULT.ERROR_CODE)) {
+
                         result = new Result();
-                        result.setResult1(key2);
                         result.setDate(calendar.getTime());
+                        result.setResult1(key2);
                         result.setValue1(cursor.getString(cursor.getColumnIndex(VALUE2)));
                         clientDetails.put(key2, result);
+
                     }
 
                 } while (cursor.moveToNext());

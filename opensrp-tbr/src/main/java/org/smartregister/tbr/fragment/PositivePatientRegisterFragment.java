@@ -3,6 +3,7 @@ package org.smartregister.tbr.fragment;
 import android.view.View;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.helper.DBQueryHelper;
 
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;
@@ -21,7 +22,7 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return " confirmed_tb = \"yes\" AND treatment_initiation_date IS NULL";
+        return DBQueryHelper.getPositivePatientRegisterCondition();
     }
 
     @Override

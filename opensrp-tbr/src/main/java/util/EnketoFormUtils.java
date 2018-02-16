@@ -35,6 +35,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.sync.TbrClientProcessor;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.Log;
@@ -67,6 +68,7 @@ import static org.smartregister.tbr.sync.TbrClientProcessor.CONTACT_SCREENING;
 import static org.smartregister.tbr.sync.TbrClientProcessor.DIAGNOSIS_EVENT;
 import static org.smartregister.tbr.sync.TbrClientProcessor.TREATMENT_INITIATION;
 import static org.smartregister.util.Log.logInfo;
+import static util.TbrConstants.KEY.ATTRIBUTE_DATEREMOVED;
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 import static util.TbrConstants.TBREACH_ID;
@@ -1084,7 +1086,6 @@ public class EnketoFormUtils {
             }
 
             Utils.postEvent(new EnketoFormSaveCompleteEvent(this.formSubmission.formName()));
-
         }
 
         @Override
@@ -1104,6 +1105,7 @@ public class EnketoFormUtils {
                 event = tagSyncMetadata(event);
                 saveEvent(event);
                 Gson gson = new GsonBuilder().create();
+
                 if (event.getEventType() != null) {
                     if (event.getEventType().equals(DIAGNOSIS_EVENT)) {
                         JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
@@ -1122,6 +1124,11 @@ public class EnketoFormUtils {
                         client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
                         client.setAddresses(c.getAddresses());
                         saveClient(client);
+                    } else if (event.getEventType().equals(Constants.EVENT.REMOVE_PATIENT) || event.getEventType().equals(Constants.EVENT.TREATMENT_OUTCOME)) {
+                        JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
+                        Client client = gson.fromJson(json.toString(), Client.class);
+                        client.addAttribute(ATTRIBUTE_DATEREMOVED, new DateTime(event.getEventDate()).toString());
+                        saveClient(client);
                     }
                 }
 
@@ -1134,6 +1141,7 @@ public class EnketoFormUtils {
                     evin = tagSyncMetadata(evin);
                     saveEvent(evin);
                 }
+
                 long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
                 TbrClientProcessor.getInstance(context).processClient(eventClientRepository.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));

@@ -8,40 +8,49 @@
         <option data-dir="ltr" value="en">English</option>
     </select>
     <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label"
-            lang="Roman Urdu">Shehr: <span
-            class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_city "></span> ; Town: <span
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label" lang="Roman Urdu">
+            Shehr: <span class="or-output"
+            data-value=" /FollowUpVisit_10.01.18/provider_city "></span> ; Town: <span
             class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_town "></span> ; UC: <span
             class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_uc "></span> ; Center ka
-            naam: <span class="or-output"
+            naam:
+            <span class="or-output"
                 data-value=" /FollowUpVisit_10.01.18/provider_location_name "></span>
         </span>
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label"
-            lang="en">City: <span
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/provider_location_note:label" lang="en">City: <span
             class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_city "></span> ; Town: <span
             class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_town "></span> ; UC: <span
             class="or-output" data-value=" /FollowUpVisit_10.01.18/provider_uc "></span> ; Center
-            Name: <span class="or-output"
+            Name:
+            <span class="or-output"
                 data-value=" /FollowUpVisit_10.01.18/provider_location_name "></span>
         </span>
         <input name="/FollowUpVisit_10.01.18/provider_location_note" data-type-xml="string"
             readonly="readonly" type="text" />
     </label>
     <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label"
             lang="Roman Urdu">Ilaaj shuru
-            honey ki tareeq: <span class="or-output"
+            honey ki tareeq:
+            <span class="or-output"
                 data-value=" /FollowUpVisit_10.01.18/treatment_initiation_date "></span>
         </span>
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label"
-            lang="en">Treatment
-            Initiation Date: <span class="or-output"
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/treatment_initiation_date_note:label" lang="en">
+            Treatment
+            Initiation Date:
+            <span class="or-output"
                 data-value=" /FollowUpVisit_10.01.18/treatment_initiation_date "></span>
         </span>
         <input name="/FollowUpVisit_10.01.18/treatment_initiation_date_note" data-type-xml="string"
@@ -54,20 +63,24 @@
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/participant_id:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/participant_id:label"
-            lang="en">Participant ID
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/participant_id:label" lang="en">Participant ID
         </span>
         <span class="required">*</span>
-        <input name="/FollowUpVisit_10.01.18/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
-            readonly="readonly" required="required" type="text" />
-        <span class="or-constraint-msg " data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
+        <input name="/FollowUpVisit_10.01.18/participant_id"
+            data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-constraint-msg "
+            data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
             lang="Roman Urdu">-
         </span>
-        <span class="or-constraint-msg " data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
+        <span class="or-constraint-msg "
+            data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
             lang="openmrs_code">-
         </span>
-        <span class="or-constraint-msg active" data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg"
-            lang="en">Maximum 20
+        <span class="or-constraint-msg active"
+            data-itext-id="/FollowUpVisit_10.01.18/participant_id:jr:constraintMsg" lang="en">
+            Maximum 20
             digits and cannot contain anything other than number
         </span>
         <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
@@ -81,12 +94,12 @@
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/program_id_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/program_id_note:label"
-            lang="en">Program ID: <span
-            class="or-output" data-value=" /FollowUpVisit_10.01.18/program_id "></span>
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/program_id_note:label" lang="en">Program ID:
+            <span class="or-output" data-value=" /FollowUpVisit_10.01.18/program_id "></span>
         </span>
-        <input name="/FollowUpVisit_10.01.18/program_id_note" data-type-xml="string" readonly="readonly"
-            required="required" type="text" />
+        <input name="/FollowUpVisit_10.01.18/program_id_note" data-type-xml="string"
+            readonly="readonly" required="required" type="text" />
         <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
             required
         </span>
@@ -100,13 +113,13 @@
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/pt_name_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/pt_name_note:label"
-            lang="en">Patient Name:
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/pt_name_note:label" lang="en">Patient Name:
             <span class="or-output" data-value=" /FollowUpVisit_10.01.18/first_name "></span>
             <span class="or-output" data-value=" /FollowUpVisit_10.01.18/last_name "></span>
         </span>
-        <input name="/FollowUpVisit_10.01.18/pt_name_note" data-type-xml="string" readonly="readonly"
-            type="text" />
+        <input name="/FollowUpVisit_10.01.18/pt_name_note" data-type-xml="string"
+            readonly="readonly" type="text" />
     </label>
     <label class="question non-select ">
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/weight:label"
@@ -135,7 +148,8 @@
         <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/height:label"
             lang="en">Height (m)
         </span>
-        <input name="/FollowUpVisit_10.01.18/height" data-type-xml="int" type="number" />
+        <input name="/FollowUpVisit_10.01.18/height" data-type-xml="decimal" step="any"
+            type="number" />
     </label>
     <label class="question non-select ">
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/category:label"
@@ -159,50 +173,59 @@
         <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/month:label"
             lang="en">Treatment Month
         </span>
-        <input name="/FollowUpVisit_10.01.18/month" data-type-xml="string" type="text" />
+        <input name="/FollowUpVisit_10.01.18/month" data-type-xml="int" type="number" />
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label"
-                    lang="Roman Urdu">Phase
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label" lang="Roman Urdu">
+                    Phase
                 </span>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label"
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label"
-                    lang="en">Treatment Phase
+                <span class="question-label active"
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_phase:label" lang="en">
+                    Treatment Phase
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/treatment_phase" data-name="/FollowUpVisit_10.01.18/treatment_phase"
-                        data-type-xml="select1" type="radio"
-                        value="continuation" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
+                    <input name="/FollowUpVisit_10.01.18/treatment_phase"
+                        data-name="/FollowUpVisit_10.01.18/treatment_phase" data-type-xml="select1"
+                        type="radio" value="continuation" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
                         lang="Roman Urdu">
                         Continuation
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
                         lang="en">
                         Continuation
                     </span>
                 </label>
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/treatment_phase" data-name="/FollowUpVisit_10.01.18/treatment_phase"
-                        data-type-xml="select1" type="radio"
-                        value="intensive" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                    <input name="/FollowUpVisit_10.01.18/treatment_phase"
+                        data-name="/FollowUpVisit_10.01.18/treatment_phase" data-type-xml="select1"
+                        type="radio" value="intensive" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
                         lang="Roman Urdu">
                         Intensive
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
                         lang="en">
                         Intensive
                     </span>
@@ -213,22 +236,25 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label"
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label"
                     lang="Roman Urdu">Regimen
                 </span>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label"
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label"
-                    lang="en">Regimen
+                <span class="question-label active"
+                    data-itext-id="/FollowUpVisit_10.01.18/treatment_regimen:label" lang="en">
+                    Regimen
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="itemset-template"
                     data-items-path="instance('regimen')/root/item[( (name = 'rhzes' or name = 'rhze') and  /FollowUpVisit_10.01.18/treatment_phase  = 'intensive' ) or  ( (name = 'rhe' or name = 'rh') and  /FollowUpVisit_10.01.18/treatment_phase  = 'continuation' ) or  name = 'other']">
-                    <input name="/FollowUpVisit_10.01.18/treatment_regimen" data-name="/FollowUpVisit_10.01.18/treatment_regimen"
-                        data-type-xml="select1"
-                        type="radio" value="" />
+                    <input name="/FollowUpVisit_10.01.18/treatment_regimen"
+                        data-name="/FollowUpVisit_10.01.18/treatment_regimen"
+                        data-type-xml="select1" type="radio" value="" />
                 </label>
                 <span class="itemset-labels" data-label-ref="itextId" data-label-type="itext"
                     data-value-ref="name">
@@ -288,12 +314,12 @@
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/regimen_oth:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/regimen_oth:label"
-            lang="en">Other
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/regimen_oth:label" lang="en">Other
         </span>
-        <input name="/FollowUpVisit_10.01.18/regimen_oth" data-relevant=" /FollowUpVisit_10.01.18/treatment_regimen ='other'"
-            data-type-xml="string"
-            type="text" />
+        <input name="/FollowUpVisit_10.01.18/regimen_oth"
+            data-relevant=" /FollowUpVisit_10.01.18/treatment_regimen ='other'"
+            data-type-xml="string" type="text" />
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
@@ -305,38 +331,43 @@
                 <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/fu_visit:label"
-                    lang="en">Next Appointment after 30
+                <span class="question-label active"
+                    data-itext-id="/FollowUpVisit_10.01.18/fu_visit:label" lang="en">Next
+                    Appointment after 30
                     days?
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/fu_visit" data-name="/FollowUpVisit_10.01.18/fu_visit"
-                        data-type-xml="select1" type="radio"
-                        value="yes" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label"
+                    <input name="/FollowUpVisit_10.01.18/fu_visit"
+                        data-name="/FollowUpVisit_10.01.18/fu_visit" data-type-xml="select1"
+                        type="radio" value="yes" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label"
-                        lang="en">Yes
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/yes:label" lang="en">Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/fu_visit" data-name="/FollowUpVisit_10.01.18/fu_visit"
-                        data-type-xml="select1" type="radio"
-                        value="no" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label"
-                        lang="Roman Urdu">Nahi
+                    <input name="/FollowUpVisit_10.01.18/fu_visit"
+                        data-name="/FollowUpVisit_10.01.18/fu_visit" data-type-xml="select1"
+                        type="radio" value="no" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label" lang="Roman Urdu">
+                        Nahi
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label"
-                        lang="en">No
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/fu_visit/no:label" lang="en">No
                     </span>
                 </label>
             </div>
@@ -349,40 +380,47 @@
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/fu_visit_date:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/fu_visit_date:label"
-            lang="en">Entet Next Visit Date
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/fu_visit_date:label" lang="en">Enter Next Visit
+            Date
         </span>
-        <input name="/FollowUpVisit_10.01.18/fu_visit_date" data-relevant=" /FollowUpVisit_10.01.18/fu_visit ='no'"
-            data-type-xml="date" type="date" />
+        <input name="/FollowUpVisit_10.01.18/fu_visit_date"
+            data-relevant=" /FollowUpVisit_10.01.18/fu_visit ='no'" data-type-xml="date"
+            type="date" />
     </label>
     <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label"
-            lang="Roman Urdu">Next Visit Date <span
-            class="or-output" data-value=" /FollowUpVisit_10.01.18/next_visit_date "></span>
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label" lang="Roman Urdu">
+            Next Visit Date
+            <span class="or-output" data-value=" /FollowUpVisit_10.01.18/next_visit_date "></span>
         </span>
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label"
-            lang="openmrs_code">-
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label" lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label"
-            lang="en">Next Visit Date <span
-            class="or-output" data-value=" /FollowUpVisit_10.01.18/next_visit_date "></span>
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/next_visit_date_note:label" lang="en">Next Visit
+            Date
+            <span class="or-output" data-value=" /FollowUpVisit_10.01.18/next_visit_date "></span>
         </span>
         <input name="/FollowUpVisit_10.01.18/next_visit_date_note" data-type-xml="string"
             readonly="readonly" type="text" />
     </label>
     <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label"
             lang="Roman Urdu">Next Smear Due
-            Date <span class="or-output"
-                data-value=" /FollowUpVisit_10.01.18/smear_due_date "></span>
+            Date
+            <span class="or-output" data-value=" /FollowUpVisit_10.01.18/smear_due_date "></span>
         </span>
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label"
-            lang="en">Next Smear Due
-            Date <span class="or-output"
-                data-value=" /FollowUpVisit_10.01.18/smear_due_date "></span>
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/next_smear_due_date_note:label" lang="en">Next
+            Smear Due
+            Date
+            <span class="or-output" data-value=" /FollowUpVisit_10.01.18/smear_due_date "></span>
         </span>
         <input name="/FollowUpVisit_10.01.18/next_smear_due_date_note" data-type-xml="string"
             readonly="readonly" type="text" />
@@ -390,63 +428,75 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label"
-                    lang="Roman Urdu">Munfi asraat paish
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label" lang="Roman Urdu">
+                    Munfi asraat paish
                     aye?
                 </span>
-                <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label"
+                <span class="question-label "
+                    data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label"
                     lang="openmrs_code">-
                 </span>
-                <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label"
-                    lang="en">Experienced any
+                <span class="question-label active"
+                    data-itext-id="/FollowUpVisit_10.01.18/adverse_effect:label" lang="en">
+                    Experienced any
                     adverse effects?
                 </span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/adverse_effect" data-name="/FollowUpVisit_10.01.18/adverse_effect"
-                        data-type-xml="select1" type="radio"
-                        value="yes" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label"
+                    <input name="/FollowUpVisit_10.01.18/adverse_effect"
+                        data-name="/FollowUpVisit_10.01.18/adverse_effect" data-type-xml="select1"
+                        type="radio" value="yes" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label"
                         lang="Roman Urdu">Haan
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label"
-                        lang="en">Yes
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/yes:label" lang="en">
+                        Yes
                     </span>
                 </label>
                 <label class="">
-                    <input name="/FollowUpVisit_10.01.18/adverse_effect" data-name="/FollowUpVisit_10.01.18/adverse_effect"
-                        data-type-xml="select1" type="radio"
-                        value="no" />
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label"
+                    <input name="/FollowUpVisit_10.01.18/adverse_effect"
+                        data-name="/FollowUpVisit_10.01.18/adverse_effect" data-type-xml="select1"
+                        type="radio" value="no" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label"
                         lang="Roman Urdu">Nahi
                     </span>
-                    <span class="option-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label"
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label"
                         lang="openmrs_code">-
                     </span>
-                    <span class="option-label active" data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label"
-                        lang="en">No
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/adverse_effect/no:label" lang="en">No
                     </span>
                 </label>
             </div>
         </fieldset>
     </fieldset>
     <label class="question or-branch pre-init non-select ">
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label"
-            lang="Roman Urdu">Agar haan, tou
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label" lang="Roman Urdu">
+            Agar haan, tou
             wazar karein
         </span>
-        <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label"
+        <span class="question-label "
+            data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label"
             lang="openmrs_code">-
         </span>
-        <span class="question-label active" data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label"
-            lang="en">If yes, specify
+        <span class="question-label active"
+            data-itext-id="/FollowUpVisit_10.01.18/adverse_effect_specify:label" lang="en">If yes,
+            specify
         </span>
-        <input name="/FollowUpVisit_10.01.18/adverse_effect_specify" data-relevant=" /FollowUpVisit_10.01.18/adverse_effect ='yes'"
-            data-type-xml="string" type="text" />
+        <input name="/FollowUpVisit_10.01.18/adverse_effect_specify"
+            data-relevant=" /FollowUpVisit_10.01.18/adverse_effect ='yes'" data-type-xml="string"
+            type="text" />
     </label>
     <label class="question non-select or-appearance-multiline ">
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/comments:label"
@@ -462,67 +512,69 @@
     </label>
     <fieldset style="display:none;" id="or-preload-items">
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/start" data-preload="timestamp" data-preload-params="start"
-                data-type-xml="dateTime" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/start" data-preload="timestamp"
+                data-preload-params="start" data-type-xml="dateTime" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/end" data-preload="timestamp" data-preload-params="end"
-                data-type-xml="dateTime" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/end" data-preload="timestamp"
+                data-preload-params="end" data-type-xml="dateTime" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/today" data-preload="date" data-preload-params="today"
-                data-type-xml="date" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/today" data-preload="date"
+                data-preload-params="today" data-type-xml="date" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/deviceid" data-preload="property" data-preload-params="deviceid"
-                data-type-xml="string" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/deviceid" data-preload="property"
+                data-preload-params="deviceid" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/subscriberid" data-preload="property" data-preload-params="subscriberid"
-                data-type-xml="string" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/simserial" data-preload="property" data-preload-params="simserial"
-                data-type-xml="string" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/simserial" data-preload="property"
+                data-preload-params="simserial" data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/phonenumber" data-preload="property" data-preload-params="phonenumber"
-                data-type-xml="string" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
         </label>
     </fieldset>
     <fieldset style="display:none;" id="or-calculated-items">
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/encounter_date" data-calculate=" /FollowUpVisit_10.01.18/today "
-                data-type-xml="string" type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/encounter_date"
+                data-calculate=" /FollowUpVisit_10.01.18/today " data-type-xml="string"
+                type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/bmi" data-calculate=" /FollowUpVisit_10.01.18/weight  div ( /FollowUpVisit_10.01.18/height * /FollowUpVisit_10.01.18/height )"
-                data-type-xml="string"
-                type="hidden" />
+            <input name="/FollowUpVisit_10.01.18/bmi"
+                data-calculate=" /FollowUpVisit_10.01.18/weight  div ( /FollowUpVisit_10.01.18/height * /FollowUpVisit_10.01.18/height )"
+                data-type-xml="string" type="hidden" />
         </label>
         <label class="or-branch pre-init calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/visit_date" data-calculate="format-date(date-time(decimal-date-time( /FollowUpVisit_10.01.18/treatment_initiation_date )+30),'%Y-%m-%d')"
-                data-relevant=" /FollowUpVisit_10.01.18/fu_visit ='yes'"
-                data-type-xml="string"
+            <input name="/FollowUpVisit_10.01.18/visit_date"
+                data-calculate="format-date(date-time(decimal-date-time( /FollowUpVisit_10.01.18/treatment_initiation_date )+30),'%Y-%m-%d')"
+                data-relevant=" /FollowUpVisit_10.01.18/fu_visit ='yes'" data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/next_visit_date" data-calculate="if( /FollowUpVisit_10.01.18/fu_visit ='yes',  /FollowUpVisit_10.01.18/visit_date ,  /FollowUpVisit_10.01.18/fu_visit_date )"
-                data-type-xml="string"
-                type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/smear_due_date" data-calculate="if( /FollowUpVisit_10.01.18/category  = 'cat i',  ( if( /FollowUpVisit_10.01.18/month  = 5, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 144),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 6, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 174),'%Y-%m-%d'), 'not due at the moment')  ) ), ( if( /FollowUpVisit_10.01.18/month  = 3, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 84),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 5, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 144),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 8, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 204),'%Y-%m-%d'), 'not due at the moment') )  ) ) )"
-                data-type-xml="string"
-                type="hidden" />
-        </label>
-        <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+            <input name="/FollowUpVisit_10.01.18/next_visit_date"
+                data-calculate="if( /FollowUpVisit_10.01.18/fu_visit ='yes',  /FollowUpVisit_10.01.18/visit_date ,  /FollowUpVisit_10.01.18/fu_visit_date )"
                 data-type-xml="string" type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/FollowUpVisit_10.01.18/formhub/uuid" data-calculate="'dc807a6bccfc4f88970767b482e3d15e'"
+            <input name="/FollowUpVisit_10.01.18/smear_due_date"
+                data-calculate="if( /FollowUpVisit_10.01.18/category  = 'cat i',  ( if( /FollowUpVisit_10.01.18/month  = 5, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 144),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 6, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 174),'%Y-%m-%d'), 'not due at the moment')  ) ), ( if( /FollowUpVisit_10.01.18/month  = 3, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 84),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 5, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 144),'%Y-%m-%d'),  if( /FollowUpVisit_10.01.18/month  = 8, format-date(date( /FollowUpVisit_10.01.18/treatment_initiation_date  + 204),'%Y-%m-%d'), 'not due at the moment') )  ) ) )"
                 data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_10.01.18/meta/instanceID"
+                data-calculate="concat('uuid:', uuid())" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/FollowUpVisit_10.01.18/formhub/uuid"
+                data-calculate="'dc807a6bccfc4f88970767b482e3d15e'" data-type-xml="string"
+                type="hidden" />
         </label>
     </fieldset>
 </form>

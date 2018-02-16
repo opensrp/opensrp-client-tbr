@@ -278,6 +278,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
+
         ConfigurableViewsHelper helper = TbrApplication.getInstance().getConfigurableViewsHelper();
         if (helper.isJsonViewsEnabled()) {
             ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewConfigurationIdentifier);

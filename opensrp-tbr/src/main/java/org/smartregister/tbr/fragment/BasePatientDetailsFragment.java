@@ -10,16 +10,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
+import org.smartregister.tbr.activity.HomeActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
 import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
@@ -27,13 +31,19 @@ import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
 import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
 import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
 import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
+import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.fragment.SecuredFragment;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+
+import util.TbrConstants;
 
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS;
@@ -49,10 +59,6 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     protected Map<String, String> languageTranslations;
     private static String TAG = BasePatientDetailsFragment.class.getCanonicalName();
     private FormOverridesHelper formOverridesHelper;
-
-    protected abstract void processViewConfigurations(View view);
-
-    protected abstract void renderDefaultLayout(View view);
 
     protected abstract void setPatientDetails(Map<String, String> patientDetails);
 
@@ -88,7 +94,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         renderContactScreeningHelper.renderView(view, patientDetails);
     }
 
-    protected void processLanguageTokens(Map<String, String> viewLabelsMap, Map<String, String> languageTranslations, View parentView) {
+    protected void processLanguageTokens(Map<String, String> viewLabelsMap, View parentView) {
         try {
             //Process token translations
             if (!viewLabelsMap.isEmpty()) {
@@ -98,7 +104,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
                         if (textView != null) {
-                            String translated = getTranslatedToken(entry.getKey());
+                            String translated = getTranslatedToken(entry.getKey(), textView.getText().toString());
                             textView.setText(translated);
 
                         }
@@ -110,10 +116,6 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-    }
-
-    private String getTranslatedToken(String token) {
-        return getTranslatedToken(token, token);
     }
 
     private String getTranslatedToken(String token, String defaultReturn) {
@@ -195,11 +197,20 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             } else if (enketoFormSaveCompleteEvent.getFormName().equals(ENKETO_FORMS.TREATMENT_INITIATION)) {
                 initializeRegister(new Intent(getActivity(), InTreatmentPatientRegisterActivity.class), getTranslatedToken(Register.IN_TREATMENT_PATIENTS, getString(R.string.in_treatment_patients)));
 
+            } else if (enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.REMOVE_PATIENT) || enketoFormSaveCompleteEvent.getFormName().equals(Constants.FORM.TREATMENT_OUTCOME)) {
+                startActivity(new Intent(getActivity(), HomeActivity.class));
             } else {
                 processViewConfigurations(getView());
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshView(SyncEvent syncEvent) {
+        if (syncEvent != null && syncEvent.getFetchStatus().equals(FetchStatus.fetched)) {
+            processViewConfigurations(getView());
+        }
     }
 
     private void initializeRegister(Intent intent, String registerTitle) {
@@ -209,9 +220,10 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
     @Override
     public void onClick(View view) {
+        formOverridesHelper.setPatientDetails(patientDetails);
         switch (view.getId()) {
             case R.id.add_contact:
-                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.ADD_TB_CONTACT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getAddContactFieldOverrides().getJSONString());
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.ADD_TB_CONTACT, patientDetails.get(TbrConstants.KEY.BASE_ENTITY_ID), formOverridesHelper.getAddContactFieldOverrides().getJSONString());
                 break;
             case R.id.follow_up_button:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
@@ -257,7 +269,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             }
 
             Button recordOutcomeButton = (Button) rootView.findViewById(R.id.record_outcome);
-            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.INTREATMENT_PATIENT_DETAILS)) {
+            if (recordOutcomeButton != null && getViewConfigurationIdentifier().equals(Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT)) {
                 recordOutcomeButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
                 recordOutcomeButton.setVisibility(View.VISIBLE);
                 recordOutcomeButton.setOnClickListener(this);
@@ -275,6 +287,170 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                 addContactView.setOnClickListener(this);
             }
         }
+    }
+
+    protected int getCardViewIdentifierByConfiguration(String viewConfigurationIdentifier) {
+
+        int res = 0;
+        switch (viewConfigurationIdentifier) {
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS:
+                res = R.id.clientDetailsCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_RESULTS:
+                res = R.id.clientPositiveResultsCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY:
+                res = R.id.clientServiceHistoryCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_BMI:
+                res = R.id.clientBMIHeightChartCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING:
+                res = R.id.clientContactScreeningCardView;
+                break;
+            case Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_FOLLOWUP:
+                res = R.id.clientFollowupCardView;
+                break;
+
+            default:
+                break;
+        }
+        return res;
+    }
+
+    protected void processViewConfigurations(View rootView) {
+        try {
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(getViewConfigurationIdentifier());
+            if (jsonString == null) {
+                renderDefaultLayout(rootView);
+
+            } else {
+                ViewConfiguration detailsView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+                List<org.smartregister.tbr.jsonspec.model.View> views = detailsView.getViews();
+                if (!views.isEmpty()) {
+                    Collections.sort(views, new Comparator<org.smartregister.tbr.jsonspec.model.View>() {
+                        @Override
+                        public int compare(org.smartregister.tbr.jsonspec.model.View registerA, org.smartregister.tbr.jsonspec.model.View registerB) {
+                            return registerA.getResidence().getPosition() - registerB.getResidence().getPosition();
+                        }
+                    });
+
+                    LinearLayout viewParent = (LinearLayout) rootView.findViewById(getContainerViewId());
+                    for (org.smartregister.tbr.jsonspec.model.View componentView : views) {
+
+                        try {
+                            if (componentView.getResidence().getParent() == null) {
+                                componentView.getResidence().setParent(detailsView.getIdentifier());
+                            }
+
+                            String jsonComponentString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(componentView.getIdentifier());
+                            ViewConfiguration componentViewConfiguration = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonComponentString);
+                            if (componentViewConfiguration != null) {
+
+                                ConfigurableViewsHelper configurableViewsHelper = TbrApplication.getInstance().getConfigurableViewsHelper();
+
+                                View fallbackView = viewParent.findViewById(getCardViewIdentifierByConfiguration(componentViewConfiguration.getIdentifier()));
+                                View json2View = TbrApplication.getJsonSpecHelper().isEnableJsonViews() ? configurableViewsHelper.inflateDynamicView(componentViewConfiguration, viewParent, fallbackView, componentView.isVisible()) : fallbackView;
+                                if (componentView.isVisible()) {
+                                    json2View.setTag(R.id.VIEW_CONFIGURATION_ID, getViewConfigurationIdentifier());
+
+                                    if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
+
+                                        renderDemographicsView(json2View, patientDetails);
+
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_RESULTS)) {
+                                        renderPositiveResultsView(json2View, patientDetails);
+                                        //Record Results click handler
+                                        TextView recordResults = (TextView) json2View.findViewById(R.id.record_results);
+                                        recordResults.setOnClickListener(this);
+
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_FOLLOWUP)) {
+
+                                        renderFollowUpView(json2View, patientDetails);
+                                        Button followUpButton = (Button) json2View.findViewById(R.id.follow_up_button);
+                                        followUpButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                                        followUpButton.setOnClickListener(this);
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_BMI)) {
+                                        json2View.setTag(R.id.BASE_ENTITY_ID, patientDetails.get(Constants.KEY._ID));
+                                        renderBMIHeightChartView(json2View, patientDetails);
+
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_CONTACT_SCREENING)) {
+                                        renderContactScreeningView(json2View, patientDetails);
+
+                                        TextView addContactView = (TextView) json2View.findViewById(R.id.add_contact);
+                                        addContactView.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+                                        addContactView.setOnClickListener(this);
+
+                                    } else if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_SERVICE_HISTORY)) {
+
+                                        renderServiceHistoryView(json2View, patientDetails);
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                    }
+                } else {
+                    renderDefaultLayout(rootView);
+                }
+
+                if (detailsView != null) {
+                    processLanguageTokens(detailsView.getLabels(), rootView);
+                }
+            }
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+        }
+
+    }
+
+    protected void renderDefaultLayout(View rootView) {
+
+        switch (getViewConfigurationIdentifier()) {
+            case Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT:
+                renderDemographicsView(rootView, patientDetails);
+                renderPositiveResultsView(rootView, patientDetails);
+                renderContactScreeningView(rootView, patientDetails);
+                renderFollowUpView(rootView, patientDetails);
+                renderBMIHeightChartView(rootView, patientDetails);
+                break;
+            case Constants.CONFIGURATION.PATIENT_DETAILS_POSITIVE:
+                renderDemographicsView(rootView, patientDetails);
+                renderPositiveResultsView(rootView, patientDetails);
+                renderContactScreeningView(rootView, patientDetails);
+                renderServiceHistoryView(rootView, patientDetails);
+                break;
+            case Constants.CONFIGURATION.PATIENT_DETAILS_PRESUMPTIVE:
+                renderDemographicsView(rootView, patientDetails);
+                renderPositiveResultsView(rootView, patientDetails);
+                renderServiceHistoryView(rootView, patientDetails);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private int getContainerViewId() {
+        int id = 0;
+        switch (getViewConfigurationIdentifier()) {
+            case Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT:
+                id = R.id.content_intreatment_patient_detail_container;
+                break;
+            case Constants.CONFIGURATION.PATIENT_DETAILS_POSITIVE:
+                id = R.id.content_positive_patient_detail_container;
+                break;
+            case Constants.CONFIGURATION.PATIENT_DETAILS_PRESUMPTIVE:
+                id = R.id.content_presumptive_patient_detail_container;
+                break;
+            default:
+                break;
+        }
+
+        return id;
+
     }
 
 }

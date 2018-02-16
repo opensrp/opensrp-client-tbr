@@ -25,6 +25,7 @@ import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -81,6 +82,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private static final String INDETERMINATE = "indeterminate";
     private static final String ERROR = "error";
     private static final String NO_RESULT = "no_result";
+    private static final String POSITIVE = "positive";
+    private static final String NEGATIVE = "negative";
+
 
     private ForegroundColorSpan redForegroundColorSpan;
     private ForegroundColorSpan blackForegroundColorSpan;
@@ -213,7 +217,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append(" ");
                 stringBuilder.append(testResults.get(TbrConstants.RESULT.ERROR_CODE), blackForegroundColorSpan);
             } else if (testResults.containsKey(TbrConstants.RESULT.RIF_RESULT)) {
-                stringBuilder.append(withOtherResults ? "/ " : "\nRIF ");
+                stringBuilder.append(withOtherResults ? "/" : "\nRIF ");
                 processXpertResult(testResults.get(TbrConstants.RESULT.RIF_RESULT), stringBuilder);
             }
             return true;
@@ -275,7 +279,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             details.setVisibility(View.VISIBLE);
             details.append(stringBuilder);
             if (button != null)
-                adjustLayoutParams(button);
+                adjustLayoutParams(button, details);
         } else
             details.setVisibility(View.GONE);
     }
@@ -313,9 +317,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             stringBuilder.append(", ");
         stringBuilder.append("CXR ");
         if ("indicative".equals(result))
-            stringBuilder.append("Ind", blackForegroundColorSpan);
+            stringBuilder.append("Ind", redForegroundColorSpan);
         else
-            stringBuilder.append("NonI", blackForegroundColorSpan);
+            stringBuilder.append("NInd", blackForegroundColorSpan);
 
     }
 
@@ -325,7 +329,10 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         else if (stringBuilder.length() > 0)
             stringBuilder.append("\n");
         stringBuilder.append("Cul ");
-        stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
+        if (result.equalsIgnoreCase(POSITIVE))
+            stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), redForegroundColorSpan);
+        if (result.equalsIgnoreCase(NEGATIVE))
+            stringBuilder.append(WordUtils.capitalizeFully(result).substring(0, 3), blackForegroundColorSpan);
     }
 
     private void populateDiagnoseColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
@@ -350,7 +357,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result);
+            adjustLayoutParams(result, results);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -379,10 +386,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return "";
     }
 
-    private void adjustLayoutParams(View view) {
+    private void adjustLayoutParams(View view, TextView details) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         view.setLayoutParams(params);
+
+        params = details.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        details.setLayoutParams(params);
     }
 
     private void attachOnclickListener(View view, SmartRegisterClient client) {
@@ -403,7 +414,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         populateXpertResult(testResults, stringBuilder, false);
 
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result);
+            adjustLayoutParams(result, results);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -427,10 +438,11 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
-            int due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+            int due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
             populateSchedule(due, followup, followupText);
         } else {
             followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             followupText.setText(R.string.followup);
         }
     }
@@ -445,7 +457,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             try {
                 DateTime treatmentStartDate = DateTime.parse(nextVisit);
                 fillValue(followupText, "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
-                due = Days.daysBetween(new DateTime(), treatmentStartDate).getDays();
+                due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
 
             } catch (IllegalArgumentException e) {
                 Log.w(TAG, "populateSmearScheduleColumn: " + e.getMessage());
@@ -477,7 +489,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         Map<String, String> details = detailsRepository.getAllDetailsForClient(baseEntityId);
         int months = 0;
         if (details.containsKey(KEY.TREATMENT_MONTH))
-            months = Integer.valueOf(details.get(KEY.TREATMENT_MONTH));
+            months = Utils.getIntegerValue((details.get(KEY.TREATMENT_MONTH)));
         ((TextView) view.findViewById(R.id.treatment_started)).setText("Month " + months);
         ((TextView) view.findViewById(R.id.treatment_phase)).setText(StringUtils.capitalize(details.get(KEY.TREATMENT_PHASE)));
         List<String> regimen = new ArrayList();
@@ -537,10 +549,13 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             viewIdentifier = INTREATMENT_REGISTER_ROW;
             view = inflater.inflate(R.layout.register_intreatment_list_row, null);
         }
+
         ConfigurableViewsHelper helper = TbrApplication.getInstance().getConfigurableViewsHelper();
         if (helper.isJsonViewsEnabled()) {
+
             ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewIdentifier);
             ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
+
             if (viewConfiguration != null) {
                 return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
             }
