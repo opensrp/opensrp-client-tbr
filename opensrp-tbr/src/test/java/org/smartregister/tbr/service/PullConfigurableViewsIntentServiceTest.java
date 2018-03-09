@@ -12,11 +12,12 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.configurableviews.service.PullConfigurableViewsServiceHelper;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
 import static org.junit.Assert.fail;
@@ -77,7 +78,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
                 .thenReturn(new Response(ResponseStatus.success, "[]"));
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
-        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
+        verify(syncHelper, never()).updateLoginConfigurableViewPreference(anyString());
     }
 
     @Test
@@ -97,7 +98,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository, never()).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper, never()).updateLastViewsSyncTimeStamp(anyLong());
-        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
+        verify(syncHelper).updateLoginConfigurableViewPreference(new JSONArray(loginJson).get(0).toString());
     }
 
     @Test
@@ -108,7 +109,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
-        verify(syncHelper).updateLoginConfigurableViewPreference( new JSONArray(loginJson).get(0).toString());
+        verify(syncHelper).updateLoginConfigurableViewPreference(new JSONArray(loginJson).get(0).toString());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
         helper.processIntent();
         verify(configurableViewsRepository).saveConfigurableViews(any(JSONArray.class));
         verify(syncHelper).updateLastViewsSyncTimeStamp(anyLong());
-        verify(syncHelper,never()).updateLoginConfigurableViewPreference(anyString());
+        verify(syncHelper, never()).updateLoginConfigurableViewPreference(anyString());
     }
 
 

@@ -8,17 +8,17 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.ListView;
 
+import org.smartregister.configurableviews.model.Residence;
+import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.adapter.RegisterArrayAdapter;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.model.Residence;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
@@ -52,8 +52,8 @@ public class HomeFragment extends ListFragment {
             ViewConfiguration homeViewConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
 
             if (homeViewConfig != null) {
-                List<org.smartregister.tbr.jsonspec.model.View> views = homeViewConfig.getViews();
-                for (org.smartregister.tbr.jsonspec.model.View view : views) {
+                List<org.smartregister.configurableviews.model.View> views = homeViewConfig.getViews();
+                for (org.smartregister.configurableviews.model.View view : views) {
                     if (view.isVisible()) {
                         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
                     }
@@ -117,7 +117,7 @@ public class HomeFragment extends ListFragment {
     private List<Register> getDefaultRegisterList() {
         List<Register> values = new ArrayList<>();
         //Render Default View if no configs exist
-        org.smartregister.tbr.jsonspec.model.View view = new org.smartregister.tbr.jsonspec.model.View();
+        org.smartregister.configurableviews.model.View view = new org.smartregister.configurableviews.model.View();
         Residence residence = new Residence();
 
 
@@ -128,7 +128,7 @@ public class HomeFragment extends ListFragment {
 
         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
-        view = new org.smartregister.tbr.jsonspec.model.View();
+        view = new org.smartregister.configurableviews.model.View();
         view.setIdentifier(Register.POSITIVE_PATIENTS);
         view.setLabel(Register.POSITIVE_PATIENTS);
         residence.setPosition(1);
@@ -136,7 +136,7 @@ public class HomeFragment extends ListFragment {
 
         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
-        view = new org.smartregister.tbr.jsonspec.model.View();
+        view = new org.smartregister.configurableviews.model.View();
         view.setIdentifier(Register.IN_TREATMENT_PATIENTS);
         view.setLabel(Register.IN_TREATMENT_PATIENTS);
 

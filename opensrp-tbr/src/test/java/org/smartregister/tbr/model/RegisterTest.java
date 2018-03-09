@@ -7,10 +7,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.configurableviews.model.Residence;
+import org.smartregister.configurableviews.model.View;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.jsonspec.JsonSpecHelper;
-import org.smartregister.tbr.jsonspec.model.Residence;
-import org.smartregister.tbr.jsonspec.model.View;
 
 /**
  * Created by ndegwamartin on 17/10/2017.

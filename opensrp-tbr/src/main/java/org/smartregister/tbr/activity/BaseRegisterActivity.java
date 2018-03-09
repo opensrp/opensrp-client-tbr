@@ -19,19 +19,19 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
-import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
@@ -104,7 +104,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private void processMenuConfigurations(Menu menu) {
         if (getViewIdentifiers().isEmpty())
             return;
-        ViewConfiguration viewConfiguration = TbrApplication.getInstance()
+        ViewConfiguration viewConfiguration = ConfigurableViewsLibrary.getInstance()
                 .getConfigurableViewsHelper().getViewConfiguration(getViewIdentifiers().get(0));
         if (viewConfiguration == null)
             return;
@@ -146,7 +146,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void onResumption() {
-        TbrApplication.getInstance().getConfigurableViewsHelper().registerViewConfigurations(getViewIdentifiers());
+        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(getViewIdentifiers());
         EventBus.getDefault().register(this);
     }
 
@@ -315,7 +315,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     protected void onStop() {
         super.onStop();
-        TbrApplication.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
+        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
     }
 
     public abstract List<String> getViewIdentifiers();

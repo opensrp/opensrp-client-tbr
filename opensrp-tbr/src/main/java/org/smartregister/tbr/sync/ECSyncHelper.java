@@ -7,6 +7,7 @@ import android.util.Pair;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.domain.Response;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
@@ -28,7 +29,7 @@ import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
  * Created by samuelgithengi on 12/19/17.
  */
 
-public class ECSyncHelper {
+public class ECSyncHelper implements PrefsHelper {
 
     public static final String SEARCH_URL = "/rest/event/sync";
 

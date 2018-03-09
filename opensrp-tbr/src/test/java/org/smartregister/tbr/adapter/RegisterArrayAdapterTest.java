@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.configurableviews.model.Residence;
+import org.smartregister.configurableviews.model.View;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.jsonspec.model.Residence;
-import org.smartregister.tbr.jsonspec.model.View;
 import org.smartregister.tbr.model.Register;
 
 import java.util.ArrayList;

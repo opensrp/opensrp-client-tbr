@@ -15,6 +15,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.tbr.R;
@@ -22,8 +24,6 @@ import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
@@ -73,7 +73,7 @@ import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns;
+    private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
     private ResultsRepository resultsRepository;
 
@@ -125,7 +125,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
             return;
         }
-        for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
+        for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
             switch (columnView.getIdentifier()) {
                 case PATIENT:
                     populatePatientColumn(pc, client, convertView);

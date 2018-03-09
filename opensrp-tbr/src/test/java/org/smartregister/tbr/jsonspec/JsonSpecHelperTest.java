@@ -1,6 +1,7 @@
 package org.smartregister.tbr.jsonspec;
 
 import org.junit.Test;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.tbr.BaseUnitTest;
 
 /**

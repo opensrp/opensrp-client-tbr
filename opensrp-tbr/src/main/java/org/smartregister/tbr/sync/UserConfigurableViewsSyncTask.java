@@ -3,7 +3,7 @@ package org.smartregister.tbr.sync;
 import android.content.Context;
 import android.content.Intent;
 
-import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
+import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 
 import static org.smartregister.util.Log.logInfo;
 
