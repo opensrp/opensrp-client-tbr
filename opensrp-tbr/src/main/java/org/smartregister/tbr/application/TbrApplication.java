@@ -40,7 +40,6 @@ import util.ServiceTools;
 import util.TbrConstants;
 import util.TbrConstants.KEY;
 
-import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
@@ -275,7 +274,7 @@ public class TbrApplication extends DrishtiApplication {
 
             String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
 
-            Utils.writePrefString(context, LAST_SYNC_TIME_STRING, lastSyncTime);
+            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
 
         }
     };
