@@ -98,11 +98,7 @@ android {
             transitive = true
         }
 
-        compile('com.avocarrot:json2view:0.0.1-SNAPSHOT') {
-            transitive = true
-        }
-
-        compile('org.smartregister:opensrp-client-configurable-views:1.0.2-SNAPSHOT@aar') {
+        compile('org.smartregister:opensrp-client-configurable-views:1.0.3-SNAPSHOT@aar') {
             transitive = true
         }
 
@@ -147,7 +143,7 @@ android {
 
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
     reports {
         xml.enabled = true
