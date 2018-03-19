@@ -11,7 +11,7 @@
     <string name="app_title">TB REACH</string>
     <string name="action_add_patient">Add New Patient</string>
     <string name="action_advanced_search">Advanced Search</string>
-    <string name="action_sort_list">Sort List</string>
+    <string name="action_sort_list">Sort List A</string>
     <string name="action_filter_list">Filter List</string>
     <string name="str_search_hint">Search name or ID</string>
     <string name="scan_qr_code">Scan QR code</string>
@@ -67,4 +67,26 @@
     <string name="Weight">Weight</string>
     <string name="negative_screened_contact">Negative Screened Contact</string>
     <string name="index">Index</string>
+
+    <!--Filters-->
+    <string name="smear_filter">Smear</string>
+    <string name="xpert_filter">Xpert</string>
+    <string name="rif_filter">RIF Resistant</string>
+    <string name="culture_filter">Culture</string>
+    <string name="xray_filter">Xray</string>
+
+    <!--FIlter Results-->
+    <string name="smear_filter_result">+ve</string>
+    <string name="xpert__filter_result">+ve</string>
+    <string name="rif_filter_result">+ve</string>
+    <string name="culture_filter_result">+ve</string>
+    <string name="xray_filter_result">indicative</string>
+
+    <string name="sort_by_name">Name (A-Z)</string>
+    <string name="last_updated">Last updated</string>
+
+    <string-array name="sort_options">
+        <item>@string/sort_by_name</item>
+        <item>@string/last_updated</item>
+    </string-array>
 </resources>

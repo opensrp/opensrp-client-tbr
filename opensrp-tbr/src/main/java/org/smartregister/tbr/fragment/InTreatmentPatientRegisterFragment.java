@@ -4,6 +4,10 @@ import android.view.View;
 
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.helper.DBQueryHelper;
+import org.smartregister.tbr.util.FilterEnum;
+
+import java.util.List;
+import java.util.StringTokenizer;
 
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
@@ -39,4 +43,10 @@ public class InTreatmentPatientRegisterFragment extends BaseRegisterFragment {
                 tableName + "." + SMR_NEXT_VISIT_DATE};
     }
 
+    @Override
+    public String getAggregateCondition(boolean isEmpty) {
+        if(!isEmpty)
+            return " GROUP BY Type HAVING MAX(updated_at)";
+        else return "";
+    }
 }

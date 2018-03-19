@@ -1,12 +1,15 @@
 package org.smartregister.tbr.activity;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.fragment.PresumptivePatientRegisterFragment;
+import org.smartregister.tbr.util.OtherFiltersEnum;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +40,24 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
             case R.id.addNewPatient:
                 String entityId = generateRandomUUIDString();
                 startFormActivity(SCREENING_FORM, entityId, null);
+                return true;
+            /*case R.id.sort_selection:
+                super.onOptionsItemSelected(item);*/
+            case R.id.filterList:
+                Dialog dialog = super.getDialog(R.layout.layout_dialog_filter_presumptive);
+                CheckBox checkBoxNotDiagOnePlusWeeks = (CheckBox) dialog.findViewById(R.id.chk_not_diag_one_plus_weeks);
+                checkBoxNotDiagOnePlusWeeks.setTag(OtherFiltersEnum.NOT_DIAGNOSED_1PLUS_WEEKS);
+                checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(this);
+                if(!getFilterOtherResult().isEmpty()){
+                    if(getFilterOtherResult().contains(checkBoxNotDiagOnePlusWeeks.getTag())) {
+                        checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(null);
+                        checkBoxNotDiagOnePlusWeeks.setChecked(true);
+                        checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(this);
+                    }
+                }
+
+                super.setCommonHandlers(dialog,PresumptivePatientRegisterActivity.this);
+                dialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

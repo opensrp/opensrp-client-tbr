@@ -1,10 +1,13 @@
 package org.smartregister.tbr.activity;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.fragment.InTreatmentPatientRegisterFragment;
+import org.smartregister.tbr.util.OtherFiltersEnum;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +43,31 @@ public class InTreatmentPatientRegisterActivity extends BaseRegisterActivity {
             case R.id.addNewPatient:
                 String entityId = generateRandomUUIDString();
                 startFormActivity(ADD_IN_TREATMENT_PATIENT, entityId, null);
+                return true;
+            case R.id.filterList:
+                Dialog dialog = super.getDialog(R.layout.layout_dialog_filter_treatment);
+                super.setCommonHandlers(dialog,InTreatmentPatientRegisterActivity.this);
+                CheckBox checkBoxOverdueFU = (CheckBox) dialog.findViewById(R.id.chk_overdue_followup);
+                checkBoxOverdueFU.setTag(OtherFiltersEnum.OVERDUE_FOLLOWUP);
+                checkBoxOverdueFU.setOnCheckedChangeListener(this);
+
+                CheckBox checkBoxOverdueSmear = (CheckBox) dialog.findViewById(R.id.chk_overdue_smear);
+                checkBoxOverdueSmear.setTag(OtherFiltersEnum.OVERDUE_SMEAR);
+                checkBoxOverdueSmear.setOnCheckedChangeListener(this);
+
+                if(!getFilterOtherResult().isEmpty()){
+                    if(getFilterOtherResult().contains(checkBoxOverdueFU.getTag())) {
+                        checkBoxOverdueFU.setOnCheckedChangeListener(null);
+                        checkBoxOverdueFU.setChecked(true);
+                        checkBoxOverdueFU.setOnCheckedChangeListener(this);
+                    }
+                    if(getFilterOtherResult().contains(checkBoxOverdueSmear.getTag())) {
+                        checkBoxOverdueSmear.setOnCheckedChangeListener(null);
+                        checkBoxOverdueSmear.setChecked(true);
+                        checkBoxOverdueSmear.setOnCheckedChangeListener(this);
+                    }
+                }
+                dialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
