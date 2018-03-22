@@ -42,9 +42,9 @@ import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
 import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.tbr.util.OtherFiltersEnum;
 import org.smartregister.tbr.util.ResultsFilterEnum;
-import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
@@ -154,7 +154,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                         sortOption = radioButton.getText().toString();
 
                         BaseRegisterFragment frag = (BaseRegisterFragment)findFragmentByPosition(0);
-                        frag.testmethod(getFilterResult(),getFilterOtherResult(),sortOption);
+                        frag.filterAndSortRegisterContent(getFilterResult(),getFilterOtherResult(),sortOption);
                         dialog.dismiss();
                     }
                 });
@@ -457,7 +457,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        int id = compoundButton.getId();
         if(b){
             if(((FilterEnum)compoundButton.getTag()) instanceof ResultsFilterEnum)
                 filter_result.add( ((FilterEnum)compoundButton.getTag()));
@@ -506,7 +505,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(dialogLayout);
         dialog.setTitle("Title...");
-
         Button dialogButtonOk = (Button) dialog.findViewById(R.id.dialogBtnOk);
         Button dialogButtonCancel = (Button) dialog.findViewById(R.id.dialogBtnCancel);
         // if button is clicked, close the custom dialog
@@ -516,7 +514,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 previousFilterList = new ArrayList<FilterEnum>(filter_result);
                 previousOtherFilterList = new ArrayList<FilterEnum>(filter_other_result);
                 BaseRegisterFragment frag = (BaseRegisterFragment)findFragmentByPosition(0);
-                frag.testmethod(getFilterResult(),getFilterOtherResult(),getSortOption()==null ? getDefaultSort() : getSortOption());
+                frag.filterAndSortRegisterContent(getFilterResult(),getFilterOtherResult(),getSortOption()==null ? getDefaultSort() : getSortOption());
                 dialog.dismiss();
             }
         });

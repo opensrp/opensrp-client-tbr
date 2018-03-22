@@ -11,6 +11,8 @@ public enum ResultsFilterEnum implements FilterEnum{
     CULTURE_POSITIVE("Culture +ve", "result1='culture_result' and value1='positive'"),
     XRAY_INDICATIVE("Xray Indicative", "result1='xray_result' and value1='indicative'");
 
+    private String filterString;
+    private String condition;
 
     public String getFilterString(){
         return this.filterString;
@@ -21,11 +23,7 @@ public enum ResultsFilterEnum implements FilterEnum{
         return this.condition;
     }
 
-    private String filterString;
-
-    private String condition;
-
-    private ResultsFilterEnum(String filterString, String condition){
+    ResultsFilterEnum(String filterString, String condition){
         this.filterString = filterString;
         this.condition = condition;
     }

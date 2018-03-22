@@ -1,7 +1,7 @@
 package org.smartregister.tbr.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -20,9 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -47,14 +47,12 @@ import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.FilterEnum;
-import org.smartregister.util.StringUtil;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +103,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     private String viewConfigurationIdentifier;
     private FormOverridesHelper formOverridesHelper;
     private String customMainCondition;
-    private List<FilterEnum> filterResultsList;
     private Snackbar snackbar;
 
     @Override
@@ -450,40 +447,15 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.followup:
                     registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                     break;
-
                 default:
                     break;
             }
         }
     }
 
-    public void testmethod(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
- /*       String query = "SELECT object_id FROM ec_patient_search WHERE   confirmed_tb = \"yes\" AND treatment_initiation_date IS NULL AND date_removed =\"\"   AND object_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient_search.object_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1   AND ((results.result1='test_result' AND value1 like '%plus%')  ) ) AND phrase MATCH 'A*'  LIMIT 0,20";
-        Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);
-
-        ArrayList<String> ids = new ArrayList<>();
-        ArrayList<Object> obj = new ArrayList<>();
-        int index=0;
-        Map<String,Object> map = new HashMap<String,Object>();
-        if(cursor.getCount()!=0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    map = new HashMap<>();
-                    for(int i=0; i<cursor.getColumnCount();i++)
-                    {
-                        map.put(cursor.getColumnName(i), cursor.getString(i));
-                    }
-                    ids.add(cursor.getString(0));
-                    for(int i=0; i<cursor.getColumnCount();i++)
-                    {
-                        map.put(cursor.getColumnName(i), cursor.getString(i));
-                    }
-                    obj.add(map);
-                } while (cursor.moveToNext());
-            }
-        }*/
-
-        showSnackBar(getView(),filterResults,filterOtherResults,sortOption);
+    public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+ /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
+        prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
 
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
@@ -494,7 +466,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         if(!filterResults.isEmpty()){
             countSelect = countQueryBuilder.addCondition(" AND ec_patient.base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")");
         }
-//        countSelect = countQueryBuilder.addCondition(getSubQueryCondition(filterResults));
         filters = "and 1=1";
         super.CountExecute();
 
@@ -571,54 +542,69 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return " AND base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")";
     }
 
-    private void showSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
-        filterResultsList = filterResults;
+    private void prepareAndShowSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
         StringBuilder toastString = new StringBuilder();
-        if(filterOtherResults != null && !filterOtherResults.isEmpty()){
-            toastString.append("Filters: ");
-            for(FilterEnum fe : filterOtherResults){
-                toastString.append(fe.getFilterString()).append(", ");
-            }
-        }
-        if(filterResults != null && !filterResults.isEmpty()){
-            if(toastString.length() <= 0)
-                toastString.append("Filters: ");
-            for(FilterEnum fe : filterResults) {
-                toastString.append(fe.getFilterString()).append(", ");
-            }
-        }
-
+        getToastString(filterOtherResults, toastString);
+        getToastString(filterResults, toastString);
         if(toastString != null && toastString.length() > 0)
             toastString.replace(toastString.length()-2,toastString.length(),"");
+        AppendSortStringToToast(sortOption,toastString);
+        dismissSnackbar(snackbar);
+        showSnackBar(toastString,view);
+    }
 
+    private void showSnackBar(StringBuilder toastString, View view){
+        if(toastString != null && !toastString.toString().isEmpty()) {
+            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
+            snackbar.show();
+        }
+
+    }
+
+    private void getToastString(List<FilterEnum> resultsList, StringBuilder toastString){
+        if(resultsList != null && !resultsList.isEmpty()){
+            toastString.append("Filters: ");
+            for(FilterEnum fe : resultsList){
+                toastString.append(fe.getFilterString()).append(", ");
+            }
+        }
+    }
+    private void AppendSortStringToToast(String sortOption, StringBuilder toastString){
         if(sortOption != null && !sortOption.isEmpty()){
             toastString.append(toastString != null ? "\n" : "");
             toastString.append("Sort: ").append(sortOption);
         }
-
-        if(snackbar != null)
-            snackbar.dismiss();
-
-        if(toastString != null && !toastString.toString().isEmpty()) {
-            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
-            snackbar.show();
-//            Toast.makeText(getActivity(), toastString.toString(), Toast.LENGTH_LONG).show();
-        }
     }
 
+    private void dismissSnackbar(Snackbar snackbar){
+        if(snackbar != null)
+            snackbar.dismiss();
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String sortOption="";
-        /*if(Sortqueries == null || Sortqueries.equalsIgnoreCase("first_name asc"))
-            sortOption = "Name (A-Z)";
-        else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
-            sortOption = "Last updated";*/
         if(StringUtils.isEmpty(Sortqueries)|| Sortqueries.equalsIgnoreCase("first_name asc"))
             sortOption = "Name (A-Z)";
         else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
             sortOption = "Last updated";
-        showSnackBar(getView(),null,null,sortOption);
+        prepareAndShowSnackBar(getView(),null,null,sortOption);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     public abstract String getAggregateCondition(boolean b);

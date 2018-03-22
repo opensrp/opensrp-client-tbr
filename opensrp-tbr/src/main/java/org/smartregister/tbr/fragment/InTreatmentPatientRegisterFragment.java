@@ -4,10 +4,6 @@ import android.view.View;
 
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.helper.DBQueryHelper;
-import org.smartregister.tbr.util.FilterEnum;
-
-import java.util.List;
-import java.util.StringTokenizer;
 
 import static util.TbrConstants.KEY.BASELINE;
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;

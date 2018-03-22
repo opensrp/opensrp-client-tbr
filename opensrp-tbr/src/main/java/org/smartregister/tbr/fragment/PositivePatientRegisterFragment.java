@@ -5,9 +5,6 @@ import android.view.View;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.helper.DBQueryHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;
 
@@ -34,15 +31,6 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
         return new String[]{
                 tableName + "." + DIAGNOSIS_DATE};
     }
-
-  /*  public void testmethod(List<String> filterOptions){
-        System.out.print(mainSelect);
-        filters = filterOptions.get(0);
-        joinTable = "results";
-        mainCondition = getMainCondition();
-        CountExecute();
-        filterandSortExecute();
-    }*/
 
     @Override
     public String getAggregateCondition(boolean isEmpty) {

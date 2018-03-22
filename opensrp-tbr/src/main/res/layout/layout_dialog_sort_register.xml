@@ -18,32 +18,6 @@
         android:background="@android:color/darker_gray">
     </View>
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Name (A-Z)"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Last updated"/>
-    </LinearLayout>-->
-
     <RadioGroup
         android:id="@+id/radioSort"
         android:layout_width="match_parent"
@@ -86,5 +60,6 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:layout_weight="1"/>
+
     </LinearLayout>
 </LinearLayout>
