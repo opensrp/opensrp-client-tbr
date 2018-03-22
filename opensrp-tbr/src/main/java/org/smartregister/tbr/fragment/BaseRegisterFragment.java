@@ -1,6 +1,5 @@
 package org.smartregister.tbr.fragment;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -548,7 +545,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         getToastString(filterResults, toastString);
         if(toastString != null && toastString.length() > 0)
             toastString.replace(toastString.length()-2,toastString.length(),"");
-        AppendSortStringToToast(sortOption,toastString);
+        appendSortStringToToast(sortOption,toastString);
         dismissSnackbar(snackbar);
         showSnackBar(toastString,view);
     }
@@ -569,7 +566,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         }
     }
-    private void AppendSortStringToToast(String sortOption, StringBuilder toastString){
+    private void appendSortStringToToast(String sortOption, StringBuilder toastString){
         if(sortOption != null && !sortOption.isEmpty()){
             toastString.append(toastString != null ? "\n" : "");
             toastString.append("Sort: ").append(sortOption);
@@ -584,7 +581,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String sortOption="";
-        if(StringUtils.isEmpty(Sortqueries)|| Sortqueries.equalsIgnoreCase("first_name asc"))
+        if(isEmpty(Sortqueries)|| Sortqueries.equalsIgnoreCase("first_name asc"))
             sortOption = "Name (A-Z)";
         else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
             sortOption = "Last updated";

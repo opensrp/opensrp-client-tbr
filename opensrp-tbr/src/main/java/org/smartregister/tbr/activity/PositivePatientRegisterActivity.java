@@ -41,12 +41,10 @@ public class PositivePatientRegisterActivity extends BaseRegisterActivity {
                 checkBoxNotStartTreatOnePlusWeeks.setTag(OtherFiltersEnum.NOT_STARTED_TREATMENT_1PLUS_WEEKS);
                 checkBoxNotStartTreatOnePlusWeeks.setOnCheckedChangeListener(this);
 
-                if(!getFilterOtherResult().isEmpty()){
-                    if(getFilterOtherResult().contains(checkBoxNotStartTreatOnePlusWeeks.getTag())) {
-                        checkBoxNotStartTreatOnePlusWeeks.setOnCheckedChangeListener(null);
-                        checkBoxNotStartTreatOnePlusWeeks.setChecked(true);
-                        checkBoxNotStartTreatOnePlusWeeks.setOnCheckedChangeListener(this);
-                    }
+                if(!getFilterOtherResult().isEmpty() && getFilterOtherResult().contains(checkBoxNotStartTreatOnePlusWeeks.getTag())){
+                    checkBoxNotStartTreatOnePlusWeeks.setOnCheckedChangeListener(null);
+                    checkBoxNotStartTreatOnePlusWeeks.setChecked(true);
+                    checkBoxNotStartTreatOnePlusWeeks.setOnCheckedChangeListener(this);
                 }
                 dialog.show();
                 return true;

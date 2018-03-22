@@ -48,12 +48,10 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
                 CheckBox checkBoxNotDiagOnePlusWeeks = (CheckBox) dialog.findViewById(R.id.chk_not_diag_one_plus_weeks);
                 checkBoxNotDiagOnePlusWeeks.setTag(OtherFiltersEnum.NOT_DIAGNOSED_1PLUS_WEEKS);
                 checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(this);
-                if(!getFilterOtherResult().isEmpty()){
-                    if(getFilterOtherResult().contains(checkBoxNotDiagOnePlusWeeks.getTag())) {
-                        checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(null);
-                        checkBoxNotDiagOnePlusWeeks.setChecked(true);
-                        checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(this);
-                    }
+                if(!getFilterOtherResult().isEmpty() && getFilterOtherResult().contains(checkBoxNotDiagOnePlusWeeks.getTag())){
+                    checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(null);
+                    checkBoxNotDiagOnePlusWeeks.setChecked(true);
+                    checkBoxNotDiagOnePlusWeeks.setOnCheckedChangeListener(this);
                 }
 
                 super.setCommonHandlers(dialog,PresumptivePatientRegisterActivity.this);

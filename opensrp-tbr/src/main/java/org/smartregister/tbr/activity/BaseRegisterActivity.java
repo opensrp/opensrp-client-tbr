@@ -173,7 +173,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     private void setRadioChecked(Dialog dialog){
-        RadioGroup radioSortGroup = (RadioGroup) dialog.findViewById(R.id.radioSort);
         if( sortOption==null || (sortOption != null && sortOption.equalsIgnoreCase("Name (A-Z)")) ) {
             RadioButton rb = (RadioButton) dialog.findViewById(R.id.radioName);
             rb.setChecked(true);
