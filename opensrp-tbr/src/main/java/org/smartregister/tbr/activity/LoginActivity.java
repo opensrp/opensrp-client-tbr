@@ -46,6 +46,9 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.Context;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.model.LoginConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
@@ -56,9 +59,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
-import org.smartregister.tbr.jsonspec.model.LoginConfiguration.Background;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.Utils;
 import org.smartregister.view.BackgroundAction;
@@ -538,9 +538,9 @@ public class LoginActivity extends AppCompatActivity {
         try {
             String jsonString = Utils.getPreference(this, VIEW_CONFIGURATION_PREFIX + LOGIN, null);
             if (jsonString == null) return;
-            ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = ConfigurableViewsLibrary.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
-            Background background = metadata.getBackground();
+            LoginConfiguration.Background background = metadata.getBackground();
             if (!metadata.getShowPasswordCheckbox()) {
                 showPasswordCheckBox.setVisibility(View.GONE);
             } else {

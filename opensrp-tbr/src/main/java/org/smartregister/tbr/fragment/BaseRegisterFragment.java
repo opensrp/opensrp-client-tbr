@@ -21,6 +21,10 @@ import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.CursorSortOption;
@@ -35,9 +39,6 @@ import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.FormOverridesHelper;
-import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
-import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
@@ -88,7 +89,7 @@ import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 
 public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
-    protected Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns = new TreeSet<>();
+    protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     protected ResultMenuListener resultMenuListener = new ResultMenuListener();
     protected CommonPersonObjectClient patient;
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
@@ -176,7 +177,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
         if (config.getSearchBarText() != null && getView() != null)
             ((EditText) getView().findViewById(R.id.edt_search)).setHint(config.getSearchBarText());
-        visibleColumns = TbrApplication.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(getViewConfigurationIdentifier());
+        visibleColumns = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(getViewConfigurationIdentifier());
 
     }
 
