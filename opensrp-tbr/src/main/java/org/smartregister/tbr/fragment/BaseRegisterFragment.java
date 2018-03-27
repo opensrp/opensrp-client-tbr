@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,7 @@ import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
@@ -49,6 +51,7 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -96,6 +99,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private String viewConfigurationIdentifier;
     private FormOverridesHelper formOverridesHelper;
+    private String customMainCondition;
+    private Snackbar snackbar;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -116,7 +121,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public SortOption sortOption() {
-                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), "last_interacted_with desc");
+                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), "first_name asc");
             }
 
             @Override
@@ -228,6 +233,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         getDefaultOptionsProvider();
         if (isPausedOrRefreshList()) {
             initializeQueries();
+            initializeQueries();
         }
         updateSearchView();
         processViewConfigurations();
@@ -317,7 +323,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         @Override
         public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-            filter(cs.toString(), "", getMainCondition());
+            if((customMainCondition!=null && !customMainCondition.equals("")) || (Sortqueries != null && !Sortqueries.equals(""))){
+                filter(" AND (ec_patient.id like '%"+cs.toString()+"%' or ec_patient.first_name like '%"+cs.toString()+"%' or ec_patient.last_name like '%"+cs.toString()+"%')","",customMainCondition);
+            }
+            else
+                filter(cs.toString(), "", getMainCondition());
         }
 
         @Override
@@ -325,7 +335,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         }
     };
-
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
@@ -435,11 +444,166 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.followup:
                     registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                     break;
-
                 default:
                     break;
             }
         }
     }
+
+    public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+ /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
+        prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
+
+        String tableName = TbrConstants.PATIENT_TABLE_NAME;
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.setSelectquery("Select COUNT(DISTINCT ec_patient.base_entity_id) from ec_patient");
+        mainCondition = getMainCondition();
+        countSelect = countQueryBuilder.mainCondition(mainCondition);
+        countSelect = countQueryBuilder.addCondition(getOtherCndition(filterOtherResults));
+        if(!filterResults.isEmpty()){
+            countSelect = countQueryBuilder.addCondition(" AND ec_patient.base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")");
+        }
+        filters = "and 1=1";
+        super.CountExecute();
+
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        String[] columns = new String[]{
+                tableName + ".relationalid",
+                tableName + "." + TbrConstants.KEY.LAST_INTERACTED_WITH,
+                tableName + "." + TbrConstants.KEY.FIRST_ENCOUNTER,
+                tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID,
+                tableName + "." + TbrConstants.KEY.FIRST_NAME,
+                tableName + "." + TbrConstants.KEY.LAST_NAME,
+                tableName + "." + TbrConstants.KEY.PARTICIPANT_ID,
+                tableName + "." + TbrConstants.KEY.PROGRAM_ID,
+                tableName + "." + TbrConstants.KEY.GENDER,
+                tableName + "." + TbrConstants.KEY.DOB};
+        String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
+        mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
+        customMainCondition = " WHERE ";
+        customMainCondition += mainCondition + " " + getOtherCndition(filterOtherResults);
+        customMainCondition += getOtherCndition(filterOtherResults);
+        if(!filterResults.isEmpty()){
+            customMainCondition += getSubQueryClause(filterResults);
+        }
+        mainSelect = queryBUilder.addCondition(customMainCondition);
+        filters = "and 1=1";
+        Sortqueries = getSortQuery(sortOption);
+
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
+        refresh();
+    }
+
+    private String getSubQueryCondition(List<FilterEnum> filterResults){
+        StringBuilder sb = new StringBuilder();
+        if(!filterResults.isEmpty()) {
+            sb.append(" AND (");
+            for (FilterEnum conditonEnum : filterResults) {
+                sb.append("(");
+                sb.append(conditonEnum.getCondition()).append(") ");
+                sb.append(" OR ");
+            }
+            sb.delete(sb.length()-3,sb.length()).append(") ");
+        }
+        return sb.toString();
+    }
+
+    private String getOtherCndition(List<FilterEnum> filterOtherResults) {
+        StringBuilder sb = new StringBuilder();
+        if(!filterOtherResults.isEmpty()) {
+            sb.append(" AND (");
+            for (FilterEnum conditonEnum : filterOtherResults) {
+                sb.append("(");
+                sb.append(conditonEnum.getCondition()).append(") ");
+                sb.append(" OR ");
+            }
+            sb.delete(sb.length()-3,sb.length()).append(") ");
+        }
+        return sb.toString();
+    }
+
+    private String getSortQuery(String sort){
+        if(sort!=null && !sort.isEmpty()) {
+            if (sort.equalsIgnoreCase("name (A-Z)"))
+                return "first_name asc";
+            else return "last_interacted_with desc";
+        }
+        else return "";
+    }
+
+    private String getSubQueryClause(List<FilterEnum> filterResults){
+        return " AND base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")";
+    }
+
+    private void prepareAndShowSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+        StringBuilder toastString = new StringBuilder();
+        getToastString(filterOtherResults, toastString);
+        getToastString(filterResults, toastString);
+        if(toastString != null && toastString.length() > 0)
+            toastString.replace(toastString.length()-2,toastString.length(),"");
+        appendSortStringToToast(sortOption,toastString);
+        dismissSnackbar(snackbar);
+        showSnackBar(toastString,view);
+    }
+
+    private void showSnackBar(StringBuilder toastString, View view){
+        if(toastString != null && !toastString.toString().isEmpty()) {
+            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
+            snackbar.show();
+        }
+
+    }
+
+    private void getToastString(List<FilterEnum> resultsList, StringBuilder toastString){
+        if(resultsList != null && !resultsList.isEmpty()){
+            toastString.append("Filters: ");
+            for(FilterEnum fe : resultsList){
+                toastString.append(fe.getFilterString()).append(", ");
+            }
+        }
+    }
+    private void appendSortStringToToast(String sortOption, StringBuilder toastString){
+        if(sortOption != null && !sortOption.isEmpty()){
+            toastString.append(toastString != null ? "\n" : "");
+            toastString.append("Sort: ").append(sortOption);
+        }
+    }
+
+    private void dismissSnackbar(Snackbar snackbar){
+        if(snackbar != null)
+            snackbar.dismiss();
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String sortOption="";
+        if(isEmpty(Sortqueries)|| Sortqueries.equalsIgnoreCase("first_name asc"))
+            sortOption = "Name (A-Z)";
+        else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
+            sortOption = "Last updated";
+        prepareAndShowSnackBar(getView(),null,null,sortOption);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    public abstract String getAggregateCondition(boolean b);
 
 }

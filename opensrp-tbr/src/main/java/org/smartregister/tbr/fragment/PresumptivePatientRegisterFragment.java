@@ -31,5 +31,19 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
         return new String[]{};
     }
 
+    @Override
+    public String getAggregateCondition(boolean b) {
+        return "";
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
 }

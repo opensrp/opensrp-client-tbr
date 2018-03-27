@@ -20,6 +20,7 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
         populateClientListHeaderView(view, headerLayout, POSITIVE_REGISTER_HEADER);
     }
 
+
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getPositivePatientRegisterCondition();
@@ -31,4 +32,10 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
                 tableName + "." + DIAGNOSIS_DATE};
     }
 
+    @Override
+    public String getAggregateCondition(boolean isEmpty) {
+        if(!isEmpty)
+            return " GROUP BY Type HAVING MAX(date||created_at)";
+        else return "";
+    }
 }

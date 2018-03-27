@@ -1,6 +1,8 @@
 package org.smartregister.tbr.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +15,13 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,10 +42,14 @@ import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.FilterEnum;
+import org.smartregister.tbr.util.OtherFiltersEnum;
+import org.smartregister.tbr.util.ResultsFilterEnum;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -55,7 +68,7 @@ import static util.TbrConstants.ENKETO_FORMS.SMEAR;
  * Created by samuelgithengi on 10/30/17.
  */
 
-public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements DisplayFormListener {
+public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements DisplayFormListener, CompoundButton.OnCheckedChangeListener,  AdapterView.OnItemSelectedListener  {
 
     public static final String TAG = "BaseRegisterActivity";
 
@@ -69,6 +82,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected int currentPage;
 
     protected List<String> formNames;
+    private List<FilterEnum> filter_result = new ArrayList<>();
+    private List<FilterEnum> filter_other_result = new ArrayList<>();
+    private String sortOption;
+    private List<FilterEnum> previousFilterList = new ArrayList<>();
+    private List<FilterEnum> previousOtherFilterList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +138,51 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.sortList:
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.layout_dialog_sort_register);
+                dialog.setTitle("Title...");
+                setRadioChecked(dialog);
+                Button btnOk = (Button) dialog.findViewById(R.id.dialog_sort_btnOK);
+                Button btnCancel = (Button) dialog.findViewById(R.id.dialog_sort_btnCancel);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RadioGroup radioSortGroup = (RadioGroup) dialog.findViewById(R.id.radioSort);
+                        int id = radioSortGroup.getCheckedRadioButtonId();
+                        RadioButton radioButton = (RadioButton) dialog.findViewById(id);
+                        sortOption = radioButton.getText().toString();
+
+                        BaseRegisterFragment frag = (BaseRegisterFragment)findFragmentByPosition(0);
+                        frag.filterAndSortRegisterContent(getFilterResult(),getFilterOtherResult(),sortOption);
+                        dialog.dismiss();
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+               return true;
             default:
+                Toast.makeText(this,"Hey",Toast.LENGTH_LONG).show();
                 return false;
         }
     }
 
+    private void setRadioChecked(Dialog dialog){
+        if( sortOption==null || (sortOption != null && sortOption.equalsIgnoreCase("Name (A-Z)")) ) {
+            RadioButton rb = (RadioButton) dialog.findViewById(R.id.radioName);
+            rb.setChecked(true);
+            sortOption = getResources().getString(R.string.sort_by_name);
+        }
+        else if(sortOption!=null && sortOption.equalsIgnoreCase("Last updated")) {
+            RadioButton rb = (RadioButton) dialog.findViewById(R.id.radioLastUpdate);
+            rb.setChecked(true);
+        }
+    }
     @Override
     protected DefaultOptionsProvider getDefaultOptionsProvider() {
         return null;
@@ -164,7 +222,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startRegistration() {//Implement Abstract Method
     }
 
-    private Fragment findFragmentByPosition(int position) {
+    protected Fragment findFragmentByPosition(int position) {
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
     }
 
@@ -345,4 +403,133 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
+    protected void setCommonHandlers(Dialog dialog, Context context){
+        CheckBox checkBoxSmear = (CheckBox) dialog.findViewById(R.id.chk_smear_pos);
+        CheckBox checkBoxXpert = (CheckBox) dialog.findViewById(R.id.chk_xpert_pos);
+        CheckBox checkBoxRif = (CheckBox) dialog.findViewById(R.id.chk_rif_pos);
+        CheckBox checkBoxCulture = (CheckBox) dialog.findViewById(R.id.chk_cul_pos);
+        CheckBox checkBoxXray = (CheckBox) dialog.findViewById(R.id.chk_xray_pos);
+
+        checkBoxSmear.setOnCheckedChangeListener(this);
+        checkBoxXpert.setOnCheckedChangeListener(this);
+        checkBoxRif.setOnCheckedChangeListener(this);
+        checkBoxCulture.setOnCheckedChangeListener(this);
+        checkBoxXray.setOnCheckedChangeListener(this);
+
+
+        checkBoxSmear.setTag(ResultsFilterEnum.SMEAR_POSITIVE);
+        checkBoxXpert.setTag(ResultsFilterEnum.XPERT_POSITIVE);
+        checkBoxRif.setTag(ResultsFilterEnum.RIF_POSITIVE);
+        checkBoxCulture.setTag(ResultsFilterEnum.CULTURE_POSITIVE);
+        checkBoxXray.setTag(ResultsFilterEnum.XRAY_INDICATIVE);
+
+        Iterator<FilterEnum> it = filter_result.iterator();
+        while(it.hasNext()){
+            FilterEnum e = it.next();
+            if(e == ResultsFilterEnum.SMEAR_POSITIVE) {
+                checkBoxSmear.setOnCheckedChangeListener(null);
+                checkBoxSmear.setChecked(true);
+                checkBoxSmear.setOnCheckedChangeListener(this);
+            }
+            else if(e == ResultsFilterEnum.XPERT_POSITIVE) {
+                checkBoxXpert.setOnCheckedChangeListener(null);
+                checkBoxXpert.setChecked(true);
+                checkBoxXpert.setOnCheckedChangeListener(this);
+            }
+            else if(e == ResultsFilterEnum.RIF_POSITIVE) {
+                checkBoxRif.setOnCheckedChangeListener(null);
+                checkBoxRif.setChecked(true);
+                checkBoxRif.setOnCheckedChangeListener(this);
+            }
+            else if(e == ResultsFilterEnum.CULTURE_POSITIVE) {
+                checkBoxCulture.setOnCheckedChangeListener(null);
+                checkBoxCulture.setChecked(true);
+                checkBoxCulture.setOnCheckedChangeListener(this);
+            }
+            else if(e == ResultsFilterEnum.XRAY_INDICATIVE) {
+                checkBoxXray.setOnCheckedChangeListener(null);
+                checkBoxXray.setChecked(true);
+                checkBoxXray.setOnCheckedChangeListener(this);
+            }
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(b){
+            if(((FilterEnum)compoundButton.getTag()) instanceof ResultsFilterEnum)
+                filter_result.add( ((FilterEnum)compoundButton.getTag()));
+            else if(((FilterEnum)compoundButton.getTag()) instanceof OtherFiltersEnum)
+                filter_other_result.add( ((FilterEnum)compoundButton.getTag()));
+        }
+        else{
+            if(((FilterEnum)compoundButton.getTag()) instanceof ResultsFilterEnum)
+                filter_result.remove( ((FilterEnum)compoundButton.getTag()));
+            else if(((FilterEnum)compoundButton.getTag()) instanceof OtherFiltersEnum)
+                filter_other_result.remove( ((FilterEnum)compoundButton.getTag()));
+        }
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+         sortOption = (String)parent.getItemAtPosition(pos);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+    public List<FilterEnum> getFilterResult(){
+        return filter_result;
+    }
+
+    public void setFilterResult(List<FilterEnum> list){
+        this.filter_result = list;
+    }
+
+    public List<FilterEnum> getFilterOtherResult(){
+        return filter_other_result;
+    }
+
+    public String getSortOption(){
+        return this.sortOption;
+    }
+
+    public void setFilterOtherResult(List<FilterEnum> list){
+        this.filter_other_result = list;
+    }
+
+    protected Dialog getDialog(int dialogLayout){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(dialogLayout);
+        dialog.setTitle("Title...");
+        Button dialogButtonOk = (Button) dialog.findViewById(R.id.dialogBtnOk);
+        Button dialogButtonCancel = (Button) dialog.findViewById(R.id.dialogBtnCancel);
+        // if button is clicked, close the custom dialog
+        dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousFilterList = new ArrayList<FilterEnum>(filter_result);
+                previousOtherFilterList = new ArrayList<FilterEnum>(filter_other_result);
+                BaseRegisterFragment frag = (BaseRegisterFragment)findFragmentByPosition(0);
+                frag.filterAndSortRegisterContent(getFilterResult(),getFilterOtherResult(),getSortOption()==null ? getDefaultSort() : getSortOption());
+                dialog.dismiss();
+            }
+        });
+
+        dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_result = new ArrayList<FilterEnum>(previousFilterList);
+                filter_other_result = new ArrayList<FilterEnum>(previousOtherFilterList);
+                dialog.dismiss();
+            }
+        });
+        return dialog;
+    }
+
+    private String getDefaultSort(){
+        return "Name (A-Z)";
+    }
 }
