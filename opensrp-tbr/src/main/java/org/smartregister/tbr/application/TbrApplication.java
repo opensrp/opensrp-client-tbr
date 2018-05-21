@@ -9,22 +9,24 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
-import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
-import org.smartregister.tbr.jsonspec.JsonSpecHelper;
-import org.smartregister.tbr.jsonspec.model.MainConfig;
+//import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+//import org.smartregister.tbr.jsonspec.JsonSpecHelper;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
 import org.smartregister.tbr.repository.BMIRepository;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
-import org.smartregister.tbr.service.PullConfigurableViewsIntentService;
+import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.tbr.service.SyncService;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -67,6 +69,7 @@ public class TbrApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context);
+        ConfigurableViewsLibrary.init(context, getRepository());
 
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
 
@@ -241,7 +244,7 @@ public class TbrApplication extends DrishtiApplication {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void setServerLanguage(LanguageConfigurationEvent event) {
         //Set Language
-        MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
+        org.smartregister.configurableviews.model.MainConfig config = TbrApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getLanguage() != null && event.isFromServer()) {
             Utils.saveLanguage(config.getLanguage());
         }

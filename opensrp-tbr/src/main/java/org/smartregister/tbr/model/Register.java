@@ -3,8 +3,8 @@ package org.smartregister.tbr.model;
 import android.content.Context;
 
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.model.View;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Map;

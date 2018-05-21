@@ -1,4 +1,13 @@
 <resources>
+    <dimen name="fab_margin_16">16dp</dimen>
+    <dimen name="fab_margin_14">14dp</dimen>
+    <dimen name="fab_margin_10">10dp</dimen>
+    <dimen name="fab_margin_8">8dp</dimen>
+    <dimen name="fab_margin_32">32dp</dimen>
+    <dimen name="fab_margin_24">24dp</dimen>
+    <dimen name="fab_margin_4">4dp</dimen>
+    <dimen name="adv_search_header_tv_16">16sp</dimen>
+    <dimen name="adv_search_tv_8">8sp</dimen>
     <dimen name="list_profile_box_width">0dp</dimen>
     <dimen name="list_ec_no_view_width">0dp</dimen>
     <dimen name="list_risk_factors_view_width">0dp</dimen>

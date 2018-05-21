@@ -1,6 +1,8 @@
 package org.smartregister.tbr.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -19,8 +22,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.internal.LinkedTreeMap;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
@@ -32,13 +39,18 @@ import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientDetailActivity;
+import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
+import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.FormOverridesHelper;
-import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
-import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
+//import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
@@ -49,6 +61,9 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +106,7 @@ import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 
 public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
-    protected Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns = new TreeSet<>();
+    protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     protected ResultMenuListener resultMenuListener = new ResultMenuListener();
     protected CommonPersonObjectClient patient;
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
@@ -185,7 +200,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     }
 
-    public void showResultMenu(View view) {
+    private PopupMenu initializePopup(View view){
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
@@ -195,7 +210,41 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
+        return popup;
+    }
+
+    public void showResultMenu(View view) {
+        PopupMenu popup = initializePopup(view);
         popup.show();
+    }
+
+    public void showResultMenu(View view, BaseRegisterActivity activity){
+        String string = "";
+        if(activity instanceof PresumptivePatientRegisterActivity)
+            string = "presumptive";
+        else if(activity instanceof PositivePatientRegisterActivity)
+            string = "positive";
+        else if(activity instanceof InTreatmentPatientRegisterActivity)
+            string = "intreatment";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.TEST_RESULTS);
+        ViewConfiguration testResultsConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        if(testResultsConfig != null){
+            TestResultsConfiguration trc = (TestResultsConfiguration) testResultsConfig.getMetadata();
+            LinkedTreeMap map = (LinkedTreeMap) trc.getResultsConfig();
+            LinkedTreeMap map1 = (LinkedTreeMap) map.get(string);
+            PopupMenu popup = initializePopup(view);
+            for(int i=1; i < popup.getMenu().size(); i++){
+                try {
+                    if (!(boolean) map1.get(popup.getMenu().getItem(i).getTitle().toString()))
+                        popup.getMenu().getItem(i).setVisible(false);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            popup.show();
+        }
+        else
+            showResultMenu(view);
     }
 
     protected void updateSearchView() {
@@ -239,7 +288,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void initializeQueries() {
-
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
         PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository(), TbrApplication.getInstance().getContext().detailsRepository());
@@ -421,7 +469,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             switch (view.getId()) {
                 case R.id.result_lnk:
                 case R.id.intreatment_lnk:
-                    showResultMenu(view);
+                    showResultMenu(view, (BaseRegisterActivity) getActivity());
                     break;
                 case R.id.diagnose_lnk:
                     registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFieldOverrides().getJSONString());
@@ -443,6 +491,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.followup:
                     registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                     break;
+                case R.id.result_details:
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.setContentView(R.layout.layout_dialog_show_results);
+                    TextView textView = (TextView) dialog.findViewById(R.id.tv_dialog_results);
+                    textView.append((SpannableStringBuilder)view.getTag());
+                    TextView closeBtn = (TextView) dialog.findViewById(R.id.dialog_show_results_button_close);
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    break;
                 default:
                     break;
             }
@@ -452,6 +514,26 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
  /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
         prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
+
+        String sql = "Select * from event";
+        Cursor c = this.commonRepository().rawCustomQueryForAdapter(sql);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+        if(c.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for (int i = 0; i < c.getColumnCount(); i++) {
+                    map.put(c.getColumnName(i), c.getString(i));
+                }
+
+                maplist.add(map);
+            } while (c.moveToNext());
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.YEAR, -28);
+        Date dateBefore30Days = cal.getTime();
+        System.out.print(dateBefore30Days);
 
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
@@ -538,7 +620,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return " AND base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")";
     }
 
-    private void prepareAndShowSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+    public void prepareAndShowSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
         StringBuilder toastString = new StringBuilder();
         getToastString(filterOtherResults, toastString);
         getToastString(filterResults, toastString);

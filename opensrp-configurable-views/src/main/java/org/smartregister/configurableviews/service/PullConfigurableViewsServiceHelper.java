@@ -1,19 +1,22 @@
-package org.smartregister.tbr.service;
+package org.smartregister.configurableviews.service;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.configurableviews.helper.PreferenceHelper;
+import org.smartregister.configurableviews.helper.PrefsHelper;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.configurableviews.util.Constants;
+import org.smartregister.configurableviews.util.Utils;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
-import org.smartregister.tbr.sync.ECSyncHelper;
 
-import static org.smartregister.tbr.repository.ConfigurableViewsRepository.IDENTIFIER;
-import static org.smartregister.tbr.service.PullConfigurableViewsIntentService.VIEWS_URL;
-import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
+import static org.smartregister.configurableviews.repository.ConfigurableViewsRepository.IDENTIFIER;
+import static org.smartregister.configurableviews.service.PullConfigurableViewsIntentService.VIEWS_URL;
 import static org.smartregister.util.Log.logError;
 
 /**
@@ -28,10 +31,10 @@ public class PullConfigurableViewsServiceHelper {
     private ConfigurableViewsRepository configurableViewsRepository;
     private HTTPAgent httpAgent;
     private String baseUrl;
-    private ECSyncHelper syncHelper;
+    private PrefsHelper syncHelper;
 
     public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
-                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, boolean databaseCreated) {
+                                              HTTPAgent httpAgent, String baseUrl, PrefsHelper syncHelper, boolean databaseCreated) {
 
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
@@ -42,7 +45,7 @@ public class PullConfigurableViewsServiceHelper {
     }
 
 
-    protected int processIntent() throws Exception {
+    public int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             //There is any other previous login
@@ -61,9 +64,14 @@ public class PullConfigurableViewsServiceHelper {
         for (int i = 0; i < views.length(); i++) {
             JSONObject jsonObject = views.getJSONObject(i);
             String identifier = jsonObject.getString(IDENTIFIER);
-            if (identifier.equals(LOGIN)) {
+            if (identifier.equals(Constants.CONFIGURATION.LOGIN)) {
                 syncHelper.updateLoginConfigurableViewPreference(jsonObject.toString());
-                views.remove(i);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    views.remove(i);
+                } else {
+                    Utils.removeJsonObjectByIndex(i, views);
+                }
                 break;
             }
         }
@@ -76,7 +84,7 @@ public class PullConfigurableViewsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
+        String url = baseUrl + VIEWS_URL + "?serverVersion="+0;// + PreferenceHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
         if (httpAgent == null) {
             logError(url + " http agent is null");

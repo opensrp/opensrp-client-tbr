@@ -1,4 +1,4 @@
-package org.smartregister.tbr.jsonspec;
+package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,13 +7,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.model.BaseConfiguration;
-import org.smartregister.tbr.jsonspec.model.LoginConfiguration;
-import org.smartregister.tbr.jsonspec.model.MainConfig;
-import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.model.BaseConfiguration;
+import org.smartregister.configurableviews.model.LoginConfiguration;
+import org.smartregister.configurableviews.model.MainConfig;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.configurableviews.util.Constants;
+import org.smartregister.configurableviews.util.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import util.RuntimeTypeAdapterFactory;
 
 /**
  * Created by ndegwamartin on 12/10/2017.
@@ -52,7 +53,7 @@ public class JsonSpecHelper {
 
     public MainConfig getMainConfiguration() {
         try {
-            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.MAIN);
+            String jsonString = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.MAIN);
             return (MainConfig) getConfigurableView(jsonString).getMetadata();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -67,7 +68,7 @@ public class JsonSpecHelper {
     public List<String> getAvailableLanguages() {
         List<String> languages = new ArrayList<>();
         try {
-            List<String> langFiles = TbrApplication.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
+            List<String> langFiles = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
             if (langFiles != null) {
                 for (int i = 0; i < langFiles.size(); i++) {
                     String language = langFiles.get(i).substring(LANG_SUBSTRING_OFFSET);
@@ -85,7 +86,7 @@ public class JsonSpecHelper {
 
     public Map<String, String> getAvailableLanguagesMap() {
         try {
-            List<String> langFiles = TbrApplication.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
+            List<String> langFiles = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository().getAvailableLanguagesJson();
             Map<String, String> languages = new LinkedHashMap<>();
             for (int i = 0; i < langFiles.size(); i++) {
                 String language = langFiles.get(i).substring(LANG_SUBSTRING_OFFSET);
@@ -107,7 +108,8 @@ public class JsonSpecHelper {
                     .of(BaseConfiguration.class, "type")
                     .registerSubtype(LoginConfiguration.class, "Login")
                     .registerSubtype(MainConfig.class, "Main")
-                    .registerSubtype(RegisterConfiguration.class, "Register");
+                    .registerSubtype(RegisterConfiguration.class, "Register")
+                    .registerSubtype(TestResultsConfiguration.class, "TestResults");;
             final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
             return gson.fromJson(jsonString, VIEW_CONFIG_TYPE);
         } catch (Exception e) {
@@ -118,7 +120,7 @@ public class JsonSpecHelper {
 
     public ViewConfiguration getLanguage(String language) {
         try {
-            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableLanguageJson(Constants.CONFIGURATION.LANG + "_" + language);
+            String jsonString = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository().getConfigurableLanguageJson(Constants.CONFIGURATION.LANG + "_" + language);
             return getConfigurableView(jsonString);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

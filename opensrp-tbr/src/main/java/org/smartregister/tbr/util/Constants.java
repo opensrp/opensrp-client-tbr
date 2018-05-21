@@ -32,9 +32,11 @@ public class Constants {
         public static final String HOME = "home";
         public static final String MAIN = "main";
         public static final String LANG = "lang";
+        public static final String TEST_RESULTS = "test_results_forms_config";
         public static final String PATIENT_DETAILS_PRESUMPTIVE = "patient_details_presumptive";
         public static final String PATIENT_DETAILS_POSITIVE = "patient_details_positive";
         public static final String PATIENT_DETAILS_INTREATMENT = "patient_details_intreatment";
+        public static final String INTREATMENT_REGISTER = "intreatment_register";
 
         public static class COMPONENTS {
             public static final String PATIENT_DETAILS_DEMOGRAPHICS = "component_patient_details_demographics";

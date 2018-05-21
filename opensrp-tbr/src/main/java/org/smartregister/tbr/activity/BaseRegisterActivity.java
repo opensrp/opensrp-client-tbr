@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,8 +40,8 @@ import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
-import org.smartregister.tbr.jsonspec.model.RegisterConfiguration;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.tbr.util.OtherFiltersEnum;
@@ -166,6 +167,10 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 });
                 dialog.show();
                return true;
+            case R.id.advancedSearch:
+                Intent i = new Intent(this, AdvancedSearchActivity.class);
+                startActivity(i);
+                return true;
             default:
                 Toast.makeText(this,"Hey",Toast.LENGTH_LONG).show();
                 return false;
@@ -513,6 +518,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 previousFilterList = new ArrayList<FilterEnum>(filter_result);
                 previousOtherFilterList = new ArrayList<FilterEnum>(filter_other_result);
                 BaseRegisterFragment frag = (BaseRegisterFragment)findFragmentByPosition(0);
+
                 frag.filterAndSortRegisterContent(getFilterResult(),getFilterOtherResult(),getSortOption()==null ? getDefaultSort() : getSortOption());
                 dialog.dismiss();
             }

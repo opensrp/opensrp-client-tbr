@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

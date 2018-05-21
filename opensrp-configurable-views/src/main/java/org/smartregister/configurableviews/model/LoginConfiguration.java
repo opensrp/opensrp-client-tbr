@@ -1,4 +1,4 @@
-package org.smartregister.tbr.jsonspec.model;
+package org.smartregister.configurableviews.model;
 
 public class LoginConfiguration extends BaseConfiguration {
 

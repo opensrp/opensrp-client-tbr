@@ -1,13 +1,19 @@
 package org.smartregister.tbr.provider;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,9 +28,11 @@ import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.jsonspec.ConfigurableViewsHelper;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -73,7 +81,7 @@ import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER_ROW;
 public class PatientRegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private Context context;
-    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns;
+    private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
     private ResultsRepository resultsRepository;
 
@@ -125,7 +133,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             }
             return;
         }
-        for (org.smartregister.tbr.jsonspec.model.View columnView : visibleColumns) {
+        for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
             switch (columnView.getIdentifier()) {
                 case PATIENT:
                     populatePatientColumn(pc, client, convertView);
@@ -259,7 +267,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, TbrSpannableStringBuilder stringBuilder, boolean singleResult, Long baseline, View button, TextView details) {
         if (button != null)
             attachOnclickListener(button, client);
-        attachOnclickListener(details, client);
+//        attachOnclickListener(details, client);
         String baseEntityId = getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false);
         Map<String, String> testResults;
         if (baseline != null)
@@ -279,7 +287,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             details.setVisibility(View.VISIBLE);
             details.append(stringBuilder);
             if (button != null)
-                adjustLayoutParams(button, details);
+                adjustLayoutParams(button, details, stringBuilder);
         } else
             details.setVisibility(View.GONE);
     }
@@ -357,7 +365,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), false, true);
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result, results);
+            adjustLayoutParams(result, results, stringBuilder);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -386,7 +394,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return "";
     }
 
-    private void adjustLayoutParams(View view, TextView details) {
+    /*private void adjustLayoutParams(View view, TextView details) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         view.setLayoutParams(params);
@@ -394,9 +402,107 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         params = details.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         details.setLayoutParams(params);
+    }*/
+    private void adjustLayoutParams(final View view, final TextView details, final TbrSpannableStringBuilder stringBuilder) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        view.setLayoutParams(params);
+
+        params = details.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        details.setLayoutParams(params);
+
+        checkAndShowTextViewOverflow(details,view,stringBuilder,2);
+        /*ViewTreeObserver viewTreeObserver = details.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        {
+            @Override
+            public void onGlobalLayout()
+            {
+                ViewTreeObserver viewTreeObserver = details.getViewTreeObserver();
+                viewTreeObserver.removeOnGlobalLayoutListener(this);
+
+                int height = pxToDp( ((View)details.getParent()).getMeasuredHeight());
+                int availableHeight = (height - pxToDp(((TextView)view).getLayout().getHeight())) + 2;
+
+                if (pxToDp(details.getMeasuredHeight()) > (availableHeight))
+                {
+                    int endOfLastLine = details.getLayout().getLineEnd(2);
+                    TbrSpannableStringBuilder s = new TbrSpannableStringBuilder(stringBuilder);
+                    s.delete(s.charAt(endOfLastLine-1) == '\n' ? endOfLastLine - 1 : endOfLastLine,stringBuilder.length());
+                    s.append(" ...");
+                    details.setText("");
+                    details.append(s);
+                    if(details.getLineCount() > 3) {
+                        s = new TbrSpannableStringBuilder(stringBuilder);
+                        s = (TbrSpannableStringBuilder) s.delete(endOfLastLine - 3, s.length());
+                        s.append(" ...");
+                        details.setText("");
+                        details.append(s);
+                    }
+
+                    details.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.layout_dialog_show_results);
+                            dialog.setTitle("Title...");
+                            TextView textView = (TextView) dialog.findViewById(R.id.tv_dialog_results);
+                            textView.append(stringBuilder);
+                            TextView closeBtn = (TextView) dialog.findViewById(R.id.dialog_show_results_button_close);
+                            closeBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+                        }
+                    });
+                }
+            }
+        });*/
     }
 
+    private void checkAndShowTextViewOverflow(final TextView details, final View view, final SpannableStringBuilder stringBuilder, final int numOfLines) {
+        ViewTreeObserver viewTreeObserver = details.getViewTreeObserver();
+        viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                details.getViewTreeObserver().removeOnPreDrawListener(this);
+                int height = pxToDp(((View) details.getParent()).getMeasuredHeight());
+                int availableHeight = (height - pxToDp(((TextView) view).getLayout().getHeight())) + 2;
+                if (pxToDp(details.getMeasuredHeight()) > (availableHeight)) {
+                    int endOfLastLine = details.getLayout().getLineEnd(numOfLines - 1);
+                    TbrSpannableStringBuilder s = new TbrSpannableStringBuilder(stringBuilder);
+                    s.delete(s.charAt(endOfLastLine - 1) == '\n' ? endOfLastLine - 1 : endOfLastLine, stringBuilder.length());
+                    s.append(" ...");
+                    details.setText("");
+                    details.append(s);
+                    if (details.getLayout().getLineCount() > numOfLines) {
+                        s = new TbrSpannableStringBuilder(stringBuilder);
+                        s = (TbrSpannableStringBuilder) s.delete(endOfLastLine - 3, s.length());
+                        s.append(" ...");
+                        details.setText("");
+                        details.append(s);
+                    }
+                    attachOnclickListener(details, stringBuilder);
+                }
+                return true;
+            }
+        });
+    }
+    public int pxToDp(float px){
+        DisplayMetrics metrics = context.getResources().getSystem().getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return Math.round(dp);
+    }
     private void attachOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+    }
+
+    private void attachOnclickListener(View view, SpannableStringBuilder client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
     }
@@ -414,7 +520,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         populateXpertResult(testResults, stringBuilder, false);
 
         if (stringBuilder.length() > 0) {
-            adjustLayoutParams(result, results);
+            adjustLayoutParams(result, results,stringBuilder);
             results.setVisibility(View.VISIBLE);
             results.setText(stringBuilder);
         }
@@ -438,6 +544,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         if (!nextVisit.isEmpty()) {
             DateTime treatmentStartDate = DateTime.parse(nextVisit);
             fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
+            int days = getOverDueDays(Constants.CONFIGURATION.TEST_RESULTS,"followup");
+            if(days > 0)
+                treatmentStartDate = treatmentStartDate.plusDays(days);
             int due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
             populateSchedule(due, followup, followupText);
         } else {
@@ -457,6 +566,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             try {
                 DateTime treatmentStartDate = DateTime.parse(nextVisit);
                 fillValue(followupText, "Smear\n due " + treatmentStartDate.toString("dd/MM/yy"));
+                int days = getOverDueDays(Constants.CONFIGURATION.TEST_RESULTS,"smear");
+                if(days > 0)
+                    treatmentStartDate.plusDays(days);
                 due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
 
             } catch (IllegalArgumentException e) {
@@ -470,7 +582,18 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
     }
 
-
+    private Integer getOverDueDays(String identifier, String type){
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(identifier);
+        ViewConfiguration treatmentConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        Integer days = 0;
+        if(treatmentConfig != null) {
+            if(type.equalsIgnoreCase("smear"))
+                days = ((TestResultsConfiguration) treatmentConfig.getMetadata()).getSmearOverduePeriod();
+            else if(type.equalsIgnoreCase("followup"))
+                days = ((TestResultsConfiguration) treatmentConfig.getMetadata()).getFollowupOverduePeriod();
+        }
+        return days;
+    }
     private void populateSchedule(int due, View followup, TextView followupText) {
         if (due < 0) {
             followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);

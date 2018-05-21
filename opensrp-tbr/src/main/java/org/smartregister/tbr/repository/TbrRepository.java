@@ -9,6 +9,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 
 /**
  * Created by keyman on 23/08/2017.

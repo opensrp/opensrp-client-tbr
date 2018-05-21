@@ -1,4 +1,4 @@
-package org.smartregister.tbr.repository;
+package org.smartregister.configurableviews.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -51,7 +51,7 @@ public class ConfigurableViewsRepository extends BaseRepository {
         super(repository);
     }
 
-    protected static void createTable(SQLiteDatabase database) {
+    public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_ID);
         database.execSQL(INDEX_IDENTIFIER);
@@ -86,7 +86,7 @@ public class ConfigurableViewsRepository extends BaseRepository {
         return lastSyncTimeStamp;
     }
 
-    protected boolean configurableViewExists(String identifier) {
+    public boolean configurableViewExists(String identifier) {
         boolean exists = false;
         Cursor c = getReadableDatabase().rawQuery("Select " + IDENTIFIER + " from " + TABLE_NAME + " Where " +
                         IDENTIFIER + " = ? ",

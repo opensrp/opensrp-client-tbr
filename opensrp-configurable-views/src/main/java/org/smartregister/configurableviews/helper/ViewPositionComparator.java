@@ -1,6 +1,7 @@
-package org.smartregister.tbr.jsonspec;
+package org.smartregister.configurableviews.helper;
 
-import org.smartregister.tbr.jsonspec.model.View;
+
+import org.smartregister.configurableviews.model.View;
 
 import java.util.Comparator;
 

@@ -19,7 +19,7 @@ import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.HomeFragment;
-import org.smartregister.tbr.jsonspec.model.MainConfig;
+import org.smartregister.configurableviews.model.MainConfig;
 import org.smartregister.tbr.sync.ECSyncHelper;
 import org.smartregister.tbr.util.Utils;
 

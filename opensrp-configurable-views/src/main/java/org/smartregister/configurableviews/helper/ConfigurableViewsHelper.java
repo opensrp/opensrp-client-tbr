@@ -1,4 +1,4 @@
-package org.smartregister.tbr.jsonspec;
+package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,15 +8,12 @@ import android.widget.LinearLayout;
 
 import com.avocarrot.json2view.DynamicView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
-import org.smartregister.tbr.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.jsonspec.model.View;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.R;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -26,14 +23,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 /**
  * Created by samuelgithengi on 11/21/17.
  */
 
 public class ConfigurableViewsHelper {
 
-    private static final String TAG = "ConfigurableViewsHelper";
+    private static final String TAG = ConfigurableViewsHelper.class.getCanonicalName();
 
     private final ConfigurableViewsRepository configurableViewsRepository;
 
@@ -45,16 +41,16 @@ public class ConfigurableViewsHelper {
 
     private boolean jsonViewsEnabled;
 
+    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
+
     public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper, Context context) {
         this.configurableViewsRepository = configurableViewsRepository;
         this.jsonSpecHelper = jsonSpecHelper;
         this.context = context;
         isTabletSize = context.getResources().getBoolean(R.bool.isTablet);
-        if (TbrApplication.getJsonSpecHelper().getMainConfiguration() != null)
-            jsonViewsEnabled = TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews();
+        if (ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration() != null)
+            jsonViewsEnabled = ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews();
     }
-
-    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
 
     public void registerViewConfigurations(List<String> viewIdentifiers) {
         for (String viewIdentifier : viewIdentifiers) {
@@ -160,21 +156,12 @@ public class ConfigurableViewsHelper {
     public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent, android.view.View fallbackLayout, boolean isVisible) {
 
         android.view.View json2View = getDynamicView(viewConfiguration, viewParent);
-        if (fallbackLayout != null) {
-            viewParent.removeView(fallbackLayout);
-        }
         if (isVisible) {
             json2View = json2View != null ? json2View : fallbackLayout;
             viewParent.addView(json2View);
         }
 
         return json2View;
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void setJsonViewsEnabled(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
-        if (syncCompleteEvent != null && TbrApplication.getJsonSpecHelper().getMainConfiguration() != null)
-            jsonViewsEnabled = TbrApplication.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews();
     }
 
     public boolean isJsonViewsEnabled() {

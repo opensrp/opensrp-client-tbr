@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package util;
+package org.smartregister.configurableviews.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -126,9 +126,9 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     private final Map<String, Class<?>> labelToSubtype = new LinkedHashMap<String, Class<?>>();
     private final Map<Class<?>, String> subtypeToLabel = new LinkedHashMap<Class<?>, String>();
 
-    private RuntimeTypeAdapterFactory(Class<?> baseType, String typeFieldName) {
+    private RuntimeTypeAdapterFactory(Class<?> baseType, String typeFieldName) throws Exception {
         if (typeFieldName == null || baseType == null) {
-            throw new NullPointerException();
+            throw new Exception("Null Pointer Exception");
         }
         this.baseType = baseType;
         this.typeFieldName = typeFieldName;
@@ -138,7 +138,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
      * Creates a new runtime type adapter using for {@code baseType} using {@code
      * typeFieldName} as the type field name. Type field names are case sensitive.
      */
-    public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType, String typeFieldName) {
+    public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType, String typeFieldName) throws Exception {
         return new RuntimeTypeAdapterFactory<T>(baseType, typeFieldName);
     }
 
@@ -146,7 +146,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
      * Creates a new runtime type adapter for {@code baseType} using {@code "type"} as
      * the type field name.
      */
-    public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType) {
+    public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType) throws Exception {
         return new RuntimeTypeAdapterFactory<T>(baseType, "type");
     }
 
@@ -157,9 +157,9 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
      * @throws IllegalArgumentException if either {@code type} or {@code label}
      *                                  have already been registered on this type adapter.
      */
-    public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type, String label) {
+    public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type, String label) throws Exception {
         if (type == null || label == null) {
-            throw new NullPointerException();
+            throw new Exception("Null Pointer Exception");
         }
         if (subtypeToLabel.containsKey(type) || labelToSubtype.containsKey(label)) {
             throw new IllegalArgumentException("types and labels must be unique");
@@ -176,7 +176,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
      * @throws IllegalArgumentException if either {@code type} or its simple name
      *                                  have already been registered on this type adapter.
      */
-    public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type) {
+    public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type) throws Exception {
         return registerSubtype(type, type.getSimpleName());
     }
 
