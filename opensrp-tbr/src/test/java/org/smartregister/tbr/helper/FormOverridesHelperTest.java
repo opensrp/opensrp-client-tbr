@@ -4,8 +4,14 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowSystemClock;
 import org.smartregister.domain.form.FieldOverrides;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +20,7 @@ import util.TbrConstants;
 /**
  * Created by ndegwamartin on 20/03/2018.
  */
-
+@RunWith(RobolectricTestRunner.class)
 public class FormOverridesHelperTest {
 
     private FormOverridesHelper formOverridesHelper;
@@ -81,7 +87,7 @@ public class FormOverridesHelperTest {
     }
 
     @Test
-    public void getTreatmentFieldOverridesWithDOBReturnsCorrectJsonString() {
+    public void getTreatmentFieldOverridesWithDOBReturnsCorrectJsonString() throws ParseException {
         FormOverridesHelper formOverridesHelper = new FormOverridesHelper(null);
         Map<String, String> patientDetails = new HashMap<>();
 
@@ -92,6 +98,8 @@ public class FormOverridesHelperTest {
         patientDetails.put(TbrConstants.KEY.DOB, "1997-03-20");
 
         formOverridesHelper.setPatientDetails(patientDetails);
+
+        ShadowSystemClock.setCurrentTimeMillis(getTime("2018/03/20 11:10:00"));
 
         FieldOverrides fieldOverrides = formOverridesHelper.getTreatmentFieldOverrides();
         Assert.assertNotNull(fieldOverrides);
@@ -116,5 +124,17 @@ public class FormOverridesHelperTest {
         Assert.assertNotNull(fieldOverrides);
         Assert.assertEquals("{\"fieldOverrides\":\"{\\\"participant_id\\\":\\\"5345\\\",\\\"program_id\\\":\\\"7730\\\",\\\"last_name\\\":\\\"Tell\\\",\\\"first_name\\\":\\\"William\\\",\\\"age\\\":\\\"\\\"}\"}", fieldOverrides.getJSONString());
 
+    }
+
+    /**
+     * Returns the time in milliseconds. Enter your date in the format yyyy/MM/dd HH:mm:ss
+     *
+     * @param myDate
+     * @return
+     */
+    private long getTime(String myDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = sdf.parse(myDate);
+        return date.getTime();
     }
 }
