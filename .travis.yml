@@ -23,7 +23,6 @@ android:
     - android-22
     - android-27
     # Additional components
-    - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
 
@@ -47,11 +46,7 @@ script:
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew
   - ls -la
-  - ./gradlew opensrp-tbr:clean
-  #Run All Instrumentation Tests
-  - ./gradlew opensrp-tbr:connectedAndroidTest
-  #Run All Unit tests Unit
-  - travis_wait ./gradlew clean build --stacktrace
+  #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
   - travis_wait ./gradlew :opensrp-tbr:jacocoTestReport coveralls --stacktrace
 
 after_failure:
