@@ -78,7 +78,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     @Mock
     private Cursor cursor;
 
-    private Set<org.smartregister.tbr.jsonspec.model.View> visibleColumns = new HashSet<>();
+    private Set<org.smartregister.configurableviews.model.View> visibleColumns = new HashSet<>();
 
     @Mock
     private RegisterActionHandler registerActionHandler;
@@ -100,7 +100,7 @@ public class PatientRegisterProviderTest extends BaseUnitTest {
     }
 
     private void initProvider(String columnIdentifier) {
-        org.smartregister.tbr.jsonspec.model.View column = new org.smartregister.tbr.jsonspec.model.View();
+        org.smartregister.configurableviews.model.View column = new org.smartregister.configurableviews.model.View();
         column.setIdentifier(columnIdentifier);
         visibleColumns.add(column);
         patientRegisterProvider = new PatientRegisterProvider(RuntimeEnvironment.application, visibleColumns, registerActionHandler, resultsRepository, detailsRepository);

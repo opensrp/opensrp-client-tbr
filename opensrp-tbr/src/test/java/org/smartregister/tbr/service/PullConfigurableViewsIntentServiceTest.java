@@ -12,11 +12,14 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.configurableviews.helper.PreferenceHelper;
+import org.smartregister.configurableviews.helper.PrefsHelper;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.configurableviews.service.PullConfigurableViewsServiceHelper;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.sync.ECSyncHelper;
 
 import static org.junit.Assert.fail;
@@ -45,7 +48,7 @@ public class PullConfigurableViewsIntentServiceTest extends BaseUnitTest {
     private HTTPAgent httpAgent;
 
     @Spy
-    private ECSyncHelper syncHelper = ECSyncHelper.getInstance(context);
+    private PrefsHelper syncHelper = PreferenceHelper.getInstance(context);
 
     private PullConfigurableViewsServiceHelper helper;
 

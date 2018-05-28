@@ -14,11 +14,13 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.tbr.BaseUnitTest;
 import org.smartregister.tbr.R;
-import org.smartregister.tbr.jsonspec.model.View;
-import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
-import org.smartregister.tbr.repository.ConfigurableViewsRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
