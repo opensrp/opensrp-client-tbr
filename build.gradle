@@ -35,6 +35,7 @@ subprojects {
         maven { url "http://repo.maven.apache.org/maven2" }
         maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
         mavenLocal()
+        google()
     }
 
     // Improve build server performance by allowing disabling of pre-dexing
