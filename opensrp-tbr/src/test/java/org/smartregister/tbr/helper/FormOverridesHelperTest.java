@@ -131,17 +131,11 @@ public class FormOverridesHelperTest {
     }
 
     /**
-     * Returns the time in milliseconds. Enter your date in the format yyyy/MM/dd HH:mm:ss
+     * Returns the time in the format yyyy-mm-dd eg. 2018-09-23 when given the time in milliseconds
      *
-     * @param myDate
+     * @param millis
      * @return
      */
-    private long getTime(String myDate) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = sdf.parse(myDate);
-        return date.getTime();
-    }
-
     private String getDate(long millis) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(millis);
