@@ -8,12 +8,14 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowSystemClock;
 import org.smartregister.domain.form.FieldOverrides;
+import org.smartregister.tbr.BuildConfig;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import org.robolectric.annotation.Config;
 
 import util.TbrConstants;
 
@@ -21,6 +23,7 @@ import util.TbrConstants;
  * Created by ndegwamartin on 20/03/2018.
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21, shadows = {ShadowSystemClock.class})
 public class FormOverridesHelperTest {
 
     private FormOverridesHelper formOverridesHelper;
@@ -95,11 +98,12 @@ public class FormOverridesHelperTest {
         patientDetails.put(TbrConstants.KEY.FIRST_NAME, "William");
         patientDetails.put(TbrConstants.KEY.LAST_NAME, "Tell");
         patientDetails.put(TbrConstants.KEY.PROGRAM_ID, "7730");
-        patientDetails.put(TbrConstants.KEY.DOB, "1997-03-20");
+
+        long twentyOneYearsAgo = System.currentTimeMillis() - (((21L * 365L) + 3L) * 24L * 60L * 60L * 1000L);
+
+        patientDetails.put(TbrConstants.KEY.DOB, getDate(twentyOneYearsAgo));
 
         formOverridesHelper.setPatientDetails(patientDetails);
-
-        ShadowSystemClock.setCurrentTimeMillis(getTime("2018/03/20 11:10:00"));
 
         FieldOverrides fieldOverrides = formOverridesHelper.getTreatmentFieldOverrides();
         Assert.assertNotNull(fieldOverrides);
@@ -136,5 +140,11 @@ public class FormOverridesHelperTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = sdf.parse(myDate);
         return date.getTime();
+    }
+
+    private String getDate(long millis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(millis);
+        return sdf.format(date);
     }
 }
