@@ -105,13 +105,13 @@ public class AdvancedSearchActivity extends BaseActivity implements View.OnClick
         if(advSearchFragment.chkTreatment.isChecked())
             model.put("inTreatment",true);
         if(!advSearchFragment.participantId.getText().toString().isEmpty())
-            model.put("participantId",advSearchFragment.participantId.getText().toString());
+            model.put("participantId",advSearchFragment.participantId.getText().toString().trim());
         if(!advSearchFragment.firstName.getText().toString().isEmpty())
-            model.put("firstName", advSearchFragment.firstName.getText().toString());
+            model.put("firstName", advSearchFragment.firstName.getText().toString().trim());
         if(!advSearchFragment.lastName.getText().toString().isEmpty())
-            model.put("lastName", advSearchFragment.lastName.getText().toString());
+            model.put("lastName", advSearchFragment.lastName.getText().toString().trim());
         if(!advSearchFragment.phoneNumber.getText().toString().isEmpty())
-            model.put("phoneNumber", advSearchFragment.phoneNumber.getText().toString());
+            model.put("phoneNumber", advSearchFragment.phoneNumber.getText().toString().trim());
         if(advSearchFragment.spGender.getSelectedItemPosition() > 0)
             model.put("gender", advSearchFragment.spGender.getSelectedItem().toString());
         if(advSearchFragment.spAgeGroup.getSelectedItemPosition() > 0)
