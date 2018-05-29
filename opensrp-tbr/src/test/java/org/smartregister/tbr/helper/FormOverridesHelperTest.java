@@ -1,5 +1,7 @@
 package org.smartregister.tbr.helper;
 
+import android.os.Build;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -22,8 +24,7 @@ import util.TbrConstants;
 /**
  * Created by ndegwamartin on 20/03/2018.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21, shadows = {ShadowSystemClock.class})
+
 public class FormOverridesHelperTest {
 
     private FormOverridesHelper formOverridesHelper;
@@ -90,7 +91,7 @@ public class FormOverridesHelperTest {
     }
 
     @Test
-    public void getTreatmentFieldOverridesWithDOBReturnsCorrectJsonString() throws ParseException {
+    public void getTreatmentFieldOverridesWithDOBReturnsCorrectJsonString() {
         FormOverridesHelper formOverridesHelper = new FormOverridesHelper(null);
         Map<String, String> patientDetails = new HashMap<>();
 
