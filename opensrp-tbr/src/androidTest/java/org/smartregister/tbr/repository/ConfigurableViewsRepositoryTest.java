@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
  */
 
 @RunWith(JUnit4.class)
-@Ignore
 public class ConfigurableViewsRepositoryTest {
 
     private ConfigurableViewsRepository configurableViewsRepository;

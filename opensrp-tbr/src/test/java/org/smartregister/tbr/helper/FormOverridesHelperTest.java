@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.domain.form.FieldOverrides;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,7 +91,10 @@ public class FormOverridesHelperTest {
         patientDetails.put(TbrConstants.KEY.FIRST_NAME, "William");
         patientDetails.put(TbrConstants.KEY.LAST_NAME, "Tell");
         patientDetails.put(TbrConstants.KEY.PROGRAM_ID, "7730");
-        patientDetails.put(TbrConstants.KEY.DOB, "1997-03-20");
+
+        long twentyOneYearsAgo = System.currentTimeMillis() - (((21L * 365L) + 3L) * 24L * 60L * 60L * 1000L);
+
+        patientDetails.put(TbrConstants.KEY.DOB, getDate(twentyOneYearsAgo));
 
         formOverridesHelper.setPatientDetails(patientDetails);
 
@@ -116,5 +121,17 @@ public class FormOverridesHelperTest {
         Assert.assertNotNull(fieldOverrides);
         Assert.assertEquals("{\"fieldOverrides\":\"{\\\"participant_id\\\":\\\"5345\\\",\\\"program_id\\\":\\\"7730\\\",\\\"last_name\\\":\\\"Tell\\\",\\\"first_name\\\":\\\"William\\\",\\\"age\\\":\\\"\\\"}\"}", fieldOverrides.getJSONString());
 
+    }
+
+    /**
+     * Returns the time in the format yyyy-mm-dd eg. 2018-09-23 when given the time in milliseconds
+     *
+     * @param millis
+     * @return
+     */
+    private String getDate(long millis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(millis);
+        return sdf.format(date);
     }
 }
