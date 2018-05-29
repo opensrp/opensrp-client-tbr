@@ -1,23 +1,15 @@
 package org.smartregister.tbr.helper;
 
-import android.os.Build;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowSystemClock;
 import org.smartregister.domain.form.FieldOverrides;
-import org.smartregister.tbr.BuildConfig;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.robolectric.annotation.Config;
 
 import util.TbrConstants;
 
