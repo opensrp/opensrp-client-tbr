@@ -142,7 +142,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             case R.id.sortList:
                 final Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_dialog_sort_register);
-                dialog.setTitle("Title...");
+                dialog.setTitle("Sort");
                 setRadioChecked(dialog);
                 Button btnOk = (Button) dialog.findViewById(R.id.dialog_sort_btnOK);
                 Button btnCancel = (Button) dialog.findViewById(R.id.dialog_sort_btnCancel);
@@ -508,7 +508,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected Dialog getDialog(int dialogLayout){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(dialogLayout);
-        dialog.setTitle("Title...");
+        dialog.setTitle("Filter");
         Button dialogButtonOk = (Button) dialog.findViewById(R.id.dialogBtnOk);
         Button dialogButtonCancel = (Button) dialog.findViewById(R.id.dialogBtnCancel);
         // if button is clicked, close the custom dialog

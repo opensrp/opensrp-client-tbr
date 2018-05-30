@@ -21,6 +21,7 @@ import org.smartregister.domain.Response;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.adapter.AdvSearchResJsonArrayAdapter;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 import java.util.ArrayList;
@@ -115,7 +116,8 @@ public class AdvancedSearchResultsFragment extends SecuredNativeSmartRegisterCur
     private String prepareUrl(HashMap<String,Object> model){
         boolean first = true;
         StringBuilder url = new StringBuilder();
-        url.append(getResources().getString(R.string.opensrp_url)+ "/rest/advanceSearch/advanceSearchBy?q=");
+        String baseUrl = TbrApplication.getInstance().getContext().configuration().dristhiBaseURL();
+        url.append(baseUrl + "/rest/advanceSearch/advanceSearchBy?q=");
         if(model.containsKey("ageGroup")){
             appendToUrl(url,"ageGroup",(String)model.get("ageGroup"),first);
             first = false;
@@ -314,17 +316,22 @@ public class AdvancedSearchResultsFragment extends SecuredNativeSmartRegisterCur
     }
 
     private String getTotalClients(JSONObject obj) {
-        Iterator<?> it = obj.keys();
-        Integer count = 0;
-        while(it.hasNext()){
-            String key = (String)it.next();
-            try {
-                count += obj.getJSONArray(key).length();
-            } catch (JSONException e) {
-                e.printStackTrace();
+        try {
+            Iterator<?> it = obj.keys();
+            Integer count = 0;
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                try {
+                    count += obj.getJSONArray(key).length();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+            return count.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+            return "0";
         }
-        return count.toString();
     }
 
 }

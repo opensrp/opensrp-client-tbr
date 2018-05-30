@@ -183,4 +183,9 @@ public class AdvancedSearchActivity extends BaseActivity implements View.OnClick
             this.finish();
         else getSupportFragmentManager().popBackStack();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }
