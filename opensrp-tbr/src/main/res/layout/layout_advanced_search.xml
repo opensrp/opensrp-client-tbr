@@ -51,7 +51,10 @@
             android:id="@+id/et_participant_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Participant ID number"/>
+            android:hint="Participant ID number"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="20"/>
 
         <TextView
             android:layout_marginLeft="5dp"
@@ -66,7 +69,10 @@
             android:id="@+id/et_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"/>
+            android:hint="First Name"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="15"/>
 
         <TextView
             android:layout_marginLeft="5dp"
@@ -81,7 +87,10 @@
             android:id="@+id/et_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last Name"/>
+            android:hint="Last Name"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="15"/>
 
         <TextView
             android:layout_marginLeft="5dp"

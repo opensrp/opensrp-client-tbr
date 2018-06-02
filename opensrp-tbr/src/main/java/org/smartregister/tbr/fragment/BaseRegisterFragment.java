@@ -514,21 +514,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
  /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
         prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
-
-        String sql = "Select * from event";
-        Cursor c = this.commonRepository().rawCustomQueryForAdapter(sql);
-        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
-        if(c.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                for (int i = 0; i < c.getColumnCount(); i++) {
-                    map.put(c.getColumnName(i), c.getString(i));
-                }
-
-                maplist.add(map);
-            } while (c.moveToNext());
-        }
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.YEAR, -28);

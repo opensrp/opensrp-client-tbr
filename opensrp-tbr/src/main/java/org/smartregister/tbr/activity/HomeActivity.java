@@ -153,8 +153,8 @@ public class HomeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshView(SyncEvent syncEvent) {
         if (syncEvent != null) {
+            refreshButton.clearAnimation();
             processView();
-
         }
     }
 
