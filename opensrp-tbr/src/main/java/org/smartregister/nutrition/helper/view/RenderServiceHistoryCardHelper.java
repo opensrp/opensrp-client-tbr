@@ -14,10 +14,10 @@ import android.view.View;
 import android.widget.ListView;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.adapter.ServiceHistoryAdapter;
-import org.smartregister.tbr.repository.ResultDetailsRepository;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.adapter.ServiceHistoryAdapter;
+import org.smartregister.nutrition.repository.ResultDetailsRepository;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.Map;
 

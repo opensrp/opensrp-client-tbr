@@ -1,7 +1,7 @@
 package util;
 
 import org.smartregister.AllConstants;
-import org.smartregister.tbr.BuildConfig;
+import org.smartregister.nutrition.BuildConfig;
 
 /**
  * Created by SGithengi on 09/10/17.

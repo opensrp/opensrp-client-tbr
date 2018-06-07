@@ -22,10 +22,10 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.SyncEvent;
-import org.smartregister.tbr.sync.ECSyncHelper;
-import org.smartregister.tbr.sync.TbrClientProcessor;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.event.SyncEvent;
+import org.smartregister.nutrition.sync.ECSyncHelper;
+import org.smartregister.nutrition.sync.TbrClientProcessor;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

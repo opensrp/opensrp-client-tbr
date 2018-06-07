@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import org.smartregister.tbr.service.SyncService;
-import org.smartregister.tbr.sync.UserConfigurableViewsSyncTask;
+import org.smartregister.nutrition.service.SyncService;
+import org.smartregister.nutrition.sync.UserConfigurableViewsSyncTask;
 
 import util.ServiceTools;
 

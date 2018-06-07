@@ -9,9 +9,9 @@ import android.widget.Button;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.repository.ResultDetailsRepository;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.repository.ResultDetailsRepository;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.Map;
 

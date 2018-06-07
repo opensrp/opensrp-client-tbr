@@ -10,14 +10,14 @@ import org.json.JSONObject;
 import org.smartregister.domain.Response;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.service.SyncService;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.service.SyncService;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
+import static org.smartregister.nutrition.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Utils.getPreference;
 import static util.TbrConstants.LAST_CHECK_TIMESTAMP;
 import static util.TbrConstants.LAST_SYNC_TIMESTAMP;

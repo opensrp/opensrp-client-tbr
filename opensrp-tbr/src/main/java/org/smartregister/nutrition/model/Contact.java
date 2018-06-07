@@ -1,6 +1,6 @@
 package org.smartregister.nutrition.model;
 
-import static org.smartregister.tbr.util.Constants.ScreenStage;
+import static org.smartregister.nutrition.util.Constants.ScreenStage;
 
 /**
  * Created by ndegwamartin on 23/01/2018.

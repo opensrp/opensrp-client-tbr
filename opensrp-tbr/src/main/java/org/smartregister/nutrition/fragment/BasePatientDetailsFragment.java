@@ -22,26 +22,26 @@ import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.activity.HomeActivity;
-import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
-import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
-import org.smartregister.tbr.activity.PositivePatientDetailActivity;
-import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
-import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
-import org.smartregister.tbr.event.SyncEvent;
-import org.smartregister.tbr.helper.FormOverridesHelper;
-import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
-import org.smartregister.tbr.helper.view.RenderContactScreeningCardHelper;
-import org.smartregister.tbr.helper.view.RenderPatientDemographicCardHelper;
-import org.smartregister.tbr.helper.view.RenderPatientFollowupCardHelper;
-import org.smartregister.tbr.helper.view.RenderPositiveResultsCardHelper;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
-import org.smartregister.tbr.model.Register;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.activity.BasePatientDetailActivity;
+import org.smartregister.nutrition.activity.HomeActivity;
+import org.smartregister.nutrition.activity.InTreatmentPatientDetailActivity;
+import org.smartregister.nutrition.activity.InTreatmentPatientRegisterActivity;
+import org.smartregister.nutrition.activity.PositivePatientDetailActivity;
+import org.smartregister.nutrition.activity.PositivePatientRegisterActivity;
+import org.smartregister.nutrition.activity.PresumptivePatientDetailActivity;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.nutrition.event.SyncEvent;
+import org.smartregister.nutrition.helper.FormOverridesHelper;
+import org.smartregister.nutrition.helper.view.RenderBMIHeightChartCardHelper;
+import org.smartregister.nutrition.helper.view.RenderContactScreeningCardHelper;
+import org.smartregister.nutrition.helper.view.RenderPatientDemographicCardHelper;
+import org.smartregister.nutrition.helper.view.RenderPatientFollowupCardHelper;
+import org.smartregister.nutrition.helper.view.RenderPositiveResultsCardHelper;
+import org.smartregister.nutrition.helper.view.RenderServiceHistoryCardHelper;
+import org.smartregister.nutrition.model.Register;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 import org.smartregister.view.fragment.SecuredFragment;
 
 import java.util.Collections;
@@ -51,7 +51,7 @@ import java.util.Map;
 
 import util.TbrConstants;
 
-import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static org.smartregister.nutrition.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static util.TbrConstants.ENKETO_FORMS;
 
 /**

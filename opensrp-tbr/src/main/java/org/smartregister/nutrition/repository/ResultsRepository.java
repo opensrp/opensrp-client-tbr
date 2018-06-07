@@ -9,8 +9,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.tbr.model.Result;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.model.Result;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;

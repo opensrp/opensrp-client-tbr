@@ -4,8 +4,8 @@ import android.content.Context;
 
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.Map;
 

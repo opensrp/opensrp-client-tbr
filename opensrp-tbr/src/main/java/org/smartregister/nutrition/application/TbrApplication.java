@@ -224,7 +224,7 @@ public class TbrApplication extends DrishtiApplication {
 
     private void setUpEventHandling() {
         try {
-            EventBus.builder().addIndex(new TBREventBusIndex()).installDefaultEventBus();
+            EventBus.builder().addIndex(new org.smartregister.nutrition.TBREventBusIndex()).installDefaultEventBus();
         } catch
                 (Exception e) {
             Log.e(TAG, e.getMessage());

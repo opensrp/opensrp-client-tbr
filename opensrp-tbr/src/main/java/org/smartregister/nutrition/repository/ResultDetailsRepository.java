@@ -10,11 +10,11 @@ import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.DBQueryHelper;
-import org.smartregister.tbr.model.Register;
-import org.smartregister.tbr.model.RegisterCount;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.helper.DBQueryHelper;
+import org.smartregister.nutrition.model.Register;
+import org.smartregister.nutrition.model.RegisterCount;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

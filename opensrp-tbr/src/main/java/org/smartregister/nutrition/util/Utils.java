@@ -22,7 +22,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.nutrition.application.TbrApplication;
 import org.smartregister.nutrition.event.BaseEvent;
 import org.smartregister.util.DateUtil;
 

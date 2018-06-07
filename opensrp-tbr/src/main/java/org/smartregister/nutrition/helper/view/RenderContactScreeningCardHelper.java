@@ -13,12 +13,12 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.nutrition.helper.FormOverridesHelper;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.model.Contact;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.activity.BasePatientDetailActivity;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.model.Contact;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 import util.TbrConstants;
 
-import static org.smartregister.tbr.util.Constants.ScreenStage;
+import static org.smartregister.nutrition.util.Constants.ScreenStage;
 import static util.TbrConstants.CONTACT_TABLE_NAME;
 import static util.TbrConstants.KEY;
 import static util.TbrConstants.PATIENT_TABLE_NAME;

@@ -20,8 +20,8 @@ import org.smartregister.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFr
 import org.smartregister.domain.Response;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.adapter.AdvSearchResJsonArrayAdapter;
-import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.nutrition.adapter.AdvSearchResJsonArrayAdapter;
+import org.smartregister.nutrition.application.TbrApplication;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 import java.util.ArrayList;

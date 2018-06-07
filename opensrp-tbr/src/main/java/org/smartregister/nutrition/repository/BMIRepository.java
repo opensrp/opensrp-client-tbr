@@ -9,8 +9,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.tbr.model.BMIRecord;
-import org.smartregister.tbr.model.BMIRecordWrapper;
+import org.smartregister.nutrition.model.BMIRecord;
+import org.smartregister.nutrition.model.BMIRecordWrapper;
 
 import java.util.ArrayList;
 import java.util.Calendar;

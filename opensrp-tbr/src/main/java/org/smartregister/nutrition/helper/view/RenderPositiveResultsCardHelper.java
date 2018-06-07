@@ -9,10 +9,10 @@ import android.widget.TextView;
 import com.google.common.collect.ImmutableMap;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.model.Result;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.model.Result;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import java.math.BigDecimal;
 import java.util.Date;

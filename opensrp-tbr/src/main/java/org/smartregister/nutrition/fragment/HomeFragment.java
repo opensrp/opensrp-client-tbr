@@ -12,22 +12,22 @@ import org.smartregister.configurableviews.model.Residence;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
-import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
-import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
-import org.smartregister.tbr.adapter.RegisterArrayAdapter;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.model.Register;
-import org.smartregister.tbr.model.RegisterCount;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.activity.InTreatmentPatientRegisterActivity;
+import org.smartregister.nutrition.activity.PositivePatientRegisterActivity;
+import org.smartregister.nutrition.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.nutrition.adapter.RegisterArrayAdapter;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.model.Register;
+import org.smartregister.nutrition.model.RegisterCount;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static org.smartregister.nutrition.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
 /**
  * Created by ndegwamartin on 12/10/2017.

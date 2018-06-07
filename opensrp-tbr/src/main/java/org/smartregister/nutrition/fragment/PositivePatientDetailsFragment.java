@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.Map;
 
-import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
+import static org.smartregister.nutrition.util.Constants.INTENT_KEY.REGISTER_TITLE;
 
 /**
  * Created by ndegwamartin on 24/11/2017.

@@ -3,7 +3,7 @@ package org.smartregister.nutrition.fragment;
 import android.view.View;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.helper.DBQueryHelper;
+import org.smartregister.nutrition.helper.DBQueryHelper;
 
 import static util.TbrConstants.KEY.DIAGNOSIS_DATE;
 import static util.TbrConstants.VIEW_CONFIGS.POSITIVE_REGISTER_HEADER;

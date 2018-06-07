@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.Map;
 

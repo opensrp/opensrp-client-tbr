@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.model.BMIRecord;
-import org.smartregister.tbr.model.BMIRecordWrapper;
-import org.smartregister.tbr.repository.ResultDetailsRepository;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.model.BMIRecord;
+import org.smartregister.nutrition.model.BMIRecordWrapper;
+import org.smartregister.nutrition.repository.ResultDetailsRepository;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;

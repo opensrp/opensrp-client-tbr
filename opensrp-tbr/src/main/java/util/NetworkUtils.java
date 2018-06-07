@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.nutrition.application.TbrApplication;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 08/06/2017.

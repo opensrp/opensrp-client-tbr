@@ -9,15 +9,15 @@ import android.support.annotation.Nullable;
 
 import net.sqlcipher.database.SQLiteQueryBuilder;
 
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.helper.view.RenderServiceHistoryCardHelper;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper.UNION_FLAG_CONCAT_SEPARATOR;
+import static org.smartregister.nutrition.helper.view.RenderServiceHistoryCardHelper.UNION_FLAG_CONCAT_SEPARATOR;
 
 /**
  * Created by ndegwamartin on 19/01/2018.

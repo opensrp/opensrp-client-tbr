@@ -4,7 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 
-import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.nutrition.application.TbrApplication;
 
 import java.util.List;
 

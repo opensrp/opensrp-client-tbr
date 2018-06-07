@@ -5,7 +5,7 @@ import android.text.style.ForegroundColorSpan;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.Map;
 
