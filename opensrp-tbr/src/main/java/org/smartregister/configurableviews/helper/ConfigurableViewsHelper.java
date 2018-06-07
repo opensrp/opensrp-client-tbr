@@ -13,7 +13,7 @@ import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.tbr.R;
+import org.smartregister.nutrition.R;
 
 import java.util.Arrays;
 import java.util.LinkedList;

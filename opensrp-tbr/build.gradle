@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
-        applicationId "org.smartregister.tbr"
+        applicationId "org.smartregister.nutrition"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
