@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.model.Register;
+import org.smartregister.nutrition.model.Register;
 
 import java.util.List;
 

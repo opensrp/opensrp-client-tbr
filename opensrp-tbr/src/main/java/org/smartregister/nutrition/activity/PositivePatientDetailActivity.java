@@ -6,8 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.fragment.PositivePatientDetailsFragment;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.fragment.PositivePatientDetailsFragment;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.HashMap;
 

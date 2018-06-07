@@ -14,12 +14,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.clientandeventmodel.populateform.PopulateEnketoFormUtils;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.activity.BasePatientDetailActivity;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.activity.BasePatientDetailActivity;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.helper.view.RenderServiceHistoryCardHelper;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 
 import util.TbrConstants;
 

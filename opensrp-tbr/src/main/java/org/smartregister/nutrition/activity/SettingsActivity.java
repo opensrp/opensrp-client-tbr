@@ -10,7 +10,7 @@ import android.preference.PreferenceManager;
 
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.nutrition.application.TbrApplication;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -14,19 +14,20 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.nutrition.TBREventBusIndex;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
-import org.smartregister.tbr.activity.LoginActivity;
-import org.smartregister.tbr.event.LanguageConfigurationEvent;
-import org.smartregister.tbr.event.TriggerSyncEvent;
-import org.smartregister.tbr.receiver.TbrSyncBroadcastReceiver;
-import org.smartregister.tbr.repository.BMIRepository;
-import org.smartregister.tbr.repository.ResultDetailsRepository;
-import org.smartregister.tbr.repository.ResultsRepository;
-import org.smartregister.tbr.repository.TbrRepository;
-import org.smartregister.tbr.service.SyncService;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.activity.LoginActivity;
+import org.smartregister.nutrition.event.LanguageConfigurationEvent;
+import org.smartregister.nutrition.event.TriggerSyncEvent;
+import org.smartregister.nutrition.receiver.TbrSyncBroadcastReceiver;
+import org.smartregister.nutrition.repository.BMIRepository;
+import org.smartregister.nutrition.repository.ResultDetailsRepository;
+import org.smartregister.nutrition.repository.ResultsRepository;
+import org.smartregister.nutrition.repository.TbrRepository;
+import org.smartregister.nutrition.service.SyncService;
+import org.smartregister.nutrition.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -223,7 +224,7 @@ public class TbrApplication extends DrishtiApplication {
 
     private void setUpEventHandling() {
         try {
-            EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
+            EventBus.builder().addIndex(new TBREventBusIndex()).installDefaultEventBus();
         } catch
                 (Exception e) {
             Log.e(TAG, e.getMessage());

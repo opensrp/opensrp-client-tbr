@@ -15,10 +15,10 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.helper.FormOverridesHelper;
-import org.smartregister.tbr.model.Register;
-import org.smartregister.tbr.util.Constants;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.helper.FormOverridesHelper;
+import org.smartregister.nutrition.model.Register;
+import org.smartregister.nutrition.util.Constants;
+import org.smartregister.nutrition.util.Utils;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import util.EnketoFormUtils;
 import util.TbrConstants;
 
-import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static org.smartregister.nutrition.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
 /**
  * Created by ndegwamartin on 17/11/2017.

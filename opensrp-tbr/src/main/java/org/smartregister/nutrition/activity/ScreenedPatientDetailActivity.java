@@ -2,8 +2,8 @@ package org.smartregister.nutrition.activity;
 
 import android.support.v4.app.Fragment;
 
-import org.smartregister.tbr.fragment.ScreenedPatientDetailsFragment;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.fragment.ScreenedPatientDetailsFragment;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;

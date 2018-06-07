@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
-import org.smartregister.tbr.fragment.InTreatmentPatientDetailsFragment;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.fragment.InTreatmentPatientDetailsFragment;
+import org.smartregister.nutrition.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;

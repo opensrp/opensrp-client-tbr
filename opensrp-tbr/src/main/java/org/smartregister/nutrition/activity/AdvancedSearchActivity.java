@@ -10,8 +10,8 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.fragment.AdvSearchFormFragment;
-import org.smartregister.tbr.fragment.AdvancedSearchResultsFragment;
+import org.smartregister.nutrition.fragment.AdvSearchFormFragment;
+import org.smartregister.nutrition.fragment.AdvancedSearchResultsFragment;
 
 import java.util.HashMap;
 

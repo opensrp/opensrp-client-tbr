@@ -6,8 +6,8 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.fragment.PositivePatientRegisterFragment;
-import org.smartregister.tbr.util.OtherFiltersEnum;
+import org.smartregister.nutrition.fragment.PositivePatientRegisterFragment;
+import org.smartregister.nutrition.util.OtherFiltersEnum;
 
 import java.util.Arrays;
 import java.util.List;

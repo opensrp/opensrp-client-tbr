@@ -12,21 +12,21 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.configurableviews.model.MainConfig;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.event.BaseEvent;
-import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
-import org.smartregister.tbr.event.LanguageConfigurationEvent;
-import org.smartregister.tbr.event.SyncEvent;
-import org.smartregister.tbr.event.TriggerSyncEvent;
-import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.tbr.fragment.HomeFragment;
-import org.smartregister.tbr.sync.ECSyncHelper;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.event.BaseEvent;
+import org.smartregister.nutrition.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.nutrition.event.LanguageConfigurationEvent;
+import org.smartregister.nutrition.event.SyncEvent;
+import org.smartregister.nutrition.event.TriggerSyncEvent;
+import org.smartregister.nutrition.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.nutrition.fragment.HomeFragment;
+import org.smartregister.nutrition.sync.ECSyncHelper;
+import org.smartregister.nutrition.util.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
+import static org.smartregister.nutrition.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 
 /**
  * Created by ndegwamartin on 09/10/2017.

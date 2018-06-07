@@ -17,11 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.application.TbrApplication;
-import org.smartregister.tbr.provider.PatientRegisterProvider;
-import org.smartregister.tbr.sync.ECSyncHelper;
-import org.smartregister.tbr.sync.TbrClientProcessor;
-import org.smartregister.tbr.util.Utils;
+import org.smartregister.nutrition.application.TbrApplication;
+import org.smartregister.nutrition.provider.PatientRegisterProvider;
+import org.smartregister.nutrition.sync.ECSyncHelper;
+import org.smartregister.nutrition.sync.TbrClientProcessor;
+import org.smartregister.nutrition.util.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

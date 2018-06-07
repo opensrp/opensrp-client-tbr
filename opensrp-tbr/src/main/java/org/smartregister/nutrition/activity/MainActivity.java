@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.nutrition.R;
-import org.smartregister.tbr.util.Constants;
+import org.smartregister.nutrition.util.Constants;
 
 public class MainActivity extends BaseActivity {
 
