@@ -30,6 +30,7 @@ import org.smartregister.domain.form.SubForm;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.tbr.BuildConfig;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
@@ -260,6 +261,8 @@ public class EnketoFormUtils {
     private void saveClient(Client client) {
         Log.logDebug("============== CLIENT ================");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+        client.setClientApplicationVersion(BuildConfig.VERSION_CODE);
+        client.setClientDatabaseVersion(BuildConfig.DATABASE_VERSION);
         String clientJson = gson.toJson(client);
         Log.logDebug(clientJson);
         try {
@@ -274,6 +277,8 @@ public class EnketoFormUtils {
     private void saveEvent(Event event) {
         Log.logDebug("============== EVENT ================");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+        event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
+        event.setClientDatabaseVersion(BuildConfig.DATABASE_VERSION);
         String eventJson = gson.toJson(event);
         Log.logDebug(eventJson);
         try {
