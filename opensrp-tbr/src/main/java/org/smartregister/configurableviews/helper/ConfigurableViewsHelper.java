@@ -65,7 +65,7 @@ public class ConfigurableViewsHelper {
     public Set<View> getRegisterActiveColumns(String identifier) {
         Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
         int maxColumns = viewConfigurations.get(identifier).getViews().size();
-        maxColumns = !isTabletSize && maxColumns > 3 ? 3 : maxColumns;
+        maxColumns = !isTabletSize && maxColumns > 4 ? 4 : maxColumns;
         for (View view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
                 visibleColumns.add(view);
@@ -73,12 +73,13 @@ public class ConfigurableViewsHelper {
         if (!isTabletSize && visibleColumns.size() > maxColumns) {
             View[] columnsArray = visibleColumns.toArray(new View[]{});
             visibleColumns.clear();
-            visibleColumns.addAll(Arrays.asList(Arrays.copyOf(columnsArray, 3)));
+            visibleColumns.addAll(Arrays.asList(Arrays.copyOf(columnsArray, 4)));
         }
         return visibleColumns;
     }
 
-    public void processRegisterColumns(Map<String, Integer> columnMapping, android.view.View view, Set<View> visibleColumns, int parentComponent) {
+    public void
+    processRegisterColumns(Map<String, Integer> columnMapping, android.view.View view, Set<View> visibleColumns, int parentComponent) {
         List<android.view.View> columns = new LinkedList<>();
         for (View columnView : visibleColumns) {
             try {

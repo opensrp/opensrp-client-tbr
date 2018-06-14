@@ -16,7 +16,10 @@ import java.util.List;
 
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
+import static util.TbrConstants.ENKETO_FORMS.EC_REGISTRASI;
+import static util.TbrConstants.ENKETO_FORMS.KUNJUNGAN_GIZI;
 import static util.TbrConstants.ENKETO_FORMS.SCREENING_FORM;
+import static util.TbrConstants.VIEW_CONFIGS.CHILD;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
 import static util.TbrConstants.VIEW_CONFIGS.PRESUMPTIVE_REGISTER;
@@ -39,7 +42,7 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
         switch (item.getItemId()) {
             case R.id.addNewPatient:
                 String entityId = generateRandomUUIDString();
-                startFormActivity(SCREENING_FORM, entityId, null);
+                startFormActivity(EC_REGISTRASI, entityId, null);
                 return true;
             /*case R.id.sort_selection:
                 super.onOptionsItemSelected(item);*/
@@ -75,7 +78,9 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
     @Override
     protected List<String> buildFormNameList() {
         formNames = super.buildFormNameList();
-        formNames.add(0, SCREENING_FORM);
+        formNames.add(0,EC_REGISTRASI);
+        formNames.add(KUNJUNGAN_GIZI);
+        formNames.add(SCREENING_FORM);
         formNames.add(DIAGNOSIS);
         return formNames;
     }

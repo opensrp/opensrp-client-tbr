@@ -173,7 +173,12 @@ public class EnketoFormUtils {
 
         //String bindPath = formDefinition.getJSONObject("form").getString("bind_type");
         JSONObject fieldsDefinition = formDefinition.getJSONObject("form");
-        JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id,
+        /**
+         * Customizing for Nutrition app
+         */
+        /*JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id,
+                formSubmission, overrides);*/
+        JSONArray populatedFieldsArray = getNutritionPopulatedFieldsForArray(fieldsDefinition, entity_id,
                 formSubmission, overrides);
 
         // replace all the fields in the form
@@ -382,6 +387,103 @@ public class EnketoFormUtils {
             throws Exception {
         String bindPath = fieldsDefinition.getString("bind_type");
         String sql = "select * from " + bindPath + " where id='" + entityId + "'";
+        String dbEntity = theAppContext.formDataRepository().queryUniqueResult(sql);
+
+        JSONObject entityJson = new JSONObject();
+
+        if (dbEntity != null && !dbEntity.isEmpty()) {
+            entityJson = new JSONObject(dbEntity);
+        }
+
+        JSONArray fieldsArray = fieldsDefinition.getJSONArray("fields");
+
+        for (int i = 0; i < fieldsArray.length(); i++) {
+            JSONObject item = fieldsArray.getJSONObject(i);
+
+            if (!item.has("name")) {
+                continue; // skip elements without name
+            }
+
+            String itemName = item.getString("name");
+            boolean shouldLoadValue =
+                    item.has("shouldLoadValue") && item.getBoolean("shouldLoadValue");
+
+            if (item.has("bind")) {
+                String pathSting = item.getString("bind");
+                pathSting = pathSting.startsWith("/") ? pathSting.substring(1) : pathSting;
+                String[] path = pathSting.split("/");
+                String value = getValueForPath(path, jsonObject);
+                item.put("value", value);
+            }
+
+            if (shouldLoadValue && overrides.has(item.getString("name"))) {
+                // if the value is not set use the value in the overrides filed
+                if (!item.has("value")) {
+                    item.put("value", overrides.getString(item.getString("name")));
+                }
+            }
+
+            // map the id field for child elements
+            if (isForeignIdPath(item)) {
+                String value = null;
+                if (entityJson.length() > 0 && shouldLoadValue) {
+                    //retrieve the child attributes
+                    value = retrieveValueForLinkedRecord(item.getString("source"), entityJson);
+                }
+
+                // generate uuid if its still not available
+                if (item.getString("source").endsWith(".id") && value == null) {
+                    value = generateRandomUUIDString();
+                }
+
+                if (value != null && !item.has("value")) {
+                    item.put("value", value);
+                }
+            }
+
+            // add source property if not available
+            if (!item.has("source")) {
+                item.put("source", bindPath + "." + item.getString("name"));
+            }
+
+            if (itemName.equalsIgnoreCase("id") && !isForeignIdPath(item)) {
+                assert entityId != null;
+                item.put("value", entityId);
+            }
+
+            if (itemName.equalsIgnoreCase(injectedBaseEntityIdKey)) {
+                assert entityId != null;
+                item.put("value", entityId);
+            }
+
+            if (itemName.equalsIgnoreCase("start") || itemName.equalsIgnoreCase("end")) {
+                try {
+                    boolean isEndTime = itemName.equalsIgnoreCase("end");
+                    String val =
+                            item.has("value") ? item.getString("value") : sdf.format(new Date());
+
+                    if (isEndTime) {
+                        val = formatter.format(new Date());
+                    } else {
+                        Date d = sdf.parse(val);
+                        //parse the date to match OpenMRS format
+                        val = formatter.format(d);
+                    }
+
+                    item.put("value", val);
+                } catch (Exception e) {
+                    android.util.Log.e(TAG, e.toString(), e);
+                }
+            }
+        }
+        return fieldsArray;
+    }
+
+    public JSONArray getNutritionPopulatedFieldsForArray(JSONObject fieldsDefinition, String entityId,
+                                                JSONObject jsonObject, JSONObject overrides)
+            throws Exception {
+        String bindPath = fieldsDefinition.getString("bind_type");
+        String sql = "select * from " + bindPath + " where baseEntityId='" + entityId + "'";
         String dbEntity = theAppContext.formDataRepository().queryUniqueResult(sql);
 
         JSONObject entityJson = new JSONObject();

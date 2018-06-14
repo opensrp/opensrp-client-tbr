@@ -86,6 +86,7 @@ TbrConstants extends AllConstants {
 
 
         public static final String PRESUMPTIVE_REGISTER = "presumptive_register";
+        public static final String CHILD = "child_register";
         public static final String PRESUMPTIVE_REGISTER_HEADER = "presumptive_register_header";
         public static final String PRESUMPTIVE_REGISTER_ROW = "presumptive_register_row";
 
@@ -100,6 +101,7 @@ TbrConstants extends AllConstants {
     }
 
     public static final class ENKETO_FORMS {
+        public static final String EC_REGISTRASI = "ec_registrasi";
         public static final String SCREENING_FORM = "add_presumptive_patient";
         public static final String GENE_XPERT = "result_gene_xpert";
         public static final String SMEAR = "result_smear";
@@ -112,6 +114,6 @@ TbrConstants extends AllConstants {
         public static final String ADD_TB_CONTACT = "add_tb_contact";
         public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
         public static final String CONTACT_SCREENING = "contact_screening";
-
+        public static final String KUNJUNGAN_GIZI = "kunjungan_gizi";
     }
 }

@@ -14,7 +14,7 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
-import org.smartregister.nutrition.TBREventBusIndex;
+//import org.smartregister.nutrition.NU;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -224,7 +224,7 @@ public class TbrApplication extends DrishtiApplication {
 
     private void setUpEventHandling() {
         try {
-            EventBus.builder().addIndex(new org.smartregister.nutrition.TBREventBusIndex()).installDefaultEventBus();
+            EventBus.builder().addIndex(new org.smartregister.nutrition.NutEventBusIndex()).installDefaultEventBus();
         } catch
                 (Exception e) {
             Log.e(TAG, e.getMessage());

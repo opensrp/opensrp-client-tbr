@@ -31,7 +31,7 @@
             android:textSize="16sp"
             android:visibility="gone" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/result_lnk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:textSize="18sp" />
+            android:textSize="18sp" />-->
 
     </LinearLayout>
 
@@ -57,12 +57,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_last_visit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/diagnose_lnk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:text="@string/diagnose"
+            android:text=""
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
@@ -78,20 +89,21 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:visibility="gone"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_already_exists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
+            android:enabled="false"
             android:text="@string/already_exists"
             android:textAlignment="center"
             android:textColor="#D3D3D3"
-            android:visibility="gone"
-            android:enabled="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/encounter"
@@ -102,6 +114,41 @@
             android:textAlignment="center"
             android:textColor="#757575"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/next_visit_column"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_weight="2.6"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+<!--        <TextView
+            android:id="@+id/diagnose_lnk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="@string/diagnose"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:textSize="18sp" />-->
+
+        <TextView
+            android:id="@+id/child_followup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="Follow up"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:textSize="18sp" />
     </LinearLayout>
 
 

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
 import org.smartregister.nutrition.util.Constants;
@@ -73,6 +74,33 @@ public class FormOverridesHelper {
             }
         }
         fields.put(TbrConstants.KEY.AGE, age);
+        JSONObject fieldOverridesJson = new JSONObject(fields);
+        FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
+        return fieldOverrides;
+    }
+
+    public FieldOverrides getChildFollowupFieldOverrides() {
+        Map fields = populateFieldOverrides();
+        fields.put("underweight", "yes");
+        try {
+            fields.put("tanggal_lahir", new JSONObject(patientDetails.get("json")).get("birthdate"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+/*        String dobString = patientDetails.get(TbrConstants.KEY.DOB);
+        String age = "";
+        if (StringUtils.isNotBlank(dobString)) {
+            try {
+                DateTime birthDateTime = new DateTime(dobString);
+                String duration = DateUtil.getDuration(birthDateTime);
+                if (duration != null) {
+                    age = duration.substring(0, duration.length() - 1);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        fields.put(TbrConstants.KEY.AGE, age);*/
         JSONObject fieldOverridesJson = new JSONObject(fields);
         FieldOverrides fieldOverrides = new FieldOverrides(fieldOverridesJson.toString());
         return fieldOverrides;

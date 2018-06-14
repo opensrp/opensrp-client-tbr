@@ -61,7 +61,9 @@ import util.TbrConstants;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
 import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
+import static util.TbrConstants.ENKETO_FORMS.EC_REGISTRASI;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
+import static util.TbrConstants.ENKETO_FORMS.KUNJUNGAN_GIZI;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 
 
@@ -336,6 +338,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         formNames.add(CULTURE);
         formNames.add(DIAGNOSIS);
 
+        formNames.add(EC_REGISTRASI);
+        formNames.add(KUNJUNGAN_GIZI);
         formNames.add(Constants.FORM.NEW_PATIENT_REGISTRATION);
         formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
         formNames.add(Constants.FORM.CONTACT_SCREENING);

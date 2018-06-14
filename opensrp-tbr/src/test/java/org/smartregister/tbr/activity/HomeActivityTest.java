@@ -16,11 +16,11 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.tbr.BaseUnitTest;
-import org.smartregister.tbr.R;
-import org.smartregister.tbr.event.BaseEvent;
-import org.smartregister.tbr.event.LanguageConfigurationEvent;
-import org.smartregister.tbr.event.TriggerSyncEvent;
-import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.nutrition.R;
+import org.smartregister.nutrition.event.BaseEvent;
+import org.smartregister.nutrition.event.LanguageConfigurationEvent;
+import org.smartregister.nutrition.event.TriggerSyncEvent;
+import org.smartregister.nutrition.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.mock.HomeActivityTestVersion;
 import org.smartregister.tbr.shadow.RegisterFragmentShadow;
 

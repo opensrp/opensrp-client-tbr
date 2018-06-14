@@ -7,6 +7,7 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.nutrition.model.Result;
@@ -175,6 +176,25 @@ public class ResultsRepository extends BaseRepository {
         return clientDetails;
     }
 
+    public JSONObject getLatestVisit(String baseEntityId) {
+        Cursor cursor = null;
+        JSONObject json = null;
+        try {
+            cursor = getLatestVisitCursor(baseEntityId);
+            if(cursor != null && cursor.moveToFirst()){
+                json = new JSONObject(cursor.getString(cursor.getColumnIndex("json")));
+            }
+            return json;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+            return null;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     public Map<String, String> getLatestResult(String baseEntityId) {
         return getLatestResults(baseEntityId, true, null);
     }
@@ -206,6 +226,33 @@ public class ResultsRepository extends BaseRepository {
 
         cursor = db.rawQuery(query, null);
         return cursor;
+    }
+
+    private Cursor getLatestVisitCursor(String baseEntityId) {
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT * from event where baseEntityId = '" + baseEntityId + "' and eventType = 'Kunjungan Gizi' group by baseEntityId having max(updatedAt)";
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    /**
+     *
+     *
+     */
+
+    public String getLastVisitDate(String baseEntityId) {
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String date = null;
+        String query =
+                "SELECT max(updatedAt) as lastVisitDate from event where event.baseEntityId = '"+ baseEntityId +"' group by baseEntityId";
+        cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            date = cursor.getString(cursor.getColumnIndex("lastVisitDate"));
+        }
+        return date;
     }
 
     public Map<String, Result> getLatestResultsAll(String baseEntityId, Long baseline, boolean afterBaseline) {

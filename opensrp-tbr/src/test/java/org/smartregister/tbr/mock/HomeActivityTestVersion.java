@@ -2,7 +2,7 @@ package org.smartregister.tbr.mock;
 
 import android.os.Bundle;
 
-import org.smartregister.tbr.activity.HomeActivity;
+import org.smartregister.nutrition.activity.HomeActivity;
 
 /**
  * Created by ndegwamartin on 13/11/2017.

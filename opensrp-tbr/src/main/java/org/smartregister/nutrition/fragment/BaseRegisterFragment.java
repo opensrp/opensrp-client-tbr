@@ -1,8 +1,13 @@
 package org.smartregister.nutrition.fragment;
 
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -26,6 +31,8 @@ import android.widget.TextView;
 import com.google.gson.internal.LinkedTreeMap;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -58,6 +65,7 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,6 +88,7 @@ import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
+import static util.TbrConstants.ENKETO_FORMS.KUNJUNGAN_GIZI;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
@@ -110,6 +119,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     private String viewConfigurationIdentifier;
+
     private FormOverridesHelper formOverridesHelper;
     private String customMainCondition;
     private Snackbar snackbar;
@@ -268,7 +278,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         clientsProgressView.setVisibility(INVISIBLE);
         view.findViewById(R.id.sorted_by_bar).setVisibility(GONE);
         processViewConfigurations();
-        initializeQueries();
+        initializeQueriesCustom();
         updateSearchView();
         populateClientListHeaderView(view);
     }
@@ -278,11 +288,69 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         super.onResumption();
         getDefaultOptionsProvider();
         if (isPausedOrRefreshList()) {
-            initializeQueries();
-            initializeQueries();
+            initializeQueriesCustom();
+//            initializeQueries();
         }
         updateSearchView();
         processViewConfigurations();
+    }
+
+    /******************************************************
+     * Customizing queries for nutrition app
+     ******************************************************/
+    protected void initializeQueriesCustom(){
+        String tableName = TbrConstants.PATIENT_TABLE_NAME;
+        PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, TbrApplication.getInstance().getResultsRepository(), TbrApplication.getInstance().getContext().detailsRepository());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, context().commonrepository(tableName));
+        clientsView.setAdapter(clientAdapter);
+
+        setTablename(tableName);
+
+        String sql = "Select * from event";
+        Cursor c = this.commonRepository().rawCustomQueryForAdapter(sql);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+        if(c.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for (int i = 0; i < c.getColumnCount(); i++) {
+                    map.put(c.getColumnName(i), c.getString(i));
+                }
+
+                maplist.add(map);
+            } while (c.moveToNext());
+        }
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.setSelectquery("Select COUNT(*) from client where 1=1");
+        countSelect = countQueryBuilder.getSelectquery();
+//        mainCondition = getMainCondition();
+//        countSelect = countQueryBuilder.mainCondition(mainCondition);
+        filters = "and 1=1";
+        super.CountExecute();
+
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        String[] columns = new String[]{
+                tableName + ".relationalid",
+                tableName + "." + KEY.LAST_INTERACTED_WITH,
+                tableName + "." + KEY.FIRST_ENCOUNTER,
+                tableName + "." + KEY.BASE_ENTITY_ID,
+                tableName + "." + KEY.FIRST_NAME,
+                tableName + "." + KEY.LAST_NAME,
+                tableName + "." + KEY.PARTICIPANT_ID,
+                tableName + "." + KEY.PROGRAM_ID,
+                tableName + "." + KEY.GENDER,
+                tableName + "." + KEY.DOB};
+        String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
+//        mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
+        mainSelect = "Select rowid _id, '0' as relationalid,* from client where 1=1";
+
+        filters = "and 1=1";
+
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
+        refresh();
     }
 
     protected void initializeQueries() {
@@ -328,6 +396,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected abstract void populateClientListHeaderView(View view);
 
     protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
+
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
 
@@ -353,6 +422,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             mapping.put(TREATMENT, R.id.treatment_header);
             mapping.put(BASELINE, R.id.baseline_header);
             mapping.put(SMEAR_SCHEDULE, R.id.smr_schedule_header);
+            mapping.put("next_visit_date", R.id.next_visit_header);
             helper.processRegisterColumns(mapping, headerLayout, visibleColumns, R.id.register_headers);
         }
 
@@ -503,6 +573,38 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     });
                     dialog.show();
                     break;
+                case R.id.child_followup:
+                    try {
+//                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
+                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
+
+                        final Intent intentDeviceTest = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
+                        intentDeviceTest.setData(uri);
+//                        intentDeviceTest.setComponent(new ComponentName("org.digitalcampus.oppia.activity","org.digitalcampus.oppia.activity.ViewDigestActivity"));
+                        startActivity(intentDeviceTest);
+
+                        List<ResolveInfo> list =
+                                getActivity().getPackageManager().queryIntentActivities(intentDeviceTest,
+                                        getActivity().getPackageManager().MATCH_DEFAULT_ONLY);
+//                        startActivity(intentDeviceTest);
+
+                      /*  Intent intent = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
+                        intent.setData(uri);
+                        startActivity(intent);*/
+
+//                        Intent intent = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
+//                        intent.setAction(Intent.ACTION_VIEW);
+//                        intent.setData(uri);
+//                        intent.setComponent(new ComponentName("org.digitalcampus.oppia.activity","org.digitalcampus.oppia.activity.ViewDigestActivity"));
+//                        intent.putExtra("digest","7bcb63672b3d18df3bc40d6441de39fb404");
+                        startActivity(intentDeviceTest);
+                        break;
+
+//                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, new JSONObject(patient.getDetails().get("json")).getString("baseEntityId"), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -511,6 +613,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
  /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
+
+        String sql = "Select * from client";
+        Cursor c = this.commonRepository().rawCustomQueryForAdapter(sql);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+        if(c.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for (int i = 0; i < c.getColumnCount(); i++) {
+                    map.put(c.getColumnName(i), c.getString(i));
+                }
+
+                maplist.add(map);
+            } while (c.moveToNext());
+        }
         prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());

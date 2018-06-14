@@ -84,7 +84,7 @@ android {
         }
         apt {
             arguments {
-                eventBusIndex "TBREventBusIndex"
+                eventBusIndex "org.smartregister.nutrition.NutEventBusIndex"
             }
         }
     }

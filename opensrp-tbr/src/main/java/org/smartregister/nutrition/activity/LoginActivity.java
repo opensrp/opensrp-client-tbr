@@ -555,7 +555,7 @@ public class LoginActivity extends AppCompatActivity {
                 ImageView imageView = (ImageView) findViewById(R.id.logoImage);
                 ImageLoaderRequest.getInstance(this.getApplicationContext()).getImageLoader()
                         .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
-                                R.drawable.ic_logo, R.drawable.ic_logo)).getBitmap();
+                                R.drawable.nutrition_logo, R.drawable.nutrition_logo)).getBitmap();
                 TextView loginBuild = (TextView) findViewById(R.id.login_build);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
                 lp.setMargins(0, 0, 0, 0);

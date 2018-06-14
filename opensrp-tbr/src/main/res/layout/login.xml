@@ -54,7 +54,16 @@
                 android:layout_height="@dimen/login_logo_height"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_logo" />
+                android:layout_marginTop="@dimen/fab_margin_8"
+                android:src="@drawable/nutrition_logo" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open Deliver"
+                android:textSize="@dimen/fab_margin_24"
+                android:textColor="@color/white"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/login_build"

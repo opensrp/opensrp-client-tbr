@@ -1,0 +1,123 @@
+{
+  "form_data_definition_version": "1",
+  "form" : {
+    "bind_type": "client",
+    "ec_bind_type": "client",
+    "default_bind_path" : "/model/instance/child_registration_form/",
+    "fields" : [ {
+      "name" : "id",
+      "shouldLoadValue" : true
+    }, {
+      "name" : "start",
+      "bind" : "/model/instance/child_registration_form/start"
+    }, {
+      "name" : "today",
+      "bind" : "/model/instance/child_registration_form/today"
+    }, {
+      "name" : "deviceid",
+      "bind" : "/model/instance/child_registration_form/deviceid"
+    }, {
+      "name" : "simserial",
+      "bind" : "/model/instance/child_registration_form/simserial"
+    }, {
+      "name" : "phonenumber",
+      "bind" : "/model/instance/child_registration_form/phonenumber"
+    }, {
+      "name" : "Province",
+      "bind" : "/model/instance/child_registration_form/Province"
+    }, {
+      "name" : "District",
+      "bind" : "/model/instance/child_registration_form/District"
+    }, {
+      "name" : "Sub-district",
+      "bind" : "/model/instance/child_registration_form/Sub-district"
+    }, {
+      "name" : "Village",
+      "bind" : "/model/instance/child_registration_form/Village"
+    }, {
+      "name" : "Sub-village",
+      "bind" : "/model/instance/child_registration_form/Sub-village"
+    }, {
+      "name" : "generated_note_name_13",
+      "bind" : "/model/instance/child_registration_form/generated_note_name_13"
+    }, {
+      "name" : "generated_note_name_14",
+      "bind" : "/model/instance/child_registration_form/generated_note_name_14"
+    }, {
+      "name" : "existing_location",
+      "bind" : "/model/instance/child_registration_form/existing_location"
+    }, {
+      "name" : "provinsi",
+      "bind" : "/model/instance/child_registration_form/provinsi"
+    }, {
+      "name" : "kabupaten",
+      "bind" : "/model/instance/child_registration_form/kabupaten"
+    }, {
+      "name" : "desa",
+      "bind" : "/model/instance/child_registration_form/desa"
+    }, {
+      "name" : "dusun",
+      "bind" : "/model/instance/child_registration_form/dusun"
+    }, {
+      "name" : "kecamatan",
+      "bind" : "/model/instance/child_registration_form/kecamatan"
+    }, {
+      "name" : "pasien_wilayah",
+      "bind" : "/model/instance/child_registration_form/pasien_wilayah"
+    }, {
+      "name" : "pasien_pindahan",
+      "bind" : "/model/instance/child_registration_form/pasien_pindahan"
+    }, {
+      "name" : "tgl_pindah",
+      "bind" : "/model/instance/child_registration_form/tgl_pindah"
+    }, {
+      "name" : "posyandu",
+      "bind" : "/model/instance/child_registration_form/posyandu"
+    }, {
+      "name" : "last_name",
+      "bind" : "/model/instance/child_registration_form/last_name"
+    }, {
+      "name" : "first_name",
+      "bind" : "/model/instance/child_registration_form/first_name"
+    }, {
+      "name" : "no_ibu",
+      "bind" : "/model/instance/child_registration_form/no_ibu"
+    }, {
+      "name" : "nik",
+      "bind" : "/model/instance/child_registration_form/nik"
+    }, {
+      "name" : "umur",
+      "bind" : "/model/instance/child_registration_form/umur"
+    }, {
+      "name" : "jenis_kontrasepsi",
+      "bind" : "/model/instance/child_registration_form/jenis_kontrasepsi"
+    }, {
+      "name" : "desa_anak",
+      "bind" : "/model/instance/child_registration_form/desa_anak"
+    }, {
+      "name" : "generated_note_name_38",
+      "bind" : "/model/instance/child_registration_form/generated_note_name_38"
+    }, {
+      "name" : "child_existing_location",
+      "bind" : "/model/instance/child_registration_form/child_existing_location"
+    }, {
+      "name" : "nama_bayi",
+      "bind" : "/model/instance/child_registration_form/nama_bayi"
+    }, {
+      "name" : "jenis_kelamin",
+      "bind" : "/model/instance/child_registration_form/jenis_kelamin"
+    }, {
+      "name" : "tanggal_lahir",
+      "bind" : "/model/instance/child_registration_form/tanggal_lahir"
+    }, {
+      "name" : "berat_badan_saat_lahir",
+      "bind" : "/model/instance/child_registration_form/berat_badan_saat_lahir"
+    }, {
+      "name" : "ibu_entity_id",
+      "bind" : "/model/instance/child_registration_form/ibu_entity_id"
+    }, {
+      "name" : "instanceID",
+      "bind" : "/model/instance/child_registration_form/meta/instanceID"
+    } ]
+  }
+}
