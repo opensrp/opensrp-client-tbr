@@ -137,6 +137,7 @@ dependencies {
     testImplementation('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
+    
     // PowerMock
     def powerMockVersion = '1.7.3'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
