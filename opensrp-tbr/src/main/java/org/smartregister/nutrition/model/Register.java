@@ -25,6 +25,7 @@ public class Register {
     private int totalPatients;
     private int totalPatientsWithDueOverdue;
     private int position;
+    private String digest;
 
     public Register(Context context, View view, RegisterCount registerCount) {
         ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
@@ -89,5 +90,11 @@ public class Register {
         this.position = position;
     }
 
+    public void setDigest(String digest){
+        this.digest = digest;
+    }
 
+    public String getDigest(){
+        return this.digest;
+    }
 }

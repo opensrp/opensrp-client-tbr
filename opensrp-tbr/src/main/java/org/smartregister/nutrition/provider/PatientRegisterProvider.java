@@ -1,7 +1,9 @@
 package org.smartregister.nutrition.provider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -45,6 +47,8 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +61,7 @@ import util.TbrSpannableStringBuilder;
 import static org.smartregister.nutrition.repository.ResultsRepository.DATE;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
+import static org.smartregister.util.Utils.toDate;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSE;
 import static util.TbrConstants.REGISTER_COLUMNS.DIAGNOSIS;
@@ -102,6 +107,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
 
+    private static Map<String,Integer> idList;
 
     public PatientRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, ResultsRepository resultsRepository, DetailsRepository detailsRepository) {
 
@@ -115,6 +121,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         blackForegroundColorSpan = new ForegroundColorSpan(
                 context.getResources().getColor(android.R.color.black));
         this.detailsRepository = detailsRepository;
+        idList = new HashMap<String,Integer>();
+        idList.put("button1",R.id.button1);
     }
 
     @Override
@@ -201,6 +209,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         mapping.put(BASELINE, R.id.baseline_column);
         mapping.put(TREATMENT, R.id.treatment_column);
         mapping.put(SMEAR_SCHEDULE, R.id.smr_schedule_column);
+
         TbrApplication.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
     }
 
@@ -254,8 +263,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     }
 
     private void populateNextVisitColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view){
-        TextView nextVisitTv = (TextView) view.findViewById(R.id.child_followup);
-        attachOnclickListener(nextVisitTv, client);
+        TextView childFollowup = (TextView) view.findViewById(R.id.child_followup);
+        TextView nextVisitDate = (TextView) view.findViewById(R.id.tv_next_visit_date);
+        String date = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), "baseEntityId", false));
+        DateTime dateTime = getDateFromString(date);
+        dateTime = dateTime.plusMonths(1);
+        nextVisitDate.setVisibility(View.VISIBLE);
+        nextVisitDate.setText(dateTime != null ? dateTime.toString("yyyy-MM-dd") : "");
+        attachOnclickListener(childFollowup, client);
     }
     private void processXpertResult(String result, TbrSpannableStringBuilder stringBuilder) {
         if (result == null)
@@ -446,6 +461,15 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         DateTime jodatime = dtf.parseDateTime(date);
 
         return StringUtils.isNotEmpty(date) ? jodatime.toString("yyyy-MM-dd") : date;
+    }
+
+    public DateTime getDateFromString(String date) {
+        // Format for input
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        // Parsing the date
+        DateTime jodatime = dtf.parseDateTime(date);
+
+        return jodatime;
     }
 
     public String getDuration(String date) {
@@ -747,7 +771,23 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
 
             if (viewConfiguration != null) {
-                return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+                view = helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
+                final List list = ((List)((TestResultsConfiguration)viewConfiguration.getMetadata()).getResultsConfig());
+                for(int i=0; i < list.size(); i++){
+                    final int counter = i;
+                    View link = view.findViewById(idList.get((String)((Map)list.get(i)).get("item")));
+                    if(link != null)
+                        link.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest="+(String)((Map)list.get(counter)).get("digest"));
+                                final Intent intentDeviceTest = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
+                                intentDeviceTest.setData(uri);
+                                context.startActivity(intentDeviceTest);
+                            }
+                        });
+                }
+                return view;
             }
         }
         return view;

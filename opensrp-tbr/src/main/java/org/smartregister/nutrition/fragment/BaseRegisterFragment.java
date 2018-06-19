@@ -575,32 +575,13 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.child_followup:
                     try {
-//                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
-                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
-
+/*                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
                         final Intent intentDeviceTest = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
                         intentDeviceTest.setData(uri);
-//                        intentDeviceTest.setComponent(new ComponentName("org.digitalcampus.oppia.activity","org.digitalcampus.oppia.activity.ViewDigestActivity"));
                         startActivity(intentDeviceTest);
-
-                        List<ResolveInfo> list =
-                                getActivity().getPackageManager().queryIntentActivities(intentDeviceTest,
-                                        getActivity().getPackageManager().MATCH_DEFAULT_ONLY);
-//                        startActivity(intentDeviceTest);
-
-                      /*  Intent intent = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
-                        intent.setData(uri);
-                        startActivity(intent);*/
-
-//                        Intent intent = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
-//                        intent.setAction(Intent.ACTION_VIEW);
-//                        intent.setData(uri);
-//                        intent.setComponent(new ComponentName("org.digitalcampus.oppia.activity","org.digitalcampus.oppia.activity.ViewDigestActivity"));
-//                        intent.putExtra("digest","7bcb63672b3d18df3bc40d6441de39fb404");
-                        startActivity(intentDeviceTest);
+                        break;*/
+                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, new JSONObject(patient.getDetails().get("json")).getString("baseEntityId"), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
                         break;
-
-//                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, new JSONObject(patient.getDetails().get("json")).getString("baseEntityId"), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -765,7 +746,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             sortOption = "Name (A-Z)";
         else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
             sortOption = "Last updated";
-        prepareAndShowSnackBar(getView(),null,null,sortOption);
+//        prepareAndShowSnackBar(getView(),null,null,sortOption);
     }
 
     @Override

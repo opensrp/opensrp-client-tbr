@@ -1,6 +1,7 @@
 package org.smartregister.nutrition.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -15,6 +16,7 @@ import org.smartregister.nutrition.R;
 import org.smartregister.nutrition.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.nutrition.activity.PositivePatientRegisterActivity;
 import org.smartregister.nutrition.activity.PresumptivePatientRegisterActivity;
+import org.smartregister.nutrition.adapter.AdvSearchResJsonArrayAdapter;
 import org.smartregister.nutrition.adapter.RegisterArrayAdapter;
 import org.smartregister.nutrition.application.TbrApplication;
 import org.smartregister.nutrition.model.Register;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static org.smartregister.nutrition.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 
@@ -73,7 +76,7 @@ public class HomeFragment extends ListFragment {
                 values.addAll(getDefaultRegisterList());
             }
             saveRegisterTitles(values);
-            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values);
+            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values, homeViewConfig.getMetadata());
             setListAdapter(adapter);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -90,12 +93,20 @@ public class HomeFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         Register register = (Register) this.getListAdapter().getItem(position);
-        if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
-            initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);
-        } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
-            initializeRegister(new Intent(this.getActivity(), PositivePatientRegisterActivity.class), register);
-        } else if (register.getTitleToken().equals(Register.IN_TREATMENT_PATIENTS)) {
-            initializeRegister(new Intent(this.getActivity(), InTreatmentPatientRegisterActivity.class), register);
+        if(register.getDigest() != null && !(register.getDigest().isEmpty())){
+            Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest="+((RegisterArrayAdapter.ViewHolder)view.getTag()).digest);
+            final Intent intentDeviceTest = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
+            intentDeviceTest.setData(uri);
+            startActivity(intentDeviceTest);
+        }
+        else {
+            if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
+                initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);
+            } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
+                initializeRegister(new Intent(this.getActivity(), PositivePatientRegisterActivity.class), register);
+            } else if (register.getTitleToken().equals(Register.IN_TREATMENT_PATIENTS)) {
+                initializeRegister(new Intent(this.getActivity(), InTreatmentPatientRegisterActivity.class), register);
+            }
         }
     }
 

@@ -147,7 +147,7 @@ public class ResultDetailsRepository extends BaseRepository {
                 days = ((TestResultsConfiguration)testResultsConfig.getMetadata()).getFollowupOverduePeriod();
 
             String query = "";
-            if(days > 0) {
+            /*if(days > 0) {
                 query = "SELECT " +
                         "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
                         "    sum(case when " + suffix + " and date(next_visit_date, '+" + days + " day'" + ") < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
@@ -158,11 +158,12 @@ public class ResultDetailsRepository extends BaseRepository {
                         "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
                         "    sum(case when " + suffix + " and next_visit_date < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
                         " FROM ec_patient";
-            }
+            }*/
+            query = "Select COUNT(*) from client";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
 
-                return new RegisterCount(cursor.getInt(cursor.getColumnIndex(RegisterCount.REGISTER_COUNT)), cursor.getInt(cursor.getColumnIndex(RegisterCount.OVERDUE_COUNT)));
+                return new RegisterCount(cursor.getInt(cursor.getColumnIndex("COUNT(*)")), 0);
 
             }
             return null;

@@ -31,6 +31,18 @@
             android:textSize="16sp"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:text="View Digest"
+            android:textSize="18sp"
+            android:visibility="visible"/>
         <!--<TextView
             android:id="@+id/result_lnk"
             android:layout_width="match_parent"
@@ -63,9 +75,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="#3269D4"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/diagnose_lnk"
@@ -138,6 +148,15 @@
             android:textColor="#3269D4"
             android:textSize="18sp" />-->
 
+        <TextView
+            android:id="@+id/tv_next_visit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="#757575"
+            android:layout_gravity="center"/>
         <TextView
             android:id="@+id/child_followup"
             android:layout_width="match_parent"

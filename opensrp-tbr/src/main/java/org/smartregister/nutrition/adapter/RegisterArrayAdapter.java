@@ -1,7 +1,9 @@
 package org.smartregister.nutrition.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
@@ -12,10 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.smartregister.configurableviews.model.BaseConfiguration;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.nutrition.R;
 import org.smartregister.nutrition.model.Register;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 11/10/2017.
@@ -25,11 +30,13 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     private Context context;
     private final List<Register> items;
+    private BaseConfiguration metaData;
 
-    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records) {
+    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records, BaseConfiguration metaData) {
         super(context, resource, records);
         this.context = context;
         this.items = records;
+        this.metaData = metaData;
     }
 
     @Override
@@ -51,13 +58,26 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         Register register = getItem(position);
         holder.titleTextView.setText(register.getTitle());
-        holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
-        if (register.getTotalPatientsWithDueOverdue() > 0) {
-            holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
-            holder.patientDueCountTextView.setVisibility(View.VISIBLE);
-        } else {
+        if(register.getTitle().equalsIgnoreCase("Nutrition")) {
+            holder.patientCountTextView.setText("");
             holder.patientDueCountTextView.setVisibility(View.GONE);
+        }
+        else {
+            holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
+            if (register.getTotalPatientsWithDueOverdue() > 0) {
+                holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+                holder.patientDueCountTextView.setVisibility(View.VISIBLE);
+            } else {
+                holder.patientDueCountTextView.setVisibility(View.GONE);
+            }
+        }
 
+        final List list = ((List)((TestResultsConfiguration)metaData).getResultsConfig());
+        for(int i=0; i < list.size(); i++){
+            final int j = i;
+            if( ((String)((Map)list.get(i)).get("item")).equalsIgnoreCase(register.getTitleToken()) ){
+                register.setDigest(((String)((Map)list.get(i)).get("digest")));
+            }
         }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
         return convertView;
@@ -80,11 +100,12 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
         }
     }
 
-    static class ViewHolder {
+    public class ViewHolder {
         private TextView titleTextView;
         private TextView patientCountTextView;
         private TextView patientDueCountTextView;
         private ImageView registerIconView;
+        public String digest = "";
     }
 
 
