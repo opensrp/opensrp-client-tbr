@@ -81,7 +81,7 @@ public class FormOverridesHelper {
 
     public FieldOverrides getChildFollowupFieldOverrides() {
         Map fields = populateFieldOverrides();
-        fields.put("underweight", "yes");
+//        fields.put("underweight", "yes");
         try {
 //            fields.put("tanggal_lahir", new JSONObject(patientDetails.get("json")).get("birthdate"));
             fields.put("tanggal_lahir", patientDetails.get("dob"));

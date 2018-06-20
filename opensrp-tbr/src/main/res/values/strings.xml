@@ -65,7 +65,8 @@
     <string name="positive_patients">Positive Patients</string>
     <string name="presumptive_patients">Presumptive Patients</string>
     <string name="child">Child</string>
-    <string name="nutrition">Nutrition</string>
+    <string name="nutrition">An Introduction to Nutrition</string>
+    <string name="quiz">Take Quiz</string>
     <string name="treatment_start">Treatment Start</string>
     <string name="smr_results">Smr Results</string>
     <string name="smr_result">Smr Result</string>

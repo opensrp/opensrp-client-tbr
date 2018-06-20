@@ -18,6 +18,7 @@ public class Register {
     public static final String PRESUMPTIVE_PATIENTS = "presumptive_patients";
     public static final String CHILD = "child";
     public static final String NUTRITION = "nutrition";
+    public static final String QUIZ = "quiz";
     public static final String POSITIVE_PATIENTS = "positive_patients";
     public static final String IN_TREATMENT_PATIENTS = "in_treatment_patients";
     public static final String TAG = Register.class.getCanonicalName();

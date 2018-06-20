@@ -58,7 +58,7 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         Register register = getItem(position);
         holder.titleTextView.setText(register.getTitle());
-        if(register.getTitle().equalsIgnoreCase("Nutrition")) {
+        if(register.getTitle().equalsIgnoreCase(context.getResources().getString(R.string.nutrition)) || register.getTitle().equalsIgnoreCase(context.getResources().getString(R.string.quiz))) {
             holder.patientCountTextView.setText("");
             holder.patientDueCountTextView.setVisibility(View.GONE);
         }

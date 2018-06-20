@@ -100,7 +100,7 @@ public class HomeFragment extends ListFragment {
             startActivity(intentDeviceTest);
         }
         else {
-            if (register.getTitleToken().equals(Register.PRESUMPTIVE_PATIENTS)) {
+            if (register.getTitleToken().equals(Register.CHILD)) {
                 initializeRegister(new Intent(this.getActivity(), PresumptivePatientRegisterActivity.class), register);
             } else if (register.getTitleToken().equals(Register.POSITIVE_PATIENTS)) {
                 initializeRegister(new Intent(this.getActivity(), PositivePatientRegisterActivity.class), register);

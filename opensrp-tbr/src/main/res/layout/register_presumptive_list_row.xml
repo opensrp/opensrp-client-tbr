@@ -32,7 +32,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/button1"
+            android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -40,7 +40,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:text="View Digest"
+            android:text="Help"
             android:textSize="18sp"
             android:visibility="visible"/>
         <!--<TextView
@@ -135,7 +135,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:text="Record Outcome"
+            android:text="Close"
             android:textSize="18sp"
             android:visibility="visible"/>
     </LinearLayout>
