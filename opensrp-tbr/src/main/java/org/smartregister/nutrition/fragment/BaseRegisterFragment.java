@@ -89,6 +89,7 @@ import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
 import static util.TbrConstants.ENKETO_FORMS.KUNJUNGAN_GIZI;
+import static util.TbrConstants.ENKETO_FORMS.PENUTUPAN_ANAK;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
@@ -306,7 +307,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         setTablename(tableName);
 
-        String sql = "Select * from event";
+        String sql = "Select * from ec_patient";
         Cursor c = this.commonRepository().rawCustomQueryForAdapter(sql);
         ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
         if(c.moveToFirst()) {
@@ -320,7 +321,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             } while (c.moveToNext());
         }
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.setSelectquery("Select COUNT(*) from ec_patient where 1=1");
+        countQueryBuilder.setSelectquery("Select COUNT(*) from " + tableName + " where date_removed = ''");
         countSelect = countQueryBuilder.getSelectquery();
 //        mainCondition = getMainCondition();
 //        countSelect = countQueryBuilder.mainCondition(mainCondition);
@@ -341,7 +342,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.DOB};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
         mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
-        mainSelect = queryBUilder.addCondition("where 1=1");
+        mainSelect = queryBUilder.addCondition("where date_removed = ''");
 //        mainSelect = "Select rowid _id, '0' as relationalid,* from client where 1=1";
 
         filters = "and 1=1";
@@ -576,16 +577,14 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     break;
                 case R.id.child_followup:
                     try {
-/*                        Uri uri = Uri.parse("https://oppia-pakistan.opendeliver.org/view?digest=4f335de353b9c3d3c9a59c4705dbdec4384");
-                        final Intent intentDeviceTest = new Intent("org.digitalcampus.oppia.activity.ViewDigestActivity");
-                        intentDeviceTest.setData(uri);
-                        startActivity(intentDeviceTest);
-                        break;*/
-                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, patient.getDetails().get(Constants.KEY._ID)/*new JSONObject(patient.getDetails().get("json")).getString("baseEntityId")*/, formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
+                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
                         break;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
+                case R.id.outcome:
+                    registerActivity.startFormActivity(PENUTUPAN_ANAK, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
                     break;
                 default:
                     break;

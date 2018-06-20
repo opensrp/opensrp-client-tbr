@@ -87,7 +87,8 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/claim_lnk"
@@ -123,7 +124,20 @@
             android:layout_marginBottom="5dp"
             android:textAlignment="center"
             android:textColor="#757575"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/outcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#3269D4"
+            android:text="Record Outcome"
+            android:textSize="18sp"
+            android:visibility="visible"/>
     </LinearLayout>
 
     <LinearLayout

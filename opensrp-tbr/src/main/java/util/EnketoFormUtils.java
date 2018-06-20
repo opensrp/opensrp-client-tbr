@@ -1226,7 +1226,7 @@ public class EnketoFormUtils {
                         client.addIdentifier(TBREACH_ID, c.getIdentifier(TBREACH_ID));
                         client.setAddresses(c.getAddresses());
                         saveClient(client);
-                    } else if (event.getEventType().equals(Constants.EVENT.REMOVE_PATIENT) || event.getEventType().equals(Constants.EVENT.TREATMENT_OUTCOME)) {
+                    } else if (event.getEventType().equals(Constants.EVENT.PENUTUPAN_ANAK) || event.getEventType().equals(Constants.EVENT.REMOVE_PATIENT) || event.getEventType().equals(Constants.EVENT.TREATMENT_OUTCOME)) {
                         JSONObject json = eventClientRepository.getClientByBaseEntityId(event.getBaseEntityId());
                         Client client = gson.fromJson(json.toString(), Client.class);
                         client.addAttribute(ATTRIBUTE_DATEREMOVED, new DateTime(event.getEventDate()).toString());

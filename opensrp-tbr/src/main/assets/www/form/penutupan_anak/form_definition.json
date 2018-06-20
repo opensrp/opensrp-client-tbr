@@ -58,7 +58,6 @@
     }, {
       "name" : "instanceID",
       "bind" : "/model/instance/penutupan_anak_mapped/meta/instanceID"
-    } ],
-    "sub_forms" : [ ]
+    } ]
   }
 }

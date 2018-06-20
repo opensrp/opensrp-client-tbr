@@ -112,5 +112,6 @@ public class Constants {
         public static final String SCREENING = "screening";
         public static final String POSITIVE_TB_PATIENT = "positive TB patient";
         public static final String CONTACT_SCREENING = "Contact Screening";
+        public static final String PENUTUPAN_ANAK = "Penutupan Anak";
     }
 }

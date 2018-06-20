@@ -14,6 +14,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Penutupan Anak",
+            "creates_case": [
+              "ec_patient"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Screening",
             "creates_case": [
               "ec_patient"

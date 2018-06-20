@@ -418,6 +418,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         /*String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
         fillValue((TextView) view.findViewById(R.id.encounter), "Scr Date:\n" + formatDate(firstEncounter));
         attachOnclickListener(view.findViewById(R.id.diagnose_lnk), client);*/
+        TextView outcome = (TextView)view.findViewById(R.id.outcome);
+        attachOnclickListener(outcome, client);
         String diagnosis = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), BASE_ENTITY_ID, false));
         if (!diagnosis.isEmpty())
             fillValue((TextView) view.findViewById(R.id.tv_last_visit_date), formatDate(diagnosis,true));

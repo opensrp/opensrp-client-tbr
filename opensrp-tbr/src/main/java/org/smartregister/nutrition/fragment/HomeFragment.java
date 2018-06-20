@@ -133,7 +133,7 @@ public class HomeFragment extends ListFragment {
 
 
         view.setIdentifier(Register.PRESUMPTIVE_PATIENTS);
-        view.setLabel(Register.PRESUMPTIVE_PATIENTS);
+        view.setLabel(Register.CHILD);
         residence.setPosition(0);
         view.setResidence(residence);
 
@@ -141,19 +141,19 @@ public class HomeFragment extends ListFragment {
 
         view = new org.smartregister.configurableviews.model.View();
         view.setIdentifier(Register.POSITIVE_PATIENTS);
-        view.setLabel(Register.POSITIVE_PATIENTS);
+        view.setLabel(Register.NUTRITION);
         residence.setPosition(1);
         view.setResidence(residence);
 
         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
-        view = new org.smartregister.configurableviews.model.View();
+        /*view = new org.smartregister.configurableviews.model.View();
         view.setIdentifier(Register.IN_TREATMENT_PATIENTS);
         view.setLabel(Register.IN_TREATMENT_PATIENTS);
 
         residence.setPosition(2);
         view.setResidence(residence);
-        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
+        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));*/
         return values;
     }
 }
