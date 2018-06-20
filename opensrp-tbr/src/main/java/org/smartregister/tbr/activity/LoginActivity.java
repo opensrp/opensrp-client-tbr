@@ -546,7 +546,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 showPasswordCheckBox.setVisibility(View.VISIBLE);
             }
-            if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
+           /* TODO MAIMOONA if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
                 View canvasRL = findViewById(R.id.canvasRL);
                 GradientDrawable gradientDrawable = new GradientDrawable();
                 gradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -555,7 +555,7 @@ public class LoginActivity extends AppCompatActivity {
                 gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
                         Color.parseColor(background.getEndColor())});
                 canvasRL.setBackground(gradientDrawable);
-            }
+            }*/
             if (metadata.getLogoUrl() != null) {
                 ImageView imageView = (ImageView) findViewById(R.id.logoImage);
                 ImageLoaderRequest.getInstance(this.getApplicationContext()).getImageLoader()
