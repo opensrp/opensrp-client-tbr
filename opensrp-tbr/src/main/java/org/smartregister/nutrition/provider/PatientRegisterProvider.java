@@ -123,7 +123,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 context.getResources().getColor(android.R.color.black));
         this.detailsRepository = detailsRepository;
         idList = new HashMap<String,Integer>();
-        idList.put("button1",R.id.button1);
+        idList.put("help",R.id.help);
     }
 
     @Override
