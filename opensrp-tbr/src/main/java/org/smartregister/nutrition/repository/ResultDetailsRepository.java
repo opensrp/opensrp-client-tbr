@@ -159,7 +159,7 @@ public class ResultDetailsRepository extends BaseRepository {
                         "    sum(case when " + suffix + " and next_visit_date < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
                         " FROM ec_patient";
             }*/
-            query = "Select COUNT(*) from client";
+            query = "Select COUNT(*) from ec_patient";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
 

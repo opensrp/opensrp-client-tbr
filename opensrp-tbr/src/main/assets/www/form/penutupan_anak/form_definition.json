@@ -1,0 +1,64 @@
+{
+  "form_data_definition_version": "1",
+  "form" : {
+    "bind_type" : "ec_patient",
+    "ec_bind_type" : "ec_patient",
+    "default_bind_path" : "/model/instance/penutupan_anak_mapped/",
+    "fields" : [ {
+      "name" : "id",
+      "shouldLoadValue" : true
+    }, {
+      "name" : "start",
+      "bind" : "/model/instance/penutupan_anak_mapped/start"
+    }, {
+      "name" : "today",
+      "bind" : "/model/instance/penutupan_anak_mapped/today"
+    }, {
+      "name" : "deviceid",
+      "bind" : "/model/instance/penutupan_anak_mapped/deviceid"
+    }, {
+      "name" : "simserial",
+      "bind" : "/model/instance/penutupan_anak_mapped/simserial"
+    }, {
+      "name" : "phonenumber",
+      "bind" : "/model/instance/penutupan_anak_mapped/phonenumber"
+    }, {
+      "name" : "close_reason",
+      "bind" : "/model/instance/penutupan_anak_mapped/close_reason"
+    }, {
+      "name" : "close_reason_other",
+      "bind" : "/model/instance/penutupan_anak_mapped/close_reason_other"
+    }, {
+      "name" : "child_death_cause",
+      "bind" : "/model/instance/penutupan_anak_mapped/child_death_cause"
+    }, {
+      "name" : "child_death_cause_other",
+      "bind" : "/model/instance/penutupan_anak_mapped/child_death_cause_other"
+    }, {
+      "name" : "child_death_date",
+      "bind" : "/model/instance/penutupan_anak_mapped/child_death_date"
+    }, {
+      "name" : "place_of_death",
+      "bind" : "/model/instance/penutupan_anak_mapped/place_of_death"
+    }, {
+      "name" : "referred",
+      "bind" : "/model/instance/penutupan_anak_mapped/referred"
+    }, {
+      "name" : "prereferral_management",
+      "bind" : "/model/instance/penutupan_anak_mapped/prereferral_management"
+    }, {
+      "name" : "referral_location",
+      "bind" : "/model/instance/penutupan_anak_mapped/referral_location"
+    }, {
+      "name" : "confirm_child_close",
+      "bind" : "/model/instance/penutupan_anak_mapped/confirm_child_close"
+    }, {
+      "name" : "end",
+      "bind" : "/model/instance/penutupan_anak_mapped/end"
+    }, {
+      "name" : "instanceID",
+      "bind" : "/model/instance/penutupan_anak_mapped/meta/instanceID"
+    } ],
+    "sub_forms" : [ ]
+  }
+}

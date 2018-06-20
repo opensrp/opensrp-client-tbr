@@ -83,8 +83,9 @@ public class FormOverridesHelper {
         Map fields = populateFieldOverrides();
         fields.put("underweight", "yes");
         try {
-            fields.put("tanggal_lahir", new JSONObject(patientDetails.get("json")).get("birthdate"));
-        } catch (JSONException e) {
+//            fields.put("tanggal_lahir", new JSONObject(patientDetails.get("json")).get("birthdate"));
+            fields.put("tanggal_lahir", patientDetails.get("dob"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 /*        String dobString = patientDetails.get(TbrConstants.KEY.DOB);

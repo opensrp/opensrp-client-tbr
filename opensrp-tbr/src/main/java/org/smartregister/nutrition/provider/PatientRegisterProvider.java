@@ -58,6 +58,7 @@ import util.TbrConstants;
 import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
 
+import static org.smartregister.nutrition.repository.ResultsRepository.BASE_ENTITY_ID;
 import static org.smartregister.nutrition.repository.ResultsRepository.DATE;
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -215,8 +216,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
 
-        String firstName = getValue(pc.getColumnmaps(), "firstName", true);
-        String lastName = getValue(pc.getColumnmaps(), "lastName", true);
+        String firstName = getValue(pc.getColumnmaps(), KEY.FIRST_NAME, true);
+        String lastName = getValue(pc.getColumnmaps(), KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
@@ -227,7 +228,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.gender), gender);
 
-        String dobString = getDuration(getValue(pc.getColumnmaps(), "birthdate", false));
+        String dobString = getDuration(getValue(pc.getColumnmaps(), "dob", false));
 
         fillValue((TextView) view.findViewById(R.id.age), dobString);
 //        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
@@ -236,14 +237,14 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 //        attachOnclickListener(patient, client);
     }
 
-    private static String getValue(Map<String, String> cm, String field, boolean humanize) {
+    /*private static String getValue(Map<String, String> cm, String field, boolean humanize) {
         try {
             return (String) (new JSONObject(cm.get("json")).get(field));
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
     private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
@@ -265,7 +266,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateNextVisitColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view){
         TextView childFollowup = (TextView) view.findViewById(R.id.child_followup);
         TextView nextVisitDate = (TextView) view.findViewById(R.id.tv_next_visit_date);
-        String date = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), "baseEntityId", false));
+        String date = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
         DateTime dateTime = getDateFromString(date);
         dateTime = dateTime.plusMonths(1);
         nextVisitDate.setVisibility(View.VISIBLE);
@@ -306,7 +307,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, TbrSpannableStringBuilder stringBuilder, boolean singleResult, Long baseline, View button, TextView details) {
         if (button != null)
             attachOnclickListener(button, client);
-        JSONObject json = resultsRepository.getLatestVisit(getValue(pc.getColumnmaps(),"baseEntityId",false));
+        JSONObject json = resultsRepository.getLatestVisit(getValue(pc.getColumnmaps(),BASE_ENTITY_ID,false));
         try {
             stringBuilder.append("Weight: " + getValueFromObs(json.getJSONArray("obs"),"berat_badan"));
             stringBuilder.append("\n Height: " + getValueFromObs(json.getJSONArray("obs"),"tinggi_badan"));
@@ -417,7 +418,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         /*String firstEncounter = getValue(pc.getColumnmaps(), KEY.FIRST_ENCOUNTER, false);
         fillValue((TextView) view.findViewById(R.id.encounter), "Scr Date:\n" + formatDate(firstEncounter));
         attachOnclickListener(view.findViewById(R.id.diagnose_lnk), client);*/
-        String diagnosis = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), "baseEntityId", false));
+        String diagnosis = resultsRepository.getLastVisitDate(getValue(pc.getColumnmaps(), BASE_ENTITY_ID, false));
         if (!diagnosis.isEmpty())
             fillValue((TextView) view.findViewById(R.id.tv_last_visit_date), formatDate(diagnosis,true));
     }

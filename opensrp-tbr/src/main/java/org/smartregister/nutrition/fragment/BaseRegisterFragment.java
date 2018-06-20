@@ -320,7 +320,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             } while (c.moveToNext());
         }
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.setSelectquery("Select COUNT(*) from client where 1=1");
+        countQueryBuilder.setSelectquery("Select COUNT(*) from ec_patient where 1=1");
         countSelect = countQueryBuilder.getSelectquery();
 //        mainCondition = getMainCondition();
 //        countSelect = countQueryBuilder.mainCondition(mainCondition);
@@ -340,8 +340,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.GENDER,
                 tableName + "." + KEY.DOB};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
-//        mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
-        mainSelect = "Select rowid _id, '0' as relationalid,* from client where 1=1";
+        mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
+        mainSelect = queryBUilder.addCondition("where 1=1");
+//        mainSelect = "Select rowid _id, '0' as relationalid,* from client where 1=1";
 
         filters = "and 1=1";
 
@@ -580,7 +581,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                         intentDeviceTest.setData(uri);
                         startActivity(intentDeviceTest);
                         break;*/
-                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, new JSONObject(patient.getDetails().get("json")).getString("baseEntityId"), formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
+                        registerActivity.startFormActivity(KUNJUNGAN_GIZI, patient.getDetails().get(Constants.KEY._ID)/*new JSONObject(patient.getDetails().get("json")).getString("baseEntityId")*/, formOverridesHelper.getChildFollowupFieldOverrides().getJSONString());
                         break;
                     } catch (Exception e) {
                         e.printStackTrace();

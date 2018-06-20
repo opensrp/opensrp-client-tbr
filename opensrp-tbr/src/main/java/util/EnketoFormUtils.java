@@ -176,10 +176,10 @@ public class EnketoFormUtils {
         /**
          * Customizing for Nutrition app
          */
-        /*JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id,
-                formSubmission, overrides);*/
-        JSONArray populatedFieldsArray = getNutritionPopulatedFieldsForArray(fieldsDefinition, entity_id,
+        JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id,
                 formSubmission, overrides);
+        /*JSONArray populatedFieldsArray = getNutritionPopulatedFieldsForArray(fieldsDefinition, entity_id,
+                formSubmission, overrides);*/
 
         // replace all the fields in the form
         formDefinition.getJSONObject("form").put("fields", populatedFieldsArray);

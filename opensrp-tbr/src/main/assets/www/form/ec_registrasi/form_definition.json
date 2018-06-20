@@ -1,8 +1,8 @@
 {
   "form_data_definition_version": "1",
   "form" : {
-    "bind_type": "client",
-    "ec_bind_type": "client",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
     "default_bind_path" : "/model/instance/child_registration_form/",
     "fields" : [ {
       "name" : "id",

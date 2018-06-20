@@ -24,11 +24,19 @@
             "field": "identifiers.TBREACH Program ID"
           }
         },
-        {
+        /*{
           "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
             "field": "firstName"
+          }
+        },*/
+        {
+          "column_name": "first_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
