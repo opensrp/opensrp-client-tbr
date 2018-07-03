@@ -1,0 +1,36 @@
+{
+    "form_data_definition_version": "1",
+    "form" : {
+        "bind_type": "ec_patient",
+        "ec_bind_type": "ec_patient",
+        "default_bind_path" : "/model/instance/nutrition_case_closing/",
+        "fields" : [ {
+            "name" : "id",
+            "shouldLoadValue" : true
+        }, {
+            "name" : "start",
+            "bind" : "/model/instance/nutrition_case_closing/start"
+        }, {
+            "name" : "today",
+            "bind" : "/model/instance/nutrition_case_closing/today"
+        }, {
+            "name" : "deviceid",
+            "bind" : "/model/instance/nutrition_case_closing/deviceid"
+        }, {
+            "name" : "simserial",
+            "bind" : "/model/instance/nutrition_case_closing/simserial"
+        }, {
+            "name" : "phonenumber",
+            "bind" : "/model/instance/nutrition_case_closing/phonenumber"
+        }, {
+            "name" : "case_closing_date",
+            "bind" : "/model/instance/nutrition_case_closing/case_closing_date"
+        }, {
+            "name" : "close_reason",
+            "bind" : "/model/instance/nutrition_case_closing/close_reason"
+        }, {
+            "name" : "instanceID",
+            "bind" : "/model/instance/nutrition_case_closing/meta/instanceID"
+        } ]
+    }
+}

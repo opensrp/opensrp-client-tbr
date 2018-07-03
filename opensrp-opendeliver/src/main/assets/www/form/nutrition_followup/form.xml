@@ -1,0 +1,218 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="nutrition_followup"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Nutrition Monthly Followup - غذائی نگرانی کا ماہانہ اندراج</h3>
+    <select data-default-lang="ur" id="form-languages">
+        <option data-dir="rtl" value="ur">Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/existing_age_note:label"
+            lang="ur">عمر <span
+            class="or-output" data-value=" /nutrition_person_followup/existing_age "></span> مہینے
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/existing_age_note:label"
+            lang="en">Age: <span
+            class="or-output" data-value=" /nutrition_person_followup/existing_age "></span> months
+        </span>
+        <input name="/nutrition_person_followup/existing_age_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/existing_nutrition_status_note:label"
+            lang="ur">گزشتہ
+            غذائی حیثیت <span class="or-output"
+                data-value=" /nutrition_person_followup/existing_nutrition_status "></span>
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/existing_nutrition_status_note:label"
+            lang="en">Previous
+            Nutrition Status: <span class="or-output"
+                data-value=" /nutrition_person_followup/existing_nutrition_status "></span>
+            : bmi <span class="or-output"
+                data-value=" /nutrition_person_followup/bmi "></span>
+            EBMI: <span class="or-output"
+                data-value=" /nutrition_person_followup/existing_bmi "></span>
+        </span>
+        <input name="/nutrition_person_followup/existing_nutrition_status_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/visit_date:label"
+            lang="ur">ملاقات کی تاریخ
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/visit_date:label"
+            lang="en">Date of Visit
+        </span>
+        <span class="required">*</span>
+        <input name="/nutrition_person_followup/visit_date" data-required="true()" data-type-xml="date"
+            type="date" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/weight:label"
+            lang="ur">وزن ( کلو )
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/weight:label"
+            lang="en">Weight (kg)
+        </span>
+        <span class="required">*</span>
+        <input name="/nutrition_person_followup/weight" data-constraint=". &gt; 0 and . &lt; 50" data-required="true()"
+            data-type-xml="decimal" step="any" type="number" />
+        <span class="or-constraint-msg active" data-itext-id="/nutrition_person_followup/weight:jr:constraintMsg"
+            lang="ur">وزن 0 سے 50‬ کلو كے
+            درمیان ہونا چاہیے
+        </span>
+        <span class="or-constraint-msg " data-itext-id="/nutrition_person_followup/weight:jr:constraintMsg"
+            lang="en">Weight must be
+            between 0 and 50
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/height:label"
+            lang="ur">قد ( سینٹی میٹر )
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/height:label"
+            lang="en">Height (cm)
+        </span>
+        <span class="required">*</span>
+        <input name="/nutrition_person_followup/height" data-required="true()" data-type-xml="decimal"
+            step="any" type="number" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label active" data-itext-id="/nutrition_person_followup/nutrition_status_note:label"
+            lang="ur">موجودہ غذائی
+            حیثیت <span class="or-output"
+                data-value=" /nutrition_person_followup/nutrition_status "></span>
+        </span>
+        <span class="question-label " data-itext-id="/nutrition_person_followup/nutrition_status_note:label"
+            lang="en">Current Nutrition
+            Status: <span class="or-output"
+                data-value=" /nutrition_person_followup/nutrition_status "></span>
+        </span>
+        <input name="/nutrition_person_followup/nutrition_status_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label active" data-itext-id="/nutrition_person_followup/breast_feeding:label"
+                    lang="ur">کیا مکمل انحصار
+                    ماں کے دودھ پر ہے
+                </span>
+                <span class="question-label " data-itext-id="/nutrition_person_followup/breast_feeding:label"
+                    lang="en">Exclusive
+                    Breastfeeding
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/nutrition_person_followup/breast_feeding" data-name="/nutrition_person_followup/breast_feeding"
+                        data-required="true()" data-type-xml="select1"
+                        type="radio" value="yes" />
+                    <span class="option-label active" data-itext-id="/nutrition_person_followup/breast_feeding/yes:label"
+                        lang="ur">ہاں
+                    </span>
+                    <span class="option-label " data-itext-id="/nutrition_person_followup/breast_feeding/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/nutrition_person_followup/breast_feeding" data-name="/nutrition_person_followup/breast_feeding"
+                        data-required="true()" data-type-xml="select1"
+                        type="radio" value="no" />
+                    <span class="option-label active" data-itext-id="/nutrition_person_followup/breast_feeding/no:label"
+                        lang="ur">نہیں
+                    </span>
+                    <span class="option-label " data-itext-id="/nutrition_person_followup/breast_feeding/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label active" data-itext-id="/nutrition_person_followup/vitamin_a:label"
+                    lang="ur">وٹامن A دیا گیا ہے
+                </span>
+                <span class="question-label " data-itext-id="/nutrition_person_followup/vitamin_a:label"
+                    lang="en">Administration of
+                    Vitamin A
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/nutrition_person_followup/vitamin_a" data-name="/nutrition_person_followup/vitamin_a"
+                        data-required="true()" data-type-xml="select1"
+                        type="radio" value="yes" />
+                    <span class="option-label active" data-itext-id="/nutrition_person_followup/vitamin_a/yes:label"
+                        lang="ur">ہاں
+                    </span>
+                    <span class="option-label " data-itext-id="/nutrition_person_followup/vitamin_a/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/nutrition_person_followup/vitamin_a" data-name="/nutrition_person_followup/vitamin_a"
+                        data-required="true()" data-type-xml="select1"
+                        type="radio" value="no" />
+                    <span class="option-label active" data-itext-id="/nutrition_person_followup/vitamin_a/no:label"
+                        lang="ur">نہیں
+                    </span>
+                    <span class="option-label " data-itext-id="/nutrition_person_followup/vitamin_a/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/deviceid" data-preload="property" data-preload-params="deviceid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/simserial" data-preload="property" data-preload-params="simserial"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/existing_bmi" data-calculate="10000 * /nutrition_person_followup/existing_weight  div ( /nutrition_person_followup/existing_height  *  /nutrition_person_followup/existing_height )"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/nutrition_person_followup/existing_nutrition_status" data-calculate="if( /nutrition_person_followup/existing_bmi != '', if(  /nutrition_person_followup/existing_bmi  &lt; 5, 'underweight',   if( /nutrition_person_followup/existing_bmi  &gt;= 5 and  /nutrition_person_followup/existing_bmi  &lt; 85, 'normal',   if( /nutrition_person_followup/existing_bmi  &gt;= 85 and  /nutrition_person_followup/existing_bmi  &lt;95, 'overweight', 'obese')  ) ), 'n/a')
+"
+                type="hidden" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/nutrition_person_followup/bmi" data-calculate=" 10000 * /nutrition_person_followup/weight  div ( /nutrition_person_followup/height  *  /nutrition_person_followup/height )" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/nutrition_person_followup/nutrition_status" data-calculate="if( /nutrition_person_followup/bmi != '',
+if(  /nutrition_person_followup/bmi  &lt; 5, 'underweight',   if( /nutrition_person_followup/bmi  &gt;= 5 and  /nutrition_person_followup/bmi  &lt; 85, 'normal',   if( /nutrition_person_followup/bmi  &gt;= 85 and  /nutrition_person_followup/bmi  &lt;95, 'overweight', 'obese')  ) ), 'n/a')" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/nutrition_person_followup/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/nutrition_person_followup/formhub/uuid" data-calculate="'56732f61382e48619c13b77fc62f876c'" data-type-xml="string"/></label></fieldset></form>

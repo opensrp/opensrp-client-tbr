@@ -1,0 +1,22 @@
+<model>
+    <instance>
+        <nutrition_case_closing
+            encounter_type="Nutrition Case Closing" id="nutrition_case_closing"
+            version="201806230829">
+            <formhub>
+                <uuid />
+            </formhub>
+            <start />
+            <today />
+            <deviceid />
+            <simserial />
+            <phonenumber />
+            <case_closing_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <close_reason openmrs_entity="Concept"
+                openmrs_entity_id="160417AAAAAAAAAAAAAAAAAAAAAAAAAA" />
+            <meta>
+                <instanceID />
+            </meta>
+        </nutrition_case_closing>
+    </instance>
+</model>
