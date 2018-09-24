@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +41,7 @@ import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.nutrition.R;
 import org.smartregister.nutrition.activity.BaseRegisterActivity;
+import org.smartregister.nutrition.activity.HomeActivity;
 import org.smartregister.nutrition.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.nutrition.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.nutrition.activity.PositivePatientDetailActivity;
@@ -108,6 +110,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
+        final FragmentActivity activity = getActivity();
         return new SecuredNativeSmartRegisterActivity.DefaultOptionsProvider() {
 
 
@@ -130,7 +133,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public String nameInShortFormForTitle() {
-                return context().getStringResource(R.string.apptitle);
+                return activity.getIntent().getStringExtra(TOOLBAR_TITLE);
             }
         };
     }
@@ -169,11 +172,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_activity, container, false);
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.register_toolbar);
-        AppCompatActivity activity = ((AppCompatActivity) getActivity());
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
+
+        final AppCompatActivity activity = ((AppCompatActivity) getActivity());
+       // activity.setSupportActionBar(toolbar);
+        // activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
+
         viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         setupViews(view);
         return view;
@@ -518,9 +522,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.smr_result_lnk:
                     registerActivity.startFormActivity(SMEAR, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFieldOverrides().getJSONString());
                     break;
-                case R.id.patient_column:
+                /*case R.id.patient_column:
                     goToPatientDetailActivity(getViewConfigurationIdentifier());
-                    break;
+                    break;*/
                 case R.id.treat_lnk:
                     registerActivity.startFormActivity(TREATMENT_INITIATION, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getTreatmentFieldOverrides().getJSONString());
                     break;
@@ -554,9 +558,14 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     registerActivity.startFormActivity(NUTRITION_CASECLOSING, patient.getDetails().get(Constants.KEY._ID), null);
                     break;
                 default:
+                    delegateRegisterActionClick(view, patient);
                     break;
             }
         }
+    }
+
+    protected void delegateRegisterActionClick(View view, CommonPersonObjectClient patient){
+
     }
 
     public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){

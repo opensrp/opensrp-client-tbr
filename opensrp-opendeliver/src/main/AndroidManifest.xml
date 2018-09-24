@@ -40,8 +40,8 @@
             android:name=".activity.PresumptivePatientRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.PresumptivePatientDetailActivity"

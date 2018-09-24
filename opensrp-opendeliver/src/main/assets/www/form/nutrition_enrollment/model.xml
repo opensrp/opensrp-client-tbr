@@ -18,7 +18,7 @@
                 openmrs_entity_id="163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
             <end openmrs_entity="concept"
                 openmrs_entity_id="163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
-            <today openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <today/>
             <deviceid openmrs_entity="concept"
                 openmrs_entity_id="163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
             <subscriberid openmrs_entity="concept"
@@ -29,7 +29,7 @@
                 openmrs_entity_id="163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
             <program_client_id openmrs_entity="person_identifier"
                 openmrs_entity_id="Program Client ID" />
-            <client_reg_date />
+            <visit_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
             <child_not_named>no</child_not_named>
             <first_name_yes />
             <first_name openmrs_entity="person" openmrs_entity_id="first_name" />

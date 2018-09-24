@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/graph_growth_monitoring_container"
+    >
+
+    <ToggleButton
+        android:id="@+id/toggleGrowthChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:text="ToggleButton" />
+
+    <org.smartregister.configurableviews.LineChartView
+        android:id="@+id/graph_growth_monitoring_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"></org.smartregister.configurableviews.LineChartView>
+
+    <ImageView
+        android:id="@+id/growth_chart_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="70dp"
+        app:srcCompat="@drawable/ic_action_sync" />
+
+</LinearLayout>

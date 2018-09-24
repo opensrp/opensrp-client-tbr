@@ -68,6 +68,16 @@ public class Utils {
         return null;
     }
 
+    public static String getValueFromObs(JSONArray obj, String... key){
+        String value = null;
+        for(int i=0; i<key.length; i++){
+            value = getValueFromObs(obj, key[i]);
+
+            if (value != null) return value;
+        }
+        return null;
+    }
+
     public static String formatDate(Date date, String pattern) {
         return new SimpleDateFormat(pattern).format(date);
     }

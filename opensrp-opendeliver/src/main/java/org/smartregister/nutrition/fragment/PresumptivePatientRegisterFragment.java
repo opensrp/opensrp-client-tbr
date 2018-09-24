@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.smartregister.Context;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.nutrition.R;
+import org.smartregister.nutrition.activity.BaseRegisterActivity;
 import org.smartregister.nutrition.helper.DBQueryHelper;
 
 import java.io.ByteArrayInputStream;
@@ -124,6 +126,17 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
         View headerLayout = getLayoutInflater(null).inflate(R.layout.register_common_header_list, null);
         populateClientListHeaderView(view, headerLayout, PRESUMPTIVE_REGISTER_HEADER);
+    }
+
+    @Override
+    protected void delegateRegisterActionClick(View view, CommonPersonObjectClient patient) {
+        BaseRegisterActivity activity = (BaseRegisterActivity) getActivity();
+        if (view.getId() == R.id.patient_column){
+            GrowthChartFragment pf = (GrowthChartFragment) activity.getProfileFragment(0);
+            pf.setData(patient);
+
+            activity.displayProfileFragment(0);
+        }
     }
 
     @Override

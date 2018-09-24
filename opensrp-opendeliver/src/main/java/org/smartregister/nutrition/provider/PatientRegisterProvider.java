@@ -231,7 +231,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 //        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
 
         View patient = view.findViewById(R.id.patient_column);
-//        attachOnclickListener(patient, client);
+        attachOnclickListener(patient, client);
     }
 
     /*private static String getValue(Map<String, String> cm, String field, boolean humanize) {

@@ -6,10 +6,10 @@
     android:theme="@style/AppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/register_toolbar"
+        android:id="@+id/base_register_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/disabled_gray"
+        android:background="@color/customAppThemeBlue"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <ImageView
@@ -21,10 +21,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/separator" />
 
-        <include
-            layout="@layout/tool_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

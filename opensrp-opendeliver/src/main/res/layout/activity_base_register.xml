@@ -6,6 +6,8 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.BaseRegisterActivity">
 
+    <include layout="@layout/base_register_toolbar" />
+
     <org.smartregister.view.viewpager.OpenSRPViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

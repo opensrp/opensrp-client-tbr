@@ -6,7 +6,7 @@
                 <uuid />
             </formhub>
             <start openmrs_entity="encounter" openmrs_entity_id="encounter_start" />
-            <today openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <today/>
             <deviceid />
             <simserial />
             <phonenumber />
@@ -18,7 +18,7 @@
             <existing_nutrition_status />
             <existing_age_note />
             <existing_nutrition_status_note />
-            <visit_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <visit_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
             <weight openmrs_entity="concept"
                 openmrs_entity_id="199922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
             <height openmrs_entity="concept"

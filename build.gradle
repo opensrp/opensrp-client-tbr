@@ -18,8 +18,8 @@ subprojects {
     ext.androidToolsBuildGradle     = '21.1.2'
     ext.androidBuildToolsVersion    = '26.0.0'
     ext.androidMinSdkVersion        = 19
-    ext.androidCompileSdkVersion    = 22
-    ext.androidTargetSdkVersion     = 22
+    ext.androidCompileSdkVersion    = 27
+    ext.androidTargetSdkVersion     = 27
 
     ext.androidAnnotationsVersion = '3.0.1';
     ext.androidAnnotationsAPIVersion = '3.0.1';
@@ -34,12 +34,6 @@ subprojects {
         maven { url "http://acra.googlecode.com/svn/repository/releases" }
         maven { url "http://repo.maven.apache.org/maven2" }
         maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
-        maven {
-            url "${projectDir}/opensrp-tbr/../libs/"
-        }
-        maven {
-            url "${projectDir}/opensrp-tbr-it/../libs/"
-        }
         mavenLocal()
     }
 
@@ -51,6 +45,13 @@ subprojects {
         } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
             project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
         }
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        maven {  url 'https://maven.google.com' }
     }
 }
 

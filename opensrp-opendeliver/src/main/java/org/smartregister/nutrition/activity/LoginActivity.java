@@ -53,6 +53,7 @@ import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 import org.smartregister.domain.TimeStatus;
+import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.event.Listener;
 import org.smartregister.nutrition.BuildConfig;
 import org.smartregister.nutrition.R;
@@ -347,17 +348,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void getLocation() {
-        tryGetLocation(new Listener<Response<String>>() {
-            @Override
-            public void onEvent(Response<String> data) {
-                if (data.status() == ResponseStatus.success) {
-                    getOpenSRPContext().userService().saveAnmLocation(data.payload());
-                }
-            }
-        });
-    }
-
     private void tryGetLocation(final Listener<Response<String>> afterGet) {
         LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
             @Override
@@ -414,7 +404,7 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void remoteLoginWith(String userName, String password, String userInfo) {
+    private void remoteLoginWith(String userName, String password, LoginResponseData userInfo) {
         getOpenSRPContext().userService().remoteLogin(userName, password, userInfo);
 
         if(OpenDeliverApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJsonCount() == 0){

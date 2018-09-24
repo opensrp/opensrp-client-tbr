@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.nutrition.R;
+import org.smartregister.nutrition.adapter.RegisterActivityPagerAdapter;
 import org.smartregister.nutrition.application.OpenDeliverApplication;
 import org.smartregister.nutrition.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.nutrition.event.ShowProgressDialogEvent;
@@ -53,19 +55,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
-import util.TbrConstants;
 
-import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
-import static util.TbrConstants.ENKETO_FORMS.CULTURE;
-import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
-import static util.TbrConstants.ENKETO_FORMS.NUTRITION_ENROLLMENT;
-import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
-import static util.TbrConstants.ENKETO_FORMS.NUTRITION_FOLLOWUP;
 import static util.TbrConstants.ENKETO_FORMS.NUTRITION_CASECLOSING;
-import static util.TbrConstants.ENKETO_FORMS.SMEAR;
+import static util.TbrConstants.ENKETO_FORMS.NUTRITION_ENROLLMENT;
+import static util.TbrConstants.ENKETO_FORMS.NUTRITION_FOLLOWUP;
 
 
 /**
@@ -80,9 +75,9 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private ProgressDialog progressDialog;
 
-    @Bind(R.id.view_pager)
-    protected OpenSRPViewPager mPager;
-    protected FragmentPagerAdapter mPagerAdapter;
+   // @Bind(R.id.view_pager)
+    //protected OpenSRPViewPager mPager;
+    protected RegisterActivityPagerAdapter mPagerAdapter;
     protected int currentPage;
 
     protected List<String> formNames;
@@ -91,17 +86,32 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private String sortOption;
     private List<FilterEnum> previousFilterList = new ArrayList<>();
     private List<FilterEnum> previousOtherFilterList = new ArrayList<>();
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_register);
+
+        toolbar = (Toolbar) findViewById(R.id.base_register_toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setLogo(R.drawable.round_white_background);
+        getSupportActionBar().setDisplayUseLogoEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getIntent().getStringExtra(TOOLBAR_TITLE));
+
+        ViewPager mPager = findViewById(R.id.view_pager);
+
         ButterKnife.bind(this);
         formNames = this.buildFormNameList();
+
         Fragment mBaseFragment = getRegisterFragment();
+        Fragment profileF = initProfileFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPagerAdapter = new EnketoRegisterPagerAdapter(getSupportFragmentManager(), formNames.toArray(new String[formNames.size()]), mBaseFragment);
+        mPagerAdapter = new RegisterActivityPagerAdapter(this, mPager, getSupportFragmentManager(), formNames.toArray(new String[formNames.size()]), mBaseFragment, new Fragment[]{profileF});
         mPager.setOffscreenPageLimit(formNames.size());
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -116,8 +126,17 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     protected abstract Fragment getRegisterFragment();
 
+    protected Fragment initProfileFragment() {
+        return null;
+    }
+
+    public Fragment getProfileFragment(int index) {
+        return mPagerAdapter.getOtherFragment(index);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i(TAG, "IN onCreateOptionsMenu(Menu menu) "+menu.hasVisibleItems());
         getMenuInflater().inflate(R.menu.menu_register, menu);
         processMenuConfigurations(menu);
         return true;
@@ -231,7 +250,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     protected Fragment findFragmentByPosition(int position) {
-        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + mPagerAdapter.getItemId(position));
+        return mPagerAdapter.getItem(position);
     }
 
     public void refreshList(final FetchStatus fetchStatus) {
@@ -299,13 +318,19 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void startFormActivity(String formName, String entityId, String metaData) {
+        toolbar.setVisibility(View.GONE);
+
         initializeEnketoFormFragment(formName, entityId, metaData, true);
+    }
+
+    public void displayProfileFragment(int index){
+        mPagerAdapter.showOtherFragment(index);
     }
 
 
     public void initializeEnketoFormFragment(String formName, String entityId, String metaData, boolean displayForm) {
         try {
-            int formIndex = formNames.indexOf(formName) + 1; // add the offset
+            int formIndex = formNames.indexOf(formName);
             if (entityId != null || metaData != null) {
                 String data = EnketoFormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
@@ -319,7 +344,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             }
 
             if (displayForm)
-                mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+                mPagerAdapter.showForm(formName);
+              //  mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 
         } catch (Exception e) {
             Log.e(TAG, "startFormActivity: ", e);
@@ -328,7 +354,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
-        return (DisplayFormFragment) findFragmentByPosition(index);
+        return (DisplayFormFragment) mPagerAdapter.getFormFragment(index);
     }
 
     protected List<String> buildFormNameList() {
@@ -344,13 +370,16 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mPager.setCurrentItem(0, false);
+                mPagerAdapter.showBaseFragment();
+
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
                     displayFormFragment.setRecordId(null);
                 }
+
+                toolbar.setVisibility(View.VISIBLE);
             }
         });
 

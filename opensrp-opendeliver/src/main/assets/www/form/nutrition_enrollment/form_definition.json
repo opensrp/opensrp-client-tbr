@@ -56,8 +56,8 @@
             "name" : "program_client_id",
             "bind" : "/model/instance/nutrition_person_registration/program_client_id"
         }, {
-            "name" : "client_reg_date",
-            "bind" : "/model/instance/nutrition_person_registration/client_reg_date"
+            "name" : "visit_date",
+            "bind" : "/model/instance/nutrition_person_registration/visit_date"
         }, {
             "name" : "child_not_named",
             "bind" : "/model/instance/nutrition_person_registration/child_not_named"

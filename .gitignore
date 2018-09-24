@@ -16,7 +16,6 @@ project.properties
 .DS_Store
 .settings
 build/
-.gradle
 opensrp-tbr/fabric.properties
 opensrp-tbr/reports/
 opensrp-tbr/jacoco.exec

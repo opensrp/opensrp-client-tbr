@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.nutrition.R;
+import org.smartregister.nutrition.fragment.GrowthChartFragment;
 import org.smartregister.nutrition.fragment.PresumptivePatientRegisterFragment;
 import org.smartregister.nutrition.util.OtherFiltersEnum;
 
@@ -35,6 +36,11 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
     @Override
     protected Fragment getRegisterFragment() {
         return new PresumptivePatientRegisterFragment();
+    }
+
+    @Override
+    protected Fragment initProfileFragment() {
+        return new GrowthChartFragment();
     }
 
     @Override
