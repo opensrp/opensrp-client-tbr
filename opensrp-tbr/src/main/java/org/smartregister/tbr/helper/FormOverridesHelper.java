@@ -58,10 +58,7 @@ public class FormOverridesHelper {
 
     public FieldOverrides getTreatmentFieldOverrides() {
         Map fields = populateFieldOverrides();
-        String gender = patientDetails.get(TbrConstants.KEY.GENDER);
-        if (gender != null) {
-            fields.put(TbrConstants.KEY.GENDER, gender);
-        }
+        fields.put(TbrConstants.KEY.GENDER, patientDetails.get(TbrConstants.KEY.GENDER));
         String dobString = patientDetails.get(TbrConstants.KEY.DOB);
         String age = "";
         if (StringUtils.isNotBlank(dobString)) {

@@ -1,15 +1,19 @@
 package org.smartregister.tbr.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -18,13 +22,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.internal.LinkedTreeMap;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
-import org.smartregister.configurableviews.model.RegisterConfiguration;
-import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.CursorSortOption;
@@ -35,20 +39,33 @@ import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BaseRegisterActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientDetailActivity;
+import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
+import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.FormOverridesHelper;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
+//import org.smartregister.tbr.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -96,6 +113,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private String viewConfigurationIdentifier;
     private FormOverridesHelper formOverridesHelper;
+    private String customMainCondition;
+    private Snackbar snackbar;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -116,7 +135,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public SortOption sortOption() {
-                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), "last_interacted_with desc");
+                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), "first_name asc");
             }
 
             @Override
@@ -177,11 +196,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
         if (config.getSearchBarText() != null && getView() != null)
             ((EditText) getView().findViewById(R.id.edt_search)).setHint(config.getSearchBarText());
-        visibleColumns = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(getViewConfigurationIdentifier());
+        visibleColumns = TbrApplication.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(getViewConfigurationIdentifier());
 
     }
 
-    public void showResultMenu(View view) {
+    private PopupMenu initializePopup(View view){
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
@@ -191,7 +210,41 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
+        return popup;
+    }
+
+    public void showResultMenu(View view) {
+        PopupMenu popup = initializePopup(view);
         popup.show();
+    }
+
+    public void showResultMenu(View view, BaseRegisterActivity activity){
+        String string = "";
+        if(activity instanceof PresumptivePatientRegisterActivity)
+            string = "presumptive";
+        else if(activity instanceof PositivePatientRegisterActivity)
+            string = "positive";
+        else if(activity instanceof InTreatmentPatientRegisterActivity)
+            string = "intreatment";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.TEST_RESULTS);
+        ViewConfiguration testResultsConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        if(testResultsConfig != null){
+            TestResultsConfiguration trc = (TestResultsConfiguration) testResultsConfig.getMetadata();
+            LinkedTreeMap map = (LinkedTreeMap) trc.getResultsConfig();
+            LinkedTreeMap map1 = (LinkedTreeMap) map.get(string);
+            PopupMenu popup = initializePopup(view);
+            for(int i=1; i < popup.getMenu().size(); i++){
+                try {
+                    if (!(boolean) map1.get(popup.getMenu().getItem(i).getTitle().toString()))
+                        popup.getMenu().getItem(i).setVisible(false);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        popup.show();
+    }
+        else
+            showResultMenu(view);
     }
 
     protected void updateSearchView() {
@@ -317,6 +370,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         @Override
         public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+            if((customMainCondition!=null && !customMainCondition.equals("")) || (Sortqueries != null && !Sortqueries.equals(""))){
+                filter(" AND (ec_patient.id like '%"+cs.toString()+"%' or ec_patient.first_name like '%"+cs.toString()+"%' or ec_patient.last_name like '%"+cs.toString()+"%')","",customMainCondition);
+            }
+            else
             filter(cs.toString(), "", getMainCondition());
         }
 
@@ -413,7 +470,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             switch (view.getId()) {
                 case R.id.result_lnk:
                 case R.id.intreatment_lnk:
-                    showResultMenu(view);
+                    showResultMenu(view, (BaseRegisterActivity) getActivity());
                     break;
                 case R.id.diagnose_lnk:
                     registerActivity.startFormActivity(DIAGNOSIS, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFieldOverrides().getJSONString());
@@ -435,11 +492,185 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.followup:
                     registerActivity.startFormActivity(FOLLOWUP_VISIT, patient.getDetails().get(Constants.KEY._ID), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                     break;
-
+                case R.id.result_details:
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.setContentView(R.layout.layout_dialog_show_results);
+                    TextView textView = (TextView) dialog.findViewById(R.id.tv_dialog_results);
+                    textView.append((SpannableStringBuilder)view.getTag());
+                    TextView closeBtn = (TextView) dialog.findViewById(R.id.dialog_show_results_button_close);
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    break;
                 default:
                     break;
             }
         }
     }
+
+    public void filterAndSortRegisterContent(List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+ /*     Cursor cursor = super.commonRepository().rawCustomQueryForAdapter(query);*/
+        prepareAndShowSnackBar(getView(),filterResults,filterOtherResults,sortOption);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.YEAR, -28);
+        Date dateBefore30Days = cal.getTime();
+        System.out.print(dateBefore30Days);
+
+        String tableName = TbrConstants.PATIENT_TABLE_NAME;
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.setSelectquery("Select COUNT(DISTINCT ec_patient.base_entity_id) from ec_patient");
+        mainCondition = getMainCondition();
+        countSelect = countQueryBuilder.mainCondition(mainCondition);
+        countSelect = countQueryBuilder.addCondition(getOtherCndition(filterOtherResults));
+        if(!filterResults.isEmpty()){
+            countSelect = countQueryBuilder.addCondition(" AND ec_patient.base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")");
+        }
+        filters = "and 1=1";
+        super.CountExecute();
+
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        String[] columns = new String[]{
+                tableName + ".relationalid",
+                tableName + "." + TbrConstants.KEY.LAST_INTERACTED_WITH,
+                tableName + "." + TbrConstants.KEY.FIRST_ENCOUNTER,
+                tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID,
+                tableName + "." + TbrConstants.KEY.FIRST_NAME,
+                tableName + "." + TbrConstants.KEY.LAST_NAME,
+                tableName + "." + TbrConstants.KEY.PARTICIPANT_ID,
+                tableName + "." + TbrConstants.KEY.PROGRAM_ID,
+                tableName + "." + TbrConstants.KEY.GENDER,
+                tableName + "." + TbrConstants.KEY.DOB};
+        String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
+        mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
+        customMainCondition = " WHERE ";
+        customMainCondition += mainCondition + " " + getOtherCndition(filterOtherResults);
+        customMainCondition += getOtherCndition(filterOtherResults);
+        if(!filterResults.isEmpty()){
+            customMainCondition += getSubQueryClause(filterResults);
+        }
+        mainSelect = queryBUilder.addCondition(customMainCondition);
+        filters = "and 1=1";
+        Sortqueries = getSortQuery(sortOption);
+
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
+        refresh();
+    }
+
+    private String getSubQueryCondition(List<FilterEnum> filterResults){
+        StringBuilder sb = new StringBuilder();
+        if(!filterResults.isEmpty()) {
+            sb.append(" AND (");
+            for (FilterEnum conditonEnum : filterResults) {
+                sb.append("(");
+                sb.append(conditonEnum.getCondition()).append(") ");
+                sb.append(" OR ");
+            }
+            sb.delete(sb.length()-3,sb.length()).append(") ");
+        }
+        return sb.toString();
+    }
+
+    private String getOtherCndition(List<FilterEnum> filterOtherResults) {
+        StringBuilder sb = new StringBuilder();
+        if(!filterOtherResults.isEmpty()) {
+            sb.append(" AND (");
+            for (FilterEnum conditonEnum : filterOtherResults) {
+                sb.append("(");
+                sb.append(conditonEnum.getCondition()).append(") ");
+                sb.append(" OR ");
+            }
+            sb.delete(sb.length()-3,sb.length()).append(") ");
+        }
+        return sb.toString();
+    }
+
+    private String getSortQuery(String sort){
+        if(sort!=null && !sort.isEmpty()) {
+            if (sort.equalsIgnoreCase("name (A-Z)"))
+                return "first_name asc";
+            else return "last_interacted_with desc";
+        }
+        else return "";
+    }
+
+    private String getSubQueryClause(List<FilterEnum> filterResults){
+        return " AND base_entity_id in (Select base_entity_id from (SELECT * FROM results res where res.base_entity_id = ec_patient.base_entity_id GROUP BY type HAVING MAX(date||created_at)) AS 'results' where 1=1  " + getSubQueryCondition(filterResults) + ")";
+    }
+
+    public void prepareAndShowSnackBar(View view,List<FilterEnum> filterResults, List<FilterEnum> filterOtherResults, String sortOption){
+        StringBuilder toastString = new StringBuilder();
+        getToastString(filterOtherResults, toastString);
+        getToastString(filterResults, toastString);
+        if(toastString != null && toastString.length() > 0)
+            toastString.replace(toastString.length()-2,toastString.length(),"");
+        appendSortStringToToast(sortOption,toastString);
+        dismissSnackbar(snackbar);
+        showSnackBar(toastString,view);
+    }
+
+    private void showSnackBar(StringBuilder toastString, View view){
+        if(toastString != null && !toastString.toString().isEmpty()) {
+            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
+            snackbar.show();
+        }
+
+    }
+
+    private void getToastString(List<FilterEnum> resultsList, StringBuilder toastString){
+        if(resultsList != null && !resultsList.isEmpty()){
+            toastString.append("Filters: ");
+            for(FilterEnum fe : resultsList){
+                toastString.append(fe.getFilterString()).append(", ");
+            }
+        }
+    }
+    private void appendSortStringToToast(String sortOption, StringBuilder toastString){
+        if(sortOption != null && !sortOption.isEmpty()){
+            toastString.append(toastString != null ? "\n" : "");
+            toastString.append("Sort: ").append(sortOption);
+        }
+    }
+
+    private void dismissSnackbar(Snackbar snackbar){
+        if(snackbar != null)
+            snackbar.dismiss();
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String sortOption="";
+        if(isEmpty(Sortqueries)|| Sortqueries.equalsIgnoreCase("first_name asc"))
+            sortOption = "Name (A-Z)";
+        else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
+            sortOption = "Last updated";
+        prepareAndShowSnackBar(getView(),null,null,sortOption);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    public abstract String getAggregateCondition(boolean b);
 
 }

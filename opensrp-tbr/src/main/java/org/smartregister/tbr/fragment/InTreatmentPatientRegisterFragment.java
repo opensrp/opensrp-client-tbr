@@ -39,4 +39,10 @@ public class InTreatmentPatientRegisterFragment extends BaseRegisterFragment {
                 tableName + "." + SMR_NEXT_VISIT_DATE};
     }
 
+    @Override
+    public String getAggregateCondition(boolean isEmpty) {
+        if(!isEmpty)
+            return " GROUP BY Type HAVING MAX(updated_at)";
+        else return "";
+    }
 }

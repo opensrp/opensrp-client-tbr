@@ -1,11 +1,14 @@
 package org.smartregister.tbr.util;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -39,6 +42,11 @@ public class Utils {
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+
+    }
+
+    public static void showToastShort(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -83,6 +91,32 @@ public class Utils {
     public static String getLanguage() {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
+    }
+
+    public static void showDialogMessage(Context context, String title, String message) {
+        final AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        Dialog dialog;
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert);
+
+        dialog = builder.create();
+        dialog.show();
     }
 
     public static void setLocale(Locale locale) {
@@ -174,6 +208,19 @@ public class Utils {
         start = start.withDayOfMonth(1);
         end = end.withDayOfMonth(1);
         return abs(Months.monthsBetween(start, end).getMonths()) + 1;
+    }
+
+    public static String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
     }
 
     public static String getTimeAgo(String date) {

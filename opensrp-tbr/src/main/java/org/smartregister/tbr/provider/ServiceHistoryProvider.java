@@ -14,6 +14,9 @@ import org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static org.smartregister.tbr.helper.view.RenderServiceHistoryCardHelper.UNION_FLAG_CONCAT_SEPARATOR;
 
 /**
@@ -42,7 +45,20 @@ public class ServiceHistoryProvider extends ContentProvider {
                 "SELECT " + getDiagnosisFormProjection() + " FROM " + RenderServiceHistoryCardHelper.ECClientRepository.TABLE_NAME + selection + " AND diagnosis_date IS NOT NULL AND diagnosis_date != ''"};
         String sql = builder.buildUnionQuery(subQueries, sortOrder, null);
 
-        return TbrApplication.getInstance().getResultDetailsRepository().getReadableDatabase().rawQuery(sql, null);
+//        return TbrApplication.getInstance().getResultDetailsRepository().getReadableDatabase().rawQuery(sql, null);
+        Cursor c = TbrApplication.getInstance().getResultDetailsRepository().getReadableDatabase().rawQuery(sql, null);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+        if(c.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for (int i = 0; i < c.getColumnCount(); i++) {
+                    map.put(c.getColumnName(i), c.getString(i));
+                }
+
+                maplist.add(map);
+            } while (c.moveToNext());
+        }
+        return c;
 
     }
 

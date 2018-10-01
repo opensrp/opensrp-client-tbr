@@ -13,16 +13,22 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.HomeActivity;
+import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
+import org.smartregister.tbr.activity.PositivePatientDetailActivity;
 import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
+import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
 import org.smartregister.tbr.event.SyncEvent;
@@ -177,6 +183,41 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
 
     public void showResultMenu(View view) {
+        PopupMenu popup = initializePopup(view);
+        popup.show();
+    }
+
+    public void showResultMenu(View view, BasePatientDetailActivity activity){
+        // todo generalize it
+        String string = "";
+        if(activity instanceof PresumptivePatientDetailActivity)
+            string = "presumptive";
+        else if(activity instanceof PositivePatientDetailActivity)
+            string = "positive";
+        else if(activity instanceof InTreatmentPatientDetailActivity)
+            string = "intreatment";
+        String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.TEST_RESULTS);
+        ViewConfiguration testResultsConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+        if(testResultsConfig != null){
+            TestResultsConfiguration trc = (TestResultsConfiguration) testResultsConfig.getMetadata();
+            LinkedTreeMap map = (LinkedTreeMap) trc.getResultsConfig();
+            LinkedTreeMap map1 = (LinkedTreeMap) map.get(string);
+            PopupMenu popup = initializePopup(view);
+            for(int i=1; i < popup.getMenu().size(); i++){
+                try {
+                    if (!(boolean) map1.get(popup.getMenu().getItem(i).getTitle().toString()))
+                        popup.getMenu().getItem(i).setVisible(false);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            popup.show();
+        }
+        else
+            showResultMenu(view);
+    }
+
+    private PopupMenu initializePopup(View view){
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.menu_register_result);
         popup.setOnMenuItemClickListener(resultMenuListener);
@@ -185,7 +226,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
         SpannableString s = new SpannableString(name);
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(s);
-        popup.show();
+        return popup;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -229,7 +270,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(ENKETO_FORMS.FOLLOWUP_VISIT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFollowUpFieldOverrides().getJSONString());
                 break;
             case R.id.record_results:
-                showResultMenu(view);
+                showResultMenu(view, (BasePatientDetailActivity) getActivity());
                 break;
             case R.id.remove_patient:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.REMOVE_PATIENT, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());

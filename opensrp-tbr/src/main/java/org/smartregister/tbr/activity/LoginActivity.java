@@ -494,7 +494,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             String jsonString = Utils.getPreference(this, VIEW_CONFIGURATION_PREFIX + LOGIN, null);
             if (jsonString == null) return;
-            ViewConfiguration loginView = ConfigurableViewsLibrary.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
             if (!metadata.getShowPasswordCheckbox()) {

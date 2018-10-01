@@ -8,9 +8,13 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.helper.DBQueryHelper;
+import org.smartregister.configurableviews.model.TestResultsConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.model.RegisterCount;
+import org.smartregister.tbr.util.Constants;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -136,11 +140,25 @@ public class ResultDetailsRepository extends BaseRepository {
                 suffix = DBQueryHelper.getIntreatmentPatientRegisterCondition();
             }
 
+            String jsonString = TbrApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.TEST_RESULTS);
+            ViewConfiguration testResultsConfig = jsonString == null ? null : TbrApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            Integer days = 0;
+            if(testResultsConfig != null)
+                days = ((TestResultsConfiguration)testResultsConfig.getMetadata()).getFollowupOverduePeriod();
 
-            String query = "SELECT " +
+            String query = "";
+            if(days > 0) {
+                query = "SELECT " +
+                        "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
+                        "    sum(case when " + suffix + " and date(next_visit_date, '+" + days + " day'" + ") < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
+                        " FROM ec_patient";
+            }
+            else {
+                query = "SELECT " +
                     "    sum(case when " + suffix + " then 1 else 0 end) " + RegisterCount.REGISTER_COUNT + "," +
                     "    sum(case when " + suffix + " and next_visit_date < date('now') then 1 else 0 end) " + RegisterCount.OVERDUE_COUNT +
                     " FROM ec_patient";
+            }
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
 

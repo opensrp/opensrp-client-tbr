@@ -45,6 +45,9 @@ public class TbrClientProcessor extends ClientProcessor {
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
     public static final String CONTACT_SCREENING = "Contact Screening";
 
+    //Custom
+    public static final String[] MORE_EVENTS = {"Screening", "TB Diagnosis", "Treatment Initiation"};
+
     public TbrClientProcessor(Context context) {
         super(context);
     }
@@ -61,6 +64,7 @@ public class TbrClientProcessor extends ClientProcessor {
     public synchronized void processClient(List<JSONObject> events) throws Exception {
         String clientClassificationStr = getFileContents("ec_client_classification.json");
         String clientResultStr = getFileContents("ec_client_result.json");
+        String clientFieldsStr = getFileContents("ec_client_fields.json");
         String clientBMIStr = getFileContents("ec_client_bmi.json");
 
         if (!events.isEmpty()) {

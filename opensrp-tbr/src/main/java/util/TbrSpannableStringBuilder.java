@@ -10,7 +10,11 @@ import android.text.style.ForegroundColorSpan;
  */
 
 public class TbrSpannableStringBuilder extends SpannableStringBuilder {
+    public TbrSpannableStringBuilder(){}
 
+    public TbrSpannableStringBuilder(CharSequence text){
+        super(text);
+    }
     public SpannableStringBuilder append(CharSequence text, ForegroundColorSpan colorSpan) {
         int start = length();
         append(text);

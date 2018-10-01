@@ -2,7 +2,7 @@ package org.smartregister.tbr.model;
 
 import android.content.Context;
 
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.util.Utils;
@@ -27,7 +27,7 @@ public class Register {
     private int position;
 
     public Register(Context context, View view, RegisterCount registerCount) {
-        ViewConfiguration config = ConfigurableViewsLibrary.getJsonSpecHelper().getLanguage(Utils.getLanguage());
+        ViewConfiguration config = TbrApplication.getJsonSpecHelper().getLanguage(Utils.getLanguage());
         String label = getRegisterLabel(context, view, config);
         this.title = label != null && !label.isEmpty() ? label : context.getString(Utils.getTokenStringResourceId(context, view.getLabel()));
         this.titleToken = view.getIdentifier();

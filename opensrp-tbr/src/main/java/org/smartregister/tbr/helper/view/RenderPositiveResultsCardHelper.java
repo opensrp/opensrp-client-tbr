@@ -14,6 +14,7 @@ import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
@@ -129,11 +130,21 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
     }
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {
+        try {
         return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)) : null, true);
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+            return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? new BigDecimal(params.extra.get(TbrConstants.KEY.BASELINE)).longValue() : null, true);
+        }
     }
 
     private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
+        try {
         return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)), false);
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+            return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), new BigDecimal(params.extra.get(TbrConstants.KEY.BASELINE)).longValue(), false);
+        }
     }
 
     private TbrSpannableStringBuilder getResultPrefixBuilder(InitializeRenderParams params, TbrSpannableStringBuilder stringBuilder, Date dateTestGiven) {
