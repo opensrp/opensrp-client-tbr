@@ -1,0 +1,319 @@
+{
+  "name": "Diagnosis_22.11.17_US",
+  "title": "TB Diagnosis",
+  "sms_keyword": "tb_diagnosis",
+  "default_language": "English",
+  "instance": {
+    "encounter_type": "TB Diagnosis"
+  },
+  "version": "201801221157",
+  "id_string": "tb_diagnosis",
+  "type": "survey",
+  "children": [
+    {
+      "type": "hidden",
+      "name": "provider_uc"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_town"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_city"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_province"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_id"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "location_id",
+        "openmrs_entity": "encounter"
+      },
+      "type": "hidden",
+      "name": "provider_location_id"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_location_name"
+    },
+    {
+      "type": "note",
+      "name": "provider_location_note",
+      "label": {
+        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
+        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form start datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "start",
+      "name": "start"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form end datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "end",
+      "name": "end"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:data enty datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "today",
+      "name": "today"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:device id",
+        "openmrs_entity": "concept"
+      },
+      "type": "deviceid",
+      "name": "deviceid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:subscriber id",
+        "openmrs_entity": "concept"
+      },
+      "type": "subscriberid",
+      "name": "subscriberid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim serial number",
+        "openmrs_entity": "concept"
+      },
+      "type": "simserial",
+      "name": "simserial"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim number",
+        "openmrs_entity": "concept"
+      },
+      "type": "phonenumber",
+      "name": "phonenumber"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "encounter_date",
+        "openmrs_entity": "encounter"
+      },
+      "bind": {
+        "calculate": "${today}"
+      },
+      "type": "calculate",
+      "name": "client_reg_date",
+      "label": {
+        "Roman Urdu": "Indraj ki Tareekh",
+        "English": "Data Entry Date"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBREACH ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "English": "Maximum 20 digits and cannot contain anything other than number"
+        },
+        "required": "yes",
+        "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+      },
+      "type": "text",
+      "name": "participant_id",
+      "label": {
+        "Roman Urdu": "ID",
+        "English": "Participant ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
+      "name": "confirmed_tb",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Kya yeh TB ka mareez hai?",
+        "English": "Confirmed TB patient"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR: confirmed tb patient",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:yes"
+          },
+          "name": "yes",
+          "label": {
+            "Roman Urdu": "Haan",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:no"
+          },
+          "name": "no",
+          "label": {
+            "Roman Urdu": "Nahi",
+            "English": "No"
+          }
+        }
+      ]
+    },
+    {
+      "name": "diagnosis_type",
+      "bind": {
+        "relevant": "${confirmed_tb} = 'yes'",
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Mareez ki tashkees kis bunyab pe howi?",
+        "English": "Has the patient been diagnosed bacteriologically or clinically"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR: tb diagnosis method",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR: x-ray"
+          },
+          "name": "x_ray",
+          "label": {
+            "Roman Urdu": "X-ray",
+            "English": "X-ray"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: afb smear"
+          },
+          "name": "bacteriologically",
+          "label": {
+            "Roman Urdu": "Bacteriologically",
+            "English": "Bacteriologically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: clinical suspicion"
+          },
+          "name": "symptomatically",
+          "label": {
+            "Roman Urdu": "Symptomatically",
+            "English": "Symptomatically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: other"
+          },
+          "name": "other",
+          "label": {
+            "Roman Urdu": "Koi aur",
+            "English": "Other"
+          }
+        }
+      ]
+    },
+    {
+      "control": {
+        "bodyless": true
+      },
+      "type": "group",
+      "children": [
+        {
+          "bind": {
+            "readonly": "true()",
+            "calculate": "concat('uuid:', uuid())"
+          },
+          "type": "calculate",
+          "name": "instanceID"
+        }
+      ],
+      "name": "meta"
+    }
+  ]
+}

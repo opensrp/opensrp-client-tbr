@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/formfillDateTextView"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:text="07 Jun 2017"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/formNameTextView"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:inputType="textCapWords"
+        android:paddingLeft="0dp"
+        android:text="RECORD RESULTS"
+        android:textColor="@color/male_dark_blue"
+        android:textSize="20sp" />
+</LinearLayout>

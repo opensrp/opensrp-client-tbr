@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/result_add_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/menu_add_result" />
+    <item
+        android:id="@+id/result_gene_xpert"
+        android:title="@string/result_gene_xpert" />
+    <item
+        android:id="@+id/result_smear"
+        android:title="@string/result_smear" />
+    <item
+        android:id="@+id/result_chest_xray"
+        android:title="@string/result_chest_xray" />
+
+    <item
+        android:id="@+id/result_culture"
+        android:title="@string/result_culture" />
+</menu>

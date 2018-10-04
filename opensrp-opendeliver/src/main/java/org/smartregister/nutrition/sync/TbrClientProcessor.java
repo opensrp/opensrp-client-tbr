@@ -176,13 +176,6 @@ public class TbrClientProcessor extends ClientProcessor {
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = OpenDeliverApplication.getInstance().getResultDetailsRepository();
                 resultDetailsRepository.saveClientDetails(formSubmissionId, obs, date.getTime());
-
-                try {
-                  //  OpenDeliverApplication.getInstance().getEventClientRepository().addEvent(result.getBaseEntityId(), event);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
             }
             return true;
 

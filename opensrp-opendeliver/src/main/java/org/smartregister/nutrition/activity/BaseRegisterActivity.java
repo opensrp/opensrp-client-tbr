@@ -30,12 +30,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
+import org.smartregister.DisplayFormFragment;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
-import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.nutrition.R;
 import org.smartregister.nutrition.adapter.RegisterActivityPagerAdapter;
 import org.smartregister.nutrition.application.OpenDeliverApplication;
@@ -58,6 +58,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import util.EnketoFormUtils;
 
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.NUTRITION_CASECLOSING;
 import static util.TbrConstants.ENKETO_FORMS.NUTRITION_ENROLLMENT;
 import static util.TbrConstants.ENKETO_FORMS.NUTRITION_FOLLOWUP;
@@ -95,10 +96,18 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         toolbar = (Toolbar) findViewById(R.id.base_register_toolbar);
 
+        toolbar.findViewById(R.id.newchild).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String entityId = generateRandomUUIDString();
+                startFormActivity(NUTRITION_ENROLLMENT, entityId, null);
+            }
+        });
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.round_white_background);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getIntent().getStringExtra(TOOLBAR_TITLE));
 
@@ -106,7 +115,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         ButterKnife.bind(this);
         formNames = this.buildFormNameList();
-
         Fragment mBaseFragment = getRegisterFragment();
         Fragment profileF = initProfileFragment();
 
@@ -188,7 +196,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                     }
                 });
                 dialog.show();
-               return true;
+                return true;
             case R.id.advancedSearch:
                 Intent i = new Intent(this, AdvancedSearchActivity.class);
                 startActivity(i);
@@ -303,13 +311,13 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void showProgressDialog() {
-        progressDialog = new ProgressDialog(this);
+    /*    progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(R.string.saving_dialog_title));
         progressDialog.setMessage(getString(R.string.please_wait_message));
         if (!isFinishing())
             progressDialog.show();
-    }
+   */ }
 
     public void hideProgressDialog() {
         if (progressDialog != null) {
@@ -324,6 +332,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void displayProfileFragment(int index){
+        toolbar.setVisibility(View.GONE);
+
         mPagerAdapter.showOtherFragment(index);
     }
 
@@ -370,14 +380,16 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mPagerAdapter.showBaseFragment();
-
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
+                    displayFormFragment.hideTranslucentProgressDialog();
+                    displayFormFragment.hideTranslucentProgressDialog();
+
                     displayFormFragment.setFormData(null);
                     displayFormFragment.setRecordId(null);
                 }
+                mPagerAdapter.showBaseFragment();
 
                 toolbar.setVisibility(View.VISIBLE);
             }
@@ -406,7 +418,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onBackPressed() {
-        if (currentPage != 0) {
+        if (mPagerAdapter.isFormFragment(currentPage)) {
             new AlertDialog.Builder(this, R.style.TbrAlertDialog)
                     .setMessage(R.string.form_back_confirm_dialog_message)
                     .setTitle(R.string.form_back_confirm_dialog_title)
@@ -424,7 +436,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                                 }
                             })
                     .show();
-        } else {
+        }
+        else if (!mPagerAdapter.isBaseFragment(currentPage)){
+            switchToBaseFragment();
+        }
+        else {
             super.onBackPressed(); // allow back key only if we are
         }
     }
@@ -500,7 +516,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-         sortOption = (String)parent.getItemAtPosition(pos);
+        sortOption = (String)parent.getItemAtPosition(pos);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

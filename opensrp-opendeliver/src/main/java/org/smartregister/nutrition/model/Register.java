@@ -25,7 +25,7 @@ public class Register {
 
     private String title;
     private String titleToken;
-    private int totalPatients;
+    private Integer totalPatients;
     private int totalPatientsWithDueOverdue;
     private int position;
     private String digest;
@@ -69,7 +69,7 @@ public class Register {
         this.title = title;
     }
 
-    public int getTotalPatients() {
+    public Integer getTotalPatients() {
         return totalPatients;
     }
 
@@ -93,8 +93,9 @@ public class Register {
         this.position = position;
     }
 
-    public void setDigest(String digest){
+    public Register setDigest(String digest){
         this.digest = digest;
+        return this;
     }
 
     public String getDigest(){

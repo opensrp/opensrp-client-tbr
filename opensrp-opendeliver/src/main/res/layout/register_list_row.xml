@@ -14,8 +14,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp">
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/patient_name"

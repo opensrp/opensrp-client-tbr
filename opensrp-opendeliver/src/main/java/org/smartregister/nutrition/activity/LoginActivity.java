@@ -70,6 +70,7 @@ import org.smartregister.view.ProgressIndicator;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -348,31 +349,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void tryGetLocation(final Listener<Response<String>> afterGet) {
-        LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
-            @Override
-            public void setVisible() {
-            }
-
-            @Override
-            public void setInvisible() {
-                logInfo("Successfully get location");
-            }
-        });
-
-        task.doActionInBackground(new BackgroundAction<Response<String>>() {
-            @Override
-            public Response<String> actionToDoInBackgroundThread() {
-                return getOpenSRPContext().userService().getLocationInformation();
-            }
-
-            @Override
-            public void postExecuteInUIThread(Response<String> result) {
-                afterGet.onEvent(result);
-            }
-        });
-    }
-
     private void tryRemoteLogin(final String userName, final String password, final Listener<LoginResponse> afterLoginCheck) {
         if (remoteLoginTask != null && !remoteLoginTask.isCancelled()) {
             remoteLoginTask.cancel(true);
@@ -406,12 +382,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void remoteLoginWith(String userName, String password, LoginResponseData userInfo) {
         getOpenSRPContext().userService().remoteLogin(userName, password, userInfo);
-
-        if(OpenDeliverApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJsonCount() == 0){
-            Intent intent = new Intent(getApplicationContext(), PullConfigurableViewsIntentService.class);
-            getApplicationContext().startService(intent);
-        }
-
         goToHome(true);
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
@@ -433,7 +403,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getBuildDate() throws PackageManager.NameNotFoundException, IOException {
-        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new java.util.Date(BuildConfig.TIMESTAMP));
+        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
     }
 
     public static void setLanguage() {
@@ -532,7 +502,7 @@ public class LoginActivity extends AppCompatActivity {
             if (jsonString == null) return;
             ViewConfiguration loginView = OpenDeliverApplication.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
-            Background background = metadata.getBackground();
+            LoginConfiguration.Background background = metadata.getBackground();
             if (!metadata.getShowPasswordCheckbox()) {
                 showPasswordCheckBox.setVisibility(View.GONE);
             } else {

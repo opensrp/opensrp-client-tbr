@@ -1,0 +1,45 @@
+<model>
+    <instance>
+        <XrayForm_03.10.17_US xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="X-Ray Result"
+            id="xray_result_form" version="201801230939">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
+            <xray_taken />
+            <test_information>
+                <test_date openmrs_entity="concept"
+                    openmrs_entity_id="TBR:sample collection date" />
+                <test_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
+                <result_date openmrs_entity="concept" openmrs_entity_id="TBR: test result date" />
+                <xray_result openmrs_entity="concept" openmrs_entity_id="TBR: x-ray result" />
+                <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
+            </test_information>
+            <meta>
+                <instanceID />
+            </meta>
+        </XrayForm_03.10.17_US>
+    </instance>
+</model>

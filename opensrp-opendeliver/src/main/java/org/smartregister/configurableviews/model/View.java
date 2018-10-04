@@ -84,6 +84,13 @@ public class View {
         return metadata;
     }
 
+    public Object getMetadataObject(String key){
+        if (metadata != null){
+           return metadata.get(key);
+        }
+        return null;
+    }
+
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
     }

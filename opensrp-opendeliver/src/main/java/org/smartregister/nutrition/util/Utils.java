@@ -23,6 +23,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.nutrition.application.OpenDeliverApplication;
 import org.smartregister.nutrition.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -53,11 +54,17 @@ public class Utils {
     }
 
     public static String getValueFromObs(JSONArray obj, String key){
-        String value = null;
+        String value = "";
         for(int i=0; i<obj.length(); i++){
             try {
                 if(obj.getJSONObject(i).has("formSubmissionField") && obj.getJSONObject(i).getString("formSubmissionField").equalsIgnoreCase(key)){
-                    value = (String) obj.getJSONObject(i).getJSONArray("values").get(0);
+                    try {
+                        value = (String) obj.getJSONObject(i).getJSONArray("humanReadableValues").get(0);
+                    }
+                    catch (Exception e){
+                        value = (String) obj.getJSONObject(i).getJSONArray("values").get(0);
+                    }
+
                     return value;
                 }
             } catch (JSONException e) {
@@ -65,7 +72,7 @@ public class Utils {
                 return null;
             }
         }
-        return null;
+        return "";
     }
 
     public static String getValueFromObs(JSONArray obj, String... key){

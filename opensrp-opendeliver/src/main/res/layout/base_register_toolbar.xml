@@ -21,6 +21,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/separator" />
 
+        <TextView
+            android:id="@+id/newchild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:text="New" />
+
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

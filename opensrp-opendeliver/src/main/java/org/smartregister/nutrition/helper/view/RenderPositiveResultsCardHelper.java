@@ -131,7 +131,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
     private Map<String, Result> getLatestResults(InitializeRenderParams params) {
         try {
-            return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)) : null, true);
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)) : null, true);
         }catch(NumberFormatException e){
             e.printStackTrace();
             return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), params.isIntreatment ? new BigDecimal(params.extra.get(TbrConstants.KEY.BASELINE)).longValue() : null, true);
@@ -140,7 +140,7 @@ public class RenderPositiveResultsCardHelper extends BaseRenderHelper {
 
     private Map<String, Result> getBaselineTestResults(InitializeRenderParams params) {
         try {
-            return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)), false);
+        return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), Long.valueOf(params.extra.get(TbrConstants.KEY.BASELINE)), false);
         }catch(NumberFormatException e){
             e.printStackTrace();
             return ((ResultsRepository) repository).getLatestResultsAll(params.view.getTag(R.id.BASE_ENTITY_ID).toString(), new BigDecimal(params.extra.get(TbrConstants.KEY.BASELINE)).longValue(), false);

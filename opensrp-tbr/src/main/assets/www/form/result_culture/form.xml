@@ -1,0 +1,217 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="culture_result_form"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Culture Result Form</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_uc "></span> ; Center
+            ka naam: <span class="or-output"
+                data-value=" /CultureForm_03.10.17_US/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_uc "></span> ; Center
+            Name: <span class="or-output"
+                data-value=" /CultureForm_03.10.17_US/provider_location_name "></span>
+        </span>
+        <input name="/CultureForm_03.10.17_US/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/participant_id:label"
+            lang="Roman Urdu">Participant ID
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/participant_id:label"
+            lang="en">Participant ID
+        </span>
+        <span class="required">*</span>
+        <input name="/CultureForm_03.10.17_US/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+            readonly="readonly" required="required" type="text" />
+        <span class="or-constraint-msg " data-itext-id="/CultureForm_03.10.17_US/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg active" data-itext-id="/CultureForm_03.10.17_US/participant_id:jr:constraintMsg"
+            lang="en">Maximum 20
+            digits and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/program_id_note:label"
+            lang="en">Program ID: <span
+            class="or-output" data-value=" /CultureForm_03.10.17_US/program_id "></span>
+        </span>
+        <input name="/CultureForm_03.10.17_US/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/pt_name_note:label"
+            lang="Roman Urdu">Mareez ka naam:
+            <span class="or-output" data-value=" /CultureForm_03.10.17_US/first_name "></span>
+            <span class="or-output" data-value=" /CultureForm_03.10.17_US/last_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/pt_name_note:label"
+            lang="en">Patient Name:
+            <span class="or-output" data-value=" /CultureForm_03.10.17_US/first_name "></span>
+            <span class="or-output" data-value=" /CultureForm_03.10.17_US/last_name "></span>
+        </span>
+        <input name="/CultureForm_03.10.17_US/pt_name_note" data-type-xml="string" readonly="readonly"
+            type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/sample_id:label"
+            lang="Roman Urdu">Sample ID
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/sample_id:label"
+            lang="en">Sample ID
+        </span>
+        <span class="required">*</span>
+        <input name="/CultureForm_03.10.17_US/sample_id" data-type-xml="string" required="required"
+            type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/test_date:label"
+            lang="Roman Urdu">Test ki tareeq
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/test_date:label"
+            lang="en">Date of Test?
+        </span>
+        <span class="required">*</span>
+        <input name="/CultureForm_03.10.17_US/test_date" data-type-xml="date" required="required"
+            type="date" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/result_date:label"
+            lang="Roman Urdu">Result ki tareeq
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/result_date:label"
+            lang="en">Date of Result?
+        </span>
+        <span class="required">*</span>
+        <input name="/CultureForm_03.10.17_US/result_date" data-type-xml="date" required="required"
+            type="date" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/culture_result:label"
+                    lang="Roman Urdu">Test ka nateeja
+                </span>
+                <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/culture_result:label"
+                    lang="en">Culture Result
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/CultureForm_03.10.17_US/culture_result" data-name="/CultureForm_03.10.17_US/culture_result"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="positive" />
+                    <span class="option-label " data-itext-id="/CultureForm_03.10.17_US/culture_result/positive:label"
+                        lang="Roman Urdu">
+                        Positive
+                    </span>
+                    <span class="option-label active" data-itext-id="/CultureForm_03.10.17_US/culture_result/positive:label"
+                        lang="en">
+                        Positive
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/CultureForm_03.10.17_US/culture_result" data-name="/CultureForm_03.10.17_US/culture_result"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="negative" />
+                    <span class="option-label " data-itext-id="/CultureForm_03.10.17_US/culture_result/negative:label"
+                        lang="Roman Urdu">
+                        Negative
+                    </span>
+                    <span class="option-label active" data-itext-id="/CultureForm_03.10.17_US/culture_result/negative:label"
+                        lang="en">
+                        Negative
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <label class="question non-select or-appearance-multiline ">
+        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/comments:label"
+            lang="Roman Urdu">Tabsarah
+        </span>
+        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/comments:label"
+            lang="en">Comments
+        </span>
+        <textarea name="/CultureForm_03.10.17_US/comments" data-type-xml="string"></textarea>
+    </label>
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/deviceid" data-preload="property" data-preload-params="deviceid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/simserial" data-preload="property" data-preload-params="simserial"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/phonenumber" data-preload="property" data-preload-params="phonenumber"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/client_reg_date" data-calculate=" /CultureForm_03.10.17_US/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/CultureForm_03.10.17_US/formhub/uuid" data-calculate="'abfc57bffbe34ea8a0ba29cbe96a6f0b'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>

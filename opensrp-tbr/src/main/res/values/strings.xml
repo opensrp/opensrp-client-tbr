@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">OpenSRP TB</string>
+    <string name="action_settings">Settings</string>
+    <string name="unauthorized">Please check the credentials</string>
+    <string name="unauthorized_group">Your user group is not allowed to access this device</string>
+    <string name="unknown_response">login failed. Try later</string>
+    <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
+    <string name="show_password">Show Password</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_language">Language</string>
+    <string name="app_title">TB REACH</string>
+    <string name="action_add_patient">Add New Patient</string>
+    <string name="action_advanced_search">Advanced Search</string>
+    <string name="action_sort_list">Sort List</string>
+    <string name="action_filter_list">Filter List</string>
+    <string name="str_search_hint">Search name or ID</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="no_record">No Record(s) Found!</string>
+    <string name="diagnose">Diagnose</string>
+    <string name="claim">Claim</string>
+    <string name="already_exists">Client already exists</string>
+    <string name="results">Results</string>
+    <string name="result">+ Result</string>
+    <string name="patient_profile">Patient</string>
+    <string name="tbreach">TB REACH</string>
+    <string name="alphabetical_sort">Alphabetical (Name)</string>
+    <string name="patient_name">Name</string>
+    <string name="participant_id">Participant ID</string>
+    <string name="mobile_phone_number">Mobile Phone Number</string>
+    <string name="saving_dialog_title">Saving…</string>
+    <string name="please_wait_message">Please wait</string>
+    <string name="menu_add_result">Add Result for </string>
+    <string name="result_gene_xpert">Gene Xpert (Xpe)</string>
+    <string name="result_smear">Smear (Smr)</string>
+    <string name="result_chest_xray">Chest X&#8211;ray (CXR)</string>
+    <string name="result_culture">Culture (Cul)</string>
+    <string name="select_language">Select Language</string>
+    <string name="encounter">Encounter</string>
+    <string name="xpert_result">Xpe Results</string>
+    <string name="first_encounter">First Encounter:</string>
+    <string name="tb_diagnosis_form">TB Diagnosis Form</string>
+    <string name="add_result_for">Add Result for </string>
+    <string name="remove_patient">remove patient</string>
+    <string name="treat">Treat</string>
+    <string name="start_treatment">Start Treatment</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="positive_results">Positive Results</string>
+    <string name="record_results">RECORD RESULTS</string>
+    <string name="in_treatment_patients">In&#8211;treatment Patients</string>
+    <string name="treatment_initiation_form">Treatment Initiation Form</string>
+    <string name="followup">Followup</string>
+    <string name="treatment">Treatment</string>
+    <string name="baseLine">Baseline</string>
+    <string name="contact_screening">Contact Screening</string>
+    <string name="contact">Contact</string>
+    <string name="contacts">Contacts</string>
+    <string name="add_contact">ADD CONTACT</string>
+    <string name="url_separator">/</string>
+    <string name="clients_key">clients</string>
+    <string name="events_key">events</string>
+    <string name="record_outcome">RECORD OUTCOME</string>
+    <string name="latest">Latest</string>
+    <string name="bmi">BMI</string>
+    <string name="positive_patients">Positive Patients</string>
+    <string name="presumptive_patients">Presumptive Patients</string>
+    <string name="treatment_start">Treatment Start</string>
+    <string name="smr_results">Smr Results</string>
+    <string name="smr_result">Smr Result</string>
+    <string name="Weight">Weight</string>
+    <string name="negative_screened_contact">Negative Screened Contact</string>
+    <string name="index">Index</string>
+
+    <!--Filters-->
+    <string name="smear_filter">Smear</string>
+    <string name="xpert_filter">Xpert</string>
+    <string name="rif_filter">RIF Resistant</string>
+    <string name="culture_filter">Culture</string>
+    <string name="xray_filter">Xray</string>
+
+    <!--FIlter Results-->
+    <string name="smear_filter_result">+ve</string>
+    <string name="xpert__filter_result">+ve</string>
+    <string name="rif_filter_result">+ve</string>
+    <string name="culture_filter_result">+ve</string>
+    <string name="xray_filter_result">indicative</string>
+
+    <string name="sort_by_name">Name (A-Z)</string>
+    <string name="last_updated">Last updated</string>
+
+    <!-- Gender strings-->
+    <string name="gender_Select_hint">Select Gender</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <!-- Age Group strings -->
+    <string name="age_group_select_hint">Select Age Group</string>
+    <string name="age_group_0to15">0to15</string>
+    <string name="age_group_16to30">16to30</string>
+    <string name="age_group_31to45">31to45</string>
+    <string name="age_group_46to60">46to60</string>
+    <string name="age_group_61to75">61to75</string>
+    <string name="age_group_76plus">76+</string>
+
+    <string-array name="sort_options">
+        <item>@string/sort_by_name</item>
+        <item>@string/last_updated</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>@string/gender_Select_hint</item>
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
+    </string-array>
+
+    <string-array name="age_group">
+        <item>@string/age_group_select_hint</item>
+        <item>@string/age_group_0to15</item>
+        <item>@string/age_group_16to30</item>
+        <item>@string/age_group_31to45</item>
+        <item>@string/age_group_46to60</item>
+        <item>@string/age_group_61to75</item>
+        <item>@string/age_group_76plus</item>
+    </string-array>
+</resources>

@@ -1,0 +1,4086 @@
+{
+  "name": "AddPositivePt_11.01.18",
+  "title": "Add Positive Patient",
+  "sms_keyword": "positive_pt",
+  "default_language": "English",
+  "choices": {
+    "provinces": [
+      {
+        "name": "kpk",
+        "label": {
+          "Roman Urdu": "Khyber Pakhtunkhwa",
+          "English": "Khyber Pakhtunkhwa"
+        }
+      },
+      {
+        "name": "sindh",
+        "label": {
+          "Roman Urdu": "Sindh",
+          "English": "Sindh"
+        }
+      },
+      {
+        "name": "balochistan",
+        "label": {
+          "Roman Urdu": "Balochistan",
+          "English": "Balochistan"
+        }
+      },
+      {
+        "name": "punjab",
+        "label": {
+          "Roman Urdu": "Punjab",
+          "English": "Punjab"
+        }
+      },
+      {
+        "name": "gilgit_baltistan",
+        "label": {
+          "Roman Urdu": "Gilgit Baltistan",
+          "English": "Gilgit Baltistan"
+        }
+      },
+      {
+        "name": "kashmir",
+        "label": {
+          "Roman Urdu": "Kashmir",
+          "English": "Kashmir"
+        }
+      },
+      {
+        "name": "fata",
+        "label": {
+          "Roman Urdu": "FATA",
+          "English": "FATA"
+        }
+      },
+      {
+        "name": "out_of_country",
+        "label": {
+          "Roman Urdu": "Mulk se baahir",
+          "English": "Out of Country"
+        }
+      }
+    ],
+    "eptb_site": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: pleural eptb"
+        },
+        "label": {
+          "Roman Urdu": "Pleural Effusion",
+          "English": "Pleural Effusion"
+        },
+        "openmrs_concept_name": "Tuberculous pleural effusion",
+        "name": "pleura"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: spinal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Spine",
+          "English": "Spine"
+        },
+        "openmrs_concept_name": "Tuberculosis of spinal cord",
+        "name": "spine"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: lymphadenitis eptb"
+        },
+        "label": {
+          "Roman Urdu": "Lymph Node",
+          "English": "Lymph Node"
+        },
+        "openmrs_concept_name": "Cervical Tuberculous Lymphadenitis",
+        "name": "lymph"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: abdominal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Abdomen",
+          "English": "Abdomen"
+        },
+        "openmrs_concept_name": "Abdominal tuberculosis",
+        "name": "abdomen"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: cns eptb"
+        },
+        "label": {
+          "Roman Urdu": "CNS (includes meningeal, brain)",
+          "English": "CNS (includes meningeal, brain)"
+        },
+        "openmrs_concept_name": "Tuberculosis of Central Nervous System",
+        "name": "cns"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: renal eptb"
+        },
+        "label": {
+          "Roman Urdu": "Renal",
+          "English": "Renal"
+        },
+        "openmrs_concept_name": "Tuberculosis of Kidney",
+        "name": "renal"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: bone eptb"
+        },
+        "label": {
+          "Roman Urdu": "Bones",
+          "English": "Bones"
+        },
+        "openmrs_concept_name": "Bone Tuberculosis",
+        "name": "bones"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: genitourinary eptb"
+        },
+        "label": {
+          "Roman Urdu": "Genitourinary",
+          "English": "Genitourinary"
+        },
+        "openmrs_concept_name": "Genitourinary Tuberculosis",
+        "name": "genitourinary"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
+    "treatment_outcomes": [
+      {
+        "instance": {
+          "openmrs_code": "TBR:cured"
+        },
+        "label": {
+          "Roman Urdu": "Sehatyaab",
+          "English": "Cured"
+        },
+        "openmrs_concept_name": "Cure, outcome",
+        "name": "cured"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:defaulted"
+        },
+        "label": {
+          "Roman Urdu": "pehley se the shuda",
+          "English": "Defaulted"
+        },
+        "openmrs_concept_name": "DEFAULTED",
+        "name": "defaulted"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:treatment complete"
+        },
+        "label": {
+          "Roman Urdu": "Ilaaj mukammal ho gaya hay",
+          "English": "Treatment Completed"
+        },
+        "openmrs_concept_name": "Treatment Complete",
+        "name": "treatment_completed"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:transferred out"
+        },
+        "label": {
+          "Roman Urdu": "ilaaj ke liye koi aur jagah ruju kiya",
+          "English": "Transferred out"
+        },
+        "openmrs_concept_name": "Patient transferred out",
+        "name": "transferred_out"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:under treatment"
+        },
+        "label": {
+          "Roman Urdu": "Zer-e-ilaj hain",
+          "English": "Still on treatment"
+        },
+        "openmrs_concept_name": "STILL ON TREATMENT",
+        "name": "still_on_treatment"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:regimen failure"
+        },
+        "label": {
+          "Roman Urdu": "ilaaj nakaam raha",
+          "English": "Regimen Failure"
+        },
+        "openmrs_concept_name": "Regimen Failure",
+        "name": "regimen_failure"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:other"
+        },
+        "label": {
+          "Roman Urdu": "Koi aur",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "other",
+        "name": "other"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:unknown"
+        },
+        "label": {
+          "Roman Urdu": "Pata nahi",
+          "English": "Unknown"
+        },
+        "openmrs_concept_name": "unknown",
+        "name": "unknown"
+      }
+    ],
+    "gender": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: male"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;",
+        "name": "male",
+        "openmrs_concept_name": "male gender",
+        "label": {
+          "Roman Urdu": "Mard/larka",
+          "English": "Male"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: female"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;",
+        "name": "female",
+        "openmrs_concept_name": "female gender",
+        "label": {
+          "Roman Urdu": "Aurat/larki",
+          "English": "Female"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: third gender"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' third gender' name, ' third gender' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' third gender' ) LIMIT 1;",
+        "name": "transgender",
+        "openmrs_concept_name": "third gender",
+        "label": {
+          "Roman Urdu": "Khwaja sira",
+          "English": "Transgender"
+        }
+      }
+    ],
+    "patient_type": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: new diagnosis"
+        },
+        "label": {
+          "Roman Urdu": "New Case",
+          "English": "New Case"
+        },
+        "openmrs_concept_name": "New Diagnosis of Tuberculosis",
+        "name": "new"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: relapse"
+        },
+        "label": {
+          "Roman Urdu": "Relapse",
+          "English": "Relapse"
+        },
+        "openmrs_concept_name": "Relapse",
+        "name": "relapse"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: transfer in"
+        },
+        "label": {
+          "Roman Urdu": "Transfer In",
+          "English": "Transfer In"
+        },
+        "openmrs_concept_name": "Transfer In, tuberculosis patient",
+        "name": "transfer _in"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: return after lost to followup"
+        },
+        "label": {
+          "Roman Urdu": "Treatment After Loss to Follow-up",
+          "English": "Treatment After Loss to Follow-up"
+        },
+        "openmrs_concept_name": "Returned After Loss to Follow-up",
+        "name": "after_ltfu"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: regimen failure"
+        },
+        "label": {
+          "Roman Urdu": "Treatment After Failure",
+          "English": "Treatment After Failure"
+        },
+        "openmrs_concept_name": "Tuberculosis Treatment Failure",
+        "name": "after_failure"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Other",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "Other non-coded",
+        "name": "other"
+      }
+    ],
+    "hiv_results": [
+      {
+        "instance": {
+          "openmrs_code": "TBR:positive"
+        },
+        "label": {
+          "Roman Urdu": "Negative",
+          "English": "HIV Negative"
+        },
+        "openmrs_concept_name": "Negative",
+        "name": "negative"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:negative"
+        },
+        "label": {
+          "Roman Urdu": "Positive",
+          "English": "HIV Positive"
+        },
+        "openmrs_concept_name": "Positive",
+        "name": "positive"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:indeterminate"
+        },
+        "label": {
+          "Roman Urdu": "Indeterminate",
+          "English": "Indeterminate"
+        },
+        "openmrs_concept_name": "Indeterminate",
+        "name": "indeterminate"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:unknown"
+        },
+        "label": {
+          "Roman Urdu": "Pata Nahi",
+          "English": "Don't Know"
+        },
+        "openmrs_concept_name": "unknown",
+        "name": "dont_know"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:refused"
+        },
+        "label": {
+          "Roman Urdu": "Jawab deney se inkaar",
+          "English": "Refuse"
+        },
+        "openmrs_concept_name": "Refused",
+        "name": "refuse"
+      }
+    ],
+    "disease_site": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: ptb"
+        },
+        "name": "ptb",
+        "label": {
+          "Roman Urdu": "PTB",
+          "English": "Pulmonary"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: eptb"
+        },
+        "label": {
+          "Roman Urdu": "EP TB",
+          "English": "Extra Pulmonary"
+        },
+        "openmrs_concept_name": "mycobacterium tuberculosis, extrapulmonary",
+        "name": "eptb"
+      }
+    ],
+    "diagnosis": [
+      {
+        "instance": {
+          "openmrs_code": "TBR: x-ray"
+        },
+        "label": {
+          "Roman Urdu": "X-ray",
+          "English": "X-ray"
+        },
+        "openmrs_concept_name": "x-ray, chest",
+        "name": "x_ray"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: afb smear"
+        },
+        "label": {
+          "Roman Urdu": "Bacteriologically",
+          "English": "Bacteriologically"
+        },
+        "openmrs_concept_name": "SPUTUM FOR ACID FAST BACILLI",
+        "name": "bacteriologically"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: clinical suspicion"
+        },
+        "label": {
+          "Roman Urdu": "Symptomatically",
+          "English": "Symptomatically"
+        },
+        "openmrs_concept_name": "CLINICAL SUSPICION",
+        "name": "symptomatically"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: unknown"
+        },
+        "label": {
+          "Roman Urdu": "Pata Nahi",
+          "English": "Don't Know"
+        },
+        "openmrs_concept_name": "Unknown",
+        "name": "dont_know"
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR: other"
+        },
+        "label": {
+          "Roman Urdu": "Koi aur",
+          "English": "Other"
+        },
+        "openmrs_concept_name": "other",
+        "name": "other"
+      }
+    ],
+    "ucs": [
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Madeji",
+          "English": "Madeji"
+        },
+        "name": "madeji",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Mirzapur",
+          "English": "Mirzapur"
+        },
+        "name": "mirzapur",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Bambihar",
+          "English": "Bambihar"
+        },
+        "name": "bambihar",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Gaheja",
+          "English": "Gaheja"
+        },
+        "name": "gaheja",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Panah Udho",
+          "English": "Panah Udho"
+        },
+        "name": "panah_udho",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Nausharo Abro",
+          "English": "Nausharo Abro"
+        },
+        "name": "nausharo_abro",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Garhi Yasin UC",
+          "English": "Garhi Yasin UC"
+        },
+        "name": "garhi_yasin_uc",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Chato Mangi",
+          "English": "Chato Mangi"
+        },
+        "name": "chato_mangi",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Amrot",
+          "English": "Amrot"
+        },
+        "name": "amrot",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Jindo Dero",
+          "English": "Jindo Dero"
+        },
+        "name": "jindo_dero",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Waryaso",
+          "English": "Waryaso"
+        },
+        "name": "waryaso",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Dakhan",
+          "English": "Dakhan"
+        },
+        "name": "dakhan",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Nim Horo",
+          "English": "Nim Horo"
+        },
+        "name": "nim_horo",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        },
+        "name": "other_garhi_yasin",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Qaabil-e-atlaaq nahi",
+          "English": "Not Applicable"
+        },
+        "name": "na_garhi_yasin",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Thairo",
+          "English": "Thairo"
+        },
+        "name": "thairo",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Pir Bux Hujra",
+          "English": "Pir Bux Hujra"
+        },
+        "name": "pir_bux_hujra",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Gari Daakho",
+          "English": "Gari Daakho"
+        },
+        "name": "gari_daakho",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Muhammad Bagh",
+          "English": "Muhammad Bagh"
+        },
+        "name": "muhammad_bagh",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Raheemabad",
+          "English": "Raheemabad"
+        },
+        "name": "raheemabad",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Mian Sahib",
+          "English": "Mian Sahib"
+        },
+        "name": "mian_sahib",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Khanpur UC",
+          "English": "Khanpur UC"
+        },
+        "name": "khanpur_uc",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Gari Teigo",
+          "English": "Gari Telgo"
+        },
+        "name": "gari_telgo",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Zarkhai",
+          "English": "Zarkhai"
+        },
+        "name": "zarkhai",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Shabbirabad",
+          "English": "Shabbirabad"
+        },
+        "name": "shabbirabad",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        },
+        "name": "other_khanpur",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "khanpur",
+        "label": {
+          "Roman Urdu": "Qaabil-e-atlaaq nahi",
+          "English": "Not Applicable"
+        },
+        "name": "na_khanpur",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Chak",
+          "English": "Chak"
+        },
+        "name": "chak",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Mungrani",
+          "English": "Mungrani"
+        },
+        "name": "mungrani",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Rustam",
+          "English": "Rustam"
+        },
+        "name": "rustam",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Ruk",
+          "English": "Ruk"
+        },
+        "name": "ruk",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Sher Kot",
+          "English": "Sher Kot"
+        },
+        "name": "sher_kot",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Wazirabad",
+          "English": "Wazirabad"
+        },
+        "name": "wazirabad",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Lakhi UC",
+          "English": "Lakhi UC"
+        },
+        "name": "lakhi_uc",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Sehwani",
+          "English": "Sehwani"
+        },
+        "name": "sehwani",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Bhirkan",
+          "English": "Bhirkan"
+        },
+        "name": "bhirkan",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Taib",
+          "English": "Taib"
+        },
+        "name": "taib",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Abdu",
+          "English": "Abdu"
+        },
+        "name": "abdu",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        },
+        "name": "other_binqasim",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "lakhi",
+        "label": {
+          "Roman Urdu": "Qaabil-e-atlaaq nahi",
+          "English": "Not Applicable"
+        },
+        "name": "na_binqasim",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 1",
+          "English": "UC 1"
+        },
+        "name": "uc_1",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 2",
+          "English": "UC 2"
+        },
+        "name": "uc_2",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 3",
+          "English": "UC 3"
+        },
+        "name": "uc_3",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 4",
+          "English": "UC 4"
+        },
+        "name": "uc_4",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 5",
+          "English": "UC 5"
+        },
+        "name": "uc_5",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 6",
+          "English": "UC 6"
+        },
+        "name": "uc_6",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 7",
+          "English": "UC 7"
+        },
+        "name": "uc_7",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "UC 8",
+          "English": "UC 8"
+        },
+        "name": "uc_8",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Jagan",
+          "English": "Jagan"
+        },
+        "name": "jagan",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Lodra",
+          "English": "Lodra"
+        },
+        "name": "lodra",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Sultan Kot",
+          "English": "Sultan Kot"
+        },
+        "name": "sultan_kot",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Karan",
+          "English": "Karan"
+        },
+        "name": "karan",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Jahanwah",
+          "English": "Jahanwah"
+        },
+        "name": "jahanwah",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Jano",
+          "English": "Jano"
+        },
+        "name": "jano",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Humayun",
+          "English": "Humayun"
+        },
+        "name": "humayun",
+        "city": "shikarpur"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Bilal Colony",
+          "English": "Bilal Colony"
+        },
+        "name": "bilal_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Nasir Colony",
+          "English": "Nasir Colony"
+        },
+        "name": "nasir_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Chakra Goth",
+          "English": "Chakra Goth"
+        },
+        "name": "chakra_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Mustafa Taj Colony",
+          "English": "Mustafa Taj Colony"
+        },
+        "name": "mustafa_taj_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Hundred Quarters",
+          "English": "Hundred Quarters"
+        },
+        "name": "hundred_quarters",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Gulzar Colony",
+          "English": "Gulzar Colony"
+        },
+        "name": "gulzar_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Korangi Sector 33",
+          "English": "Korangi Sector 33"
+        },
+        "name": "korangi_sector_33",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Zaman Town",
+          "English": "Zaman Town"
+        },
+        "name": "zaman_town",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "korangi",
+        "label": {
+          "Roman Urdu": "Hasrat Mohani Colony",
+          "English": "Hasrat Mohani Colony"
+        },
+        "name": "hasrat_mohani_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Gulshan-e-Ghazi",
+          "English": "Gulshan-e-Ghazi"
+        },
+        "name": "gulshan_e_ghazi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Ittehad Town",
+          "English": "Ittehad Town"
+        },
+        "name": "ittehad_town",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Islam Nagar",
+          "English": "Islam Nagar"
+        },
+        "name": "islam_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Nai Abadi",
+          "English": "Nai Abadi"
+        },
+        "name": "nai_abadi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Saeedabad",
+          "English": "Saeedabad"
+        },
+        "name": "saeedabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Muslim Mujahid Colony",
+          "English": "Muslim Mujahid Colony"
+        },
+        "name": "muslim_mujahid_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Muhajir Camp",
+          "English": "Muhajir Camp"
+        },
+        "name": "muhajir_camp",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "baldia",
+        "label": {
+          "Roman Urdu": "Rasheedabad",
+          "English": "Rasheedabad"
+        },
+        "name": "rasheedabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Ibrahim Hyderi",
+          "English": "Ibrahim Hyderi"
+        },
+        "name": "ibrahim_hyderi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Rehri",
+          "English": "Rehri"
+        },
+        "name": "rehri",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Cattle Colony",
+          "English": "Cattle Colony"
+        },
+        "name": "cattle_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Qaidabad",
+          "English": "Qaidabad"
+        },
+        "name": "qaidabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Landhi Colony",
+          "English": "Landhi Colony"
+        },
+        "name": "landhi_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Gulshan-e-Hadeed",
+          "English": "Gulshan-e-Hadeed"
+        },
+        "name": "gulshan_e_hadeed",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Gaghar",
+          "English": "Gaghar"
+        },
+        "name": "gaghar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Murad Memon Goth",
+          "English": "Murad Memon Goth"
+        },
+        "name": "murad_memon_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Darsano Chana",
+          "English": "Darsano Chana"
+        },
+        "name": "darsano_chana",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Gujro",
+          "English": "Gujro"
+        },
+        "name": "gujro",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Songal",
+          "English": "Songal"
+        },
+        "name": "songal",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Maymarabad",
+          "English": "Maymarabad"
+        },
+        "name": "maymarabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Yousuf Goth",
+          "English": "Yousuf Goth"
+        },
+        "name": "yousuf_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gadap",
+        "label": {
+          "Roman Urdu": "Manghopir",
+          "English": "Manghopir"
+        },
+        "name": "manghopir",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Azizabad",
+          "English": "Azizabad"
+        },
+        "name": "azizabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Karimabad",
+          "English": "Karimabad"
+        },
+        "name": "karimabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Aisha Manzil",
+          "English": "Aisha Manzil"
+        },
+        "name": "aisha_manzil",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Ancholi",
+          "English": "Ancholi"
+        },
+        "name": "ancholi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Naseerabad",
+          "English": "Naseerabad"
+        },
+        "name": "naseerabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Yaseenabad",
+          "English": "Yaseenabad"
+        },
+        "name": "yaseenabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Water Pump",
+          "English": "Water Pump"
+        },
+        "name": "water_pump",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulberg",
+        "label": {
+          "Roman Urdu": "Shafiq Mill Colony",
+          "English": "Shafiq Mill Colony"
+        },
+        "name": "shafiq_mill_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Delhi Mercantile Society",
+          "English": "Delhi Mercantile Society"
+        },
+        "name": "delhi_mercantile_society",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Civic Centre",
+          "English": "Civic Centre"
+        },
+        "name": "civic_centre",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Pir Ilahi Buksh Colony",
+          "English": "Pir Ilahi Buksh Colony"
+        },
+        "name": "pir_ilahi_buksh_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Essa Nagri",
+          "English": "Essa Nagri"
+        },
+        "name": "essa_nagri",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Gulshan-e-Iqbal",
+          "English": "Gulshan-e-Iqbal"
+        },
+        "name": "gulshan_e_iqbal",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Gillani Railway Station",
+          "English": "Gillani Railway Station"
+        },
+        "name": "gillani_railway_station",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Shanti Nagar",
+          "English": "Shanti Nagar"
+        },
+        "name": "shanti_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Jamali Colony",
+          "English": "Jamali Colony"
+        },
+        "name": "jamali_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Gulshan-e-Iqbal II",
+          "English": "Gulshan-e-Iqbal II"
+        },
+        "name": "gulshan_e_iqbal_ii",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Pehlwan Goth",
+          "English": "Pehlwan Goth"
+        },
+        "name": "pehlwan_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Matrovil Colony",
+          "English": "Matrovil Colony"
+        },
+        "name": "matrovil_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Gulzar-e-Hijri",
+          "English": "Gulzar-e-Hijri"
+        },
+        "name": "gulzar_e_hijri",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "gulshan",
+        "label": {
+          "Roman Urdu": "Safooran Goth",
+          "English": "Safooran Goth"
+        },
+        "name": "safooran_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Akhtar Colony",
+          "English": "Akhtar Colony"
+        },
+        "name": "akhtar_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Manzoor Colony",
+          "English": "Manzoor Colony"
+        },
+        "name": "manzoor_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Azam Basti",
+          "English": "Azam Basti"
+        },
+        "name": "azam_basti",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Chanesar Goth",
+          "English": "Chanesar Goth"
+        },
+        "name": "chanesar_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Mahmudabad",
+          "English": "Mahmudabad"
+        },
+        "name": "mahmudabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "P.E.C.H.S.",
+          "English": "P.E.C.H.S."
+        },
+        "name": "pechs",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "P.E.C.H.S. II",
+          "English": "P.E.C.H.S. II"
+        },
+        "name": "pechs_ii",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Jut Line",
+          "English": "Jut Line"
+        },
+        "name": "jut_line",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Central Jacob Lines",
+          "English": "Central Jacob Lines"
+        },
+        "name": "central_jacob_lines",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Jamshed Quarters",
+          "English": "Jamshed Quarters"
+        },
+        "name": "jamshed_quarters",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Garden East",
+          "English": "Garden East"
+        },
+        "name": "garden_east",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Soldier Bazar",
+          "English": "Soldier Bazar"
+        },
+        "name": "soldier_bazar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "jamshed",
+        "label": {
+          "Roman Urdu": "Pakistan Quarters",
+          "English": "Pakistan Quarters"
+        },
+        "name": "pakistan_quarters",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Bhutta Village",
+          "English": "Bhutta Village"
+        },
+        "name": "bhutta_village",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Sultanabad",
+          "English": "Sultanabad"
+        },
+        "name": "sultanabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Kiamari UC",
+          "English": "Kiamari UC"
+        },
+        "name": "kiamari_uc",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Baba Bhit",
+          "English": "Baba Bhit"
+        },
+        "name": "baba_bhit",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Machar Colony",
+          "English": "Machar Colony"
+        },
+        "name": "machar_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Maripur",
+          "English": "Maripur"
+        },
+        "name": "maripur",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "SherShah",
+          "English": "SherShah"
+        },
+        "name": "shershah",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "kiamari",
+        "label": {
+          "Roman Urdu": "Gabo Pat",
+          "English": "Gabo Pat"
+        },
+        "name": "gabo_pat",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Muzafarabad",
+          "English": "Muzafarabad"
+        },
+        "name": "muzafarabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Muslimabad",
+          "English": "Muslimabad"
+        },
+        "name": "muslimabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Dawood Chowrangi",
+          "English": "Dawood Chowrangi"
+        },
+        "name": "dawood_chowrangi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Moinabad",
+          "English": "Moinabad"
+        },
+        "name": "moinabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Sharafi Goth",
+          "English": "Sharafi Goth"
+        },
+        "name": "sharafi_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Bhutto Nagar",
+          "English": "Bhutto Nagar"
+        },
+        "name": "bhutto_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Khawaja Ajmeer Colony",
+          "English": "Khawaja Ajmeer Colony"
+        },
+        "name": "khawaja_ajmeer_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Landhi UC",
+          "English": "Landhi UC"
+        },
+        "name": "landhi_uc",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Awami Colony",
+          "English": "Awami Colony"
+        },
+        "name": "awami_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Burmee Colony",
+          "English": "Burmee Colony"
+        },
+        "name": "burmee_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Korangi UC",
+          "English": "Korangi UC"
+        },
+        "name": "korangi_uc",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "landhi",
+        "label": {
+          "Roman Urdu": "Sherabad",
+          "English": "Sherabad"
+        },
+        "name": "sherabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Rizvia Society",
+          "English": "Rizvia Society"
+        },
+        "name": "rizvia_society",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Firdous Colony",
+          "English": "Firdous Colony"
+        },
+        "name": "firdous_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Super Market",
+          "English": "Super Market"
+        },
+        "name": "super_market",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Dak Khana",
+          "English": "Dak Khana"
+        },
+        "name": "dak_khana",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Qasimabad",
+          "English": "Qasimabad"
+        },
+        "name": "qasimabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Bandhani Colony",
+          "English": "Bandhani Colony"
+        },
+        "name": "bandhani_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Sharifabad",
+          "English": "Sharifabad"
+        },
+        "name": "sharifabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Commercial Area",
+          "English": "Commercial Area"
+        },
+        "name": "commercial_area",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Mujahid Colony",
+          "English": "Mujahid Colony"
+        },
+        "name": "mujahid_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Nazimabad",
+          "English": "Nazimabad"
+        },
+        "name": "nazimabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Abbasi Shaheed",
+          "English": "Abbasi Shaheed"
+        },
+        "name": "abbasi_shaheed",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Agra Taj Colony",
+          "English": "Agra Taj Colony"
+        },
+        "name": "agra_taj_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Daryaabad",
+          "English": "Daryaabad"
+        },
+        "name": "daryaabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Nawabad",
+          "English": "Nawabad"
+        },
+        "name": "nawabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Khada Memon Society",
+          "English": "Khada Memon Society"
+        },
+        "name": "khada_memon_society",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Baghdadi",
+          "English": "Baghdadi"
+        },
+        "name": "baghdadi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Shah Baig Line",
+          "English": "Shah Baig Line"
+        },
+        "name": "shah_baig_line",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Bihar Colony",
+          "English": "Bihar Colony"
+        },
+        "name": "bihar_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Ragiwara",
+          "English": "Ragiwara"
+        },
+        "name": "ragiwara",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Singo Line",
+          "English": "Singo Line"
+        },
+        "name": "singo_line",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Chakiwara",
+          "English": "Chakiwara"
+        },
+        "name": "chakiwara",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "lyari",
+        "label": {
+          "Roman Urdu": "Allama Iqbal Colony",
+          "English": "Allama Iqbal Colony"
+        },
+        "name": "allama_iqbal_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Model Colony",
+          "English": "Model Colony"
+        },
+        "name": "model_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Kala Board",
+          "English": "Kala Board"
+        },
+        "name": "kala_board",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Saudabad",
+          "English": "Saudabad"
+        },
+        "name": "saudabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Khokhra Par",
+          "English": "Khokhra Par"
+        },
+        "name": "khokhra_par",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Jafar-e-Tayyar",
+          "English": "Jafar-e-Tayyar"
+        },
+        "name": "jafar_e_tayyar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Gharibabad",
+          "English": "Gharibabad"
+        },
+        "name": "gharibabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "malir",
+        "label": {
+          "Roman Urdu": "Ghazi Brohi Goth",
+          "English": "Ghazi Brohi Goth"
+        },
+        "name": "ghazi_brohi_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Kalyana",
+          "English": "Kalyana"
+        },
+        "name": "kalyana",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Sir Syed Colony",
+          "English": "Sir Syed Colony"
+        },
+        "name": "sir_syed_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Fatima Jinnah Colony",
+          "English": "Fatima Jinnah Colony"
+        },
+        "name": "fatima_jinnah_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Godhra",
+          "English": "Godhra"
+        },
+        "name": "godhra",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Abu Zar Ghaffari",
+          "English": "Abu Zar Ghaffari"
+        },
+        "name": "abu_zar_ghaffari",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Hakim Ahsan",
+          "English": "Hakim Ahsan"
+        },
+        "name": "hakim_ahsan",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Madina Colony",
+          "English": "Madina Colony"
+        },
+        "name": "madina_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Faisal Colony",
+          "English": "Faisal Colony"
+        },
+        "name": "faisal_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Khamiso Goth",
+          "English": "Khamiso Goth"
+        },
+        "name": "khamiso_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Mustufa Colony",
+          "English": "Mustufa Colony"
+        },
+        "name": "mustufa_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Khawaja Ajmeer Nagri",
+          "English": "Khawaja Ajmeer Nagri"
+        },
+        "name": "khawaja_ajmeer_nagri",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Gulshan-e-Saeed",
+          "English": "Gulshan-e-Saeed"
+        },
+        "name": "gulshan_e_saeed",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "new_karachi",
+        "label": {
+          "Roman Urdu": "Shah Nawaz Bhutto Colony",
+          "English": "Shah Nawaz Bhutto Colony"
+        },
+        "name": "shah_nawaz_bhutto_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Paposh Nagar",
+          "English": "Paposh Nagar"
+        },
+        "name": "paposh_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Pahar Ganj",
+          "English": "Pahar Ganj"
+        },
+        "name": "pahar_ganj",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Khandu Goth",
+          "English": "Khandu Goth"
+        },
+        "name": "khandu_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Hyderi",
+          "English": "Hyderi"
+        },
+        "name": "hyderi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Sakhi Hassan",
+          "English": "Sakhi Hassan"
+        },
+        "name": "sakhi_hassan",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Farooq-e-Azam",
+          "English": "Farooq-e-Azam"
+        },
+        "name": "farooq_e_azam",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Nusrat Bhutto Colony",
+          "English": "Nusrat Bhutto Colony"
+        },
+        "name": "nusrat_bhutto_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Shadman Town",
+          "English": "Shadman Town"
+        },
+        "name": "shadman_town",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Buffer Zone",
+          "English": "Buffer Zone"
+        },
+        "name": "buffer_zone",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "Buffer Zone II",
+          "English": "Buffer Zone II"
+        },
+        "name": "buffer_zone_ii",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Mominabad",
+          "English": "Mominabad"
+        },
+        "name": "mominabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Haryana Colony",
+          "English": "Haryana Colony"
+        },
+        "name": "haryana_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Hanifabad",
+          "English": "Hanifabad"
+        },
+        "name": "hanifabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Mohammad Nagar",
+          "English": "Mohammad Nagar"
+        },
+        "name": "mohammad_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Madina Colony Orangi",
+          "English": "Madina Colony Orangi"
+        },
+        "name": "madina_colony_orangi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Ghaziabad",
+          "English": "Ghaziabad"
+        },
+        "name": "ghaziabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Chisti Nagar",
+          "English": "Chisti Nagar"
+        },
+        "name": "chisti_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Bilal Colony Orangi",
+          "English": "Bilal Colony Orangi"
+        },
+        "name": "bilal_colony_orangi",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Iqbal Baloch Colony",
+          "English": "Iqbal Baloch Colony"
+        },
+        "name": "iqbal_baloch_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Ghabool Town",
+          "English": "Ghabool Town"
+        },
+        "name": "ghabool_town",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Data Nagar",
+          "English": "Data Nagar"
+        },
+        "name": "data_nagar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Mujahidabad",
+          "English": "Mujahidabad"
+        },
+        "name": "mujahidabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "orangi",
+        "label": {
+          "Roman Urdu": "Baloch Goth",
+          "English": "Baloch Goth"
+        },
+        "name": "baloch_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Old Haji Camp",
+          "English": "Old Haji Camp"
+        },
+        "name": "old_haji_camp",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Garden",
+          "English": "Garden"
+        },
+        "name": "garden",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Kharadar",
+          "English": "Kharadar"
+        },
+        "name": "kharadar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "City Railway Colony",
+          "English": "City Railway Colony"
+        },
+        "name": "city_railway_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Nanak Wara",
+          "English": "Nanak Wara"
+        },
+        "name": "nanak_wara",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Gazdarabad",
+          "English": "Gazdarabad"
+        },
+        "name": "gazdarabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Millat Nagar/Islam Pura",
+          "English": "Millat Nagar/Islam Pura"
+        },
+        "name": "millat_nagar_islam_pura",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Saddar UC",
+          "English": "Saddar UC"
+        },
+        "name": "saddar_uc",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Civil Line",
+          "English": "Civil Line"
+        },
+        "name": "civil_line",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Clifton",
+          "English": "Clifton"
+        },
+        "name": "clifton",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "saddar",
+        "label": {
+          "Roman Urdu": "Kehkashan",
+          "English": "Kehkashan"
+        },
+        "name": "kehkashan",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Natha Khan Goth",
+          "English": "Natha Khan Goth"
+        },
+        "name": "natha_khan_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Pak Sadat Colony",
+          "English": "Pak Sadat Colony"
+        },
+        "name": "pak_sadat_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Drigh Colony",
+          "English": "Drigh Colony"
+        },
+        "name": "drigh_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Raita Plot",
+          "English": "Raita Plot"
+        },
+        "name": "raita_plot",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Moria Khan Goth",
+          "English": "Moria Khan Goth"
+        },
+        "name": "moria_khan_goth",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Rafa-e-Aam Society",
+          "English": "Rafa-e-Aam Society"
+        },
+        "name": "rafa_e_aam_society",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Al-Falah Society",
+          "English": "Al-Falah Society"
+        },
+        "name": "al_falah_society",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Pak Colony",
+          "English": "Pak Colony"
+        },
+        "name": "pak_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Old Golimar",
+          "English": "Old Golimar"
+        },
+        "name": "old_golimar",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Jahanabad",
+          "English": "Jahanabad"
+        },
+        "name": "jahanabad",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Metrovil",
+          "English": "Metrovil"
+        },
+        "name": "metrovil",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Bhawani Chali",
+          "English": "Bhawani Chali"
+        },
+        "name": "bhawani_chali",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Frontier Colony",
+          "English": "Frontier Colony"
+        },
+        "name": "frontier_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Banaras Colony",
+          "English": "Banaras Colony"
+        },
+        "name": "banaras_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Qasba Colony",
+          "English": "Qasba Colony"
+        },
+        "name": "qasba_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "sindh",
+        "town": "site",
+        "label": {
+          "Roman Urdu": "Islamia Colony",
+          "English": "Islamia Colony"
+        },
+        "name": "islamia_colony",
+        "city": "karachi"
+      },
+      {
+        "province": "na",
+        "town": "na",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        },
+        "name": "other",
+        "city": "na"
+      },
+      {
+        "province": "na",
+        "town": "na",
+        "label": {
+          "Roman Urdu": "Qaabil-e-atlaaq nahi",
+          "English": "Not Applicable"
+        },
+        "name": "not_applicable",
+        "city": "na"
+      }
+    ],
+    "towns": [
+      {
+        "province": "sindh",
+        "city": "shikarpur",
+        "name": "garhi_yasin",
+        "label": {
+          "Roman Urdu": "Garhi Yasin",
+          "English": "Garhi Yasin"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "shikarpur",
+        "name": "khanpur",
+        "label": {
+          "Roman Urdu": "Khanpur",
+          "English": "Khanpur"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "shikarpur",
+        "name": "lakhi",
+        "label": {
+          "Roman Urdu": "Lakhi",
+          "English": "Lakhi"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "shikarpur",
+        "name": "shikarpur_taluka",
+        "label": {
+          "Roman Urdu": "Shikarpur Taluka",
+          "English": "Shikarpur Taluka"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "korangi",
+        "label": {
+          "Roman Urdu": "Korangi",
+          "English": "Korangi"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "landhi",
+        "label": {
+          "Roman Urdu": "Landhi",
+          "English": "Landhi"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "baldia",
+        "label": {
+          "Roman Urdu": "Baldia",
+          "English": "Baldia"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "bin_qasim",
+        "label": {
+          "Roman Urdu": "Bin Qasim",
+          "English": "Bin Qasim"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "gadap",
+        "label": {
+          "Roman Urdu": "Gadap",
+          "English": "Gadap"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "gulberg",
+        "label": {
+          "Roman Urdu": "Gulberg",
+          "English": "Gulberg"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "gulshan",
+        "label": {
+          "Roman Urdu": "Gulshan",
+          "English": "Gulshan"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "jamshed",
+        "label": {
+          "Roman Urdu": "Jamshed",
+          "English": "Jamshed"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "kiamari",
+        "label": {
+          "Roman Urdu": "Kiamari",
+          "English": "Kiamari"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "liaquatabad",
+        "label": {
+          "Roman Urdu": "Liaquatabad",
+          "English": "Liaquatabad"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "lyari",
+        "label": {
+          "Roman Urdu": "Lyari",
+          "English": "Lyari"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "malir",
+        "label": {
+          "Roman Urdu": "Malir",
+          "English": "Malir"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "new_karachi",
+        "label": {
+          "Roman Urdu": "New Karachi",
+          "English": "New Karachi"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "north_nazimabad",
+        "label": {
+          "Roman Urdu": "North Nazimabad",
+          "English": "North Nazimabad"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "orangi",
+        "label": {
+          "Roman Urdu": "Orangi",
+          "English": "Orangi"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "saddar",
+        "label": {
+          "Roman Urdu": "Saddar",
+          "English": "Saddar"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "shah_faisal",
+        "label": {
+          "Roman Urdu": "Shah Faisal",
+          "English": "Shah Faisal"
+        }
+      },
+      {
+        "province": "sindh",
+        "city": "karachi",
+        "name": "site",
+        "label": {
+          "Roman Urdu": "S.I.T.E.",
+          "English": "S.I.T.E."
+        }
+      },
+      {
+        "province": "na",
+        "city": "na",
+        "name": "other",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        }
+      },
+      {
+        "province": "na",
+        "city": "na",
+        "name": "not_applicable",
+        "label": {
+          "Roman Urdu": "Qaabil-e-atlaaq nahi",
+          "English": "Not Applicable"
+        }
+      }
+    ],
+    "cities": [
+      {
+        "province": "sindh",
+        "name": "shikarpur",
+        "label": {
+          "Roman Urdu": "Shikarpur",
+          "English": "Shikarpur"
+        }
+      },
+      {
+        "province": "sindh",
+        "name": "karachi",
+        "label": {
+          "Roman Urdu": "Karachi",
+          "English": "Karachi"
+        }
+      },
+      {
+        "province": "punjab",
+        "name": "hafizabad",
+        "label": {
+          "Roman Urdu": "Hafizabad",
+          "English": "Hafizabad"
+        }
+      },
+      {
+        "province": "punjab",
+        "name": "muzaffargarh",
+        "label": {
+          "Roman Urdu": "Muzaffargarh",
+          "English": "Muzaffargarh"
+        }
+      },
+      {
+        "province": "na",
+        "name": "other",
+        "label": {
+          "Roman Urdu": "Deegar",
+          "English": "Other"
+        }
+      },
+      {
+        "province": "na",
+        "name": "not_applicable",
+        "label": {
+          "Roman Urdu": "Not Applicable",
+          "English": "Not Applicable"
+        }
+      }
+    ],
+    "yes_no": [
+      {
+        "instance": {
+          "openmrs_code": "TBR:yes"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'yes' name, 'yes' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'yes' ) LIMIT 1;",
+        "name": "yes",
+        "openmrs_concept_name": "yes",
+        "label": {
+          "Roman Urdu": "Haan",
+          "English": "Yes"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:no"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'no' name, 'no' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'no' ) LIMIT 1;",
+        "name": "no",
+        "openmrs_concept_name": "no",
+        "label": {
+          "Roman Urdu": "Nahi",
+          "English": "No"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:unknown"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'unknown' name, 'unknown' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'unknown' ) LIMIT 1;",
+        "name": "dont_know",
+        "openmrs_concept_name": "Unknown",
+        "label": {
+          "Roman Urdu": "Pata Nahi",
+          "English": "Don't Know"
+        }
+      },
+      {
+        "instance": {
+          "openmrs_code": "TBR:refused"
+        },
+        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'refused' name, 'refused' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'refused' ) LIMIT 1;",
+        "name": "refuse",
+        "openmrs_concept_name": "Refused",
+        "label": {
+          "Roman Urdu": "Jawab nahi dena",
+          "English": "Refuse"
+        }
+      }
+    ]
+  },
+  "instance": {
+    "encounter_type": "positive TB patient"
+  },
+  "version": "201801221442",
+  "id_string": "positive_pt",
+  "type": "survey",
+  "children": [
+    {
+      "type": "hidden",
+      "name": "provider_uc"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_town"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_city"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_province"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_id"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "location_id",
+        "openmrs_entity": "encounter"
+      },
+      "type": "hidden",
+      "name": "provider_location_id"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_location_name"
+    },
+    {
+      "type": "note",
+      "name": "provider_location_note",
+      "label": {
+        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
+        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form start datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "start",
+      "name": "start"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:form end datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "end",
+      "name": "end"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:data enty datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "today",
+      "name": "today"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:device id",
+        "openmrs_entity": "concept"
+      },
+      "type": "deviceid",
+      "name": "deviceid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:subscriber id",
+        "openmrs_entity": "concept"
+      },
+      "type": "subscriberid",
+      "name": "subscriberid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim serial number",
+        "openmrs_entity": "concept"
+      },
+      "type": "simserial",
+      "name": "simserial"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:sim number",
+        "openmrs_entity": "concept"
+      },
+      "type": "phonenumber",
+      "name": "phonenumber"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "encounter_date",
+        "openmrs_entity": "encounter"
+      },
+      "bind": {
+        "calculate": "${today}"
+      },
+      "type": "calculate",
+      "name": "client_reg_date",
+      "label": {
+        "Roman Urdu": "Indraj ki Tareekh",
+        "English": "Data Entry Date"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR: tb diagnosis method",
+        "openmrs_entity": "concept"
+      },
+      "label": {
+        "Roman Urdu": "Mareez ki tashkees kis bunyab pe howi?",
+        "English": "Has the patient been diagnosed bacteriologically or clinically"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR: x-ray"
+          },
+          "name": "x_ray",
+          "label": {
+            "Roman Urdu": "X-ray",
+            "English": "X-ray"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: afb smear"
+          },
+          "name": "bacteriologically",
+          "label": {
+            "Roman Urdu": "Bacteriologically",
+            "English": "Bacteriologically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: clinical suspicion"
+          },
+          "name": "symptomatically",
+          "label": {
+            "Roman Urdu": "Symptomatically",
+            "English": "Symptomatically"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: other"
+          },
+          "name": "other",
+          "label": {
+            "Roman Urdu": "Koi aur",
+            "English": "Other"
+          }
+        }
+      ],
+      "name": "diagnosis_type"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBREACH ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "English": "Maximum 20 digits and cannot contain anything other than number"
+        },
+        "required": "yes",
+        "constraint": "regex(., '[A-Z0-9]{0,20}$')"
+      },
+      "type": "text",
+      "name": "participant_id",
+      "label": {
+        "Roman Urdu": "ID",
+        "English": "Participant ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "text",
+      "name": "program_id",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "text",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity": "person"
+      },
+      "type": "text",
+      "name": "national_id",
+      "label": {
+        "Roman Urdu": "National Identification Number",
+        "English": "National Identification Number"
+      }
+    },
+    {
+      "name": "age",
+      "hint": {
+        "English": "(years)"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "English": "Must be at least a year old and less than 150 years of age"
+        },
+        "required": "yes",
+        "constraint": ". >0 and . <=150"
+      },
+      "label": {
+        "Roman Urdu": "Umar",
+        "English": "Current Age"
+      },
+      "instance": {
+        "openmrs_entity_id": "age",
+        "openmrs_entity": "person"
+      },
+      "type": "integer"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "birthdate",
+        "openmrs_entity": "person"
+      },
+      "type": "calculate",
+      "name": "birthdate",
+      "bind": {
+        "relevant": "${age}!=''",
+        "calculate": "format-date(date((${today})-(${age}*365.25)),'%Y-%m-%d' )"
+      }
+    },
+    {
+      "default": "1",
+      "instance": {
+        "openmrs_entity_id": "birthdate_estimated",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "birthdate_estimated",
+      "bind": {
+        "relevant": "${age}!=''"
+      }
+    },
+    {
+      "name": "gender",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Jins",
+        "English": "Gender"
+      },
+      "instance": {
+        "openmrs_entity_id": "gender",
+        "openmrs_entity": "person"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR: male"
+          },
+          "name": "male",
+          "label": {
+            "Roman Urdu": "Mard/larka",
+            "English": "Male"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: female"
+          },
+          "name": "female",
+          "label": {
+            "Roman Urdu": "Aurat/larki",
+            "English": "Female"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR: third gender"
+          },
+          "name": "transgender",
+          "label": {
+            "Roman Urdu": "Khwaja sira",
+            "English": "Transgender"
+          }
+        }
+      ]
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "Primary Contact Number",
+        "openmrs_entity": "person_attribute"
+      },
+      "bind": {
+        "jr:constraintMsg": {
+          "Roman Urdu": "Phone number 11 hindason par mushtamil aur mundarja zail shakal main hona chahiey: 03*********",
+          "English": "Phone number should be 11 digits in the following format: 03*********"
+        },
+        "required": "yes",
+        "constraint": "regex(., '^03[0-9]{9}$')"
+      },
+      "type": "text",
+      "name": "contact_phone_number",
+      "label": {
+        "Roman Urdu": "Mobile phone number:",
+        "English": "Mobile phone number:"
+      }
+    },
+    {
+      "name": "close_tb_contact",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Kya aapke kissi kareebi dost ya rishtedaar ko TB howa hai?",
+        "English": "Have you ever been in close contact with someone who was sick with TB?"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:tuberculosis contact",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:yes"
+          },
+          "name": "yes",
+          "label": {
+            "Roman Urdu": "Haan",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:no"
+          },
+          "name": "no",
+          "label": {
+            "Roman Urdu": "Nahi",
+            "English": "No"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:refused"
+          },
+          "name": "refuse",
+          "label": {
+            "Roman Urdu": "Jawab nahi dena",
+            "English": "Refuse"
+          }
+        }
+      ]
+    },
+    {
+      "name": "previous_tb_treatment",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Kya aapne kabhi TB ka ilaaj karwaya hai?",
+        "English": "Have you ever taken TB treatment for more than one month?"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:tuberculosis history",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:yes"
+          },
+          "name": "yes",
+          "label": {
+            "Roman Urdu": "Haan",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:no"
+          },
+          "name": "no",
+          "label": {
+            "Roman Urdu": "Nahi",
+            "English": "No"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:refused"
+          },
+          "name": "refuse",
+          "label": {
+            "Roman Urdu": "Jawab nahi dena",
+            "English": "Refuse"
+          }
+        }
+      ]
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "previous_tb_treatment_outcome",
+      "bind": {
+        "relevant": "${previous_tb_treatment} = 'yes'",
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Agar haan, tou uska nateja kya tha?",
+        "English": "If yes, what was the outcome of your previous TB treatment?"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:patient category",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:cured"
+          },
+          "name": "cured",
+          "label": {
+            "Roman Urdu": "Sehatyaab",
+            "English": "Cured"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:defaulted"
+          },
+          "name": "defaulted",
+          "label": {
+            "Roman Urdu": "pehley se the shuda",
+            "English": "Defaulted"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:treatment complete"
+          },
+          "name": "treatment_completed",
+          "label": {
+            "Roman Urdu": "Ilaaj mukammal ho gaya hay",
+            "English": "Treatment Completed"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:transferred out"
+          },
+          "name": "transferred_out",
+          "label": {
+            "Roman Urdu": "ilaaj ke liye koi aur jagah ruju kiya",
+            "English": "Transferred out"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:under treatment"
+          },
+          "name": "still_on_treatment",
+          "label": {
+            "Roman Urdu": "Zer-e-ilaj hain",
+            "English": "Still on treatment"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:regimen failure"
+          },
+          "name": "regimen_failure",
+          "label": {
+            "Roman Urdu": "ilaaj nakaam raha",
+            "English": "Regimen Failure"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:other"
+          },
+          "name": "other",
+          "label": {
+            "Roman Urdu": "Koi aur",
+            "English": "Other"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "unknown",
+          "label": {
+            "Roman Urdu": "Pata nahi",
+            "English": "Unknown"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hiv_test",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Kya aapne HIV ka test pishley 6 mahino mein karwaya hai?",
+        "English": "Have you had an HIV test in the past?"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:hiv test",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:yes"
+          },
+          "name": "yes",
+          "label": {
+            "Roman Urdu": "Haan",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:no"
+          },
+          "name": "no",
+          "label": {
+            "Roman Urdu": "Nahi",
+            "English": "No"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:refused"
+          },
+          "name": "refuse",
+          "label": {
+            "Roman Urdu": "Jawab nahi dena",
+            "English": "Refuse"
+          }
+        }
+      ]
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR: hiv test date",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "relevant": "${hiv_test} = 'yes'",
+        "required": "yes"
+      },
+      "type": "date",
+      "name": "hiv_date",
+      "label": {
+        "Roman Urdu": "Agar haan, test ki tareeq",
+        "English": "If yes, date of test?"
+      }
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "hiv_results",
+      "bind": {
+        "relevant": "${hiv_test} = 'yes'",
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Test ka natija",
+        "English": "If yes, what is your HIV status?"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:hiv test result",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "TBR:positive"
+          },
+          "name": "negative",
+          "label": {
+            "Roman Urdu": "Negative",
+            "English": "HIV Negative"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:negative"
+          },
+          "name": "positive",
+          "label": {
+            "Roman Urdu": "Positive",
+            "English": "HIV Positive"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:indeterminate"
+          },
+          "name": "indeterminate",
+          "label": {
+            "Roman Urdu": "Indeterminate",
+            "English": "Indeterminate"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:unknown"
+          },
+          "name": "dont_know",
+          "label": {
+            "Roman Urdu": "Pata Nahi",
+            "English": "Don't Know"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "TBR:refused"
+          },
+          "name": "refuse",
+          "label": {
+            "Roman Urdu": "Jawab deney se inkaar",
+            "English": "Refuse"
+          }
+        }
+      ]
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "province",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Suba",
+        "English": "Province"
+      },
+      "instance": {
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity_id": "stateProvince",
+        "openmrs_entity": "person_address"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "kpk",
+          "label": {
+            "Roman Urdu": "Khyber Pakhtunkhwa",
+            "English": "Khyber Pakhtunkhwa"
+          }
+        },
+        {
+          "name": "sindh",
+          "label": {
+            "Roman Urdu": "Sindh",
+            "English": "Sindh"
+          }
+        },
+        {
+          "name": "balochistan",
+          "label": {
+            "Roman Urdu": "Balochistan",
+            "English": "Balochistan"
+          }
+        },
+        {
+          "name": "punjab",
+          "label": {
+            "Roman Urdu": "Punjab",
+            "English": "Punjab"
+          }
+        },
+        {
+          "name": "gilgit_baltistan",
+          "label": {
+            "Roman Urdu": "Gilgit Baltistan",
+            "English": "Gilgit Baltistan"
+          }
+        },
+        {
+          "name": "kashmir",
+          "label": {
+            "Roman Urdu": "Kashmir",
+            "English": "Kashmir"
+          }
+        },
+        {
+          "name": "fata",
+          "label": {
+            "Roman Urdu": "FATA",
+            "English": "FATA"
+          }
+        },
+        {
+          "name": "out_of_country",
+          "label": {
+            "Roman Urdu": "Mulk se baahir",
+            "English": "Out of Country"
+          }
+        }
+      ]
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "city_village",
+      "choice_filter": "province=${province} or province='na'",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Shehr",
+        "English": "City"
+      },
+      "itemset": "cities",
+      "instance": {
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity_id": "cityVillage",
+        "openmrs_entity": "person_address"
+      },
+      "type": "select one"
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "town",
+      "choice_filter": "(province=${province} and city=${city_village} ) or city='na'",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Town / Qasbah / Basti",
+        "English": "Town"
+      },
+      "itemset": "towns",
+      "instance": {
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity_id": "town",
+        "openmrs_entity": "person_address"
+      },
+      "type": "select one"
+    },
+    {
+      "control": {
+        "appearance": "minimal"
+      },
+      "name": "union_council",
+      "choice_filter": "(province=${province} and city=${city_village} and town=${town}) or town='na'",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Roman Urdu": "Union Council",
+        "English": "Union Council"
+      },
+      "itemset": "ucs",
+      "instance": {
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity_id": "subTown",
+        "openmrs_entity": "person_address"
+      },
+      "type": "select one"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity_id": "address1",
+        "openmrs_entity": "person_address"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "address1",
+      "label": {
+        "Roman Urdu": "Ghar ka pata",
+        "English": "Home Address"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBR:full address text",
+        "openmrs_entity": "concept"
+      },
+      "bind": {
+        "calculate": "jr:choice-name(${province}, '${province}')"
+      },
+      "type": "note",
+      "name": "full_address",
+      "label": {
+        "Roman Urdu": "Poora Pata: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}",
+        "English": "Full address: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}"
+      }
+    },
+    {
+      "control": {
+        "appearance": "multiline"
+      },
+      "instance": {
+        "openmrs_entity_id": "TBR:additional notes",
+        "openmrs_entity": "concept"
+      },
+      "type": "text",
+      "name": "comments",
+      "label": {
+        "Roman Urdu": "Tabsarah",
+        "English": "Comments"
+      }
+    },
+    {
+      "control": {
+        "bodyless": true
+      },
+      "type": "group",
+      "children": [
+        {
+          "bind": {
+            "readonly": "true()",
+            "calculate": "concat('uuid:', uuid())"
+          },
+          "type": "calculate",
+          "name": "instanceID"
+        }
+      ],
+      "name": "meta"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+<model>
+    <instance>
+        <FollowUpVisit_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Follow up Visit"
+            id="followup_visit" version="201801251521">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <treatment_initiation_date />
+            <treatment_initiation_date_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <encounter_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+            <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID" />
+            <program_id_note />
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+            <pt_name_note />
+            <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
+            <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
+            <bmi openmrs_entity="concept" openmrs_entity_id="TBR: body mass index" />
+            <category openmrs_entity="concept" openmrs_entity_id="TBR: patient category" />
+            <month openmrs_entity="concept" openmrs_entity_id="TBR: tb evaluation month" />
+            <treatment_phase openmrs_entity="concept" openmrs_entity_id="TBR: treatment phase" />
+            <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+            <regimen_oth openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" />
+            <fu_visit />
+            <visit_date />
+            <fu_visit_date />
+            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: next visit date" />
+            <next_visit_date_note />
+            <smear_due_date openmrs_entity="concept" openmrs_entity_id="TBR: smear due date" />
+            <next_smear_due_date_note />
+            <adverse_effect openmrs_entity="concept" openmrs_entity_id="TBR: adverse drug effect" />
+            <adverse_effect_specify openmrs_entity="concept"
+                openmrs_entity_id="TBR:other specify text" />
+            <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
+            <meta>
+                <instanceID />
+            </meta>
+        </FollowUpVisit_10.01.18>
+    </instance>
+    <instance id="regimen">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-regimen-0</itextId>
+                <openmrs_concept_name>RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL
+                </openmrs_concept_name>
+                <name>rhze</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen-1</itextId>
+                <openmrs_concept_name>RIFAMPICIN AND ISONIAZID</openmrs_concept_name>
+                <name>rh</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen-2</itextId>
+                <openmrs_concept_name>rifampicin isoniazid and ethambutol</openmrs_concept_name>
+                <name>rhe</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen-3</itextId>
+                <openmrs_concept_name>STREPTOMYCIN/RIFAMPICIN/ISONIAZID/PYRAZINAMIDE/ETHAMBUTOL
+                    PROPHYLAXIS
+                </openmrs_concept_name>
+                <name>rhzes</name>
+            </item>
+            <item>
+                <itextId>static_instance-regimen-4</itextId>
+                <openmrs_concept_name>Other non-coded</openmrs_concept_name>
+                <name>other</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="tx_phase">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-tx_phase-0</itextId>
+                <openmrs_concept_name>continuation phase, tuberculosis treatment
+                </openmrs_concept_name>
+                <name>continuation</name>
+            </item>
+            <item>
+                <itextId>static_instance-tx_phase-1</itextId>
+                <openmrs_concept_name>initial phase, tuberculosis treatment</openmrs_concept_name>
+                <name>intensive</name>
+            </item>
+        </root>
+    </instance>
+    <instance id="yes_no">
+        <root xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+            <item>
+                <itextId>static_instance-yes_no-0</itextId>
+                <openmrs_concept_name>yes</openmrs_concept_name>
+                <name>yes</name>
+            </item>
+            <item>
+                <itextId>static_instance-yes_no-1</itextId>
+                <openmrs_concept_name>no</openmrs_concept_name>
+                <name>no</name>
+            </item>
+        </root>
+    </instance>
+</model>

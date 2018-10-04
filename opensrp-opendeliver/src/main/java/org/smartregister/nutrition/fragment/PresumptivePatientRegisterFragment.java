@@ -122,8 +122,6 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
     }
     @Override
     protected void populateClientListHeaderView(View view) {
-       // exportDB();//TODO
-
         View headerLayout = getLayoutInflater(null).inflate(R.layout.register_common_header_list, null);
         populateClientListHeaderView(view, headerLayout, PRESUMPTIVE_REGISTER_HEADER);
     }
@@ -141,7 +139,7 @@ public class PresumptivePatientRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return DBQueryHelper.getPresumptivePatientRegisterCondition();
+        return " date_removed = '' ";//DBQueryHelper.getPresumptivePatientRegisterCondition();
     }
 
     @Override

@@ -103,7 +103,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     private String viewConfigurationIdentifier;
-
     private FormOverridesHelper formOverridesHelper;
     private String customMainCondition;
     private Snackbar snackbar;
@@ -173,11 +172,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_activity, container, false);
 
-        final AppCompatActivity activity = ((AppCompatActivity) getActivity());
-       // activity.setSupportActionBar(toolbar);
-        // activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
-
         viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         setupViews(view);
         return view;
@@ -235,8 +229,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                     e.printStackTrace();
                 }
             }
-            popup.show();
-        }
+        popup.show();
+    }
         else
             showResultMenu(view);
     }
@@ -347,6 +341,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     protected void initializeQueries() {
+
         String tableName = TbrConstants.PATIENT_TABLE_NAME;
 
         PatientRegisterProvider hhscp = new PatientRegisterProvider(getActivity(), visibleColumns, registerActionHandler, OpenDeliverApplication.getInstance().getResultsRepository(), OpenDeliverApplication.getInstance().getContext().detailsRepository());
@@ -389,7 +384,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     protected abstract void populateClientListHeaderView(View view);
 
     protected void populateClientListHeaderView(View view, View headerLayout, String viewConfigurationIdentifier) {
-
         LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.smartregister.R.id.clients_header_layout);
         clientsHeaderLayout.setVisibility(GONE);
 
@@ -402,6 +396,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
+
     }
 
     protected final TextWatcher textWatcher = new TextWatcher() {
@@ -415,7 +410,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 filter(" AND (ec_patient.id like '%"+cs.toString()+"%' or ec_patient.first_name like '%"+cs.toString()+"%' or ec_patient.last_name like '%"+cs.toString()+"%')","",customMainCondition);
             }
             else
-                filter(cs.toString(), "", getMainCondition());
+            filter(cs.toString(), "", getMainCondition());
         }
 
         @Override
@@ -423,6 +418,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         }
     };
+
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
@@ -690,6 +686,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     private void showSnackBar(StringBuilder toastString, View view){
         if(toastString != null && !toastString.toString().isEmpty()) {
             snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
+           // snackbar.getView().getLayoutParams().height = 100;
             snackbar.show();
         }
 
@@ -722,7 +719,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             sortOption = "Name (A-Z)";
         else if(Sortqueries.equalsIgnoreCase("last_interacted_with desc"))
             sortOption = "Last updated";
-//        prepareAndShowSnackBar(getView(),null,null,sortOption);
+        // prepareAndShowSnackBar(getView(),null,null,sortOption);
     }
 
     @Override

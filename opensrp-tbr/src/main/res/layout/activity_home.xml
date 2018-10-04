@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/customAppThemeDarkest"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.HomeActivity"
+    android:padding="0dp">
+
+    <include layout="@layout/toolbar_base_layout" />
+
+    <include layout="@layout/content_home" />
+
+
+    <LinearLayout
+        android:id="@+id/home_footer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/customAppThemeDark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:id="@+id/footerHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/refreshSyncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="manualSync"
+                android:padding="6dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_action_sync" />
+
+            <ImageView
+                android:id="@+id/dividerImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/refreshSyncButton"
+                android:src="@drawable/vertical_separator" />
+
+            <TextView
+                android:id="@+id/registerLastSyncTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/dividerImageView"
+                android:paddingLeft="10px"
+                android:text="Last sync : Jun 1 16:44"
+                android:textColor="@color/status_bar_text_almost_white"
+                android:textSize="@dimen/register_font_size" />
+
+            <TextView
+                android:id="@+id/serverVersionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/registerLastSyncTime"
+                android:gravity="right"
+                android:text="Server Version"
+                android:textColor="@color/status_bar_text_almost_white"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

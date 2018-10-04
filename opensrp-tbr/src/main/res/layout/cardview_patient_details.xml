@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clientDetailsCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/border"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <TextView
+            android:id="@+id/clientInitalsTextView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@color/male_initials_background"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="MH"
+            android:textColor="@color/male_initials_text"
+            android:textSize="24sp" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/clientNameTextView"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:text="Mohammad Dhanial"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/tbReachIdTextView"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#5425428"
+                android:textColor="@color/client_list_grey"
+                android:textSize="18sp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/clientAgeTextView"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="40"
+                android:textColor="@color/client_list_grey"
+                android:textSize="18sp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/clientGenderTextView"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Male"
+                android:textColor="@color/client_list_grey"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/siteOfDiseaseTextView"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:text="Pulmonary"
+            android:textColor="@color/client_list_grey"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/patientTypeTextView"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New"
+            android:textColor="@color/client_list_grey"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

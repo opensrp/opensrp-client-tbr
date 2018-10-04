@@ -1,0 +1,360 @@
+{
+  "name": "SmearForm_03.10.17_US_OPENMRS",
+  "title": "Smear Result Form",
+  "sms_keyword": "smear_result_form",
+  "default_language": "English",
+  "instance": {
+    "encounter_type": "Smear Result"
+  },
+  "version": "201801230940",
+  "id_string": "smear_result_form",
+  "type": "survey",
+  "children": [
+    {
+      "type": "hidden",
+      "name": "provider_uc"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_town"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_city"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_province"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_id"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "location_id",
+        "openmrs_entity": "encounter"
+      },
+      "type": "hidden",
+      "name": "provider_location_id"
+    },
+    {
+      "type": "hidden",
+      "name": "provider_location_name"
+    },
+    {
+      "type": "note",
+      "name": "provider_location_note",
+      "label": {
+        "Roman Urdu": "Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}",
+        "English": "City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "encounter start date/time",
+        "openmrs_entity_id": "TBR:form start datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "start",
+      "name": "start"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "encounter end date/time",
+        "openmrs_entity_id": "TBR:form end datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "end",
+      "name": "end"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "Device-recorded encounter date/time",
+        "openmrs_entity_id": "TBR:data enty datetime",
+        "openmrs_entity": "concept"
+      },
+      "type": "today",
+      "name": "today"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "Mobile device identifier",
+        "openmrs_entity_id": "TBR:device id",
+        "openmrs_entity": "concept"
+      },
+      "type": "deviceid",
+      "name": "deviceid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "Mobile subscriber identifier",
+        "openmrs_entity_id": "TBR:subscriber id",
+        "openmrs_entity": "concept"
+      },
+      "type": "subscriberid",
+      "name": "subscriberid"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "SIM serial number",
+        "openmrs_entity_id": "TBR:sim serial number",
+        "openmrs_entity": "concept"
+      },
+      "type": "simserial",
+      "name": "simserial"
+    },
+    {
+      "instance": {
+        "openmrs_entity_parent": "Mobile phone number assigned by SIM",
+        "openmrs_entity_id": "TBR:sim number",
+        "openmrs_entity": "concept"
+      },
+      "type": "phonenumber",
+      "name": "phonenumber"
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "encounter_date",
+        "openmrs_entity": "encounter"
+      },
+      "bind": {
+        "calculate": "${today}"
+      },
+      "type": "calculate",
+      "name": "client_reg_date",
+      "label": {
+        "Roman Urdu": "Indraj ki Tareekh",
+        "English": "Data Entry Date"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBREACH ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "bind": {
+        "required": "yes"
+      },
+      "type": "hidden",
+      "name": "participant_id",
+      "label": {
+        "Roman Urdu": "Participant ID",
+        "English": "Participant ID"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "TBREACH Program ID",
+        "openmrs_entity": "person_identifier"
+      },
+      "type": "hidden",
+      "name": "program_id",
+      "label": {
+        "English": "Program ID"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
+      },
+      "type": "note",
+      "name": "program_id_note",
+      "label": {
+        "Roman Urdu": "Program ID",
+        "English": "Program ID: ${program_id}"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "first_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "first_name",
+      "label": {
+        "Roman Urdu": "Naam",
+        "English": "First Name"
+      }
+    },
+    {
+      "instance": {
+        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "person"
+      },
+      "type": "hidden",
+      "name": "last_name",
+      "label": {
+        "Roman Urdu": "Walid ya shohar ka naam",
+        "English": "Last Name"
+      }
+    },
+    {
+      "type": "note",
+      "name": "pt_name_note",
+      "label": {
+        "Roman Urdu": "Mareez ka naam: ${first_name} ${last_name}",
+        "English": "Patient Name: ${first_name} ${last_name}"
+      }
+    },
+    {
+      "label": {
+        "English": "Test Information"
+      },
+      "type": "group",
+      "children": [
+        {
+          "instance": {
+            "openmrs_entity_parent": "Specimen collection date",
+            "openmrs_entity_id": "TBR:sample collection date",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "required": "yes"
+          },
+          "type": "date",
+          "name": "test_date",
+          "label": {
+            "Roman Urdu": "Test ki tareeq",
+            "English": "Date when sample was obtained?"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_parent": "Specimen number",
+            "openmrs_entity_id": "TBR:sample id",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "required": "yes"
+          },
+          "type": "text",
+          "name": "sample_id",
+          "label": {
+            "Roman Urdu": "Sample ID",
+            "English": "Sample ID"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_entity_parent": "tuberculosis test result date",
+            "openmrs_entity_id": "TBR:test result date",
+            "openmrs_entity": "concept"
+          },
+          "bind": {
+            "required": "yes",
+            "constraint": ".<=${today}"
+          },
+          "type": "date",
+          "name": "result_date",
+          "label": {
+            "Roman Urdu": "Result ki tareeq",
+            "English": "Test Result Date"
+          }
+        },
+        {
+          "name": "test_result",
+          "bind": {
+            "required": "yes"
+          },
+          "label": {
+            "Roman Urdu": "Test ka nateeja",
+            "English": "Smear Result"
+          },
+          "instance": {
+            "openmrs_entity_parent": "SPUTUM FOR ACID FAST BACILLI",
+            "openmrs_entity_id": "TBR:smear test result",
+            "openmrs_entity": "concept"
+          },
+          "type": "select one",
+          "children": [
+            {
+              "instance": {
+                "openmrs_code": "TBR:one plus"
+              },
+              "name": "one_plus",
+              "label": {
+                "Roman Urdu": "1+",
+                "English": "1+"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:two plus"
+              },
+              "name": "two_plus",
+              "label": {
+                "Roman Urdu": "2+",
+                "English": "2+"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:three plus"
+              },
+              "name": "three_plus",
+              "label": {
+                "Roman Urdu": "3+",
+                "English": "3+"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:scanty"
+              },
+              "name": "scanty",
+              "label": {
+                "Roman Urdu": "Scanty",
+                "English": "Scanty"
+              }
+            },
+            {
+              "instance": {
+                "openmrs_code": "TBR:negative"
+              },
+              "name": "negative",
+              "label": {
+                "Roman Urdu": "Negative",
+                "English": "Negative"
+              }
+            }
+          ]
+        },
+        {
+          "control": {
+            "appearance": "multiline"
+          },
+          "instance": {
+            "openmrs_entity_parent": "Free text comment",
+            "openmrs_entity_id": "TBR:additional notes",
+            "openmrs_entity": "concept"
+          },
+          "type": "text",
+          "name": "comments",
+          "label": {
+            "Roman Urdu": "Tabsarah",
+            "English": "Comments"
+          }
+        }
+      ],
+      "name": "test_information"
+    },
+    {
+      "control": {
+        "bodyless": true
+      },
+      "type": "group",
+      "children": [
+        {
+          "bind": {
+            "readonly": "true()",
+            "calculate": "concat('uuid:', uuid())"
+          },
+          "type": "calculate",
+          "name": "instanceID"
+        }
+      ],
+      "name": "meta"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "bindobjects": [
+    {
+      "name": "ec_patient",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "participant_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH ID"
+          }
+        },
+        {
+          "column_name": "program_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH Program ID"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        },
+        {
+          "column_name": "mobile_phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Primary Contact Number"
+          }
+        },
+        {
+          "column_name": "presumptive",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:presumptive tuberculosis case"
+          }
+        },
+        {
+          "column_name": "confirmed_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: confirmed tb patient"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "first_encounter",
+          "type": "Client",
+          "json_mapping": {
+            "field": "dateCreated"
+          }
+        },
+        {
+          "column_name": "diagnosis_date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.diagnosis_date"
+          }
+        },
+        {
+          "column_name": "treatment_initiation_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: treatment start date"
+          }
+        },
+        {
+          "column_name": "baseline",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.baseline"
+          }
+        },
+        {
+          "column_name": "next_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: next visit date"
+          }
+        },
+        {
+          "column_name": "smear_due_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR: smear due date"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_contact",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.parent"
+          }
+        },
+        {
+          "column_name": "program_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.TBREACH Program ID"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        }
+      ]
+    }
+  ]
+}

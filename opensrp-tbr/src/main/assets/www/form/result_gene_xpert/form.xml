@@ -1,0 +1,500 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="genexpert_result"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">GeneXpert Result</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label "
+            data-itext-id="/GeneXpertForm_10.01.18/provider_location_note:label" lang="Roman Urdu">
+            Shehr: <span class="or-output"
+            data-value=" /GeneXpertForm_10.01.18/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/provider_uc "></span> ; Center ka
+            naam:
+            <span class="or-output"
+                data-value=" /GeneXpertForm_10.01.18/provider_location_name "></span>
+        </span>
+        <span class="question-label active"
+            data-itext-id="/GeneXpertForm_10.01.18/provider_location_note:label" lang="en">City: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /GeneXpertForm_10.01.18/provider_uc "></span> ; Center
+            Name:
+            <span class="or-output"
+                data-value=" /GeneXpertForm_10.01.18/provider_location_name "></span>
+        </span>
+        <input name="/GeneXpertForm_10.01.18/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/GeneXpertForm_10.01.18/participant_id:label"
+            lang="Roman Urdu">Participant ID
+        </span>
+        <span class="question-label active"
+            data-itext-id="/GeneXpertForm_10.01.18/participant_id:label" lang="en">Participant ID
+        </span>
+        <span class="required">*</span>
+        <input name="/GeneXpertForm_10.01.18/participant_id"
+            data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-constraint-msg "
+            data-itext-id="/GeneXpertForm_10.01.18/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg active"
+            data-itext-id="/GeneXpertForm_10.01.18/participant_id:jr:constraintMsg" lang="en">
+            Maximum 20
+            digits and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/GeneXpertForm_10.01.18/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label active"
+            data-itext-id="/GeneXpertForm_10.01.18/program_id_note:label" lang="en">Program ID:
+            <span class="or-output" data-value=" /GeneXpertForm_10.01.18/program_id "></span>
+        </span>
+        <input name="/GeneXpertForm_10.01.18/program_id_note" data-type-xml="string"
+            readonly="readonly" required="required" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/GeneXpertForm_10.01.18/pt_name_note:label"
+            lang="Roman Urdu">-
+        </span>
+        <span class="question-label active"
+            data-itext-id="/GeneXpertForm_10.01.18/pt_name_note:label" lang="en">Patient Name:
+            <span class="or-output" data-value=" /GeneXpertForm_10.01.18/first_name "></span>
+            <span class="or-output" data-value=" /GeneXpertForm_10.01.18/last_name "></span>
+        </span>
+        <input name="/GeneXpertForm_10.01.18/pt_name_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label "
+                    data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed:label"
+                    lang="Roman Urdu">-
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed:label" lang="en">
+                    GeneXpert
+                    Performed?
+                </span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/GeneXpertForm_10.01.18/genexpert_performed"
+                        data-name="/GeneXpertForm_10.01.18/genexpert_performed"
+                        data-type-xml="select1" type="radio" value="yes" />
+                    <span class="option-label "
+                        data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed/yes:label"
+                        lang="Roman Urdu">Haan
+                    </span>
+                    <span class="option-label active"
+                        data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/GeneXpertForm_10.01.18/genexpert_performed"
+                        data-name="/GeneXpertForm_10.01.18/genexpert_performed"
+                        data-type-xml="select1" type="radio" value="no" />
+                    <span class="option-label "
+                        data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed/no:label"
+                        lang="Roman Urdu">Nahi
+                    </span>
+                    <span class="option-label active"
+                        data-itext-id="/GeneXpertForm_10.01.18/genexpert_performed/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+    </fieldset>
+    <section name="/GeneXpertForm_10.01.18/test_information" class="or-group or-branch pre-init "
+        data-relevant=" /GeneXpertForm_10.01.18/genexpert_performed  = 'yes'">
+        <h4>
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information:label" lang="Roman Urdu">-
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information:label" lang="en">Test
+                Information
+            </span>
+        </h4>
+        <label class="question non-select ">
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/test_date:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/test_date:label" lang="en">
+                Date when
+                test was performed?
+            </span>
+            <span class="required">*</span>
+            <input name="/GeneXpertForm_10.01.18/test_information/test_date" data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/sample_id:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/sample_id:label" lang="en">
+                Sample ID
+            </span>
+            <span class="required">*</span>
+            <input name="/GeneXpertForm_10.01.18/test_information/sample_id" data-type-xml="string"
+                required="required" type="text" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/result_date:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/result_date:label"
+                lang="en">Test
+                Result Date
+            </span>
+            <span class="required">*</span>
+            <input name="/GeneXpertForm_10.01.18/test_information/result_date" data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label "
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result:label"
+                        lang="Roman Urdu">-
+                    </span>
+                    <span class="question-label active"
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result:label"
+                        lang="en">
+                        MTB Result
+                    </span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1" required="required" type="radio"
+                            value="detected" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/detected:label"
+                            lang="Roman Urdu">
+                            Detected
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/detected:label"
+                            lang="en">
+                            Detected
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1" required="required" type="radio"
+                            value="not_detected" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/not_detected:label"
+                            lang="Roman Urdu">
+                            Not Detected
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/not_detected:label"
+                            lang="en">
+                            Not Detected
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1" required="required" type="radio"
+                            value="indeterminate" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/indeterminate:label"
+                            lang="Roman Urdu">
+                            Intdeterminate
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/indeterminate:label"
+                            lang="en">
+                            Indeterminate
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1" required="required" type="radio"
+                            value="error" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/error:label"
+                            lang="Roman Urdu">
+                            Error
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/error:label"
+                            lang="en">
+                            Error
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_result"
+                            data-type-xml="select1" required="required" type="radio"
+                            value="no_result" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/no_result:label"
+                            lang="Roman Urdu">
+                            No Result
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_result/no_result:label"
+                            lang="en">
+                            No Result
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init ">
+            <fieldset>
+                <legend>
+                    <span class="question-label "
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden:label"
+                        lang="Roman Urdu">-
+                    </span>
+                    <span class="question-label active"
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden:label"
+                        lang="en">
+                        MTB Burden
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="high" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/high:label"
+                            lang="Roman Urdu">
+                            High
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/high:label"
+                            lang="en">
+                            High
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="medium" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/medium:label"
+                            lang="Roman Urdu">
+                            Medium
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/medium:label"
+                            lang="en">
+                            Medium
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-name="/GeneXpertForm_10.01.18/test_information/mtb_burden"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="low" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/low:label"
+                            lang="Roman Urdu">
+                            Low
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/mtb_burden/low:label"
+                            lang="en">
+                            Low
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init ">
+            <fieldset>
+                <legend>
+                    <span class="question-label "
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result:label"
+                        lang="Roman Urdu">-
+                    </span>
+                    <span class="question-label active"
+                        data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result:label"
+                        lang="en">
+                        Rifampicin Resistance
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="detected" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/detected:label"
+                            lang="Roman Urdu">
+                            Detected
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/detected:label"
+                            lang="en">
+                            Detected
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="not_detected" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/not_detected:label"
+                            lang="Roman Urdu">
+                            Not Detected
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/not_detected:label"
+                            lang="en">
+                            Not Detected
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-name="/GeneXpertForm_10.01.18/test_information/rif_result"
+                            data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  = 'detected'"
+                            data-type-xml="select1" type="radio" value="indeterminate" />
+                        <span class="option-label "
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/indeterminate:label"
+                            lang="Roman Urdu">
+                            Intdeterminate
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/GeneXpertForm_10.01.18/test_information/rif_result/indeterminate:label"
+                            lang="en">
+                            Indeterminate
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/error_code:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/error_code:label" lang="en">
+                Error Code
+            </span>
+            <input name="/GeneXpertForm_10.01.18/test_information/error_code"
+                data-constraint="regex(., '[0-9]{4}$')"
+                data-relevant=" /GeneXpertForm_10.01.18/test_information/mtb_result  ='error'"
+                data-type-xml="string" type="text" />
+            <span class="or-constraint-msg "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/error_code:jr:constraintMsg"
+                lang="Roman Urdu">
+                -
+            </span>
+            <span class="or-constraint-msg active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/error_code:jr:constraintMsg"
+                lang="en">
+                Must be 4 digits
+            </span>
+        </label>
+        <label class="question non-select or-appearance-multiline ">
+            <span class="question-label "
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/comments:label"
+                lang="Roman Urdu">Tabsarah
+            </span>
+            <span class="question-label active"
+                data-itext-id="/GeneXpertForm_10.01.18/test_information/comments:label" lang="en">
+                Comments
+            </span>
+            <textarea name="/GeneXpertForm_10.01.18/test_information/comments"
+                data-type-xml="string"></textarea>
+        </label>
+    </section><!--end of group -->
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/start" data-preload="timestamp"
+                data-preload-params="start" data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/end" data-preload="timestamp"
+                data-preload-params="end" data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/today" data-preload="date"
+                data-preload-params="today" data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/deviceid" data-preload="property"
+                data-preload-params="deviceid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/simserial" data-preload="property"
+                data-preload-params="simserial" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/client_reg_date"
+                data-calculate=" /GeneXpertForm_10.01.18/today " data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/meta/instanceID"
+                data-calculate="concat('uuid:', uuid())" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/GeneXpertForm_10.01.18/formhub/uuid"
+                data-calculate="'51184e66e81247e8b6692194397b4cf8'" data-type-xml="string"
+                type="hidden" />
+        </label>
+    </fieldset>
+</form>

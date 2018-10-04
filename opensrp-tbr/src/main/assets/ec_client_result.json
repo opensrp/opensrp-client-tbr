@@ -1,0 +1,138 @@
+{
+  "name": "results",
+  "columns": [
+    {
+      "column_name": "base_entity_id",
+      "json_mapping": {
+        "field": "baseEntityId"
+      }
+    },
+    {
+      "column_name": "type",
+      "json_mapping": {
+        "field": "eventType"
+      }
+    },
+    {
+      "column_name": "result1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: MTB result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: MTB result"
+      }
+    },
+    {
+      "column_name": "result1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:smear test result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:smear test result"
+      }
+    },
+    {
+      "column_name": "result1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: culture result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: culture result"
+      }
+    },
+    {
+      "column_name": "result1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: x-ray result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: x-ray result"
+      }
+    },
+    {
+      "column_name": "result2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: RIF result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: RIF result"
+      }
+    },
+    {
+      "column_name": "result2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: error code",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: error code"
+      }
+    },
+    {
+      "column_name": "date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:sample collection date"
+      }
+    },
+    {
+      "column_name": "formSubmissionId",
+      "json_mapping": {
+        "field": "formSubmissionId"
+      }
+    },
+    {
+      "column_name": "anmid",
+      "json_mapping": {
+        "field": "providerId"
+      }
+    },
+    {
+      "column_name": "location_id",
+      "json_mapping": {
+        "field": "providerId"
+      }
+    },
+    {
+      "column_name": "created_at",
+      "json_mapping": {
+        "field": "version"
+      }
+    }
+  ]
+}

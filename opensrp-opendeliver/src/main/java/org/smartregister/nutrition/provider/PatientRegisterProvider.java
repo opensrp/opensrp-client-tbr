@@ -234,15 +234,6 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         attachOnclickListener(patient, client);
     }
 
-    /*private static String getValue(Map<String, String> cm, String field, boolean humanize) {
-        try {
-            return (String) (new JSONObject(cm.get("json")).get(field));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
-
     private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
@@ -296,6 +287,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View button = view.findViewById(R.id.result_lnk);
+//        button.setVisibility(View.GONE);
         TextView details = (TextView) view.findViewById(R.id.result_details);
         details.setText("");
         populateResultsColumn(pc, client, new TbrSpannableStringBuilder(), false, null, button, details);
@@ -308,6 +300,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         try {
             stringBuilder.append(getValueFromObs(json.getJSONArray("obs"),"weight") + " kg");
             stringBuilder.append("\n " + getValueFromObs(json.getJSONArray("obs"),"height") + " cm");
+            stringBuilder.append("\n " + getValueFromObs(json.getJSONArray("obs"),"nutrition_status"));
         }catch (JSONException e) {
             e.printStackTrace();
         }catch(Exception e){
@@ -408,7 +401,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         try {
             String eventDate = DateTime.parse(json.getString("eventDate")).toString("dd/MM/yyyy");
             stringBuilder.append(eventDate);
-            stringBuilder.append("\n " + getValueFromObs(json.getJSONArray("obs"),"nutrition_status"));
+            stringBuilder.append("\nbreastfed: "+ getValueFromObs(json.getJSONArray("obs"),"breast_feeding").substring(0,1).toUpperCase());
         }catch (JSONException e) {
             e.printStackTrace();
         }catch(Exception e){

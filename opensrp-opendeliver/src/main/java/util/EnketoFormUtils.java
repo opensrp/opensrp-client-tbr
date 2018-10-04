@@ -173,13 +173,8 @@ public class EnketoFormUtils {
 
         //String bindPath = formDefinition.getJSONObject("form").getString("bind_type");
         JSONObject fieldsDefinition = formDefinition.getJSONObject("form");
-        /**
-         * Customizing for Nutrition app
-         */
         JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id,
                 formSubmission, overrides);
-        /*JSONArray populatedFieldsArray = getNutritionPopulatedFieldsForArray(fieldsDefinition, entity_id,
-                formSubmission, overrides);*/
 
         // replace all the fields in the form
         formDefinition.getJSONObject("form").put("fields", populatedFieldsArray);

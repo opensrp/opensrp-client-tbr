@@ -1,7 +1,7 @@
 package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -76,7 +76,7 @@ public class ConfigurableViewsHelper {
         if (!isTabletSize && visibleColumns.size() > maxColumns) {
             View[] columnsArray = visibleColumns.toArray(new View[]{});
             visibleColumns.clear();
-            visibleColumns.addAll(Arrays.asList(Arrays.copyOf(columnsArray, 4)));
+            visibleColumns.addAll(Arrays.asList(Arrays.copyOf(columnsArray, 3)));
         }
         return visibleColumns;
     }
@@ -128,7 +128,7 @@ public class ConfigurableViewsHelper {
                 android.view.View view = DynamicView.createView(context, jsonView);
                 TextView textview = (TextView) view.findViewById(R.id.register_header_item);
                 textview.setText(column.getLabel());
-
+                textview.setTextColor(Color.BLACK);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
                 try {
                     lp.weight = Float.parseFloat(column.getResidence().getLayoutWeight());
@@ -159,7 +159,7 @@ public class ConfigurableViewsHelper {
                 }
                 registerColumns = commonColumns;
             }
-            if (isHeader)//TODO would not be header if following new strategy
+            if (isHeader)
                 registerColumns.setLayoutParams(
                         new AbsListView.LayoutParams(
                                 AbsListView.LayoutParams.MATCH_PARENT,

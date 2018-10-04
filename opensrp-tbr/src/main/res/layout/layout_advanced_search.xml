@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="10dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:layout_marginLeft="6dp"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <CheckBox
+            android:id="@+id/chk_presumptive"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Presumptive"/>
+
+        <CheckBox
+            android:id="@+id/chk_positive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Positive"/>
+
+        <CheckBox
+            android:id="@+id/chk_treatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="In-treatment"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Participant ID"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <EditText
+            android:id="@+id/et_participant_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Participant ID number"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="20"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <EditText
+            android:id="@+id/et_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="15"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <EditText
+            android:id="@+id/et_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_"
+            android:inputType="textFilter"
+            android:maxLength="15"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <Spinner
+            android:id="@+id/sp_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Age Group"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <Spinner
+            android:id="@+id/et_age_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select Age Group"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textSize="@dimen/adv_search_header_tv_16"
+            android:textColor="@color/text_blue"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="XXX-XXX-XXXX"/>
+
+        <Button
+            android:id="@+id/btn_adv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin_4"
+            android:text="Search"/>
+    </LinearLayout>
+</ScrollView>

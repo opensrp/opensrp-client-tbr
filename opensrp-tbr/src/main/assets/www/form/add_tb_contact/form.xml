@@ -1,0 +1,421 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="add_contact"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Add TB Contact</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label "
+            data-itext-id="/AddContactForm_23.11.17_US/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span class="or-output"
+            data-value=" /AddContactForm_23.11.17_US/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /AddContactForm_23.11.17_US/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /AddContactForm_23.11.17_US/provider_uc "></span> ;
+            Center ka naam:
+            <span class="or-output"
+                data-value=" /AddContactForm_23.11.17_US/provider_location_name "></span>
+        </span>
+        <span class="question-label active"
+            data-itext-id="/AddContactForm_23.11.17_US/provider_location_note:label" lang="en">City: <span
+            class="or-output" data-value=" /AddContactForm_23.11.17_US/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /AddContactForm_23.11.17_US/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /AddContactForm_23.11.17_US/provider_uc "></span> ;
+            Center Name:
+            <span class="or-output"
+                data-value=" /AddContactForm_23.11.17_US/provider_location_name "></span>
+        </span>
+        <input name="/AddContactForm_23.11.17_US/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label "
+            data-itext-id="/AddContactForm_23.11.17_US/participant_id:label" lang="Roman Urdu">ID
+        </span>
+        <span class="question-label active"
+            data-itext-id="/AddContactForm_23.11.17_US/participant_id:label" lang="en">Participant
+            ID
+        </span>
+        <span class="required">*</span>
+        <input name="/AddContactForm_23.11.17_US/participant_id"
+            data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-constraint-msg "
+            data-itext-id="/AddContactForm_23.11.17_US/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg active"
+            data-itext-id="/AddContactForm_23.11.17_US/participant_id:jr:constraintMsg" lang="en">
+            Maximum 20
+            digits and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question non-select ">
+        <span class="question-label "
+            data-itext-id="/AddContactForm_23.11.17_US/household_members:label" lang="Roman Urdu">
+            Aap ke ilawa, aapke
+            ghar mein kitney afraad rehtey hain?
+        </span>
+        <span class="question-label active"
+            data-itext-id="/AddContactForm_23.11.17_US/household_members:label" lang="en">How many
+            people
+            (excluding you) sleep in your home?
+        </span>
+        <span class="required">*</span>
+        <input name="/AddContactForm_23.11.17_US/household_members" data-type-xml="int"
+            required="required" type="number" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <section name="/AddContactForm_23.11.17_US/contact_information" class="or-group-data ">
+        <section name="/AddContactForm_23.11.17_US/contact_information" class="or-repeat ">
+            <label class="question non-select ">
+                <span class="question-label "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_id:label"
+                    lang="Roman Urdu">
+                    Contact ID
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_id:label"
+                    lang="en">
+                    Contact ID
+                </span>
+                <input name="/AddContactForm_23.11.17_US/contact_information/contact_id"
+                    data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+                    type="text" />
+                <span class="or-constraint-msg "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_id:jr:constraintMsg"
+                    lang="Roman Urdu">
+                    -
+                </span>
+                <span class="or-constraint-msg active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_id:jr:constraintMsg"
+                    lang="en">
+                    Maximum 20 digits and cannot contain anything other than number
+                </span>
+            </label>
+            <label class="question non-select ">
+                <span class="question-label "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_first_name:label"
+                    lang="Roman Urdu">
+                    Naam
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_first_name:label"
+                    lang="en">
+                    First Name
+                </span>
+                <span class="required">*</span>
+                <input name="/AddContactForm_23.11.17_US/contact_information/contact_first_name"
+                    data-type-xml="string" required="required" type="text" />
+                <span class="or-required-msg active" data-i18n="constraint.required" lang="">This
+                    field is required
+                </span>
+            </label>
+            <label class="question non-select ">
+                <span class="question-label "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_last_name:label"
+                    lang="Roman Urdu">
+                    Walid ya shohar ka naam
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_last_name:label"
+                    lang="en">
+                    Last Name
+                </span>
+                <input name="/AddContactForm_23.11.17_US/contact_information/contact_last_name"
+                    data-type-xml="string" type="text" />
+            </label>
+            <fieldset class="question simple-select ">
+                <fieldset>
+                    <legend>
+                        <span class="question-label "
+                            data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type:label"
+                            lang="Roman Urdu">
+                            Mareez se rishta kya hai
+                        </span>
+                        <span class="question-label active"
+                            data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type:label"
+                            lang="en">
+                            Relationship to Index Patient
+                        </span>
+                    </legend>
+                    <div class="option-wrapper">
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-type-xml="select1" type="radio" value="family_member" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/family_member:label"
+                                lang="Roman Urdu">
+                                Khun ka rishta
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/family_member:label"
+                                lang="en">
+                                Family Member
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-type-xml="select1" type="radio" value="classmate" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/classmate:label"
+                                lang="Roman Urdu">
+                                Saat parhtey hain
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/classmate:label"
+                                lang="en">
+                                Classmate
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-type-xml="select1" type="radio" value="friend" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/friend:label"
+                                lang="Roman Urdu">
+                                Dost
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/friend:label"
+                                lang="en">
+                                Friend
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-type-xml="select1" type="radio" value="other" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/other:label"
+                                lang="Roman Urdu">
+                                Koi Aur
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/other:label"
+                                lang="en">
+                                Other
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/relationship_type"
+                                data-type-xml="select1" type="radio" value="co_worker" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/co_worker:label"
+                                lang="Roman Urdu">
+                                Saat kaam kartey hain
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/relationship_type/co_worker:label"
+                                lang="en">
+                                Co-Worker
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+            </fieldset>
+            <label class="question non-select ">
+                <span class="question-label "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/national_id:label"
+                    lang="Roman Urdu">
+                    National Identification Number
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/national_id:label"
+                    lang="en">
+                    National Identification Number
+                </span>
+                <input name="/AddContactForm_23.11.17_US/contact_information/national_id"
+                    data-type-xml="string" type="text" />
+            </label>
+            <label class="question non-select ">
+                <span class="question-label "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:label"
+                    lang="Roman Urdu">
+                    Umar
+                </span>
+                <span class="question-label active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:label"
+                    lang="en">
+                    Age
+                </span>
+                <span class="required">*</span>
+                <span class="or-hint "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:hint"
+                    lang="Roman Urdu">
+                    -
+                </span>
+                <span class="or-hint active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:hint"
+                    lang="en">
+                    (years)
+                </span>
+                <input name="/AddContactForm_23.11.17_US/contact_information/contact_age"
+                    data-constraint=". &gt;0 and . &lt;=150" data-type-xml="int" required="required"
+                    type="number" />
+                <span class="or-constraint-msg "
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:jr:constraintMsg"
+                    lang="Roman Urdu">
+                    -
+                </span>
+                <span class="or-constraint-msg active"
+                    data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_age:jr:constraintMsg"
+                    lang="en">
+                    Must be at least a year old and less than 150 years of age
+                </span>
+                <span class="or-required-msg active" data-i18n="constraint.required" lang="">This
+                    field is required
+                </span>
+            </label>
+            <fieldset class="question simple-select ">
+                <fieldset>
+                    <legend>
+                        <span class="question-label "
+                            data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender:label"
+                            lang="Roman Urdu">
+                            Jins
+                        </span>
+                        <span class="question-label active"
+                            data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender:label"
+                            lang="en">
+                            Gender
+                        </span>
+                        <span class="required">*</span>
+                    </legend>
+                    <div class="option-wrapper">
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-type-xml="select1" required="required" type="radio"
+                                value="male" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/male:label"
+                                lang="Roman Urdu">
+                                Mard/larka
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/male:label"
+                                lang="en">
+                                Male
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-type-xml="select1" required="required" type="radio"
+                                value="female" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/female:label"
+                                lang="Roman Urdu">
+                                Aurat/larki
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/female:label"
+                                lang="en">
+                                Female
+                            </span>
+                        </label>
+                        <label class="">
+                            <input
+                                name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-name="/AddContactForm_23.11.17_US/contact_information/contact_gender"
+                                data-type-xml="select1" required="required" type="radio"
+                                value="transgender" />
+                            <span class="option-label "
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/transgender:label"
+                                lang="Roman Urdu">
+                                Khwaja sira
+                            </span>
+                            <span class="option-label active"
+                                data-itext-id="/AddContactForm_23.11.17_US/contact_information/contact_gender/transgender:label"
+                                lang="en">
+                                Transgender
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+                <span class="or-required-msg active" data-i18n="constraint.required" lang="">This
+                    field is required
+                </span>
+            </fieldset>
+        </section>
+        <div class="or-repeat-info" data-name="/AddContactForm_23.11.17_US/contact_information"
+            data-repeat-count=" /AddContactForm_23.11.17_US/contact_information_count " />
+    </section><!--end of group -->
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/start" data-preload="timestamp"
+                data-preload-params="start" data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/end" data-preload="timestamp"
+                data-preload-params="end" data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/today" data-preload="date"
+                data-preload-params="today" data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/deviceid" data-preload="property"
+                data-preload-params="deviceid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/simserial" data-preload="property"
+                data-preload-params="simserial" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/encounter_date"
+                data-calculate=" /AddContactForm_23.11.17_US/today " data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/contact_information_count"
+                data-calculate=" /AddContactForm_23.11.17_US/household_members "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="or-branch pre-init calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/contact_information/birthdate"
+                data-calculate="format-date(date(( /AddContactForm_23.11.17_US/today )-( /AddContactForm_23.11.17_US/contact_information/contact_age *365.25)),'%Y-%m-%d' )"
+                data-relevant=" /AddContactForm_23.11.17_US/contact_information/contact_age !=''"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/meta/instanceID"
+                data-calculate="concat('uuid:', uuid())" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/AddContactForm_23.11.17_US/formhub/uuid"
+                data-calculate="'c779978f452645c59750860616739ba4'" data-type-xml="string"
+                type="hidden" />
+        </label>
+    </fieldset>
+</form>

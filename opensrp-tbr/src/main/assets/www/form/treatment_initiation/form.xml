@@ -1,0 +1,771 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="treatment_initiation"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Treatment Initation</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /TreatmentInitation_10.01.18/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /TreatmentInitation_10.01.18/provider_uc "></span> ;
+            Center ka naam: <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /TreatmentInitation_10.01.18/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /TreatmentInitation_10.01.18/provider_uc "></span> ;
+            Center Name: <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/provider_location_name "></span>
+        </span>
+        <input name="/TreatmentInitation_10.01.18/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <section name="/TreatmentInitation_10.01.18/patient_information" class="or-group ">
+        <h4>
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information:label"
+                lang="Roman Urdu">Mareez ki
+                malumaat
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information:label"
+                lang="en">Patient
+                Information
+            </span>
+        </h4>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/participant_id:label"
+                lang="Roman Urdu">
+                Participant ID
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/participant_id:label"
+                lang="en">
+                Participant ID
+            </span>
+            <span class="required">*</span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/participant_id"
+                data-constraint="regex(., '[A-Z0-9]{0,20}$')"
+                data-type-xml="string" readonly="readonly" required="required"
+                type="text" />
+            <span class="or-constraint-msg " data-itext-id="/TreatmentInitation_10.01.18/patient_information/participant_id:jr:constraintMsg"
+                lang="Roman Urdu">
+                -
+            </span>
+            <span class="or-constraint-msg active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/participant_id:jr:constraintMsg"
+                lang="en">
+                Maximum 20 digits and cannot contain anything other than number
+            </span>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/program_id_note:label"
+                lang="Roman Urdu">
+                Program ID:
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/program_id_note:label"
+                lang="en">
+                Program ID:
+            </span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/program_id"
+                data-type-xml="string" readonly="readonly" type="text" />
+        </label>
+        <label class="question note non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/pt_name_note:label"
+                lang="Roman Urdu">
+                Mareez ka naam:
+                <span class="or-output"
+                    data-value=" /TreatmentInitation_10.01.18/patient_information/first_name "></span>
+                <span class="or-output"
+                    data-value=" /TreatmentInitation_10.01.18/patient_information/last_name "></span>
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/pt_name_note:label"
+                lang="en">
+                Patient Name:
+                <span class="or-output"
+                    data-value=" /TreatmentInitation_10.01.18/patient_information/first_name "></span>
+                <span class="or-output"
+                    data-value=" /TreatmentInitation_10.01.18/patient_information/last_name "></span>
+            </span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/pt_name_note" data-type-xml="string"
+                readonly="readonly" type="text" />
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:label"
+                lang="Roman Urdu">Umar
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:label"
+                lang="en">Current
+                Age
+            </span>
+            <span class="required">*</span>
+            <span class="or-hint " data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:hint"
+                lang="Roman Urdu">-
+            </span>
+            <span class="or-hint active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:hint"
+                lang="en">(years)
+            </span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/age" data-constraint=". &gt;0 and . &lt;=150"
+                data-type-xml="int" readonly="readonly" required="required" type="number" />
+            <span class="or-constraint-msg " data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:jr:constraintMsg"
+                lang="Roman Urdu">
+                -
+            </span>
+            <span class="or-constraint-msg active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/age:jr:constraintMsg"
+                lang="en">
+                Must be at least a year old and less than 150 years of age
+            </span>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender:label"
+                        lang="Roman Urdu">
+                        Jins
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender:label"
+                        lang="en">
+                        Gender
+                    </span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-type-xml="select1" disabled="disabled"
+                            required="required" type="radio" value="male" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/male:label"
+                            lang="Roman Urdu">
+                            Mard/larka
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/male:label"
+                            lang="en">
+                            Male
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-type-xml="select1" disabled="disabled"
+                            required="required" type="radio" value="female" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/female:label"
+                            lang="Roman Urdu">
+                            Aurat/larki
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/female:label"
+                            lang="en">
+                            Female
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-name="/TreatmentInitation_10.01.18/patient_information/gender"
+                            data-type-xml="select1" disabled="disabled"
+                            required="required" type="radio" value="transgender" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/transgender:label"
+                            lang="Roman Urdu">
+                            Khwaja sira
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/gender/transgender:label"
+                            lang="en">
+                            Transgender
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </fieldset>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/weight:label"
+                lang="Roman Urdu">Wazan
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/weight:label"
+                lang="en">
+                Weight(kg)
+            </span>
+            <span class="required">*</span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/weight" data-type-xml="decimal"
+                required="required" step="any" type="number" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/patient_information/height:label"
+                lang="Roman Urdu">Kad
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/patient_information/height:label"
+                lang="en">Height
+                (m)
+            </span>
+            <input name="/TreatmentInitation_10.01.18/patient_information/height" data-type-xml="decimal"
+                step="any" type="number" />
+        </label>
+    </section><!--end of group -->
+    <section name="/TreatmentInitation_10.01.18/tb_information" class="or-group ">
+        <h4>
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information:label"
+                lang="Roman Urdu">TB Information
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information:label"
+                lang="en">TB Information
+            </span>
+        </h4>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_initiation_date:label"
+                lang="Roman Urdu">
+                Ilaaj shuru honey ki tareeq
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_initiation_date:label"
+                lang="en">
+                Treatment Initiation Date?
+            </span>
+            <span class="required">*</span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/treatment_initiation_date"
+                data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/registry_number:label"
+                lang="Roman Urdu">TB
+                Registry number
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/registry_number:label"
+                lang="en">TB
+                Registry Number
+            </span>
+            <span class="required">*</span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/registry_number" data-type-xml="int"
+                required="required" type="number" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease:label"
+                        lang="Roman Urdu">
+                        Mareez ko kis qism ka TB hai
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease:label"
+                        lang="en">
+                        Type of TB Diagnosed
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/site_of_disease"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/site_of_disease"
+                            data-type-xml="select1"
+                            type="radio" value="ptb" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease/ptb:label"
+                            lang="Roman Urdu">
+                            Pulmonary
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease/ptb:label"
+                            lang="en">
+                            Pulmonary
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/site_of_disease"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/site_of_disease"
+                            data-type-xml="select1"
+                            type="radio" value="eptb" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease/eptb:label"
+                            lang="Roman Urdu">
+                            Extra Pulmonary
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_disease/eptb:label"
+                            lang="en">
+                            Extra Pulmonary
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_eptb:label"
+                lang="Roman Urdu">EP TB
+                ki jagah
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/site_of_eptb:label"
+                lang="en">EP TB
+                Disease Site
+            </span>
+            <select name="/TreatmentInitation_10.01.18/tb_information/site_of_eptb"
+                data-name="/TreatmentInitation_10.01.18/tb_information/site_of_eptb"
+                data-relevant=" /TreatmentInitation_10.01.18/tb_information/site_of_disease ='eptb'"
+                data-type-xml="select1">
+                <option value="">...</option>
+                <option value="pleura">Pleural Effusion</option>
+                <option value="spine">Spine</option>
+                <option value="lymph">Lymph Node</option>
+                <option value="abdomen">Abdomen</option>
+                <option value="cns">CNS (includes meningeal, brain)</option>
+                <option value="renal">Renal</option>
+                <option value="bones">Bones</option>
+                <option value="genitourinary">Genitourinary</option>
+                <option value="other">Other</option>
+            </select>
+            <span style="display:none;" class="or-option-translations">
+                <span data-option-value="pleura" lang="Roman Urdu">Pleural Effusion</span>
+                <span data-option-value="pleura" lang="en">Pleural Effusion</span>
+                <span data-option-value="spine" lang="Roman Urdu">Spine</span>
+                <span data-option-value="spine" lang="en">Spine</span>
+                <span data-option-value="lymph" lang="Roman Urdu">Lymph Node</span>
+                <span data-option-value="lymph" lang="en">Lymph Node</span>
+                <span data-option-value="abdomen" lang="Roman Urdu">Abdomen</span>
+                <span data-option-value="abdomen" lang="en">Abdomen</span>
+                <span data-option-value="cns" lang="Roman Urdu">CNS (includes meningeal, brain)
+                </span>
+                <span data-option-value="cns" lang="en">CNS (includes meningeal, brain)</span>
+                <span data-option-value="renal" lang="Roman Urdu">Renal</span>
+                <span data-option-value="renal" lang="en">Renal</span>
+                <span data-option-value="bones" lang="Roman Urdu">Bones</span>
+                <span data-option-value="bones" lang="en">Bones</span>
+                <span data-option-value="genitourinary" lang="Roman Urdu">Genitourinary</span>
+                <span data-option-value="genitourinary" lang="en">Genitourinary</span>
+                <span data-option-value="other" lang="Roman Urdu">Other</span>
+                <span data-option-value="other" lang="en">Other</span>
+            </span>
+        </label>
+        <label class="question or-branch pre-init non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/other_eptb_site:label"
+                lang="Roman Urdu">
+                Wazai karein
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/other_eptb_site:label"
+                lang="en">
+                Specify EP TB Disease Site
+            </span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/other_eptb_site" data-relevant=" /TreatmentInitation_10.01.18/tb_information/site_of_eptb ='other'"
+                data-type-xml="string"
+                type="text" />
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type:label"
+                        lang="Roman Urdu">
+                        Mareez type
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type:label"
+                        lang="en">
+                        Patient Type
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="new" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/new:label"
+                            lang="Roman Urdu">
+                            New Case
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/new:label"
+                            lang="en">
+                            New Case
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="relapse" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/relapse:label"
+                            lang="Roman Urdu">
+                            Relapse
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/relapse:label"
+                            lang="en">
+                            Relapse
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="transfer _in" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/transfer _in:label"
+                            lang="Roman Urdu">
+                            Transfer In
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/transfer _in:label"
+                            lang="en">
+                            Transfer In
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="after_ltfu" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/after_ltfu:label"
+                            lang="Roman Urdu">
+                            Treatment After Loss to Follow-up
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/after_ltfu:label"
+                            lang="en">
+                            Treatment After Loss to Follow-up
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="after_failure" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/after_failure:label"
+                            lang="Roman Urdu">
+                            Treatment After Failure
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/after_failure:label"
+                            lang="en">
+                            Treatment After Failure
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/patient_type"
+                            data-type-xml="select1"
+                            type="radio" value="other" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/other:label"
+                            lang="Roman Urdu">
+                            Other
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/patient_type/other:label"
+                            lang="en">
+                            Other
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <fieldset class="question simple-select note ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase:label"
+                        lang="Roman Urdu">
+                        Phase
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase:label"
+                        lang="en">
+                        Treatment Phase
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_phase"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_phase"
+                            data-type-xml="select1"
+                            readonly="readonly" type="radio" value="continuation" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase/continuation:label"
+                            lang="Roman Urdu">
+                            Continuation
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase/continuation:label"
+                            lang="en">
+                            Continuation
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_phase"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_phase"
+                            data-type-xml="select1"
+                            readonly="readonly" type="radio" value="intensive" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase/intensive:label"
+                            lang="Roman Urdu">
+                            Intensive
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase/intensive:label"
+                            lang="en">
+                            Intensive
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+       <!-- <label class="question note non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase_note:label"
+                lang="Roman Urdu">
+                Treatment Phase <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/treatment_phase "></span>
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_phase_note:label"
+                lang="en">
+                Treatment Phase <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/treatment_phase "></span>
+            </span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/treatment_phase_note"
+                data-type-xml="string"
+                readonly="readonly" type="text" />
+        </label>-->
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen:label"
+                        lang="Roman Urdu">
+                        Regimen
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen:label"
+                        lang="en">
+                        Regimen
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-type-xml="select1"
+                            type="radio" value="rhze" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhze:label"
+                            lang="Roman Urdu">
+                            RHZE
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhze:label"
+                            lang="en">
+                            RHZE
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-type-xml="select1"
+                            type="radio" value="rh" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rh:label"
+                            lang="Roman Urdu">
+                            RH
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rh:label"
+                            lang="en">
+                            RH
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-type-xml="select1"
+                            type="radio" value="rhe" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhe:label"
+                            lang="Roman Urdu">
+                            RHE
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhe:label"
+                            lang="en">
+                            RHE
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-type-xml="select1"
+                            type="radio" value="rhzes" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhzes:label"
+                            lang="Roman Urdu">
+                            RHZES
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/rhzes:label"
+                            lang="en">
+                            RHZES
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/treatment_regimen"
+                            data-type-xml="select1"
+                            type="radio" value="other" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/other:label"
+                            lang="Roman Urdu">
+                            Other
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/treatment_regimen/other:label"
+                            lang="en">
+                            Other
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit:label"
+                        lang="Roman Urdu">
+                        Agli Tareeq 30 din baad?
+                    </span>
+                    <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit:label"
+                        lang="en">
+                        Next Appointment after 30 days?
+                    </span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/fu_visit"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/fu_visit"
+                            data-type-xml="select1"
+                            type="radio" value="yes" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit/yes:label"
+                            lang="Roman Urdu">
+                            Haan
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit/yes:label"
+                            lang="en">
+                            Yes
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/TreatmentInitation_10.01.18/tb_information/fu_visit"
+                            data-name="/TreatmentInitation_10.01.18/tb_information/fu_visit"
+                            data-type-xml="select1"
+                            type="radio" value="no" />
+                        <span class="option-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit/no:label"
+                            lang="Roman Urdu">
+                            Nahi
+                        </span>
+                        <span class="option-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit/no:label"
+                            lang="en">
+                            No
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit_date:label"
+                lang="Roman Urdu">
+                Aagli Tareeq Daley
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/fu_visit_date:label"
+                lang="en">
+                Entet Next Visit Date
+            </span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/fu_visit_date" data-relevant=" /TreatmentInitation_10.01.18/tb_information/fu_visit ='no'"
+                data-type-xml="date"
+                type="date" />
+        </label>
+        <label class="question note non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/next_visit_date_note:label"
+                lang="Roman Urdu">
+                Next Visit Date <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/next_visit_date "></span>
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/next_visit_date_note:label"
+                lang="en">
+                Next Visit Date <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/next_visit_date "></span>
+            </span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/next_visit_date_note"
+                data-type-xml="string"
+                readonly="readonly" type="text" />
+        </label>
+        <label class="question note non-select ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/next_smear_due_date_note:label"
+                lang="Roman Urdu">
+                Next Smear Due Date <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/smear_due_date "></span>
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/next_smear_due_date_note:label"
+                lang="en">
+                Next Smear Due Date <span class="or-output"
+                data-value=" /TreatmentInitation_10.01.18/tb_information/smear_due_date "></span>
+            </span>
+            <input name="/TreatmentInitation_10.01.18/tb_information/next_smear_due_date_note"
+                data-type-xml="string"
+                readonly="readonly" type="text" />
+        </label>
+        <label class="question non-select or-appearance-multiline ">
+            <span class="question-label " data-itext-id="/TreatmentInitation_10.01.18/tb_information/comments:label"
+                lang="Roman Urdu">Tabsarah
+            </span>
+            <span class="question-label active" data-itext-id="/TreatmentInitation_10.01.18/tb_information/comments:label"
+                lang="en">Comments
+            </span>
+            <textarea name="/TreatmentInitation_10.01.18/tb_information/comments"
+                data-type-xml="string"></textarea>
+        </label>
+    </section><!--end of group -->
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/deviceid" data-preload="property"
+                data-preload-params="deviceid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/simserial" data-preload="property"
+                data-preload-params="simserial" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/encounter_date" data-calculate=" /TreatmentInitation_10.01.18/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/patient_information/bmi" data-calculate=" /TreatmentInitation_10.01.18/patient_information/weight  div ( /TreatmentInitation_10.01.18/patient_information/height * /TreatmentInitation_10.01.18/patient_information/height )"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="or-branch pre-init calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/tb_information/visit_date" data-calculate="format-date(date-time(decimal-date-time( /TreatmentInitation_10.01.18/tb_information/treatment_initiation_date )+30),'%Y-%m-%d')"
+                data-relevant=" /TreatmentInitation_10.01.18/tb_information/fu_visit ='yes'"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/tb_information/next_visit_date" data-calculate="if( /TreatmentInitation_10.01.18/tb_information/fu_visit ='yes',  /TreatmentInitation_10.01.18/tb_information/visit_date ,  /TreatmentInitation_10.01.18/tb_information/fu_visit_date )"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/tb_information/smear_due_date" data-calculate="format-date(date-time(decimal-date-time( /TreatmentInitation_10.01.18/tb_information/treatment_initiation_date )+54),'%Y-%m-%d')"
+                data-type-xml="string"
+                type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/TreatmentInitation_10.01.18/formhub/uuid" data-calculate="'173c96d298634351a9e83fcc334cacb4'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>

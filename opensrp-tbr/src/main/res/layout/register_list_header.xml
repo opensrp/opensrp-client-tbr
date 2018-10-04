@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/patient_header"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:text="@string/patient_profile"
+        android:textAllCaps="true"
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/xpert_results_header"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.6"
+        android:gravity="center_horizontal"
+        android:text="@string/xpert_result"
+        android:textAllCaps="true"
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/smr_results_header"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.6"
+        android:gravity="center_horizontal"
+        android:text="@string/smr_results"
+        android:textAllCaps="true"
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp"
+        android:visibility="gone" />
+</merge>

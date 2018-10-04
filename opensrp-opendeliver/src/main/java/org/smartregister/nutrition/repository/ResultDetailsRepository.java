@@ -132,12 +132,16 @@ public class ResultDetailsRepository extends BaseRepository {
             String suffix = "";
             if (type.equals(Register.PRESUMPTIVE_PATIENTS)) {
                 suffix = DBQueryHelper.getPresumptivePatientRegisterCondition();
-            } else if (type.equals(Register.POSITIVE_PATIENTS)) {
+            } else if (type.equals(Register.CHILD)) {
+                suffix = "";//DBQueryHelper.getPositivePatientRegisterCondition();
+            }else if (type.equals(Register.POSITIVE_PATIENTS)) {
                 suffix = DBQueryHelper.getPositivePatientRegisterCondition();
-
             } else if (type.equals(Register.IN_TREATMENT_PATIENTS)) {
 
                 suffix = DBQueryHelper.getIntreatmentPatientRegisterCondition();
+            }
+            else {
+                return null;
             }
 
             String jsonString = OpenDeliverApplication.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.TEST_RESULTS);

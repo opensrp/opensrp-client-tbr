@@ -1,0 +1,268 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="smear_result_form"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Smear Result Form</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_uc "></span> ;
+            Center ka naam: <span class="or-output"
+                data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_city "></span> ;
+            Town: <span class="or-output"
+                data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_town "></span> ; UC: <span
+                class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_uc "></span> ;
+            Center Name: <span class="or-output"
+                data-value=" /SmearForm_03.10.17_US_OPENMRS/provider_location_name "></span>
+        </span>
+        <input name="/SmearForm_03.10.17_US_OPENMRS/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/program_id_note:label"
+            lang="en">Program ID: <span
+            class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/program_id "></span>
+        </span>
+        <input name="/SmearForm_03.10.17_US_OPENMRS/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/pt_name_note:label"
+            lang="Roman Urdu">Mareez ka naam:
+            <span class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/first_name "></span>
+            <span class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/last_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/pt_name_note:label"
+            lang="en">Patient Name:
+            <span class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/first_name "></span>
+            <span class="or-output" data-value=" /SmearForm_03.10.17_US_OPENMRS/last_name "></span>
+        </span>
+        <input name="/SmearForm_03.10.17_US_OPENMRS/pt_name_note" data-type-xml="string" readonly="readonly"
+            type="text" />
+    </label>
+    <section name="/SmearForm_03.10.17_US_OPENMRS/test_information" class="or-group ">
+        <h4>
+            <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information:label"
+                lang="en">Test
+                Information
+            </span>
+        </h4>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_date:label"
+                lang="Roman Urdu">Test
+                ki tareeq
+            </span>
+            <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_date:label"
+                lang="en">Date
+                when sample was obtained?
+            </span>
+            <span class="required">*</span>
+            <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_date" data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/sample_id:label"
+                lang="Roman Urdu">
+                Sample ID
+            </span>
+            <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/sample_id:label"
+                lang="en">
+                Sample ID
+            </span>
+            <span class="required">*</span>
+            <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/sample_id" data-type-xml="string"
+                required="required" type="text" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/result_date:label"
+                lang="Roman Urdu">
+                Result ki tareeq
+            </span>
+            <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/result_date:label"
+                lang="en">
+                Test Result Date
+            </span>
+            <span class="required">*</span>
+            <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/result_date" data-constraint=".&lt;= /SmearForm_03.10.17_US_OPENMRS/today "
+                data-type-xml="date" required="required"
+                type="date" />
+            <span class="or-constraint-msg active" data-i18n="constraint.invalid" lang="">Value not
+                allowed
+            </span>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result:label"
+                        lang="Roman Urdu">
+                        Test ka nateeja
+                    </span>
+                    <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result:label"
+                        lang="en">
+                        Smear Result
+                    </span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="one_plus" />
+                        <span class="option-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/one_plus:label"
+                            lang="Roman Urdu">
+                            1+
+                        </span>
+                        <span class="option-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/one_plus:label"
+                            lang="en">
+                            1+
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="two_plus" />
+                        <span class="option-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/two_plus:label"
+                            lang="Roman Urdu">
+                            2+
+                        </span>
+                        <span class="option-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/two_plus:label"
+                            lang="en">
+                            2+
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="three_plus" />
+                        <span class="option-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/three_plus:label"
+                            lang="Roman Urdu">
+                            3+
+                        </span>
+                        <span class="option-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/three_plus:label"
+                            lang="en">
+                            3+
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="scanty" />
+                        <span class="option-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/scanty:label"
+                            lang="Roman Urdu">
+                            Scanty
+                        </span>
+                        <span class="option-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/scanty:label"
+                            lang="en">
+                            Scanty
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-name="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="negative" />
+                        <span class="option-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/negative:label"
+                            lang="Roman Urdu">
+                            Negative
+                        </span>
+                        <span class="option-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/test_result/negative:label"
+                            lang="en">
+                            Negative
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </fieldset>
+        <label class="question non-select or-appearance-multiline ">
+            <span class="question-label " data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/comments:label"
+                lang="Roman Urdu">
+                Tabsarah
+            </span>
+            <span class="question-label active" data-itext-id="/SmearForm_03.10.17_US_OPENMRS/test_information/comments:label"
+                lang="en">
+                Comments
+            </span>
+            <textarea name="/SmearForm_03.10.17_US_OPENMRS/test_information/comments"
+                data-type-xml="string"></textarea>
+        </label>
+    </section><!--end of group -->
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/start" data-preload="timestamp"
+                data-preload-params="start" data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/deviceid" data-preload="property"
+                data-preload-params="deviceid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/subscriberid" data-preload="property"
+                data-preload-params="subscriberid" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/simserial" data-preload="property"
+                data-preload-params="simserial" data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/phonenumber" data-preload="property"
+                data-preload-params="phonenumber" data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/client_reg_date" data-calculate=" /SmearForm_03.10.17_US_OPENMRS/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/SmearForm_03.10.17_US_OPENMRS/formhub/uuid" data-calculate="'2cfdb7c651224cc5a81eee169c5768f7'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>

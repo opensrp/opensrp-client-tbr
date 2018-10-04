@@ -1,0 +1,182 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/FollowUpVisit_10.01.18",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "provider_uc",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_uc"
+      },
+      {
+        "name": "provider_town",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_town"
+      },
+      {
+        "name": "provider_city",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_city"
+      },
+      {
+        "name": "provider_province",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_province"
+      },
+      {
+        "name": "provider_id",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_id"
+      },
+      {
+        "name": "provider_location_id",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_location_id"
+      },
+      {
+        "name": "provider_location_name",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_location_name"
+      },
+      {
+        "name": "provider_location_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/provider_location_note"
+      },
+      {
+        "name": "start",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/end"
+      },
+      {
+        "name": "today",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/today"
+      },
+      {
+        "name": "deviceid",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/deviceid"
+      },
+      {
+        "name": "subscriberid",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/subscriberid"
+      },
+      {
+        "name": "simserial",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/simserial"
+      },
+      {
+        "name": "phonenumber",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/phonenumber"
+      },
+      {
+        "name": "treatment_initiation_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_initiation_date"
+      },
+      {
+        "name": "client_reg_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/client_reg_date"
+      },
+      {
+        "name": "participant_id",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/participant_id"
+      },
+      {
+        "name": "program_id",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/program_id"
+      },
+      {
+        "name": "program_id_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/program_id_note"
+      },
+      {
+        "name": "first_name",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/first_name"
+      },
+      {
+        "name": "last_name",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/last_name"
+      },
+      {
+        "name": "pt_name_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/pt_name_note"
+      },
+      {
+        "name": "weight",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/weight"
+      },
+      {
+        "name": "height",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/height"
+      },
+      {
+        "name": "bmi",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/bmi"
+      },
+      {
+        "name": "bmi",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/bmi"
+      },
+      {
+        "name": "category",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/category"
+      },
+      {
+        "name": "month",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/month"
+      },
+      {
+        "name": "treatment_phase",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_phase"
+      },
+      {
+        "name": "treatment_regimen",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/treatment_regimen"
+      },
+      {
+        "name": "regimen_oth",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/regimen_oth"
+      },
+      {
+        "name": "fu_visit",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/fu_visit"
+      },
+      {
+        "name": "visit_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/visit_date"
+      },
+      {
+        "name": "fu_visit_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/fu_visit_date"
+      },
+      {
+        "name": "next_visit_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/next_visit_date"
+      },
+      {
+        "name": "next_visit_date_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/next_visit_date_note"
+      },
+      {
+        "name": "smear_due_date",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/smear_due_date"
+      },
+      {
+        "name": "next_smear_due_date_note",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/next_smear_due_date_note"
+      },
+      {
+        "name": "adverse_effect",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/adverse_effect"
+      },
+      {
+        "name": "adverse_effect_specify",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/adverse_effect_specify"
+      },
+      {
+        "name": "comments",
+        "bind": "/model/instance/FollowUpVisit_10.01.18/comments"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+<model>
+    <instance>
+        <TreatmentInitation_10.01.18 xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Treatment Initiation"
+            id="treatment_initiation" version="201801251501">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <encounter_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <patient_information>
+                <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID" />
+                <program_id openmrs_entity="person_identifier"
+                    openmrs_entity_id="TBREACH Program ID" />
+                <program_id_note />
+                <first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+                <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+                <pt_name_note />
+                <age openmrs_entity="person" openmrs_entity_id="age" />
+                <gender openmrs_entity="person" openmrs_entity_id="gender" />
+                <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
+                <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="TBR: body mass index" />
+            </patient_information>
+            <tb_information>
+                <treatment_initiation_date openmrs_entity="concept"
+                    openmrs_entity_id="TBR: treatment start date" />
+                <registry_number openmrs_entity="concept"
+                    openmrs_entity_id="TBR: tb registry number" />
+                <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR: tb type" />
+                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis" />
+                <other_eptb_site openmrs_entity="concept"
+                    openmrs_entity_id="TBR:other specify text" />
+                <patient_type openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
+                <treatment_phase openmrs_entity="concept" openmrs_entity_id="TBR: treatment phase">
+                    Intensive
+                </treatment_phase>
+                <treatment_phase_note />
+                <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+                <fu_visit />
+                <visit_date />
+                <fu_visit_date />
+                <next_visit_date openmrs_entity="concept"
+                    openmrs_entity_id="TBR: next visit date" />
+                <next_visit_date_note />
+                <smear_due_date openmrs_entity="concept" openmrs_entity_id="TBR: smear due date" />
+                <next_smear_due_date_note />
+                <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
+            </tb_information>
+            <meta>
+                <instanceID />
+            </meta>
+        </TreatmentInitation_10.01.18>
+    </instance>
+</model>

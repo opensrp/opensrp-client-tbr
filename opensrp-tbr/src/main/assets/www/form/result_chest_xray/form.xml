@@ -1,0 +1,271 @@
+<form autocomplete="off" class="or clearfix" dir="ltr" id="xray_result_form"
+    novalidate="novalidate"><!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">X-Ray Result Form</h3>
+    <select data-default-lang="en" id="form-languages">
+        <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
+        <option data-dir="ltr" value="en">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/provider_location_note:label"
+            lang="Roman Urdu">Shehr: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_uc "></span> ; Center ka
+            naam: <span class="or-output"
+                data-value=" /XrayForm_03.10.17_US/provider_location_name "></span>
+        </span>
+        <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/provider_location_note:label"
+            lang="en">City: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_city "></span> ; Town: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_town "></span> ; UC: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/provider_uc "></span> ; Center
+            Name: <span class="or-output"
+                data-value=" /XrayForm_03.10.17_US/provider_location_name "></span>
+        </span>
+        <input name="/XrayForm_03.10.17_US/provider_location_note" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
+    <label class="question non-select ">
+        <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/participant_id:label"
+            lang="Roman Urdu">Participant ID
+        </span>
+        <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/participant_id:label"
+            lang="en">Participant ID
+        </span>
+        <span class="required">*</span>
+        <input name="/XrayForm_03.10.17_US/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"
+            readonly="readonly" required="required" type="text" />
+        <span class="or-constraint-msg " data-itext-id="/XrayForm_03.10.17_US/participant_id:jr:constraintMsg"
+            lang="Roman Urdu">-
+        </span>
+        <span class="or-constraint-msg active" data-itext-id="/XrayForm_03.10.17_US/participant_id:jr:constraintMsg"
+            lang="en">Maximum 20 digits
+            and cannot contain anything other than number
+        </span>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/program_id_note:label"
+            lang="Roman Urdu">Program ID
+        </span>
+        <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/program_id_note:label"
+            lang="en">Program ID: <span
+            class="or-output" data-value=" /XrayForm_03.10.17_US/program_id "></span>
+        </span>
+        <input name="/XrayForm_03.10.17_US/program_id_note" data-type-xml="string" readonly="readonly"
+            required="required" type="text" />
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </label>
+    <label class="question note non-select ">
+        <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/pt_name_note:label"
+            lang="Roman Urdu">-
+        </span>
+        <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/pt_name_note:label"
+            lang="en">Patient Name:
+            <span class="or-output" data-value=" /XrayForm_03.10.17_US/first_name "></span>
+            <span class="or-output" data-value=" /XrayForm_03.10.17_US/last_name "></span>
+        </span>
+        <input name="/XrayForm_03.10.17_US/pt_name_note" data-type-xml="string" readonly="readonly"
+            type="text" />
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/xray_taken:label"
+                    lang="Roman Urdu">-
+                </span>
+                <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/xray_taken:label"
+                    lang="en">Chest X-Ray Obtained?
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input name="/XrayForm_03.10.17_US/xray_taken" data-name="/XrayForm_03.10.17_US/xray_taken"
+                        data-type-xml="select1" required="required" type="radio"
+                        value="yes" />
+                    <span class="option-label " data-itext-id="/XrayForm_03.10.17_US/xray_taken/yes:label"
+                        lang="Roman Urdu">Haan
+                    </span>
+                    <span class="option-label active" data-itext-id="/XrayForm_03.10.17_US/xray_taken/yes:label"
+                        lang="en">Yes
+                    </span>
+                </label>
+                <label class="">
+                    <input name="/XrayForm_03.10.17_US/xray_taken" data-name="/XrayForm_03.10.17_US/xray_taken"
+                        data-type-xml="select1" required="required" type="radio"
+                        value="no" />
+                    <span class="option-label " data-itext-id="/XrayForm_03.10.17_US/xray_taken/no:label"
+                        lang="Roman Urdu">Nahi
+                    </span>
+                    <span class="option-label active" data-itext-id="/XrayForm_03.10.17_US/xray_taken/no:label"
+                        lang="en">No
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
+            required
+        </span>
+    </fieldset>
+    <section name="/XrayForm_03.10.17_US/test_information" class="or-group or-branch pre-init "
+        data-relevant=" /XrayForm_03.10.17_US/xray_taken ='yes'">
+        <h4>
+            <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information:label"
+                lang="en">Test Information
+            </span>
+        </h4>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information/test_date:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/test_date:label"
+                lang="en">Date of Test?
+            </span>
+            <span class="required">*</span>
+            <input name="/XrayForm_03.10.17_US/test_information/test_date" data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information/test_id:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/test_id:label"
+                lang="en">X-Ray ID
+            </span>
+            <span class="required">*</span>
+            <input name="/XrayForm_03.10.17_US/test_information/test_id" data-type-xml="string"
+                required="required" type="text" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <label class="question non-select ">
+            <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information/result_date:label"
+                lang="Roman Urdu">-
+            </span>
+            <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/result_date:label"
+                lang="en">Result
+                Date?
+            </span>
+            <span class="required">*</span>
+            <input name="/XrayForm_03.10.17_US/test_information/result_date" data-type-xml="date"
+                required="required" type="date" />
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </label>
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result:label"
+                        lang="Roman Urdu">-
+                    </span>
+                    <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result:label"
+                        lang="en">
+                        X-Ray Result
+                    </span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input name="/XrayForm_03.10.17_US/test_information/xray_result"
+                            data-name="/XrayForm_03.10.17_US/test_information/xray_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="indicative" />
+                        <span class="option-label " data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result/indicative:label"
+                            lang="Roman Urdu">
+                            Indicative of TB
+                        </span>
+                        <span class="option-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result/indicative:label"
+                            lang="en">
+                            Indicative of TB
+                        </span>
+                    </label>
+                    <label class="">
+                        <input name="/XrayForm_03.10.17_US/test_information/xray_result"
+                            data-name="/XrayForm_03.10.17_US/test_information/xray_result"
+                            data-type-xml="select1"
+                            required="required" type="radio" value="not indicative" />
+                        <span class="option-label " data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result/not indicative:label"
+                            lang="Roman Urdu">
+                            Not Indicative of TB
+                        </span>
+                        <span class="option-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/xray_result/not indicative:label"
+                            lang="en">
+                            Not Indicative of TB
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                is required
+            </span>
+        </fieldset>
+        <label class="question non-select or-appearance-multiline ">
+            <span class="question-label " data-itext-id="/XrayForm_03.10.17_US/test_information/comments:label"
+                lang="Roman Urdu">Tabsarah
+            </span>
+            <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/test_information/comments:label"
+                lang="en">Comments
+            </span>
+            <textarea name="/XrayForm_03.10.17_US/test_information/comments"
+                data-type-xml="string"></textarea>
+        </label>
+    </section><!--end of group -->
+    <fieldset style="display:none;" id="or-preload-items">
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/start" data-preload="timestamp" data-preload-params="start"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/end" data-preload="timestamp" data-preload-params="end"
+                data-type-xml="dateTime" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/today" data-preload="date" data-preload-params="today"
+                data-type-xml="date" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/deviceid" data-preload="property" data-preload-params="deviceid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/subscriberid" data-preload="property" data-preload-params="subscriberid"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/simserial" data-preload="property" data-preload-params="simserial"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/phonenumber" data-preload="property" data-preload-params="phonenumber"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+    <fieldset style="display:none;" id="or-calculated-items">
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/client_reg_date" data-calculate=" /XrayForm_03.10.17_US/today "
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/meta/instanceID" data-calculate="concat('uuid:', uuid())"
+                data-type-xml="string" type="hidden" />
+        </label>
+        <label class="calculation non-select ">
+            <input name="/XrayForm_03.10.17_US/formhub/uuid" data-calculate="'d4bb063fd8574f6ea13551552aceb3ea'"
+                data-type-xml="string" type="hidden" />
+        </label>
+    </fieldset>
+</form>

@@ -20,7 +20,6 @@ public class PositivePatientRegisterFragment extends BaseRegisterFragment {
         populateClientListHeaderView(view, headerLayout, POSITIVE_REGISTER_HEADER);
     }
 
-
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getPositivePatientRegisterCondition();

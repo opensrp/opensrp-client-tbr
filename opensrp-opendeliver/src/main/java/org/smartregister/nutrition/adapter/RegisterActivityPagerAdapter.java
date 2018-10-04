@@ -7,7 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import org.smartregister.enketo.view.fragment.DisplayFormFragment;
+import org.smartregister.DisplayFormFragment;
+
 
 public class RegisterActivityPagerAdapter extends RegisterFragmentStatePagerAdapter {
     public static final String ARG_PAGE = "page";

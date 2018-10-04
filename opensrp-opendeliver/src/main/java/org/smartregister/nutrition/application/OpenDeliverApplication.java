@@ -1,6 +1,9 @@
 package org.smartregister.nutrition.application;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -12,11 +15,14 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.configurableviews.model.MainConfig;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.nutrition.activity.LoginActivity;
 import org.smartregister.nutrition.event.LanguageConfigurationEvent;
 import org.smartregister.nutrition.event.TriggerSyncEvent;
+import org.smartregister.nutrition.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.nutrition.receiver.TbrSyncBroadcastReceiver;
 import org.smartregister.nutrition.repository.BMIRepository;
 import org.smartregister.nutrition.repository.ResultDetailsRepository;
@@ -46,7 +52,6 @@ import static org.smartregister.util.Log.logInfo;
  * Created by keyman on 23/08/2017.
  */
 public class OpenDeliverApplication extends DrishtiApplication {
-
     private static JsonSpecHelper jsonSpecHelper;
 
     private ConfigurableViewsRepository configurableViewsRepository;
@@ -224,8 +229,12 @@ public class OpenDeliverApplication extends DrishtiApplication {
     }
 
     private void setUpEventHandling() {
+
         try {
-            EventBus.builder().addIndex(new org.smartregister.nutrition.NutEventBusIndex()).installDefaultEventBus();
+
+            EventBus.builder().addIndex(new org.smartregister.tbr.TBREventBusIndex()).installDefaultEventBus();
+            LocalBroadcastManager.getInstance(this).registerReceiver(syncCompleteMessageReceiver, new IntentFilter(PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE));
+
         } catch
                 (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -247,9 +256,30 @@ public class OpenDeliverApplication extends DrishtiApplication {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void setServerLanguage(LanguageConfigurationEvent event) {
         //Set Language
-        org.smartregister.configurableviews.model.MainConfig config = OpenDeliverApplication.getJsonSpecHelper().getMainConfiguration();
+        MainConfig config = OpenDeliverApplication.getJsonSpecHelper().getMainConfiguration();
         if (config != null && config.getLanguage() != null && event.isFromServer()) {
             Utils.saveLanguage(config.getLanguage());
         }
     }
+
+    // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE is broadcast.
+    private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            // Retrieve the extra data included in the Intent
+
+            int recordsRetrievedCount = intent.getIntExtra(Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, 0);
+            if (recordsRetrievedCount > 0) {
+                LanguageConfigurationEvent event = new LanguageConfigurationEvent(true);//To Do add check for language configs
+                Utils.postEvent(event);
+            }
+
+            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+
+            String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
+
+            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+
+        }
+    };
 }

@@ -56,7 +56,8 @@ public class HomeFragment extends ListFragment {
                 List<org.smartregister.configurableviews.model.View> views = homeViewConfig.getViews();
                 for (org.smartregister.configurableviews.model.View view : views) {
                     if (view.isVisible()) {
-                        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
+                        values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier()))
+                                .setDigest((String) view.getMetadataObject("digest")));
                     }
                 }
                 if (values.size() > 0) {
@@ -74,7 +75,7 @@ public class HomeFragment extends ListFragment {
                 values.addAll(getDefaultRegisterList());
             }
             saveRegisterTitles(values);
-            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values, homeViewConfig.getMetadata());
+            RegisterArrayAdapter adapter = new RegisterArrayAdapter(getActivity(), R.layout.row_register_view, values);
             setListAdapter(adapter);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -126,7 +127,7 @@ public class HomeFragment extends ListFragment {
     private List<Register> getDefaultRegisterList() {
         List<Register> values = new ArrayList<>();
         //Render Default View if no configs exist
-        org.smartregister.configurableviews.model.View view = new org.smartregister.configurableviews.model.View();
+       /* org.smartregister.configurableviews.model.View view = new org.smartregister.configurableviews.model.View();
         Residence residence = new Residence();
 
 
@@ -145,7 +146,7 @@ public class HomeFragment extends ListFragment {
 
         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
 
-        /*view = new org.smartregister.configurableviews.model.View();
+        view = new org.smartregister.configurableviews.model.View();
         view.setIdentifier(Register.IN_TREATMENT_PATIENTS);
         view.setLabel(Register.IN_TREATMENT_PATIENTS);
 

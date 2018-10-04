@@ -1,0 +1,49 @@
+<model>
+    <instance>
+        <AddContactForm_23.11.17_US xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Add TB Contact" id="add_contact"
+            version="201801261239">
+            <formhub>
+                <uuid />
+            </formhub>
+            <provider_uc />
+            <provider_town />
+            <provider_city />
+            <provider_province />
+            <provider_id />
+            <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id" />
+            <provider_location_name />
+            <provider_location_note />
+            <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime" />
+            <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime" />
+            <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime" />
+            <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id" />
+            <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id" />
+            <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number" />
+            <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number" />
+            <encounter_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
+            <participant_id />
+            <household_members />
+            <contact_information_count />
+            <contact_information openmrs_entity="person" openmrs_entity_id="TB Contact" template="">
+                <contact_id openmrs_entity="person_identifier"
+                    openmrs_entity_id="TBREACH Program ID" />
+                <contact_first_name openmrs_entity="person" openmrs_entity_id="first_name" />
+                <contact_last_name openmrs_entity="person" openmrs_entity_id="last_name" />
+                <relationship_type openmrs_entity="concept"
+                    openmrs_entity_id="TBR: tuberculosis contact" />
+                <national_id />
+                <contact_age openmrs_entity="person" openmrs_entity_id="age" />
+                <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
+                <birthdate_estimated openmrs_entity="person"
+                    openmrs_entity_id="birthdate_estimated">1
+                </birthdate_estimated>
+                <contact_gender openmrs_entity="person" openmrs_entity_id="gender" />
+                <parent_entity_id />
+            </contact_information>
+            <meta>
+                <instanceID />
+            </meta>
+        </AddContactForm_23.11.17_US>
+    </instance>
+</model>

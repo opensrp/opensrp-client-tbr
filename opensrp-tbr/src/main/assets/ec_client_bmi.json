@@ -1,0 +1,46 @@
+{
+  "name": "results",
+  "columns": [
+    {
+      "column_name": "base_entity_id",
+      "json_mapping": {
+        "field": "baseEntityId"
+      }
+    },
+    {
+      "column_name": "weight",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: weight"
+      }
+    },
+    {
+      "column_name": "height",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: height"
+      }
+    },
+    {
+      "column_name": "bmi",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "bmi"
+      }
+    },
+    {
+      "column_name": "created_at",
+      "json_mapping": {
+        "field": "eventDate"
+      }
+    },
+    {
+      "column_name": "treatment_initiation_date",
+      "type": "Event",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: treatment start date"
+      }
+    }
+  ]
+}

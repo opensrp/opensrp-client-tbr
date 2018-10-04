@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.configurableviews.model.BaseConfiguration;
 import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.nutrition.R;
@@ -29,13 +30,11 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
     private Context context;
     private final List<Register> items;
-    private BaseConfiguration metaData;
 
-    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records, BaseConfiguration metaData) {
+    public RegisterArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Register> records) {
         super(context, resource, records);
         this.context = context;
         this.items = records;
-        this.metaData = metaData;
     }
 
     @Override
@@ -57,28 +56,19 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
 
         Register register = getItem(position);
         holder.titleTextView.setText(register.getTitle());
-        if(register.getTitle().equalsIgnoreCase(context.getResources().getString(R.string.nutrition))
-                || register.getTitle().equalsIgnoreCase(context.getResources().getString(R.string.quiz))
-                || register.getTitle().equalsIgnoreCase(context.getResources().getString(R.string.nutritionvideo))) {
-            holder.patientCountTextView.setText("");
-            holder.patientDueCountTextView.setVisibility(View.GONE);
+        if(register.getTotalPatients() != null) {
+            holder.patientCountTextView.setVisibility(View.VISIBLE);
+            holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
         }
         else {
-            holder.patientCountTextView.setText(" (" + String.valueOf(register.getTotalPatients()) + ") ");
-            if (register.getTotalPatientsWithDueOverdue() > 0) {
-                holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
-                holder.patientDueCountTextView.setVisibility(View.VISIBLE);
-            } else {
-                holder.patientDueCountTextView.setVisibility(View.GONE);
-            }
+            holder.patientCountTextView.setVisibility(View.GONE);
         }
+        if (register.getTotalPatientsWithDueOverdue() > 0) {
+            holder.patientDueCountTextView.setText(String.valueOf(register.getTotalPatientsWithDueOverdue()));
+            holder.patientDueCountTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.patientDueCountTextView.setVisibility(View.GONE);
 
-        final List list = metaData == null? new ArrayList<>():(List)((TestResultsConfiguration)metaData).getResultsConfig();
-        for(int i=0; i < list.size(); i++){
-            final int j = i;
-            if( ((String)((Map)list.get(i)).get("item")).equalsIgnoreCase(register.getTitleToken()) ){
-                register.setDigest(((String)((Map)list.get(i)).get("digest")));
-            }
         }
         holder.registerIconView.setImageDrawable(getRegisterIcon(register.getTitleToken()));
         return convertView;
@@ -90,14 +80,16 @@ public class RegisterArrayAdapter extends ArrayAdapter<Register> {
     }
 
     private Drawable getRegisterIcon(String registerToken) {
-        if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
+        if (registerToken.equalsIgnoreCase(Register.CHILD)) {
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
+        } else if (registerToken.equalsIgnoreCase(Register.PRESUMPTIVE_PATIENTS)) {
             return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.POSITIVE_PATIENTS)) {
             return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_positive_patients, getContext().getTheme());
         } else if (registerToken.equalsIgnoreCase(Register.IN_TREATMENT_PATIENTS)) {
             return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_intreatment_patients, getContext().getTheme());
         } else {
-            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_presumptive_patients, getContext().getTheme());
+            return ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_register_list_default, getContext().getTheme());
         }
     }
 

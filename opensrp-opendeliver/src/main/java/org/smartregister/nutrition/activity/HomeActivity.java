@@ -155,6 +155,7 @@ public class HomeActivity extends BaseActivity {
         if (syncEvent != null) {
             refreshButton.clearAnimation();
             processView();
+
         }
     }
 

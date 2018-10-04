@@ -1,5 +1,8 @@
 package org.smartregister.nutrition.activity;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -7,13 +10,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.domain.LoginResponse;
+import org.smartregister.event.Listener;
 import org.smartregister.nutrition.R;
 import org.smartregister.nutrition.fragment.AdvSearchFormFragment;
 import org.smartregister.nutrition.fragment.AdvancedSearchResultsFragment;
+import org.smartregister.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
