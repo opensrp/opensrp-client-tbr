@@ -6,26 +6,6 @@
         <option data-dir="ltr" value="Roman Urdu">Roman Urdu</option>
         <option data-dir="ltr" value="en">English</option>
     </select>
-    <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/provider_location_note:label"
-            lang="Roman Urdu">Shehr: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_city "></span> ; Town: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_town "></span> ; UC: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_uc "></span> ; Center
-            ka naam: <span class="or-output"
-                data-value=" /CultureForm_03.10.17_US/provider_location_name "></span>
-        </span>
-        <span class="question-label active" data-itext-id="/CultureForm_03.10.17_US/provider_location_note:label"
-            lang="en">City: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_city "></span> ; Town: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_town "></span> ; UC: <span
-            class="or-output" data-value=" /CultureForm_03.10.17_US/provider_uc "></span> ; Center
-            Name: <span class="or-output"
-                data-value=" /CultureForm_03.10.17_US/provider_location_name "></span>
-        </span>
-        <input name="/CultureForm_03.10.17_US/provider_location_note" data-type-xml="string"
-            readonly="readonly" type="text" />
-    </label>
     <label class="question non-select ">
         <span class="question-label " data-itext-id="/CultureForm_03.10.17_US/participant_id:label"
             lang="Roman Urdu">Participant ID

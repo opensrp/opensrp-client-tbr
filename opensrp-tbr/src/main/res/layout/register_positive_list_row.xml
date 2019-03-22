@@ -65,7 +65,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 

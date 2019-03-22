@@ -7,31 +7,6 @@
         <option data-dir="ltr" value="openmrs_code">openmrs_code</option>
         <option data-dir="ltr" value="en">English</option>
     </select>
-    <label class="question note non-select ">
-        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
-            lang="Roman Urdu">Shehr: <span
-            class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_city "></span> ;
-            Town: <span class="or-output"
-                data-value=" /ContactScreeningform_11.01.18/provider_town "></span> ; UC: <span
-                class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_uc "></span> ;
-            Center ka naam: <span class="or-output"
-                data-value=" /ContactScreeningform_11.01.18/provider_location_name "></span>
-        </span>
-        <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
-            lang="openmrs_code">-
-        </span>
-        <span class="question-label active" data-itext-id="/ContactScreeningform_11.01.18/provider_location_note:label"
-            lang="en">City: <span
-            class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_city "></span> ;
-            Town: <span class="or-output"
-                data-value=" /ContactScreeningform_11.01.18/provider_town "></span> ; UC: <span
-                class="or-output" data-value=" /ContactScreeningform_11.01.18/provider_uc "></span> ;
-            Center Name: <span class="or-output"
-                data-value=" /ContactScreeningform_11.01.18/provider_location_name "></span>
-        </span>
-        <input name="/ContactScreeningform_11.01.18/provider_location_note" data-type-xml="string"
-            readonly="readonly" type="text" />
-    </label>
     <label class="question non-select ">
         <span class="question-label " data-itext-id="/ContactScreeningform_11.01.18/participant_id:label"
             lang="Roman Urdu">ID

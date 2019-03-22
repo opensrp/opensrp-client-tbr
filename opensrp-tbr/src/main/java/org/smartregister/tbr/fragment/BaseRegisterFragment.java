@@ -619,7 +619,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private void showSnackBar(StringBuilder toastString, View view){
         if(toastString != null && !toastString.toString().isEmpty()) {
-            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_INDEFINITE);
+            snackbar = Snackbar.make(view,toastString.toString(),Snackbar.LENGTH_LONG);
             snackbar.show();
         }
 

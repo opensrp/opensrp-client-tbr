@@ -61,12 +61,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:text="@string/diagnose"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#3269D4"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/claim_lnk"

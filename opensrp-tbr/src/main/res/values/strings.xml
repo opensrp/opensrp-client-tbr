@@ -8,7 +8,7 @@
     <string name="show_password">Show Password</string>
     <string name="action_logout">Logout</string>
     <string name="action_language">Language</string>
-    <string name="app_title">TB REACH</string>
+    <string name="app_title">OpenSRP TB</string>
     <string name="action_add_patient">Add New Patient</string>
     <string name="action_advanced_search">Advanced Search</string>
     <string name="action_sort_list">Sort List</string>
@@ -16,7 +16,7 @@
     <string name="str_search_hint">Search name or ID</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="no_record">No Record(s) Found!</string>
-    <string name="diagnose">Diagnose</string>
+    <string name="diagnose">Clinical Diagnosis</string>
     <string name="claim">Claim</string>
     <string name="already_exists">Client already exists</string>
     <string name="results">Results</string>
