@@ -144,6 +144,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.RESULT_SMEAR);
         formNames.add(Constants.FORM.RESULT_CHEST_XRAY);
         formNames.add(Constants.FORM.RESULT_CULTURE);
+        formNames.add(Constants.FORM.RESULT_LF_LAM);
         formNames.add(Constants.FORM.DIAGNOSIS);
         formNames.add(TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION);
         formNames.add(Constants.FORM.CONTACT_SCREENING);

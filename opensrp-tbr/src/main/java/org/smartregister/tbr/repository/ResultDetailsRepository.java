@@ -19,7 +19,8 @@ import org.smartregister.tbr.util.Constants;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ResultDetailsRepository extends BaseRepository {
+public class
+ResultDetailsRepository extends BaseRepository {
     private static final String TAG = ResultDetailsRepository.class.getCanonicalName();
 
     public static final String TABLE_NAME = "result_details";

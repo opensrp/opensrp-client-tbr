@@ -84,6 +84,7 @@ import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
 import static util.TbrConstants.ENKETO_FORMS.FOLLOWUP_VISIT;
 import static util.TbrConstants.ENKETO_FORMS.GENE_XPERT;
+import static util.TbrConstants.ENKETO_FORMS.LF_LAM;
 import static util.TbrConstants.ENKETO_FORMS.SMEAR;
 import static util.TbrConstants.ENKETO_FORMS.TREATMENT_INITIATION;
 import static util.TbrConstants.REGISTER_COLUMNS.BASELINE;
@@ -104,7 +105,7 @@ import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
  * Created by samuelgithengi on 11/8/17.
  */
 
-public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+public abstract class   BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
     protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     protected ResultMenuListener resultMenuListener = new ResultMenuListener();
@@ -213,8 +214,33 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         return popup;
     }
 
+    private PopupMenu initializePopup(View view, CommonPersonObjectClient patient){
+        PopupMenu popup = new PopupMenu(getActivity(), view);
+        popup.inflate(R.menu.menu_register_result);
+        popup.setOnMenuItemClickListener(resultMenuListener);
+        MenuItem item = popup.getMenu().getItem(0);
+        String patientName = patient.getColumnmaps().get(KEY.FIRST_NAME) + SPACE + patient.getColumnmaps().get(KEY.LAST_NAME);
+        item.setTitle(item.getTitle() + SPACE + patientName);
+        SpannableString s = new SpannableString(item.getTitle());
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(s);
+
+        for(int i=1; i < popup.getMenu().size(); i++){
+            try {
+                if(popup.getMenu().getItem(i).getTitle().toString().equalsIgnoreCase("Urine-LAM")) {
+                    if( patient.getDetails().get("hiv_status") == null || (!patient.getDetails().get("hiv_status").equalsIgnoreCase("CT2") && !patient.getDetails().get("hiv_status").equalsIgnoreCase("positive")) ) {
+                        popup.getMenu().getItem(i).setVisible(false);
+                    }
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return popup;
+    }
+
     public void showResultMenu(View view) {
-        PopupMenu popup = initializePopup(view);
+        PopupMenu popup = initializePopup(view, patient);
         popup.show();
     }
 
@@ -235,7 +261,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             PopupMenu popup = initializePopup(view);
             for(int i=1; i < popup.getMenu().size(); i++){
                 try {
-                    if (!(boolean) map1.get(popup.getMenu().getItem(i).getTitle().toString()))
+                    if(popup.getMenu().getItem(i).getTitle().toString().equalsIgnoreCase("Urine-LAM")) {
+                        if( patient.getDetails().get("hiv_status") == null || (!patient.getDetails().get("hiv_status").equalsIgnoreCase("CT2") && !patient.getDetails().get("hiv_status").equalsIgnoreCase("positive")) ) {
+                            popup.getMenu().getItem(i).setVisible(false);
+                        }
+                    }
+                    else if (!(boolean) map1.get(popup.getMenu().getItem(i).getTitle().toString()))
                         popup.getMenu().getItem(i).setVisible(false);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -312,7 +343,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.PARTICIPANT_ID,
                 tableName + "." + KEY.PROGRAM_ID,
                 tableName + "." + KEY.GENDER,
-                tableName + "." + KEY.DOB};
+                tableName + "." + KEY.DOB,
+                tableName + "." + KEY.HIV_STATUS,
+                tableName + "." + KEY.PRESUMPTIVE};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
         queryBUilder.SelectInitiateMainTable(tableName, allColumns);
         mainSelect = queryBUilder.mainCondition(mainCondition);
@@ -452,6 +485,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 case R.id.result_culture:
                     registerActivity.startFormActivity(CULTURE, patient.getDetails().get("_id"), formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
+                case R.id.result_lflam:
+                    registerActivity.startFormActivity(LF_LAM, patient.getDetails().get("_id"), formOverridesHelper.getFieldOverrides().getJSONString());
+                    return true;
                 default:
                     return false;
             }
@@ -544,7 +580,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + TbrConstants.KEY.PARTICIPANT_ID,
                 tableName + "." + TbrConstants.KEY.PROGRAM_ID,
                 tableName + "." + TbrConstants.KEY.GENDER,
-                tableName + "." + TbrConstants.KEY.DOB};
+                tableName + "." + TbrConstants.KEY.DOB,
+                tableName + "." + KEY.HIV_STATUS};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
         mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
         customMainCondition = " WHERE ";

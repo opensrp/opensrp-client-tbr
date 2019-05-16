@@ -77,6 +77,10 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
                 formSubmissionId = null;
                 form = TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT;
                 break;
+            case R.id.result_lflam:
+                formSubmissionId = null;
+                form = Constants.FORM.RESULT_LF_LAM;
+                break;
             default:
                 return;
         }
@@ -96,6 +100,8 @@ public class ServiceHistoryAdapter extends CursorAdapter implements View.OnClick
             return R.id.result_culture;
         } else if (StringUtils.containsIgnoreCase(formName, "diagnosis")) {
             return R.id.tbDiagnosisForm;
+        } else if (StringUtils.containsIgnoreCase(formName, "lf")) {
+            return R.id.result_lflam;
         } else if (StringUtils.equalsIgnoreCase(formName, Constants.EVENT.CONTACT_SCREENING)) {
             return R.id.contact_screening;
         } else if (StringUtils.containsIgnoreCase(formName, Constants.EVENT.POSITIVE_TB_PATIENT)) {

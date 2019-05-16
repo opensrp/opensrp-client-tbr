@@ -6,17 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:title="@string/menu_add_result" />
+
     <item
-        android:id="@+id/result_gene_xpert"
-        android:title="@string/result_gene_xpert" />
+        android:id="@+id/result_lflam"
+        android:title="Urine-LAM" />
     <item
         android:id="@+id/result_smear"
         android:title="@string/result_smear" />
     <item
+        android:id="@+id/result_culture"
+        android:title="@string/result_culture" />
+    <item
+        android:id="@+id/result_gene_xpert"
+        android:title="@string/result_gene_xpert" />
+    <item
         android:id="@+id/result_chest_xray"
         android:title="@string/result_chest_xray" />
 
-    <item
-        android:id="@+id/result_culture"
-        android:title="@string/result_culture" />
 </menu>

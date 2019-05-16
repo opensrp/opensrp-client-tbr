@@ -62,6 +62,21 @@
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
+        "concept": "TBR: urine lam result",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: urine lam result"
+      }
+    },
+    {
+      "column_name": "result1",
+      "json_mapping": {
+        "field": "obs.fieldCode",
         "concept": "TBR: x-ray result",
         "value_field": "formSubmissionField"
       }
@@ -86,6 +101,21 @@
       "json_mapping": {
         "field": "obs.fieldCode",
         "concept": "TBR: RIF result"
+      }
+    },
+    {
+      "column_name": "result2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: urine lam grade",
+        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "value2",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: urine lam grade"
       }
     },
     {

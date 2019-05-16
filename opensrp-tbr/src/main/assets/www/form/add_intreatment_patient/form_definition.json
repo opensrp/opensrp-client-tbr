@@ -178,28 +178,23 @@
         "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/contact_phone_number"
       },
       {
-        "name": "province",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/province"
-      },
-      {
-        "name": "city_village",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/city_village"
-      },
-      {
-        "name": "town",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/town"
-      },
-      {
-        "name": "union_council",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/union_council"
-      },
-      {
-        "name": "address1",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/address1"
-      },
-      {
-        "name": "full_address",
-        "bind": "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/full_address"
+        "name" : "village",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/village"
+      }, {
+        "name" : "parish",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/parish"
+      }, {
+        "name" : "district",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/district"
+      }, {
+        "name" : "subcounty",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/subcounty"
+      }, {
+        "name" : "address1",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/address1"
+      }, {
+        "name" : "full_address",
+        "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/full_address"
       },
       {
         "name": "fu_visit",

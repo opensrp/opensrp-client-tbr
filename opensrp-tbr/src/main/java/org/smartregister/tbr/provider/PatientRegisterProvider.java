@@ -210,14 +210,20 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         String dobString = getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
 
-        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
+        try {
+            fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         View patient = view.findViewById(R.id.patient_column);
         attachOnclickListener(patient, client);
     }
 
-    private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+    private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean hasULam, boolean withOtherResults) {
         if (testResults.containsKey(TbrConstants.RESULT.MTB_RESULT)) {
+            if (hasULam)
+                stringBuilder.append(",\n");
             stringBuilder.append(withOtherResults ? "Xpe " : "MTB ");
             String mtbResult = testResults.get(TbrConstants.RESULT.MTB_RESULT);
             processXpertResult(mtbResult, stringBuilder);
@@ -257,6 +263,62 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         }
     }
 
+    private void processUrineLAMResult(String result, TbrSpannableStringBuilder stringBuilder) {
+        if (result == null)
+            return;
+        switch (result) {
+            case POSITIVE:
+                stringBuilder.append("+ve", redForegroundColorSpan);
+                break;
+            case NEGATIVE:
+                stringBuilder.append("-ve", blackForegroundColorSpan);
+                break;
+            case INDETERMINATE:
+                stringBuilder.append("?", blackForegroundColorSpan);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void processUrineLAMGrade(String result, TbrSpannableStringBuilder stringBuilder) {
+        if (result == null)
+            return;
+        switch (result) {
+            case "grade1":
+                stringBuilder.append("1", redForegroundColorSpan);
+                break;
+            case "grade2":
+                stringBuilder.append("2", blackForegroundColorSpan);
+                break;
+            case "grade3":
+                stringBuilder.append("3", blackForegroundColorSpan);
+                break;
+            case "grade4":
+                stringBuilder.append("4", blackForegroundColorSpan);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean populateUrineLamResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+        if (testResults.containsKey(TbrConstants.RESULT.URINE_LAM_RESULT)) {
+            stringBuilder.append(withOtherResults ? "UL " : "UL ");
+            String mtbResult = testResults.get(TbrConstants.RESULT.URINE_LAM_RESULT);
+            processUrineLAMResult(mtbResult, stringBuilder);
+            if (testResults.containsKey(TbrConstants.RESULT.ERROR_CODE)) {
+                stringBuilder.append(" ");
+                stringBuilder.append(testResults.get(TbrConstants.RESULT.ERROR_CODE), blackForegroundColorSpan);
+            } else if (testResults.containsKey(TbrConstants.RESULT.URINE_LAM_GRADE)) {
+                stringBuilder.append(withOtherResults ? "/" : "\nUG ");
+                processUrineLAMGrade(testResults.get(TbrConstants.RESULT.URINE_LAM_GRADE), stringBuilder);
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void populateResultsColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
         View button = view.findViewById(R.id.result_lnk);
         TextView details = (TextView) view.findViewById(R.id.result_details);
@@ -279,8 +341,9 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append(new DateTime(Long.valueOf(results)).toString("dd/MM/yyyy") + "\n");
         } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
-        boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
-        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert, false);
+        boolean hasULam = populateUrineLamResult(testResults, stringBuilder, true);
+        boolean hasXpert = populateXpertResult(testResults, stringBuilder, hasULam, true);
+        populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasULam ? hasULam : hasXpert, false);
         populateCultureResults(stringBuilder, testResults.get(TbrConstants.RESULT.CULTURE_RESULT));
         populateXrayResults(stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT));
         if (stringBuilder.length() > 0) {
@@ -517,7 +580,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         Map<String, String> testResults = resultsRepository.getLatestResults(getValue(pc.getColumnmaps(), KEY.BASE_ENTITY_ID, false));
 
         TbrSpannableStringBuilder stringBuilder = new TbrSpannableStringBuilder();
-        populateXpertResult(testResults, stringBuilder, false);
+        populateXpertResult(testResults, stringBuilder, false,false);
 
         if (stringBuilder.length() > 0) {
             adjustLayoutParams(result, results,stringBuilder);

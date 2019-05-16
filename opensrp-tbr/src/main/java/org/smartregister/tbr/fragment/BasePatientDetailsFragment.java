@@ -175,6 +175,9 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                 case R.id.result_culture:
                     registerActivity.startFormActivity(ENKETO_FORMS.CULTURE, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
                     return true;
+                case R.id.result_lflam:
+                    registerActivity.startFormActivity(ENKETO_FORMS.LF_LAM, clientIdentifier, formOverridesHelper.getFieldOverrides().getJSONString());
+                    return true;
                 default:
                     return false;
             }

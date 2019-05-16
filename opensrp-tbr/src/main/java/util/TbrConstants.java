@@ -25,6 +25,7 @@ TbrConstants extends AllConstants {
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
         public static final String DOB = "dob";
+        public static final String HIV_STATUS = "hiv_status";
         public static final String AGE = "age";
         public static final String PARTICIPANT_ID = "participant_id";
         public static final String PROGRAM_ID = "program_id";
@@ -58,6 +59,8 @@ TbrConstants extends AllConstants {
         public static final String RIF_RESULT = "rif_result";
         public static final String XRAY_RESULT = "xray_result";
         public static final String CULTURE_RESULT = "culture_result";
+        public static final String URINE_LAM_RESULT = "lam_result";
+        public static final String URINE_LAM_GRADE = "lam_burden";
         public static final String TEST_RESULT = "test_result";
         public static final String ERROR_CODE = "error_code";
     }
@@ -105,6 +108,7 @@ TbrConstants extends AllConstants {
         public static final String SMEAR = "result_smear";
         public static final String CHEST_XRAY = "result_chest_xray";
         public static final String CULTURE = "result_culture";
+        public static final String LF_LAM = "result_lf_lam";
         public static final String DIAGNOSIS = "diagnosis";
         public static final String ADD_POSITIVE_PATIENT = "add_positive_patient";
         public static final String TREATMENT_INITIATION = "treatment_initiation";

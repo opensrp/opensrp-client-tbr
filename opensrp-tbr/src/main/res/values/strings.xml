@@ -34,6 +34,7 @@
     <string name="result_smear">Smear (Smr)</string>
     <string name="result_chest_xray">Chest X&#8211;ray (CXR)</string>
     <string name="result_culture">Culture (Cul)</string>
+    <string name="result_lflam">Urine-LAM</string>
     <string name="select_language">Select Language</string>
     <string name="encounter">Encounter</string>
     <string name="xpert_result">Xpe Results</string>

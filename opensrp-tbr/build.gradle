@@ -12,6 +12,9 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven {
+            url  "http://dl.bintray.com/africastalking/android"
+        }
         mavenLocal()
         google()
         /*flatDir {
@@ -31,11 +34,10 @@ jacoco {
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
-
     defaultConfig {
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
         applicationId "org.smartregister.tbr"
-        minSdkVersion 22
+        minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.1"
@@ -54,16 +56,13 @@ android {
             }
         }
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
     }
-
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -75,7 +74,6 @@ android {
             testCoverageEnabled false
         }
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -89,12 +87,13 @@ android {
         exclude 'META-INF/LGPL2.1'
         exclude 'LICENSE.txt'
     }
-
     testOptions {
         unitTests {
             returnDefaultValues = true
             includeAndroidResources = true
         }
+    }
+    productFlavors {
     }
 }
 
@@ -113,8 +112,8 @@ dependencies {
         transitive = true
     }
     /* implementation('org.smartregister:opensrp-client-configurable-views:1.1.0-SNAPSHOT@aar') {
-            transitive = true
-        } */
+                transitive = true
+            } */
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -147,6 +146,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     implementation files('libs/json2view-0.0.1-SNAPSHOT.jar')
+    implementation 'com.africastalking:client:3.0.0'
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {

@@ -326,63 +326,7 @@
         }
       }
     ],
-    "hiv_results": [
-      {
-        "instance": {
-          "openmrs_code": "TBR:positive"
-        },
-        "label": {
-          "Roman Urdu": "Negative",
-          "English": "HIV Negative"
-        },
-        "openmrs_concept_name": "Negative",
-        "name": "negative"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:negative"
-        },
-        "label": {
-          "Roman Urdu": "Positive",
-          "English": "HIV Positive"
-        },
-        "openmrs_concept_name": "Positive",
-        "name": "positive"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:indeterminate"
-        },
-        "label": {
-          "Roman Urdu": "Indeterminate",
-          "English": "Indeterminate"
-        },
-        "openmrs_concept_name": "Indeterminate",
-        "name": "indeterminate"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:unknown"
-        },
-        "label": {
-          "Roman Urdu": "Pata Nahi",
-          "English": "Don't Know"
-        },
-        "openmrs_concept_name": "unknown",
-        "name": "dont_know"
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR:refused"
-        },
-        "label": {
-          "Roman Urdu": "Jawab deney se inkaar",
-          "English": "Refuse"
-        },
-        "openmrs_concept_name": "Refused",
-        "name": "refuse"
-      }
-    ],
+    "hiv_results":[{"label":{"English":"CT2","Roman Urdu":"CT1"},"openmrs_concept_name":"Positive","name":"CT2","instance":{"openmrs_code":"TBR:positive"}},{"label":{"English":"CT1","Roman Urdu":"CT1"},"openmrs_concept_name":"Negative","name":"CT1","instance":{"openmrs_code":"TBR:negative"}},{"label":{"English":"C","Roman Urdu":"C"},"openmrs_concept_name":"Councelled","name":"councelled","instance":{"openmrs_code":"TBR:COUNCELLED"}},{"label":{"English":"CT","Roman Urdu":"CT"},"openmrs_concept_name":"Councelled and Tested","name":"councelled and tested","instance":{"openmrs_code":"TBR:COUNCELLED AND TESTED"}}],
     "disease_site": [
       {
         "instance": {
@@ -3915,9 +3859,9 @@
               "instance": {
                 "openmrs_code": "TBR:positive"
               },
-              "name": "negative",
+              "name": "CT2",
               "label": {
-                "Roman Urdu": "Negative",
+                "Roman Urdu": "Positive",
                 "English": "HIV Negative"
               }
             },
@@ -3925,7 +3869,7 @@
               "instance": {
                 "openmrs_code": "TBR:negative"
               },
-              "name": "positive",
+              "name": "CT1",
               "label": {
                 "Roman Urdu": "Positive",
                 "English": "HIV Positive"
@@ -3983,177 +3927,7 @@
             "English": "Mobile phone number:"
           }
         },
-        {
-          "control": {
-            "appearance": "minimal"
-          },
-          "name": "province",
-          "bind": {
-            "required": "yes"
-          },
-          "label": {
-            "Roman Urdu": "Suba",
-            "English": "Province"
-          },
-          "instance": {
-            "openmrs_entity_parent": "usual_residence",
-            "openmrs_entity_id": "stateProvince",
-            "openmrs_entity": "person_address"
-          },
-          "type": "select one",
-          "children": [
-            {
-              "name": "kpk",
-              "label": {
-                "Roman Urdu": "Khyber Pakhtunkhwa",
-                "English": "Khyber Pakhtunkhwa"
-              }
-            },
-            {
-              "name": "sindh",
-              "label": {
-                "Roman Urdu": "Sindh",
-                "English": "Sindh"
-              }
-            },
-            {
-              "name": "balochistan",
-              "label": {
-                "Roman Urdu": "Balochistan",
-                "English": "Balochistan"
-              }
-            },
-            {
-              "name": "punjab",
-              "label": {
-                "Roman Urdu": "Punjab",
-                "English": "Punjab"
-              }
-            },
-            {
-              "name": "gilgit_baltistan",
-              "label": {
-                "Roman Urdu": "Gilgit Baltistan",
-                "English": "Gilgit Baltistan"
-              }
-            },
-            {
-              "name": "kashmir",
-              "label": {
-                "Roman Urdu": "Kashmir",
-                "English": "Kashmir"
-              }
-            },
-            {
-              "name": "fata",
-              "label": {
-                "Roman Urdu": "FATA",
-                "English": "FATA"
-              }
-            },
-            {
-              "name": "out_of_country",
-              "label": {
-                "Roman Urdu": "Mulk se baahir",
-                "English": "Out of Country"
-              }
-            }
-          ]
-        },
-        {
-          "control": {
-            "appearance": "minimal"
-          },
-          "name": "city_village",
-          "choice_filter": "province=${province} or province='na'",
-          "bind": {
-            "required": "yes"
-          },
-          "label": {
-            "Roman Urdu": "Shehr",
-            "English": "City"
-          },
-          "itemset": "cities",
-          "instance": {
-            "openmrs_entity_parent": "usual_residence",
-            "openmrs_entity_id": "cityVillage",
-            "openmrs_entity": "person_address"
-          },
-          "type": "select one"
-        },
-        {
-          "control": {
-            "appearance": "minimal"
-          },
-          "name": "town",
-          "choice_filter": "(province=${province} and city=${city_village} ) or city='na'",
-          "bind": {
-            "required": "yes"
-          },
-          "label": {
-            "Roman Urdu": "Town / Qasbah / Basti",
-            "English": "Town"
-          },
-          "itemset": "towns",
-          "instance": {
-            "openmrs_entity_parent": "usual_residence",
-            "openmrs_entity_id": "town",
-            "openmrs_entity": "person_address"
-          },
-          "type": "select one"
-        },
-        {
-          "control": {
-            "appearance": "minimal"
-          },
-          "name": "union_council",
-          "choice_filter": "(province=${province} and city=${city_village} and town=${town}) or town='na'",
-          "bind": {
-            "required": "yes"
-          },
-          "label": {
-            "Roman Urdu": "Union Council",
-            "English": "Union Council"
-          },
-          "itemset": "ucs",
-          "instance": {
-            "openmrs_entity_parent": "usual_residence",
-            "openmrs_entity_id": "subTown",
-            "openmrs_entity": "person_address"
-          },
-          "type": "select one"
-        },
-        {
-          "instance": {
-            "openmrs_entity_parent": "usual_residence",
-            "openmrs_entity_id": "address1",
-            "openmrs_entity": "person_address"
-          },
-          "bind": {
-            "required": "yes"
-          },
-          "type": "text",
-          "name": "address1",
-          "label": {
-            "Roman Urdu": "Ghar ka pata",
-            "English": "Home Address"
-          }
-        },
-        {
-          "instance": {
-            "openmrs_entity_id": "TBR:full address text",
-            "openmrs_entity": "concept"
-          },
-          "bind": {
-            "calculate": "jr:choice-name(${province}, '${province}')"
-          },
-          "type": "note",
-          "name": "full_address",
-          "label": {
-            "Roman Urdu": "Poora Pata: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}",
-            "English": "Full address: ${address1}, ${union_council}, ${town}. ${city_village}. ${province}"
-          }
-        }
+        {"name":"village","label":{"English":"Village","Roman Urdu":"Suba"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity_parent":"usual_residence","openmrs_entity_id":"village","openmrs_entity":"person_address"},"control":{"appearance":"minimal"}},{"name":"parish","label":{"English":"Parish","Roman Urdu":"Shehr"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity_parent":"usual_residence","openmrs_entity_id":"parish","openmrs_entity":"person_address"},"control":{"appearance":"minimal"},"choice_filter":"village=${village} or village='na'"},{"name":"district","label":{"English":"district","Roman Urdu":"district / Qasbah / Basti"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity_parent":"usual_residence","openmrs_entity_id":"district","openmrs_entity":"person_address"},"control":{"appearance":"minimal"},"choice_filter":"(village=${village} and city=${parish} ) or city='na'"},{"name":"subcounty","label":{"English":"Sub-County","Roman Urdu":"Sub-County"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity_parent":"usual_residence","openmrs_entity_id":"subcounty","openmrs_entity":"person_address"},"control":{"appearance":"minimal"},"choice_filter":"(village=${village} and city=${parish} and district=${district}) or district='na'"},{"name":"address1","label":{"English":"Home Address","Roman Urdu":"Ghar ka pata"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity_parent":"usual_residence","openmrs_entity_id":"address1","openmrs_entity":"person_address"}},{"name":"full_address","label":{"English":"Full address: ${address1}, ${subcounty}, ${district}. ${parish}. ${village}","Roman Urdu":"Poora Pata: ${address1}, ${subcounty}, ${district}. ${parish}. ${village}"},"type":"note","bind":{"calculate":"jr:choice-name(${village}, '${village}')"},"instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:full address text"}}
       ],
       "name": "patient_info"
     },

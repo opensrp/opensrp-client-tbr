@@ -1,0 +1,175 @@
+{
+  "form" : {
+    "bind_type" : "",
+    "default_bind_path" : "/model/instance/add_intx_pt/",
+    "fields" : [ {
+      "name" : "id",
+      "shouldLoadValue" : true
+    }, {
+      "name" : "provider_uc",
+      "bind" : "/model/instance/add_intx_pt/provider_uc"
+    }, {
+      "name" : "provider_town",
+      "bind" : "/model/instance/add_intx_pt/provider_town"
+    }, {
+      "name" : "provider_city",
+      "bind" : "/model/instance/add_intx_pt/provider_city"
+    }, {
+      "name" : "provider_province",
+      "bind" : "/model/instance/add_intx_pt/provider_province"
+    }, {
+      "name" : "provider_id",
+      "bind" : "/model/instance/add_intx_pt/provider_id"
+    }, {
+      "name" : "provider_location_id",
+      "bind" : "/model/instance/add_intx_pt/provider_location_id"
+    }, {
+      "name" : "provider_location_name",
+      "bind" : "/model/instance/add_intx_pt/provider_location_name"
+    }, {
+      "name" : "provider_location_note",
+      "bind" : "/model/instance/add_intx_pt/provider_location_note"
+    }, {
+      "name" : "start",
+      "bind" : "/model/instance/add_intx_pt/start"
+    }, {
+      "name" : "end",
+      "bind" : "/model/instance/add_intx_pt/end"
+    }, {
+      "name" : "today",
+      "bind" : "/model/instance/add_intx_pt/today"
+    }, {
+      "name" : "deviceid",
+      "bind" : "/model/instance/add_intx_pt/deviceid"
+    }, {
+      "name" : "subscriberid",
+      "bind" : "/model/instance/add_intx_pt/subscriberid"
+    }, {
+      "name" : "simserial",
+      "bind" : "/model/instance/add_intx_pt/simserial"
+    }, {
+      "name" : "phonenumber",
+      "bind" : "/model/instance/add_intx_pt/phonenumber"
+    }, {
+      "name" : "client_reg_date",
+      "bind" : "/model/instance/add_intx_pt/client_reg_date"
+    }, {
+      "name" : "treatment_initiation_date",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/treatment_initiation_date"
+    }, {
+      "name" : "site_of_disease",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/site_of_disease"
+    }, {
+      "name" : "site_of_eptb",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/site_of_eptb"
+    }, {
+      "name" : "other_eptb_site",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/other_eptb_site"
+    }, {
+      "name" : "registry_number",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/registry_number"
+    }, {
+      "name" : "category",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/category"
+    }, {
+      "name" : "month",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/month"
+    }, {
+      "name" : "treatment_phase",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/treatment_phase"
+    }, {
+      "name" : "treatment_regimen",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/treatment_regimen"
+    }, {
+      "name" : "regimen_oth",
+      "bind" : "/model/instance/add_intx_pt/diagnosis/regimen_oth"
+    }, {
+      "name" : "participant_id",
+      "bind" : "/model/instance/add_intx_pt/patient_info/participant_id"
+    }, {
+      "name" : "program_id",
+      "bind" : "/model/instance/add_intx_pt/patient_info/program_id"
+    }, {
+      "name" : "first_name",
+      "bind" : "/model/instance/add_intx_pt/patient_info/first_name"
+    }, {
+      "name" : "last_name",
+      "bind" : "/model/instance/add_intx_pt/patient_info/last_name"
+    }, {
+      "name" : "national_id",
+      "bind" : "/model/instance/add_intx_pt/patient_info/national_id"
+    }, {
+      "name" : "age",
+      "bind" : "/model/instance/add_intx_pt/patient_info/age"
+    }, {
+      "name" : "gender",
+      "bind" : "/model/instance/add_intx_pt/patient_info/gender"
+    }, {
+      "name" : "weight",
+      "bind" : "/model/instance/add_intx_pt/patient_info/weight"
+    }, {
+      "name" : "height",
+      "bind" : "/model/instance/add_intx_pt/patient_info/height"
+    }, {
+      "name" : "bmi",
+      "bind" : "/model/instance/add_intx_pt/patient_info/bmi"
+    }, {
+      "name" : "hiv_test",
+      "bind" : "/model/instance/add_intx_pt/patient_info/hiv_test"
+    }, {
+      "name" : "hiv_date",
+      "bind" : "/model/instance/add_intx_pt/patient_info/hiv_date"
+    }, {
+      "name" : "hiv_results",
+      "bind" : "/model/instance/add_intx_pt/patient_info/hiv_results"
+    }, {
+      "name" : "contact_phone_number",
+      "bind" : "/model/instance/add_intx_pt/patient_info/contact_phone_number"
+    }, {
+      "name" : "village",
+      "bind" : "/model/instance/add_intx_pt/patient_info/village"
+    }, {
+      "name" : "parish",
+      "bind" : "/model/instance/add_intx_pt/patient_info/parish"
+    }, {
+      "name" : "district",
+      "bind" : "/model/instance/add_intx_pt/patient_info/district"
+    }, {
+      "name" : "subcounty",
+      "bind" : "/model/instance/add_intx_pt/patient_info/subcounty"
+    }, {
+      "name" : "address1",
+      "bind" : "/model/instance/add_intx_pt/patient_info/address1"
+    }, {
+      "name" : "full_address",
+      "bind" : "/model/instance/add_intx_pt/patient_info/full_address"
+    }, {
+      "name" : "fu_visit",
+      "bind" : "/model/instance/add_intx_pt/fu_visit"
+    }, {
+      "name" : "visit_date",
+      "bind" : "/model/instance/add_intx_pt/visit_date"
+    }, {
+      "name" : "fu_visit_date",
+      "bind" : "/model/instance/add_intx_pt/fu_visit_date"
+    }, {
+      "name" : "next_visit_date",
+      "bind" : "/model/instance/add_intx_pt/next_visit_date"
+    }, {
+      "name" : "next_visit_date_note",
+      "bind" : "/model/instance/add_intx_pt/next_visit_date_note"
+    }, {
+      "name" : "smear_due_date",
+      "bind" : "/model/instance/add_intx_pt/smear_due_date"
+    }, {
+      "name" : "next_smear_due_date_note",
+      "bind" : "/model/instance/add_intx_pt/next_smear_due_date_note"
+    }, {
+      "name" : "comments",
+      "bind" : "/model/instance/add_intx_pt/comments"
+    }, {
+      "name" : "instanceID",
+      "bind" : "/model/instance/add_intx_pt/meta/instanceID"
+    } ]
+  }
+}

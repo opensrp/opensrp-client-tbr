@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.africastalking.AfricasTalking;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -50,6 +52,11 @@ public class HomeActivity extends BaseActivity {
             processView();
 
         }
+
+        /*// Initialize
+        String username = "YOUR_USERNAME";    // use 'sandbox' for development in the test environment
+        String apiKey = "c5a419b0799fca9b856d750632af1915e4c23a4ecb4885c5b1b00fbba916bcd0";       // use your sandbox app API key for development in the test environment
+        AfricasTalking.initialize(username, apiKey);*/
     }
 
     @Override

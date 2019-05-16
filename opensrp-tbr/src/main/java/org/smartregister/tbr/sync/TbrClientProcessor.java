@@ -4,10 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
+import com.africastalking.AfricasTalking;
+import com.africastalking.models.sms.Recipient;
+import com.africastalking.services.SmsService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.domain.LoginResponse;
+import org.smartregister.repository.ClientRepository;
 import org.smartregister.sync.ClientProcessor;
+import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.Result;
 import org.smartregister.tbr.repository.BMIRepository;
@@ -32,7 +39,7 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String TAG = "TbrClientProcessor";
     private static TbrClientProcessor instance;
 
-    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result"};
+    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result", "UrineLam Result"};
 
     private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
 
@@ -156,7 +163,12 @@ public class TbrClientProcessor extends ClientProcessor {
             // save the values to db
             if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
-                Date date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
+                Date date=null;
+                try {
+                    date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
+                }catch(NullPointerException e){
+                    e.printStackTrace();
+                }
                 ResultsRepository resultsRepository = TbrApplication.getInstance().getResultsRepository();
                 Result result = new Result();
                 result.setBaseEntityId(contentValues.getAsString(ResultsRepository.BASE_ENTITY_ID));
@@ -176,6 +188,14 @@ public class TbrClientProcessor extends ClientProcessor {
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
                 resultDetailsRepository.saveClientDetails(formSubmissionId, obs, date.getTime());
+
+                String contactNumber = ((JSONObject) TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(contentValues.getAsString(ResultsRepository.BASE_ENTITY_ID)).get("attributes")).getString("Primary Contact Number");
+
+                if( (result.getResult1().equalsIgnoreCase("mtb_result") && result.getValue1().equalsIgnoreCase("detected")) || (result.getResult1().equalsIgnoreCase("xray_result") && result.getValue1().equalsIgnoreCase("indicative")) ||
+                        (result.getResult1().equalsIgnoreCase("lam_result") && result.getValue1().equalsIgnoreCase("positive"))){
+                    String requestURL = TbrApplication.getInstance().getContext().configuration().dristhiBaseURL() + "/sendSMS?number="+contactNumber;
+                    TbrApplication.getInstance().getContext().getHttpAgent().post(requestURL,"Positive " + result.getType());
+                }
             }
             return true;
 
