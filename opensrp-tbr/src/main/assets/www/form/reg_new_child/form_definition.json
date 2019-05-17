@@ -1,0 +1,119 @@
+{
+  "form_data_definition_version": "1",
+  "form" : {
+    "bind_type" : "ec_patient",
+    "default_bind_path" : "/model/instance/reg_new_child/",
+    "fields" : [ {
+      "name" : "id",
+      "shouldLoadValue" : true
+    }, {
+      "name" : "provider_uc",
+      "bind" : "/model/instance/reg_new_child/provider_uc"
+    }, {
+      "name" : "provider_town",
+      "bind" : "/model/instance/reg_new_child/provider_town"
+    }, {
+      "name" : "provider_city",
+      "bind" : "/model/instance/reg_new_child/provider_city"
+    }, {
+      "name" : "provider_province",
+      "bind" : "/model/instance/reg_new_child/provider_province"
+    }, {
+      "name" : "provider_id",
+      "bind" : "/model/instance/reg_new_child/provider_id"
+    }, {
+      "name" : "provider_location_id",
+      "bind" : "/model/instance/reg_new_child/provider_location_id"
+    }, {
+      "name" : "provider_location_name",
+      "bind" : "/model/instance/reg_new_child/provider_location_name"
+    }, {
+      "name" : "provider_location_note",
+      "bind" : "/model/instance/reg_new_child/provider_location_note"
+    }, {
+      "name" : "start",
+      "bind" : "/model/instance/reg_new_child/start"
+    }, {
+      "name" : "end",
+      "bind" : "/model/instance/reg_new_child/end"
+    }, {
+      "name" : "today",
+      "bind" : "/model/instance/reg_new_child/today"
+    }, {
+      "name" : "deviceid",
+      "bind" : "/model/instance/reg_new_child/deviceid"
+    }, {
+      "name" : "subscriberid",
+      "bind" : "/model/instance/reg_new_child/subscriberid"
+    }, {
+      "name" : "simserial",
+      "bind" : "/model/instance/reg_new_child/simserial"
+    }, {
+      "name" : "phonenumber",
+      "bind" : "/model/instance/reg_new_child/phonenumber"
+    }, {
+      "name" : "client_reg_date",
+      "bind" : "/model/instance/reg_new_child/client_reg_date"
+    }, {
+      "name" : "first_name",
+      "bind" : "/model/instance/reg_new_child/name_of_child/first_name"
+    }, {
+      "name" : "last_name",
+      "bind" : "/model/instance/reg_new_child/name_of_child/last_name"
+    }, {
+      "name" : "birthdate",
+      "bind" : "/model/instance/reg_new_child/birthdate"
+    }, {
+      "name" : "gender",
+      "bind" : "/model/instance/reg_new_child/gender"
+    }, {
+      "name" : "participant_id",
+      "bind" : "/model/instance/reg_new_child/participant_id"
+    }, {
+      "name" : "mother_name",
+      "bind" : "/model/instance/reg_new_child/mother_name"
+    }, {
+      "name" : "mother_id",
+      "bind" : "/model/instance/reg_new_child/mother_id"
+    }, {
+      "name" : "department_birth",
+      "bind" : "/model/instance/reg_new_child/birth_location/department_birth"
+    }, {
+      "name" : "province_birth",
+      "bind" : "/model/instance/reg_new_child/birth_location/province_birth"
+    }, {
+      "name" : "district_birth",
+      "bind" : "/model/instance/reg_new_child/birth_location/district_birth"
+    }, {
+      "name" : "city_birth",
+      "bind" : "/model/instance/reg_new_child/birth_location/city_birth"
+    }, {
+      "name" : "department",
+      "bind" : "/model/instance/reg_new_child/current_community/department"
+    }, {
+      "name" : "province",
+      "bind" : "/model/instance/reg_new_child/current_community/province"
+    }, {
+      "name" : "district",
+      "bind" : "/model/instance/reg_new_child/current_community/district"
+    }, {
+      "name" : "city",
+      "bind" : "/model/instance/reg_new_child/current_community/city"
+    }, {
+      "name" : "full_address",
+      "bind" : "/model/instance/reg_new_child/full_address"
+    }, {
+      "name" : "birth_weight",
+      "bind" : "/model/instance/reg_new_child/birth_weight"
+    }, {
+      "name" : "vaccines",
+      "bind" : "/model/instance/reg_new_child/vaccines"
+    }, {
+      "name" : "developmental_disability",
+      "bind" : "/model/instance/reg_new_child/developmental_disability"
+    }, {
+      "name" : "instanceID",
+      "bind" : "/model/instance/reg_new_child/meta/instanceID"
+    } ]
+  }
+}
