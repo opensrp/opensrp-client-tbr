@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
+import static util.TbrConstants.ENKETO_FORMS.HEALTH_INDICATORS_FORM;
 import static util.TbrConstants.ENKETO_FORMS.SCREENING_FORM;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_HEADER;
 import static util.TbrConstants.VIEW_CONFIGS.COMMON_REGISTER_ROW;
@@ -36,10 +37,15 @@ public class PresumptivePatientRegisterActivity extends BaseRegisterActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        String entityId="";
         switch (item.getItemId()) {
             case R.id.addNewPatient:
-                String entityId = generateRandomUUIDString();
+                entityId = generateRandomUUIDString();
                 startFormActivity(SCREENING_FORM, entityId, null);
+                return true;
+            case R.id.registerHealthIndicators:
+                entityId = generateRandomUUIDString();
+                startFormActivity(HEALTH_INDICATORS_FORM, entityId, null);
                 return true;
             /*case R.id.sort_selection:
                 super.onOptionsItemSelected(item);*/

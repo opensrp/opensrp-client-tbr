@@ -46,6 +46,11 @@ public class PresumptivePatientDetailActivity extends BasePatientDetailActivity 
                 formOverridesHelper.setPatientDetails(patientDetails);
                 startFormActivity(Constants.FORM.DIAGNOSIS, patientDetails.get(Constants.KEY._ID), formOverridesHelper.getFieldOverrides().getJSONString());
                 return true;
+            case R.id.registerHealthIndicators:
+                patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
+                formOverridesHelper.setPatientDetails(patientDetails);
+                startFormActivity(Constants.FORM.REGISTER_HEALTH_INDICATORS, patientDetails.get(Constants.KEY._ID), formOverridesHelper.getFieldOverrides().getJSONString());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

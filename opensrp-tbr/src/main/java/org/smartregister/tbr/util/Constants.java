@@ -83,6 +83,7 @@ public class Constants {
         public static final String CONTACT_SCREENING = "contact_screening";
         public static final String REMOVE_PATIENT = "remove_patient";
         public static final String TREATMENT_OUTCOME = "treatment_outcome";
+        public static final String REGISTER_HEALTH_INDICATORS = "register_health_indicators";
     }
 
     public enum ScreenStage {

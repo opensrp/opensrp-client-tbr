@@ -1,0 +1,93 @@
+{
+  "form_data_definition_version": "1",
+  "form" : {
+    "ec_bind_type": "ec_patient",
+    "bind_type" : "ec_patient",
+    "default_bind_path" : "/model/instance/child_health_indicators/",
+    "fields" : [ {
+      "name" : "id",
+      "shouldLoadValue" : true
+    }, {
+      "name" : "provider_uc",
+      "bind" : "/model/instance/child_health_indicators/provider_uc"
+    }, {
+      "name" : "provider_town",
+      "bind" : "/model/instance/child_health_indicators/provider_town"
+    }, {
+      "name" : "provider_city",
+      "bind" : "/model/instance/child_health_indicators/provider_city"
+    }, {
+      "name" : "provider_province",
+      "bind" : "/model/instance/child_health_indicators/provider_province"
+    }, {
+      "name" : "provider_id",
+      "bind" : "/model/instance/child_health_indicators/provider_id"
+    }, {
+      "name" : "provider_location_id",
+      "bind" : "/model/instance/child_health_indicators/provider_location_id"
+    }, {
+      "name" : "provider_location_name",
+      "bind" : "/model/instance/child_health_indicators/provider_location_name"
+    }, {
+      "name" : "provider_location_note",
+      "bind" : "/model/instance/child_health_indicators/provider_location_note"
+    }, {
+      "name" : "start",
+      "bind" : "/model/instance/child_health_indicators/start"
+    }, {
+      "name" : "end",
+      "bind" : "/model/instance/child_health_indicators/end"
+    }, {
+      "name" : "today",
+      "bind" : "/model/instance/child_health_indicators/today"
+    }, {
+      "name" : "deviceid",
+      "bind" : "/model/instance/child_health_indicators/deviceid"
+    }, {
+      "name" : "subscriberid",
+      "bind" : "/model/instance/child_health_indicators/subscriberid"
+    }, {
+      "name" : "simserial",
+      "bind" : "/model/instance/child_health_indicators/simserial"
+    }, {
+      "name" : "phonenumber",
+      "bind" : "/model/instance/child_health_indicators/phonenumber"
+    }, {
+      "name" : "client_reg_date",
+      "bind" : "/model/instance/child_health_indicators/client_reg_date"
+    }, {
+      "name" : "program_id",
+      "bind" : "/model/instance/child_health_indicators/program_id"
+    }, {
+      "name" : "program_id_note",
+      "bind" : "/model/instance/child_health_indicators/program_id_note"
+    }, {
+      "name" : "first_name",
+      "bind" : "/model/instance/child_health_indicators/first_name"
+    }, {
+      "name" : "last_name",
+      "bind" : "/model/instance/child_health_indicators/last_name"
+    }, {
+      "name" : "pt_name_note",
+      "bind" : "/model/instance/child_health_indicators/pt_name_note"
+    }, {
+      "name" : "hgb",
+      "bind" : "/model/instance/child_health_indicators/hgb"
+    }, {
+      "name" : "vaccines_received",
+      "bind" : "/model/instance/child_health_indicators/vaccines_received"
+    }, {
+      "name" : "deworming",
+      "bind" : "/model/instance/child_health_indicators/deworming"
+    }, {
+      "name" : "deworming_date",
+      "bind" : "/model/instance/child_health_indicators/deworming_date"
+    }, {
+      "name" : "illnesses",
+      "bind" : "/model/instance/child_health_indicators/illnesses"
+    }, {
+      "name" : "instanceID",
+      "bind" : "/model/instance/child_health_indicators/meta/instanceID"
+    } ]
+  }
+}

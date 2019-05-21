@@ -112,6 +112,7 @@ TbrConstants extends AllConstants {
         public static final String ADD_TB_CONTACT = "add_tb_contact";
         public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
         public static final String CONTACT_SCREENING = "contact_screening";
+        public static final String HEALTH_INDICATORS_FORM = "register_health_indicators";
 
     }
 }

@@ -10,6 +10,7 @@
     <string name="action_language">Language</string>
     <string name="app_title">OpenSRP TB</string>
     <string name="action_add_patient">Add New Patient</string>
+    <string name="action_register_health_indicators">Register Health Indicators</string>
     <string name="action_advanced_search">Advanced Search</string>
     <string name="action_sort_list">Sort List</string>
     <string name="action_filter_list">Filter List</string>
