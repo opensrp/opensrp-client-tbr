@@ -8,6 +8,22 @@
       }
     },
     {
+      "column_name": "weight",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: weight"
+//        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "height",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: height"
+//        "value_field": "formSubmissionField"
+      }
+    },
+    {
       "column_name": "type",
       "json_mapping": {
         "field": "eventType"

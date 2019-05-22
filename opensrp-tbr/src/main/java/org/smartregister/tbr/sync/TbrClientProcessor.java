@@ -32,7 +32,7 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String TAG = "TbrClientProcessor";
     private static TbrClientProcessor instance;
 
-    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result"};
+    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result", "child health indicators"};
 
     private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
 
@@ -154,7 +154,8 @@ public class TbrClientProcessor extends ClientProcessor {
 
             ContentValues contentValues = processCaseModel(event, clientResultJson);
             // save the values to db
-            if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {
+            /*if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {*/
+            if (contentValues != null && contentValues.size() > 0) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
                 Date date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
                 ResultsRepository resultsRepository = TbrApplication.getInstance().getResultsRepository();
@@ -172,6 +173,9 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setCreatedAt(contentValues.getAsString(ResultsRepository.CREATED_AT));
                 String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
                 result.setFormSubmissionId(formSubmissionId);
+
+                result.setWeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.WEIGHT)));
+                result.setHeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.HEIGHT)));
                 resultsRepository.saveResult(result);
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
@@ -236,6 +240,7 @@ public class TbrClientProcessor extends ClientProcessor {
                                 columnValue = jsonDocObject.getString(fieldName);
                             }
                         } else {
+                            System.out.println(jsonDocObject);
                             //this means field_value and response_key are not null e.g when retrieving some value in the events obs section
                             String expectedFieldValue = jsonDocObject.getString(fieldName);
                             //some events can only be differentiated by the event_type value eg pnc1,pnc2, anc1,anc2

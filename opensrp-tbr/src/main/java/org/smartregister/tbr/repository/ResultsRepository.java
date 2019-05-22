@@ -36,13 +36,17 @@ public class ResultsRepository extends BaseRepository {
     public static final String ANMID = "anmid";
     public static final String LOCATIONID = "location_id";
     public static final String SYNC_STATUS = "sync_status";
+    public static final String WEIGHT = "weight";
+    public static final String HEIGHT = "height";
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
+            WEIGHT + " INTEGER NOT NULL, " +
+            HEIGHT + " INTEGER NOT NULL, " +
             TYPE + "  VARCHAR NOT NULL, " +
-            RESULT1 + "  VARCHAR NOT NULL, " +
-            VALUE1 + "  VARCHAR NOT NULL," +
+            RESULT1 + "  VARCHAR NULL, " +
+            VALUE1 + "  VARCHAR NULL," +
             RESULT2 + "  VARCHAR  NULL, " +
             VALUE2 + "  VARCHAR NULL," +
             FORMSUBMISSION_ID + "  VARCHAR NOT NULL, " +
@@ -112,6 +116,8 @@ public class ResultsRepository extends BaseRepository {
         values.put(ANMID, result.getAnmId());
         values.put(LOCATIONID, result.getLocationId());
         values.put(SYNC_STATUS, result.getSyncStatus());
+        values.put(WEIGHT, result.getWeight());
+        values.put(HEIGHT, result.getHeight());
         values.put(FORMSUBMISSION_ID, result.getFormSubmissionId());
         values.put(CREATED_AT, result.getCreatedAt());
         values.put(UPDATED_AT_COLUMN, result.getUpdatedAt());
@@ -199,7 +205,7 @@ public class ResultsRepository extends BaseRepository {
             orderByClause = " ORDER BY " + DATE + " DESC";
         }
         String query =
-                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 +
+                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 + "," + "weight"+ "," + "height" +
                         " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + "  = '" + baseEntityId + "' "
                         + baselineFilter
                         + groupByClause + orderByClause;

@@ -403,7 +403,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
                                         viewParent.addView(json2View);
                                     }
 
-                                    renderViewConfigurationCore(componentViewConfiguration, json2View, patientDetails);
+                                     renderViewConfigurationCore(componentViewConfiguration, json2View, patientDetails);
                                 }
                             }
                         } catch (Exception e) {

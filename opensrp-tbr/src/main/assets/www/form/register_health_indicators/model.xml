@@ -1,5 +1,5 @@
 <model><instance>
-    <child_health_indicators xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" encounter_type="child health indicators" id="child_health_indicators_form" version="201905200811">
+    <child_health_indicators xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" encounter_type="child health indicators" id="child_health_indicators_form" version="201905220450">
         <formhub>
             <uuid/>
         </formhub>
@@ -24,11 +24,14 @@
         <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
         <last_name openmrs_entity="person" openmrs_entity_id="last_name"/>
         <pt_name_note/>
-        <hgb openmrs_entity="concept" openmrs_entity_parent="Haemoglobin"/>
-        <vaccines_received/>
-        <deworming openmrs_entity="concept" openmrs_entity_parent="Deworming"/>
-        <deworming_date openmrs_entity="concept" openmrs_entity_parent="Deworming date"/>
-        <illnesses openmrs_entity="concept"/>
+        <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" openmrs_entity_parent="weight (kg)"/>
+        <height openmrs_entity="concept" openmrs_entity_id="TBR: height" openmrs_entity_parent="height (cm)"/>
+        <hgb openmrs_entity="concept" openmrs_entity_id="TBR: haemoglobin" openmrs_entity_parent="Haemoglobin"/>
+        <vaccines_received openmrs_entity_id="TBR: vaccines"/>
+        <deworming openmrs_entity="concept" openmrs_entity_id="TBR: deworming" openmrs_entity_parent="Deworming"/>
+        <deworming_date openmrs_entity="concept" openmrs_entity_id="TBR: deworming date" openmrs_entity_parent="Deworming date"/>
+        <illnesses openmrs_entity="concept" openmrs_entity_id="TBR: illnesses"/>
+        <test_date openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date" openmrs_entity_parent="Specimen collection date"/>
         <meta>
             <instanceID/>
         </meta>

@@ -71,6 +71,12 @@
       "name" : "pt_name_note",
       "bind" : "/model/instance/child_health_indicators/pt_name_note"
     }, {
+      "name" : "weight",
+      "bind" : "/model/instance/child_health_indicators/weight"
+    }, {
+      "name" : "height",
+      "bind" : "/model/instance/child_health_indicators/height"
+    }, {
       "name" : "hgb",
       "bind" : "/model/instance/child_health_indicators/hgb"
     }, {
@@ -85,6 +91,9 @@
     }, {
       "name" : "illnesses",
       "bind" : "/model/instance/child_health_indicators/illnesses"
+    }, {
+      "name" : "test_date",
+      "bind" : "/model/instance/child_health_indicators/test_date"
     }, {
       "name" : "instanceID",
       "bind" : "/model/instance/child_health_indicators/meta/instanceID"

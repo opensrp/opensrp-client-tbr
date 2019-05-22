@@ -24,6 +24,30 @@ public class Result {
     private String createdAt;
     private Long updatedAt;
 
+    /*
+    *   ADDING FIELDS FOR CHILD HEALTH INDICATORS
+    */
+
+    private Float height;
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    private Float weight;
+
     public Long getId() {
         return id;
     }
