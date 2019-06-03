@@ -36,8 +36,7 @@
             data-itext-id="/AddContactForm_23.11.17_US/participant_id:label" lang="Roman Urdu">ID
         </span>
         <span class="question-label active"
-            data-itext-id="/AddContactForm_23.11.17_US/participant_id:label" lang="en">Participant
-            ID
+            data-itext-id="/AddContactForm_23.11.17_US/participant_id:label" lang="en">Health TB Unit number
         </span>
         <span class="required">*</span>
         <input name="/AddContactForm_23.11.17_US/participant_id"

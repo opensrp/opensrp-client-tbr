@@ -186,18 +186,6 @@
           "Roman Urdu": "Aurat/larki",
           "English": "Female"
         }
-      },
-      {
-        "instance": {
-          "openmrs_code": "TBR: third gender"
-        },
-        "openmrs_reference_term": "INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' third gender' name, ' third gender' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' third gender' ) LIMIT 1;",
-        "name": "transgender",
-        "openmrs_concept_name": "third gender",
-        "label": {
-          "Roman Urdu": "Khwaja sira",
-          "English": "Transgender"
-        }
       }
     ],
     "patient_type": [
@@ -3579,7 +3567,7 @@
           "name": "participant_id",
           "label": {
             "Roman Urdu": "Participant ID",
-            "English": "Participant ID"
+            "English": "Health TB Unit number"
           }
         },
         {

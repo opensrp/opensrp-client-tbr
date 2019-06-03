@@ -31,7 +31,7 @@
             lang="Roman Urdu">Participant ID
         </span>
         <span class="question-label active" data-itext-id="/XrayForm_03.10.17_US/participant_id:label"
-            lang="en">Participant ID
+            lang="en">Health TB Unit number
         </span>
         <span class="required">*</span>
         <input name="/XrayForm_03.10.17_US/participant_id" data-constraint="regex(., '[A-Z0-9]{0,20}$')" data-type-xml="string"

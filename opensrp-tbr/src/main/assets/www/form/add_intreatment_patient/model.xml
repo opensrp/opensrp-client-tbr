@@ -75,7 +75,7 @@
                 <parish openmrs_entity="person_address" openmrs_entity_id="parish" openmrs_entity_parent="usual_residence"/>
                 <district openmrs_entity="person_address" openmrs_entity_id="district" openmrs_entity_parent="usual_residence"/>
                 <subcounty openmrs_entity="person_address" openmrs_entity_id="subcounty" openmrs_entity_parent="usual_residence"/>
-                <address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>
+                <!--<address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>-->
                 <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
 
             </patient_info>

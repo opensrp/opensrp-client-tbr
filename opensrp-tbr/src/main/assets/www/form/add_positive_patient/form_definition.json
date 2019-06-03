@@ -130,10 +130,10 @@
     }, {
       "name" : "union_council",
       "bind" : "/model/instance/positive_pt/union_council"
-    }, {
+    }, /*{
       "name" : "address1",
       "bind" : "/model/instance/positive_pt/address1"
-    }, {
+    },*/ {
       "name" : "full_address",
       "bind" : "/model/instance/positive_pt/full_address"
     }, {

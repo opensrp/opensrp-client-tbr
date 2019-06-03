@@ -159,10 +159,10 @@
     }, {
       "name" : "subcounty",
       "bind" : "/model/instance/screening_form/presumptive_info/subcounty"
-    }, {
+    }, /*{
       "name" : "address1",
       "bind" : "/model/instance/screening_form/presumptive_info/address1"
-    }, {
+    },*/ {
       "name" : "full_address",
       "bind" : "/model/instance/screening_form/presumptive_info/full_address"
     }, {

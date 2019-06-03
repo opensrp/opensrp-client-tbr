@@ -189,6 +189,7 @@ public class TbrClientProcessor extends ClientProcessor {
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
                 resultDetailsRepository.saveClientDetails(formSubmissionId, obs, date.getTime());
 
+                // INCORPORATING AFRICAS TALKING FOR SENDING SMS FOR POSITIVE RESULTS
                 String contactNumber = ((JSONObject) TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(contentValues.getAsString(ResultsRepository.BASE_ENTITY_ID)).get("attributes")).getString("Primary Contact Number");
 
                 if( (result.getResult1().equalsIgnoreCase("mtb_result") && result.getValue1().equalsIgnoreCase("detected")) || (result.getResult1().equalsIgnoreCase("xray_result") && result.getValue1().equalsIgnoreCase("indicative")) ||

@@ -34,7 +34,7 @@
             lang="Roman Urdu">Participant ID
         </span>
         <span class="question-label active"
-            data-itext-id="/GeneXpertForm_10.01.18/participant_id:label" lang="en">Participant ID
+            data-itext-id="/GeneXpertForm_10.01.18/participant_id:label" lang="en">Health TB Unit worker
         </span>
         <span class="required">*</span>
         <input name="/GeneXpertForm_10.01.18/participant_id"

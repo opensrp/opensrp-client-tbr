@@ -44,7 +44,7 @@
         <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
         <sub_county openmrs_entity="person_address" openmrs_entity_id="town" openmrs_entity_parent="usual_residence"/>
         <district openmrs_entity="person_address" openmrs_entity_id="subTown" openmrs_entity_parent="usual_residence"/>
-        <address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>
+        <!--<address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>-->
         <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
         <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes"/>
         <meta>

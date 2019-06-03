@@ -189,10 +189,10 @@
       }, {
         "name" : "subcounty",
         "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/subcounty"
-      }, {
+      }, /*{
         "name" : "address1",
         "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/address1"
-      }, {
+      },*/ {
         "name" : "full_address",
         "bind" : "/model/instance/Add_InTreatment_Pt_11.01.18/patient_info/full_address"
       },
