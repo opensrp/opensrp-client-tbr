@@ -39,7 +39,7 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String EVENT_TYPE_KEY = "eventType";
-    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient"};
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient", "Register New Child"};
 
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
@@ -176,6 +176,19 @@ public class TbrClientProcessor extends ClientProcessor {
 
                 result.setWeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.WEIGHT)));
                 result.setHeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.HEIGHT)));
+                result.setHaemoglobin(Float.parseFloat(contentValues.getAsString(ResultsRepository.HAEMOGLOBIN)));
+                result.setHeightAgeStatus(contentValues.getAsString(ResultsRepository.HEIGHT_AGE_STATUS));
+                result.setWeightHeightStatus(contentValues.getAsString(ResultsRepository.WEIGHT_HEIGHT_STATUS));
+                result.setNextVisitDate(contentValues.getAsString(ResultsRepository.NEXT_VISIT_DATE));
+                result.setNextGrowthMonitoringDate(contentValues.getAsString(ResultsRepository.NEXT_GROWTH_MONITORING_DATE));
+                result.setDeworming(contentValues.getAsString(ResultsRepository.DEWORMING));
+                result.setDewormingDate(contentValues.getAsString(ResultsRepository.DEWORMING_DATE));
+                result.setDiarrea(contentValues.getAsString(ResultsRepository.DIARREA));
+                result.setMalaria(contentValues.getAsString(ResultsRepository.MALARIA));
+                result.setCold(contentValues.getAsString(ResultsRepository.COLD));
+                result.setPneumonia(contentValues.getAsString(ResultsRepository.PNEUMONIA));
+                result.setTuberculosis(contentValues.getAsString(ResultsRepository.TUBERCULOSIS));
+                result.setDengue(contentValues.getAsString(ResultsRepository.DENGUE));
                 resultsRepository.saveResult(result);
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
@@ -240,7 +253,6 @@ public class TbrClientProcessor extends ClientProcessor {
                                 columnValue = jsonDocObject.getString(fieldName);
                             }
                         } else {
-                            System.out.println(jsonDocObject);
                             //this means field_value and response_key are not null e.g when retrieving some value in the events obs section
                             String expectedFieldValue = jsonDocObject.getString(fieldName);
                             //some events can only be differentiated by the event_type value eg pnc1,pnc2, anc1,anc2
@@ -251,7 +263,12 @@ public class TbrClientProcessor extends ClientProcessor {
                                 } else {
                                     List<String> values = getValues(jsonDocObject.get(responseKey));
                                     if (!values.isEmpty()) {
-                                        columnValue = values.get(0);
+                                        if(values.size() > 1){
+                                            columnValue = Utils.getCommaDelimitedStringFromList(values);
+                                        }
+                                        else {
+                                            columnValue = values.get(0);
+                                        }
                                     }
                                 }
                             }

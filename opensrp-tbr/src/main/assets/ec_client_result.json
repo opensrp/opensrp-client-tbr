@@ -24,6 +24,110 @@
       }
     },
     {
+      "column_name": "height_age_status",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: height for age status"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "weight_height_status",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: weight for height status"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "haemoglobin",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: haemoglobin"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "deworming",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: deworming"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "deworming_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: deworming date"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "next_visit_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: next visit date"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "next_growth_monitoring_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: next growth monitoring check-up"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "diarrea",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: diarrea"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "malaria",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: malaria"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "cold",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: cold"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "pneumonia",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: pneumonia"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "tuberculosis",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: tuberculosis"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "dengue",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR: dengue"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
       "column_name": "type",
       "json_mapping": {
         "field": "eventType"

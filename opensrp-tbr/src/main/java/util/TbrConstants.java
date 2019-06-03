@@ -100,7 +100,7 @@ TbrConstants extends AllConstants {
     }
 
     public static final class ENKETO_FORMS {
-        public static final String SCREENING_FORM = "add_presumptive_patient";
+        public static final String SCREENING_FORM = "reg_new_child";
         public static final String GENE_XPERT = "result_gene_xpert";
         public static final String SMEAR = "result_smear";
         public static final String CHEST_XRAY = "result_chest_xray";

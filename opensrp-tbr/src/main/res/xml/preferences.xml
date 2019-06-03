@@ -3,7 +3,7 @@
     <PreferenceCategory android:title="Server">
 
         <EditTextPreference
-            android:defaultValue="http://ihs.ihsinformatics.com:6876/opensrp"
+            android:defaultValue="http://ihs.ihsinformatics.com:7101/opensrp"
             android:dialogMessage="Enter Base Server Url"
             android:dialogTitle="OpenSRP base URL"
             android:key="DRISHTI_BASE_URL"

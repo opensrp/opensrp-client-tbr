@@ -38,12 +38,38 @@ public class ResultsRepository extends BaseRepository {
     public static final String SYNC_STATUS = "sync_status";
     public static final String WEIGHT = "weight";
     public static final String HEIGHT = "height";
+    public static final String HAEMOGLOBIN = "haemoglobin";
+    public static final String NEXT_VISIT_DATE = "next_visit_date";
+    public static final String NEXT_GROWTH_MONITORING_DATE = "next_growth_monitoring_date";
+    public static final String DIARREA = "diarrea";
+    public static final String MALARIA = "malaria";
+    public static final String COLD = "cold";
+    public static final String PNEUMONIA = "pneumonia";
+    public static final String TUBERCULOSIS = "tuberculosis";
+    public static final String DENGUE = "dengue";
+    public static final String HEIGHT_AGE_STATUS = "height_age_status";
+    public static final String WEIGHT_HEIGHT_STATUS = "weight_height_status";
+    public static final String DEWORMING = "deworming";
+    public static final String DEWORMING_DATE = "deworming_date";
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
-            WEIGHT + " INTEGER NOT NULL, " +
-            HEIGHT + " INTEGER NOT NULL, " +
+            WEIGHT + " REAL NOT NULL, " +
+            HEIGHT + " REAL NOT NULL, " +
+            HEIGHT_AGE_STATUS + " VARCHAR NOT NULL, " +
+            WEIGHT_HEIGHT_STATUS + " VARCHAR NOT NULL, " +
+            HAEMOGLOBIN + " REAL NOT NULL, " +
+            NEXT_VISIT_DATE + " VARCHAR NOT NULL, " +
+            NEXT_GROWTH_MONITORING_DATE + " VARCHAR NOT NULL, " +
+            DEWORMING + " VARCHAR NOT NULL, " +
+            DEWORMING_DATE + " VARCHAR NULL, " +
+            DIARREA + " VARCHAR NULL, " +
+            MALARIA + " VARCHAR NULL, " +
+            COLD + " VARCHAR NULL, " +
+            PNEUMONIA + " VARCHAR NULL, " +
+            TUBERCULOSIS + " VARCHAR NULL, " +
+            DENGUE + " VARCHAR NULL, " +
             TYPE + "  VARCHAR NOT NULL, " +
             RESULT1 + "  VARCHAR NULL, " +
             VALUE1 + "  VARCHAR NULL," +
@@ -118,6 +144,19 @@ public class ResultsRepository extends BaseRepository {
         values.put(SYNC_STATUS, result.getSyncStatus());
         values.put(WEIGHT, result.getWeight());
         values.put(HEIGHT, result.getHeight());
+        values.put(HEIGHT_AGE_STATUS, result.getHeightAgeStatus());
+        values.put(WEIGHT_HEIGHT_STATUS, result.getWeightHeightStatus());
+        values.put(DEWORMING, result.getDeworming());
+        values.put(DEWORMING_DATE, result.getDewormingDate());
+        values.put(NEXT_VISIT_DATE, result.getNextVisitDate());
+        values.put(NEXT_GROWTH_MONITORING_DATE, result.getNextGrowthMonitoringDate());
+        values.put(DIARREA, result.getDiarrea());
+        values.put(MALARIA, result.getMalaria());
+        values.put(COLD, result.getCold());
+        values.put(PNEUMONIA, result.getPneumonia());
+        values.put(TUBERCULOSIS, result.getTuberculosis());
+        values.put(DENGUE, result.getDengue());
+        values.put(HAEMOGLOBIN, result.getHaemoglobin());
         values.put(FORMSUBMISSION_ID, result.getFormSubmissionId());
         values.put(CREATED_AT, result.getCreatedAt());
         values.put(UPDATED_AT_COLUMN, result.getUpdatedAt());
@@ -159,7 +198,7 @@ public class ResultsRepository extends BaseRepository {
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
+/*                    String key = cursor.getString(cursor.getColumnIndex(RESULT1));
                     String value = cursor.getString(cursor.getColumnIndex(VALUE1));
                     clientDetails.put(key, value);
                     clientDetails.put(DATE, cursor.getString(cursor.getColumnIndex(DATE)));
@@ -167,7 +206,62 @@ public class ResultsRepository extends BaseRepository {
                     if (key2 != null && !key2.isEmpty()) {
                         value = cursor.getString(cursor.getColumnIndex(VALUE2));
                         clientDetails.put(key2, value);
-                    }
+                    }*/
+
+                    String key = WEIGHT;
+                    String value = cursor.getString(cursor.getColumnIndex(WEIGHT));
+                    clientDetails.put(key, value);
+
+                    key = HEIGHT;
+                    value = cursor.getString(cursor.getColumnIndex(HEIGHT));
+                    clientDetails.put(key, value);
+
+                    key = HEIGHT_AGE_STATUS;
+                    value = cursor.getString(cursor.getColumnIndex(HEIGHT_AGE_STATUS));
+                    clientDetails.put(key, value);
+
+                    key = WEIGHT_HEIGHT_STATUS;
+                    value = cursor.getString(cursor.getColumnIndex(WEIGHT_HEIGHT_STATUS));
+                    clientDetails.put(key, value);
+
+                    key = HAEMOGLOBIN;
+                    value = cursor.getString(cursor.getColumnIndex(HAEMOGLOBIN));
+                    clientDetails.put(key, value);
+
+                    key = NEXT_VISIT_DATE;
+                    value = cursor.getString(cursor.getColumnIndex(NEXT_VISIT_DATE));
+                    clientDetails.put(key, value);
+
+                    key = NEXT_GROWTH_MONITORING_DATE;
+                    value = cursor.getString(cursor.getColumnIndex(NEXT_GROWTH_MONITORING_DATE));
+                    clientDetails.put(key, value);
+
+                    key = DIARREA;
+                    value = cursor.getString(cursor.getColumnIndex(DIARREA));
+                    clientDetails.put(key, value);
+
+                    key = MALARIA;
+                    value = cursor.getString(cursor.getColumnIndex(MALARIA));
+                    clientDetails.put(key, value);
+
+                    key = COLD;
+                    value = cursor.getString(cursor.getColumnIndex(COLD));
+                    clientDetails.put(key, value);
+
+                    key = PNEUMONIA;
+                    value = cursor.getString(cursor.getColumnIndex(PNEUMONIA));
+                    clientDetails.put(key, value);
+
+                    key = TUBERCULOSIS;
+                    value = cursor.getString(cursor.getColumnIndex(TUBERCULOSIS));
+                    clientDetails.put(key, value);
+
+                    key = DENGUE;
+                    value = cursor.getString(cursor.getColumnIndex(DENGUE));
+                    clientDetails.put(key, value);
+
+                    clientDetails.put(DATE, cursor.getString(cursor.getColumnIndex(DATE)));
+
                 } while (cursor.moveToNext());
             }
             return clientDetails;
@@ -205,8 +299,12 @@ public class ResultsRepository extends BaseRepository {
             orderByClause = " ORDER BY " + DATE + " DESC";
         }
         String query =
-                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 + "," + "weight"+ "," + "height" +
-                        " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + "  = '" + baseEntityId + "' "
+                "SELECT max(" + DATE + "||" + CREATED_AT + ")," + DATE + "," + TYPE + "," + RESULT1 + "," + VALUE1 + "," + RESULT2 + "," + VALUE2 + ","
+                        + WEIGHT + "," + HEIGHT + "," + HAEMOGLOBIN + "," + HEIGHT_AGE_STATUS + "," + WEIGHT_HEIGHT_STATUS
+                        +"," + NEXT_VISIT_DATE + "," + NEXT_GROWTH_MONITORING_DATE + "," + DIARREA + "," + MALARIA
+                        + "," + COLD + "," + PNEUMONIA + "," + TUBERCULOSIS + "," + DENGUE
+                        + "," + DEWORMING + "," + DEWORMING_DATE
+                        + " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + "  = '" + baseEntityId + "' "
                         + baselineFilter
                         + groupByClause + orderByClause;
 

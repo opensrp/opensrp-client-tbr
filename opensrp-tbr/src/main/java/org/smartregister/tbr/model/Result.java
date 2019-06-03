@@ -25,28 +25,29 @@ public class Result {
     private Long updatedAt;
 
     /*
-    *   ADDING FIELDS FOR CHILD HEALTH INDICATORS
+    * START - ADDING FIELDS FOR CHILD HEALTH INDICATORS
     */
 
     private Float height;
-
-    public Float getHeight() {
-        return height;
-    }
-
-    public void setHeight(Float height) {
-        this.height = height;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
     private Float weight;
+    private String heightAgeStatus;
+    private String weightHeightStatus;
+    private Float haemoglobin;
+    private String nextVisitDate;
+    private String nextGrowthMonitoringDate;
+    private String deworming;
+    private String dewormingDate;
+    private String diarrea;
+    private String malaria;
+    private String cold;
+    private String pneumonia;
+    private String tuberculosis;
+    private String dengue;
+
+
+    /*
+     * END - ADDING FIELDS FOR CHILD HEALTH INDICATORS
+     */
 
     public Long getId() {
         return id;
@@ -166,5 +167,125 @@ public class Result {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public Float getHaemoglobin() {
+        return haemoglobin;
+    }
+
+    public void setHaemoglobin(Float haemoglobin) {
+        this.haemoglobin = haemoglobin;
+    }
+
+    public String getNextVisitDate() {
+        return nextVisitDate;
+    }
+
+    public void setNextVisitDate(String nextVisitDate) {
+        this.nextVisitDate = nextVisitDate;
+    }
+
+    public String getNextGrowthMonitoringDate() {
+        return nextGrowthMonitoringDate;
+    }
+
+    public void setNextGrowthMonitoringDate(String nextGrowthMonitoringDate) {
+        this.nextGrowthMonitoringDate = nextGrowthMonitoringDate;
+    }
+
+    public String getDiarrea() {
+        return diarrea;
+    }
+
+    public void setDiarrea(String diarrea) {
+        this.diarrea = diarrea;
+    }
+
+    public String getMalaria() {
+        return malaria;
+    }
+
+    public void setMalaria(String malaria) {
+        this.malaria = malaria;
+    }
+
+    public String getCold() {
+        return cold;
+    }
+
+    public void setCold(String cold) {
+        this.cold = cold;
+    }
+
+    public String getPneumonia() {
+        return pneumonia;
+    }
+
+    public void setPneumonia(String pneumonia) {
+        this.pneumonia = pneumonia;
+    }
+
+    public String getTuberculosis() {
+        return tuberculosis;
+    }
+
+    public void setTuberculosis(String tuberculosis) {
+        this.tuberculosis = tuberculosis;
+    }
+
+    public String getDengue() {
+        return dengue;
+    }
+
+    public void setDengue(String dengue) {
+        this.dengue = dengue;
+    }
+
+    public String getHeightAgeStatus() {
+        return heightAgeStatus;
+    }
+
+    public void setHeightAgeStatus(String heightAgeStatus) {
+        this.heightAgeStatus = heightAgeStatus;
+    }
+
+    public String getWeightHeightStatus() {
+        return weightHeightStatus;
+    }
+
+    public void setWeightHeightStatus(String weightHeightStatus) {
+        this.weightHeightStatus = weightHeightStatus;
+    }
+
+    public String getDeworming() {
+        return deworming;
+    }
+
+    public void setDeworming(String deworming) {
+        this.deworming = deworming;
+    }
+
+    public String getDewormingDate() {
+        return dewormingDate;
+    }
+
+    public void setDewormingDate(String dewormingDate) {
+        this.dewormingDate = dewormingDate;
     }
 }

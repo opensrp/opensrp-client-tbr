@@ -1,8 +1,8 @@
 {
   "form_data_definition_version": "1",
-  "form" : {
+  "form": {
     "ec_bind_type": "ec_patient",
-    "bind_type" : "ec_patient",
+    "bind_type": "ec_patient",
     "default_bind_path" : "/model/instance/child_health_indicators/",
     "fields" : [ {
       "name" : "id",
@@ -71,11 +71,23 @@
       "name" : "pt_name_note",
       "bind" : "/model/instance/child_health_indicators/pt_name_note"
     }, {
+      "name" : "next_visit_date",
+      "bind" : "/model/instance/child_health_indicators/next_visit_date"
+    }, {
+      "name" : "next_growth_monitoring",
+      "bind" : "/model/instance/child_health_indicators/next_growth_monitoring"
+    }, {
       "name" : "weight",
       "bind" : "/model/instance/child_health_indicators/weight"
     }, {
       "name" : "height",
       "bind" : "/model/instance/child_health_indicators/height"
+    }, {
+      "name" : "height_for_age",
+      "bind" : "/model/instance/child_health_indicators/height_for_age"
+    }, {
+      "name" : "weight_for_height",
+      "bind" : "/model/instance/child_health_indicators/weight_for_height"
     }, {
       "name" : "hgb",
       "bind" : "/model/instance/child_health_indicators/hgb"
@@ -89,11 +101,26 @@
       "name" : "deworming_date",
       "bind" : "/model/instance/child_health_indicators/deworming_date"
     }, {
-      "name" : "illnesses",
-      "bind" : "/model/instance/child_health_indicators/illnesses"
+      "name" : "diarrea",
+      "bind" : "/model/instance/child_health_indicators/illnesses/diarrea"
     }, {
-      "name" : "test_date",
-      "bind" : "/model/instance/child_health_indicators/test_date"
+      "name" : "malaria",
+      "bind" : "/model/instance/child_health_indicators/illnesses/malaria"
+    }, {
+      "name" : "cold",
+      "bind" : "/model/instance/child_health_indicators/illnesses/cold"
+    }, {
+      "name" : "pneumonia",
+      "bind" : "/model/instance/child_health_indicators/illnesses/pneumonia"
+    }, {
+      "name" : "tuberculosis",
+      "bind" : "/model/instance/child_health_indicators/illnesses/tuberculosis"
+    }, {
+      "name" : "dengue",
+      "bind" : "/model/instance/child_health_indicators/illnesses/dengue"
+    }, {
+      "name" : "date",
+      "bind" : "/model/instance/child_health_indicators/date"
     }, {
       "name" : "instanceID",
       "bind" : "/model/instance/child_health_indicators/meta/instanceID"

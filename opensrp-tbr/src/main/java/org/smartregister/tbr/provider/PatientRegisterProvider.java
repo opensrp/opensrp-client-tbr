@@ -210,7 +210,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         String dobString = getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
 
-        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
+        fillValue((TextView) view.findViewById(R.id.age), dobString);
 
         View patient = view.findViewById(R.id.patient_column);
         attachOnclickListener(patient, client);
@@ -381,7 +381,8 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         return StringUtils.isNotEmpty(date) ? new DateTime(date).toString("dd/MM/yyyy") : date;
     }
 
-    public String getDuration(String date) {
+    public String
+    getDuration(String date) {
         DateTime duration;
         if (StringUtils.isNotBlank(date)) {
             try {

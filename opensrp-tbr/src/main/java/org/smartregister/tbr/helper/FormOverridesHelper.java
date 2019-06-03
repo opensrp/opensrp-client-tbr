@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.domain.form.FieldOverrides;
+import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.DateUtil;
 
@@ -38,6 +39,8 @@ public class FormOverridesHelper {
         fields.put(TbrConstants.KEY.FIRST_NAME, patientDetails.get(TbrConstants.KEY.FIRST_NAME));
         fields.put(TbrConstants.KEY.LAST_NAME, patientDetails.get(TbrConstants.KEY.LAST_NAME));
         fields.put(TbrConstants.KEY.PROGRAM_ID, patientDetails.get(TbrConstants.KEY.PROGRAM_ID));
+
+        TbrApplication.getInstance().getResultsRepository().getLatestResult(patientDetails.get(TbrConstants.KEY.BASE_ENTITY_ID));
         return fields;
     }
 

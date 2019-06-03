@@ -1,0 +1,49 @@
+<model><instance>
+    <reg_new_child xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" encounter_type="Register New Child" id="chest_register_new_child" version="201905291100">
+        <formhub>
+            <uuid/>
+        </formhub>
+        <provider_uc/>
+        <provider_town/>
+        <provider_city/>
+        <provider_province/>
+        <provider_id/>
+        <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id"/>
+        <provider_location_name/>
+        <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime"/>
+        <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime"/>
+        <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime"/>
+        <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id"/>
+        <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id"/>
+        <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number"/>
+        <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number"/>
+        <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+        <name_of_child>
+            <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
+            <last_name openmrs_entity="person" openmrs_entity_id="last_name"/>
+        </name_of_child>
+        <birthdate openmrs_entity="person" openmrs_entity_id="birthdate"/>
+        <gender openmrs_entity="person" openmrs_entity_id="gender"/>
+        <participant_id openmrs_entity="person_identifier" openmrs_entity_id="ID NUMBER"/>
+        <mother_name openmrs_entity="person_attribute" openmrs_entity_id="Mother's Name"/>
+        <mother_id openmrs_entity="person_attribute" openmrs_entity_id="Mother's ID Number"/>
+        <birth_location>
+            <department_birth openmrs_entity="concept" openmrs_entity_id="TBR:birth department"/>
+            <province_birth openmrs_entity="concept" openmrs_entity_id="TBR:birth province"/>
+            <district_birth openmrs_entity="concept" openmrs_entity_id="TBR:birth district"/>
+            <city_birth openmrs_entity="concept" openmrs_entity_id="TBR:birth city"/>
+        </birth_location>
+        <current_community>
+            <department openmrs_entity="person_address" openmrs_entity_id="address1"/>
+            <province openmrs_entity="person_address" openmrs_entity_id="address2"/>
+            <district openmrs_entity="person_address" openmrs_entity_id="address3"/>
+            <city openmrs_entity="person_address" openmrs_entity_id="cityVillage"/>
+        </current_community>
+        <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
+        <birth_weight openmrs_entity="concept" openmrs_entity_id="CIEL:5916"/>
+        <developmental_disability openmrs_entity="concept" openmrs_entity_id="TBR:developmental disability"/>
+        <meta>
+            <instanceID/>
+        </meta>
+    </reg_new_child>
+</instance></model>

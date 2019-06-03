@@ -8,7 +8,7 @@
   "id_string":"child_health_indicators_form",
   "sms_keyword":"child_health_indicators_form",
   "default_language":"English",
-  "version":"201905220450",
+  "version":"201906030729",
   "children":[
     {
       "name":"provider_uc",
@@ -183,6 +183,42 @@
       "type":"note"
     },
     {
+      "name":"next_visit_date",
+      "label":{
+        "English":"Next Visit Date"
+      },
+      "type":"date",
+      "bind":{
+        "constraint":".> ${today}",
+        "jr:constraintMsg":{
+          "English":"Next visit date must be greater than current date"
+        }
+      },
+      "instance":{
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"TBR: next visit date",
+        "openmrs_entity_parent":"RETURN VISIT DATE"
+      }
+    },
+    {
+      "name":"next_growth_monitoring",
+      "label":{
+        "English":"Next Growth Monitoring check-up"
+      },
+      "type":"date",
+      "bind":{
+        "constraint":".> ${today}",
+        "jr:constraintMsg":{
+          "English":"Next visit date must be greater than current date"
+        }
+      },
+      "instance":{
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"TBR: next growth monitoring check-up",
+        "openmrs_entity_parent":"NEXT GROWTH MONITORING CHECK-UP"
+      }
+    },
+    {
       "name":"weight",
       "label":{
         "English":"Weight"
@@ -207,6 +243,70 @@
       }
     },
     {
+      "name":"height_for_age",
+      "label":{
+        "English":"Height for age status"
+      },
+      "type":"select one",
+      "instance":{
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"TBR: height for age status",
+        "openmrs_entity_parent":"Height for age status"
+      },
+      "children":[
+        {
+          "name":"low_height_age",
+          "label":{
+            "English":"Low height-age"
+          }
+        },
+        {
+          "name":"extremely_low_height_age",
+          "label":{
+            "English":"Extremely low height-age"
+          }
+        },
+        {
+          "name":"normal",
+          "label":{
+            "English":"Normal"
+          }
+        }
+      ]
+    },
+    {
+      "name":"weight_for_height",
+      "label":{
+        "English":"Weight for height status"
+      },
+      "type":"select one",
+      "instance":{
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"TBR: weight for height status",
+        "openmrs_entity_parent":"Weight for height status"
+      },
+      "children":[
+        {
+          "name":"low_weight_height",
+          "label":{
+            "English":"Low weight -height"
+          }
+        },
+        {
+          "name":"extremely_low_weight_height",
+          "label":{
+            "English":"Extremely low weight-height"
+          }
+        },
+        {
+          "name":"normal",
+          "label":{
+            "English":"Normal"
+          }
+        }
+      ]
+    },
+    {
       "name":"hgb",
       "label":{
         "English":"Haemoglobin Level"
@@ -229,9 +329,6 @@
       "type":"select all that apply",
       "instance":{
         "openmrs_entity_id":"TBR: vaccines"
-      },
-      "control":{
-        "appearance":"compact"
       },
       "children":[
         {
@@ -312,8 +409,8 @@
       "type":"date",
       "bind":{
         "relevant":"${deworming}='yes'",
-        "constraint":".<=${today}",
-        "required":"yes"
+        "required":"yes",
+        "constraint":".<=${today}"
       },
       "instance":{
         "openmrs_entity":"concept",
@@ -324,59 +421,167 @@
     {
       "name":"illnesses",
       "label":{
-        "English":"Has the child had any of the following since the last home visit"
+        "English":"Illnesses"
       },
-      "type":"select all that apply",
-      "instance":{
-        "openmrs_entity":"concept",
-        "openmrs_entity_id":"TBR: illnesses"
-      },
+      "type":"group",
       "children":[
         {
           "name":"diarrea",
           "label":{
             "English":"Diarrea"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: diarrea"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         },
         {
           "name":"malaria",
           "label":{
             "English":"Malaria"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: malaria"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         },
         {
-          "name":"coldFlu",
+          "name":"cold",
           "label":{
             "English":"Cold/Flu"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: cold"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         },
         {
           "name":"pneumonia",
           "label":{
             "English":"Pneumonia"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: pneumonia"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         },
         {
           "name":"tuberculosis",
           "label":{
             "English":"Tuberculosis"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: tuberculosis"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         },
         {
           "name":"dengue",
           "label":{
             "English":"Dengue"
-          }
+          },
+          "type":"select one",
+          "instance":{
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"TBR: dengue"
+          },
+          "children":[
+            {
+              "name":"yes",
+              "label":{
+                "English":"Yes"
+              }
+            },
+            {
+              "name":"no",
+              "label":{
+                "English":"No"
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "name":"test_date",
-      "label":{
-        "English":"Date"
-      },
-      "type":"date",
+      "name":"date",
+      "type":"hidden",
       "bind":{
+        "calculate":"${today}",
         "required":"yes"
       },
       "instance":{

@@ -29,6 +29,7 @@ import org.smartregister.util.DateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static java.lang.Math.abs;
@@ -246,5 +247,14 @@ public class Utils {
             }
         }
         return val;
+    }
+
+    public static String getCommaDelimitedStringFromList(List<String> values){
+        String string="";
+        for (String s : values){
+            string+="s,";
+        }
+        string.substring(0,string.length()-1);
+        return string;
     }
 }
