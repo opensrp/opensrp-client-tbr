@@ -26,7 +26,7 @@
         <input name="/Diagnosis_22.11.17_US/provider_location_note" data-type-xml="string"
             readonly="readonly" type="text" />
     </label>
-    <label class="question non-select ">
+    <label class="question note non-select ">
         <span class="question-label " data-itext-id="/Diagnosis_22.11.17_US/participant_id:label"
             lang="Roman Urdu">ID
         </span>

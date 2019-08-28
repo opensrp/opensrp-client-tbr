@@ -29,10 +29,10 @@
             <last_name openmrs_entity="person" openmrs_entity_id="last_name" />
             <pt_name_note />
             <treatment_outcome openmrs_entity="concept"
-                openmrs_entity_id="TBR: treatment outcome" />
+                openmrs_entity_id="TBR:treatment outcome" />
             <outcome_other openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" />
             <date_treatment_stopped openmrs_entity="concept"
-                openmrs_entity_id="TBR: treatment end date" />
+                openmrs_entity_id="TBR:treatment end date" />
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             <meta>
                 <instanceID />

@@ -249,14 +249,14 @@
         "English": "Culture Result"
       },
       "instance": {
-        "openmrs_entity_id": "TBR: culture result",
+        "openmrs_entity_id": "TBR:culture result",
         "openmrs_entity": "concept"
       },
       "type": "select one",
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: positive"
+            "openmrs_code": "TBR:positive"
           },
           "name": "positive",
           "label": {
@@ -266,7 +266,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: negative"
+            "openmrs_code": "TBR:negative"
           },
           "name": "negative",
           "label": {

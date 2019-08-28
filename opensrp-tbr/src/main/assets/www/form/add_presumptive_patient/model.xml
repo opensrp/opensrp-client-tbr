@@ -20,46 +20,46 @@
         <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number"/>
         <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
         <screening_symptom>
-            <cough openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:cough"/>
-            <cough_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration" openmrs_entity_parent="TBR:cough duration"/>
-            <cough_phlegm openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:productive cough"/>
-            <haemoptysis openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:haemoptysis"/>
-            <chest_pain openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:chest pain"/>
-            <chest_pain_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration" openmrs_entity_parent="TBR:chest pain duration"/>
-            <fever openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:fever"/>
-            <fever_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration" openmrs_entity_parent="TBR:fever duration"/>
-            <night_sweats openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:night sweats"/>
-            <night_sweats_duration openmrs_entity="concept" openmrs_entity_id="TBR:symptom duration" openmrs_entity_parent="TBR:night sweats duration"/>
-            <weight_loss openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:sudden weight loss"/>
-            <symptoms_other openmrs_entity="concept" openmrs_entity_id="TBR:symptom present" openmrs_entity_parent="TBR:other"/>
-            <symptoms_other_specify openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" openmrs_entity_parent="TBR:other"/>
-            <presumptive openmrs_entity="concept" openmrs_entity_id="TBR:presumptive tuberculosis case" openmrs_entity_parent="TBR: presumptive tuberculosis case"/>
+            <cough openmrs_entity="concept" openmrs_entity_id="TBR:cough"/>
+            <cough_duration openmrs_entity="concept" openmrs_entity_id="TBR:cough duration"/>
+            <cough_phlegm openmrs_entity="concept" openmrs_entity_id="TBR:productive cough"/>
+            <haemoptysis openmrs_entity="concept" openmrs_entity_id="TBR:haemoptysis"/>
+            <chest_pain openmrs_entity="concept" openmrs_entity_id="TBR:chest pain"/>
+            <chest_pain_duration openmrs_entity="concept" openmrs_entity_id="TBR:chest pain duration"/>
+            <fever openmrs_entity="concept" openmrs_entity_id="TBR:fever"/>
+            <fever_duration openmrs_entity="concept" openmrs_entity_id="TBR:fever duration"/>
+            <night_sweats openmrs_entity="concept" openmrs_entity_id="TBR:night sweats"/>
+            <night_sweats_duration openmrs_entity="concept" openmrs_entity_id="TBR:night sweats duration"/>
+            <weight_loss openmrs_entity="concept" openmrs_entity_id="TBR:sudden weight loss"/>
+            <symptoms_other openmrs_entity="concept" openmrs_entity_id="TBR:other symptoms"/>
+            <symptoms_other_specify openmrs_entity="concept" openmrs_entity_id="TBR:other specify text"/>
+            <presumptive openmrs_entity="concept" openmrs_entity_id="TBR:presumptive tuberculosis case"/>
         </screening_symptom>
         <demographic_info>
             <age openmrs_entity="person" openmrs_entity_id="age"/>
             <gender openmrs_entity="person" openmrs_entity_id="gender"/>
             <birthdate openmrs_entity="person" openmrs_entity_id="birthdate" />
             <birthdate_estimated openmrs_entity="person"
-                openmrs_entity_id="birthdate_estimated">1
+                openmrs_entity_id="birthdate_estimated">
             </birthdate_estimated>
         </demographic_info>
         <presumptive_info>
             <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
             <last_name openmrs_entity="person" openmrs_entity_id="last_name"/>
-            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID"/>
+            <participant_id openmrs_entity="person_identifier" openmrs_entity_id="HEALTH UNIT TB NUMBER"/>
             <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID"/>
             <national_id openmrs_entity="person_attribute" openmrs_entity_id="CNIC"/>
             <close_tb_contact openmrs_entity="concept" openmrs_entity_id="TBR:tuberculosis contact"/>
             <previous_tb_treatment openmrs_entity="concept" openmrs_entity_id="TBR:tuberculosis history"/>
             <previous_tb_treatment_outcome openmrs_entity="concept" openmrs_entity_id="TBR:patient category"/>
             <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test"/>
-            <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date"/>
+            <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR:hiv test date"/>
             <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result"/>
             <contact_phone_number openmrs_entity="person_attribute" openmrs_entity_id="Primary Contact Number"/>
-            <parish openmrs_entity="person_address" openmrs_entity_id="stateProvince" openmrs_entity_parent="usual_residence"/>
-            <village openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
-            <district openmrs_entity="person_address" openmrs_entity_id="town" openmrs_entity_parent="usual_residence"/>
-            <subcounty openmrs_entity="person_address" openmrs_entity_id="subTown" openmrs_entity_parent="usual_residence"/>
+            <parish openmrs_entity="person_address" openmrs_entity_id="address1"/>
+            <village openmrs_entity="person_address" openmrs_entity_id="cityVillage"/>
+            <district openmrs_entity="person_address" openmrs_entity_id="address2"/>
+            <subcounty openmrs_entity="person_address" openmrs_entity_id="address3"/>
             <!--<address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>-->
             <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
         </presumptive_info>

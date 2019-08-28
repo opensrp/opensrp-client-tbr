@@ -76,6 +76,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 import static org.smartregister.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
 import static org.smartregister.domain.LoginResponse.SUCCESS;
+import static org.smartregister.domain.LoginResponse.SUCCESS_WITHOUT_TEAM_DETAILS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
@@ -282,8 +283,8 @@ public class LoginActivity extends AppCompatActivity {
             tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
                 public void onEvent(LoginResponse loginResponse) {
                     view.setClickable(true);
-                    if (loginResponse == SUCCESS) {
-                        if (getOpenSRPContext().userService().isUserInPioneerGroup(userName)) {
+                    if (loginResponse == SUCCESS || loginResponse == SUCCESS_WITHOUT_TEAM_DETAILS) {
+                        if (/*getOpenSRPContext().userService().isUserInPioneerGroup(userName)*/1==1) {
                             TimeStatus timeStatus = getOpenSRPContext().userService().validateDeviceTime(
                                     loginResponse.payload(), TbrConstants.MAX_SERVER_TIME_DIFFERENCE);
                             if (!TbrConstants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {

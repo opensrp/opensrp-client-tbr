@@ -34,7 +34,7 @@
                     openmrs_entity_id="TBR:sample collection date" />
                 <sample_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
                 <result_date openmrs_entity="concept" openmrs_entity_id="TBR:test result date" />
-                <mtb_result openmrs_entity="concept" openmrs_entity_id="TBR: MTB result" />
+                <mtb_result openmrs_entity="concept" openmrs_entity_id="TBR:MTB result" />
                 <mtb_burden openmrs_entity="concept" openmrs_entity_id="TBR: MTB burden" />
                 <rif_result openmrs_entity="concept" openmrs_entity_id="TBR: RIF result" />
                 <error_code openmrs_entity="concept" openmrs_entity_id="TBR: error code" />

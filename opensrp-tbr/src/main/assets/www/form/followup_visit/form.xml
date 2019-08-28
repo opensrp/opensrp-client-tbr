@@ -87,7 +87,7 @@
             required
         </span>
     </label>
-    <label class="question note non-select ">
+    <!--<label class="question note non-select ">
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/program_id_note:label"
             lang="Roman Urdu">Program ID
         </span>
@@ -103,7 +103,7 @@
         <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field is
             required
         </span>
-    </label>
+    </label>-->
     <label class="question note non-select ">
         <span class="question-label " data-itext-id="/FollowUpVisit_10.01.18/pt_name_note:label"
             lang="Roman Urdu">Mareez ka naam:
@@ -195,6 +195,26 @@
                 <label class="">
                     <input name="/FollowUpVisit_10.01.18/treatment_phase"
                         data-name="/FollowUpVisit_10.01.18/treatment_phase" data-type-xml="select1"
+                        type="radio" value="intensive" />
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                        lang="Roman Urdu">
+                        Intensive
+                    </span>
+                    <span class="option-label "
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                        lang="openmrs_code">-
+                    </span>
+                    <span class="option-label active"
+                        data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/intensive:label"
+                        lang="en">
+                        Intensive
+                    </span>
+                </label>
+
+                <label class="">
+                    <input name="/FollowUpVisit_10.01.18/treatment_phase"
+                        data-name="/FollowUpVisit_10.01.18/treatment_phase" data-type-xml="select1"
                         type="radio" value="continuation" />
                     <span class="option-label "
                         data-itext-id="/FollowUpVisit_10.01.18/treatment_phase/continuation:label"
@@ -211,7 +231,7 @@
                         Continuation
                     </span>
                 </label>
-                <label class="">
+                <!--<label class="">
                     <input name="/FollowUpVisit_10.01.18/treatment_phase"
                         data-name="/FollowUpVisit_10.01.18/treatment_phase" data-type-xml="select1"
                         type="radio" value="intensive" />
@@ -229,7 +249,7 @@
                         lang="en">
                         Intensive
                     </span>
-                </label>
+                </label>-->
             </div>
         </fieldset>
     </fieldset>

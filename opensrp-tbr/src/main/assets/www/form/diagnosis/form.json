@@ -203,7 +203,7 @@
         "English": "Confirmed TB patient"
       },
       "instance": {
-        "openmrs_entity_id": "TBR: confirmed tb patient",
+        "openmrs_entity_id": "TBR:confirmed tb patient",
         "openmrs_entity": "concept"
       },
       "type": "select one",
@@ -241,14 +241,14 @@
         "English": "Has the patient been diagnosed bacteriologically or clinically"
       },
       "instance": {
-        "openmrs_entity_id": "TBR: tb diagnosis method",
+        "openmrs_entity_id": "TBR:tb diagnosis method",
         "openmrs_entity": "concept"
       },
       "type": "select one",
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: x-ray"
+            "openmrs_code": "TBR:x-ray"
           },
           "name": "x_ray",
           "label": {
@@ -258,7 +258,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: afb smear"
+            "openmrs_code": "TBR:afb smear"
           },
           "name": "bacteriologically",
           "label": {
@@ -268,7 +268,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: clinical suspicion"
+            "openmrs_code": "TBR:clinical suspicion"
           },
           "name": "symptomatically",
           "label": {
@@ -278,7 +278,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: unknown"
+            "openmrs_code": "TBR:unknown"
           },
           "name": "dont_know",
           "label": {
@@ -288,7 +288,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: other"
+            "openmrs_code": "TBR:other"
           },
           "name": "other",
           "label": {

@@ -200,7 +200,7 @@
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: yes"
+            "openmrs_code": "TBR:yes"
           },
           "name": "yes",
           "label": {
@@ -210,7 +210,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: no"
+            "openmrs_code": "TBR:no"
           },
           "name": "no",
           "label": {
@@ -281,14 +281,14 @@
             "English": "MTB Result"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: MTB result",
+            "openmrs_entity_id": "TBR:MTB result",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: detected"
+                "openmrs_code": "TBR:detected"
               },
               "name": "detected",
               "label": {
@@ -298,7 +298,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: not detected"
+                "openmrs_code": "TBR:not detected"
               },
               "name": "not_detected",
               "label": {
@@ -308,7 +308,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: indeterminate"
+                "openmrs_code": "TBR:indeterminate"
               },
               "name": "indeterminate",
               "label": {
@@ -325,7 +325,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: no result"
+                "openmrs_code": "TBR:no result"
               },
               "name": "no_result",
               "label": {
@@ -344,14 +344,14 @@
             "English": "MTB Burden"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: MTB burden",
+            "openmrs_entity_id": "TBR:MTB burden",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: high"
+                "openmrs_code": "TBR:high"
               },
               "name": "high",
               "label": {
@@ -361,7 +361,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: medium"
+                "openmrs_code": "TBR:medium"
               },
               "name": "medium",
               "label": {
@@ -371,7 +371,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: low"
+                "openmrs_code": "TBR:low"
               },
               "name": "low",
               "label": {
@@ -390,14 +390,14 @@
             "English": "Rifampicin Resistance"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: RIF result",
+            "openmrs_entity_id": "TBR:RIF result",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: detected"
+                "openmrs_code": "TBR:detected"
               },
               "name": "detected",
               "label": {
@@ -407,7 +407,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: not detected"
+                "openmrs_code": "TBR:not detected"
               },
               "name": "not_detected",
               "label": {
@@ -417,7 +417,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: indeterminate"
+                "openmrs_code": "TBR:indeterminate"
               },
               "name": "indeterminate",
               "label": {
@@ -429,7 +429,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: error code",
+            "openmrs_entity_id": "TBR:error code",
             "openmrs_entity": "concept"
           },
           "bind": {

@@ -17,7 +17,7 @@
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: MTB result",
+        "concept": "TBR:MTB result",
         "value_field": "formSubmissionField"
       }
     },
@@ -25,7 +25,7 @@
       "column_name": "value1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: MTB result"
+        "concept": "TBR:MTB result"
       }
     },
     {
@@ -47,7 +47,7 @@
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: culture result",
+        "concept": "TBR:culture result",
         "value_field": "formSubmissionField"
       }
     },
@@ -55,14 +55,14 @@
       "column_name": "value1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: culture result"
+        "concept": "TBR:culture result"
       }
     },
     {
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: urine lam result",
+        "concept": "TBR:urine lam result",
         "value_field": "formSubmissionField"
       }
     },
@@ -70,14 +70,14 @@
       "column_name": "value1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: urine lam result"
+        "concept": "TBR:urine lam result"
       }
     },
     {
       "column_name": "result1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: x-ray result",
+        "concept": "TBR:x-ray result",
         "value_field": "formSubmissionField"
       }
     },
@@ -85,14 +85,14 @@
       "column_name": "value1",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: x-ray result"
+        "concept": "TBR:x-ray result"
       }
     },
     {
       "column_name": "result2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: RIF result",
+        "concept": "TBR:RIF result",
         "value_field": "formSubmissionField"
       }
     },
@@ -100,14 +100,14 @@
       "column_name": "value2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: RIF result"
+        "concept": "TBR:RIF result"
       }
     },
     {
       "column_name": "result2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: urine lam grade",
+        "concept": "TBR:urine lam grade",
         "value_field": "formSubmissionField"
       }
     },
@@ -115,14 +115,14 @@
       "column_name": "value2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: urine lam grade"
+        "concept": "TBR:urine lam grade"
       }
     },
     {
       "column_name": "result2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: error code",
+        "concept": "TBR:error code",
         "value_field": "formSubmissionField"
       }
     },
@@ -130,7 +130,7 @@
       "column_name": "value2",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "TBR: error code"
+        "concept": "TBR:error code"
       }
     },
     {

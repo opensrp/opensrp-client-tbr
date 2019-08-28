@@ -62,7 +62,7 @@ public class ECSyncHelper implements PrefsHelper {
             Long lastSyncDatetime = getLastSyncTimeStamp();
             Log.i(ECSyncHelper.class.getName(), "LAST SYNC DT :" + new DateTime(lastSyncDatetime));
 
-            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + lastSyncDatetime + "&limit=" + SyncService.EVENT_PULL_LIMIT;
+            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + 0/*lastSyncDatetime*/ + "&limit=" + SyncService.EVENT_PULL_LIMIT;
             Log.i(ECSyncHelper.class.getName(), "URL: " + url);
 
             if (httpAgent == null) {

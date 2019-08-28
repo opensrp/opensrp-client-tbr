@@ -217,8 +217,7 @@
         <label class="question non-select ">
             <span class="question-label "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/registry_number:label"
-                lang="Roman Urdu">TB
-                Registry number
+                lang="Roman Urdu">District TB Number
             </span>
             <span class="question-label "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/registry_number:label"
@@ -226,15 +225,13 @@
             </span>
             <span class="question-label active"
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/registry_number:label"
-                lang="en">TB
-                Registry Number
+                lang="en">District TB Number
             </span>
-            <span class="required">*</span>
             <input name="/Add_InTreatment_Pt_11.01.18/diagnosis/registry_number" data-type-xml="int"
-                required="required" type="number" />
-            <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
+                 type="number" />
+            <!--<span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required
-            </span>
+            </span>-->
         </label>
         <fieldset class="question simple-select ">
             <fieldset>
@@ -418,6 +415,27 @@
                     <label class="">
                         <input name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
                             data-name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
+                            data-type-xml="select1" type="radio" value="intensive" />
+                        <span class="option-label "
+                            data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase/intensive:label"
+                            lang="Roman Urdu">
+                            Intensive
+                        </span>
+                        <span class="option-label "
+                            data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase/intensive:label"
+                            lang="openmrs_code">
+                            -
+                        </span>
+                        <span class="option-label active"
+                            data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase/intensive:label"
+                            lang="en">
+                            Intensive
+                        </span>
+                    </label>
+
+                    <label class="">
+                        <input name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
+                            data-name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
                             data-type-xml="select1" type="radio" value="continuation" />
                         <span class="option-label "
                             data-itext-id="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase/continuation:label"
@@ -435,7 +453,7 @@
                             Continuation
                         </span>
                     </label>
-                    <label class="">
+                    <!--<label class="">
                         <input name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
                             data-name="/Add_InTreatment_Pt_11.01.18/diagnosis/treatment_phase"
                             data-type-xml="select1" type="radio" value="intensive" />
@@ -454,7 +472,7 @@
                             lang="en">
                             Intensive
                         </span>
-                    </label>
+                    </label>-->
                 </div>
             </fieldset>
         </fieldset>
@@ -606,7 +624,7 @@
                 is required
             </span>
         </label>
-        <label class="question non-select ">
+<!--        <label class="question non-select ">
             <span class="question-label "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/patient_info/program_id:label"
                 lang="Roman Urdu">Program
@@ -623,7 +641,7 @@
             </span>
             <input name="/Add_InTreatment_Pt_11.01.18/patient_info/program_id"
                 data-type-xml="string" type="text" />
-        </label>
+        </label>-->
         <label class="question non-select ">
             <span class="question-label "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/patient_info/first_name:label"
@@ -1008,13 +1026,13 @@
             </span>
             <span class="required">*</span>
             <input name="/Add_InTreatment_Pt_11.01.18/patient_info/contact_phone_number"
-                data-constraint="regex(., '^03[0-9]{9}$')" data-type-xml="string"
+                data-constraint="regex(., '^07[0-9]{8}$')" data-type-xml="string"
                 required="required" type="text" />
             <span class="or-constraint-msg "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/patient_info/contact_phone_number:jr:constraintMsg"
                 lang="Roman Urdu">
-                Phone number 11 hindason par mushtamil aur mundarja zail shakal main hona chahiey:
-                03*********
+                Phone number 10 hindason par mushtamil aur mundarja zail shakal main hona chahiey:
+                07********
             </span>
             <span class="or-constraint-msg "
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/patient_info/contact_phone_number:jr:constraintMsg"
@@ -1024,7 +1042,7 @@
             <span class="or-constraint-msg active"
                 data-itext-id="/Add_InTreatment_Pt_11.01.18/patient_info/contact_phone_number:jr:constraintMsg"
                 lang="en">
-                Phone number should be 11 digits in the following format: 03*********
+                Phone number should be 10 digits in the following format: 07********
             </span>
             <span class="or-required-msg active" data-i18n="constraint.required" lang="">This field
                 is required

@@ -24,18 +24,18 @@
             <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date" />
             <diagnosis>
                 <treatment_initiation_date openmrs_entity="concept"
-                    openmrs_entity_id="TBR: treatment start date" />
-                <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR: tb type" />
-                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis" />
+                    openmrs_entity_id="TBR:treatment start date" />
+                <site_of_disease openmrs_entity="concept" openmrs_entity_id="TBR:tb type" />
+                <site_of_eptb openmrs_entity="concept" openmrs_entity_id="TBR:tb diagnosis" />
                 <other_eptb_site openmrs_entity="concept"
                     openmrs_entity_id="TBR:other specify text" />
                 <registry_number openmrs_entity="concept"
-                    openmrs_entity_id="TBR: tb registry number" />
-                <category openmrs_entity="concept" openmrs_entity_id="TBR: patient catergory" />
-                <month openmrs_entity="concept" openmrs_entity_id="TBR: tb evaluation month" />
+                    openmrs_entity_id="TBR:district tb number" />
+                <category openmrs_entity="concept" openmrs_entity_id="TBR:patient catergory" />
+                <month openmrs_entity="concept" openmrs_entity_id="TBR:tb evaluation month" />
                 <treatment_phase openmrs_entity="concept"
-                    openmrs_entity_id="TBR: treatment phase" />
-                <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR: regimen" />
+                    openmrs_entity_id="TBR:treatment phase" />
+                <treatment_regimen openmrs_entity="concept" openmrs_entity_id="TBR:regimen" />
                 <regimen_oth openmrs_entity="concept" openmrs_entity_id="TBR:other specify text" />
             </diagnosis>
             <patient_info>
@@ -51,11 +51,11 @@
                     openmrs_entity_id="birthdate_estimated">1
                 </birthdate_estimated>
                 <gender openmrs_entity="person" openmrs_entity_id="gender" />
-                <weight openmrs_entity="concept" openmrs_entity_id="TBR: weight" />
-                <height openmrs_entity="concept" openmrs_entity_id="TBR: height" />
-                <bmi openmrs_entity="concept" openmrs_entity_id="TBR: body mass index" />
+                <weight openmrs_entity="concept" openmrs_entity_id="TBR:weight" />
+                <height openmrs_entity="concept" openmrs_entity_id="TBR:height" />
+                <bmi openmrs_entity="concept" openmrs_entity_id="TBR:body mass index" />
                 <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test" />
-                <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date" />
+                <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR:hiv test date" />
                 <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result" />
                 <contact_phone_number openmrs_entity="person_attribute"
                     openmrs_entity_id="Primary Contact Number" />
@@ -82,9 +82,9 @@
             <fu_visit />
             <visit_date />
             <fu_visit_date />
-            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR: next visit date" />
+            <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR:next visit date" />
             <next_visit_date_note />
-            <smear_due_date openmrs_entity="concept" openmrs_entity_id="TBR: smear due date" />
+            <smear_due_date openmrs_entity="concept" openmrs_entity_id="TBR:smear due date" />
             <next_smear_due_date_note />
             <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             <meta>

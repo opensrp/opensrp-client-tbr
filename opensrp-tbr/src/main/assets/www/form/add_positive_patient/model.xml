@@ -18,11 +18,11 @@
         <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id"/>
         <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number"/>
         <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number"/>
-        <confirmed_tb openmrs_entity="concept" openmrs_entity_id="TBR: confirmed tb patient">
+        <confirmed_tb openmrs_entity="concept" openmrs_entity_id="TBR:confirmed tb patient">
             yes
         </confirmed_tb>
         <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
-        <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR: tb diagnosis method"/>
+        <diagnosis_type openmrs_entity="concept" openmrs_entity_id="TBR:tb diagnosis method"/>
         <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID"/>
         <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID"/>
         <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
@@ -38,12 +38,12 @@
         <previous_tb_treatment openmrs_entity="concept" openmrs_entity_id="TBR:tuberculosis history"/>
         <previous_tb_treatment_outcome openmrs_entity="concept" openmrs_entity_id="TBR:patient category"/>
         <hiv_test openmrs_entity="concept" openmrs_entity_id="TBR:hiv test"/>
-        <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR: hiv test date"/>
+        <hiv_date openmrs_entity="concept" openmrs_entity_id="TBR:hiv test date"/>
         <hiv_results openmrs_entity="concept" openmrs_entity_id="TBR:hiv test result"/>
-        <parish openmrs_entity="person_address" openmrs_entity_id="stateProvince" openmrs_entity_parent="usual_residence"/>
-        <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
-        <sub_county openmrs_entity="person_address" openmrs_entity_id="town" openmrs_entity_parent="usual_residence"/>
-        <district openmrs_entity="person_address" openmrs_entity_id="subTown" openmrs_entity_parent="usual_residence"/>
+        <parish openmrs_entity="person_address" openmrs_entity_id="address1"/>
+        <city_village openmrs_entity="person_address" openmrs_entity_id="cityVillage"/>
+        <sub_county openmrs_entity="person_address" openmrs_entity_id="address3"/>
+        <district openmrs_entity="person_address" openmrs_entity_id="address2"/>
         <!--<address1 openmrs_entity="person_address" openmrs_entity_id="address1" openmrs_entity_parent="usual_residence"/>-->
         <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
         <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes"/>

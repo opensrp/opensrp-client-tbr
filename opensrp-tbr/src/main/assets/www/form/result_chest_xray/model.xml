@@ -33,8 +33,8 @@
                 <test_date openmrs_entity="concept"
                     openmrs_entity_id="TBR:sample collection date" />
                 <test_id openmrs_entity="concept" openmrs_entity_id="TBR:sample id" />
-                <result_date openmrs_entity="concept" openmrs_entity_id="TBR: test result date" />
-                <xray_result openmrs_entity="concept" openmrs_entity_id="TBR: x-ray result" />
+                <result_date openmrs_entity="concept" openmrs_entity_id="TBR:test result date" />
+                <xray_result openmrs_entity="concept" openmrs_entity_id="TBR:x-ray result" />
                 <comments openmrs_entity="concept" openmrs_entity_id="TBR:additional notes" />
             </test_information>
             <meta>

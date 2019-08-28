@@ -37,7 +37,7 @@ android {
     defaultConfig {
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
         applicationId "org.smartregister.tbr"
-        minSdkVersion 26
+        minSdkVersion 22
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.1"

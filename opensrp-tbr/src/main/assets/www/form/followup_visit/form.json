@@ -7,7 +7,7 @@
     "regimen": [
       {
         "instance": {
-          "openmrs_code": "TBR: rhze"
+          "openmrs_code": "TBR:rhze"
         },
         "label": {
           "Roman Urdu": "RHZE",
@@ -18,7 +18,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: rh"
+          "openmrs_code": "TBR:rh"
         },
         "label": {
           "Roman Urdu": "RH",
@@ -29,7 +29,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: rhe"
+          "openmrs_code": "TBR:rhe"
         },
         "label": {
           "Roman Urdu": "RHE",
@@ -40,7 +40,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: rhzes"
+          "openmrs_code": "TBR:rhzes"
         },
         "label": {
           "Roman Urdu": "RHZES",
@@ -51,7 +51,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: other"
+          "openmrs_code": "TBR:other"
         },
         "label": {
           "Roman Urdu": "Other",
@@ -64,7 +64,7 @@
     "tx_phase": [
       {
         "instance": {
-          "openmrs_code": "TBR: continuation phase"
+          "openmrs_code": "TBR:continuation phase"
         },
         "label": {
           "Roman Urdu": "Continuation",
@@ -75,7 +75,7 @@
       },
       {
         "instance": {
-          "openmrs_code": "TBR: intensive phase"
+          "openmrs_code": "TBR:intensive phase"
         },
         "label": {
           "Roman Urdu": "Intensive",
@@ -262,7 +262,7 @@
         "English": "Health TB Unit number"
       }
     },
-    {
+    /*{
       "instance": {
         "openmrs_entity_id": "TBREACH Program ID",
         "openmrs_entity": "person_identifier"
@@ -272,7 +272,7 @@
       "label": {
         "English": "Program ID"
       }
-    },
+    },*/
     {
       "bind": {
         "required": "yes"
@@ -318,7 +318,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: weight",
+        "openmrs_entity_id": "TBR:weight",
         "openmrs_entity": "concept"
       },
       "bind": {
@@ -333,7 +333,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: height",
+        "openmrs_entity_id": "TBR:height",
         "openmrs_entity": "concept"
       },
       "type": "integer",
@@ -345,7 +345,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: body mass index",
+        "openmrs_entity_id": "TBR:body mass index",
         "openmrs_entity": "concept"
       },
       "bind": {
@@ -360,7 +360,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: patient category",
+        "openmrs_entity_id": "TBR:patient category",
         "openmrs_entity": "concept"
       },
       "type": "text",
@@ -372,7 +372,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: tb evaluation month",
+        "openmrs_entity_id": "TBR:tb evaluation month",
         "openmrs_entity": "concept"
       },
       "type": "text",
@@ -384,7 +384,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: treatment phase",
+        "openmrs_entity_id": "TBR:treatment phase",
         "openmrs_entity": "concept"
       },
       "label": {
@@ -395,7 +395,7 @@
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: continuation phase"
+            "openmrs_code": "TBR:continuation phase"
           },
           "name": "continuation",
           "label": {
@@ -405,7 +405,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: intensive phase"
+            "openmrs_code": "TBR:intensive phase"
           },
           "name": "intensive",
           "label": {
@@ -425,7 +425,7 @@
       },
       "itemset": "regimen",
       "instance": {
-        "openmrs_entity_id": "TBR: regimen",
+        "openmrs_entity_id": "TBR:regimen",
         "openmrs_entity": "concept"
       },
       "type": "select one"
@@ -500,7 +500,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: next visit date",
+        "openmrs_entity_id": "TBR:next visit date",
         "openmrs_entity": "concept"
       },
       "bind": {
@@ -523,7 +523,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: smear due date",
+        "openmrs_entity_id": "TBR:smear due date",
         "openmrs_entity": "concept"
       },
       "bind": {
@@ -545,7 +545,7 @@
     },
     {
       "instance": {
-        "openmrs_entity_id": "TBR: adverse drug effect",
+        "openmrs_entity_id": "TBR:adverse drug effect",
         "openmrs_entity": "concept"
       },
       "label": {

@@ -228,7 +228,7 @@ public abstract class   BaseRegisterFragment extends SecuredNativeSmartRegisterC
         for(int i=1; i < popup.getMenu().size(); i++){
             try {
                 if(popup.getMenu().getItem(i).getTitle().toString().equalsIgnoreCase("Urine-LAM")) {
-                    if( patient.getDetails().get("hiv_status") == null || (!patient.getDetails().get("hiv_status").equalsIgnoreCase("CT2") && !patient.getDetails().get("hiv_status").equalsIgnoreCase("positive")) ) {
+                    if( patient.getDetails().get("hiv_status") == null || (!patient.getDetails().get("hiv_status").equalsIgnoreCase("CT1") && !patient.getDetails().get("hiv_status").equalsIgnoreCase("positive")) ) {
                         popup.getMenu().getItem(i).setVisible(false);
                     }
                 }

@@ -147,7 +147,7 @@
             "English": "Health TB Unit number"
           }
         },
-        {
+        /*{
           "instance": {
             "openmrs_entity_id": "TBREACH Program ID",
             "openmrs_entity": "person_identifier"
@@ -161,8 +161,8 @@
             "Roman Urdu": "Program ID",
             "English": "Program ID"
           }
-        },
-        {
+        },*/
+/*        {
           "bind": {
             "calculate": "yes"
           },
@@ -172,7 +172,7 @@
             "Roman Urdu": "Program ID: ${program_id}",
             "English": "Program ID: ${program_id}"
           }
-        },
+        },*/
         {
           "instance": {
             "openmrs_entity_id": "first_name",
@@ -244,7 +244,7 @@
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: male"
+                "openmrs_code": "TBR:male"
               },
               "name": "male",
               "label": {
@@ -254,7 +254,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: female"
+                "openmrs_code": "TBR:female"
               },
               "name": "female",
               "label": {
@@ -264,7 +264,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: third gender"
+                "openmrs_code": "TBR:third gender"
               },
               "name": "transgender",
               "label": {
@@ -276,7 +276,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: weight",
+            "openmrs_entity_id": "TBR:weight",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -291,7 +291,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: height",
+            "openmrs_entity_id": "TBR:height",
             "openmrs_entity": "concept"
           },
           "type": "decimal",
@@ -303,7 +303,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: body mass index",
+            "openmrs_entity_id": "TBR:body mass index",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -328,7 +328,7 @@
       "children": [
         {
           "instance": {
-            "openmrs_entity_id": "TBR: treatment start date",
+            "openmrs_entity_id": "TBR:treatment start date",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -343,22 +343,24 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: tb registry number",
+            "openmrs_entity_id": "TBR:tb registry number",
             "openmrs_entity": "concept"
           },
-          "bind": {
+/*          "bind": {
             "required": "yes"
-          },
+          },*/
           "type": "integer",
           "name": "registry_number",
           "label": {
-            "Roman Urdu": "TB Registry number",
-            "English": "TB Registry Number"
+/*            "Roman Urdu": "TB Registry number",
+            "English": "TB Registry Number"*/
+            "Roman Urdu": "District TB Number",
+            "English": "District TB Number"
           }
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: tb type",
+            "openmrs_entity_id": "TBR:tb type",
             "openmrs_entity": "concept"
           },
           "label": {
@@ -369,7 +371,7 @@
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: ptb"
+                "openmrs_code": "TBR:ptb"
               },
               "name": "ptb",
               "label": {
@@ -379,7 +381,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: eptb"
+                "openmrs_code": "TBR:eptb"
               },
               "name": "eptb",
               "label": {
@@ -403,14 +405,14 @@
             "English": "EP TB Disease Site"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: tb diagnosis",
+            "openmrs_entity_id": "TBR:tb diagnosis",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: pleural eptb"
+                "openmrs_code": "TBR:pleural eptb"
               },
               "name": "pleura",
               "label": {
@@ -420,7 +422,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: spinal eptb"
+                "openmrs_code": "TBR:spinal eptb"
               },
               "name": "spine",
               "label": {
@@ -430,7 +432,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: lymphadenitis eptb"
+                "openmrs_code": "TBR:lymphadenitis eptb"
               },
               "name": "lymph",
               "label": {
@@ -440,7 +442,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: abdominal eptb"
+                "openmrs_code": "TBR:abdominal eptb"
               },
               "name": "abdomen",
               "label": {
@@ -450,7 +452,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: cns eptb"
+                "openmrs_code": "TBR:cns eptb"
               },
               "name": "cns",
               "label": {
@@ -460,7 +462,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: renal eptb"
+                "openmrs_code": "TBR:renal eptb"
               },
               "name": "renal",
               "label": {
@@ -470,7 +472,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: bone eptb"
+                "openmrs_code": "TBR:bone eptb"
               },
               "name": "bones",
               "label": {
@@ -480,7 +482,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: genitourinary eptb"
+                "openmrs_code": "TBR:genitourinary eptb"
               },
               "name": "genitourinary",
               "label": {
@@ -490,7 +492,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: other"
+                "openmrs_code": "TBR:other"
               },
               "name": "other",
               "label": {
@@ -517,7 +519,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: patient catergory",
+            "openmrs_entity_id": "TBR:patient catergory",
             "openmrs_entity": "concept"
           },
           "label": {
@@ -528,7 +530,7 @@
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: new diagnosis"
+                "openmrs_code": "TBR:new diagnosis"
               },
               "name": "new",
               "label": {
@@ -538,7 +540,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: relapse"
+                "openmrs_code": "TBR:relapse"
               },
               "name": "relapse",
               "label": {
@@ -548,7 +550,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: transfer in"
+                "openmrs_code": "TBR:transfer in"
               },
               "name": "transfer _in",
               "label": {
@@ -558,7 +560,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: return after lost to followup"
+                "openmrs_code": "TBR:return after lost to followup"
               },
               "name": "after_ltfu",
               "label": {
@@ -568,7 +570,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: regimen failure"
+                "openmrs_code": "TBR:regimen failure"
               },
               "name": "after_failure",
               "label": {
@@ -578,7 +580,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: other"
+                "openmrs_code": "TBR:other"
               },
               "name": "other",
               "label": {
@@ -600,14 +602,14 @@
             "English": "Treatment Phase"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: treatment phase",
+            "openmrs_entity_id": "TBR:treatment phase",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: continuation phase"
+                "openmrs_code": "TBR:continuation phase"
               },
               "name": "continuation",
               "label": {
@@ -617,7 +619,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: intensive phase"
+                "openmrs_code": "TBR:intensive phase"
               },
               "name": "intensive",
               "label": {
@@ -637,7 +639,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: regimen",
+            "openmrs_entity_id": "TBR:regimen",
             "openmrs_entity": "concept"
           },
           "label": {
@@ -648,7 +650,7 @@
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: rhze"
+                "openmrs_code": "TBR:rhze"
               },
               "name": "rhze",
               "label": {
@@ -658,7 +660,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: rh"
+                "openmrs_code": "TBR:rh"
               },
               "name": "rh",
               "label": {
@@ -668,7 +670,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: rhe"
+                "openmrs_code": "TBR:rhe"
               },
               "name": "rhe",
               "label": {
@@ -678,7 +680,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: rhzes"
+                "openmrs_code": "TBR:rhzes"
               },
               "name": "rhzes",
               "label": {
@@ -688,7 +690,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: other"
+                "openmrs_code": "TBR:other"
               },
               "name": "other",
               "label": {
@@ -708,7 +710,7 @@
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: yes"
+                "openmrs_code": "TBR:yes"
               },
               "name": "yes",
               "label": {
@@ -718,7 +720,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: no"
+                "openmrs_code": "TBR:no"
               },
               "name": "no",
               "label": {
@@ -754,7 +756,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: next visit date",
+            "openmrs_entity_id": "TBR:next visit date",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -777,7 +779,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: smear due date",
+            "openmrs_entity_id": "TBR:smear due date",
             "openmrs_entity": "concept"
           },
           "bind": {

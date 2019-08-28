@@ -203,7 +203,7 @@
       "children": [
         {
           "instance": {
-            "openmrs_code": "TBR: yes"
+            "openmrs_code": "TBR:yes"
           },
           "name": "yes",
           "label": {
@@ -213,7 +213,7 @@
         },
         {
           "instance": {
-            "openmrs_code": "TBR: no"
+            "openmrs_code": "TBR:no"
           },
           "name": "no",
           "label": {
@@ -263,7 +263,7 @@
         },
         {
           "instance": {
-            "openmrs_entity_id": "TBR: test result date",
+            "openmrs_entity_id": "TBR:test result date",
             "openmrs_entity": "concept"
           },
           "bind": {
@@ -284,14 +284,14 @@
             "English": "X-Ray Result"
           },
           "instance": {
-            "openmrs_entity_id": "TBR: x-ray result",
+            "openmrs_entity_id": "TBR:x-ray result",
             "openmrs_entity": "concept"
           },
           "type": "select one",
           "children": [
             {
               "instance": {
-                "openmrs_code": "TBR: indicative of TB"
+                "openmrs_code": "TBR:indicative of TB"
               },
               "name": "indicative",
               "label": {
@@ -301,7 +301,7 @@
             },
             {
               "instance": {
-                "openmrs_code": "TBR: not indicative of TB"
+                "openmrs_code": "TBR:not indicative of TB"
               },
               "name": "not indicative",
               "label": {

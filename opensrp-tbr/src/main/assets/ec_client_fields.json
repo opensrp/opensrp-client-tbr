@@ -14,7 +14,7 @@
           "column_name": "participant_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.TBREACH ID"
+            "field": "identifiers.HEALTH UNIT TB NUMBER"
           }
         },
         {
@@ -72,7 +72,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: confirmed tb patient"
+            "concept": "TBR:confirmed tb patient"
           }
         },
         {
@@ -109,7 +109,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: treatment start date"
+            "concept": "TBR:treatment start date"
           }
         },
         {
@@ -124,7 +124,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: next visit date"
+            "concept": "TBR:next visit date"
           }
         },
         {
@@ -132,7 +132,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "TBR: smear due date"
+            "concept": "TBR:smear due date"
           }
         },
         {
