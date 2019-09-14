@@ -1,16 +1,29 @@
 package org.smartregister.tbr.activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.fragment.InTreatmentPatientRegisterFragment;
 import org.smartregister.tbr.util.OtherFiltersEnum;
+import org.smartregister.tbr.util.Utils;
+import org.smartregister.util.Log;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static util.TbrConstants.ENKETO_FORMS.ADD_IN_TREATMENT_PATIENT;
@@ -69,8 +82,25 @@ public class InTreatmentPatientRegisterActivity extends BaseRegisterActivity {
                 }
                 dialog.show();
                 return true;
+            case R.id.action_logout:
+                logOutUser();
+                return true;
+            case R.id.reports:
+                Intent intent = new Intent(this,ReportActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logOutUser() {
+        try {
+            DrishtiApplication application = (DrishtiApplication) getApplication();
+            application.logoutCurrentUser();
+            finish();
+        } catch (Exception e) {
+            Log.logError(e.getMessage());
         }
     }
 

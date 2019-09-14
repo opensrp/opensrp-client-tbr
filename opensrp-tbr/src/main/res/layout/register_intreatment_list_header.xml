@@ -22,7 +22,8 @@
         android:text="@string/results"
         android:textAllCaps="true"
         android:textColor="@color/client_list_grey"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 
     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -50,7 +51,8 @@
         android:text="@string/followup"
         android:textAllCaps="true"
         android:textColor="@color/client_list_grey"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/treatment_header"

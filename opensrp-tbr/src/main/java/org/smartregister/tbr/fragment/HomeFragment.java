@@ -145,4 +145,6 @@ public class HomeFragment extends ListFragment {
         values.add(new Register(getActivity(), view, getPatientCountByRegisterType(view.getIdentifier())));
         return values;
     }
+
+
 }

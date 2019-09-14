@@ -1,5 +1,7 @@
 package org.smartregister.tbr.helper;
 
+import org.smartregister.tbr.application.TbrApplication;
+
 import util.TbrConstants;
 
 /**
@@ -9,7 +11,7 @@ import util.TbrConstants;
 public class DBQueryHelper {
 
     public static final String getPresumptivePatientRegisterCondition() {
-        return " " + TbrConstants.KEY.PRESUMPTIVE + " =\"yes\" AND " + TbrConstants.KEY.CONFIRMED_TB + " IS NULL AND " + TbrConstants.KEY.DATE_REMOVED + " =\"\" ";
+        return " " /*+ TbrConstants.KEY.PRESUMPTIVE + " =\"yes\" AND " + TbrConstants.KEY.CONFIRMED_TB + " IS NULL AND "*/ + TbrConstants.KEY.DATE_REMOVED + " =\"\" ";
     }
 
     public static final String getPositivePatientRegisterCondition() {
@@ -17,6 +19,6 @@ public class DBQueryHelper {
     }
 
     public static final String getIntreatmentPatientRegisterCondition() {
-        return TbrConstants.KEY.TREATMENT_INITIATION_DATE + " IS NOT NULL AND " + TbrConstants.KEY.DATE_REMOVED + " =\"\" ";
+        return " " + TbrConstants.KEY.PROVIDER_ID + "='" + TbrApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM() + "' AND " +/*TbrConstants.KEY.TREATMENT_INITIATION_DATE + " IS NOT NULL AND " +*/ TbrConstants.KEY.DATE_REMOVED + " =\"\" ";
     }
 }

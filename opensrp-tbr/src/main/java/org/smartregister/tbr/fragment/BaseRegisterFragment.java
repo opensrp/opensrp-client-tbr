@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.activity.PresumptivePatientRegisterActivity;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -55,6 +57,7 @@ import org.smartregister.tbr.provider.PatientRegisterProvider;
 import org.smartregister.tbr.servicemode.TbrServiceModeOption;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.FilterEnum;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 import org.smartregister.view.dialog.FilterOption;
@@ -79,6 +82,8 @@ import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
+import static util.TbrConstants.ENKETO_FORMS.ADD_IN_TREATMENT_PATIENT;
 import static util.TbrConstants.ENKETO_FORMS.CHEST_XRAY;
 import static util.TbrConstants.ENKETO_FORMS.CULTURE;
 import static util.TbrConstants.ENKETO_FORMS.DIAGNOSIS;
@@ -115,6 +120,9 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     private FormOverridesHelper formOverridesHelper;
     private String customMainCondition;
     private Snackbar snackbar;
+
+    private Button registerNewChildButton;
+    private Button uploadDataButton;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -186,12 +194,46 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         activity.getSupportActionBar().setTitle(activity.getIntent().getStringExtra(TOOLBAR_TITLE));
         viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         setupViews(view);
+
+        registerNewChildButton = (Button) view.findViewById(R.id.register_new_child);
+        uploadDataButton = (Button) view.findViewById(R.id.upload_data);
+
+        registerNewChildButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String entityId = generateRandomUUIDString();
+                formOverridesHelper = new FormOverridesHelper(null);
+                ((BaseRegisterActivity) getActivity()).initializeEnketoFormFragment(ADD_IN_TREATMENT_PATIENT, entityId, formOverridesHelper.getFieldOverrideForChildID().getJSONString(), true);
+            }
+        });
+
+        uploadDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                manualSync(view);
+
+            }
+        });
+
         return view;
+    }
+
+    public void manualSync(View view) {
+        view.startAnimation(Utils.getRotateAnimation());
+        TriggerSyncEvent viewConfigurationSyncEvent = new TriggerSyncEvent();
+        viewConfigurationSyncEvent.setManualSync(true);
+        Utils.postEvent(viewConfigurationSyncEvent);
+        /*if (view != null) {
+            TextView textView = (TextView) view.getRootView().findViewById(R.id.registerLastSyncTime);
+            populateLastSync(textView);
+        }*/
     }
 
     protected void processViewConfigurations() {
         ViewConfiguration viewConfiguration = TbrApplication.getInstance().getConfigurableViewsHelper().getViewConfiguration(getViewConfigurationIdentifier());
-        if (viewConfiguration == null)
+        if (/*viewConfiguration == null*/ 1==1)
             return;
         RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
         if (config.getSearchBarText() != null && getView() != null)
@@ -312,7 +354,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 tableName + "." + KEY.PARTICIPANT_ID,
                 tableName + "." + KEY.PROGRAM_ID,
                 tableName + "." + KEY.GENDER,
-                tableName + "." + KEY.DOB};
+                tableName + "." + KEY.BIRTH_WEIGHT,
+                tableName + "." + KEY.MOTHER_NAME,
+                tableName + "." + KEY.DEVELOPMENTAL_DISABILITY,
+                tableName + "." + KEY.FULL_ADDRESS,
+                tableName + "." + KEY.DOB,
+                tableName + "." + KEY.PROVIDER_ID};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
         queryBUilder.SelectInitiateMainTable(tableName, allColumns);
         mainSelect = queryBUilder.mainCondition(mainCondition);
@@ -337,8 +384,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         if (helper.isJsonViewsEnabled()) {
             ViewConfiguration viewConfiguration = helper.getViewConfiguration(viewConfigurationIdentifier);
             ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_HEADER);
-            if (viewConfiguration != null)
-                headerLayout = helper.inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
+            if (viewConfiguration != null){}
+//                headerLayout = helper.inflateDynamicView(viewConfiguration, commonConfiguration, headerLayout, R.id.register_headers, true);
         }
         if (!visibleColumns.isEmpty()) {
             Map<String, Integer> mapping = new HashMap();
@@ -536,15 +583,20 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         String[] columns = new String[]{
                 tableName + ".relationalid",
-                tableName + "." + TbrConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + TbrConstants.KEY.FIRST_ENCOUNTER,
-                tableName + "." + TbrConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + TbrConstants.KEY.FIRST_NAME,
-                tableName + "." + TbrConstants.KEY.LAST_NAME,
-                tableName + "." + TbrConstants.KEY.PARTICIPANT_ID,
-                tableName + "." + TbrConstants.KEY.PROGRAM_ID,
-                tableName + "." + TbrConstants.KEY.GENDER,
-                tableName + "." + TbrConstants.KEY.DOB};
+                tableName + "." + KEY.LAST_INTERACTED_WITH,
+                tableName + "." + KEY.FIRST_ENCOUNTER,
+                tableName + "." + KEY.BASE_ENTITY_ID,
+                tableName + "." + KEY.FIRST_NAME,
+                tableName + "." + KEY.LAST_NAME,
+                tableName + "." + KEY.PARTICIPANT_ID,
+                tableName + "." + KEY.PROGRAM_ID,
+                tableName + "." + KEY.GENDER,
+                tableName + "." + KEY.BIRTH_WEIGHT,
+                tableName + "." + KEY.MOTHER_NAME,
+                tableName + "." + KEY.DEVELOPMENTAL_DISABILITY,
+                tableName + "." + KEY.FULL_ADDRESS,
+                tableName + "." + KEY.DOB,
+                tableName + "." + KEY.PROVIDER_ID};
         String[] allColumns = ArrayUtils.addAll(columns, getAdditionalColumns(tableName));
         mainSelect = queryBUilder.SelectInitiateMainTable(tableName, allColumns);
         customMainCondition = " WHERE ";

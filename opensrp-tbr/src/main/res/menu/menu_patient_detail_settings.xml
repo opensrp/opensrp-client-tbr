@@ -5,5 +5,11 @@
         android:id="@+id/tbDiagnosisForm"
         android:orderInCategory="100"
         android:title="@string/tb_diagnosis_form"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/registerHealthIndicators"
+        android:orderInCategory="100"
+        android:title="@string/action_register_health_indicators"
         app:showAsAction="never" />
 </menu>

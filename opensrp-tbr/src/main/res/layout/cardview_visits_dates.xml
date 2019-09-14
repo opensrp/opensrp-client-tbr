@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clientVisitDatesCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/border"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/next_home_visits"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/next_visit_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/next_health_checkup"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/next_health_checkup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/next_vaccine"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/next_vaccine"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/next_deworming"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/next_deworming"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

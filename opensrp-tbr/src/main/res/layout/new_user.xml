@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register New User"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/activity_header_size"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <TableRow>
+
+            <TextView
+                android:text="First Name"
+                />
+
+            <EditText
+                android:id="@+id/firstname"/>
+
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:text="Last Name"
+                />
+
+            <EditText
+                android:id="@+id/lastname"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Gender"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female" />
+
+            </RadioGroup>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Username"
+                />
+
+            <EditText
+                android:id="@+id/username"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Password"
+                />
+
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/password1"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Password Confirmation"
+                />
+
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/password2"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/createAccountBtn"
+            android:text="Create Account "
+            android:textColor="@color/white"
+            android:background="@drawable/due_vaccine_blue_bg"
+            android:layout_gravity="right"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,8 +1,9 @@
 {
   "form_data_definition_version": "1",
   "form" : {
-    "bind_type" : "ec_patient",
     "default_bind_path" : "/model/instance/reg_new_child/",
+    "bind_type": "ec_patient",
+    "ec_bind_type": "ec_patient",
     "fields" : [ {
       "name" : "id",
       "shouldLoadValue" : true
@@ -28,8 +29,8 @@
       "name" : "provider_location_name",
       "bind" : "/model/instance/reg_new_child/provider_location_name"
     }, {
-      "name" : "provider_location_note",
-      "bind" : "/model/instance/reg_new_child/provider_location_note"
+      "name" : "child_id",
+      "bind" : "/model/instance/reg_new_child/child_id"
     }, {
       "name" : "start",
       "bind" : "/model/instance/reg_new_child/start"
@@ -73,41 +74,26 @@
       "name" : "mother_name",
       "bind" : "/model/instance/reg_new_child/mother_name"
     }, {
-      "name" : "mother_id",
-      "bind" : "/model/instance/reg_new_child/mother_id"
-    }, {
-      "name" : "department_birth",
-      "bind" : "/model/instance/reg_new_child/birth_location/department_birth"
-    }, {
-      "name" : "province_birth",
-      "bind" : "/model/instance/reg_new_child/birth_location/province_birth"
-    }, {
-      "name" : "district_birth",
-      "bind" : "/model/instance/reg_new_child/birth_location/district_birth"
-    }, {
-      "name" : "city_birth",
-      "bind" : "/model/instance/reg_new_child/birth_location/city_birth"
-    }, {
       "name" : "department",
       "bind" : "/model/instance/reg_new_child/current_community/department"
     }, {
       "name" : "province",
       "bind" : "/model/instance/reg_new_child/current_community/province"
     }, {
+      "name" : "province_other",
+      "bind" : "/model/instance/reg_new_child/current_community/province_other"
+    }, {
       "name" : "district",
       "bind" : "/model/instance/reg_new_child/current_community/district"
+    }, {
+      "name" : "district_other",
+      "bind" : "/model/instance/reg_new_child/current_community/district_other"
     }, {
       "name" : "city",
       "bind" : "/model/instance/reg_new_child/current_community/city"
     }, {
       "name" : "full_address",
-      "bind" : "/model/instance/reg_new_child/full_address"
-    }, {
-      "name" : "birth_weight",
-      "bind" : "/model/instance/reg_new_child/birth_weight"
-    }, {
-      "name" : "vaccines",
-      "bind" : "/model/instance/reg_new_child/vaccines"
+      "bind" : "/model/instance/reg_new_child/current_community/full_address"
     }, {
       "name" : "developmental_disability",
       "bind" : "/model/instance/reg_new_child/developmental_disability"

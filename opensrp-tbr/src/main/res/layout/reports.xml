@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityHomeVisit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/customAppThemeGray"
+    android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".activity.HomeVisitActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbarParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:theme="@style/ToolBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?colorPrimary"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/month"
+                android:textSize="25dp"/>
+
+            <Spinner
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/months"
+                android:textSize="25dp"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/year"
+                android:textSize="25dp"/>
+
+            <Spinner
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="25dp"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/get"
+                android:id="@+id/getButton"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+        <TextView
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/report_heading"
+            android:text=""
+            android:textSize="@dimen/activity_title_size"
+            android:visibility="gone"/>
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_children"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalChildren"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_hvs"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalHV"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_chronicmalnutrition"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalMalnutrition"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_acutemalnutrition"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalAcuteMalnutrition"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_anemia"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalAnemia"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_diarrhea"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalDiarrhea"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/total_malaria"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+                <TextView
+                    android:id="@+id/totalMalaria"
+                    android:text="-"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/border_2"
+                    android:textSize="@dimen/activity_header_size"
+                    />
+
+            </TableRow>
+
+        </TableLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -2,11 +2,253 @@
   "name": "results",
   "columns": [
     {
+      "column_name": "height_weight_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:height/weight measurement date"
+      }
+    },
+    {
       "column_name": "base_entity_id",
       "json_mapping": {
         "field": "baseEntityId"
       }
     },
+    {
+      "column_name": "weight",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:weight"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "height",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:height"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "height_age_status",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:height for age status"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "weight_height_status",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:weight for height status"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "haemoglobin",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:haemoglobin"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "deworming",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:deworming"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "deworming_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:deworming date"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "next_visit_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:next visit date"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "next_growth_monitoring_date",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:next growth monitoring check-up"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "diarrea",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:diarrea"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "malaria",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:malaria"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "cold",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:cold"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "pneumonia",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:pneumonia"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "bronchitis",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:bronchitis"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+
+    {
+      "column_name": "zero_tuberculosis",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:0 months tuberculosis"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "zero_antiherpatitis",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:0 months antiherpatitis"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "two_antipolio",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:2 months antipolio"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "two_neumococo",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:2 months neumococo"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "two_pentavalente",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:2 months pentavalente"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "two_rotavirus",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:2 months rotavirus"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "four_antipolio",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:4 months antipolio"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "four_neumococo",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:4 months neumococo"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "four_pentavalente",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:4 months pentavalente"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "four_rotavirus",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:4 months rotavirus"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "six_antipolio",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:6 months antipolio"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "six_pentavalente",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:6 months pentavalente"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "twelve_neumococo",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:12 months neumococo"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "twelve_sarampion",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:12 months sarampion"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+    {
+      "column_name": "fifteen_antiamarilica",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "concept": "TBR:15 months antimaralica"
+        //        "value_field": "formSubmissionField"
+      }
+    },
+
+
     {
       "column_name": "type",
       "json_mapping": {

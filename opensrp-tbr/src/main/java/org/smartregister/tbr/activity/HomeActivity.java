@@ -1,5 +1,6 @@
 package org.smartregister.tbr.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,11 +22,13 @@ import org.smartregister.tbr.event.TriggerSyncEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.tbr.fragment.HomeFragment;
 import org.smartregister.tbr.sync.ECSyncHelper;
+import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 
 /**
@@ -50,6 +53,7 @@ public class HomeActivity extends BaseActivity {
             processView();
 
         }
+
     }
 
     @Override
@@ -116,7 +120,7 @@ public class HomeActivity extends BaseActivity {
         if (config != null && config.getApplicationName() != null) {
             title.setText(config.getApplicationName());
         } else {
-            title.setText(R.string.app_title);
+            title.setText(R.string.app_name);
         }
         try {
             getSupportFragmentManager().beginTransaction().replace(R.id.registers_container, new HomeFragment()).commit();

@@ -23,19 +23,19 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.android.volley.toolbox.ImageLoader;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -45,7 +45,6 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.Context;
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.LoginResponse;
@@ -57,7 +56,10 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.tbr.BuildConfig;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.tbr.model.User;
+import org.smartregister.tbr.repository.UserRepository;
 import org.smartregister.tbr.util.Constants;
 import org.smartregister.util.Utils;
 
@@ -66,18 +68,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
-import util.ImageLoaderRequest;
 import util.TbrConstants;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 import static org.smartregister.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
 import static org.smartregister.domain.LoginResponse.SUCCESS;
+import static org.smartregister.domain.LoginResponse.SUCCESS_WITHOUT_TEAM_DETAILS;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
 import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
+import static org.smartregister.tbr.activity.BaseRegisterActivity.TOOLBAR_TITLE;
 import static org.smartregister.tbr.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -87,7 +92,7 @@ import static util.TbrConstants.VIEW_CONFIGURATION_PREFIX;
 /**
  * Created on 09/10/2017 by SGithengi
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String PREF_TEAM_LOCATIONS = "PREF_TEAM_LOCATIONS";
     public static final ArrayList<String> ALLOWED_LEVELS;
@@ -100,6 +105,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText userNameEditText;
     private EditText passwordEditText;
+
+    private TextView firstUserTextView;
+    private TextView secondUserTextView;
+    private TextView thirdUserTextView;
+    private TextView fourthUserTextView;
+    private TextView addUserTextView;
+
     private ProgressDialog progressDialog;
     public static final String ENGLISH_LOCALE = "en";
     private static final String URDU_LOCALE = "ur";
@@ -122,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             Configuration conf = res.getConfiguration();
             conf.locale = new Locale(preferredLocale);
             res.updateConfiguration(conf, dm);
+            org.smartregister.tbr.util.Utils.setLocale(new Locale(preferredLocale));
         } catch (Exception e) {
             logError("Error onCreate: " + e);
 
@@ -138,10 +151,11 @@ public class LoginActivity extends AppCompatActivity {
         //android.content.Context appContext = this;
         positionViews();
         initializeLoginFields();
-        initializeBuildDetails();
+        //initializeBuildDetails();
         setDoneActionHandlerOnPasswordField();
         setListenerOnShowPasswordCheckbox();
         initializeProgressDialog();
+        setUserProfiles();
 
         setLanguage();
 
@@ -150,31 +164,88 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menu.add("Settings");
+        menu.add(getResources().getString(R.string.settings));
+        menu.add(getResources().getString(R.string.language));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().toString().equalsIgnoreCase("Settings")) {
+        if (item.getTitle().toString().equalsIgnoreCase(getResources().getString(R.string.settings))) {
             startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        else if (item.getTitle().toString().equalsIgnoreCase(getResources().getString(R.string.language))) {
+            this.showLanguageDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void initializeBuildDetails() {
+    public void showLanguageDialog() {
+
+//        final List<String> displayValues = TbrApplication.getJsonSpecHelper().getAvailableLanguages();
+        final List<String> displayValues = new ArrayList<String>();
+        displayValues.add("English");
+        displayValues.add("Spanish");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, displayValues.toArray(new String[displayValues.size()])) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView view = (TextView) super.getView(position, convertView, parent);
+                view.setTextColor(TbrApplication.getInstance().getContext().getColorResource(org.smartregister.tbr.R.color.customAppThemeBlue));
+
+                return view;
+            }
+        };
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle(this.getString(R.string.select_language));
+        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedItem = displayValues.get(which);
+                Map<String, String> langs = TbrApplication.getJsonSpecHelper().getAvailableLanguagesMap();
+                String langCode="";
+                if(selectedItem.equalsIgnoreCase("english"))
+                    langCode="en";
+                else if(selectedItem.equalsIgnoreCase("spanish"))
+                    langCode="es";
+//                org.smartregister.tbr.util.Utils.saveLanguage(getKeyByValue(langs, selectedItem));
+                org.smartregister.tbr.util.Utils.saveLanguage(langCode);
+                org.smartregister.tbr.util.Utils.postEvent(new LanguageConfigurationEvent(false));
+                org.smartregister.tbr.util.Utils.showToast(getApplicationContext(), selectedItem + " selected");
+                finish(); startActivity(getIntent());
+                dialog.dismiss();
+            }
+        });
+
+        final android.support.v7.app.AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+        for (Map.Entry<T, E> entry : map.entrySet()) {
+            if (value.equals(entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /*private void initializeBuildDetails() {
         TextView buildDetailsTextView = (TextView) findViewById(org.smartregister.R.id.login_build);
         try {
             buildDetailsTextView.setText("Version " + getVersion() + ", Built on: " + getBuildDate());
         } catch (Exception e) {
             logError("Error fetching build details: " + e);
         }
-    }
+    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
+        setUserProfiles();
         processViewCustomizations();
         if (!getOpenSRPContext().IsUserLoggedOut()) {
             goToHome(false);
@@ -244,6 +315,46 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void setUserProfiles() {
+
+        firstUserTextView = (TextView) findViewById(R.id.first_user);
+        secondUserTextView = (TextView) findViewById(R.id.second_user);
+        thirdUserTextView = (TextView) findViewById(R.id.third_user);
+        fourthUserTextView = (TextView) findViewById(R.id.fourth_user);
+        addUserTextView = (TextView) findViewById(R.id.add_new_user);
+
+        firstUserTextView.setVisibility(View.GONE);
+        secondUserTextView.setVisibility(View.GONE);
+        thirdUserTextView.setVisibility(View.GONE);
+        fourthUserTextView.setVisibility(View.GONE);
+
+        firstUserTextView.setOnClickListener(this);
+        secondUserTextView.setOnClickListener(this);
+        thirdUserTextView.setOnClickListener(this);
+        fourthUserTextView.setOnClickListener(this);
+        addUserTextView.setOnClickListener(this);
+
+        //List<User> users = TbrApplication.getInstance().getBmiRepository().fetchLatestUsers();
+        List<User> users = TbrApplication.getInstance().getUserRepository().getLatestUsers();
+
+        if(users.size() >= 1){
+            firstUserTextView.setText(users.get(0).getUsername());
+            firstUserTextView.setVisibility(View.VISIBLE);
+        }
+        if(users.size() >= 2){
+            secondUserTextView.setText(users.get(1).getUsername());
+            secondUserTextView.setVisibility(View.VISIBLE);
+        }
+        if(users.size() >= 3){
+            thirdUserTextView.setText(users.get(2).getUsername());
+            thirdUserTextView.setVisibility(View.VISIBLE);
+        }
+        if(users.size() >= 4){
+            fourthUserTextView.setText(users.get(3).getUsername());
+            fourthUserTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void setListenerOnShowPasswordCheckbox() {
         showPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -266,9 +377,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void localLogin(View view, String userName, String password) {
         view.setClickable(true);
-        if (getOpenSRPContext().userService().isUserInValidGroup(userName, password)
-                && (!TbrConstants.TIME_CHECK || TimeStatus.OK.equals(getOpenSRPContext().userService().validateStoredServerTimeZone()))) {
-            localLoginWith(userName, password);
+        if (/*getOpenSRPContext().userService().isUserInValidGroup(userName, password)
+                &&*/ (!TbrConstants.TIME_CHECK || TimeStatus.OK.equals(getOpenSRPContext().userService().validateStoredServerTimeZone())) && TbrApplication.getInstance().getUserRepository().getUser(userName,password).size() > 0) {
+                localLoginWith(userName, password);
         } else {
 
             login(findViewById(org.smartregister.R.id.login_loginButton), false);
@@ -282,8 +393,8 @@ public class LoginActivity extends AppCompatActivity {
             tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
                 public void onEvent(LoginResponse loginResponse) {
                     view.setClickable(true);
-                    if (loginResponse == SUCCESS) {
-                        if (getOpenSRPContext().userService().isUserInPioneerGroup(userName)) {
+                    if (loginResponse == SUCCESS || loginResponse == SUCCESS_WITHOUT_TEAM_DETAILS) {
+                        /*if (getOpenSRPContext().userService().isUserInPioneerGroup(userName)) {*/
                             TimeStatus timeStatus = getOpenSRPContext().userService().validateDeviceTime(
                                     loginResponse.payload(), TbrConstants.MAX_SERVER_TIME_DIFFERENCE);
                             if (!TbrConstants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
@@ -300,9 +411,9 @@ public class LoginActivity extends AppCompatActivity {
                                     showErrorDialog(getString(timeStatus.getMessage()));
                                 }
                             }
-                        } else { // Valid user from wrong group trying to log in
+                        /*} else { // Valid user from wrong group trying to log in
                             showErrorDialog(getResources().getString(R.string.unauthorized_group));
-                        }
+                        }*/
                     } else {
                         if (loginResponse == null) {
                             showErrorDialog("Sorry, your login failed. Please try again.");
@@ -385,9 +496,16 @@ public class LoginActivity extends AppCompatActivity {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
 
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        final String username = userNameEditText.getText().toString().trim();
+        final String password = passwordEditText.getText().toString().trim();
+
+        if(!username.equals("") && !password.equals(""))
+            TbrApplication.getInstance().getUserRepository().saveUser(username,password);
+
+        Intent intent = new Intent(this, InTreatmentPatientRegisterActivity.class);
+        intent.putExtra(TOOLBAR_TITLE, getString(R.string.child_register));
         startActivity(intent);
+
         finish();
     }
 
@@ -439,8 +557,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void positionViews() {
-        final ScrollView canvasSV = (ScrollView) findViewById(R.id.canvasSV);
-        final RelativeLayout canvasRL = (RelativeLayout) findViewById(R.id.canvasRL);
+        /*final ScrollView canvasSV = (ScrollView) findViewById(R.id.canvasSV);
+        final LinearLayout canvasRL = (LinearLayout) findViewById(R.id.canvasRL);
         final LinearLayout logoCanvasLL = (LinearLayout) findViewById(R.id.logoCanvasLL);
         final LinearLayout credentialsCanvasLL = (LinearLayout) findViewById(R.id.credentialsCanvasLL);
 
@@ -456,13 +574,13 @@ public class LoginActivity extends AppCompatActivity {
                         - logoCanvasLL.getHeight();
                 topMargin = topMargin / 2;
 
-                RelativeLayout.LayoutParams logoCanvasLP = (RelativeLayout.LayoutParams) logoCanvasLL.getLayoutParams();
-                logoCanvasLP.setMargins(0, topMargin, 0, 0);
+                LinearLayout.LayoutParams logoCanvasLP = (LinearLayout.LayoutParams) logoCanvasLL.getLayoutParams();
+                logoCanvasLP.setMargins(0, 100, 0, 0);
                 logoCanvasLL.setLayoutParams(logoCanvasLP);
 
                 canvasRL.setMinimumHeight(windowHeight);
             }
-        });
+        });*/
     }
 
     public static Context getOpenSRPContext() {
@@ -512,7 +630,7 @@ public class LoginActivity extends AppCompatActivity {
                         Color.parseColor(background.getEndColor())});
                 canvasRL.setBackground(gradientDrawable);
             }
-            if (metadata.getLogoUrl() != null) {
+            /*if (metadata.getLogoUrl() != null) {
                 ImageView imageView = (ImageView) findViewById(R.id.logoImage);
                 ImageLoaderRequest.getInstance(this.getApplicationContext()).getImageLoader()
                         .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
@@ -521,11 +639,31 @@ public class LoginActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
                 lp.setMargins(0, 0, 0, 0);
                 loginBuild.setLayoutParams(lp);
-            }
+            }*/
 
         } catch (Exception e) {
             android.util.Log.d(TAG, e.getMessage());
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view == firstUserTextView || view == secondUserTextView || view == thirdUserTextView || view == fourthUserTextView){
+
+            String username = ((TextView)view).getText().toString();
+            User user = TbrApplication.getInstance().getUserRepository().getUserByUsername(username);
+            userNameEditText.setText(username);
+            passwordEditText.setText(user.getPassword());
+            login(findViewById(org.smartregister.R.id.login_loginButton));
+
+        } else if(view == addUserTextView){
+
+            Intent intent=new Intent(getApplicationContext(), NewUserActivity.class);
+            startActivity(intent);
+
+        }
+
     }
 
     ////////////////////////////////////////////////////////////////
@@ -550,6 +688,16 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected LoginResponse doInBackground(Void... params) {
+            /*String requestURL=getOpenSRPContext().configuration().dristhiBaseURL() + "/security/authenticate";
+            LoginResponse loginResponse = getOpenSRPContext().getHttpAgent()
+                    .urlCanBeAccessWithGivenCredentials(requestURL, userName, password);
+
+            if (loginResponse.equals(LoginResponse.SUCCESS)) {
+                getOpenSRPContext().userService().saveUserGroup(userName, password, loginResponse.payload());
+            }
+
+            return loginResponse;
+*/
             return getOpenSRPContext().userService().isValidRemoteLogin(userName, password);
         }
 

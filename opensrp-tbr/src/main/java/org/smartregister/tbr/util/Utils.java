@@ -29,6 +29,7 @@ import org.smartregister.util.DateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static java.lang.Math.abs;
@@ -84,7 +85,6 @@ public class Utils {
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
 
-
     }
 
 
@@ -123,10 +123,13 @@ public class Utils {
         Resources resources = TbrApplication.getInstance().getApplicationContext().getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Locale.setDefault(locale);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             configuration.setLocale(locale);
+            Locale.setDefault(locale);
             TbrApplication.getInstance().getApplicationContext().createConfigurationContext(configuration);
         } else {
+            Locale.setDefault(locale);
             configuration.locale = locale;
             resources.updateConfiguration(configuration, displayMetrics);
         }
@@ -148,7 +151,7 @@ public class Utils {
                 formattedAge = DateUtil.getDuration(timeDiff);
             }
         }
-        return formattedAge.contains("y") ? formattedAge.substring(0, formattedAge.indexOf('y')) : formattedAge;
+        return formattedAge/*.contains("y") ? formattedAge.substring(0, formattedAge.indexOf('y')) : formattedAge*/;
     }
 
     public static String formatIdentifier(String identifier) {
@@ -246,5 +249,14 @@ public class Utils {
             }
         }
         return val;
+    }
+
+    public static String getCommaDelimitedStringFromList(List<String> values){
+        String string="";
+        for (String s : values){
+            string+="s,";
+        }
+        string.substring(0,string.length()-1);
+        return string;
     }
 }

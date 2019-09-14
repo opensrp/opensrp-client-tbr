@@ -1,0 +1,104 @@
+<model><instance>
+    <child_health_indicators xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" encounter_type="child health indicators" id="child_health_indicators_form" version="201908220840">
+        <formhub>
+            <uuid/>
+        </formhub>
+        <provider_uc/>
+        <provider_town/>
+        <provider_city/>
+        <provider_province/>
+        <provider_id/>
+        <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id"/>
+        <provider_location_name/>
+        <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime"/>
+        <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime"/>
+        <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime"/>
+        <deviceid openmrs_entity="concept" openmrs_entity_id="TBR:device id"/>
+        <subscriberid openmrs_entity="concept" openmrs_entity_id="TBR:subscriber id"/>
+        <simserial openmrs_entity="concept" openmrs_entity_id="TBR:sim serial number"/>
+        <phonenumber openmrs_entity="concept" openmrs_entity_id="TBR:sim number"/>
+        <client_reg_date openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+        <program_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH Program ID"/>
+        <program_id_note/>
+        <zero_tuberculosis/>
+        <zero_antiherpatitis/>
+        <two_antipolio/>
+        <two_pentavalente/>
+        <two_neumococo/>
+        <two_rotavirus/>
+        <four_antipolio/>
+        <four_pentavalente/>
+        <four_neumococo/>
+        <four_rotavirus/>
+        <six_antipolio/>
+        <six_pentavalente/>
+        <twelve_neumococo/>
+        <twelve_sarampion/>
+        <fifteen_antiamarilica/>
+        <age/>
+        <first_name openmrs_entity="person" openmrs_entity_id="first_name"/>
+        <last_name openmrs_entity="person" openmrs_entity_id="last_name"/>
+        <pt_name_note/>
+        <next_visit_date openmrs_entity="concept" openmrs_entity_id="TBR:next visit date"/>
+        <next_growth_monitoring openmrs_entity="concept" openmrs_entity_id="TBR:next growth monitoring check-up"/>
+        <weight openmrs_entity="concept" openmrs_entity_id="TBR:weight"/>
+        <height openmrs_entity="concept" openmrs_entity_id="TBR:height"/>
+        <height_weight_date openmrs_entity="concept" openmrs_entity_id="TBR:height/weight measurement date"/>
+        <hgb openmrs_entity="concept" openmrs_entity_id="TBR:haemoglobin"/>
+        <vaccines_zero_months>
+            <zero_tuberculosis_form/>
+            <zero_antiherpatitis_form/>
+        </vaccines_zero_months>
+        <vaccines_two_months>
+            <two_antipolio_form/>
+            <two_pentavalente_form/>
+            <two_neumococo_form/>
+            <two_rotavirus_form/>
+        </vaccines_two_months>
+        <vaccines_four_months>
+            <four_antipolio_form/>
+            <four_pentavalente_form/>
+            <four_neumococo_form/>
+            <four_rotavirus_form/>
+        </vaccines_four_months>
+        <vaccines_six_months>
+            <six_antipolio_form/>
+            <six_pentavalente_form/>
+        </vaccines_six_months>
+        <vaccines_twelve_months>
+            <twelve_neumococo_form/>
+            <twelve_sarampion_form/>
+        </vaccines_twelve_months>
+        <vaccines_fifteen_months>
+            <fifteen_antimaralica_form/>
+        </vaccines_fifteen_months>
+        <deworming openmrs_entity="concept" openmrs_entity_id="TBR:deworming"/>
+        <deworming_date openmrs_entity="concept" openmrs_entity_id="TBR:deworming date"/>
+        <illnesses>
+            <diarrea openmrs_entity="concept" openmrs_entity_id="TBR:diarrea">no</diarrea>
+            <malaria openmrs_entity="concept" openmrs_entity_id="TBR:malaria">no</malaria>
+            <cold openmrs_entity="concept" openmrs_entity_id="TBR:cold">no</cold>
+            <pneumonia openmrs_entity="concept" openmrs_entity_id="TBR:pneumonia">no</pneumonia>
+            <bronchitis openmrs_entity="concept" openmrs_entity_id="TBR:bronchitis">no</bronchitis>
+        </illnesses>
+        <date openmrs_entity="concept" openmrs_entity_id="TBR:sample collection date"/>
+        <zero_tuberculosis_submit openmrs_entity="concept" openmrs_entity_id="TBR:0 months tuberculosis"/>
+        <zero_antiherpatitis_submit openmrs_entity="concept" openmrs_entity_id="TBR:0 months antiherpatitis"/>
+        <two_antipolio_submit openmrs_entity="concept" openmrs_entity_id="TBR:2 months antipolio"/>
+        <two_pentavalente_submit openmrs_entity="concept" openmrs_entity_id="TBR:2 months pentavalente"/>
+        <two_neumococo_submit openmrs_entity="concept" openmrs_entity_id="TBR:2 months neumococo"/>
+        <two_rotavirus_submit openmrs_entity="concept" openmrs_entity_id="TBR:2 months rotavirus"/>
+        <four_antipolio_submit openmrs_entity="concept" openmrs_entity_id="TBR:4 months antipolio"/>
+        <four_pentavalente_submit openmrs_entity="concept" openmrs_entity_id="TBR:4 months pentavalente"/>
+        <four_neumococo_submit openmrs_entity="concept" openmrs_entity_id="TBR:4 months neumococo"/>
+        <four_rotavirus_submit openmrs_entity="concept" openmrs_entity_id="TBR:4 months rotavirus"/>
+        <six_antipolio_submit openmrs_entity="concept" openmrs_entity_id="TBR:6 months antipolio"/>
+        <six_pentavalente_submit openmrs_entity="concept" openmrs_entity_id="TBR:6 months pentavalente"/>
+        <twelve_neumococo_submit openmrs_entity="concept" openmrs_entity_id="TBR:12 months neumococo"/>
+        <twelve_sarampion_submit openmrs_entity="concept" openmrs_entity_id="TBR:12 months sarampion"/>
+        <fifteen_antimaralica_submit openmrs_entity="concept" openmrs_entity_id="TBR:15 months antimaralica"/>
+        <meta>
+            <instanceID/>
+        </meta>
+    </child_health_indicators>
+</instance></model>

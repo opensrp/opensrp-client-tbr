@@ -15,6 +15,282 @@
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/growth_monitoring"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:text="@string/growth_monitoring"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/weight_textview"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/weight"
+                        android:textColor="@color/light_grey"
+                        android:textSize="22sp" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/weight"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="- kg"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="22sp" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/height_textview"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/height"
+                        android:textColor="@color/light_grey"
+                        android:textSize="22sp" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/height"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="- cm"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="22sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/weight_height"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <ImageView
+                        android:id="@+id/weight_height_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/weight_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="0dp"
+                        android:text="@string/height_age"
+                        android:textColor="@color/light_grey"
+                        android:gravity="center"
+                        android:textSize="22sp" />
+
+                    <ImageView
+                        android:id="@+id/height_age_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/height_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/due_vaccine_blue_bg"
+                        android:gravity="center_vertical"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="15dp"
+                        android:layout_marginRight="6sp"
+                        android:textAlignment="center"
+                        android:text="-"
+                        android:textColor="@color/status_bar_text_almost_white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/anemia"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:text="@string/anemia"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/haemoglobin_level_textview"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="0dp"
+                android:text="@string/haemoglobin_level"
+                android:textColor="@color/light_grey"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/haemoglobin_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15sp" />
+            <Button
+                android:id="@+id/anemia_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:background="@drawable/due_vaccine_blue_bg"
+                android:gravity="center_vertical"
+                android:hapticFeedbackEnabled="true"
+                android:padding="15dp"
+                android:layout_marginLeft="6sp"
+                android:textAlignment="center"
+                android:text="-"
+                android:textColor="@color/status_bar_text_almost_white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/followup"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"

@@ -3,6 +3,7 @@ package org.smartregister.tbr.provider;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -14,12 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.smartregister.repository.DetailsRepository;
@@ -33,6 +39,7 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.ImageUtils;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -42,15 +49,20 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import util.TbrConstants;
 import util.TbrConstants.KEY;
 import util.TbrSpannableStringBuilder;
+
+import java.time.LocalDate;
 
 import static org.smartregister.tbr.R.id.diagnose_lnk;
 import static org.smartregister.tbr.repository.ResultsRepository.DATE;
@@ -98,6 +110,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
     private ForegroundColorSpan blackForegroundColorSpan;
     private DetailsRepository detailsRepository;
 
+    private LinearLayout anemiaLayout;
+    private LinearLayout malnutritionLayout;
+    private LinearLayout credLayout;
+    private View followup;
+    private TextView followupText;
+
 
     private static final String TAG = PatientRegisterProvider.class.getCanonicalName();
 
@@ -128,8 +146,13 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 populateResultsColumn(pc, client, convertView);
                 populateTreatColumn(client, convertView);
             } else if (context instanceof InTreatmentPatientRegisterActivity) {
+                anemiaLayout = (LinearLayout) convertView.findViewById(R.id.anemia_indicator);
+                malnutritionLayout = (LinearLayout) convertView.findViewById(R.id.malnutrition_indicator);
+                followup = convertView.findViewById(R.id.next_visit_date);
+                credLayout = (LinearLayout) convertView.findViewById(R.id.cred_indicator);
+                followupText = (TextView) convertView.findViewById(R.id.next_visit_date_text);
                 populateIntreatmentResultsColumn(pc, client, convertView);
-                populateFollowupScheduleColumn(pc, client, convertView);
+                //populateFollowupScheduleColumn(pc, client, convertView);
             }
             return;
         }
@@ -202,18 +225,145 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
 
         fillValue((TextView) view.findViewById(R.id.patient_name), patientName);
 
-        fillValue((TextView) view.findViewById(R.id.participant_id), "#" + getValue(pc.getColumnmaps(), KEY.PARTICIPANT_ID, false));
+        fillValue((TextView) view.findViewById(R.id.participant_id), getValue(pc.getColumnmaps(), KEY.PARTICIPANT_ID, false));
 
         String gender = getValue(pc.getColumnmaps(), KEY.GENDER, true);
 
-        fillValue((TextView) view.findViewById(R.id.gender), gender);
+        final ImageView profilePic = (ImageView) view.findViewById(R.id.child_profilepic);
+        int defaultImageResId = ImageUtils.profileImageResourceByGender(gender);
+        profilePic.setImageResource(defaultImageResId);
 
         String dobString = getDuration(getValue(pc.getColumnmaps(), KEY.DOB, false));
 
-        fillValue((TextView) view.findViewById(R.id.age), dobString.substring(0, dobString.indexOf("y")));
+        if(dobString.contains("y") && TbrApplication.getInstance().getApplicationContext().getResources().getConfiguration().locale.getLanguage().equalsIgnoreCase("es")){
+            dobString = dobString.replace('y','a');
+        }
+        if(dobString.contains("w") && TbrApplication.getInstance().getApplicationContext().getResources().getConfiguration().locale.getLanguage().equalsIgnoreCase("es")){
+            dobString = dobString.replace('w','s');
+        }
+
+        fillValue((TextView) view.findViewById(R.id.age), dobString);
 
         View patient = view.findViewById(R.id.patient_column);
         attachOnclickListener(patient, client);
+
+    }
+
+   private boolean populateAnemia(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+       final int sdk = android.os.Build.VERSION.SDK_INT;
+        if (testResults.containsKey(ResultsRepository.HAEMOGLOBIN) && testResults.get(ResultsRepository.HAEMOGLOBIN) != null ) {
+            String haemoglobin = testResults.get(ResultsRepository.HAEMOGLOBIN);
+            Float haemoglobinValue = Float.parseFloat(haemoglobin);
+
+//            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(haemoglobinValue < 11){
+
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    anemiaLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red) );
+                } else {
+                    anemiaLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red));
+                }
+
+            } else {
+
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    anemiaLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue) );
+                } else {
+                    anemiaLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue));
+                }
+            }
+
+
+            return true;
+        }
+        else{
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                anemiaLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display) );
+            } else {
+                anemiaLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display));
+            }
+            return false;
+        }
+    }
+
+    private boolean populateCred(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if (testResults.containsKey(ResultsRepository.NEXT_GROWTH_MONITORING_DATE) &&  testResults.get(ResultsRepository.NEXT_GROWTH_MONITORING_DATE) != null) {
+            String nextMonitoring = testResults.get(ResultsRepository.NEXT_GROWTH_MONITORING_DATE);
+            if (!nextMonitoring.isEmpty()) {
+                DateTime nextMonitoringDate = DateTime.parse(nextMonitoring);
+
+//                final int sdk = android.os.Build.VERSION.SDK_INT;
+
+                if(nextMonitoringDate.toDate().after(new DateTime().toDate())) {
+
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        credLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue) );
+                    } else {
+                        credLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue));
+                    }
+
+                }
+                else{
+
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        credLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red) );
+                    } else {
+                        credLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red));
+                    }
+
+                }
+
+            }
+
+            return true;
+        }
+        else{
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                credLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display) );
+            } else {
+                credLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display));
+            }
+            return false;
+        }
+    }
+
+    private boolean populateMalnutrition(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+        if (testResults.containsKey(ResultsRepository.HEIGHT_AGE_STATUS) && testResults.get(ResultsRepository.HEIGHT_AGE_STATUS) != null  && testResults.containsKey(ResultsRepository.WEIGHT_HEIGHT_STATUS) && testResults.get(ResultsRepository.WEIGHT_HEIGHT_STATUS) != null) {
+            String heightAgeString = testResults.get(ResultsRepository.HEIGHT_AGE_STATUS);
+            String weightHeightStatus = testResults.get(ResultsRepository.WEIGHT_HEIGHT_STATUS);
+
+//            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(heightAgeString.equalsIgnoreCase("normal") && weightHeightStatus.equalsIgnoreCase("normal")){
+
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    malnutritionLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue) );
+                } else {
+                    malnutritionLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_blue));
+                }
+
+            } else {
+
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    malnutritionLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red) );
+                } else {
+                    malnutritionLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display_red));
+                }
+            }
+
+
+            return true;
+        }
+        else{
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                malnutritionLayout.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.indictaors_display) );
+            } else {
+                malnutritionLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.indictaors_display));
+            }
+            return false;
+        }
     }
 
     private boolean populateXpertResult(Map<String, String> testResults, TbrSpannableStringBuilder stringBuilder, boolean withOtherResults) {
@@ -279,7 +429,12 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
                 stringBuilder.append(new DateTime(Long.valueOf(results)).toString("dd/MM/yyyy") + "\n");
         } else
             testResults = resultsRepository.getLatestResults(baseEntityId);
-        boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
+        populateAnemia(testResults, stringBuilder, true);
+        populateNextVisitDueDate(pc, client, testResults);
+        populateMalnutrition(testResults, stringBuilder, true);
+        populateCred(testResults, stringBuilder, true);
+
+        /*boolean hasXpert = populateXpertResult(testResults, stringBuilder, true);
         populateSmearResult(stringBuilder, testResults.get(TbrConstants.RESULT.TEST_RESULT), hasXpert, false);
         populateCultureResults(stringBuilder, testResults.get(TbrConstants.RESULT.CULTURE_RESULT));
         populateXrayResults(stringBuilder, testResults.get(TbrConstants.RESULT.XRAY_RESULT));
@@ -289,7 +444,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
             if (button != null)
                 adjustLayoutParams(button, details, stringBuilder);
         } else
-            details.setVisibility(View.GONE);
+            details.setVisibility(View.GONE);*/
     }
 
     private void populateSmearResult(TbrSpannableStringBuilder stringBuilder, String result, boolean hasXpert, boolean smearOnlyColumn) {
@@ -412,7 +567,7 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         details.setLayoutParams(params);
 
-        checkAndShowTextViewOverflow(details,view,stringBuilder,2);
+        //checkAndShowTextViewOverflow(details,view,stringBuilder,2);
         /*ViewTreeObserver viewTreeObserver = details.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
         {
@@ -534,6 +689,50 @@ public class PatientRegisterProvider implements SmartRegisterCLientsProviderForC
         results.setVisibility(View.VISIBLE);
         results.setText(stringBuilder);
         populateResultsColumn(pc, client, stringBuilder, true, null, button, results);
+    }
+
+    private void populateNextVisitDueDate(CommonPersonObjectClient pc, SmartRegisterClient client, Map<String, String> testResults) {
+
+        //attachOnclickListener(followup, client);
+
+        if (testResults.containsKey(ResultsRepository.NEXT_VISIT_DATE) &&  testResults.get(ResultsRepository.NEXT_VISIT_DATE) != null) {
+            String nextVisit = testResults.get(ResultsRepository.NEXT_VISIT_DATE);
+            if (!nextVisit.isEmpty()) {
+                DateTime nextVisitDate = DateTime.parse(nextVisit);
+
+                if(nextVisitDate.toDate().after(new DateTime().toDate()))
+                    followup.setBackgroundResource(R.drawable.due_vaccine_blue_bg);
+                else
+                    followup.setBackgroundResource(R.drawable.due_vaccine_red_bg);
+
+
+                Locale current = context.getResources().getConfiguration().locale;
+
+                java.text.DateFormat dateFormat = new SimpleDateFormat("dd, MMMM", current);
+                String s = dateFormat.format(nextVisitDate.toDate());
+
+                followupText.setText(s);
+
+            }
+        }
+        else{
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+        }
+
+        /*String nextVisit = getValue(pc.getColumnmaps(), KEY.NEXT_VISIT_DATE, false);
+        if (!nextVisit.isEmpty()) {
+            DateTime treatmentStartDate = DateTime.parse(nextVisit);
+            fillValue(followupText, "Followup\n due " + treatmentStartDate.toString("dd/MM/yy"));
+            int days = getOverDueDays(Constants.CONFIGURATION.TEST_RESULTS,"followup");
+            if(days > 0)
+                treatmentStartDate = treatmentStartDate.plusDays(days);
+            int due = Days.daysBetween(new DateTime().withTimeAtStartOfDay(), treatmentStartDate.withTimeAtStartOfDay()).getDays();
+            populateSchedule(due, followup, followupText);
+        } else {
+            followup.setBackgroundResource(R.drawable.due_vaccine_na_bg);
+            followupText.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            followupText.setText(R.string.followup);
+        }*/
     }
 
     private void populateFollowupScheduleColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {

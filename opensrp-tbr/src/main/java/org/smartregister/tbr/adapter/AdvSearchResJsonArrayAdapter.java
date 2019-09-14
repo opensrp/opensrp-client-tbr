@@ -258,7 +258,7 @@ public class AdvSearchResJsonArrayAdapter extends RecyclerView.Adapter<AdvSearch
             this.tvDetails = (TextView) itemView.findViewById(R.id.result_details);
             this.result_lnk = (TextView) itemView.findViewById(R.id.result_lnk);
             this.diagnose_lnk = (TextView) itemView.findViewById(R.id.diagnose_lnk);
-            this.gender = (TextView) itemView.findViewById(R.id.gender);
+            //this.gender = (TextView) itemView.findViewById(R.id.gender);
             this.age = (TextView) itemView.findViewById(R.id.age);
             this.claim_lnk = (TextView) itemView.findViewById(R.id.claim_lnk);
             this.tvExists = (TextView) itemView.findViewById(R.id.tv_already_exists);

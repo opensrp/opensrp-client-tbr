@@ -1,18 +1,22 @@
 package org.smartregister.tbr.activity;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,9 +38,11 @@ import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
 import org.smartregister.provider.SmartRegisterClientsProvider;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.ShowProgressDialogEvent;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.fragment.BaseRegisterFragment;
@@ -46,12 +52,14 @@ import org.smartregister.tbr.util.Constants;
 import org.smartregister.tbr.util.FilterEnum;
 import org.smartregister.tbr.util.OtherFiltersEnum;
 import org.smartregister.tbr.util.ResultsFilterEnum;
+import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -109,6 +117,15 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         });
         initializeEnketoFormFragment(formNames.get(0), null, null, false);
         //mPager.setCurrentItem(0, false);
+
+        if (savedInstanceState != null) {
+            Locale locale = (Locale) savedInstanceState.getSerializable("LOCALE");
+            if (locale != null) {
+                // update the configuration
+                Utils.setLocale(locale);
+            }
+        }
+
     }
 
     protected abstract Fragment getRegisterFragment();
@@ -537,5 +554,18 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private String getDefaultSort(){
         return "Name (A-Z)";
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        try {
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+            Utils.setLocale(new Locale(allSharedPreferences.getPreference("locale")));
+            org.smartregister.tbr.util.Utils.postEvent(new LanguageConfigurationEvent(false));
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 }

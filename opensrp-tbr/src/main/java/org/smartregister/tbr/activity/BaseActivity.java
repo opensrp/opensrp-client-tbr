@@ -38,13 +38,14 @@ public abstract class BaseActivity extends SecuredActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        /*getMenuInflater().inflate(R.menu.menu_main, menu);
         if (TbrApplication.getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
             invalidateOptionsMenu();
             MenuItem item = menu.findItem(R.id.action_language);
             item.setVisible(false);
         }
-        return true;
+        return true;*/
+        return false;
     }
 
     @Override

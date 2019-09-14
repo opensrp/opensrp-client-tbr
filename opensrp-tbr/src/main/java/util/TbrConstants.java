@@ -27,6 +27,7 @@ TbrConstants extends AllConstants {
         public static final String DOB = "dob";
         public static final String AGE = "age";
         public static final String PARTICIPANT_ID = "participant_id";
+        public static final String PROVIDER_ID = "provider_id";
         public static final String PROGRAM_ID = "program_id";
         public static final String GENDER = "gender";
         public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -49,6 +50,17 @@ TbrConstants extends AllConstants {
         public static final String PARENT_ENTITY_ID = "parent_entity_id";
         public static final String RELATIONAL_ID = "relational_id";
         public static final String INDEX = "_index";
+        public static final String BIRTH_WEIGHT = "birth_weight";
+        public static final String MOTHER_NAME = "mother_name";
+        public static final String DEVELOPMENTAL_DISABILITY = "developmental_disability";
+
+        public static final String DEPARTMENT = "department";
+        public static final String PROVINCE = "province";
+        public static final String DISTRICT = "district";
+        public static final String CITY = "city";
+        public static final String FULL_ADDRESS = "full_address";
+
+        public static final String CHILD_ID = "child_id";
 
     }
 
@@ -85,7 +97,8 @@ TbrConstants extends AllConstants {
         public static final String COMMON_REGISTER_ROW = "common_register_row";
 
 
-        public static final String PRESUMPTIVE_REGISTER = "presumptive_register";
+
+        public static final String PRESUMPTIVE_REGISTER = "common_register_header";
         public static final String PRESUMPTIVE_REGISTER_HEADER = "presumptive_register_header";
         public static final String PRESUMPTIVE_REGISTER_ROW = "presumptive_register_row";
 
@@ -100,7 +113,7 @@ TbrConstants extends AllConstants {
     }
 
     public static final class ENKETO_FORMS {
-        public static final String SCREENING_FORM = "add_presumptive_patient";
+        public static final String SCREENING_FORM = "reg_new_child";
         public static final String GENE_XPERT = "result_gene_xpert";
         public static final String SMEAR = "result_smear";
         public static final String CHEST_XRAY = "result_chest_xray";
@@ -110,8 +123,10 @@ TbrConstants extends AllConstants {
         public static final String TREATMENT_INITIATION = "treatment_initiation";
         public static final String FOLLOWUP_VISIT = "followup_visit";
         public static final String ADD_TB_CONTACT = "add_tb_contact";
-        public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
+//        public static final String ADD_IN_TREATMENT_PATIENT = "add_intreatment_patient";
+        public static final String ADD_IN_TREATMENT_PATIENT = "reg_new_child";
         public static final String CONTACT_SCREENING = "contact_screening";
+        public static final String HEALTH_INDICATORS_FORM = "register_health_indicators";
 
     }
 }

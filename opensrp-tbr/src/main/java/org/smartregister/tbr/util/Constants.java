@@ -1,5 +1,10 @@
 package org.smartregister.tbr.util;
 
+import org.smartregister.tbr.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by ndegwamartin on 13/10/2017.
  */
@@ -70,6 +75,14 @@ public class Constants {
         public static final String SITE_OF_DISEASE = "site_of_disease";
         public static final String TREATMENT_INITIATION_DATE = "treatment_initiation_date";
         public static final String CLIENT = "client";
+        public static final String MOTHER_NAME = "mother_name";
+        public static final String DEVELOPMENTAL_DISABILITY = "developmental_disability";
+
+        public static final String DEPARTMENT = "department";
+        public static final String PROVINCE = "province";
+        public static final String DISTRICT = "district";
+        public static final String CITY = "city";
+        public static final String FULL_ADDRESS = "full_address";
 
     }
 
@@ -83,6 +96,7 @@ public class Constants {
         public static final String CONTACT_SCREENING = "contact_screening";
         public static final String REMOVE_PATIENT = "remove_patient";
         public static final String TREATMENT_OUTCOME = "treatment_outcome";
+        public static final String REGISTER_HEALTH_INDICATORS = "register_health_indicators";
     }
 
     public enum ScreenStage {
@@ -113,4 +127,92 @@ public class Constants {
         public static final String POSITIVE_TB_PATIENT = "positive TB patient";
         public static final String CONTACT_SCREENING = "Contact Screening";
     }
+
+    private static final Integer [] month0 = {R.drawable.infographic_24_1,R.drawable.infographic_24_2,R.drawable.infographic_24_3,R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_40_1,R.drawable.infographic_40_2,R.drawable.infographic_40_3,R.raw.video_6};
+    private static final Integer [] month1 = {R.drawable.infographic_8_1,R.drawable.infographic_8_2,R.drawable.infographic_8_3,R.drawable.infographic_36_1,R.drawable.infographic_36_2,R.drawable.infographic_36_3,R.drawable.infographic_39_1,R.drawable.infographic_39_2,R.drawable.infographic_39_3,R.raw.video_2};
+    private static final Integer [] month2 = {R.drawable.infographic_16_1,R.drawable.infographic_16_2,R.drawable.infographic_16_3,R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_40_1,R.drawable.infographic_40_2,R.drawable.infographic_40_3,R.raw.video_6};
+    private static final Integer [] month3 = {R.drawable.infographic_36_1,R.drawable.infographic_36_2,R.drawable.infographic_36_3,R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_41_1,R.drawable.infographic_41_2,R.drawable.infographic_41_3,R.raw.video_1};
+    private static final Integer [] month4 = {R.drawable.infographic_11_1,R.drawable.infographic_11_2,R.drawable.infographic_11_3,R.drawable.infographic_10_1,R.drawable.infographic_10_2,R.drawable.infographic_10_3,R.drawable.infographic_42_1,R.drawable.infographic_42_2,R.drawable.infographic_42_3,R.raw.video_4};
+    private static final Integer [] month5 = {R.drawable.infographic_17_1,R.drawable.infographic_17_2,R.drawable.infographic_26_1,R.drawable.infographic_26_2,R.drawable.infographic_26_3,R.drawable.infographic_43_1,R.drawable.infographic_43_2,R.drawable.infographic_43_3,R.raw.video_3};
+    private static final Integer [] month6 = {R.drawable.infographic_13_1,R.drawable.infographic_13_2,R.drawable.infographic_13_3,R.drawable.infographic_27_1,R.drawable.infographic_27_2,R.drawable.infographic_44_1,R.drawable.infographic_44_2,R.drawable.infographic_44_3,R.raw.video_2};
+    private static final Integer [] month7 = {R.drawable.infographic_32_1,R.drawable.infographic_32_2,R.drawable.infographic_32_3,R.drawable.infographic_33_1,R.drawable.infographic_33_2,R.drawable.infographic_45_1,R.drawable.infographic_45_2,R.drawable.infographic_45_3,R.raw.video_5};
+    private static final Integer [] month8 = {R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_34_1,R.drawable.infographic_34_2,R.drawable.infographic_34_3,R.drawable.infographic_46_1,R.drawable.infographic_46_2,R.drawable.infographic_46_3,R.raw.video_7};
+    private static final Integer [] month9 = {R.drawable.infographic_31_1,R.drawable.infographic_31_2,R.drawable.infographic_31_3,R.drawable.infographic_28_1,R.drawable.infographic_28_2,R.drawable.infographic_28_3,R.drawable.infographic_47_1,R.drawable.infographic_47_2,R.drawable.infographic_47_3,R.raw.video_3};
+    private static final Integer [] month10 = {R.drawable.infographic_12_1,R.drawable.infographic_12_2,R.drawable.infographic_12_3,R.drawable.infographic_35_1,R.drawable.infographic_35_2,R.drawable.infographic_35_3,R.drawable.infographic_48_1,R.drawable.infographic_48_2,R.drawable.infographic_48_3,R.raw.video_6};
+    private static final Integer [] month11 = {R.drawable.infographic_9_1,R.drawable.infographic_9_2,R.drawable.infographic_9_3,R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_49_1,R.drawable.infographic_49_2,R.drawable.infographic_49_3,R.raw.video_1};
+    private static final Integer [] month12 = {R.drawable.infographic_32_1,R.drawable.infographic_32_2,R.drawable.infographic_32_3,R.drawable.infographic_29_1,R.drawable.infographic_29_2,R.drawable.infographic_29_3,R.drawable.infographic_50_1,R.drawable.infographic_50_2,R.drawable.infographic_50_3,R.raw.video_7};
+    private static final Integer [] month13 = {R.drawable.infographic_14_1,R.drawable.infographic_14_2,R.drawable.infographic_14_3,R.drawable.infographic_34_1,R.drawable.infographic_34_2,R.drawable.infographic_34_3,R.drawable.infographic_51_1,R.drawable.infographic_51_2,R.raw.video_5};
+    private static final Integer [] month14 = {R.drawable.infographic_11_1,R.drawable.infographic_11_2,R.drawable.infographic_11_3,R.drawable.infographic_10_1,R.drawable.infographic_10_2,R.drawable.infographic_10_3,R.drawable.infographic_52_1,R.drawable.infographic_52_2,R.drawable.infographic_52_3,R.raw.video_4};
+    private static final Integer [] month15 = {R.drawable.infographic_15_1,R.drawable.infographic_15_2,R.drawable.infographic_20_1,R.drawable.infographic_20_2,R.drawable.infographic_53_1,R.drawable.infographic_53_2,R.drawable.infographic_53_3,R.raw.video_3};
+    private static final Integer [] month16 = {R.drawable.infographic_31_1,R.drawable.infographic_31_2,R.drawable.infographic_31_3,R.drawable.infographic_37_1,R.drawable.infographic_37_2,R.drawable.infographic_37_3,R.drawable.infographic_54_1,R.drawable.infographic_54_2,R.drawable.infographic_54_3,R.raw.video_2};
+    private static final Integer [] month17 = {R.drawable.infographic_19_1,R.drawable.infographic_19_2,R.drawable.infographic_19_3,R.drawable.infographic_29_1,R.drawable.infographic_29_2,R.drawable.infographic_29_3,R.drawable.infographic_55_1,R.drawable.infographic_55_2,R.raw.video_6};
+    private static final Integer [] month18 = {R.drawable.infographic_32_1,R.drawable.infographic_32_2,R.drawable.infographic_32_3,R.drawable.infographic_33_1,R.drawable.infographic_33_2,R.drawable.infographic_56_1,R.drawable.infographic_56_2,R.drawable.infographic_56_3,R.raw.video_7};
+    private static final Integer [] month19 = {R.drawable.infographic_14_1,R.drawable.infographic_14_2,R.drawable.infographic_14_3,R.drawable.infographic_13_1,R.drawable.infographic_13_2,R.drawable.infographic_13_3,R.drawable.infographic_57_1,R.drawable.infographic_57_2,R.raw.video_1};
+    private static final Integer [] month20 = {R.drawable.infographic_16_1,R.drawable.infographic_16_2,R.drawable.infographic_16_3,R.drawable.infographic_17_1,R.drawable.infographic_17_2,R.drawable.infographic_58_1,R.drawable.infographic_58_2,R.drawable.infographic_58_3,R.raw.video_2};
+    private static final Integer [] month21 = {R.drawable.infographic_21_1,R.drawable.infographic_21_2,R.drawable.infographic_21_3,R.drawable.infographic_30_1,R.drawable.infographic_30_2,R.drawable.infographic_59_1,R.drawable.infographic_59_2,R.drawable.infographic_59_3,R.raw.video_5};
+    private static final Integer [] month22 = {R.drawable.infographic_31_1,R.drawable.infographic_31_2,R.drawable.infographic_31_3,R.drawable.infographic_34_1,R.drawable.infographic_34_2,R.drawable.infographic_34_3,R.drawable.infographic_60_1,R.drawable.infographic_60_2,R.drawable.infographic_60_3,R.raw.video_3};
+    private static final Integer [] month23 = {R.drawable.infographic_18_1,R.drawable.infographic_18_2,R.drawable.infographic_18_3,R.drawable.infographic_35_1,R.drawable.infographic_35_2,R.drawable.infographic_35_3,R.drawable.infographic_61_1,R.drawable.infographic_61_2,R.drawable.infographic_61_3,R.raw.video_7};
+    private static final Integer [] month24 = {R.drawable.infographic_20_1,R.drawable.infographic_20_2,R.drawable.infographic_9_1,R.drawable.infographic_9_2,R.drawable.infographic_9_3,R.drawable.infographic_62_1,R.drawable.infographic_62_2,R.drawable.infographic_62_3,R.raw.video_4};
+    private static final Integer [] month25 = {R.drawable.infographic_11_1,R.drawable.infographic_11_2,R.drawable.infographic_11_3,R.drawable.infographic_13_1,R.drawable.infographic_13_2,R.drawable.infographic_13_3,R.drawable.infographic_63_1,R.drawable.infographic_63_2,R.drawable.infographic_63_3,R.raw.video_1};
+    private static final Integer [] month26 = {R.drawable.infographic_12_1,R.drawable.infographic_12_2,R.drawable.infographic_12_3,R.drawable.infographic_30_1,R.drawable.infographic_30_2,R.drawable.infographic_64_1,R.drawable.infographic_64_2,R.drawable.infographic_64_3,R.raw.video_6};
+    private static final Integer [] month27 = {R.drawable.infographic_10_1,R.drawable.infographic_10_2,R.drawable.infographic_10_3,R.drawable.infographic_19_1,R.drawable.infographic_19_2,R.drawable.infographic_19_3,R.drawable.infographic_65_1,R.drawable.infographic_65_2,R.drawable.infographic_65_3,R.raw.video_5};
+    private static final Integer [] month28 = {R.drawable.infographic_15_1,R.drawable.infographic_15_2,R.drawable.infographic_34_1,R.drawable.infographic_34_2,R.drawable.infographic_34_3,R.drawable.infographic_66_1,R.drawable.infographic_66_2,R.drawable.infographic_66_3,R.raw.video_3};
+    private static final Integer [] month29 = {R.drawable.infographic_30_1,R.drawable.infographic_30_2,R.drawable.infographic_31_1,R.drawable.infographic_31_2,R.drawable.infographic_31_3,R.drawable.infographic_67_1,R.drawable.infographic_67_2,R.drawable.infographic_67_3,R.raw.video_4};
+    private static final Integer [] month30 = {R.drawable.infographic_14_1,R.drawable.infographic_14_2,R.drawable.infographic_14_3,R.drawable.infographic_20_1,R.drawable.infographic_20_2,R.drawable.infographic_68_1,R.drawable.infographic_68_2,R.drawable.infographic_68_3,R.raw.video_7};
+    private static final Integer [] month31 = {R.drawable.infographic_18_1,R.drawable.infographic_18_2,R.drawable.infographic_21_1,R.drawable.infographic_21_2,R.drawable.infographic_21_3,R.drawable.infographic_69_1,R.drawable.infographic_69_2,R.drawable.infographic_69_3,R.raw.video_1};
+    private static final Integer [] month32 = {R.drawable.infographic_15_1,R.drawable.infographic_15_2,R.drawable.infographic_35_1,R.drawable.infographic_35_2,R.drawable.infographic_35_3,R.drawable.infographic_70_1,R.drawable.infographic_70_2,R.raw.video_6};
+    private static final Integer [] month33 = {R.drawable.infographic_9_1,R.drawable.infographic_9_2,R.drawable.infographic_9_3,R.drawable.infographic_30_1,R.drawable.infographic_30_2,R.drawable.infographic_71_1,R.drawable.infographic_71_2,R.drawable.infographic_71_3,R.raw.video_5};
+    private static final Integer [] month34 = {R.drawable.infographic_11_1,R.drawable.infographic_11_2,R.drawable.infographic_11_3,R.drawable.infographic_10_1,R.drawable.infographic_10_2,R.drawable.infographic_10_3,R.drawable.infographic_72_1,R.drawable.infographic_72_2,R.drawable.infographic_72_3,R.raw.video_4};
+    private static final Integer [] month35 = {R.drawable.infographic_13_1,R.drawable.infographic_13_2,R.drawable.infographic_13_3,R.drawable.infographic_34_1,R.drawable.infographic_34_2,R.drawable.infographic_34_3,R.drawable.infographic_73_1,R.drawable.infographic_73_2,R.drawable.infographic_73_3,R.raw.video_3};
+    private static final Integer [] month36 = {R.drawable.infographic_12_1,R.drawable.infographic_12_2,R.drawable.infographic_12_3,R.drawable.infographic_31_1,R.drawable.infographic_31_2,R.drawable.infographic_31_3,R.drawable.infographic_74_1,R.drawable.infographic_74_2,R.drawable.infographic_74_3,R.raw.video_7};
+
+
+    public static HashMap<Integer, Integer[]> getMonthsImageList(){
+
+        HashMap<Integer, Integer[]> monthsImages = new HashMap<>();
+
+        monthsImages.put(0,month0);
+        monthsImages.put(1,month1);
+        monthsImages.put(2,month2);
+        monthsImages.put(3,month3);
+        monthsImages.put(4,month4);
+        monthsImages.put(5,month5);
+        monthsImages.put(6,month6);
+        monthsImages.put(7,month7);
+        monthsImages.put(8,month8);
+        monthsImages.put(9,month9);
+        monthsImages.put(10,month10);
+        monthsImages.put(11,month11);
+        monthsImages.put(12,month12);
+        monthsImages.put(13,month13);
+        monthsImages.put(14,month14);
+        monthsImages.put(15,month15);
+        monthsImages.put(16,month16);
+        monthsImages.put(17,month17);
+        monthsImages.put(18,month18);
+        monthsImages.put(19,month19);
+        monthsImages.put(20,month20);
+        monthsImages.put(21,month21);
+        monthsImages.put(22,month22);
+        monthsImages.put(23,month23);
+        monthsImages.put(24,month24);
+        monthsImages.put(25,month25);
+        monthsImages.put(26,month26);
+        monthsImages.put(27,month27);
+        monthsImages.put(28,month28);
+        monthsImages.put(29,month29);
+        monthsImages.put(30,month30);
+        monthsImages.put(31,month31);
+        monthsImages.put(32,month32);
+        monthsImages.put(33,month33);
+        monthsImages.put(34,month34);
+        monthsImages.put(35,month35);
+        monthsImages.put(36,month36);
+
+        return monthsImages;
+
+
+    }
+
+
 }

@@ -23,6 +23,46 @@ public class Result {
     private String syncStatus;
     private String createdAt;
     private Long updatedAt;
+    private String heightWeightDate;
+
+    /*
+     * START - ADDING FIELDS FOR CHILD HEALTH INDICATORS
+     */
+
+    private Float height;
+    private Float weight;
+    private String heightAgeStatus;
+    private String weightHeightStatus;
+    private Float haemoglobin;
+    private String nextVisitDate;
+    private String nextGrowthMonitoringDate;
+    private String deworming;
+    private String dewormingDate;
+    private String diarrea;
+    private String malaria;
+    private String cold;
+    private String pneumonia;
+    private String bronchitis;
+
+    private String zeroTuberculosis;
+    private String zeroAntiherpatitis;
+    private String twoAntipolio;
+    private String twoPentavalente;
+    private String twoNeumococo;
+    private String twoRotavirus;
+    private String fourAntipolio;
+    private String fourPentavalente;
+    private String fourNeumococo;
+    private String fourRotavirus;
+    private String sixAntipolio;
+    private String sixPentavalente;
+    private String twelveNeumococo;
+    private String twelveSarampion;
+    private String fifteenAntiamarilica;
+
+    /*
+     * END - ADDING FIELDS FOR CHILD HEALTH INDICATORS
+     */
 
     public Long getId() {
         return id;
@@ -143,4 +183,245 @@ public class Result {
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public Float getHaemoglobin() {
+        return haemoglobin;
+    }
+
+    public void setHaemoglobin(Float haemoglobin) {
+        this.haemoglobin = haemoglobin;
+    }
+
+    public String getNextVisitDate() {
+        return nextVisitDate;
+    }
+
+    public void setNextVisitDate(String nextVisitDate) {
+        this.nextVisitDate = nextVisitDate;
+    }
+
+    public String getNextGrowthMonitoringDate() {
+        return nextGrowthMonitoringDate;
+    }
+
+    public void setNextGrowthMonitoringDate(String nextGrowthMonitoringDate) {
+        this.nextGrowthMonitoringDate = nextGrowthMonitoringDate;
+    }
+
+    public String getDiarrea() {
+        return diarrea;
+    }
+
+    public void setDiarrea(String diarrea) {
+        this.diarrea = diarrea;
+    }
+
+    public String getMalaria() {
+        return malaria;
+    }
+
+    public void setMalaria(String malaria) {
+        this.malaria = malaria;
+    }
+
+    public String getCold() {
+        return cold;
+    }
+
+    public void setCold(String cold) {
+        this.cold = cold;
+    }
+
+    public String getPneumonia() {
+        return pneumonia;
+    }
+
+    public void setPneumonia(String pneumonia) {
+        this.pneumonia = pneumonia;
+    }
+
+    public String getHeightAgeStatus() {
+        return heightAgeStatus;
+    }
+
+    public void setHeightAgeStatus(String heightAgeStatus) {
+        this.heightAgeStatus = heightAgeStatus;
+    }
+
+    public String getWeightHeightStatus() {
+        return weightHeightStatus;
+    }
+
+    public void setWeightHeightStatus(String weightHeightStatus) {
+        this.weightHeightStatus = weightHeightStatus;
+    }
+
+    public String getDeworming() {
+        return deworming;
+    }
+
+    public void setDeworming(String deworming) {
+        this.deworming = deworming;
+    }
+
+    public String getDewormingDate() {
+        return dewormingDate;
+    }
+
+    public void setDewormingDate(String dewormingDate) {
+        this.dewormingDate = dewormingDate;
+    }
+
+    public String getZeroTuberculosis() {
+        return zeroTuberculosis;
+    }
+
+    public void setZeroTuberculosis(String zeroTuberculosis) {
+        this.zeroTuberculosis = zeroTuberculosis;
+    }
+
+    public String getZeroAntiherpatitis() {
+        return zeroAntiherpatitis;
+    }
+
+    public void setZeroAntiherpatitis(String zeroAntiherpatitis) {
+        this.zeroAntiherpatitis = zeroAntiherpatitis;
+    }
+
+    public String getTwoAntipolio() {
+        return twoAntipolio;
+    }
+
+    public void setTwoAntipolio(String twoAntipolio) {
+        this.twoAntipolio = twoAntipolio;
+    }
+
+    public String getTwoPentavalente() {
+        return twoPentavalente;
+    }
+
+    public void setTwoPentavalente(String twoPentavalente) {
+        this.twoPentavalente = twoPentavalente;
+    }
+
+    public String getTwoNeumococo() {
+        return twoNeumococo;
+    }
+
+    public void setTwoNeumococo(String twoNeumococo) {
+        this.twoNeumococo = twoNeumococo;
+    }
+
+    public String getTwoRotavirus() {
+        return twoRotavirus;
+    }
+
+    public void setTwoRotavirus(String twoRotavirus) {
+        this.twoRotavirus = twoRotavirus;
+    }
+
+    public String getFourAntipolio() {
+        return fourAntipolio;
+    }
+
+    public void setFourAntipolio(String fourAntipolio) {
+        this.fourAntipolio = fourAntipolio;
+    }
+
+    public String getFourPentavalente() {
+        return fourPentavalente;
+    }
+
+    public void setFourPentavalente(String fourPentavalente) {
+        this.fourPentavalente = fourPentavalente;
+    }
+
+    public String getFourNeumococo() {
+        return fourNeumococo;
+    }
+
+    public void setFourNeumococo(String fourNeumococo) {
+        this.fourNeumococo = fourNeumococo;
+    }
+
+    public String getFourRotavirus() {
+        return fourRotavirus;
+    }
+
+    public void setFourRotavirus(String fourRotavirus) {
+        this.fourRotavirus = fourRotavirus;
+    }
+
+    public String getSixAntipolio() {
+        return sixAntipolio;
+    }
+
+    public void setSixAntipolio(String sixAntipolio) {
+        this.sixAntipolio = sixAntipolio;
+    }
+
+    public String getSixPentavalente() {
+        return sixPentavalente;
+    }
+
+    public void setSixPentavalente(String sixPentavalente) {
+        this.sixPentavalente = sixPentavalente;
+    }
+
+    public String getTwelveNeumococo() {
+        return twelveNeumococo;
+    }
+
+    public void setTwelveNeumococo(String twelveNeumococo) {
+        this.twelveNeumococo = twelveNeumococo;
+    }
+
+    public String getTwelveSarampion() {
+        return twelveSarampion;
+    }
+
+    public void setTwelveSarampion(String twelveSarampion) {
+        this.twelveSarampion = twelveSarampion;
+    }
+
+    public String getFifteenAntiamarilica() {
+        return fifteenAntiamarilica;
+    }
+
+    public void setFifteenAntiamarilica(String fifteenAntiamarilica) {
+        this.fifteenAntiamarilica = fifteenAntiamarilica;
+    }
+
+    public String getBronchitis() {
+        return bronchitis;
+    }
+
+    public void setBronchitis(String bronchitis) {
+        this.bronchitis = bronchitis;
+    }
+
+    public String getHeightWeightDate() {
+        return heightWeightDate;
+    }
+
+    public void setHeightWeightDate(String heightWeightDate) {
+        this.heightWeightDate = heightWeightDate;
+    }
+
 }

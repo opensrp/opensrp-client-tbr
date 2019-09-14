@@ -56,7 +56,7 @@ public class JsonSpecHelper {
             String jsonString = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository().getConfigurableViewJson(Constants.CONFIGURATION.MAIN);
             return (MainConfig) getConfigurableView(jsonString).getMetadata();
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+//            Log.e(TAG, e.getMessage());
             return null;
         }
     }

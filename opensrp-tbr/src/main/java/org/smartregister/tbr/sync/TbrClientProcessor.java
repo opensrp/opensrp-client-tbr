@@ -5,8 +5,11 @@ import android.content.Context;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.opensrp.api.constants.Gender;
+import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.sync.ClientProcessor;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.model.Result;
@@ -32,14 +35,14 @@ public class TbrClientProcessor extends ClientProcessor {
     private static final String TAG = "TbrClientProcessor";
     private static TbrClientProcessor instance;
 
-    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result"};
+    private static final String[] RESULT_TYPES = {"GeneXpert Result", "Smear Result", "Culture Result", "X-Ray Result", "child health indicators"};
 
     private static final String[] BMI_EVENT_TYPES = {"Follow up Visit", "Treatment Initiation", "intreatment TB patient"};
 
     private static final String SQLITE_DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String EVENT_TYPE_KEY = "eventType";
-    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient"};
+    public static final String[] CLIENT_EVENTS = {"Screening", "positive TB patient", "intreatment TB patient", "Register New Child"};
 
     public static final String DIAGNOSIS_EVENT = "TB Diagnosis";
     public static final String TREATMENT_INITIATION = "Treatment Initiation";
@@ -154,7 +157,8 @@ public class TbrClientProcessor extends ClientProcessor {
 
             ContentValues contentValues = processCaseModel(event, clientResultJson);
             // save the values to db
-            if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {
+            /*if (contentValues != null && contentValues.size() > 0 && contentValues.getAsString(ResultsRepository.RESULT1) != null) {*/
+            if (contentValues != null && contentValues.size() > 0) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SQLITE_DATE_FORMAT);
                 Date date = simpleDateFormat.parse(contentValues.getAsString(ResultsRepository.DATE));
                 ResultsRepository resultsRepository = TbrApplication.getInstance().getResultsRepository();
@@ -172,6 +176,89 @@ public class TbrClientProcessor extends ClientProcessor {
                 result.setCreatedAt(contentValues.getAsString(ResultsRepository.CREATED_AT));
                 String formSubmissionId = contentValues.getAsString(ResultsRepository.FORMSUBMISSION_ID);
                 result.setFormSubmissionId(formSubmissionId);
+                result.setHeightWeightDate(contentValues.getAsString(ResultsRepository.HEIGHT_WEIGHT_DATE));
+
+                try {
+                    result.setWeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.WEIGHT)));
+                }catch(Exception e){
+                    result.setWeight(new Float(0));
+                }
+                try {
+                    result.setHeight(Float.parseFloat(contentValues.getAsString(ResultsRepository.HEIGHT)));
+                }catch(Exception e){
+                    result.setHeight(new Float(0));
+                }
+                try {
+                    result.setHaemoglobin(Float.parseFloat(contentValues.getAsString(ResultsRepository.HAEMOGLOBIN)));
+                }catch(Exception e){
+                    result.setHaemoglobin(new Float(0));
+                }
+
+                JSONObject clientObj = TbrApplication.getInstance().getEventClientRepository().getClientByBaseEntityId(contentValues.getAsString(ResultsRepository.BASE_ENTITY_ID));
+
+                Gender gender = Gender.UNKNOWN;
+                if (clientObj.get(Constants.KEY.GENDER).equals(Constants.GENDER.MALE)) {
+                    gender = Gender.MALE;
+                } else if (clientObj.get(Constants.KEY.GENDER).equals(Constants.GENDER.FEMALE)) {
+                    gender = Gender.FEMALE;
+                }
+
+                String dobString = clientObj.getString("birthdate");
+                DateTime dateTime = new DateTime(dobString);
+                Date dob = dateTime.toDate();
+                Double zscore = ZScore.calculateWeightForHeight(gender, result.getHeight(), result.getWeight());
+                if(zscore <= -3)
+                    result.setWeightHeightStatus("Extremely low weight-height");
+                else if(zscore > -3 && zscore <= -2)
+                    result.setWeightHeightStatus("Low weight-height");
+                else
+                    result.setWeightHeightStatus("Normal");
+
+//                zscore = ZScore.calculateHeightForAge(gender, dob, new Date(), result.getHeight());
+                String newDobString = result.getHeightWeightDate();
+                DateTime newDateTime = new DateTime(newDobString);
+                Date newDob = newDateTime.toDate();
+                zscore = ZScore.calculateHeightForAge(gender, dob, newDob, result.getHeight());
+                if(zscore <= -3)
+                    result.setHeightAgeStatus("Extremely low height-age");
+                else if(zscore > -3 && zscore <= -2)
+                    result.setHeightAgeStatus("Low height-age");
+                else
+                    result.setHeightAgeStatus("Normal");
+
+                //result.setHeightAgeStatus(contentValues.getAsString(ResultsRepository.HEIGHT_AGE_STATUS));
+                //result.setWeightHeightStatus(contentValues.getAsString(ResultsRepository.WEIGHT_HEIGHT_STATUS));
+                result.setNextVisitDate(contentValues.getAsString(ResultsRepository.NEXT_VISIT_DATE));
+                result.setNextGrowthMonitoringDate(contentValues.getAsString(ResultsRepository.NEXT_GROWTH_MONITORING_DATE));
+                result.setDeworming(contentValues.getAsString(ResultsRepository.DEWORMING));
+                result.setDewormingDate(contentValues.getAsString(ResultsRepository.DEWORMING_DATE));
+                result.setDiarrea(contentValues.getAsString(ResultsRepository.DIARREA));
+                result.setMalaria(contentValues.getAsString(ResultsRepository.MALARIA));
+                result.setCold(contentValues.getAsString(ResultsRepository.COLD));
+                result.setPneumonia(contentValues.getAsString(ResultsRepository.PNEUMONIA));
+                result.setBronchitis(contentValues.getAsString(ResultsRepository.BRONCHITIS));
+
+                result.setZeroTuberculosis(contentValues.getAsString(ResultsRepository.ZERO_TUBERCULOSIS));
+                result.setZeroAntiherpatitis(contentValues.getAsString(ResultsRepository.ZERO_ANTIHERPATITIS));
+
+                result.setTwoAntipolio(contentValues.getAsString(ResultsRepository.TWO_ANTIPOLIO));
+                result.setTwoNeumococo(contentValues.getAsString(ResultsRepository.TWO_NEUMOCOCO));
+                result.setTwoPentavalente(contentValues.getAsString(ResultsRepository.TWO_PENTAVALENTE));
+                result.setTwoRotavirus(contentValues.getAsString(ResultsRepository.TWO_ROTAVIRUS));
+
+                result.setFourAntipolio(contentValues.getAsString(ResultsRepository.FOUR_ANTIPOLIO));
+                result.setFourNeumococo(contentValues.getAsString(ResultsRepository.FOUR_NEUMOCOCO));
+                result.setFourPentavalente(contentValues.getAsString(ResultsRepository.FOUR_PENTAVALENTE));
+                result.setFourRotavirus(contentValues.getAsString(ResultsRepository.FOUR_ROTAVIRUS));
+
+                result.setSixAntipolio(contentValues.getAsString(ResultsRepository.SIX_ANTIPOLIO));
+                result.setSixPentavalente(contentValues.getAsString(ResultsRepository.SIX_PENTAVALENTE));
+
+                result.setTwelveNeumococo(contentValues.getAsString(ResultsRepository.TWELVE_NEUMOCOCO));
+                result.setTwelveSarampion(contentValues.getAsString(ResultsRepository.TWELVE_SARAMPION));
+
+                result.setFifteenAntiamarilica(contentValues.getAsString(ResultsRepository.FIFTEEN_ANTIAMARILICA));
+
                 resultsRepository.saveResult(result);
                 Map<String, String> obs = getObsFromEvent(event);
                 ResultDetailsRepository resultDetailsRepository = TbrApplication.getInstance().getResultDetailsRepository();
@@ -246,7 +333,12 @@ public class TbrClientProcessor extends ClientProcessor {
                                 } else {
                                     List<String> values = getValues(jsonDocObject.get(responseKey));
                                     if (!values.isEmpty()) {
-                                        columnValue = values.get(0);
+                                        if(values.size() > 1){
+                                            columnValue = Utils.getCommaDelimitedStringFromList(values);
+                                        }
+                                        else {
+                                            columnValue = values.get(0);
+                                        }
                                     }
                                 }
                             }

@@ -9,6 +9,7 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.opensrp.api.constants.Gender;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -19,9 +20,14 @@ import org.smartregister.configurableviews.model.MainConfig;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.configurableviews.util.Constants;
+import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
+import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
+import org.smartregister.growthmonitoring.repository.ZScoreRepository;
+import org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.tbr.BuildConfig;
 import org.smartregister.tbr.activity.LoginActivity;
 import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.TriggerSyncEvent;
@@ -31,6 +37,7 @@ import org.smartregister.tbr.repository.BMIRepository;
 import org.smartregister.tbr.repository.ResultDetailsRepository;
 import org.smartregister.tbr.repository.ResultsRepository;
 import org.smartregister.tbr.repository.TbrRepository;
+import org.smartregister.tbr.repository.UserRepository;
 import org.smartregister.tbr.service.SyncService;
 import org.smartregister.tbr.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -57,6 +64,7 @@ public class TbrApplication extends DrishtiApplication {
     private ResultDetailsRepository resultDetailsRepository;
     private ConfigurableViewsHelper configurableViewsHelper;
     private BMIRepository bmiRepository;
+    private UserRepository userRepository;
 
     private static final String TAG = TbrApplication.class.getCanonicalName();
     private String password;
@@ -78,8 +86,13 @@ public class TbrApplication extends DrishtiApplication {
         DrishtiSyncScheduler.setReceiverClass(TbrSyncBroadcastReceiver.class);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
+
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        /*startZscoreRefreshService();*/
+
         try {
-            Utils.saveLanguage("en");
+            Utils.saveLanguage("es");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -171,14 +184,14 @@ public class TbrApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME, KEY.LAST_NAME};
+        return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME, KEY.LAST_NAME, KEY.PROVIDER_ID};
 
     }
 
     private static String[] getFtsSortFields() {
         return new String[]{KEY.PARTICIPANT_ID, KEY.PROGRAM_ID, KEY.FIRST_NAME,
                 KEY.LAST_INTERACTED_WITH, KEY.PRESUMPTIVE, KEY.CONFIRMED_TB, KEY.FIRST_ENCOUNTER,
-                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE, KEY.DATE_REMOVED};
+                KEY.DIAGNOSIS_DATE, KEY.TREATMENT_INITIATION_DATE, KEY.DATE_REMOVED, KEY.PROVIDER_ID};
     }
 
 
@@ -222,6 +235,13 @@ public class TbrApplication extends DrishtiApplication {
             bmiRepository = new BMIRepository(getRepository());
         }
         return bmiRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        if (userRepository == null) {
+            userRepository = new UserRepository(getRepository());
+        }
+        return userRepository;
     }
 
     private void setUpEventHandling() {
@@ -278,5 +298,10 @@ public class TbrApplication extends DrishtiApplication {
 
         }
     };
+
+    public void startZscoreRefreshService() {
+        Intent intent = new Intent(this.getApplicationContext(), ZScoreRefreshIntentService.class);
+        this.getApplicationContext().startService(intent);
+    }
 
 }

@@ -5,8 +5,12 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.opensrp.api.constants.Gender;
 import org.smartregister.AllConstants;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
+import org.smartregister.growthmonitoring.repository.WeightRepository;
+import org.smartregister.growthmonitoring.repository.ZScoreRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.tbr.application.TbrApplication;
@@ -19,9 +23,11 @@ public class TbrRepository extends Repository {
     private static final String TAG = TbrRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
+    protected Context context;
 
     public TbrRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), TbrApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        this.context = context;
     }
 
     @Override
@@ -35,6 +41,18 @@ public class TbrRepository extends Repository {
         ResultsRepository.createTable(database);
         ResultDetailsRepository.createTable(database);
         BMIRepository.createTable(database);
+        UserRepository.createTable(database);
+
+        ZScoreRepository.createTable(database);
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvWeightForAge(database, Gender.MALE, false, context);
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvWeightForAge(database, Gender.FEMALE, false,context);
+
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvWeightForHeight(database, Gender.MALE, false, context);
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvWeightForHeight(database, Gender.FEMALE, false,context);
+
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvHeightForAge(database, Gender.MALE, false, context);
+        GrowthMonitoringLibrary.getInstance().zScoreRepository().dumpCsvHeightForAge(database, Gender.FEMALE, false,context);
+
         //onUpgrade(database, 1, 2);
 
     }

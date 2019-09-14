@@ -1,5 +1,5 @@
 <model><instance>
-    <reg_new_child xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" id="chest_register_new_child" version="201905160841">
+    <reg_new_child xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" encounter_type="Register New Child" id="chest_register_new_child" version="201907220630">
         <formhub>
             <uuid/>
         </formhub>
@@ -10,7 +10,7 @@
         <provider_id/>
         <provider_location_id openmrs_entity="encounter" openmrs_entity_id="location_id"/>
         <provider_location_name/>
-        <provider_location_note/>
+        <child_id/>
         <start openmrs_entity="concept" openmrs_entity_id="TBR:form start datetime"/>
         <end openmrs_entity="concept" openmrs_entity_id="TBR:form end datetime"/>
         <today openmrs_entity="concept" openmrs_entity_id="TBR:data enty datetime"/>
@@ -25,27 +25,498 @@
         </name_of_child>
         <birthdate openmrs_entity="person" openmrs_entity_id="birthdate"/>
         <gender openmrs_entity="person" openmrs_entity_id="gender"/>
-        <participant_id openmrs_entity="person_identifier" openmrs_entity_id="TBREACH ID"/>
-        <mother_name openmrs_entity="person_attribute" openmrs_entity_id="Mother's Name"/>
-        <mother_id openmrs_entity="person_attribute" openmrs_entity_id="Mother's ID Number"/>
-        <birth_location>
-            <department_birth openmrs_entity="concept" openmrs_entity_id="TBR:department"/>
-            <province_birth openmrs_entity="concept" openmrs_entity_id="TBR:province"/>
-            <district_birth openmrs_entity="concept" openmrs_entity_id="TBR:district"/>
-            <city_birth openmrs_entity="concept" openmrs_entity_id="TBR:city"/>
-        </birth_location>
+        <participant_id openmrs_entity="person_identifier" openmrs_entity_id="ID NUMBER"/>
+        <mother_name openmrs_entity="person_attribute" openmrs_entity_id="Mother Name"/>
         <current_community>
-            <department openmrs_entity="person_address" openmrs_entity_id="TBR:department"/>
-            <province openmrs_entity="person_address" openmrs_entity_id="TBR:province"/>
-            <district openmrs_entity="person_address" openmrs_entity_id="TBR:district"/>
-            <city openmrs_entity="person_address" openmrs_entity_id="TBR:city"/>
+            <department openmrs_entity="person_address" openmrs_entity_id="address1"/>
+            <province openmrs_entity="person_address" openmrs_entity_id="address2"/>
+            <province_other openmrs_entity="person_address" openmrs_entity_id="address2"/>
+            <district openmrs_entity="person_address" openmrs_entity_id="address3"/>
+            <district_other openmrs_entity="person_address" openmrs_entity_id="address3"/>
+            <city openmrs_entity="person_address" openmrs_entity_id="cityVillage"/>
+            <full_address openmrs_entity="person_address" openmrs_entity_id="address4"/>
         </current_community>
-        <full_address openmrs_entity="concept" openmrs_entity_id="TBR:full address text"/>
-        <birth_weight openmrs_entity="concept" openmrs_entity_id="TBR: birth weight"/>
-        <vaccines openmrs_entity="concept"/>
-        <developmental_disability openmrs_entity="concept"/>
+        <developmental_disability openmrs_entity="concept" openmrs_entity_id="TBR:developmental disability"/>
         <meta>
             <instanceID/>
         </meta>
     </reg_new_child>
+</instance><instance id="gender">
+    <root xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms">
+        <item>
+            <itextId>static_instance-gender-0</itextId>
+            <openmrs_concept_name>male gender</openmrs_concept_name>
+            <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;</openmrs_reference_term>
+            <name>male</name>
+        </item>
+        <item>
+            <itextId>static_instance-gender-1</itextId>
+            <openmrs_concept_name>female gender</openmrs_concept_name>
+            <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;</openmrs_reference_term>
+            <name>female</name>
+        </item>
+    </root>
+</instance><instance id="yes_no">
+    <root xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms">
+        <item>
+            <itextId>static_instance-yes_no-0</itextId>
+            <openmrs_concept_name>yes</openmrs_concept_name>
+            <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'yes' name, 'yes' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'yes' ) LIMIT 1;</openmrs_reference_term>
+            <name>yes</name>
+        </item>
+        <item>
+            <itextId>static_instance-yes_no-1</itextId>
+            <openmrs_concept_name>no</openmrs_concept_name>
+            <openmrs_reference_term>INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'no' name, 'no' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'no' ) LIMIT 1;</openmrs_reference_term>
+            <name>no</name>
+        </item>
+    </root>
+</instance><instance id="departments">
+    <root xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms">
+        <item>
+            <itextId>static_instance-departments-0</itextId>
+            <name>Amazonas</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-1</itextId>
+            <name>Ancash</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-2</itextId>
+            <name>Apurimac</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-3</itextId>
+            <name>Arequipa</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-4</itextId>
+            <name>Ayacucho</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-5</itextId>
+            <name>Cajamarca</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-6</itextId>
+            <name>Callao</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-7</itextId>
+            <name>Cuzco</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-8</itextId>
+            <name>Huancavelica</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-9</itextId>
+            <name>Huanuco</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-10</itextId>
+            <name>Ica</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-11</itextId>
+            <name>Junin</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-12</itextId>
+            <name>La Libertad</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-13</itextId>
+            <name>Lambayeque</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-14</itextId>
+            <name>Lima</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-15</itextId>
+            <name>Loreto</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-16</itextId>
+            <name>Madre de Dios</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-17</itextId>
+            <name>Moquegua</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-18</itextId>
+            <name>Pasco</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-19</itextId>
+            <name>Piura</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-20</itextId>
+            <name>Puno</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-21</itextId>
+            <name>San Martin</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-22</itextId>
+            <name>Tacna</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-23</itextId>
+            <name>Tumbes</name>
+        </item>
+        <item>
+            <itextId>static_instance-departments-24</itextId>
+            <name>Ucayali</name>
+        </item>
+    </root>
+</instance><instance id="provinces">
+    <root xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms">
+        <item>
+            <itextId>static_instance-provinces-0</itextId>
+            <department>Loreto</department>
+            <name>Alto Amazonas</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-1</itextId>
+            <department>Loreto</department>
+            <name>Datem del Maranon</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-2</itextId>
+            <department>Loreto</department>
+            <name>Loreto</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-3</itextId>
+            <department>Loreto</department>
+            <name>Mariscal Ramon Castilla</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-4</itextId>
+            <department>Loreto</department>
+            <name>Maynas</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-5</itextId>
+            <department>Loreto</department>
+            <name>Putumayo</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-6</itextId>
+            <department>Loreto</department>
+            <name>Requena</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-7</itextId>
+            <department>Loreto</department>
+            <name>Ucayali</name>
+        </item>
+        <item>
+            <itextId>static_instance-provinces-8</itextId>
+            <department>na</department>
+            <name>other</name>
+        </item>
+    </root>
+</instance><instance id="districts">
+    <root xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms">
+        <item>
+            <itextId>static_instance-districts-0</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Balsapuerto</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-1</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Jeberos</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-2</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Lagunas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-3</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Santa Cruz</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-4</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Teniente Cesar Lopez Rojas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-5</itextId>
+            <province>Alto Amazonas</province>
+            <department>Loreto</department>
+            <name>Yurimaguas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-6</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Andoas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-7</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Barranca</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-8</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Cahuapanas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-9</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Manseriche</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-10</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Morona</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-11</itextId>
+            <province>Datem del Maranon</province>
+            <department>Loreto</department>
+            <name>Pastaza</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-12</itextId>
+            <province>Mariscal Ramon Castilla</province>
+            <department>Loreto</department>
+            <name>Pebas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-13</itextId>
+            <province>Mariscal Ramon Castilla</province>
+            <department>Loreto</department>
+            <name>Ramon Castilla</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-14</itextId>
+            <province>Mariscal Ramon Castilla</province>
+            <department>Loreto</department>
+            <name>San Pablo</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-15</itextId>
+            <province>Mariscal Ramon Castilla</province>
+            <department>Loreto</department>
+            <name>Yavari</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-16</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Alto Nanay</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-17</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Belen</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-18</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Fernando Lores</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-19</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Indiana</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-20</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Iquitos</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-21</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Las Amazonas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-22</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Mazan</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-23</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Napo</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-24</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Punchana</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-25</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>San Juan Bautista</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-26</itextId>
+            <province>Maynas</province>
+            <department>Loreto</department>
+            <name>Torres Causana</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-27</itextId>
+            <province>Putumayo</province>
+            <department>Loreto</department>
+            <name>Putumayo</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-28</itextId>
+            <province>Putumayo</province>
+            <department>Loreto</department>
+            <name>Rosa Panduro</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-29</itextId>
+            <province>Putumayo</province>
+            <department>Loreto</department>
+            <name>Teniente Manuel Clavero</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-30</itextId>
+            <province>Putumayo</province>
+            <department>Loreto</department>
+            <name>Yaguas</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-31</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Alto Tapiche</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-32</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Capelo</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-33</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Emilio San Martn</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-34</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Jenaro Herrera</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-35</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Maquia</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-36</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Puinahua</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-37</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Requena</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-38</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Saquena</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-39</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Soplin</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-40</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Tapiche</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-41</itextId>
+            <province>Requena</province>
+            <department>Loreto</department>
+            <name>Yaquerana</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-42</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Contamana</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-43</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Inahuaya</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-44</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Padre Marquez</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-45</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Pampa Hermosa</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-46</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Sarayacu</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-47</itextId>
+            <province>Ucayali</province>
+            <department>Loreto</department>
+            <name>Vargas Guerra</name>
+        </item>
+        <item>
+            <itextId>static_instance-districts-48</itextId>
+            <province>na</province>
+            <department>na</department>
+            <name>other</name>
+        </item>
+    </root>
 </instance></model>

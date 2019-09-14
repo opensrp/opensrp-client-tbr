@@ -1,6 +1,8 @@
 package org.smartregister.tbr.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,9 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.util.Constants;
+import org.smartregister.tbr.util.Utils;
 
+import java.util.Locale;
 import java.util.Map;
 
 import static org.smartregister.tbr.util.Constants.INTENT_KEY.REGISTER_TITLE;
@@ -74,5 +81,16 @@ public class InTreatmentPatientDetailsFragment extends BasePatientDetailsFragmen
         //Overridden method
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        try {
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+            Utils.setLocale(new Locale(allSharedPreferences.getPreference("locale")));
+            org.smartregister.tbr.util.Utils.postEvent(new LanguageConfigurationEvent(false));
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 
 }

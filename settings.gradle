@@ -1,1 +1,3 @@
-include ':opensrp-tbr'
+include ':opensrp-tbr', 'opensrp-growth-monitoring'
+
+project(':opensrp-tbr').projectDir = "$rootDir/opensrp-tbr" as File

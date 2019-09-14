@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.1.2"
+        classpath 'com.android.tools.build:gradle:3.2.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
@@ -30,15 +30,16 @@ jacoco {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
         applicationId "org.smartregister.tbr"
-        minSdkVersion 22
+//        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.0"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -112,6 +113,14 @@ dependencies {
     implementation('org.smartregister:opensrp-client-enketo:1.1.0-SNAPSHOT@aar') {
         transitive = true
     }
+
+    implementation(project(':opensrp-growth-monitoring')) {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
     /* implementation('org.smartregister:opensrp-client-configurable-views:1.1.0-SNAPSHOT@aar') {
             transitive = true
         } */

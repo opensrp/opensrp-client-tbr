@@ -1,7 +1,9 @@
 package org.smartregister.tbr.fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.PopupMenu;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,9 +23,11 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.model.TestResultsConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.R;
 import org.smartregister.tbr.activity.BasePatientDetailActivity;
 import org.smartregister.tbr.activity.HomeActivity;
+import org.smartregister.tbr.activity.HomeVisitActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientDetailActivity;
 import org.smartregister.tbr.activity.InTreatmentPatientRegisterActivity;
 import org.smartregister.tbr.activity.PositivePatientDetailActivity;
@@ -31,6 +35,7 @@ import org.smartregister.tbr.activity.PositivePatientRegisterActivity;
 import org.smartregister.tbr.activity.PresumptivePatientDetailActivity;
 import org.smartregister.tbr.application.TbrApplication;
 import org.smartregister.tbr.event.EnketoFormSaveCompleteEvent;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.event.SyncEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.helper.view.RenderBMIHeightChartCardHelper;
@@ -47,6 +52,7 @@ import org.smartregister.view.fragment.SecuredFragment;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import util.TbrConstants;
@@ -83,6 +89,14 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     }
 
     protected void renderFollowUpView(View view, Map<String, String> patientDetails) {
+
+        Button registerButton = (Button) view.findViewById(R.id.register_indicator_button);
+        registerButton.setOnClickListener(this);
+        registerButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
+
+        Button visitButton = (Button) view.findViewById(R.id.home_visit_button);
+        visitButton.setOnClickListener(this);
+        visitButton.setTag(R.id.CLIENT_ID, patientDetails.get(Constants.KEY._ID));
 
         RenderPatientFollowupCardHelper renderPatientFollowupCardHelper = new RenderPatientFollowupCardHelper(getActivity(), TbrApplication.getInstance().getResultDetailsRepository());
         renderPatientFollowupCardHelper.renderView(view, patientDetails);
@@ -278,6 +292,14 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
             case R.id.record_outcome:
                 ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.TREATMENT_OUTCOME, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
                 break;
+            case R.id.register_indicator_button:
+                ((BasePatientDetailActivity) getActivity()).startFormActivity(Constants.FORM.REGISTER_HEALTH_INDICATORS, view.getTag(R.id.CLIENT_ID).toString(), formOverridesHelper.getFieldOverrides().getJSONString());
+                break;
+            case R.id.home_visit_button:
+                Intent myIntent = new Intent(this.getActivity(), HomeVisitActivity.class);
+                myIntent.putExtra("dob", patientDetails.get(Constants.KEY.DOB));
+                this.startActivity(myIntent);
+                break;
             default:
                 break;
 
@@ -426,6 +448,7 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
     }
 
     private void renderViewConfigurationCore(ViewConfiguration componentViewConfiguration, View json2View, Map<String, String> patientDetails) {
+
         if (componentViewConfiguration.getIdentifier().equals(Constants.CONFIGURATION.COMPONENTS.PATIENT_DETAILS_DEMOGRAPHICS)) {
 
             renderDemographicsView(json2View, patientDetails);
@@ -506,4 +529,15 @@ public abstract class BasePatientDetailsFragment extends SecuredFragment impleme
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        try {
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+            Utils.setLocale(new Locale(allSharedPreferences.getPreference("locale")));
+            org.smartregister.tbr.util.Utils.postEvent(new LanguageConfigurationEvent(false));
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 }

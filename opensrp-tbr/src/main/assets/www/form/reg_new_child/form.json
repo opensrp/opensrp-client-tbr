@@ -1,1 +1,1768 @@
-{"name":"reg_new_child","type":"survey","title":"Register New  Child","id_string":"chest_register_new_child","sms_keyword":"chest_register_new_child","default_language":"English","version":"201905160841","children":[{"name":"provider_uc","type":"hidden"},{"name":"provider_town","type":"hidden"},{"name":"provider_city","type":"hidden"},{"name":"provider_province","type":"hidden"},{"name":"provider_id","type":"hidden"},{"name":"provider_location_id","type":"hidden","instance":{"openmrs_entity":"encounter","openmrs_entity_id":"location_id"}},{"name":"provider_location_name","type":"hidden"},{"name":"provider_location_note","label":{"Roman Urdu":"Shehr: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center ka naam: ${provider_location_name}","English":"City: ${provider_city} ; Town: ${provider_town} ; UC: ${provider_uc} ; Center Name: ${provider_location_name}"},"type":"note"},{"name":"start","type":"start","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:form start datetime"}},{"name":"end","type":"end","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:form end datetime"}},{"name":"today","type":"today","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:data enty datetime"}},{"name":"deviceid","type":"deviceid","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:device id"}},{"name":"subscriberid","type":"subscriberid","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:subscriber id"}},{"name":"simserial","type":"simserial","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:sim serial number"}},{"name":"phonenumber","type":"phonenumber","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:sim number"}},{"name":"client_reg_date","label":{"Roman Urdu":"Indraj ki Tareekh","English":"Data Entry Date"},"type":"calculate","bind":{"calculate":"${today}"},"instance":{"openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"}},{"name":"name_of_child","label":{"Roman Urdu":"Bache ka naam","English":"Name of Child"},"type":"group","children":[{"name":"first_name","label":{"Roman Urdu":"Mareez ka Naam","English":"First Name"},"type":"text","bind":{"required":"yes"},"instance":{"openmrs_entity":"person","openmrs_entity_id":"first_name"}},{"name":"last_name","label":{"Roman Urdu":"Walid ya Shohar ka naam","English":"Last Name"},"type":"text","instance":{"openmrs_entity":"person","openmrs_entity_id":"last_name"}}]},{"name":"birthdate","label":{"Roman Urdu":"Thareek -e-Padaish","English":"Birth Date"},"type":"date","instance":{"openmrs_entity":"person","openmrs_entity_id":"birthdate"}},{"name":"gender","label":{"Roman Urdu":"Jins","English":"Sex"},"type":"select one","bind":{"required":"yes"},"instance":{"openmrs_entity":"person","openmrs_entity_id":"gender"},"children":[{"name":"male","label":{"Roman Urdu":"Mard/larka","English":"Male"},"instance":{"openmrs_code":"TBR: male"}},{"name":"female","label":{"Roman Urdu":"Aurat/larki","English":"Female"},"instance":{"openmrs_code":"TBR: female"}},{"name":"transgender","label":{"Roman Urdu":"Khwaja sira","English":"Transgender"},"instance":{"openmrs_code":"TBR: third gender"}}]},{"name":"participant_id","label":{"Roman Urdu":"Participant ID","English":"ID Number"},"type":"text","bind":{"constraint":"regex(., '[0-9]{0,8}$')","required":"yes","jr:constraintMsg":{"English":"Maximum 8 digits and cannot contain anything other than number"}},"instance":{"openmrs_entity":"person_identifier","openmrs_entity_id":"TBREACH ID"}},{"name":"mother_name","label":{"Roman Urdu":"Maa ka naam","English":"Mother Name"},"type":"text","instance":{"openmrs_entity":"person_attribute","openmrs_entity_id":"Mother's Name"}},{"name":"mother_id","label":{"Roman Urdu":"National Identification Number","English":"Mother ID Number"},"type":"text","bind":{"constraint":"regex(., '[0-9]{0,8}$')","jr:constraintMsg":{"English":"Maximum 8 digits and cannot contain anything other than number"}},"instance":{"openmrs_entity":"person_attribute","openmrs_entity_id":"Mother's ID Number"}},{"name":"birth_location","label":{"Roman Urdu":"Birth Location","English":"Birth Location"},"type":"group","children":[{"name":"department_birth","label":{"Roman Urdu":"Department","English":"Department"},"type":"text","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:department"}},{"name":"province_birth","label":{"Roman Urdu":"Province","English":"Province"},"type":"text","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:province"}},{"name":"district_birth","label":{"Roman Urdu":"District","English":"District"},"type":"text","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:district"}},{"name":"city_birth","label":{"Roman Urdu":"City","English":"City"},"type":"text","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:city"}}]},{"name":"current_community","label":{"Roman Urdu":"Current Community","English":"Current Community"},"type":"group","children":[{"name":"department","label":{"Roman Urdu":"Department","English":"Department"},"type":"text","instance":{"openmrs_entity":"person_address","openmrs_entity_id":"TBR:department"}},{"name":"province","label":{"Roman Urdu":"Province","English":"Province"},"type":"text","instance":{"openmrs_entity":"person_address","openmrs_entity_id":"TBR:province"}},{"name":"district","label":{"Roman Urdu":"District","English":"District"},"type":"text","instance":{"openmrs_entity":"person_address","openmrs_entity_id":"TBR:district"}},{"name":"city","label":{"Roman Urdu":"City","English":"City"},"type":"text","instance":{"openmrs_entity":"person_address","openmrs_entity_id":"TBR:city"}}]},{"name":"full_address","label":{"Roman Urdu":"Poora Pata","English":"Full address"},"type":"note","instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR:full address text"}},{"name":"birth_weight","label":{"Roman Urdu":"Wazan","English":"Birth Weight(kg)"},"type":"decimal","bind":{"required":"yes"},"instance":{"openmrs_entity":"concept","openmrs_entity_id":"TBR: birth weight"}},{"name":"vaccines","label":{"Roman Urdu":"Has all current vaccines","English":"Has all current vaccines"},"type":"select all that apply","instance":{"openmrs_entity":"concept"},"children":[{"name":"tuberculosis","label":{"Roman Urdu":"Tuberculosis","English":"Tuberculosis"}},{"name":"antiherpatitis","label":{"Roman Urdu":"Antiherpatitis","English":"Antiherpatitis"}},{"name":"antipolio","label":{"Roman Urdu":"Antipolio","English":"Antipolio"}},{"name":"pentavalente","label":{"Roman Urdu":"Pentavalente","English":"Pentavalente"}},{"name":"neumococo","label":{"Roman Urdu":"Neumococo","English":"Neumococo"}},{"name":"rotavirus","label":{"Roman Urdu":"Rotavirus","English":"Rotavirus"}},{"name":"pentavalente","label":{"Roman Urdu":"Pentavalente","English":"Pentavalente"}},{"name":"sarampion","label":{"Roman Urdu":"Sarampion","English":"Sarampion"}},{"name":"antiamarilica","label":{"Roman Urdu":"Antiamarilica","English":"Antiamarilica"}}]},{"name":"developmental_disability","label":{"Roman Urdu":"Does child have a developmental disability or genetic disease","English":"Does child have a developmental disability or genetic disease"},"type":"select one","instance":{"openmrs_entity":"concept"},"children":[{"name":"yes","label":{"Roman Urdu":"Haan","English":"Yes"},"instance":{"openmrs_code":"TBR:yes"}},{"name":"no","label":{"Roman Urdu":"Nahi","English":"No"},"instance":{"openmrs_code":"TBR:no"}},{"name":"dont_know","label":{"Roman Urdu":"Pata Nahi","English":"Don't Know"},"instance":{"openmrs_code":"TBR:unknown"}},{"name":"refused","label":{"Roman Urdu":"Jawab nahi dena","English":"Refused"},"instance":{"openmrs_code":"TBR:refused"}}]},{"name":"meta","type":"group","control":{"bodyless":true},"children":[{"name":"instanceID","type":"calculate","bind":{"readonly":"true()","calculate":"concat('uuid:', uuid())"}}]}]}
+{
+  "name":"reg_new_child",
+  "type":"survey",
+  "instance":{
+    "encounter_type":"Register New Child"
+  },
+  "title":"Nuevo Registro",
+  "id_string":"chest_register_new_child",
+  "sms_keyword":"chest_register_new_child",
+  "default_language":"Spanish",
+  "version":"201907220630",
+  "choices":{
+    "gender":[
+      {
+        "label":{
+          "English":"Male",
+          "Spanish":"Masculino"
+        },
+        "instance":{
+          "openmrs_code":"TBR: male"
+        },
+        "openmrs_concept_name":"male gender",
+        "openmrs_reference_term":"INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' male' name, ' male' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' male' ) LIMIT 1;",
+        "name":"male"
+      },
+      {
+        "label":{
+          "English":"Female",
+          "Spanish":"Femenino"
+        },
+        "instance":{
+          "openmrs_code":"TBR: female"
+        },
+        "openmrs_concept_name":"female gender",
+        "openmrs_reference_term":"INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), ' female' name, ' female' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = ' female' ) LIMIT 1;",
+        "name":"female"
+      }
+    ],
+    "yes_no":[
+      {
+        "label":{
+          "English":"Yes",
+          "Spanish":"Si"
+        },
+        "instance":{
+          "openmrs_code":"TBR:yes"
+        },
+        "openmrs_concept_name":"yes",
+        "openmrs_reference_term":"INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'yes' name, 'yes' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'yes' ) LIMIT 1;",
+        "name":"yes"
+      },
+      {
+        "label":{
+          "English":"No",
+          "Spanish":"No"
+        },
+        "instance":{
+          "openmrs_code":"TBR:no"
+        },
+        "openmrs_concept_name":"no",
+        "openmrs_reference_term":"INSERT INTO `openmrs`.`concept_reference_term` (`concept_source_id`, `name`, `code`, `creator`, `date_created`, `retired`, `uuid`) SELECT * FROM (SELECT (SELECT concept_source_id FROM concept_reference_source WHERE name='TBR'), 'no' name, 'no' code, 1 creator, NOW() created, 0 retired, UUID() uuid) as tmp WHERE NOT EXISTS (  SELECT code FROM concept_reference_term WHERE code = 'no' ) LIMIT 1;",
+        "name":"no"
+      }
+    ],
+    "departments":[
+      {
+        "label":{
+          "English":"Amazonas",
+          "Spanish":"Amazonas"
+        },
+        "name":"Amazonas"
+      },
+      {
+        "label":{
+          "English":"Ancash",
+          "Spanish":"Ancash"
+        },
+        "name":"Ancash"
+      },
+      {
+        "label":{
+          "English":"Apurimac",
+          "Spanish":"Apurimac"
+        },
+        "name":"Apurimac"
+      },
+      {
+        "label":{
+          "English":"Arequipa",
+          "Spanish":"Arequipa"
+        },
+        "name":"Arequipa"
+      },
+      {
+        "label":{
+          "English":"Ayacucho",
+          "Spanish":"Ayacucho"
+        },
+        "name":"Ayacucho"
+      },
+      {
+        "label":{
+          "English":"Cajamarca",
+          "Spanish":"Cajamarca"
+        },
+        "name":"Cajamarca"
+      },
+      {
+        "label":{
+          "English":"Callao",
+          "Spanish":"Callao"
+        },
+        "name":"Callao"
+      },
+      {
+        "label":{
+          "English":"Cuzco",
+          "Spanish":"Cuzco"
+        },
+        "name":"Cuzco"
+      },
+      {
+        "label":{
+          "English":"Huancavelica",
+          "Spanish":"Huancavelica"
+        },
+        "name":"Huancavelica"
+      },
+      {
+        "label":{
+          "English":"Huanuco",
+          "Spanish":"Huanuco"
+        },
+        "name":"Huanuco"
+      },
+      {
+        "label":{
+          "English":"Ica",
+          "Spanish":"Ica"
+        },
+        "name":"Ica"
+      },
+      {
+        "label":{
+          "English":"Junin",
+          "Spanish":"Junin"
+        },
+        "name":"Junin"
+      },
+      {
+        "label":{
+          "English":"La Libertad",
+          "Spanish":"La Libertad"
+        },
+        "name":"La Libertad"
+      },
+      {
+        "label":{
+          "English":"Lambayeque",
+          "Spanish":"Lambayeque"
+        },
+        "name":"Lambayeque"
+      },
+      {
+        "label":{
+          "English":"Lima",
+          "Spanish":"Lima"
+        },
+        "name":"Lima"
+      },
+      {
+        "label":{
+          "English":"Loreto",
+          "Spanish":"Loreto"
+        },
+        "name":"Loreto"
+      },
+      {
+        "label":{
+          "English":"Madre de Dios",
+          "Spanish":"Madre de Dios"
+        },
+        "name":"Madre de Dios"
+      },
+      {
+        "label":{
+          "English":"Moquegua",
+          "Spanish":"Moquegua"
+        },
+        "name":"Moquegua"
+      },
+      {
+        "label":{
+          "English":"Pasco",
+          "Spanish":"Pasco"
+        },
+        "name":"Pasco"
+      },
+      {
+        "label":{
+          "English":"Piura",
+          "Spanish":"Piura"
+        },
+        "name":"Piura"
+      },
+      {
+        "label":{
+          "English":"Puno",
+          "Spanish":"Puno"
+        },
+        "name":"Puno"
+      },
+      {
+        "label":{
+          "English":"San Martin",
+          "Spanish":"San Martin"
+        },
+        "name":"San Martin"
+      },
+      {
+        "label":{
+          "English":"Tacna",
+          "Spanish":"Tacna"
+        },
+        "name":"Tacna"
+      },
+      {
+        "label":{
+          "English":"Tumbes",
+          "Spanish":"Tumbes"
+        },
+        "name":"Tumbes"
+      },
+      {
+        "label":{
+          "English":"Ucayali",
+          "Spanish":"Ucayali"
+        },
+        "name":"Ucayali"
+      }
+    ],
+    "provinces":[
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Alto Amazonas",
+          "Spanish":"Alto Amazonas"
+        },
+        "name":"Alto Amazonas"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Datem del Maranon",
+          "Spanish":"Datem del Maranon"
+        },
+        "name":"Datem del Maranon"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Loreto",
+          "Spanish":"Loreto"
+        },
+        "name":"Loreto"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Mariscal Ramon Castilla",
+          "Spanish":"Mariscal Ramon Castilla"
+        },
+        "name":"Mariscal Ramon Castilla"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Maynas",
+          "Spanish":"Maynas"
+        },
+        "name":"Maynas"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Putumayo",
+          "Spanish":"Putumayo"
+        },
+        "name":"Putumayo"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Requena",
+          "Spanish":"Requena"
+        },
+        "name":"Requena"
+      },
+      {
+        "department":"Loreto",
+        "label":{
+          "English":"Ucayali",
+          "Spanish":"Ucayali"
+        },
+        "name":"Ucayali"
+      },
+      {
+        "department":"na",
+        "label":{
+          "English":"Other",
+          "Spanish":"Other"
+        },
+        "name":"other"
+      }
+    ],
+    "districts":[
+      {
+        "label":{
+          "English":"Balsapuerto",
+          "Spanish":"Balsapuerto"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Balsapuerto"
+      },
+      {
+        "label":{
+          "English":"Jeberos",
+          "Spanish":"Jeberos"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Jeberos"
+      },
+      {
+        "label":{
+          "English":"Lagunas",
+          "Spanish":"Lagunas"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Lagunas"
+      },
+      {
+        "label":{
+          "English":"Santa Cruz",
+          "Spanish":"Santa Cruz"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Santa Cruz"
+      },
+      {
+        "label":{
+          "English":"Teniente Cesar Lopez Rojas",
+          "Spanish":"Teniente Cesar Lopez Rojas"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Teniente Cesar Lopez Rojas"
+      },
+      {
+        "label":{
+          "English":"Yurimaguas",
+          "Spanish":"Yurimaguas"
+        },
+        "province":"Alto Amazonas",
+        "department":"Loreto",
+        "name":"Yurimaguas"
+      },
+      {
+        "label":{
+          "English":"Andoas",
+          "Spanish":"Andoas"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Andoas"
+      },
+      {
+        "label":{
+          "English":"Barranca",
+          "Spanish":"Barranca"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Barranca"
+      },
+      {
+        "label":{
+          "English":"Cahuapanas",
+          "Spanish":"Cahuapanas"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Cahuapanas"
+      },
+      {
+        "label":{
+          "English":"Manseriche",
+          "Spanish":"Manseriche"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Manseriche"
+      },
+      {
+        "label":{
+          "English":"Morona",
+          "Spanish":"Morona"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Morona"
+      },
+      {
+        "label":{
+          "English":"Pastaza",
+          "Spanish":"Pastaza"
+        },
+        "province":"Datem del Maranon",
+        "department":"Loreto",
+        "name":"Pastaza"
+      },
+      {
+        "label":{
+          "English":"Pebas",
+          "Spanish":"Pebas"
+        },
+        "province":"Mariscal Ramon Castilla",
+        "department":"Loreto",
+        "name":"Pebas"
+      },
+      {
+        "label":{
+          "English":"Ramon Castilla",
+          "Spanish":"Ramon Castilla"
+        },
+        "province":"Mariscal Ramon Castilla",
+        "department":"Loreto",
+        "name":"Ramon Castilla"
+      },
+      {
+        "label":{
+          "English":"San Pablo",
+          "Spanish":"San Pablo"
+        },
+        "province":"Mariscal Ramon Castilla",
+        "department":"Loreto",
+        "name":"San Pablo"
+      },
+      {
+        "label":{
+          "English":"Yavari",
+          "Spanish":"Yavari"
+        },
+        "province":"Mariscal Ramon Castilla",
+        "department":"Loreto",
+        "name":"Yavari"
+      },
+      {
+        "label":{
+          "English":"Alto Nanay",
+          "Spanish":"Alto Nanay"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Alto Nanay"
+      },
+      {
+        "label":{
+          "English":"Belen",
+          "Spanish":"Belen"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Belen"
+      },
+      {
+        "label":{
+          "English":"Fernando Lores",
+          "Spanish":"Fernando Lores"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Fernando Lores"
+      },
+      {
+        "label":{
+          "English":"Indiana",
+          "Spanish":"Indiana"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Indiana"
+      },
+      {
+        "label":{
+          "English":"Iquitos",
+          "Spanish":"Iquitos"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Iquitos"
+      },
+      {
+        "label":{
+          "English":"Las Amazonas",
+          "Spanish":"Las Amazonas"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Las Amazonas"
+      },
+      {
+        "label":{
+          "English":"Mazan",
+          "Spanish":"Mazan"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Mazan"
+      },
+      {
+        "label":{
+          "English":"Napo",
+          "Spanish":"Napo"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Napo"
+      },
+      {
+        "label":{
+          "English":"Punchana",
+          "Spanish":"Punchana"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Punchana"
+      },
+      {
+        "label":{
+          "English":"San Juan Bautista",
+          "Spanish":"San Juan Bautista"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"San Juan Bautista"
+      },
+      {
+        "label":{
+          "English":"Torres Causana",
+          "Spanish":"Torres Causana"
+        },
+        "province":"Maynas",
+        "department":"Loreto",
+        "name":"Torres Causana"
+      },
+      {
+        "label":{
+          "English":"Putumayo",
+          "Spanish":"Putumayo"
+        },
+        "province":"Putumayo",
+        "department":"Loreto",
+        "name":"Putumayo"
+      },
+      {
+        "label":{
+          "English":"Rosa Panduro",
+          "Spanish":"Rosa Panduro"
+        },
+        "province":"Putumayo",
+        "department":"Loreto",
+        "name":"Rosa Panduro"
+      },
+      {
+        "label":{
+          "English":"Teniente Manuel Clavero",
+          "Spanish":"Teniente Manuel Clavero"
+        },
+        "province":"Putumayo",
+        "department":"Loreto",
+        "name":"Teniente Manuel Clavero"
+      },
+      {
+        "label":{
+          "English":"Yaguas",
+          "Spanish":"Yaguas"
+        },
+        "province":"Putumayo",
+        "department":"Loreto",
+        "name":"Yaguas"
+      },
+      {
+        "label":{
+          "English":"Alto Tapiche",
+          "Spanish":"Alto Tapiche"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Alto Tapiche"
+      },
+      {
+        "label":{
+          "English":"Capelo",
+          "Spanish":"Capelo"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Capelo"
+      },
+      {
+        "label":{
+          "English":"Emilio San Martín",
+          "Spanish":"Emilio San Martín"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Emilio San Martín"
+      },
+      {
+        "label":{
+          "English":"Jenaro Herrera",
+          "Spanish":"Jenaro Herrera"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Jenaro Herrera"
+      },
+      {
+        "label":{
+          "English":"Maquia",
+          "Spanish":"Maquia"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Maquia"
+      },
+      {
+        "label":{
+          "English":"Puinahua",
+          "Spanish":"Puinahua"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Puinahua"
+      },
+      {
+        "label":{
+          "English":"Requena",
+          "Spanish":"Requena"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Requena"
+      },
+      {
+        "label":{
+          "English":"Saquena",
+          "Spanish":"Saquena"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Saquena"
+      },
+      {
+        "label":{
+          "English":"Soplin",
+          "Spanish":"Soplin"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Soplin"
+      },
+      {
+        "label":{
+          "English":"Tapiche",
+          "Spanish":"Tapiche"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Tapiche"
+      },
+      {
+        "label":{
+          "English":"Yaquerana",
+          "Spanish":"Yaquerana"
+        },
+        "province":"Requena",
+        "department":"Loreto",
+        "name":"Yaquerana"
+      },
+      {
+        "label":{
+          "English":"Contamana",
+          "Spanish":"Contamana"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Contamana"
+      },
+      {
+        "label":{
+          "English":"Inahuaya",
+          "Spanish":"Inahuaya"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Inahuaya"
+      },
+      {
+        "label":{
+          "English":"Padre Marquez",
+          "Spanish":"Padre Marquez"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Padre Marquez"
+      },
+      {
+        "label":{
+          "English":"Pampa Hermosa",
+          "Spanish":"Pampa Hermosa"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Pampa Hermosa"
+      },
+      {
+        "label":{
+          "English":"Sarayacu",
+          "Spanish":"Sarayacu"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Sarayacu"
+      },
+      {
+        "label":{
+          "English":"Vargas Guerra",
+          "Spanish":"Vargas Guerra"
+        },
+        "province":"Ucayali",
+        "department":"Loreto",
+        "name":"Vargas Guerra"
+      },
+      {
+        "label":{
+          "English":"Other",
+          "Spanish":"Other"
+        },
+        "province":"na",
+        "department":"na",
+        "name":"other"
+      }
+    ]
+  },
+  "children":[
+    {
+      "name":"provider_uc",
+      "type":"hidden"
+    },
+    {
+      "name":"provider_town",
+      "type":"hidden"
+    },
+    {
+      "name":"provider_city",
+      "type":"hidden"
+    },
+    {
+      "name":"provider_province",
+      "type":"hidden"
+    },
+    {
+      "name":"provider_id",
+      "type":"hidden"
+    },
+    {
+      "name":"provider_location_id",
+      "type":"hidden",
+      "instance":{
+        "openmrs_entity_id":"location_id",
+        "openmrs_entity":"encounter"
+      }
+    },
+    {
+      "name":"provider_location_name",
+      "type":"hidden"
+    },
+    {
+      "name":"child_id",
+      "type":"hidden"
+    },
+    {
+      "name":"start",
+      "type":"start",
+      "instance":{
+        "openmrs_entity_id":"TBR:form start datetime",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"end",
+      "type":"end",
+      "instance":{
+        "openmrs_entity_id":"TBR:form end datetime",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"today",
+      "type":"today",
+      "instance":{
+        "openmrs_entity_id":"TBR:data enty datetime",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"deviceid",
+      "type":"deviceid",
+      "instance":{
+        "openmrs_entity_id":"TBR:device id",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"subscriberid",
+      "type":"subscriberid",
+      "instance":{
+        "openmrs_entity_id":"TBR:subscriber id",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"simserial",
+      "type":"simserial",
+      "instance":{
+        "openmrs_entity_id":"TBR:sim serial number",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"phonenumber",
+      "type":"phonenumber",
+      "instance":{
+        "openmrs_entity_id":"TBR:sim number",
+        "openmrs_entity":"concept"
+      }
+    },
+    {
+      "name":"client_reg_date",
+      "label":{
+        "English":"Data Entry Date",
+        "Spanish":"Indraj ki Tareekh"
+      },
+      "type":"calculate",
+      "bind":{
+        "calculate":"${today}"
+      },
+      "instance":{
+        "openmrs_entity_id":"encounter_date",
+        "openmrs_entity":"encounter"
+      }
+    },
+    {
+      "name":"name_of_child",
+      "label":{
+        "English":"Name of Child",
+        "Spanish":"Nombre"
+      },
+      "type":"group",
+      "children":[
+        {
+          "name":"first_name",
+          "label":{
+            "English":"First Name",
+            "Spanish":"Nombres"
+          },
+          "type":"text",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"first_name",
+            "openmrs_entity":"person"
+          }
+        },
+        {
+          "name":"last_name",
+          "label":{
+            "English":"Last Name",
+            "Spanish":"Apellidos"
+          },
+          "type":"text",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"last_name",
+            "openmrs_entity":"person"
+          }
+        }
+      ]
+    },
+    {
+      "name":"birthdate",
+      "label":{
+        "English":"Birth Date",
+        "Spanish":"Fecha de nacimiento"
+      },
+      "type":"date",
+      "bind":{
+        "required":"yes"
+      },
+      "instance":{
+        "openmrs_entity_id":"birthdate",
+        "openmrs_entity":"person"
+      }
+    },
+    {
+      "name":"gender",
+      "label":{
+        "English":"Sex",
+        "Spanish":"Sexo"
+      },
+      "type":"select one",
+      "bind":{
+        "required":"yes"
+      },
+      "instance":{
+        "openmrs_entity_id":"gender",
+        "openmrs_entity":"person"
+      },
+      "children":[
+        {
+          "name":"male",
+          "label":{
+            "English":"Male",
+            "Spanish":"Masculino"
+          },
+          "instance":{
+            "openmrs_code":"TBR: male"
+          }
+        },
+        {
+          "name":"female",
+          "label":{
+            "English":"Female",
+            "Spanish":"Femenino"
+          },
+          "instance":{
+            "openmrs_code":"TBR: female"
+          }
+        }
+      ]
+    },
+    {
+      "name":"participant_id",
+      "label":{
+        "English":"ID Number",
+        "Spanish":"DNI"
+      },
+      "type":"integer",
+      "bind":{
+        "jr:constraintMsg":{
+          "English":"Maximum 8 digits and cannot contain anything other than number"
+        },
+        "required":"yes",
+        "constraint":"regex(.,'^[0-9]{8}$')",
+        "calculate":"${child_id}"
+      },
+      "instance":{
+        "openmrs_entity_id":"ID NUMBER",
+        "openmrs_entity":"person_identifier"
+      }
+    },
+    {
+      "name":"mother_name",
+      "label":{
+        "English":"Mother Name",
+        "Spanish":"Nombre de la madre"
+      },
+      "type":"text",
+      "bind":{
+        "required":"yes"
+      },
+      "instance":{
+        "openmrs_entity_id":"Mother Name",
+        "openmrs_entity":"person_attribute"
+      }
+    },
+    {
+      "name":"current_community",
+      "label":{
+        "English":"Current Community",
+        "Spanish":"Comunidad actual"
+      },
+      "type":"group",
+      "children":[
+        {
+          "name":"department",
+          "label":{
+            "English":"Department",
+            "Spanish":"Departamento"
+          },
+          "type":"select one",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"address1",
+            "openmrs_entity":"person_address"
+          },
+          "control":{
+            "appearance":"minimal"
+          },
+          "children":[
+            {
+              "name":"Amazonas",
+              "label":{
+                "English":"Amazonas",
+                "Spanish":"Amazonas"
+              }
+            },
+            {
+              "name":"Ancash",
+              "label":{
+                "English":"Ancash",
+                "Spanish":"Ancash"
+              }
+            },
+            {
+              "name":"Apurimac",
+              "label":{
+                "English":"Apurimac",
+                "Spanish":"Apurimac"
+              }
+            },
+            {
+              "name":"Arequipa",
+              "label":{
+                "English":"Arequipa",
+                "Spanish":"Arequipa"
+              }
+            },
+            {
+              "name":"Ayacucho",
+              "label":{
+                "English":"Ayacucho",
+                "Spanish":"Ayacucho"
+              }
+            },
+            {
+              "name":"Cajamarca",
+              "label":{
+                "English":"Cajamarca",
+                "Spanish":"Cajamarca"
+              }
+            },
+            {
+              "name":"Callao",
+              "label":{
+                "English":"Callao",
+                "Spanish":"Callao"
+              }
+            },
+            {
+              "name":"Cuzco",
+              "label":{
+                "English":"Cuzco",
+                "Spanish":"Cuzco"
+              }
+            },
+            {
+              "name":"Huancavelica",
+              "label":{
+                "English":"Huancavelica",
+                "Spanish":"Huancavelica"
+              }
+            },
+            {
+              "name":"Huanuco",
+              "label":{
+                "English":"Huanuco",
+                "Spanish":"Huanuco"
+              }
+            },
+            {
+              "name":"Ica",
+              "label":{
+                "English":"Ica",
+                "Spanish":"Ica"
+              }
+            },
+            {
+              "name":"Junin",
+              "label":{
+                "English":"Junin",
+                "Spanish":"Junin"
+              }
+            },
+            {
+              "name":"La Libertad",
+              "label":{
+                "English":"La Libertad",
+                "Spanish":"La Libertad"
+              }
+            },
+            {
+              "name":"Lambayeque",
+              "label":{
+                "English":"Lambayeque",
+                "Spanish":"Lambayeque"
+              }
+            },
+            {
+              "name":"Lima",
+              "label":{
+                "English":"Lima",
+                "Spanish":"Lima"
+              }
+            },
+            {
+              "name":"Loreto",
+              "label":{
+                "English":"Loreto",
+                "Spanish":"Loreto"
+              }
+            },
+            {
+              "name":"Madre de Dios",
+              "label":{
+                "English":"Madre de Dios",
+                "Spanish":"Madre de Dios"
+              }
+            },
+            {
+              "name":"Moquegua",
+              "label":{
+                "English":"Moquegua",
+                "Spanish":"Moquegua"
+              }
+            },
+            {
+              "name":"Pasco",
+              "label":{
+                "English":"Pasco",
+                "Spanish":"Pasco"
+              }
+            },
+            {
+              "name":"Piura",
+              "label":{
+                "English":"Piura",
+                "Spanish":"Piura"
+              }
+            },
+            {
+              "name":"Puno",
+              "label":{
+                "English":"Puno",
+                "Spanish":"Puno"
+              }
+            },
+            {
+              "name":"San Martin",
+              "label":{
+                "English":"San Martin",
+                "Spanish":"San Martin"
+              }
+            },
+            {
+              "name":"Tacna",
+              "label":{
+                "English":"Tacna",
+                "Spanish":"Tacna"
+              }
+            },
+            {
+              "name":"Tumbes",
+              "label":{
+                "English":"Tumbes",
+                "Spanish":"Tumbes"
+              }
+            },
+            {
+              "name":"Ucayali",
+              "label":{
+                "English":"Ucayali",
+                "Spanish":"Ucayali"
+              }
+            }
+          ]
+        },
+        {
+          "name":"province",
+          "label":{
+            "English":"Province",
+            "Spanish":"Provincia"
+          },
+          "type":"select one",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"address2",
+            "openmrs_entity":"person_address"
+          },
+          "control":{
+            "appearance":"minimal"
+          },
+          "itemset":"provinces",
+          "choice_filter":"department=${department} or department='na'",
+          "children":[
+            {
+              "name":"Alto Amazonas",
+              "label":{
+                "English":"Alto Amazonas",
+                "Spanish":"Alto Amazonas"
+              }
+            },
+            {
+              "name":"Datem del Maranon",
+              "label":{
+                "English":"Datem del Maranon",
+                "Spanish":"Datem del Maranon"
+              }
+            },
+            {
+              "name":"Loreto",
+              "label":{
+                "English":"Loreto",
+                "Spanish":"Loreto"
+              }
+            },
+            {
+              "name":"Mariscal Ramon Castilla",
+              "label":{
+                "English":"Mariscal Ramon Castilla",
+                "Spanish":"Mariscal Ramon Castilla"
+              }
+            },
+            {
+              "name":"Maynas",
+              "label":{
+                "English":"Maynas",
+                "Spanish":"Maynas"
+              }
+            },
+            {
+              "name":"Putumayo",
+              "label":{
+                "English":"Putumayo",
+                "Spanish":"Putumayo"
+              }
+            },
+            {
+              "name":"Requena",
+              "label":{
+                "English":"Requena",
+                "Spanish":"Requena"
+              }
+            },
+            {
+              "name":"Ucayali",
+              "label":{
+                "English":"Ucayali",
+                "Spanish":"Ucayali"
+              }
+            },
+            {
+              "name":"other",
+              "label":{
+                "English":"Other",
+                "Spanish":"Other"
+              }
+            }
+          ]
+        },
+        {
+          "name":"province_other",
+          "label":{
+            "English":"Other Province",
+            "Spanish":"Otra provincia"
+          },
+          "type":"text",
+          "bind":{
+            "required":"yes",
+            "relevant":"selected(${province}, 'other')"
+          },
+          "instance":{
+            "openmrs_entity_id":"address2",
+            "openmrs_entity":"person_address"
+          }
+        },
+        {
+          "name":"district",
+          "label":{
+            "English":"District",
+            "Spanish":"Distrito"
+          },
+          "type":"select one",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"address3",
+            "openmrs_entity":"person_address"
+          },
+          "control":{
+            "appearance":"minimal"
+          },
+          "itemset":"districts",
+          "choice_filter":"(province=${province} and department=${department}) or province='na'",
+          "children":[
+            {
+              "name":"Balsapuerto",
+              "label":{
+                "English":"Balsapuerto",
+                "Spanish":"Balsapuerto"
+              }
+            },
+            {
+              "name":"Jeberos",
+              "label":{
+                "English":"Jeberos",
+                "Spanish":"Jeberos"
+              }
+            },
+            {
+              "name":"Lagunas",
+              "label":{
+                "English":"Lagunas",
+                "Spanish":"Lagunas"
+              }
+            },
+            {
+              "name":"Santa Cruz",
+              "label":{
+                "English":"Santa Cruz",
+                "Spanish":"Santa Cruz"
+              }
+            },
+            {
+              "name":"Teniente Cesar Lopez Rojas",
+              "label":{
+                "English":"Teniente Cesar Lopez Rojas",
+                "Spanish":"Teniente Cesar Lopez Rojas"
+              }
+            },
+            {
+              "name":"Yurimaguas",
+              "label":{
+                "English":"Yurimaguas",
+                "Spanish":"Yurimaguas"
+              }
+            },
+            {
+              "name":"Andoas",
+              "label":{
+                "English":"Andoas",
+                "Spanish":"Andoas"
+              }
+            },
+            {
+              "name":"Barranca",
+              "label":{
+                "English":"Barranca",
+                "Spanish":"Barranca"
+              }
+            },
+            {
+              "name":"Cahuapanas",
+              "label":{
+                "English":"Cahuapanas",
+                "Spanish":"Cahuapanas"
+              }
+            },
+            {
+              "name":"Manseriche",
+              "label":{
+                "English":"Manseriche",
+                "Spanish":"Manseriche"
+              }
+            },
+            {
+              "name":"Morona",
+              "label":{
+                "English":"Morona",
+                "Spanish":"Morona"
+              }
+            },
+            {
+              "name":"Pastaza",
+              "label":{
+                "English":"Pastaza",
+                "Spanish":"Pastaza"
+              }
+            },
+            {
+              "name":"Pebas",
+              "label":{
+                "English":"Pebas",
+                "Spanish":"Pebas"
+              }
+            },
+            {
+              "name":"Ramon Castilla",
+              "label":{
+                "English":"Ramon Castilla",
+                "Spanish":"Ramon Castilla"
+              }
+            },
+            {
+              "name":"San Pablo",
+              "label":{
+                "English":"San Pablo",
+                "Spanish":"San Pablo"
+              }
+            },
+            {
+              "name":"Yavari",
+              "label":{
+                "English":"Yavari",
+                "Spanish":"Yavari"
+              }
+            },
+            {
+              "name":"Alto Nanay",
+              "label":{
+                "English":"Alto Nanay",
+                "Spanish":"Alto Nanay"
+              }
+            },
+            {
+              "name":"Belen",
+              "label":{
+                "English":"Belen",
+                "Spanish":"Belen"
+              }
+            },
+            {
+              "name":"Fernando Lores",
+              "label":{
+                "English":"Fernando Lores",
+                "Spanish":"Fernando Lores"
+              }
+            },
+            {
+              "name":"Indiana",
+              "label":{
+                "English":"Indiana",
+                "Spanish":"Indiana"
+              }
+            },
+            {
+              "name":"Iquitos",
+              "label":{
+                "English":"Iquitos",
+                "Spanish":"Iquitos"
+              }
+            },
+            {
+              "name":"Las Amazonas",
+              "label":{
+                "English":"Las Amazonas",
+                "Spanish":"Las Amazonas"
+              }
+            },
+            {
+              "name":"Mazan",
+              "label":{
+                "English":"Mazan",
+                "Spanish":"Mazan"
+              }
+            },
+            {
+              "name":"Napo",
+              "label":{
+                "English":"Napo",
+                "Spanish":"Napo"
+              }
+            },
+            {
+              "name":"Punchana",
+              "label":{
+                "English":"Punchana",
+                "Spanish":"Punchana"
+              }
+            },
+            {
+              "name":"San Juan Bautista",
+              "label":{
+                "English":"San Juan Bautista",
+                "Spanish":"San Juan Bautista"
+              }
+            },
+            {
+              "name":"Torres Causana",
+              "label":{
+                "English":"Torres Causana",
+                "Spanish":"Torres Causana"
+              }
+            },
+            {
+              "name":"Putumayo",
+              "label":{
+                "English":"Putumayo",
+                "Spanish":"Putumayo"
+              }
+            },
+            {
+              "name":"Rosa Panduro",
+              "label":{
+                "English":"Rosa Panduro",
+                "Spanish":"Rosa Panduro"
+              }
+            },
+            {
+              "name":"Teniente Manuel Clavero",
+              "label":{
+                "English":"Teniente Manuel Clavero",
+                "Spanish":"Teniente Manuel Clavero"
+              }
+            },
+            {
+              "name":"Yaguas",
+              "label":{
+                "English":"Yaguas",
+                "Spanish":"Yaguas"
+              }
+            },
+            {
+              "name":"Alto Tapiche",
+              "label":{
+                "English":"Alto Tapiche",
+                "Spanish":"Alto Tapiche"
+              }
+            },
+            {
+              "name":"Capelo",
+              "label":{
+                "English":"Capelo",
+                "Spanish":"Capelo"
+              }
+            },
+            {
+              "name":"Emilio San Martín",
+              "label":{
+                "English":"Emilio San Martín",
+                "Spanish":"Emilio San Martín"
+              }
+            },
+            {
+              "name":"Jenaro Herrera",
+              "label":{
+                "English":"Jenaro Herrera",
+                "Spanish":"Jenaro Herrera"
+              }
+            },
+            {
+              "name":"Maquia",
+              "label":{
+                "English":"Maquia",
+                "Spanish":"Maquia"
+              }
+            },
+            {
+              "name":"Puinahua",
+              "label":{
+                "English":"Puinahua",
+                "Spanish":"Puinahua"
+              }
+            },
+            {
+              "name":"Requena",
+              "label":{
+                "English":"Requena",
+                "Spanish":"Requena"
+              }
+            },
+            {
+              "name":"Saquena",
+              "label":{
+                "English":"Saquena",
+                "Spanish":"Saquena"
+              }
+            },
+            {
+              "name":"Soplin",
+              "label":{
+                "English":"Soplin",
+                "Spanish":"Soplin"
+              }
+            },
+            {
+              "name":"Tapiche",
+              "label":{
+                "English":"Tapiche",
+                "Spanish":"Tapiche"
+              }
+            },
+            {
+              "name":"Yaquerana",
+              "label":{
+                "English":"Yaquerana",
+                "Spanish":"Yaquerana"
+              }
+            },
+            {
+              "name":"Contamana",
+              "label":{
+                "English":"Contamana",
+                "Spanish":"Contamana"
+              }
+            },
+            {
+              "name":"Inahuaya",
+              "label":{
+                "English":"Inahuaya",
+                "Spanish":"Inahuaya"
+              }
+            },
+            {
+              "name":"Padre Marquez",
+              "label":{
+                "English":"Padre Marquez",
+                "Spanish":"Padre Marquez"
+              }
+            },
+            {
+              "name":"Pampa Hermosa",
+              "label":{
+                "English":"Pampa Hermosa",
+                "Spanish":"Pampa Hermosa"
+              }
+            },
+            {
+              "name":"Sarayacu",
+              "label":{
+                "English":"Sarayacu",
+                "Spanish":"Sarayacu"
+              }
+            },
+            {
+              "name":"Vargas Guerra",
+              "label":{
+                "English":"Vargas Guerra",
+                "Spanish":"Vargas Guerra"
+              }
+            },
+            {
+              "name":"other",
+              "label":{
+                "English":"Other",
+                "Spanish":"Other"
+              }
+            }
+          ]
+        },
+        {
+          "name":"district_other",
+          "label":{
+            "English":"Other District",
+            "Spanish":"Otro distrito"
+          },
+          "type":"text",
+          "bind":{
+            "required":"yes",
+            "relevant":"selected(${district}, 'other')"
+          },
+          "instance":{
+            "openmrs_entity_id":"address3",
+            "openmrs_entity":"person_address"
+          },
+          "control":{
+            "appearance":"minimal"
+          },
+          "choice_filter":"(province=${province} and department=${department}) or province='na'"
+        },
+        {
+          "name":"city",
+          "label":{
+            "English":"City",
+            "Spanish":"Ciudad"
+          },
+          "type":"text",
+          "bind":{
+            "required":"yes"
+          },
+          "instance":{
+            "openmrs_entity_id":"cityVillage",
+            "openmrs_entity":"person_address"
+          }
+        },
+        {
+          "name":"full_address",
+          "label":{
+            "English":"Full address",
+            "Spanish":"Domicilio"
+          },
+          "type":"text",
+          "instance":{
+            "openmrs_entity_id":"address4",
+            "openmrs_entity":"person_address"
+          }
+        }
+      ]
+    },
+    {
+      "name":"developmental_disability",
+      "label":{
+        "English":"Does child have a developmental disability or genetic disease",
+        "Spanish":"El niño (a) tiene alguna discapacidad o enfermedad genética?"
+      },
+      "type":"select one",
+      "bind":{
+        "required":"yes"
+      },
+      "instance":{
+        "openmrs_entity_id":"TBR:developmental disability",
+        "openmrs_entity":"concept"
+      },
+      "children":[
+        {
+          "name":"yes",
+          "label":{
+            "English":"Yes",
+            "Spanish":"Si"
+          },
+          "instance":{
+            "openmrs_code":"TBR:yes"
+          }
+        },
+        {
+          "name":"no",
+          "label":{
+            "English":"No",
+            "Spanish":"No"
+          },
+          "instance":{
+            "openmrs_code":"TBR:no"
+          }
+        }
+      ]
+    },
+    {
+      "name":"meta",
+      "type":"group",
+      "control":{
+        "bodyless":true
+      },
+      "children":[
+        {
+          "name":"instanceID",
+          "type":"calculate",
+          "bind":{
+            "readonly":"true()",
+            "calculate":"concat('uuid:', uuid())"
+          }
+        }
+      ]
+    }
+  ]
+}

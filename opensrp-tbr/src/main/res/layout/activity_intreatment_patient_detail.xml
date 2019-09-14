@@ -22,10 +22,11 @@
 
 
         <include layout="@layout/content_intreatment_patient_detail" />
+
     </android.support.v4.widget.NestedScrollView>
 
 
-    <include layout="@layout/footer_remove_patient_button" />
+    <!--<include layout="@layout/footer_remove_patient_button" />
 
-    <include layout="@layout/activity_base" />
+    <include layout="@layout/activity_base" />-->
 </android.support.design.widget.CoordinatorLayout>

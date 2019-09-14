@@ -5,17 +5,31 @@
     <item
         android:id="@+id/addNewPatient"
         android:title="@string/action_add_patient"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/reports"
+        android:orderInCategory="100"
+        android:title="@string/report"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
         app:showAsAction="never" />
     <item
         android:id="@+id/advancedSearch"
         android:title="@string/action_advanced_search"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:visible="false"/>
     <item
         android:id="@+id/sortList"
         android:title="@string/action_sort_list"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:visible="false"/>
     <item
         android:id="@+id/filterList"
         android:title="@string/action_filter_list"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:visible="false"/>
 </menu>

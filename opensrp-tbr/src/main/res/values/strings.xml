@@ -1,22 +1,28 @@
 <resources>
-    <string name="app_name">OpenSRP TB</string>
+    <string name="app_name">Desarrollo Elemental</string>
+    <string name="app_detail">Herramienta para la educación y viligancia infantil</string>
     <string name="action_settings">Settings</string>
     <string name="unauthorized">Please check the credentials</string>
     <string name="unauthorized_group">Your user group is not allowed to access this device</string>
     <string name="unknown_response">login failed. Try later</string>
     <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
     <string name="show_password">Show Password</string>
-    <string name="action_logout">Logout</string>
-    <string name="action_language">Language</string>
+    <string name="action_logout">Salir</string>
+    <string name="action_language">Idioma</string>
     <string name="app_title">OpenSRP TB</string>
     <string name="action_add_patient">Add New Patient</string>
     <string name="action_advanced_search">Advanced Search</string>
     <string name="action_sort_list">Sort List</string>
     <string name="action_filter_list">Filter List</string>
-    <string name="str_search_hint">Search name or ID</string>
+    <string name="str_search_hint">Buscar por nombre o DNI</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="no_record">No Record(s) Found!</string>
     <string name="diagnose">Clinical Diagnosis</string>
+    <string name="anemia">Anemia</string>
+    <string name="recorded_on">Último Registro:</string>
+    <string name="malnutrition">Desnutricion</string>
+    <string name="cred">CRED</string>
+    <string name="home_visit_due">SIGUIENTE VISITA</string>
     <string name="claim">Claim</string>
     <string name="already_exists">Client already exists</string>
     <string name="results">Results</string>
@@ -37,8 +43,11 @@
     <string name="select_language">Select Language</string>
     <string name="encounter">Encounter</string>
     <string name="xpert_result">Xpe Results</string>
+    <string name="child_profile">Nombre </string>
+    <string name="birthdate_age">Edad</string>
     <string name="first_encounter">First Encounter:</string>
     <string name="tb_diagnosis_form">TB Diagnosis Form</string>
+    <string name="action_register_health_indicators">Register Health Indicators</string>
     <string name="add_result_for">Add Result for </string>
     <string name="remove_patient">remove patient</string>
     <string name="treat">Treat</string>
@@ -49,6 +58,19 @@
     <string name="in_treatment_patients">In&#8211;treatment Patients</string>
     <string name="treatment_initiation_form">Treatment Initiation Form</string>
     <string name="followup">Followup</string>
+    <string name="start_home_visit">Iniciar visita</string>
+    <string name="register_child_indicator">Registrar indicador infantil</string>
+    <string name="home_visit">Home Visit</string>
+    <string name="growth_monitoring">Monitoreo de crecimiento</string>
+    <string name="illnesses">Enfermedades</string>
+    <string name="height">Estatura:</string>
+    <string name="weight">Peso:</string>
+    <string name="weight_height">Peso para estatura</string>
+    <string name="height_age">Estatura por edad</string>
+    <string name="next_home_visits">Siguiente visita</string>
+    <string name="next_health_checkup">Siguiente visita al médico</string>
+    <string name="next_deworming">Siguiente desparacitación</string>
+    <string name="next_vaccine">Siguiente vacuna</string>
     <string name="treatment">Treatment</string>
     <string name="baseLine">Baseline</string>
     <string name="contact_screening">Contact Screening</string>
@@ -70,6 +92,9 @@
     <string name="negative_screened_contact">Negative Screened Contact</string>
     <string name="index">Index</string>
 
+    <string name="child_register">Registro infantil</string>
+
+
     <!--Filters-->
     <string name="smear_filter">Smear</string>
     <string name="xpert_filter">Xpert</string>
@@ -86,6 +111,15 @@
 
     <string name="sort_by_name">Name (A-Z)</string>
     <string name="last_updated">Last updated</string>
+
+    <string name="diarrae">Diarrea</string>
+    <string name="malaria">Malaria</string>
+    <string name="cold_flu">Gripe</string>
+    <string name="pneumonias">Neumonía</string>
+    <string name="tuberculosis">Tuberculosis</string>
+    <string name="dengue">Dengue</string>
+    <string name="bronchitis">Bronchitis</string>
+    <string name="no_illnesses">No illnesses</string>
 
     <!-- Gender strings-->
     <string name="gender_Select_hint">Select Gender</string>
@@ -121,4 +155,90 @@
         <item>@string/age_group_61to75</item>
         <item>@string/age_group_76plus</item>
     </string-array>
+
+    <string name="jan">Enero</string>
+    <string name="feb">Febrero</string>
+    <string name="mar">Marzo</string>
+    <string name="apr">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="jun">Junio</string>
+    <string name="jul">Julio</string>
+    <string name="aug">Agosto</string>
+    <string name="sep">Septiembre</string>
+    <string name="oct">Octubre</string>
+    <string name="nov">Noviembre</string>
+    <string name="dec">Diciembre</string>
+
+    <string-array name="months">
+        <item>""</item>
+        <item>@string/jan</item>
+        <item>@string/feb</item>
+        <item>@string/mar</item>
+        <item>@string/apr</item>
+        <item>@string/may</item>
+        <item>@string/jun</item>
+        <item>@string/jul</item>
+        <item>@string/aug</item>
+        <item>@string/sep</item>
+        <item>@string/oct</item>
+        <item>@string/nov</item>
+        <item>@string/dec</item>
+    </string-array>
+
+    <string name="next">Next &gt;</string>
+    <string name="previous"> &lt; Previous</string>
+    <string name="start_video">Start Video</string>
+    <string name="report">Report</string>
+
+    <string name="month">Mes:</string>
+    <string name="year">Ano:</string>
+    <string name="get">Busca:</string>
+
+    <string name="total_malaria">Numero de Ninos con Malaria</string>
+    <string name="total_diarrhea">Numero de Ninos con Diarrea</string>
+    <string name="total_anemia">Numero de Ninos con Anemia</string>
+    <string name="total_acutemalnutrition">Numero de Ninos con Desnutricion Aguda</string>
+    <string name="total_chronicmalnutrition">Numero de Ninos con Desnutricion Cronica</string>
+    <string name="total_hvs">Numero de visitas Realizadas</string>
+    <string name="total_children">Numero de Ninos</string>
+
+    <string name="reg_new_child">NUEVO REGISTRO</string>
+    <string name="upload_data">SUBIR DATA A LA NUBE</string>
+
+    <string name="dni">DNI:</string>
+    <string name="age">Edad:</string>
+    <string name="sex">Sexo:</string>
+    <string name="mother_name">Nombre de la madre:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="address">Domicilio:</string>
+    <string name="developmental_diability">Discapacidad o enfermedad genética:</string>
+
+    <string name="haemoglobin_level">Nivel de hemoglobina:</string>
+
+    <string name="userNameHint">Usuario</string>
+    <string name="passwordHint">Contraseña</string>
+    <string name="show_password_checkbox">Mostrar password</string>
+    <string name="login_button">INGRESAR</string>
+
+    <string name="settings">Ajustes</string>
+    <string name="language">Idioma</string>
+
+    <string name="str_page_info">Página  {0} de {1}</string>
+
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+
+    <string name="no">No</string>
+    <string name="yes">Si</string>
+
+    <!--Height-Age and Weight-Height status-->
+    <string name="weight_height_normal">Peso Normal</string>
+    <string name="weight_height_low">Baja Peso</string>
+    <string name="weight_height_extremely_low">Peso Muyo Baja</string>
+    <string name="height_age_normal">Estatura Normal</string>
+    <string name="height_age_low">Bajo Estatura</string>
+    <string name="height_age_extremely_low">Estatura Muyo Baja</string>
+
+    <string name="vaccines_completed">completar</string>
+    
 </resources>

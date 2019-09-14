@@ -4,6 +4,21 @@
       "name": "ec_patient",
       "columns": [
         {
+          "column_name": "birth_weight",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "CIEL:5916"
+          }
+        },
+        {
+          "column_name": "mother_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Mother Name"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Client",
           "json_mapping": {
@@ -14,7 +29,7 @@
           "column_name": "participant_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.TBREACH ID"
+            "field": "identifiers.ID NUMBER"
           }
         },
         {
@@ -60,6 +75,14 @@
           }
         },
         {
+          "column_name": "developmental_disability",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "TBR:developmental disability"
+          }
+        },
+        {
           "column_name": "presumptive",
           "type": "Event",
           "json_mapping": {
@@ -87,6 +110,62 @@
           "type": "Client",
           "json_mapping": {
             "field": "dateCreated"
+          }
+        },
+        {
+          "column_name": "department",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address1"
+          }
+        },
+        {
+          "column_name": "province",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address2"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
+        },
+        {
+          "column_name": "province_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address2"
+          }
+        },
+        {
+          "column_name": "district",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "district_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address3"
+          }
+        },
+        {
+          "column_name": "city",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.cityVillage"
+          }
+        },
+        {
+          "column_name": "full_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address4"
           }
         },
         {

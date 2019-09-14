@@ -8,6 +8,38 @@
     <include layout="@layout/register_toolbar" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="5dp"
+        android:background="@color/light_blue">
+
+        <Button
+            android:id="@+id/register_new_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reg_new_child"
+            android:layout_weight="1"
+            android:backgroundTint="#46c25e"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:padding="10dp"/>
+
+        <Button
+            android:id="@+id/upload_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_data"
+            android:layout_weight="1"
+            android:backgroundTint="#46c25e"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone">

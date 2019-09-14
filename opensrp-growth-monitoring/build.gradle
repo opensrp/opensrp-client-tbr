@@ -1,0 +1,161 @@
+description = 'OpenSRP growth monitoring client library'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$androidToolsBuildGradle"
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenLocal()
+        google()
+        /*flatDir {
+            dirs 'libs'
+        }*/
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+jacoco {
+    toolVersion = "0.8.0"
+}
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion '28.0.2'
+
+//    defaultPublishConfig !isReleaseBuild() ? "debug" : "release"
+
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+//        versionCode Integer.parseInt(project.VERSION_CODE)
+//        versionName project.VERSION_NAME
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "int", "WEIGHT_SYNC_TIME", '12'
+        }
+
+        debug {
+            buildConfigField "int", "WEIGHT_SYNC_TIME", '0'
+            testCoverageEnabled true
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    // avoid errors with message 'Duplicate files copied in APK ...'
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+
+allprojects {
+    repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenLocal()
+    }
+}
+
+dependencies {
+    implementation('org.smartregister:opensrp-client-core:1.6.29-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+    }
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.4'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
+    testImplementation 'junit:junit:4.12'
+
+    testImplementation('org.robolectric:robolectric:3.8') {
+
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'org.apache.maven', module: 'maven-model'
+        exclude group: 'org.apache.maven', module: 'maven-ant-tasks'
+        exclude group: 'com.android.support'
+        exclude group: 'com.thoughtworks.xstream', module: 'xstream'
+    }
+
+    testImplementation("org.robolectric:shadows-multidex:3.8") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.+') {
+
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'junit', module: 'junit'
+    }
+
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
+}
+
+
+//apply from: '../maven.gradle'

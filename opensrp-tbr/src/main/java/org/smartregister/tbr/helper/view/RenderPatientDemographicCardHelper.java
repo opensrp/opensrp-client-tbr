@@ -33,7 +33,7 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
             @Override
             public void run() {
                 try {
-                    if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT) {
+                    /*if (view.getTag(R.id.VIEW_CONFIGURATION_ID) == Constants.CONFIGURATION.PATIENT_DETAILS_INTREATMENT) {
                         Map<String, String> details = TbrApplication.getInstance().getContext().detailsRepository().getAllDetailsForClient(patientDetails.get(Constants.KEY._ID));
 
                         TextView patientTypeTextView = (TextView) view.findViewById(R.id.patientTypeTextView);
@@ -46,20 +46,30 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
                             siteOfDiseaseTextView.setText(Utils.getTBTypeByCode(details.get(Constants.KEY.SITE_OF_DISEASE)));
                             siteOfDiseaseTextView.setVisibility(View.VISIBLE);
                         }
-                    }
+                    }*/
                     TextView tbReachIdTextView = (TextView) view.findViewById(R.id.tbReachIdTextView);
                     tbReachIdTextView.setText(Utils.formatIdentifier(patientDetails.get(Constants.KEY.PARTICIPANT_ID)));
 
                     TextView clientAgeTextView = (TextView) view.findViewById(R.id.clientAgeTextView);
                     String dobString = patientDetails.get(Constants.KEY.DOB);
                     String formattedAge = Utils.getFormattedAgeString(dobString);
+                    if(formattedAge.contains("y") && TbrApplication.getInstance().getApplicationContext().getResources().getConfiguration().locale.getLanguage().equalsIgnoreCase("es")){
+                        formattedAge = formattedAge.replace('y','a');
+                    }
+                    if(formattedAge.contains("w") && TbrApplication.getInstance().getApplicationContext().getResources().getConfiguration().locale.getLanguage().equalsIgnoreCase("es")){
+                        formattedAge = formattedAge.replace('w','s');
+                    }
                     clientAgeTextView.setText(formattedAge);
 
                     TextView clientNameTextView = (TextView) view.findViewById(R.id.clientNameTextView);
                     String fullName = patientDetails.get(Constants.KEY.FIRST_NAME) + " " + patientDetails.get(Constants.KEY.LAST_NAME);
                     clientNameTextView.setText(fullName);
                     TextView clientGenderTextView = (TextView) view.findViewById(R.id.clientGenderTextView);
-                    clientGenderTextView.setText(WordUtils.capitalize(patientDetails.get(Constants.KEY.GENDER)));
+
+                    if(patientDetails.get(Constants.KEY.GENDER).equalsIgnoreCase("male"))
+                        clientGenderTextView.setText(context.getString(R.string.male));
+                    else
+                        clientGenderTextView.setText(context.getString(R.string.female));
 
                     TextView clientInitalsTextView = (TextView) view.findViewById(R.id.clientInitalsTextView);
                     clientInitalsTextView.setText(Utils.getShortInitials(fullName));
@@ -75,6 +85,25 @@ public class RenderPatientDemographicCardHelper extends BaseRenderHelper {
                         clientInitalsTextView.setBackgroundColor(context.getResources().getColor(R.color.gender_neutral_light_green));
                         clientInitalsTextView.setTextColor(context.getResources().getColor(R.color.gender_neutral_green));
                     }
+
+                    // MOTHER NAME:
+                    TextView motherNameTextView = (TextView) view.findViewById(R.id.mother_name);
+                    String motherName = patientDetails.get(Constants.KEY.MOTHER_NAME);
+                    motherNameTextView.setText(motherName);
+
+                    // Address:
+                    TextView addressTextView = (TextView) view.findViewById(R.id.address);
+                    String address = patientDetails.get(Constants.KEY.FULL_ADDRESS);
+                    addressTextView.setText(address);
+
+                    // Developemnatal Disability:
+                    TextView developmentalDisabilityTextView = (TextView) view.findViewById(R.id.developmentDisability);
+                    String developmentDisability = patientDetails.get(Constants.KEY.DEVELOPMENTAL_DISABILITY);
+                    if(developmentDisability.equalsIgnoreCase("no"))
+                        developmentalDisabilityTextView.setText(context.getString(R.string.no));
+                    else
+                        developmentalDisabilityTextView.setText(context.getString(R.string.yes));
+
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }

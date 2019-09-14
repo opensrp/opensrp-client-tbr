@@ -3,6 +3,7 @@ package org.smartregister.tbr.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,7 +15,10 @@ import org.json.JSONObject;
 import org.smartregister.enketo.adapter.pager.EnketoRegisterPagerAdapter;
 import org.smartregister.enketo.listener.DisplayFormListener;
 import org.smartregister.enketo.view.fragment.DisplayFormFragment;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.tbr.R;
+import org.smartregister.tbr.application.TbrApplication;
+import org.smartregister.tbr.event.LanguageConfigurationEvent;
 import org.smartregister.tbr.helper.FormOverridesHelper;
 import org.smartregister.tbr.model.Register;
 import org.smartregister.tbr.util.Constants;
@@ -24,6 +28,7 @@ import org.smartregister.view.viewpager.OpenSRPViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -57,7 +62,6 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames = this.buildFormNameList();
         patientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP);
         formOverridesHelper = new FormOverridesHelper(patientDetails);
-
         initializeEnketoForms();
     }
 
@@ -152,6 +156,7 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         formNames.add(Constants.FORM.REMOVE_PATIENT);
         formNames.add(Constants.FORM.TREATMENT_OUTCOME);
         formNames.add(TbrConstants.ENKETO_FORMS.ADD_POSITIVE_PATIENT);
+        formNames.add(Constants.FORM.REGISTER_HEALTH_INDICATORS);
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -246,12 +251,18 @@ public abstract class BasePatientDetailActivity extends BaseActivity implements 
         intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
         intent.putExtra(Constants.KEY.TBREACH_ID, patientDetails.get(TbrConstants.KEY.PARTICIPANT_ID));
         startActivity(intent);
-
     }
 
     @Override
     public void onFormClosed(String recordId, String formName) {
         Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
         switchToBaseFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(TbrApplication.getInstance().getApplicationContext()));
+        Utils.setLocale(new Locale(allSharedPreferences.getPreference("locale")));
     }
 }
